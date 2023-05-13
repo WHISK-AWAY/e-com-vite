@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import axios from 'axios';
+const VITE_API_URL= import.meta.env.VITE_API_URL;
+
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  console.log('vite', VITE_API_URL);
 
   const handleClick = async (e: any) => {
     e.preventDefault();
 
-    const token = await axios.post('http://localhost:3001/api/auth/login', {
+
+
+    const token = await axios.post(VITE_API_URL + '/api/auth/login', {
       email,
       password,
     });
