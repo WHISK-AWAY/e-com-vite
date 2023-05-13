@@ -14,19 +14,20 @@ export default function SignIn() {
     });
     window.localStorage.setItem('token', JSON.stringify(token.data));
 
-    console.log('T', token);
-    // console.log('EP', email, password);
+    // console.log('T', token);
   };
 
 
-  const handleClickTest = async() => {
-    const token = (window.localStorage.getItem('token'));
-   if(!token) return;
+  // const handleClickTest = async() => {
+  //   const data = (window.localStorage.getItem('token'));
+  //  if(!data) return;
    
-   const {userId} = JSON.parse(token);
-    const user = await axios.get(`http://localhost:3001/api/user/${userId}`)
-    console.log('token', userId);
-  }
+  //  const {userId, token} = JSON.parse(data);
+  //   const user = await axios.get(`http://localhost:3001/api/user/${userId}`, {headers: {authorization: token}})
+  //   // console.log('token', userId);
+
+  //   console.log('user', user)
+  // }
   return (
     <section className='form-container'>
       <div>
@@ -56,8 +57,6 @@ export default function SignIn() {
             SIGN IN
           </button>
         </form>
-
-        <button onClick={handleClickTest}>TOKEN TEST</button>
       </div>
     </section>
   );
