@@ -1,32 +1,29 @@
 import { useState } from 'react';
 import axios from 'axios';
-const VITE_API_URL= import.meta.env.VITE_API_URL;
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { requestLogin, selectAuth } from '../redux/slices/authSlice';
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  console.log('vite', VITE_API_URL);
+  const dispatch = useAppDispatch();
+  const loginSelector = useAppSelector(selectAuth);
 
+  console.log('LS', loginSelector);
   const handleClick = async (e: any) => {
     e.preventDefault();
 
-
-
-    const token = await axios.post(VITE_API_URL + '/api/auth/login', {
-      email,
-      password,
-    });
-    window.localStorage.setItem('token', JSON.stringify(token.data));
+    dispatch(requestLogin({ email, password }));
 
     // console.log('T', token);
   };
 
-
   // const handleClickTest = async() => {
   //   const data = (window.localStorage.getItem('token'));
   //  if(!data) return;
-   
+
   //  const {userId, token} = JSON.parse(data);
   //   const user = await axios.get(`http://localhost:3001/api/user/${userId}`, {headers: {authorization: token}})
   //   // console.log('token', userId);
