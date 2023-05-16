@@ -1,7 +1,7 @@
 import { useState } from 'react';
-// import axios from 'axios';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { requestLogin, selectAuth } from '../redux/slices/authSlice';
+import { Link } from 'react-router-dom';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,34 +9,22 @@ export default function SignIn() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useAppDispatch();
-  const loginSelector = useAppSelector(selectAuth);
+  // const loginSelector = useAppSelector(selectAuth);
 
-  console.log('LS', loginSelector);
+  // console.log('LS', loginSelector);
   const handleClick = async (e: any) => {
     e.preventDefault();
 
     dispatch(requestLogin({ email, password }));
-
-    // console.log('T', token);
   };
 
-  // const handleClickTest = async() => {
-  //   const data = (window.localStorage.getItem('token'));
-  //  if(!data) return;
-
-  //  const {userId, token} = JSON.parse(data);
-  //   const user = await axios.get(`http://localhost:3001/api/user/${userId}`, {headers: {authorization: token}})
-  //   // console.log('token', userId);
-
-  //   console.log('user', user)
-  // }
   return (
     <section className='form-container'>
       <div>
         <h1>SIGN IN</h1>
         <form className='sign-in-form'>
           <div className='email-field'>
-            <label htmlFor='email'></label>
+            <label htmlFor='email'>email</label>
             <input
               type='email'
               name='email'
@@ -46,7 +34,7 @@ export default function SignIn() {
             />
           </div>
           <div className='password-field'>
-            <label htmlFor='password'></label>
+            <label htmlFor='password'>password</label>
             <input
               type='password'
               name='password'
@@ -56,9 +44,12 @@ export default function SignIn() {
             />
           </div>
           <button type='submit' onClick={async (e) => await handleClick(e)}>
-            SIGN IN
+            LOG IN
           </button>
         </form>
+        <p>
+          don't have an account? sign up <Link to={'/sign_up'}>here</Link>
+        </p>
       </div>
     </section>
   );
