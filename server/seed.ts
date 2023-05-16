@@ -155,11 +155,11 @@ export async function seed() {
       firstName: orderUser.firstName,
       lastName: orderUser.lastName,
       email: orderUser.email,
-      address_1: orderUser.address.address_1,
-      address_2: orderUser.address.address_2,
-      city: orderUser.address.city,
-      state: orderUser.address.state,
-      zip: orderUser.address.zip,
+      address_1: orderUser.address!.address_1,
+      address_2: orderUser.address!.address_2,
+      city: orderUser.address!.city,
+      state: orderUser.address!.state,
+      zip: orderUser.address!.zip,
     };
 
     // bring in 1 to 5 products
@@ -216,7 +216,7 @@ export async function seed() {
       // assign current user as this review's author
       currentReview.user = user._id;
       currentReview.nickname = user.firstName;
-      currentReview.location = `${user.address.city}, ${user.address.state}`;
+      currentReview.location = `${user.address!.city}, ${user.address!.state}`;
 
       // choose a random product from the array of seeded products
       const reviewProduct = randomElement(newProduct);
