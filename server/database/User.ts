@@ -36,11 +36,11 @@ const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true, lowercase: true },
   password: { type: String, required: true, minLength: 8 },
   address: {
-    address_1: { type: String, required: true },
-    address_2: { type: String, required: false },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zip: { type: String, required: true },
+    address_1: { type: String },
+    address_2: { type: String },
+    city: { type: String },
+    state: { type: String },
+    zip: { type: String },
   },
   favorites: [
     {
