@@ -11,7 +11,7 @@ import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { zodUser } from '../utils';
 
-const createZodUser = zodUser
+export const createZodUser = zodUser
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (password !== confirmPassword) {
