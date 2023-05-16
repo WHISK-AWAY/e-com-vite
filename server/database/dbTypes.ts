@@ -28,7 +28,7 @@ export interface IUser extends mongoose.Document {
   lastName: string;
   email: string;
   password: string;
-  address: {
+  address?: {
     address_1: string;
     address_2?: string;
     city: string;
