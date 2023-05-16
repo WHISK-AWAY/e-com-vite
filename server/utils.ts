@@ -25,7 +25,7 @@ export const zodUser = z.object({
     city: z.string(),
     state: z.string(),
     zip: z.string(),
-  }),
+  }).optional(),
   confirmPassword: z.string().min(8).max(20),
 });
 
