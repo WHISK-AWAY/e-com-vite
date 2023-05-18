@@ -19,31 +19,31 @@ export default function SignIn() {
   };
 
   return (
-    <section className='form-container'>
+    <section className="form-container">
       <div>
         <h1>SIGN IN</h1>
-        <form className='sign-in-form'>
-          <div className='email-field'>
-            <label htmlFor='email'>email</label>
+        <form className="sign-in-form">
+          <div className="email-field">
+            <label htmlFor="email">email</label>
             <input
-              type='email'
-              name='email'
-              id='email'
+              type="email"
+              name="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className='password-field'>
-            <label htmlFor='password'>password</label>
+          <div className="password-field">
+            <label htmlFor="password">password</label>
             <input
-              type='password'
-              name='password'
-              id='password'
+              type="password"
+              name="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type='submit' onClick={async (e) => await handleClick(e)}>
+          <button type="submit" onClick={async (e) => await handleClick(e)}>
             LOG IN
           </button>
         </form>

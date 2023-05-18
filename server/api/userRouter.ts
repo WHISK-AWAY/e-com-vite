@@ -39,7 +39,7 @@ const updateZodUser = zodUser
     { message: 'At least one of the fields should be defined' }
   );
 
-router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
+router.get('/', checkAuthenticated, async (req, res, next) => {
   try {
     const allUsers = await User.find({}, '-password');
     if (!allUsers || allUsers.length === 0)

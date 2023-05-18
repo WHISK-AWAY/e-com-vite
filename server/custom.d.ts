@@ -1,8 +1,6 @@
 declare namespace Express {
   export interface Request {
-    isAuthenticated?: boolean;
-    userId?: string,
+    isAuthenticated: () => boolean;
+    userId?: string;
   }
 }
-
-

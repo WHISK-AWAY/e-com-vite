@@ -1,25 +1,36 @@
 import express, { NextFunction, Application, Response, Request } from 'express';
+import cookieParser from 'cookie-parser';
+
+import passport from 'passport';
+import { initialize as initializePassport } from './passport/passportConfig';
+
+initializePassport(
+  passport,
+  async (email) => {
+    console.log('getUserByEmail()');
+    const user = await User.findOne({ email });
+    // console.log('user @ getUserByEmail():', user);
+    return user;
+  },
+  async (id) => await User.findById(id)
+);
+import flash from 'express-flash';
+import session from 'express-session';
+
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import apiRouter from './api/apiRouter';
 import mongoose from 'mongoose';
 import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { User } from './database/index';
-// const { auth } = require('express-oauth2-jwt-bearer');
+import apiRouter from './api/apiRouter';
 dotenv.config({ path: '../.env' });
-// import { auth0config } from './api/authMiddleware';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
 const MONGO_DB_URL = process.env.MONGO_DB_URL;
 
-// const jwtCheck = auth({
-//   audience: 'e-com',
-//   issuerBaseURL: 'https://dev-3nurd80vhso7rxtr.us.auth0.com/',
-//   tokenSigningAlg: 'RS256',
-// });
 const init = async () => {
   if (!MONGO_DB_URL)
     throw new Error(
@@ -35,16 +46,51 @@ const init = async () => {
 };
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(auth0config);
-app.use('/api', apiRouter);
-// app.use(jwtCheck);
+app.use(cookieParser(process.env.SESSION_SECRET!));
 
-// app.get('/authorized', function (req, res) {
-//   res.send('Secured Resource');
-// });
+/**
+ * * Passport setup
+ */
+
+initializePassport(
+  passport,
+  async (email) => {
+    console.log('getUserByEmail()');
+    const user = await User.findOne({ email });
+    // console.log('user @ getUserByEmail():', user);
+    return user;
+  },
+  async (id) => await User.findById(id)
+);
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET!,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/test-login', (req, res, next) => {
+  res.send('Try logging in...');
+});
+
+app.post(
+  '/test-login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/test-login',
+    failureFlash: true,
+  })
+);
+
+app.use('/api', apiRouter);
 
 app.get('/', (req, res, next) => {
   try {

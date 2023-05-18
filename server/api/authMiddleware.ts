@@ -18,24 +18,49 @@ export function checkAuthenticated(
   res: Response,
   next: NextFunction
 ) {
-  try {
-    req.isAuthenticated = false;
-
-    const token = req.headers.authorization;
-
-    if (!token) return res.status(401).send('Need token to proceed');
-    const verifiedToken = jwt.verify(token, SECRET!) as IToken;
-    req.isAuthenticated = true;
-    req.userId = verifiedToken.id;
-    // console.log('VT', verifiedToken);
-
-    next();
-  } catch (err) {
-    if (err instanceof JsonWebTokenError)
-      res.status(403).send('Get the fuck out');
-    next(err);
+  if (req.isAuthenticated()) {
+    return next();
   }
+  return res.status(401).send('Not logged in (checkauthenticated middleware)');
 }
+
+export function checkNotAuthenticated(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  console.log(
+    'Cannot be here while logged in (checkNotAuthenticated middleware)'
+  );
+  return res.redirect('/');
+}
+
+// export function checkAuthenticated(
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) {
+//   try {
+//     req.isAuthenticated = false;
+
+//     const token = req.headers.authorization;
+
+//     if (!token) return res.status(401).send('Need token to proceed');
+//     const verifiedToken = jwt.verify(token, SECRET!) as IToken;
+//     req.isAuthenticated = true;
+//     req.userId = verifiedToken.id;
+//     // console.log('VT', verifiedToken);
+
+//     next();
+//   } catch (err) {
+//     if (err instanceof JsonWebTokenError)
+//       res.status(403).send('Get the fuck out');
+//     next(err);
+//   }
+// }
 
 export async function requireAdmin(
   req: Request,
