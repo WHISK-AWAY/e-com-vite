@@ -127,7 +127,7 @@ app.get(
   async (req, res, next) => {
     console.log('cookie @ test secure:', req.session.cookie);
     console.log('sid @ test secure:', req.session.id);
-    // console.log('user @ test secure:', req.user);
+    console.log('user @ test secure:', req.user);
     if (req.user) {
       res.json({ message: 'welcome' });
     } else {
