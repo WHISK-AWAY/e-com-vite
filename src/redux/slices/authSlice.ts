@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
 
@@ -10,7 +10,7 @@ export interface AuthState {
   token: string;
   userId: string;
   loading: boolean;
-  error: string;
+  error: { data: string; status: number | null };
 }
 
 export type UserSignUpInput = z.infer<typeof createZodUser>;
@@ -19,7 +19,7 @@ const initialState: AuthState = {
   token: '',
   userId: '',
   loading: false,
-  error: '',
+  error: { data: '', status: null },
 };
 
 export type Credentials = {
@@ -32,25 +32,31 @@ export interface IReturnAuth {
   userId: string;
 }
 
-
-
 export const requestSignUp = createAsyncThunk(
   'auth/requestSignUp',
   async (userInfo: UserSignUpInput, thunkApi) => {
     try {
+      let { data }: { data: IReturnAuth } = await axios.post(
+        VITE_API_URL + '/api/auth/signup',
+        userInfo
+      );
 
-      let {data}: {data: IReturnAuth} = await axios.post(VITE_API_URL + '/api/auth/signup', userInfo);
 
-      if(data.token) 
-        window.localStorage.setItem('token', data.token);
+      if (data.token) window.localStorage.setItem('token', data.token);
 
       return data;
     } catch (err: any) {
-      return thunkApi.rejectWithValue(err.message);
+      console.dir(err);
+      if (err instanceof AxiosError) {
+        throw thunkApi.rejectWithValue({
+          data: err.response?.data,
+          status: err.response?.status,
+        });
+      }
+      throw err();
     }
   }
 );
-
 
 export const requestLogin = createAsyncThunk(
   'auth/requestLogin',
@@ -61,15 +67,14 @@ export const requestLogin = createAsyncThunk(
         credentials
       );
 
-      if (data.token)
-        window.localStorage.setItem('token', data.token);
+      if (data.token) window.localStorage.setItem('token', data.token);
 
-        // console.log('TOKEN',typeof data.token)
       return data;
     } catch (err: any) {
-      // return console.error(err);
-      return thunkApi.rejectWithValue(err.message);
-      // return rejectWithValue(err);
+      return thunkApi.rejectWithValue({
+        data: err.response.data,
+        status: err.response.status,
+      });
     }
   }
 );
@@ -84,38 +89,55 @@ export const authSlice = createSlice({
      */
     builder.addCase(requestLogin.pending, (state, action) => {
       state.loading = true;
-    }); //cannot figure out how to assign payloadaction type to action, keep erroring
+    });
     builder.addCase(requestLogin.fulfilled, (state, action) => {
+      // console.log('fulfilled', action);
       state.token = action.payload!.token;
       state.userId = action.payload!.userId;
-      // state.data = action.payload;
       state.loading = false;
-      // state.error = '' || 'Something went wrong'
+      state.error = initialState.error;
     });
     builder.addCase(
       requestLogin.rejected,
       (state, action: PayloadAction<any>) => {
         // console.log('action', action);
-        (state.loading = false),
-          // state.error = action.error.messag || 'Something went wrong'
-          (state.error = action.payload);
-      });
+        state.loading = false;
+        state.error = {
+          data: action.payload.data,
+          status: action.payload.status,
+        };
+      }
+    );
     /**
      * *requestSignUp
      */
-    builder.addCase(requestSignUp.pending, (state, action:PayloadAction<any>) => {
-      state.loading = true;
-    });
-    builder.addCase(requestSignUp.fulfilled, (state, action:PayloadAction<any>) => {
-      state.token= action.payload.token;
-      state.userId = action.payload.userId;
-      state.loading= false;
-      state.error = ''
-    });
-    builder.addCase(requestSignUp.rejected, (state, action:PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
+    builder.addCase(
+      requestSignUp.pending,
+      (state, action: PayloadAction<any>) => {
+        state.loading = true;
+      }
+    );
+    builder.addCase(
+      requestSignUp.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        // console.log('action fuldilled', action);
+        state.token = action.payload.token;
+        state.userId = action.payload.userId;
+        state.loading = false;
+        state.error = initialState.error;
+      }
+    );
+    builder.addCase(
+      requestSignUp.rejected,
+      (state, action: PayloadAction<any>) => {
+        // console.log('rejected case', action);
+        state.loading = false;
+        state.error = {
+          data: action.payload.data,
+          status: action.payload.status,
+        };
+      }
+    );
   },
 });
 
