@@ -5,8 +5,8 @@ import axios from 'axios';
 import { ZodType, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from 'react-router-dom';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
-
 
 export default function SignUp() {
   const zodUser: ZodType<FormData> = z
@@ -45,19 +45,16 @@ export default function SignUp() {
     confirmPassword: string;
   };
 
-
   const dispatch = useAppDispatch();
   const selectAuthUser = useAppSelector(selectAuth);
 
-
-  
   console.log('selector', selectAuthUser);
   const {
     register,
     handleSubmit,
     reset,
     setError,
-    clearErrors, 
+    clearErrors,
     formState: { errors, dirtyFields },
   } = useForm<FormData>({
     resolver: zodResolver(zodUser),
@@ -69,42 +66,40 @@ export default function SignUp() {
       confirmPassword: '',
     },
   });
-  
 
-    const emailFetcher = async (email: any) => {
-      try {
-        const { data } = await axios.post(
-          VITE_API_URL + '/api/auth/check-email',
-          {
-            email,
-          }
-        );
-        if (data.message) {
-          reset({
-            email: '',
-          });
-          setError('email', { type: 'custom', message: 'Email already exists' });
-        } else {
-          clearErrors('email')
+  const emailFetcher = async (email: any) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + '/api/auth/check-email',
+        {
+          email,
         }
-        // console.log('userEmail', data)
-      } catch (err) {
-        console.log(err);
+      );
+      if (data.message) {
+        reset({
+          email: '',
+        });
+        setError('email', { type: 'custom', message: 'Email already exists' });
+      } else {
+        clearErrors('email');
       }
-    };
+      // console.log('userEmail', data)
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  console.log('errors', errors);
 
-    console.log('errors', errors);
-    
-    useEffect(() => {
-      // console.log('err.email', errors.email);
-      // if (selectAuthUser.error.status === 409) {
-        //   reset({
-          //     email: '',
+  useEffect(() => {
+    // console.log('err.email', errors.email);
+    // if (selectAuthUser.error.status === 409) {
+    //   reset({
+    //     email: '',
     //   });
     //   setError('email', { type: 'custom', message: 'Email already exists' });
     // }
-    
+
     if (errors.confirmPassword) {
       reset(
         {
@@ -114,11 +109,10 @@ export default function SignUp() {
         {
           keepErrors: true,
         }
-        );
-      }
-      emailFetcher(dirtyFields.email)
-
-  }, [ errors.confirmPassword]);
+      );
+    }
+    emailFetcher(dirtyFields.email);
+  }, [errors.confirmPassword]);
 
   const submitData = (data: FormData) => {
     // e.preventDefault();
@@ -127,40 +121,55 @@ export default function SignUp() {
   };
 
   return (
-    <section className='sign-up-form-container'>
+    <section className="sign-up-form-container">
       <div>
         <h1>SIGN UP</h1>
-        <form className='sign-up-form' onSubmit={handleSubmit(submitData)}>
-          <div className='first-name-field'>
-            <label htmlFor='first-name'>first name</label>
-            <input type='text' {...register('firstName')}></input>
+        <form className="sign-up-form" onSubmit={handleSubmit(submitData)}>
+          <div className="first-name-field">
+            <label htmlFor="first-name">first name</label>
+            <input type="text" {...register('firstName')}></input>
             {errors.firstName && <p>{errors.firstName.message}</p>}
           </div>
-          <div className='last-name-field'>
-            <label htmlFor='last-name'>last name</label>
-            <input type='text' {...register('lastName')}></input>
+          <div className="last-name-field">
+            <label htmlFor="last-name">last name</label>
+            <input type="text" {...register('lastName')}></input>
             {errors.lastName && <p>{errors.lastName.message}</p>}
           </div>
-          <div className='email-field'>
-            <label htmlFor='email'>email</label>
-            <input type='email' {...register('email', { onBlur:(e) => emailFetcher(e.target.value) })}></input>
+          <div className="email-field">
+            <label htmlFor="email">email</label>
+            <input
+              type="email"
+              {...register('email', {
+                onBlur: (e) => emailFetcher(e.target.value),
+              })}
+            ></input>
             {errors.email && <p>{errors.email.message}</p>}
           </div>
-          <div className='password-field'>
-            <label htmlFor='password'>password</label>
-            <input type='password' {...register('password')}></input>
+          <div className="password-field">
+            <label htmlFor="password">password</label>
+            <input type="password" {...register('password')}></input>
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <div className='confirm-password-field'>
-            <label htmlFor='confirm-password'>confirm password</label>
-            <input type='password' {...register('confirmPassword')}></input>
+          <div className="confirm-password-field">
+            <label htmlFor="confirm-password">confirm password</label>
+            <input type="password" {...register('confirmPassword')}></input>
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
 
-          <input type='submit' />
+          <input type="submit" />
           {/* <button>submit</button> */}
           {/* <button type='submit'>submit</button> */}
         </form>
+        <p>
+          <Link to="/sign-in" className="text-green-400">
+            Sign In
+          </Link>
+        </p>
+        <p>
+          <Link to="/" className="text-green-400">
+            Home
+          </Link>
+        </p>
       </div>
     </section>
   );

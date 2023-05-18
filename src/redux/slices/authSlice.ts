@@ -41,7 +41,6 @@ export const requestSignUp = createAsyncThunk(
         userInfo
       );
 
-
       if (data.token) window.localStorage.setItem('token', data.token);
 
       return data;
@@ -62,14 +61,16 @@ export const requestLogin = createAsyncThunk(
   'auth/requestLogin',
   async (credentials: Credentials, thunkApi) => {
     try {
-      let { data }: { data: IReturnAuth } = await axios.post(
-        VITE_API_URL + '/api/auth/login',
-        credentials
+      let res: { data: IReturnAuth } = await axios.post(
+        // VITE_API_URL + '/api/auth/login',
+        VITE_API_URL + '/test-login',
+        credentials,
+        { withCredentials: true }
       );
+      console.log('res from login req:', res);
+      // if (data.token) window.localStorage.setItem('token', data.token);
 
-      if (data.token) window.localStorage.setItem('token', data.token);
-
-      return data;
+      return res.data;
     } catch (err: any) {
       return thunkApi.rejectWithValue({
         data: err.response.data,
