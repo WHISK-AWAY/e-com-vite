@@ -53,10 +53,8 @@ export default function SignIn() {
           message: 'Email does not exist',
         });
       } else {
-
-        clearErrors('email')
+        clearErrors('email');
       }
-
     } catch (err) {
       console.log(err);
     }
@@ -80,31 +78,30 @@ export default function SignIn() {
     dispatch(requestLogin(data));
   };
 
-
   return (
-    <section className='form-container'>
+    <section className="form-container">
       <div>
         <h1>SIGN IN</h1>
-        <form className='sign-in-form' onSubmit={handleSubmit(submitData)}>
-          <div className='email-field'>
-            <label htmlFor='email'>email</label>
+        <form className="sign-in-form" onSubmit={handleSubmit(submitData)}>
+          <div className="email-field">
+            <label htmlFor="email">email</label>
             <input
-              type='email'
+              type="email"
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
             />
             {errors.email && <p>{errors.email.message}</p>}
           </div>
-          <div className='password-field'>
-            <label htmlFor='password'>password</label>
-            <input type='password' {...register('password')} />
+          <div className="password-field">
+            <label htmlFor="password">password</label>
+            <input type="password" {...register('password')} />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <input type='submit' />
+          <input type="submit" />
         </form>
         <p>
-          don't have an account? sign up <Link to={'/sign_up'}>here</Link>
+          don't have an account? sign up <Link to="/sign-up">here</Link>
         </p>
       </div>
     </section>
