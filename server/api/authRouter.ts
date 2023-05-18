@@ -25,7 +25,14 @@ export const createZodUser = zodUser
 router.post('/signup', async (req, res, next) => {
   try {
     const parsedBody = createZodUser.parse(req.body);
-    // delete parsedBody.confirmPassword;
+    const userEmail = await User.findOne({ email: parsedBody.email });
+    if (userEmail)
+      return res
+        .status(409)
+        .send(
+          'Cannot signup user with given email- it already exists in the database'
+        );
+
     const newUser = await User.create(parsedBody);
     const token = jwt.sign(
       { id: newUser._id, role: newUser.role },
@@ -38,6 +45,18 @@ router.post('/signup', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/check-email', async(req, res, next) => {
+  try{
+    const email = req.body;
+    const emailLookup = await User.findOne({email: req.body.email});
+    if(!emailLookup) return res.status(200).json({message: false});
+
+    res.status(200).json({message: true})
+  }catch(err){
+    next(err);
+  }
+})
 
 router.post('/login', async (req, res, next) => {
   try {
