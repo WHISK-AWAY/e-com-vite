@@ -7,11 +7,11 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 export interface ICart {
   cart: {
     products: {
-      product: TProduct
+      product: TProduct;
       price: number;
       qty: number;
       _id: string;
-    }[],
+    }[];
     subtotal: number;
   };
 }
@@ -31,89 +31,103 @@ export type TProduct = {
   }[];
 };
 
-export type CartState ={ 
-  cart: ICart,
-  loading: boolean,
-  errors: {data: string, status: number | null}
-}
+export type CartState = {
+  cart: ICart;
+  loading: boolean;
+  errors: { data: string; status: number | null };
+};
 const initialState: CartState = {
   cart: {} as ICart,
   loading: false,
-  errors: {data: '', status: null}
-}
-
+  errors: { data: '', status: null },
+};
 
 const cartSlice = createSlice({
-  name: "cart", 
-  initialState, 
+  name: 'cart',
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
-
     /**
      * * FETCH USER CART
      */
-    builder.addCase(fetchUserCart.pending, (state, action) => {
-      state.loading = true;
-    })
-    .addCase(fetchUserCart.fulfilled, (state, {payload} ) => {
-      state.loading = false;
-      state.cart = payload;
-      state.errors = {...initialState.errors}
-    })
-    .addCase(fetchUserCart.rejected, (state, action:PayloadAction<any>) => {
-      state.loading = false;
-      state.errors = action.payload;
-    })
+    builder
+      .addCase(fetchUserCart.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(fetchUserCart.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.errors = {
+          data: action.payload.data,
+          status: action.payload.status,
+        };
+      })
 
-    /**
-     * *ADD ITEM TO CART
-     */
+      /**
+       * *ADD ITEM TO CART
+       */
 
-    .addCase(addToCart.pending, (state, action) => {
-      state.loading = true;
-    })
-    .addCase(addToCart.fulfilled, (state, {payload}) => {
-      state.loading = false;
-      state.cart = payload;
-      state.errors = {...initialState.errors}
-    })
-    .addCase(addToCart.rejected, (state, action:PayloadAction<any>) => {
-      state.loading = false;
-      state.errors = action.payload;
-    })
+      .addCase(addToCart.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(addToCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(addToCart.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.errors = action.payload;
+      });
+  },
+});
+
+export const fetchUserCart = createAsyncThunk(
+  'cart/fetchUserCart',
+  async (userId: string, thunkApi) => {
+    try {
+      const token = window.localStorage.getItem('token');
+
+      if (!token) throw thunkApi.rejectWithValue({ err: 'no token:(' });
+
+      const { data } = await axios.get(
+        VITE_API_URL + `/api/user/${userId}/cart`,
+        { headers: { authorization: token } }
+      );
+
+      // console.log('cart', data);
+      return data;
+    } catch (err: any) {
+      return thunkApi.rejectWithValue({
+        errors: { data: err.response.data, status: err.response.status },
+      });
+    }
   }
-})
+);
 
-export const fetchUserCart = createAsyncThunk('cart/fetchUserCart', async(userId: string, thunkApi) => {
-  try{
-    const token = window.localStorage.getItem('token');
+export const addToCart = createAsyncThunk(
+  'cart/addToCart',
+  async (
+    args: { userId: string; productId: string; qty: number },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/user/${args.userId}/cart/add-item`,
+        { productId: args.productId, qty: args.qty },
+        { withCredentials: true }
+      );
 
-    if(!token) throw thunkApi.rejectWithValue({err: 'no token:('})
-
-    const {data} = await axios.get(VITE_API_URL + `/api/user/${userId}/cart`, {headers: {authorization: token}});
-
-    // console.log('cart', data);
-    return data;
-  }catch(err) {
-    return thunkApi.rejectWithValue(err);
+      return data;
+    } catch (err) {
+      thunkApi.rejectWithValue(err);
+    }
   }
-})
+);
 
-
-export const addToCart = createAsyncThunk('cart/addToCart', async(userId:string, thunkApi) => {
-  try{
-    const token = window.localStorage.getItem('token');
-    if(!token) throw thunkApi.rejectWithValue({err: 'no token'});
-
-
-    const {data} = await axios.post(VITE_API_URL + `/api/user/${userId}/cart/add-item`, {headers: {authorization: token}});
-
-    console.log('data additem', data);
-    return data;
-  }catch(err) {
-    thunkApi.rejectWithValue(err);
-  }
-})
-
-export const selectCart = (state:RootState) => state.cart;
+export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
