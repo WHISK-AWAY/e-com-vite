@@ -6,43 +6,49 @@ import { createZodUser } from '../../../server/api/authRouter';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-export interface AuthState {
-  token: string;
-  userId: string;
+/**
+ * * TYPES/INTERFACES
+ */
+const initialState: AuthState = {
+  userId: null,
+  firstName: null,
+  loading: false,
+  error: { data: null, status: null },
+};
+
+
+export type AuthState = {
+  firstName: string | null;
+  userId: string | null;
   loading: boolean;
-  error: { data: string; status: number | null };
-}
+  error: {
+    data: string | null;
+    status: number | null;
+  };
+};
 
 export type UserSignUpInput = z.infer<typeof createZodUser>;
-
-const initialState: AuthState = {
-  token: '',
-  userId: '',
-  loading: false,
-  error: { data: '', status: null },
-};
 
 export type Credentials = {
   email: string;
   password: string;
 };
 
-export interface IReturnAuth {
-  token: string;
-  userId: string;
-}
+/**
+ * * THUNKS
+ */
+
+// * Register / request signup
 
 export const requestSignUp = createAsyncThunk(
   'auth/requestSignUp',
   async (userInfo: UserSignUpInput, thunkApi) => {
     try {
-      let { data }: { data: IReturnAuth } = await axios.post(
+      let { data }: { data: AuthState } = await axios.post(
         VITE_API_URL + '/api/auth/signup',
-        userInfo
+        userInfo,
+        { withCredentials: true }
       );
-
-
-      if (data.token) window.localStorage.setItem('token', data.token);
 
       return data;
     } catch (err: any) {
@@ -58,19 +64,22 @@ export const requestSignUp = createAsyncThunk(
   }
 );
 
+// * Log in
+
 export const requestLogin = createAsyncThunk(
   'auth/requestLogin',
   async (credentials: Credentials, thunkApi) => {
     try {
-      let { data }: { data: IReturnAuth } = await axios.post(
+      let res: { data: AuthState } = await axios.post(
+        // VITE_API_URL + '/api/auth/login',
         VITE_API_URL + '/api/auth/login',
-        credentials
+        credentials,
+        { withCredentials: true }
       );
 
-      if (data.token) window.localStorage.setItem('token', data.token);
-
-      return data;
+      return res.data;
     } catch (err: any) {
+      console.log('requestLogin err:', err);
       return thunkApi.rejectWithValue({
         data: err.response.data,
         status: err.response.status,
@@ -83,18 +92,41 @@ export const requestLogin = createAsyncThunk(
 //* GET USER ID
 export const getUserId = createAsyncThunk('auth/getUserId', async(_, thunkApi) => {
   try{
-      const token = window.localStorage.getItem('token');
-      if(!token) throw thunkApi.rejectWithValue({err: 'no token'});
       
-      const {data}: {data: {userId:string}} = await axios.get(VITE_API_URL + '/api/auth/get-user-id', {headers: {authorization: token}});
+      const {data}: {data: {userId:string}} = await axios.get(VITE_API_URL + '/api/auth/get-user-id', {withCredentials: true});
 
-      console.log('getuserID', data)
-      return {data, token};
+      return {data};
   }catch(err) {
     thunkApi.rejectWithValue(err);
   }
 })
 
+
+// * Log out
+
+export const requestLogout = createAsyncThunk(
+  'auth/requestLogout',
+  async (_, thunkApi) => {
+    try {
+await axios.post(
+        VITE_API_URL + '/api/auth/logout',
+        {},
+        { withCredentials: true }
+      );
+
+      return null;
+    } catch (err) {
+      console.log('logout error: ', err);
+      return thunkApi.rejectWithValue({ error: 'Error with logout request' });
+    }
+  }
+);
+
+
+
+/**
+ * * AUTH SLICE
+ */
 
 
 export const authSlice = createSlice({
@@ -109,50 +141,38 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(requestLogin.fulfilled, (state, action) => {
-      // console.log('fulfilled', action);
-      state.token = action.payload!.token;
-      state.userId = action.payload!.userId;
-      state.loading = false;
-      state.error = initialState.error;
+      return action.payload;
     });
     builder.addCase(
       requestLogin.rejected,
       (state, action: PayloadAction<any>) => {
-        // console.log('action', action);
-        state.loading = false;
-        state.error = {
-          data: action.payload.data,
-          status: action.payload.status,
+        return {
+          ...initialState,
+          error: {
+            data: action.payload.data,
+            status: action.payload.status,
+          },
         };
       }
     );
     /**
      * *requestSignUp
      */
-    builder.addCase(
-      requestSignUp.pending,
-      (state, action: PayloadAction<any>) => {
-        state.loading = true;
-      }
-    );
-    builder.addCase(
-      requestSignUp.fulfilled,
-      (state, action: PayloadAction<any>) => {
-        // console.log('action fuldilled', action);
-        state.token = action.payload.token;
-        state.userId = action.payload.userId;
-        state.loading = false;
-        state.error = initialState.error;
-      }
-    );
+    builder.addCase(requestSignUp.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(requestSignUp.fulfilled, (state, action) => {
+      return action.payload;
+    });
     builder.addCase(
       requestSignUp.rejected,
       (state, action: PayloadAction<any>) => {
-        // console.log('rejected case', action);
-        state.loading = false;
-        state.error = {
-          data: action.payload.data,
-          status: action.payload.status,
+        return {
+          ...initialState,
+          error: {
+            data: action.payload.data,
+            status: action.payload.status,
+          },
         };
       }
     )
@@ -167,7 +187,6 @@ export const authSlice = createSlice({
     })
     .addCase(getUserId.fulfilled, (state, {payload} ) => {
       state.loading = false;
-      state.token = payload!.token;
       state.userId = payload!.data.userId;
       state.error = {...initialState.error};
     })
@@ -175,9 +194,37 @@ export const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     })
+    
+
+    /**
+     * * Request logout
+     */
+    builder
+      .addCase(requestLogout.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(requestLogout.fulfilled, (state) => {
+        return { ...initialState };
+      })
+      .addCase(requestLogout.rejected, (state, action: PayloadAction<any>) => {
+        return {
+          ...initialState,
+          error: {
+            data: action.payload.data,
+            status: action.payload.status,
+          },
+        };
+      });
   },
 });
 
 
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;
+
+/**
+ * ? how do we deal with guest carts...?
+ *  can cart info be stored w/session?
+ *  does session hold steady for a given non-logged-in user?
+ *  can we automatically create a guest user when guest adds item to cart?
+ */

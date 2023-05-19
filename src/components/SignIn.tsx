@@ -24,6 +24,27 @@ export default function SignIn() {
   const dispatch = useAppDispatch();
   const selectAuthUser = useAppSelector(selectAuth);
 
+  /**
+   * * test function
+   */
+  async function testSecureRoute() {
+    const WALLACE = '9ae28de6-bfc1-41a8-a172-2d567ddf059f';
+    const GROMIT = 'aac9fe48-8757-48f9-ab44-53a67a2a9951';
+    const res = await axios.get(
+      `http://localhost:3001/test-secure/${WALLACE}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log('res from test secure', res.data);
+  }
+
+  useEffect(() => {
+    testSecureRoute();
+  }, []);
+
+  //---------------------
+
   const {
     register,
     handleSubmit,
@@ -44,6 +65,7 @@ export default function SignIn() {
           email,
         }
       );
+      console.log('emailFetcher data', data);
       if (!data.message) {
         reset({
           email: '',
@@ -101,7 +123,15 @@ export default function SignIn() {
           <input type="submit" />
         </form>
         <p>
-          don't have an account? sign up <Link to="/sign-up">here</Link>
+          don't have an account? sign up{' '}
+          <Link to="/sign-up" className="text-green-400">
+            here
+          </Link>
+        </p>
+        <p>
+          <Link to="/" className="text-green-400">
+            Home
+          </Link>
         </p>
       </div>
     </section>
