@@ -79,6 +79,24 @@ export const requestLogin = createAsyncThunk(
   }
 );
 
+
+//* GET USER ID
+export const getUserId = createAsyncThunk('auth/getUserId', async(_, thunkApi) => {
+  try{
+      const token = window.localStorage.getItem('token');
+      if(!token) throw thunkApi.rejectWithValue({err: 'no token'});
+      
+      const {data}: {data: {userId:string}} = await axios.get(VITE_API_URL + '/api/auth/get-user-id', {headers: {authorization: token}});
+
+      console.log('getuserID', data)
+      return {data, token};
+  }catch(err) {
+    thunkApi.rejectWithValue(err);
+  }
+})
+
+
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -137,9 +155,29 @@ export const authSlice = createSlice({
           status: action.payload.status,
         };
       }
-    );
+    )
+
+    /**
+     * * GET USER ID
+     */
+
+
+    .addCase(getUserId.pending, (state,action) => {
+      state.loading = true;
+    })
+    .addCase(getUserId.fulfilled, (state, {payload} ) => {
+      state.loading = false;
+      state.token = payload!.token;
+      state.userId = payload!.data.userId;
+      state.error = {...initialState.error};
+    })
+    .addCase(getUserId.rejected, (state, action:PayloadAction<any>) => {
+      state.loading = false;
+      state.error = action.payload;
+    })
   },
 });
+
 
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;
