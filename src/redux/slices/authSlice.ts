@@ -10,13 +10,6 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
  * * TYPES/INTERFACES
  */
 
-// export interface AuthState {
-//   token: string;
-//   userId: string;
-//   loading: boolean;
-//   error: { data: string; status: number | null };
-// }
-
 export type AuthState = {
   firstName: string | null;
   userId: string | null;
@@ -33,16 +26,6 @@ export type Credentials = {
   email: string;
   password: string;
 };
-
-// export interface IReturnAuth {
-//   userId: string;
-//   firstName: string;
-// }
-
-export interface IReturnAuth {
-  userId: string;
-  token: string;
-}
 
 /**
  * * THUNKS
@@ -86,8 +69,6 @@ export const requestLogin = createAsyncThunk(
         credentials,
         { withCredentials: true }
       );
-      console.log('res from login req:', res);
-      // if (data.token) window.localStorage.setItem('token', data.token);
 
       return res.data;
     } catch (err: any) {
@@ -124,13 +105,6 @@ export const requestLogout = createAsyncThunk(
  * * AUTH SLICE
  */
 
-// const initialState: AuthState = {
-//   token: '',
-//   userId: '',
-//   loading: false,
-//   error: { data: '', status: null },
-// };
-
 const initialState: AuthState = {
   userId: null,
   firstName: null,
@@ -147,17 +121,14 @@ export const authSlice = createSlice({
      * * requestLogin
      */
     builder.addCase(requestLogin.pending, (state, action) => {
-      console.log('requestlogin pending');
       state.loading = true;
     });
     builder.addCase(requestLogin.fulfilled, (state, action) => {
-      console.log('requestLogin fulfilled');
       return action.payload;
     });
     builder.addCase(
       requestLogin.rejected,
       (state, action: PayloadAction<any>) => {
-        // console.log('action', action);
         return {
           ...initialState,
           error: {
@@ -174,14 +145,11 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(requestSignUp.fulfilled, (state, action) => {
-      // console.log('action fuldilled', action);
-      // state.token = action.payload.token;
       return action.payload;
     });
     builder.addCase(
       requestSignUp.rejected,
       (state, action: PayloadAction<any>) => {
-        // console.log('rejected case', action);
         return {
           ...initialState,
           error: {
@@ -189,11 +157,6 @@ export const authSlice = createSlice({
             status: action.payload.status,
           },
         };
-        // state.loading = false;
-        // state.error = {
-        //   data: action.payload.data,
-        //   status: action.payload.status,
-        // };
       }
     );
 
