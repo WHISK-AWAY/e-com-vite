@@ -89,11 +89,9 @@ const userSlice = createSlice({
 
 export const fetchSingleUser = createAsyncThunk('singleUser/fetchSingleUser', async(userId: string, thunkApi) => {
   try{
-    const token =  window.localStorage.getItem("token");
-    const {data}: {data: TUser} = await axios.get(VITE_API_URL + `/api/user/${userId}`, {headers: {authorization: token}});
+    const {data}: {data: TUser} = await axios.get(VITE_API_URL + `/api/user/${userId}`, {withCredentials: true});
 
 
-    console.log('data', data);
     return data;
   }catch(err: any) {
     return thunkApi.rejectWithValue(err);
