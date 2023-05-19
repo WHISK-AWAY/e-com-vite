@@ -13,6 +13,7 @@ import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { IUser, User } from './database/index';
 import mongoInit from './database/dbStartup';
+import { checkAuthenticated, requireAdmin } from './api/authMiddleware';
 
 dotenv.config({ path: '../.env' });
 const PORT = process.env.PORT || 3002;
@@ -80,16 +81,13 @@ passport.use(
 );
 
 passport.serializeUser(function (user, done) {
-  // console.log('user@serialize:', user);
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id: string, done) => {
-  console.log('~~~~~~~~~~deserializing user...', id);
   try {
     const user = await User.findById(id);
     if (!user) throw new Error('No user found during deserialize step -- ??');
-    console.log('deserialized user:', user);
     return done(null, user);
   } catch (err) {
     console.log('error in deserializeUser');
@@ -97,39 +95,19 @@ passport.deserializeUser(async (id: string, done) => {
   }
 });
 
-// app.use(passport.session());
-
 /**
  * * PASSPORT TEST ROUTES
  */
 
-// app.post(
-//   '/test-login',
-//   passport.authenticate('local', {
-//     successMessage: 'successful login',
-//     failureMessage: 'login failed',
-//   }),
-//   async (req, res, next) => {
-//     try {
-//       // console.log('req.user:', req.user);
-//       if (req.user) await req.login(req.user, (err) => console.log(err));
-//       // console.log('cookie @ test login:', req.session.cookie);
-//       res
-//         .status(200)
-//         .json({ userId: req.user?._id, firstName: req.user?.firstName });
-//     } catch (err) {
-//       next(err);
-//     }
-//   }
-// );
-
 app.get(
   '/test-secure',
-  // passport.authenticate('session'),
+  checkAuthenticated,
+  requireAdmin,
   async (req, res, next) => {
     console.log('cookie @ test secure:', req.session.cookie);
     console.log('sid @ test secure:', req.session.id);
     console.log('user @ test secure:', req.user);
+    console.log('isAuthenticated@test-secure', req.isAuthenticated());
     if (req.user) {
       res.json({ message: 'welcome' });
     } else {

@@ -13,29 +13,32 @@ interface IToken {
   role: string;
 }
 
+/**
+ * * Check for logged-in user
+ * (updated for passport)
+ */
+
 export function checkAuthenticated(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   try {
-    req.isAuthenticated = false;
-
-    const token = req.headers.authorization;
-
-    if (!token) return res.status(401).send('Need token to proceed');
-    const verifiedToken = jwt.verify(token, SECRET!) as IToken;
-    req.isAuthenticated = true;
-    req.userId = verifiedToken.id;
-    // console.log('VT', verifiedToken);
-
-    next();
+    if (req.isAuthenticated()) {
+      req.userId = req.user!._id;
+      return next();
+    }
+    return res
+      .status(401)
+      .json({ message: 'Must be logged in to access this route' });
   } catch (err) {
-    if (err instanceof JsonWebTokenError)
-      res.status(403).send('Get the fuck out');
     next(err);
   }
 }
+
+/**
+ * * Check for admin privileges
+ */
 
 export async function requireAdmin(
   req: Request,
@@ -43,21 +46,20 @@ export async function requireAdmin(
   next: NextFunction
 ) {
   try {
-    const token = req.headers.authorization;
-    if (!token) return res.status(403).send('Invalid token');
-    const verifiedToken = jwt.verify(token, SECRET!) as IToken;
-
-    if (verifiedToken.role !== 'admin')
-      return res
-        .status(403)
-        .send('Permission denied: have to be an admin to access this route');
+    if (!req.user || req.user.role !== 'admin')
+      return res.status(403).send('Permission denied: insufficient privileges');
 
     next();
   } catch (err) {
-    if (err instanceof JsonWebTokenError) res.status(403).send('Get out');
     next(err);
   }
 }
+
+/**
+ * * Check for "same user or admin"
+ * User must match ID used in URL string, or else have admin rights
+ * Only applies when ":userId" appears in route!
+ */
 
 export async function sameUserOrAdmin(
   req: Request,
