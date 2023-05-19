@@ -92,16 +92,18 @@ export const generateProduct = (count: number): IProduct[] => {
 
   for (let i = 0; i < count; i++) {
     const productName = faker.commerce.productName();
-    const productDesc = faker.commerce.productDescription();
+    const productLongDesc = faker.commerce.productDescription();
+    const productShortDesc = faker.lorem.sentence(4);
     const brand = faker.company.name();
     const price = faker.datatype.float({ min: 20, max: 1000, precision: 0.01 });
     const qty = faker.datatype.number({ min: 4, max: 20 });
-    const imageURL = faker.image.cats();
+    const imageURL = faker.image.cats(300, 300, true);
     const tags = [new Types.ObjectId()];
 
     products.push({
       productName,
-      productDesc,
+      productLongDesc,
+      productShortDesc,
       brand,
       price,
       qty,
@@ -144,7 +146,8 @@ export const generateOrder = (count: number): IOrder[] => {
       {
         productId: new Types.ObjectId(),
         productName: faker.commerce.productName(),
-        productDesc: faker.commerce.productDescription(),
+        productLongDesc: faker.commerce.productDescription(),
+        productShortDesc: faker.lorem.sentence(4),
         brand: faker.company.name(),
         imageURL: faker.image.cats(),
         price: faker.datatype.float({ min: 20, max: 1000, precision: 0.01 }),
