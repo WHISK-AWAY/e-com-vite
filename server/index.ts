@@ -1,9 +1,7 @@
-import express, { NextFunction, Application, Response, Request } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import apiRouter from './api/apiRouter';
-import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import passport from 'passport';
@@ -11,15 +9,19 @@ import bcrypt from 'bcrypt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
-import { IUser, User } from './database/index';
+import { User } from './database/index';
 import mongoInit from './database/dbStartup';
+
+// for passport testing
 import {
   checkAuthenticated,
   requireAdmin,
   sameUserOrAdmin,
 } from './api/authMiddleware';
 
+import dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
+
 const PORT = process.env.PORT || 3002;
 const MONGO_DB_URL = process.env.MONGO_DB_URL;
 

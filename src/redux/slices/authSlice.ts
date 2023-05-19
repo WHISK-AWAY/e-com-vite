@@ -39,8 +39,8 @@ export const requestSignUp = createAsyncThunk(
     try {
       let { data }: { data: AuthState } = await axios.post(
         VITE_API_URL + '/api/auth/signup',
-        userInfo
-        // { withCredentials: true }
+        userInfo,
+        { withCredentials: true }
       );
 
       return data;
@@ -184,3 +184,10 @@ export const authSlice = createSlice({
 
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;
+
+/**
+ * ? how do we deal with guest carts...?
+ *  can cart info be stored w/session?
+ *  does session hold steady for a given non-logged-in user?
+ *  can we automatically create a guest user when guest adds item to cart?
+ */
