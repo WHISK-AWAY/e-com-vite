@@ -6,7 +6,7 @@ const SECRET = process.env.SECRET;
 import { User } from '../database/index';
 import { z, ZodError } from 'zod';
 
-const zUUID = z.string().uuid();
+const zUUID = z.string().uuid({ message: 'Invalid userId format' });
 
 interface IToken {
   id: string;
@@ -67,28 +67,19 @@ export async function sameUserOrAdmin(
   next: NextFunction
 ) {
   try {
-    const token = req.headers.authorization;
-    const { userId } = req.params;
+    const userId = zUUID.parse(req.params.userId);
 
-    const parsedUUID = zUUID.parse(userId);
-    if (!parsedUUID) return res.status(500).send('Invalid user ID');
+    if (!req.user)
+      return res.status(401).json({ message: 'Must be logged in to access' });
 
-    if (!token) return res.status(403).send('Invalid token');
-
-    const verifiedToken = jwt.verify(token, SECRET!) as IToken;
-    if (verifiedToken.id !== parsedUUID && verifiedToken.role !== 'admin')
+    if (req.user._id !== userId && req.user.role !== 'admin') {
       return res
         .status(403)
-        .send('Authorization failed: must be an admin or logged in user');
+        .json({ message: 'Logged-in user does not match requested resource' });
+    }
 
     next();
   } catch (err) {
-    if (err instanceof ZodError)
-      return res
-        .status(400)
-        .send('Provided UUID does not match the database records');
-    if (err instanceof JsonWebTokenError)
-      return res.status(403).send('You donnot belong here');
     next(err);
   }
 }

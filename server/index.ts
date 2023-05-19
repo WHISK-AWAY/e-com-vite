@@ -13,7 +13,11 @@ import { ZodError } from 'zod';
 import { fromZodError } from 'zod-validation-error';
 import { IUser, User } from './database/index';
 import mongoInit from './database/dbStartup';
-import { checkAuthenticated, requireAdmin } from './api/authMiddleware';
+import {
+  checkAuthenticated,
+  requireAdmin,
+  sameUserOrAdmin,
+} from './api/authMiddleware';
 
 dotenv.config({ path: '../.env' });
 const PORT = process.env.PORT || 3002;
@@ -100,9 +104,9 @@ passport.deserializeUser(async (id: string, done) => {
  */
 
 app.get(
-  '/test-secure',
+  '/test-secure/:userId',
   checkAuthenticated,
-  requireAdmin,
+  sameUserOrAdmin,
   async (req, res, next) => {
     console.log('cookie @ test secure:', req.session.cookie);
     console.log('sid @ test secure:', req.session.id);
