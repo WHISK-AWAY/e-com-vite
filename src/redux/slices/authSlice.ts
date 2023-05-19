@@ -16,7 +16,6 @@ const initialState: AuthState = {
   error: { data: null, status: null },
 };
 
-
 export type AuthState = {
   firstName: string | null;
   userId: string | null;
@@ -88,19 +87,22 @@ export const requestLogin = createAsyncThunk(
   }
 );
 
-
 //* GET USER ID
-export const getUserId = createAsyncThunk('auth/getUserId', async(_, thunkApi) => {
-  try{
-      
-      const {data}: {data: {userId:string}} = await axios.get(VITE_API_URL + '/api/auth/get-user-id', {withCredentials: true});
+export const getUserId = createAsyncThunk(
+  'auth/getUserId',
+  async (_, thunkApi) => {
+    try {
+      const { data }: { data: { userId: string } } = await axios.get(
+        VITE_API_URL + '/api/auth/get-user-id',
+        { withCredentials: true }
+      );
 
-      return {data};
-  }catch(err) {
-    thunkApi.rejectWithValue(err);
+      return { data };
+    } catch (err) {
+      thunkApi.rejectWithValue(err);
+    }
   }
-})
-
+);
 
 // * Log out
 
@@ -108,7 +110,7 @@ export const requestLogout = createAsyncThunk(
   'auth/requestLogout',
   async (_, thunkApi) => {
     try {
-await axios.post(
+      await axios.post(
         VITE_API_URL + '/api/auth/logout',
         {},
         { withCredentials: true }
@@ -122,12 +124,9 @@ await axios.post(
   }
 );
 
-
-
 /**
  * * AUTH SLICE
  */
-
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -164,9 +163,8 @@ export const authSlice = createSlice({
     builder.addCase(requestSignUp.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder.addCase(
-      requestSignUp.rejected,
-      (state, action: PayloadAction<any>) => {
+    builder
+      .addCase(requestSignUp.rejected, (state, action: PayloadAction<any>) => {
         return {
           ...initialState,
           error: {
@@ -174,27 +172,24 @@ export const authSlice = createSlice({
             status: action.payload.status,
           },
         };
-      }
-    )
+      })
 
-    /**
-     * * GET USER ID
-     */
+      /**
+       * * GET USER ID
+       */
 
-
-    .addCase(getUserId.pending, (state,action) => {
-      state.loading = true;
-    })
-    .addCase(getUserId.fulfilled, (state, {payload} ) => {
-      state.loading = false;
-      state.userId = payload!.data.userId;
-      state.error = {...initialState.error};
-    })
-    .addCase(getUserId.rejected, (state, action:PayloadAction<any>) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    
+      .addCase(getUserId.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getUserId.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.userId = payload!.data.userId;
+        state.error = { ...initialState.error };
+      })
+      .addCase(getUserId.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
 
     /**
      * * Request logout
@@ -217,7 +212,6 @@ export const authSlice = createSlice({
       });
   },
 });
-
 
 export const selectAuth = (state: RootState) => state.auth;
 export default authSlice.reducer;
