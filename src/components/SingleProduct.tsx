@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   fetchSingleProduct,
@@ -12,23 +12,35 @@ export default function SingleProduct() {
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
-  const userId = useAppSelector(selectAuth);
+  const {userId} = useAppSelector(selectAuth);
   const userCart = useAppSelector(selectCart);
+  const [count, setCount] = useState<number>(1);
 
-  // console.log('userID from singleprod', userId);
   useEffect(() => {
     if (productId) dispatch(fetchSingleProduct(productId));
 
     dispatch(getUserId());
   }, [productId]);
 
-//TODO do it tmr
-  // console.log('suerID', userId)
-  useEffect(() => {
-    if (userId.userId) dispatch(addToCart(userId.userId));
-  }, []);
+  const qtyIncrementor = () => {
+    let userQty: number = count;
+    const totalQty: number = singleProduct!.qty!;
+    if (userQty! >= totalQty) setCount(totalQty);
+    else setCount(count + 1);
+  };
 
-  const handleClick = () => {};
+  const qtyDecrementor = () => {
+    let userQty: number = count;
+    if (userQty! <= 1) setCount(count);
+    else setCount(count - 1);
+  };
+
+
+
+  const handleClick = () => {
+    if (userId && productId) dispatch(addToCart({ userId, productId, qty: count }));
+
+  };
 
   if (!singleProduct) return <p>...Loading</p>;
   return (
@@ -39,6 +51,9 @@ export default function SingleProduct() {
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
+      <div onClick={qtyIncrementor}>+</div>
+      <div>{count}</div>
+      <div onClick={qtyDecrementor}>-</div>
       <button onClick={handleClick}>add to cart</button>
     </section>
   );
