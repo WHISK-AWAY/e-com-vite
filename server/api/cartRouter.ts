@@ -28,7 +28,7 @@ router.get('/', checkAuthenticated, sameUserOrAdmin, async (req, res, next) => {
 });
 
 router.post(
-  '/addItem',
+  '/add-item',
   checkAuthenticated,
   sameUserOrAdmin,
   async (req, res, next) => {
