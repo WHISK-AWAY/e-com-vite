@@ -10,6 +10,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { zodUser } from '../utils';
+import { checkAuthenticated, sameUserOrAdmin } from './authMiddleware';
 
 export const createZodUser = zodUser
   .strict()
@@ -46,17 +47,17 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/check-email', async(req, res, next) => {
-  try{
+router.post('/check-email', async (req, res, next) => {
+  try {
     const email = req.body;
-    const emailLookup = await User.findOne({email: req.body.email});
-    if(!emailLookup) return res.status(200).json({message: false});
+    const emailLookup = await User.findOne({ email: req.body.email });
+    if (!emailLookup) return res.status(200).json({ message: false });
 
-    res.status(200).json({message: true})
-  }catch(err){
+    res.status(200).json({ message: true });
+  } catch (err) {
     next(err);
   }
-})
+});
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -76,6 +77,17 @@ router.post('/login', async (req, res, next) => {
     if (!token) return res.status(500).send('Secret is broken');
 
     res.status(200).json({ token, userId: userLookup._id });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/get-user-id', checkAuthenticated, async (req, res, next) => {
+  try {
+    const userId = req.userId;
+    if (!userId) return res.status(404).send('No user ID found');
+
+    res.status(200).json({userId});
   } catch (err) {
     next(err);
   }
