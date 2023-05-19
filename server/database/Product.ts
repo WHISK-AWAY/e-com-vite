@@ -3,7 +3,8 @@ import mongoose, { Schema, Types } from 'mongoose';
 export interface IProduct {
   _id?: Types.ObjectId;
   productName: string;
-  productDesc: string;
+  productLongDesc: string;
+  productShortDesc: string;
   brand: string;
   price: number;
   qty: number;
@@ -13,7 +14,8 @@ export interface IProduct {
 
 const productSchema = new Schema<IProduct>({
   productName: { type: String, required: true, unique: true },
-  productDesc: { type: String, required: true },
+  productLongDesc: { type: String, required: true },
+  productShortDesc: {type: String, requires: true},
   brand: { type: String, required: true },
   price: { type: Number, required: true },
   qty: { type: Number, required: true },
