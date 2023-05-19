@@ -11,6 +11,8 @@ import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { zodUser } from '../utils';
 
+import passport from 'passport';
+
 export const createZodUser = zodUser
   .strict()
   .superRefine(({ confirmPassword, password }, ctx) => {
@@ -34,93 +36,52 @@ router.post('/signup', async (req, res, next) => {
         );
 
     const newUser = await User.create(parsedBody);
-    const token = jwt.sign(
-      { id: newUser._id, role: newUser.role },
-      SECRET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    );
 
-    if (!token) return res.status(500).send('Secret is broken');
-    res.status(201).json({ newUser, token });
+    // must call login method to get access to req.user
+    req.login(newUser, (err) => console.log(err));
+
+    res.status(201).json({
+      userId: req.user!._id,
+      firstName: req.user!.firstName,
+      error: { data: null, status: null },
+    });
   } catch (err) {
     next(err);
   }
 });
 
-router.post('/check-email', async(req, res, next) => {
-  try{
-    const email = req.body;
-    const emailLookup = await User.findOne({email: req.body.email});
-    if(!emailLookup) return res.status(200).json({message: false});
-
-    res.status(200).json({message: true})
-  }catch(err){
-    next(err);
+router.post(
+  '/login',
+  passport.authenticate('local', { failureMessage: 'Authentication failed' }),
+  (req, res, next) => {
+    return res.status(200).json({
+      userId: req.user!._id,
+      firstName: req.user!.firstName,
+      error: { data: null, status: null },
+    });
   }
-})
+);
 
-router.post('/login', async (req, res, next) => {
+router.post('/logout', (req, res, next) => {
+  if (!req.user)
+    return res.status(400).json({ message: 'not logged in to begin with...' });
+
+  req.logout((err) => {
+    if (!err) return res.sendStatus(204);
+    return next(err);
+  });
+});
+
+router.post('/check-email', async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const userLookup = await User.findOne({ email });
-    if (!userLookup)
-      return res.status(404).send('Cannot find user withn given email');
-    const comparePass = await bcrypt.compare(password, userLookup.password);
-    if (!comparePass)
-      return res.status(403).send('Password does not match database records');
+    const { email } = req.body;
+    const emailLookup = await User.findOne({ email });
+    if (!emailLookup) return res.status(200).json({ message: false });
 
-    const token = jwt.sign(
-      { id: userLookup._id, role: userLookup.role },
-      SECRET!
-    );
-    // console.log('loginTOKEN', userLookup.id);
-    if (!token) return res.status(500).send('Secret is broken');
-
-    res.status(200).json({ token, userId: userLookup._id });
+    res.status(200).json({ message: true });
   } catch (err) {
     next(err);
   }
 });
 
 export default router;
-
-// router.get('/login', async (req, res, next) => {
-//   try {
-//     const { data } = await axios.post(
-//       'https://dev-z5aj5eewyq3duaqc.us.auth0.com/oauth/token',
-//       {
-//         client_id: 'eW7bfGKjfMoKlIVRiuev2ehC7Boy5XUd',
-//         client_secret:
-//           'REDgfT-NsYPiVXrj4kfx4eYw5F0BjaSbpovRfYwK5caX_eVb4_5LwVbqxH-MEiio',
-//         audience: 'e-comPB',
-//         grant_type: 'client_credentials',
-//       },
-//       { headers: { 'content-type': 'application/json' } }
-//     );
-
-//     res.status(200).json(data);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-// router.get('/login', async (req, res, next) => {
-//   try {
-//     const { data } = await axios.post(
-//       'https://dev-3nurd80vhso7rxtr.us.auth0.com/oauth/token',
-//       {
-//         client_id: 'vrf63x8WdTTChYHTEcdP6n79ciqpxPK8',
-//         client_secret:
-//           'h_HW63aY0BsKtZasU3Yoju_AXp4NBldAksQ3Lh-q5Kcl2z7sQah1XRbVfBXiwjGo',
-//         audience: 'e-com',
-//         grant_type: 'client_credentials',
-//       },
-//       { headers: { 'content-type': 'application/json' } }
-//     );
-
-//     res.status(200).json(data);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
-
-// export default router;

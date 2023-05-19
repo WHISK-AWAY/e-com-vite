@@ -103,23 +103,25 @@ passport.deserializeUser(async (id: string, done) => {
  * * PASSPORT TEST ROUTES
  */
 
-app.post(
-  '/test-login',
-  passport.authenticate('local', {
-    successMessage: 'successful login',
-    failureMessage: 'login failed',
-  }),
-  async (req, res, next) => {
-    try {
-      // console.log('req.user:', req.user);
-      if (req.user) await req.login(req.user, (err) => console.log(err));
-      console.log('cookie @ test login:', req.session.cookie);
-      res.json({ message: 'logged in...' });
-    } catch (err) {
-      next(err);
-    }
-  }
-);
+// app.post(
+//   '/test-login',
+//   passport.authenticate('local', {
+//     successMessage: 'successful login',
+//     failureMessage: 'login failed',
+//   }),
+//   async (req, res, next) => {
+//     try {
+//       // console.log('req.user:', req.user);
+//       if (req.user) await req.login(req.user, (err) => console.log(err));
+//       // console.log('cookie @ test login:', req.session.cookie);
+//       res
+//         .status(200)
+//         .json({ userId: req.user?._id, firstName: req.user?.firstName });
+//     } catch (err) {
+//       next(err);
+//     }
+//   }
+// );
 
 app.get(
   '/test-secure',
