@@ -15,11 +15,19 @@ const updateZodProduct = zodProduct
 
 router.get('/', async (req, res, next) => {
   try {
-    const allProducts = await Product.find().populate({ path: 'tags' });
+    const page = +req.query.page!;
+    const numProds = 9;
+    const skip = (page - 1) * numProds;
+    const allProducts = await Product.find({}, null, {
+      skip,
+      limit: numProds,
+      sort: {'_id': 1}
+    }).populate({ path: 'tags' })
+    const countAllProducts = await Product.countDocuments({});
 
     if (!allProducts.length) return res.status(404).send('No products found');
 
-    res.status(200).json(allProducts);
+    res.status(200).json({ products: allProducts, count: countAllProducts });
   } catch (err) {
     next(err);
   }
@@ -91,9 +99,7 @@ router.put(
         (tag: any) => tag.tagName
       );
 
-      console.log('ET', existingTagName);
       for (let tag of incomingTag!) {
-        console.log('tag', tag);
         if (!existingTagName.includes(tag)) {
           const newTag = await Tag.create({ tagName: tag });
           tagId.push(newTag.id);
