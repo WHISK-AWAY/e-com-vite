@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -6,9 +7,15 @@ import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import UserProfile from './components/UserProfile';
 import Cart from './components/Cart';
+import Navbar from './components/Navbar';
+
+
 
 function App() {
   return (
+    <React.Fragment>
+
+      <Navbar/>
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/sign-in" element={<SignIn />} />
@@ -19,6 +26,7 @@ function App() {
       <Route path="/user/:userId/cart" element={<Cart/>} />
 
     </Routes>
+    </React.Fragment>
   );
 }
 
