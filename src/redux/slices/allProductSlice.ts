@@ -9,7 +9,10 @@ const fetchAllProducts = createAsyncThunk(
   async (page: number, thunkApi) => {
     try {
       let { data }: { data: { products: TProduct[]; count: number } } =
-        await axios.get(VITE_API_URL + '/api/product', { params: { page } });
+        await axios.get(VITE_API_URL + '/api/product', {
+          params: { page },
+          withCredentials: true,
+        });
 
       // console.log('data', data);
       return data;
@@ -26,7 +29,8 @@ const fetchSingleProduct = createAsyncThunk(
   async (productId: string, thunkApi) => {
     try {
       let { data }: { data: TProduct } = await axios.get(
-        VITE_API_URL + `/api/product/${productId}`
+        VITE_API_URL + `/api/product/${productId}`,
+        { withCredentials: true }
       );
       // console.log('data', data);
       return data;

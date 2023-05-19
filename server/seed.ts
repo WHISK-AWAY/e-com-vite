@@ -135,7 +135,7 @@ export async function seed() {
     },
   };
 
-  await User.insertMany([regUser, adminUser]);
+  [regUser, adminUser].forEach(async (user) => await User.create(user));
 
   console.log('Seeding users successful');
 

@@ -65,7 +65,7 @@ const userSchema = new Schema<IUser>({
 
 userSchema.plugin(softDeletePlugin);
 
-userSchema.pre('validate', hashPassword);
+userSchema.pre('save', hashPassword); // this used to say 'validate'
 userSchema.pre('updateOne', hashUpdatedPassword);
 cartSchema.methods.addProduct = addToCart;
 cartSchema.methods.removeProduct = removeFromCart;
