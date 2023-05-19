@@ -27,21 +27,21 @@ export default function SignIn() {
   /**
    * * test function
    */
-  async function testSecureRoute() {
-    const WALLACE = '9ae28de6-bfc1-41a8-a172-2d567ddf059f';
-    const GROMIT = 'aac9fe48-8757-48f9-ab44-53a67a2a9951';
-    const res = await axios.get(
-      `http://localhost:3001/test-secure/${WALLACE}`,
-      {
-        withCredentials: true,
-      }
-    );
-    console.log('res from test secure', res.data);
-  }
+  // async function testSecureRoute() {
+  //   const WALLACE = '9ae28de6-bfc1-41a8-a172-2d567ddf059f';
+  //   const GROMIT = 'aac9fe48-8757-48f9-ab44-53a67a2a9951';
+  //   const res = await axios.get(
+  //     `http://localhost:3001/test-secure/${WALLACE}`,
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   console.log('res from test secure', res.data);
+  // }
 
-  useEffect(() => {
-    testSecureRoute();
-  }, []);
+  // useEffect(() => {
+  //   testSecureRoute();
+  // }, []);
 
   //---------------------
 
