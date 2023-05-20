@@ -39,7 +39,6 @@ export default function SingleProduct() {
 
   const handleClick = () => {
     if (userId && productId) dispatch(addToCart({ userId, productId, qty: count }));
-
   };
 
   if (!singleProduct) return <p>...Loading</p>;
