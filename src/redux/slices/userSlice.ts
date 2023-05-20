@@ -71,7 +71,7 @@ const userSlice = createSlice({
      *  *SINGLE USER
      */
 
-    builder.addCase(fetchSingleUser.pending, (state, action) => {
+    builder.addCase(fetchSingleUser.pending, (state) => {
       state.loading = true;
     })
     .addCase(fetchSingleUser.fulfilled, (state, {payload} ) => {
