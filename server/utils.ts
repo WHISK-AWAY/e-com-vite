@@ -52,12 +52,6 @@ export const zodReview = z.object({
 });
 
 export const zodOrder = z.object({
-  // orderDetails: z
-  //   .object({
-  //     productId: z.string(),
-  //     qty: z.number().min(1),
-  //   })
-  //   .array(),
   user: z.object({
     userId: z.string().optional(),
     shippingInfo: z.object({
@@ -75,7 +69,7 @@ export const zodOrder = z.object({
       cardNum: z.string().min(16),
       exp: z.string(),
       cvv: z.string().min(3),
-    }),
+    }).optional(),
   }),
   promoCode: z
     .object({

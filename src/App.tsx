@@ -8,7 +8,7 @@ import SingleProduct from './components/SingleProduct';
 import UserProfile from './components/UserProfile';
 import Cart from './components/Cart';
 import Navbar from './components/Navbar';
-
+import Checkout from './components/Checkout';
 
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
       <Route path="/product/:productId" element={<SingleProduct />} />
       <Route path="/user/:userId" element={<UserProfile/>} />
       <Route path="/user/:userId/cart" element={<Cart/>} />
+      <Route path="/checkout" element={<Checkout/>} />
 
     </Routes>
     </React.Fragment>

@@ -14,7 +14,6 @@ const zodProduct = z
 router.get('/', checkAuthenticated, sameUserOrAdmin, async (req, res, next) => {
   try {
     const { userId } = req.params;
-    // console.log('ID', userId);
     const user = await User.findById(userId, 'cart').populate({
       path: 'cart.products.product',
     });

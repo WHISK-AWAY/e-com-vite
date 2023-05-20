@@ -2,19 +2,24 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchUserCart, selectCart, removeFromCart } from '../redux/slices/cartSlice';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
   const { userId } = useParams();
+  const navigate = useNavigate();
 
-
-  console.log('usercart', userCart);
+  // console.log('usercart', userCart);
   useEffect(() => {
     if (userId) dispatch(fetchUserCart(userId));
   }, [userId]);
+
+
+  const handleCheckout = () => {
+    navigate('/checkout')
+  }
 
 
   if(!userCart.cart.products) return <p>...Loading</p>
@@ -32,7 +37,7 @@ export default function Cart() {
       </div>
      
       <div>Subtotal:{userCart.cart.subtotal}</div>
-      <button>CHECKOUT</button>
+      <button onClick={handleCheckout}>CHECKOUT</button>
       <br/>
       <Link to={'/shop-all'}>back to shopping</Link>
     </section>
