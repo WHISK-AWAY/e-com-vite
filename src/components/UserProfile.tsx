@@ -10,11 +10,6 @@ export default function UserProfile() {
   const { userId } = useParams();
   const authUserId = useAppSelector((state) => state.auth.userId);
 
-  console.log('user:', authUserId);
-
-  // useEffect(() => {
-  //   if (userId && !user.user._id) dispatch(fetchSingleUser(userId));
-  // }, [userId]);
   useEffect(() => {
     if (!authUserId) dispatch(getUserId());
     else {
