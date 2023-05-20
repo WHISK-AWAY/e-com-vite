@@ -52,8 +52,9 @@ const cartSlice = createSlice({
     /**
      * * FETCH USER CART
      */
+
     builder
-      .addCase(fetchUserCart.pending, (state, action) => {
+      .addCase(fetchUserCart.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchUserCart.fulfilled, (state, { payload }) => {
@@ -61,7 +62,7 @@ const cartSlice = createSlice({
         state.cart = payload;
         state.errors = { ...initialState.errors };
       })
-      .addCase(fetchUserCart.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(fetchUserCart.rejected, (_, action: PayloadAction<any>) => {
         return { ...initialState, errors: action.payload };
       })
 
@@ -69,7 +70,7 @@ const cartSlice = createSlice({
        * *ADD ITEM TO CART
        */
 
-      .addCase(addToCart.pending, (state, action) => {
+      .addCase(addToCart.pending, (state) => {
         state.loading = true;
       })
       .addCase(addToCart.fulfilled, (state, { payload }) => {
@@ -77,12 +78,30 @@ const cartSlice = createSlice({
         state.cart = payload;
         state.errors = { ...initialState.errors };
       })
-      .addCase(addToCart.rejected, (state, action: PayloadAction<any>) => {
+      .addCase(addToCart.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, errors: action.payload };
+      })
+
+      /**
+       * * REMOVE ITEM FROM CART
+       */
+
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeFromCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(removeFromCart.rejected, (_, action: PayloadAction<any>) => {
         return { ...initialState, errors: action.payload };
       });
   },
 });
 
+
+// * FETCH USER CART
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId: string, thunkApi) => {
@@ -98,7 +117,6 @@ export const fetchUserCart = createAsyncThunk(
         { withCredentials: true }
       );
 
-      // console.log('cart', data);
       return data.cart;
     } catch (err: any) {
       if (err instanceof AxiosError)
@@ -111,6 +129,8 @@ export const fetchUserCart = createAsyncThunk(
   }
 );
 
+
+//*ADD TO CART
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async (
@@ -124,7 +144,7 @@ export const addToCart = createAsyncThunk(
         { withCredentials: true }
       );
 
-      return data;
+      return data.cart;
     } catch (err) {
       if (err instanceof AxiosError)
         return thunkApi.rejectWithValue({
@@ -136,7 +156,31 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-export const removeFromCart = createAsyncThunk();
+
+//* REMOVE FAROM CART
+export const removeFromCart = createAsyncThunk(
+  'cart/removeFromCart',
+  async (
+    args: { userId: string; productId: string; qty: number },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/user/${args.userId}/cart/remove-item`,
+        { productId: args.productId, qty: args.qty },
+        { withCredentials: true }
+      );
+
+      // console.log('data from reove cart item', data);
+      return data.cart;
+    } catch (err: any) {
+      return thunkApi.rejectWithValue({
+        status: err.response.status,
+        message: err.response.message,
+      });
+    }
+  }
+);
 
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
