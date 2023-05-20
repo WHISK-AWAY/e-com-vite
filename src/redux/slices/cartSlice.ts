@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
@@ -33,12 +33,17 @@ export type TProduct = {
 export type CartState = {
   cart: ICart;
   loading: boolean;
-  errors: { data: string; status: number | null };
+  errors: { message: string | null; status: number | null };
 };
+
+/**
+ * * Cart Slice
+ */
+
 const initialState: CartState = {
   cart: {} as ICart,
   loading: false,
-  errors: { data: '', status: null },
+  errors: { message: null, status: null },
 };
 
 const cartSlice = createSlice({
@@ -59,11 +64,7 @@ const cartSlice = createSlice({
         state.errors = { ...initialState.errors };
       })
       .addCase(fetchUserCart.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = {
-          data: action.payload.data,
-          status: action.payload.status,
-        };
+        return { ...initialState, error: action.payload };
       })
 
       /**
@@ -79,8 +80,7 @@ const cartSlice = createSlice({
         state.errors = { ...initialState.errors };
       })
       .addCase(addToCart.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = action.payload;
+        return { ...initialState, error: action.payload };
       });
   },
 });
@@ -88,22 +88,27 @@ const cartSlice = createSlice({
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId: string, thunkApi) => {
+    if (!userId || userId === 'null')
+      return thunkApi.rejectWithValue({
+        status: 400,
+        message: 'Must be logged in',
+      });
+
     try {
-      const token = window.localStorage.getItem('token');
-
-      if (!token) throw thunkApi.rejectWithValue({ err: 'no token:(' });
-
       const { data } = await axios.get(
         VITE_API_URL + `/api/user/${userId}/cart`,
-        { headers: { authorization: token } }
+        { withCredentials: true }
       );
 
       // console.log('cart', data);
       return data;
     } catch (err: any) {
-      return thunkApi.rejectWithValue({
-        errors: { data: err.response.data, status: err.response.status },
-      });
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
@@ -123,7 +128,12 @@ export const addToCart = createAsyncThunk(
 
       return data;
     } catch (err) {
-      thunkApi.rejectWithValue(err);
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
