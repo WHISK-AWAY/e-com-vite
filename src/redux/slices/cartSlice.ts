@@ -64,7 +64,7 @@ const cartSlice = createSlice({
         state.errors = { ...initialState.errors };
       })
       .addCase(fetchUserCart.rejected, (state, action: PayloadAction<any>) => {
-        return { ...initialState, error: action.payload };
+        return { ...initialState, errors: action.payload };
       })
 
       /**
@@ -80,7 +80,7 @@ const cartSlice = createSlice({
         state.errors = { ...initialState.errors };
       })
       .addCase(addToCart.rejected, (state, action: PayloadAction<any>) => {
-        return { ...initialState, error: action.payload };
+        return { ...initialState, errors: action.payload };
       });
   },
 });
