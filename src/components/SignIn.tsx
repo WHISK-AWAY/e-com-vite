@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { requestLogin, selectAuth } from '../redux/slices/authSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { z, ZodType } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +21,27 @@ const zodLogin: ZodType<FormData> = z
 
 export default function SignIn() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const selectAuthUser = useAppSelector(selectAuth);
+
+  useEffect(() => {
+    if (selectAuthUser.userId) {
+      // ? redirect signed-in user to account page (likely to change later)
+      navigate(`/user/${selectAuthUser.userId}`);
+    }
+
+    if (selectAuthUser.error.status === 403) {
+      reset({
+        password: '',
+      });
+      setError('password', {
+        type: 'custom',
+        message: 'Incorrect password',
+      });
+    } else {
+      clearErrors('password');
+    }
+  }, [selectAuthUser]);
 
   const {
     register,
@@ -52,20 +72,6 @@ export default function SignIn() {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    if (selectAuthUser.error.status === 403) {
-      reset({
-        password: '',
-      });
-      setError('password', {
-        type: 'custom',
-        message: 'Incorrect password',
-      });
-    } else {
-      clearErrors('password');
-    }
-  }, [selectAuthUser]);
 
   const submitData = (data: FormData) => {
     dispatch(requestLogin(data));
