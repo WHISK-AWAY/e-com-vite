@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { selectAuth, requestSignUp } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import axios from 'axios';
 import { ZodType, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
 import { emailExists } from '../utilities/helpers';
-const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function SignUp() {
   const zodUser: ZodType<FormData> = z
