@@ -54,7 +54,8 @@ export default function SignUp() {
     reset,
     setError,
     clearErrors,
-    formState: { errors, dirtyFields },
+    getValues,
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(zodUser),
     defaultValues: {
@@ -81,8 +82,6 @@ export default function SignUp() {
     }
   };
 
-  console.log('errors', errors);
-
   useEffect(() => {
     // console.log('err.email', errors.email);
     // if (selectAuthUser.error.status === 409) {
@@ -103,12 +102,12 @@ export default function SignUp() {
         }
       );
     }
-    emailFetcher(dirtyFields.email);
+    emailFetcher(getValues('email'));
   }, [errors.confirmPassword]);
 
   const submitData = (data: FormData) => {
     // e.preventDefault();
-    console.log('works', data);
+    // console.log('works', data);
     dispatch(requestSignUp(data));
   };
 
