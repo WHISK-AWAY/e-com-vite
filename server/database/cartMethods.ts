@@ -8,8 +8,10 @@ import { ICart, IUser, TCartReturn, TProduct } from './dbTypes';
 
 export async function hashPassword(this: IUser) {
   // if(this.password.length > 20 || this.password.length < 8) throw new Error('Do not meet max password length requirement')
-  if (this.isNew)
+  if (this.isNew) {
+    console.log('hashing password @ hashPassword');
     this.password = await bcrypt.hash(this.password, +SALT_ROUNDS!);
+  }
 }
 
 export async function hashUpdatedPassword(
@@ -21,6 +23,7 @@ export async function hashUpdatedPassword(
 
   if (!updatePassword?.password) return next();
   else {
+    console.log('hashing password @ hashUpdatedPassword');
     updatePassword.password = await bcrypt.hash(
       updatePassword.password,
       +SALT_ROUNDS!

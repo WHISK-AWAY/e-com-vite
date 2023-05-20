@@ -7,12 +7,13 @@ import {
 } from '../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../redux/slices/authSlice';
 import { addToCart, selectCart } from '../redux/slices/cartSlice';
+import { addToFavorites } from '../redux/slices/userSlice';
 
 export default function SingleProduct() {
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
-  const {userId} = useAppSelector(selectAuth);
+  const { userId } = useAppSelector(selectAuth);
   const userCart = useAppSelector(selectCart);
   const [count, setCount] = useState<number>(1);
 
@@ -35,18 +36,27 @@ export default function SingleProduct() {
     else setCount(count - 1);
   };
 
-
-
   const handleClick = () => {
-    if (userId && productId) dispatch(addToCart({ userId, productId, qty: count }));
+    if (userId && productId)
+      dispatch(addToCart({ userId, productId, qty: count }));
   };
 
   if (!singleProduct) return <p>...Loading</p>;
+
+  const handleFavoriteAdd = () => {
+    dispatch(
+      addToFavorites({
+        userId: userId!,
+        productId: singleProduct._id.toString(),
+      })
+    );
+  };
+
   return (
-    <section className='single-product-container'>
-      <div className='single-product-info'>
+    <section className="single-product-container">
+      <div className="single-product-info">
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt='single product view' />
+        <img src={singleProduct.imageURL} alt="single product view" />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
@@ -54,6 +64,7 @@ export default function SingleProduct() {
       <div>{count}</div>
       <div onClick={qtyDecrementor}>-</div>
       <button onClick={handleClick}>add to cart</button>
+      <button onClick={handleFavoriteAdd}>add to favorites</button>
     </section>
   );
 }
