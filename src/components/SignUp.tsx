@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { selectAuth, requestSignUp } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import axios from 'axios';
 import { ZodType, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+import { emailExists } from '../utilities/helpers';
 
 export default function SignUp() {
   const zodUser: ZodType<FormData> = z
@@ -67,15 +66,9 @@ export default function SignUp() {
     },
   });
 
-  const emailFetcher = async (email: any) => {
+  const emailFetcher = async (email: string) => {
     try {
-      const { data } = await axios.post(
-        VITE_API_URL + '/api/auth/check-email',
-        {
-          email,
-        }
-      );
-      if (data.message) {
+      if (await emailExists(email)) {
         reset({
           email: '',
         });
@@ -83,7 +76,6 @@ export default function SignUp() {
       } else {
         clearErrors('email');
       }
-      // console.log('userEmail', data)
     } catch (err) {
       console.log(err);
     }

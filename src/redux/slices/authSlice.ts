@@ -9,19 +9,13 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 /**
  * * TYPES/INTERFACES
  */
-const initialState: AuthState = {
-  userId: null,
-  firstName: null,
-  loading: false,
-  error: { data: null, status: null },
-};
 
 export type AuthState = {
   firstName: string | null;
   userId: string | null;
   loading: boolean;
   error: {
-    data: string | null;
+    message: string | null;
     status: number | null;
   };
 };
@@ -37,7 +31,7 @@ export type Credentials = {
  * * THUNKS
  */
 
-// * Register / request signup
+// * requestSignUp
 
 export const requestSignUp = createAsyncThunk(
   'auth/requestSignUp',
@@ -51,19 +45,18 @@ export const requestSignUp = createAsyncThunk(
 
       return data;
     } catch (err: any) {
-      console.dir(err);
-      if (err instanceof AxiosError) {
-        throw thunkApi.rejectWithValue({
-          data: err.response?.data,
+      // console.dir(err);
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
           status: err.response?.status,
+          message: err.response?.data.message,
         });
-      }
-      throw err();
+      else console.error(err);
     }
   }
 );
 
-// * Log in
+// * requestLogin
 
 export const requestLogin = createAsyncThunk(
   'auth/requestLogin',
@@ -79,15 +72,17 @@ export const requestLogin = createAsyncThunk(
       return res.data;
     } catch (err: any) {
       console.log('requestLogin err:', err);
-      return thunkApi.rejectWithValue({
-        data: err.response.data,
-        status: err.response.status,
-      });
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
 
-//* GET USER ID
+//* getUserId
 export const getUserId = createAsyncThunk(
   'auth/getUserId',
   async (_, thunkApi) => {
@@ -99,12 +94,17 @@ export const getUserId = createAsyncThunk(
 
       return { data };
     } catch (err) {
-      thunkApi.rejectWithValue(err);
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
 
-// * Log out
+// * requestLogout
 
 export const requestLogout = createAsyncThunk(
   'auth/requestLogout',
@@ -118,8 +118,12 @@ export const requestLogout = createAsyncThunk(
 
       return null;
     } catch (err) {
-      console.log('logout error: ', err);
-      return thunkApi.rejectWithValue({ error: 'Error with logout request' });
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
@@ -127,6 +131,13 @@ export const requestLogout = createAsyncThunk(
 /**
  * * AUTH SLICE
  */
+
+const initialState: AuthState = {
+  userId: null,
+  firstName: null,
+  loading: false,
+  error: { message: null, status: null },
+};
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -136,81 +147,64 @@ export const authSlice = createSlice({
     /**
      * * requestLogin
      */
-    builder.addCase(requestLogin.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(requestLogin.fulfilled, (state, action) => {
-      return action.payload;
-    });
-    builder.addCase(
-      requestLogin.rejected,
-      (state, action: PayloadAction<any>) => {
-        return {
-          ...initialState,
-          error: {
-            data: action.payload.data,
-            status: action.payload.status,
-          },
-        };
-      }
-    );
-    /**
-     * *requestSignUp
-     */
-    builder.addCase(requestSignUp.pending, (state, action) => {
-      state.loading = true;
-    });
-    builder.addCase(requestSignUp.fulfilled, (state, action) => {
-      return action.payload;
-    });
+
     builder
-      .addCase(requestSignUp.rejected, (state, action: PayloadAction<any>) => {
-        return {
-          ...initialState,
-          error: {
-            data: action.payload.data,
-            status: action.payload.status,
-          },
-        };
+      .addCase(requestLogin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(requestLogin.fulfilled, (_, action) => {
+        return action.payload;
+      })
+      .addCase(requestLogin.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, error: action.payload };
+      });
+
+    /**
+     * * requestSignUp
+     */
+
+    builder
+      .addCase(requestSignUp.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(requestSignUp.fulfilled, (_, action) => {
+        return action.payload;
+      })
+      .addCase(requestSignUp.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, error: action.payload };
       })
 
       /**
-       * * GET USER ID
+       * * getUserId
        */
 
-      .addCase(getUserId.pending, (state, action) => {
+      .addCase(getUserId.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getUserId.fulfilled, (state, action) => {
-        const payload = action.payload;
+      .addCase(getUserId.fulfilled, (state, { payload }) => {
+        console.log('get uid fulfilled: ', payload);
         state.loading = false;
         console.log('payload', payload)
         state.userId = payload!.data.userId;
         state.error = { ...initialState.error };
       })
-      .addCase(getUserId.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.error = action.payload;
+      .addCase(getUserId.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, error: action.payload };
       });
 
     /**
-     * * Request logout
+     * * requestLogout
      */
+
     builder
       .addCase(requestLogout.pending, (state) => {
         state.loading = true;
       })
-      .addCase(requestLogout.fulfilled, (state) => {
+      .addCase(requestLogout.fulfilled, () => {
         return { ...initialState };
       })
-      .addCase(requestLogout.rejected, (state, action: PayloadAction<any>) => {
-        return {
-          ...initialState,
-          error: {
-            data: action.payload.data,
-            status: action.payload.status,
-          },
-        };
+      .addCase(requestLogout.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, error: action.payload };
       });
   },
 });
