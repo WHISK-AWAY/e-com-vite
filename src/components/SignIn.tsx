@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { requestLogin, selectAuth } from '../redux/slices/authSlice';
 import { Link } from 'react-router-dom';
 import { z, ZodType } from 'zod';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+import { emailExists } from '../utilities/helpers';
 
 export type FormData = {
   email: string;
@@ -24,27 +23,6 @@ export default function SignIn() {
   const dispatch = useAppDispatch();
   const selectAuthUser = useAppSelector(selectAuth);
 
-  /**
-   * * test function
-   */
-  // async function testSecureRoute() {
-  //   const WALLACE = '9ae28de6-bfc1-41a8-a172-2d567ddf059f';
-  //   const GROMIT = 'aac9fe48-8757-48f9-ab44-53a67a2a9951';
-  //   const res = await axios.get(
-  //     `http://localhost:3001/test-secure/${WALLACE}`,
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log('res from test secure', res.data);
-  // }
-
-  // useEffect(() => {
-  //   testSecureRoute();
-  // }, []);
-
-  //---------------------
-
   const {
     register,
     handleSubmit,
@@ -59,14 +37,9 @@ export default function SignIn() {
 
   const emailFetcher = async (email: any) => {
     try {
-      const { data } = await axios.post(
-        VITE_API_URL + '/api/auth/check-email',
-        {
-          email,
-        }
-      );
-      console.log('emailFetcher data', data);
-      if (!data.message) {
+      if (await emailExists(email)) {
+        clearErrors('email');
+      } else {
         reset({
           email: '',
         });
@@ -74,8 +47,6 @@ export default function SignIn() {
           type: 'custom',
           message: 'Email does not exist',
         });
-      } else {
-        clearErrors('email');
       }
     } catch (err) {
       console.log(err);
