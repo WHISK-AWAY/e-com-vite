@@ -6,6 +6,7 @@ import { ZodType, z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
+import { emailExists } from '../utilities/helpers';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function SignUp() {
@@ -69,13 +70,7 @@ export default function SignUp() {
 
   const emailFetcher = async (email: any) => {
     try {
-      const { data } = await axios.post(
-        VITE_API_URL + '/api/auth/check-email',
-        {
-          email,
-        }
-      );
-      if (data.message) {
+      if (await emailExists(email)) {
         reset({
           email: '',
         });
@@ -83,7 +78,6 @@ export default function SignUp() {
       } else {
         clearErrors('email');
       }
-      // console.log('userEmail', data)
     } catch (err) {
       console.log(err);
     }
