@@ -90,13 +90,9 @@ export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId: string, thunkApi) => {
     try {
-      const token = window.localStorage.getItem('token');
-
-      if (!token) throw thunkApi.rejectWithValue({ err: 'no token:(' });
-
       const { data } = await axios.get(
         VITE_API_URL + `/api/user/${userId}/cart`,
-        { headers: { authorization: token } }
+        { withCredentials : true }
       );
 
       // console.log('cart', data);

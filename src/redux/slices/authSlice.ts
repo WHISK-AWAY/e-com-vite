@@ -181,8 +181,10 @@ export const authSlice = createSlice({
       .addCase(getUserId.pending, (state, action) => {
         state.loading = true;
       })
-      .addCase(getUserId.fulfilled, (state, { payload }) => {
+      .addCase(getUserId.fulfilled, (state, action) => {
+        const payload = action.payload;
         state.loading = false;
+        console.log('payload', payload)
         state.userId = payload!.data.userId;
         state.error = { ...initialState.error };
       })
