@@ -45,7 +45,6 @@ export const requestSignUp = createAsyncThunk(
 
       return data;
     } catch (err: any) {
-      // console.dir(err);
       if (err instanceof AxiosError)
         return thunkApi.rejectWithValue({
           status: err.response?.status,
@@ -63,7 +62,6 @@ export const requestLogin = createAsyncThunk(
   async (credentials: Credentials, thunkApi) => {
     try {
       let res: { data: AuthState } = await axios.post(
-        // VITE_API_URL + '/api/auth/login',
         VITE_API_URL + '/api/auth/login',
         credentials,
         { withCredentials: true }
@@ -82,7 +80,9 @@ export const requestLogin = createAsyncThunk(
   }
 );
 
+
 //* getUserId
+
 export const getUserId = createAsyncThunk(
   'auth/getUserId',
   async (_, thunkApi) => {
@@ -144,6 +144,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+
     /**
      * * requestLogin
      */
@@ -182,9 +183,9 @@ export const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(getUserId.fulfilled, (state, { payload }) => {
-        console.log('get uid fulfilled: ', payload);
+        // console.log('get uid fulfilled: ', payload);
         state.loading = false;
-        console.log('payload', payload)
+        // console.log('payload', payload)
         state.userId = payload!.data.userId;
         state.error = { ...initialState.error };
       })
