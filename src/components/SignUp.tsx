@@ -66,7 +66,7 @@ export default function SignUp() {
     },
   });
 
-  const emailFetcher = async (email: any) => {
+  const emailFetcher = async (email: string) => {
     try {
       if (await emailExists(email)) {
         reset({
