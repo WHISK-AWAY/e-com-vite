@@ -5,15 +5,13 @@ import { add } from 'date-fns';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
-  cart: {
-    products: {
-      product: TProduct;
-      price: number;
-      qty: number;
-      _id: string;
-    }[];
-    subtotal: number;
-  };
+  products: {
+    product: TProduct;
+    price: number;
+    qty: number;
+    _id: string;
+  }[];
+  subtotal: number;
 }
 
 export type TProduct = {
@@ -92,11 +90,11 @@ export const fetchUserCart = createAsyncThunk(
     try {
       const { data } = await axios.get(
         VITE_API_URL + `/api/user/${userId}/cart`,
-        { withCredentials : true }
+        { withCredentials: true }
       );
 
       // console.log('cart', data);
-      return data;
+      return data.cart;
     } catch (err: any) {
       return thunkApi.rejectWithValue({
         errors: { data: err.response.data, status: err.response.status },
@@ -124,6 +122,8 @@ export const addToCart = createAsyncThunk(
     }
   }
 );
+
+export const removeFromCart = createAsyncThunk();
 
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
