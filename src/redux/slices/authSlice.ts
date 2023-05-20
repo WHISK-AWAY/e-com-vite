@@ -118,7 +118,6 @@ export const requestLogout = createAsyncThunk(
 
       return null;
     } catch (err) {
-      console.log('logout error: ', err);
       if (err instanceof AxiosError)
         return thunkApi.rejectWithValue({
           status: err.response?.status,
