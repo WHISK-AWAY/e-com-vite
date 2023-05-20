@@ -19,14 +19,17 @@ export const zodUser = z.object({
   lastName: z.string().min(1),
   email: z.string().email(),
   password: z.string().min(8).max(20),
-  address: z.object({
-    address_1: z.string(),
-    address_2: z.string().optional(),
-    city: z.string(),
-    state: z.string(),
-    zip: z.string(),
-  }).optional(),
+  address: z
+    .object({
+      address_1: z.string(),
+      address_2: z.string().optional(),
+      city: z.string(),
+      state: z.string(),
+      zip: z.string(),
+    })
+    .optional(),
   confirmPassword: z.string().min(8).max(20),
+  favorites: z.array(z.string()).optional(),
 });
 
 export const zodProduct = z.object({

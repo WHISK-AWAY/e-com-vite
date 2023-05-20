@@ -10,6 +10,7 @@ import {
 } from './authMiddleware';
 import { z, ZodError } from 'zod';
 import { zodUser } from '../utils';
+import mongoose from 'mongoose';
 
 const zodUserId = z.string();
 const updateZodUser = zodUser
@@ -93,12 +94,52 @@ router.put(
         return res.status(404).send('Nothing to update');
 
       const parsedBody = updateZodUser.parse(updateUserInput);
-      const updatedUser = await User.updateOne(
+      const updatedUser = await User.findOneAndUpdate(
         { _id: userId },
-        updateUserInput
+        updateUserInput,
+        { new: true }
       );
-
       res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+const ZFavorite = z
+  .object({
+    productId: z.string(),
+  })
+  .strict()
+  .refine((input) => mongoose.Types.ObjectId.isValid(input.productId));
+
+router.post(
+  '/:userId/add-favorite',
+  checkAuthenticated,
+  sameUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { productId } = ZFavorite.parse(req.body);
+
+      const user = await User.findById(userId);
+      if (!user)
+        return res.status(404).json({ message: 'No user found with this ID' });
+
+      if (!user.favorites) {
+        // create favorites array
+        user.favorites = [new mongoose.Types.ObjectId(productId)];
+      } else if (user.favorites.some((fav) => fav.toString() === productId)) {
+        // favorite already exists
+        return res.status(304).json(user);
+      } else {
+        user.favorites.push(new mongoose.Types.ObjectId(productId));
+      }
+
+      await user.save();
+      await user.populate('favorites');
+      console.log('fav user', user);
+      res.status(200).json(user);
     } catch (err) {
       next(err);
     }
