@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { fetchUserCart, selectCart } from '../redux/slices/cartSlice';
+import { fetchUserCart, selectCart, removeFromCart } from '../redux/slices/cartSlice';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import CartItem from './CartItem';
 
 export default function Cart() {
   const dispatch = useAppDispatch();
@@ -15,22 +16,25 @@ export default function Cart() {
     if (userId) dispatch(fetchUserCart(userId));
   }, [userId]);
 
-  if(!userCart.cart.products) return <p>...Loading</p>
-  return <section className='cart-container'>
-    <div>{userCart.cart.products.map(({product, qty}) => {
-      const {productName, productShortDesc, price, imageURL, brand} = product;
-      return <div key={product._id}>
-       <div>{productName}</div>
-       <div>{brand}</div>
-      <img src={imageURL}/>
-      <div>{productShortDesc}</div>
-      <div>{price}</div>
-      <div>{qty}</div>
-      <div>Subtotal:{userCart.cart.subtotal}</div>
 
+  if(!userCart.cart.products) return <p>...Loading</p>
+  return (
+    <section className='cart-container'>
+      <h1>YOUR CART ({userCart.cart.products.reduce((total, product) => {
+        return total + product.qty
+      }, 0)})</h1>
+
+<br/>
+      <div>
+        {userCart.cart.products.map(({ product, qty}) => {
+        return   <CartItem product={product} qty={qty} userId={userId!}  key={product._id}/>;
+        })}
       </div>
-    })}</div>
-    <button>CHECKOUT</button>
-    <Link to={'/shop-all'}>back to shopping</Link>
-  </section>;
+     
+      <div>Subtotal:{userCart.cart.subtotal}</div>
+      <button>CHECKOUT</button>
+      <br/>
+      <Link to={'/shop-all'}>back to shopping</Link>
+    </section>
+  );
 }
