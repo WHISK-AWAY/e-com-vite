@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios from 'axios';
-import { add } from 'date-fns';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
