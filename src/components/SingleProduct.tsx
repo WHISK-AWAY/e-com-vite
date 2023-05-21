@@ -7,7 +7,7 @@ import {
 } from '../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../redux/slices/authSlice';
 import { addToCart, selectCart } from '../redux/slices/cartSlice';
-import { addToFavorites } from '../redux/slices/userSlice';
+import { addToFavorites, removeFromFavorites } from '../redux/slices/userSlice';
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -52,6 +52,10 @@ export default function SingleProduct() {
     );
   };
 
+  const handleFavoriteRemove = () => {
+    dispatch(removeFromFavorites({userId: userId!, productId: String(singleProduct._id)}))
+  }
+
   return (
     <section className="single-product-container">
       <div className="single-product-info">
@@ -64,7 +68,10 @@ export default function SingleProduct() {
       <div>{count}</div>
       <div onClick={qtyDecrementor}>-</div>
       <button onClick={handleClick}>add to cart</button>
+      <br/>
       <button onClick={handleFavoriteAdd}>add to favorites</button>
+      <br/>
+      <button onClick={handleFavoriteRemove}>remove from favorite</button>
     </section>
   );
 }

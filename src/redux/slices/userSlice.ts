@@ -57,6 +57,7 @@ export type TUser = {
  * * THUNKS
  */
 
+//* FETCH SINGLE USER
 export const fetchSingleUser = createAsyncThunk(
   'singleUser/fetchSingleUser',
   async (userId: string, thunkApi) => {
@@ -73,6 +74,7 @@ export const fetchSingleUser = createAsyncThunk(
   }
 );
 
+//* ADD FAVORITE
 export const addToFavorites = createAsyncThunk(
   'singleUser/addToFavorites',
   async (
@@ -87,6 +89,32 @@ export const addToFavorites = createAsyncThunk(
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${userId}/add-favorite`,
         updateObject,
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue(err);
+      } else {
+        console.error(err);
+      }
+    }
+  }
+);
+
+//* REMOVE FAVORITE
+
+export const removeFromFavorites = createAsyncThunk(
+  'user/removeFromFavorites',
+  async (
+    { userId, productId }: { userId: string; productId: string },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/user/${userId}/remove-favorite`,
+        { productId },
         { withCredentials: true }
       );
 
@@ -152,9 +180,31 @@ const userSlice = createSlice({
       })
       .addCase(
         addToFavorites.rejected,
-        (_state, action: PayloadAction<any>) => {
+        (state, action: PayloadAction<any>) => {
           // stuff
           console.log('addToFavorites error in addCase:', action);
+          state.loading = false;
+          state.errors = action.payload;
+        }
+      )
+
+      /**
+       * * removeFromFavorite
+       */
+
+      .addCase(removeFromFavorites.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeFromFavorites.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.user = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        removeFromFavorites.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = action.payload;
         }
       );
   },
