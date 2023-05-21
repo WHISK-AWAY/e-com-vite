@@ -106,6 +106,10 @@ router.put(
   }
 );
 
+/**
+ * * ADD/REMOVE FAVORITE
+ */
+
 const ZFavorite = z
   .object({
     productId: z.string(),
@@ -139,6 +143,38 @@ router.post(
       await user.save();
       await user.populate('favorites');
       console.log('fav user', user);
+      res.status(200).json(user);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.post(
+  '/:userId/remove-favorite',
+  checkAuthenticated,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { productId } = ZFavorite.parse(req.body);
+
+      const user = await User.findById(userId).populate([
+        'cart.products.product',
+        'favorites',
+      ]);
+
+      if (!user)
+        return res.status(404).send('User with given ID does not exits');
+      if (!user.favorites)
+        return res.status(404).send('User does not hav any favorites');
+
+      user.favorites = user.favorites.filter((fav) => {
+        console.log('fav', fav);
+       return  String(fav._id) !== productId;
+
+      });
+      await user.save();
+
       res.status(200).json(user);
     } catch (err) {
       next(err);
