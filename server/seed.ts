@@ -73,31 +73,6 @@ export async function seed() {
    */
   console.log('Seeding users...');
 
-  const newUser = await User.create(generateUser(25));
-
-  for (let user of newUser) {
-    // attach products to user favorites
-    const numberOfFavorites = Math.floor(Math.random() * 5);
-    user.favorites = [];
-    for (let i = 0; i < numberOfFavorites; i++) {
-      user.favorites.push(randomElement(newProduct)._id);
-    }
-
-    // attach products to user cart
-    const numberInCart = Math.floor(Math.random() * 5);
-    user.cart!.products = [];
-    for (let i = 0; i < numberInCart; i++) {
-      const randomProduct = randomElement(newProduct);
-      user.cart!.products.push({
-        product: randomProduct._id,
-        price: randomProduct.price,
-        qty: Math.ceil(Math.random() * 3),
-      });
-    }
-
-    await user.save();
-  }
-
   const regUser: Partial<IUser> = {
     firstName: 'Wallace',
     lastName: 'Aardman',
@@ -135,7 +110,32 @@ export async function seed() {
     },
   };
 
-  [regUser, adminUser].forEach(async (user) => await User.create(user));
+  const newUser = await User.create([...generateUser(25), regUser, adminUser]);
+
+  for (let user of newUser) {
+    // attach products to user favorites
+    const numberOfFavorites = Math.floor(Math.random() * 5);
+    user.favorites = [];
+    for (let i = 0; i < numberOfFavorites; i++) {
+      user.favorites.push(randomElement(newProduct)._id);
+    }
+
+    // attach products to user cart
+    const numberInCart = Math.floor(Math.random() * 5);
+    user.cart!.products = [];
+    for (let i = 0; i < numberInCart; i++) {
+      const randomProduct = randomElement(newProduct);
+      user.cart!.products.push({
+        product: randomProduct._id,
+        price: randomProduct.price,
+        qty: Math.ceil(Math.random() * 3),
+      });
+    }
+
+    await user.save();
+  }
+
+  // [regUser, adminUser].forEach(async (user) => await User.create(user));
 
   console.log('Seeding users successful');
 
@@ -145,7 +145,7 @@ export async function seed() {
 
   console.log('Seeding orders... ');
 
-  const newOrder = await Order.create(generateOrder(20));
+  const newOrder = await Order.create(generateOrder(75));
 
   // iterate over each order & modify for products & user
   for (let order of newOrder) {

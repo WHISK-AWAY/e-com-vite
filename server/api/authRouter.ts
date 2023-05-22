@@ -7,7 +7,6 @@ const router = express.Router();
 const SALT_ROUNDS = process.env.SALT_ROUNDS;
 const SECRET = process.env.SECRET;
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { z } from 'zod';
 import { zodUser } from '../utils';
 import { checkAuthenticated, sameUserOrAdmin } from './authMiddleware';
@@ -63,7 +62,6 @@ router.post(
   }
 );
 
-
 router.post('/check-email', async (req, res, next) => {
   try {
     const emailLookup = await User.findOne({ email: req.body.email });
@@ -75,7 +73,35 @@ router.post('/check-email', async (req, res, next) => {
   }
 });
 
+router.post('/check-password', checkAuthenticated, async (req, res, next) => {
+  try {
+    if (!req.body.password || req.body.password.length < 8)
+      return res
+        .status(400)
+        .json({ error: 'No password provided / Insufficient password length' });
 
+    const passwordLookup = (await User.findById(req.userId, 'password')) as {
+      _id: string;
+      password: string;
+    } | null;
+
+    // console.log('passwordLookup:', passwordLookup);
+
+    if (!passwordLookup)
+      return res
+        .status(404)
+        .json({ error: 'No user found / must be logged in' });
+
+    return res.status(200).json({
+      passwordCheck: await bcrypt.compare(
+        req.body.password,
+        passwordLookup.password!
+      ),
+    });
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.post('/logout', (req, res, next) => {
   if (!req.user)
@@ -87,13 +113,12 @@ router.post('/logout', (req, res, next) => {
   });
 });
 
-
 router.get('/get-user-id', checkAuthenticated, async (req, res, next) => {
   try {
     const userId = req.userId;
     if (!userId) return res.status(404).send('No user ID found');
 
-    res.status(200).json({userId});
+    res.status(200).json({ userId });
   } catch (err) {
     next(err);
   }

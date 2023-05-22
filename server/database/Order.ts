@@ -25,7 +25,7 @@ export interface IOrder {
       state: string;
       zip: string;
     };
-    paymentInfo: {
+    paymentInfo?: {
       paymentType: string;
       cardNum: string;
       exp: string;
@@ -36,7 +36,7 @@ export interface IOrder {
     promoCodeName: string;
     promoCodeRate: number;
   };
-  orderStatus: 'confirmed' | 'pending' | 'canceled';
+  orderStatus: 'confirmed' | 'pending' | 'canceled' | 'returned';
   date: Date;
   subtotal?: number;
   total?: number;
