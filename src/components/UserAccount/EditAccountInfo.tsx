@@ -2,8 +2,10 @@ import { TUser } from '../../redux/slices/userSlice';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { useEffect } from 'react';
+import { checkPassword } from '../../utilities/helpers';
+import { editUserAccountInfo } from '../../redux/slices/userSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,15 +17,19 @@ type AccountFormData = {
   firstName: string;
   lastName: string;
   email: string;
-  oldPassword: string;
+  oldPassword: string | undefined;
   newPassword: string;
   confirmPassword: string;
 };
 
 const ZAccountData = z
   .object({
-    firstName: z.string().min(2),
-    lastName: z.string().min(2),
+    firstName: z
+      .string()
+      .min(2, { message: 'should contain at least 2 characters' }),
+    lastName: z
+      .string()
+      .min(2, { message: 'should contain at least 2 characters' }),
     email: z.string().email(),
     oldPassword: z.string().min(8).max(20).optional(),
     newPassword: z.string().min(8).max(20).optional(),
@@ -36,6 +42,7 @@ const ZAccountData = z
     {
       message:
         'Must provide a new password different from the old one (dumbass)',
+      path: ['oldPassword'],
     }
   )
   .refine(
@@ -51,105 +58,155 @@ const ZAccountData = z
     ({ newPassword, confirmPassword }) => {
       return newPassword === confirmPassword;
     },
-    { message: 'Passwords do not match' }
+    { message: 'Passwords do not match', path: ['confirmPassword'] }
   );
-// TODO: add route for password checker, and be very shitty about it
 
 export default function EditAccountInfo({ user }: AccountProps) {
-  if (!user) return <h1>Loading...</h1>;
-
+  const dispatch = useAppDispatch();
   const { firstName, lastName, email } = user;
 
   /**
    * * FORM SETUP
    */
+
   const defaultValues: AccountFormData = {
     firstName,
     lastName,
     email,
-    oldPassword: '',
+    oldPassword: undefined,
     newPassword: '',
     confirmPassword: '',
   };
+  const {
+    register,
+    reset,
+    resetField,
+    handleSubmit,
+    setError,
+    clearErrors,
+    trigger,
+    getValues,
+    setValue,
 
-  function formSubmit() {
-    //stuff
-  }
+    formState: { errors, dirtyFields },
+  } = useForm<AccountFormData>({
+    resolver: zodResolver(ZAccountData),
+    defaultValues,
+    values: defaultValues,
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+  });
 
   useEffect(() => {
-    checkPassword();
-  }, []);
+    if (dirtyFields.oldPassword) {
+      checkPassword(getValues('oldPassword')!);
+    }
+  }, [dirtyFields.oldPassword]);
 
-  async function checkPassword() {
-    const { data } = (await axios.post(
-      VITE_API_URL + '/api/auth/check-password',
-      { password: 'fluffles' },
-      { withCredentials: true }
-    )) as { data: { passwordCheck?: boolean; error?: string } };
-    if (data.error) throw new Error(data.error);
+  const passwordChecker = async (password: string) => {
+    try {
+      if (!(await checkPassword(password))) {
+        reset({
+          oldPassword: undefined,
+        });
+        setError('oldPassword', {
+          type: 'custom',
+          message: 'Password is incorrect',
+        });
+      } else {
+        clearErrors('oldPassword');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    const passwordCheck = data.passwordCheck;
-    console.log('passwordCheck:', passwordCheck);
-    return passwordCheck;
+  useEffect(() => {
+    for (let key in errors) {
+      if (key === 'firstName') {
+        setValue('firstName', '');
+      } else if (key === 'lastName') {
+        setValue('lastName', '');
+      } else if (key === 'email') {
+        setValue('email', '');
+      }
+    }
+  }, [errors.firstName, errors.lastName, errors.email]);
+
+  function formSubmit(data: AccountFormData) {
+    dispatch(editUserAccountInfo({ user: data, userId: user._id.toString() }));
   }
-
-  const { register, reset, resetField, handleSubmit, setError, clearErrors } =
-    useForm<AccountFormData>({
-      resolver: zodResolver(ZAccountData),
-      defaultValues,
-    });
 
   // TODO: set up form validation / clearing; trigger checkPassword on current password blur
   // TODO: handleSubmit via hook form
+  if (!user) return <h1>Loading...</h1>;
   return (
-    <div>
+    <div className='account-container'>
       <h1>ACCOUNT INFO</h1>
-      <p>First name: {firstName}</p>
-      <p>Last name: {lastName}</p>
-      <p>Email address: {email}</p>
-      <div className="password-reset-form">
-        <form className="" onSubmit={formSubmit}>
-          <div className="input-pair">
-            <label htmlFor="first-name">First name:</label>
-            <input type="text" id="first-name" {...register('firstName')} />
-          </div>
-
-          <div className="input-pair">
-            <label htmlFor="last-name">Last name:</label>
-            <input type="text" id="last-name" {...register('lastName')} />
-          </div>
-
-          <div className="input-pair">
-            <label htmlFor="email">Email:</label>
-            <input type="text" id="email" {...register('email')} />
-          </div>
-
-          <div className="input-pair">
-            <label htmlFor="old-password">Current Password:</label>
+      <div className='form-wrapper'>
+        <form className='' onSubmit={handleSubmit(formSubmit)}>
+          <div className='input-pair'>
+            <label htmlFor='first-name'>First name:</label>
+            {/*TODO: test placeholder err handling  once submit is wired*/}
             <input
-              type="password"
-              id="old-password"
-              {...register('oldPassword')}
+              type='text'
+              id='first-name'
+              placeholder={errors.firstName?.message || ''}
+              {...register('firstName')}
+            />
+            {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
+          </div>
+
+          <div className='input-pair'>
+            <label htmlFor='last-name'>Last name:</label>
+            <input
+              type='text'
+              id='last-name'
+              placeholder={errors.lastName?.message || ''}
+              {...register('lastName')}
             />
           </div>
 
-          <div className="input-pair">
-            <label htmlFor="new-password">New Password:</label>
+          <div className='input-pair'>
+            <label htmlFor='email'>Email:</label>
             <input
-              type="password"
-              id="new-password"
+              type='text'
+              id='email'
+              placeholder={errors.email?.message || ''}
+              {...register('email')}
+            />
+          </div>
+
+          <div className='input-pair'>
+            <label htmlFor='old-password'>Current Password:</label>
+            <input
+              type='password'
+              id='old-password'
+              {...register('oldPassword', {
+                onBlur: (e) => passwordChecker(e.target.value),
+              })}
+            />
+            {errors.oldPassword && <p>{errors.oldPassword.message}</p>}
+          </div>
+
+          <div className='input-pair'>
+            <label htmlFor='new-password'>New Password:</label>
+            <input
+              type='password'
+              id='new-password'
               {...register('newPassword')}
             />
           </div>
 
-          <div className="input-pair">
-            <label htmlFor="confirm-password">Confirm New Password:</label>
+          <div className='input-pair'>
+            <label htmlFor='confirm-password'>Confirm New Password:</label>
             <input
-              type="password"
-              id="confirm-password"
+              type='password'
+              id='confirm-password'
               {...register('confirmPassword')}
             />
           </div>
+          <button type='submit'>SAVE</button>
         </form>
       </div>
     </div>
