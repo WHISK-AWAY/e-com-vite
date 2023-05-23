@@ -17,3 +17,17 @@ export async function emailExists(email: string): Promise<boolean> {
     return false;
   }
 }
+
+
+export async function checkPassword(password: string) {
+  const { data } = (await axios.post(
+    VITE_API_URL + '/api/auth/check-password',
+    { password },
+    { withCredentials: true }
+  )) as { data: { passwordCheck?: boolean; error?: string } };
+  if (data.error) throw new Error(data.error);
+
+  const passwordCheck = data.passwordCheck;
+  console.log('passwordCheck:', passwordCheck);
+  return passwordCheck;
+}
