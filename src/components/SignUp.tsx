@@ -146,10 +146,7 @@ export default function SignUp() {
             <input type="password" {...register('confirmPassword')}></input>
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
-
-          <input type="submit" />
-          {/* <button>submit</button> */}
-          {/* <button type='submit'>submit</button> */}
+          <button type='submit'>submit</button>
         </form>
         <p>
           <Link to="/sign-in" className="text-green-400">
