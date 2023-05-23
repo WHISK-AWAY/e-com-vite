@@ -53,6 +53,16 @@ export type TUser = {
   skinConcerns: string[];
 };
 
+export type TEditUser = {
+  userId: string;
+  user: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  };
+};
 /**
  * * THUNKS
  */
@@ -69,6 +79,25 @@ export const fetchSingleUser = createAsyncThunk(
 
       return data;
     } catch (err: any) {
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
+// * EDIT USER PROFILE
+
+export const editUserAccountInfo = createAsyncThunk(
+  'singleUser/editUserAccountInfo',
+  async ({ user, userId }: TEditUser, thunkApi) => {
+    try {
+      const { data } = await axios.put(
+        VITE_API_URL + `api/user/${userId}`,
+        { user },
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
       return thunkApi.rejectWithValue(err);
     }
   }
@@ -178,15 +207,12 @@ const userSlice = createSlice({
         state.loading = false;
         state.errors = initialState.errors;
       })
-      .addCase(
-        addToFavorites.rejected,
-        (state, action: PayloadAction<any>) => {
-          // stuff
-          console.log('addToFavorites error in addCase:', action);
-          state.loading = false;
-          state.errors = action.payload;
-        }
-      )
+      .addCase(addToFavorites.rejected, (state, action: PayloadAction<any>) => {
+        // stuff
+        console.log('addToFavorites error in addCase:', action);
+        state.loading = false;
+        state.errors = action.payload;
+      })
 
       /**
        * * removeFromFavorite
@@ -206,7 +232,23 @@ const userSlice = createSlice({
           state.loading = false;
           state.errors = action.payload;
         }
-      );
+      )
+      /**
+       * * EDIT USER ACCOUNT INFO 
+       */
+
+      .addCase(editUserAccountInfo.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editUserAccountInfo.fulfilled, (state, {payload}) => {
+        state.loading = false;
+        state.user = payload;
+        state.errors = {...initialState.errors}
+      })
+      .addCase(editUserAccountInfo.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false;
+        state.errors = action.payload;
+      })
   },
 });
 
