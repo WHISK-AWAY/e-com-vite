@@ -266,3 +266,4 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 export const selectSingleUser = (state: RootState) => state.user;
+export const selectSingleUserFavorites = (state: RootState) => state.user.user.favorites;
