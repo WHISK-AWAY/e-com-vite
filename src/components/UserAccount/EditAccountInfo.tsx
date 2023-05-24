@@ -22,7 +22,6 @@ type AccountFormData = {
   confirmPassword: string;
 };
 
-// type UnknownArrOrObj = unknown[] | Record<string, unknown>;
 
 const ZAccountData = z
   .object({
@@ -169,8 +168,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
     );
   }
 
-  // TODO: set up form validation / clearing; trigger checkPassword on current password blur
-  // TODO: handleSubmit via hook form
+
   if (!user) return <h1>Loading...</h1>;
   return (
     <div className='account-container'>
@@ -179,14 +177,12 @@ export default function EditAccountInfo({ user }: AccountProps) {
         <form className='' onSubmit={handleSubmit(formSubmit)}>
           <div className='input-pair'>
             <label htmlFor='first-name'>First name:</label>
-            {/*TODO: test placeholder err handling  once submit is wired*/}
             <input
               type='text'
               id='first-name'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
             />
-            {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
 
           <div className='input-pair'>
@@ -208,10 +204,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
               {...register('email')}
             />
           </div>
-          {/* <button type='submit'>SAVE </button> */}
-          {/*          
-
-          <form onSubmit={handleSubmit(submitPassword)}> */}
+    
           <div className='input-pair'>
             <label htmlFor='old-password'>Current Password:</label>
             <input
@@ -221,7 +214,6 @@ export default function EditAccountInfo({ user }: AccountProps) {
                 onBlur: (e) => passwordChecker(e.target.value),
               })}
             />
-            {/* {errors.oldPassword && <p>{errors.oldPassword.message}</p>} */}
           </div>
 
           <div className='input-pair'>
