@@ -26,9 +26,7 @@ export default function UserProfile() {
     }
   }, [authUserId, userId]);
 
-  // const handleClick = (view: views) => {
-  //   setView(view);
-  // };
+
 
   // TODO: prop types for Shipping Info & Order History
 
@@ -43,8 +41,8 @@ export default function UserProfile() {
       </div>
       <div className="user-profile-edit-section h-full w-full border border-red-600">
         {view === 'account' && <EditAccountInfo user={user.user} />}
-        {/* {view === 'shipping' && <EditShippingInfo user={user} />} */}
-        {/* {view === 'order' && <OrderHistory user={user} />} */}
+        {view === 'shipping' && <EditShippingInfo user={user.user} />}
+        {view === 'order' && <OrderHistory />}
       </div>
     </section>
   );
