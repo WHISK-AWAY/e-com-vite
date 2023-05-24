@@ -115,7 +115,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
   }, [dirtyFields.oldPassword]);
 
   useEffect(() => {
-    console.log('errors', errors);
+    // console.log('errors', errors);
     for (let key in errors) {
       if (key === 'firstName') {
         setValue('firstName', '');
@@ -243,7 +243,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
               {...register('confirmPassword')}
             />
           </div>
-          <button type='submit'>SAVE PASSWORD</button>
+          <button type='submit'>SAVE</button>
         </form>
       </div>
     </div>
