@@ -11,7 +11,6 @@ export default function Cart() {
   const { userId } = useParams();
   const navigate = useNavigate();
 
-  // console.log('usercart', userCart);
   useEffect(() => {
     if (userId) dispatch(fetchUserCart(userId));
   }, [userId]);
