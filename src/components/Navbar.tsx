@@ -28,7 +28,7 @@ export default function Navbar() {
       <Link to={`/sign-in`}>SIGN IN</Link>
       <button onClick={signOut}>SIGN OUT</button>
       <Link to={`/user/${userId}/cart`}>CART</Link>
-      <Link to={''}>FAVORITES</Link>
+      <Link to={`/user/${userId}/favorites`}>FAVORITES</Link>
     </nav>
   );
 }
