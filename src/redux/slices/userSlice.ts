@@ -62,6 +62,13 @@ export type TEditUser = {
     oldPassword?: string;
     password?: string;
     confirmPassword?: string;
+    address?: {
+      address_1?: string;
+      address_2?: string;
+      city?: string;
+      state?: string;
+      zip?: string;
+    };
   };
 };
 /**
@@ -90,9 +97,7 @@ export const fetchSingleUser = createAsyncThunk(
 export const editUserAccountInfo = createAsyncThunk(
   'singleUser/editUserAccountInfo',
   async ({ user, userId }: TEditUser, thunkApi) => {
-    console.log('hello');
     try {
-      console.log('hello');
       delete user.oldPassword;
       const { data } = await axios.put(
         VITE_API_URL + `/api/user/${userId}`,
