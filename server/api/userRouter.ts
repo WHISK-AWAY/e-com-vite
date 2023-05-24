@@ -160,7 +160,7 @@ router.post(
     try {
       const { userId } = req.params;
       const { productId } = ZFavorite.parse(req.body);
-
+      // console.log('reqb', req.body);
       const user = await User.findById(userId).populate([
         'cart.products.product',
         'favorites',
