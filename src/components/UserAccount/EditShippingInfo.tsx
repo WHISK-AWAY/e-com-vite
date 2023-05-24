@@ -4,7 +4,7 @@ import { appendErrors, useForm } from 'react-hook-form';
 import { editUserAccountInfo } from '../../redux/slices/userSlice';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import axios from 'axios';
 import { checkAddress } from '../../utilities/googleAddressValidation';
@@ -32,6 +32,7 @@ const ZShippingData = z.object({
 // TODO: googleApi, empty fields validation
 
 export default function ShippingInfo({ user }: ShippingProps) {
+  const [addressValidationFailed, setAddressValidationFailed] = useState(false);
   const { address } = user;
   const dispatch = useAppDispatch();
   const { address_1, address_2, city, state, zip } = address!;
@@ -60,16 +61,43 @@ export default function ShippingInfo({ user }: ShippingProps) {
 
   if (!address) return <h1>No addresses saved...</h1>;
 
-  const submitData = (data: ShippingInfoFields) => {
+  const submitData = (addressData: ShippingInfoFields) => {
     console.log('inside submitData');
 
     checkAddress({
-      addressLines: [data.address_1, data.address_2],
-      administrativeArea: data.state,
-      locality: data.city,
-      postalCode: data.zip,
+      addressLines: [addressData.address_1, addressData.address_2],
+      administrativeArea: addressData.state,
+      locality: addressData.city,
+      postalCode: addressData.zip,
       regionCode: 'US',
-    }).then((validatedAddress) => {});
+    }).then((validationInfo) => {
+      if (validationInfo.result === 'confirmed') {
+        // * good shit
+        setAddressValidationFailed(false);
+        console.log('address confirmed');
+        dispatch(
+          editUserAccountInfo({
+            userId: user._id!,
+            user: { address: addressData },
+          })
+        );
+      } else {
+        // ! not good shit
+        setAddressValidationFailed(true);
+        console.log('address was not confirmed');
+        console.log('unconfirmed fields:', validationInfo.unconfirmedFields);
+        for (let field of validationInfo.unconfirmedFields as (
+          | 'address_1'
+          | 'address_2'
+          | 'city'
+          | 'state'
+          | 'zip'
+        )[]) {
+          console.log('resetting ', field);
+          setValue(field, ''); // clears unvalidated fields -- may be better just to highlight...
+        }
+      }
+    });
 
     // dispatch(
     //   editUserAccountInfo({ userId: user._id!, user: { address: data } })
@@ -106,6 +134,7 @@ export default function ShippingInfo({ user }: ShippingProps) {
           <input id="zip" type="text" {...register('zip')} />
         </div>
         <button type="submit">SAVE</button>
+        {addressValidationFailed && <h2>INVALID ADDRESS - RE-ENTER</h2>}
       </form>
     </div>
   );
