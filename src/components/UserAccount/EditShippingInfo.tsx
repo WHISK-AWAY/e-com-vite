@@ -1,26 +1,97 @@
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { TUser } from '../../redux/slices/userSlice';
+import { useForm } from 'react-hook-form';
+import { editUserAccountInfo } from '../../redux/slices/userSlice';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type ShippingProps = {
   user: TUser;
 };
 
-export default function ShippingInfo({ user }: ShippingProps) {
-  if (!user) return <h1>Loading...</h1>;
+type ShippingInfoFields = {
+  address_1: string;
+  address_2: string;
+  city: string;
+  state: string;
+  zip: string;
+};
 
+const ZShippingData = z.object({
+  address_1: z.string().min(5),
+  address_2: z.string().min(2).optional(),
+  city: z.string().min(1),
+  state: z.string().min(2),
+  zip: z.string().min(5),
+});
+
+// TODO: googleApi, empty fields validation
+
+export default function ShippingInfo({ user }: ShippingProps) {
   const { address } = user;
+  const dispatch = useAppDispatch();
+  const { address_1, address_2, city, state, zip } = address!;
+
+  const defaultValues: ShippingInfoFields = {
+    address_1,
+    address_2: address_2 || '',
+    city,
+    state,
+    zip,
+  };
+
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setError,
+    getValues,
+    setValue,
+    formState: { errors, dirtyFields },
+  } = useForm<ShippingInfoFields>({
+    resolver: zodResolver(ZShippingData),
+    defaultValues,
+    mode: 'onBlur',
+  });
 
   if (!address) return <h1>No addresses saved...</h1>;
 
-  const { address_1, address_2, city, state, zip } = address;
+  const submitData = (data: ShippingInfoFields) => {
+    dispatch(
+      editUserAccountInfo({ userId: user._id!, user: { address: data } })
+    );
+  };
 
   return (
-    <div>
+    <div className='edit-shipping-info-container'>
       <h1>SHIPPING INFO</h1>
-      <p>Address1: {address_1}</p>
-      {address_2 && <p>Address2: {address_2}</p>}
-      <p>City: {city}</p>
-      <p>State: {state}</p>
-      <p>ZIP: {zip}</p>
+      <form onSubmit={handleSubmit(submitData)}>
+        <div className='address-1-field'>
+          <label htmlFor='address_1'>Address_1</label>
+          <input id='address_1' type='text' {...register('address_1')} />
+        </div>
+
+        <div className='address-2-field'>
+          <label htmlFor='address_2'>Address_2</label>
+          <input id='address_2' type='text' {...register('address_2')} />
+        </div>
+
+        <div className='city-field'>
+          <label htmlFor='city'>City</label>
+          <input id='city' type='text' {...register('city')} />
+        </div>
+
+        <div className='state-field'>
+          <label htmlFor='state'>State</label>
+          <input id='state' type='text' {...register('state')} />
+        </div>
+
+        <div className='zip-field'>
+          <label htmlFor='zip'>Zip</label>
+          <input id='zip' type='text' {...register('zip')} />
+        </div>
+        <button type='submit'>SAVE</button>
+      </form>
     </div>
   );
 }
