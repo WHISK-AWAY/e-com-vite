@@ -5,6 +5,8 @@ import {
   selectOrderState,
 } from '../../redux/slices/orderSlice';
 
+
+
 export default function OrderHistory() {
   const dispatch = useAppDispatch();
   const orderState = useAppSelector(selectOrderState);
@@ -39,7 +41,7 @@ export default function OrderHistory() {
               <div className="products">
                 <h2 className="uppercase underline">Order Details:</h2>
                 {order.orderDetails.map((prod) => (
-                  <div className="product-detail">
+                  <div className="product-detail" key={prod.productId}>
                     <p>Product name: {prod.productName}</p>
                     <div className="product-image">
                       <img src={prod.imageURL} alt="probably a kisa" />
