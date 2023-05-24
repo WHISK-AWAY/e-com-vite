@@ -69,7 +69,7 @@ export default function SingleProduct() {
       <div onClick={qtyDecrementor}>-</div>
       <button onClick={handleClick}>add to cart</button>
       <br/>
-      <button onClick={handleFavoriteAdd}>add to favorites</button>
+      <button onClick={handleFavoriteAdd}>&lt;3</button>
       <br/>
       <button onClick={handleFavoriteRemove}>remove from favorite</button>
     </section>
