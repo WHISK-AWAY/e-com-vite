@@ -36,39 +36,6 @@ export default function ShippingInfo({ user }: ShippingProps) {
   const dispatch = useAppDispatch();
   const { address_1, address_2, city, state, zip } = address!;
 
-  // type GoogleAddressRequest = {
-  //   regionCode: 'US';
-  //   locality: string;
-  //   administrativeArea: string;
-  //   addressLines: string[];
-  //   postalCode: string;
-  // };
-
-  // async function checkAddress(address: GoogleAddressRequest) {
-  //   const url =
-  //     'https://addressvalidation.googleapis.com/v1:validateAddress?key=' +
-  //     import.meta.env.VITE_GOOGLE_API_KEY;
-  //   console.log('url:', url);
-  //   const res = await axios.post(
-  //     url,
-  //     {
-  //       address,
-  //       // address: {
-  //       //   regionCode: 'US',
-  //       //   locality: 'Tualatin',
-  //       //   administrativeArea: 'OR',
-  //       //   addressLines: ['8192 SW Seminole Trl'],
-  //       // },
-  //     },
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     }
-  //   );
-  //   console.log('res:', res.data);
-  // }
-
   const defaultValues: ShippingInfoFields = {
     address_1,
     address_2: address_2 || '',
@@ -95,13 +62,15 @@ export default function ShippingInfo({ user }: ShippingProps) {
 
   const submitData = (data: ShippingInfoFields) => {
     console.log('inside submitData');
+
     checkAddress({
       addressLines: [data.address_1, data.address_2],
       administrativeArea: data.state,
       locality: data.city,
       postalCode: data.zip,
       regionCode: 'US',
-    });
+    }).then((validatedAddress) => {});
+
     // dispatch(
     //   editUserAccountInfo({ userId: user._id!, user: { address: data } })
     // );
