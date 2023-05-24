@@ -25,11 +25,12 @@ const updateZodUser = zodUser
     }
   })
   .refine(
-    ({ firstName, lastName, email, address }) => {
+    ({ firstName, lastName, email, address, password }) => {
       return (
         firstName !== undefined ||
         lastName !== undefined ||
         email !== undefined ||
+        password !== undefined || 
         address?.address_1 !== undefined ||
         address?.address_2 !== undefined ||
         address?.city !== undefined ||
@@ -89,15 +90,17 @@ router.put(
       if (!userToUpdate)
         return res.status(404).send('User with this ID does not exist');
 
-      const updateUserInput = req.body;
+        // console.log('req.body',req.body)
+      const updateUserInput = updateZodUser.parse(req.body);
+
       if (!updateUserInput || updateUserInput === undefined)
         return res.status(404).send('Nothing to update');
 
-      const parsedBody = updateZodUser.parse(updateUserInput);
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: userId },
+
+      const updatedUser = await User.findByIdAndUpdate(
+         userId ,
         updateUserInput,
-        { new: true }
+        { new: true, projection: '-password' }
       );
       res.status(200).json(updatedUser);
     } catch (err) {

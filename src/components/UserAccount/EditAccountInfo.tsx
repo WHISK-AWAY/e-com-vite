@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { checkPassword } from '../../utilities/helpers';
-import { editUserAccountInfo } from '../../redux/slices/userSlice';
+import { editUserAccountInfo, TEditUser } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -17,26 +17,31 @@ type AccountFormData = {
   firstName: string;
   lastName: string;
   email: string;
-  oldPassword: string | undefined;
+  oldPassword: string;
   newPassword: string;
   confirmPassword: string;
 };
+
+// type UnknownArrOrObj = unknown[] | Record<string, unknown>;
 
 const ZAccountData = z
   .object({
     firstName: z
       .string()
-      .min(2, { message: 'should contain at least 2 characters' }),
+      .min(2, { message: 'should contain at least 2 characters' })
+      .optional(),
     lastName: z
       .string()
-      .min(2, { message: 'should contain at least 2 characters' }),
-    email: z.string().email(),
-    oldPassword: z.string().min(8).max(20).optional(),
-    newPassword: z.string().min(8).max(20).optional(),
+      .min(2, { message: 'should contain at least 2 characters' })
+      .optional(),
+    email: z.string().email().optional(),
+    oldPassword: z.string().optional(),
+    newPassword: z.string().optional(),
     confirmPassword: z.string().optional(),
   })
   .refine(
     ({ oldPassword, newPassword }) => {
+      if (oldPassword === '') return true;
       return newPassword !== oldPassword;
     },
     {
@@ -47,18 +52,24 @@ const ZAccountData = z
   )
   .refine(
     ({ oldPassword, newPassword }) => {
+      if (oldPassword === '' && newPassword === '') return true;
       if (newPassword) return !!oldPassword;
       return true;
     },
     {
       message: 'Must provide current password in order to set new password',
+      path: ['newPassword'],
     }
   )
   .refine(
     ({ newPassword, confirmPassword }) => {
+      if (newPassword === '' && confirmPassword === '') return true;
       return newPassword === confirmPassword;
     },
-    { message: 'Passwords do not match', path: ['confirmPassword'] }
+    {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    }
   );
 
 export default function EditAccountInfo({ user }: AccountProps) {
@@ -73,7 +84,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
     firstName,
     lastName,
     email,
-    oldPassword: undefined,
+    oldPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
@@ -88,7 +99,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
     getValues,
     setValue,
 
-    formState: { errors, dirtyFields },
+    formState: { errors, touchedFields, dirtyFields },
   } = useForm<AccountFormData>({
     resolver: zodResolver(ZAccountData),
     defaultValues,
@@ -102,6 +113,28 @@ export default function EditAccountInfo({ user }: AccountProps) {
       checkPassword(getValues('oldPassword')!);
     }
   }, [dirtyFields.oldPassword]);
+
+  useEffect(() => {
+    console.log('errors', errors);
+    for (let key in errors) {
+      if (key === 'firstName') {
+        setValue('firstName', '');
+      } else if (key === 'lastName') {
+        setValue('lastName', '');
+      } else if (key === 'email') {
+        setValue('email', '');
+      } else if (key === 'confirmPassword') {
+        setValue('confirmPassword', '');
+        setValue('newPassword', '');
+      } 
+    }
+  }, [
+    errors.firstName,
+    errors.lastName,
+    errors.email,
+    errors.confirmPassword,
+    errors.newPassword,
+  ]);
 
   const passwordChecker = async (password: string) => {
     try {
@@ -121,20 +154,19 @@ export default function EditAccountInfo({ user }: AccountProps) {
     }
   };
 
-  useEffect(() => {
-    for (let key in errors) {
-      if (key === 'firstName') {
-        setValue('firstName', '');
-      } else if (key === 'lastName') {
-        setValue('lastName', '');
-      } else if (key === 'email') {
-        setValue('email', '');
-      }
-    }
-  }, [errors.firstName, errors.lastName, errors.email]);
-
   function formSubmit(data: AccountFormData) {
-    dispatch(editUserAccountInfo({ user: data, userId: user._id.toString() }));
+    const dirtyValues = Object.keys(dirtyFields).reduce(
+      (accum: any, key: any) => {
+        if (key === 'newPassword')
+          return { ...accum, password: getValues(key) };
+        return { ...accum, [key]: getValues(key) };
+      },
+      {} as Partial<AccountFormData>
+    );
+
+    dispatch(
+      editUserAccountInfo({ user: dirtyValues, userId: user._id.toString() })
+    );
   }
 
   // TODO: set up form validation / clearing; trigger checkPassword on current password blur
@@ -176,7 +208,10 @@ export default function EditAccountInfo({ user }: AccountProps) {
               {...register('email')}
             />
           </div>
+          {/* <button type='submit'>SAVE </button> */}
+          {/*          
 
+          <form onSubmit={handleSubmit(submitPassword)}> */}
           <div className='input-pair'>
             <label htmlFor='old-password'>Current Password:</label>
             <input
@@ -186,7 +221,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
                 onBlur: (e) => passwordChecker(e.target.value),
               })}
             />
-            {errors.oldPassword && <p>{errors.oldPassword.message}</p>}
+            {/* {errors.oldPassword && <p>{errors.oldPassword.message}</p>} */}
           </div>
 
           <div className='input-pair'>
@@ -194,6 +229,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             <input
               type='password'
               id='new-password'
+              placeholder={errors.newPassword?.message || ''}
               {...register('newPassword')}
             />
           </div>
@@ -203,10 +239,11 @@ export default function EditAccountInfo({ user }: AccountProps) {
             <input
               type='password'
               id='confirm-password'
+              placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
             />
           </div>
-          <button type='submit'>SAVE</button>
+          <button type='submit'>SAVE PASSWORD</button>
         </form>
       </div>
     </div>

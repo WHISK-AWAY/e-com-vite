@@ -145,7 +145,7 @@ export async function seed() {
 
   console.log('Seeding orders... ');
 
-  const newOrder = await Order.create(generateOrder(75));
+  const newOrder = await Order.create(generateOrder(50));
 
   // iterate over each order & modify for products & user
   for (let order of newOrder) {
@@ -227,6 +227,7 @@ export async function seed() {
       await currentReview.save();
     }
   }
+  console.log('Seeding finished');
 
   await mongoose.disconnect();
 }

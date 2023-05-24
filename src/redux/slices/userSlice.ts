@@ -59,6 +59,7 @@ export type TEditUser = {
     firstName?: string;
     lastName?: string;
     email?: string;
+    oldPassword?: string;
     password?: string;
     confirmPassword?: string;
   };
@@ -89,13 +90,15 @@ export const fetchSingleUser = createAsyncThunk(
 export const editUserAccountInfo = createAsyncThunk(
   'singleUser/editUserAccountInfo',
   async ({ user, userId }: TEditUser, thunkApi) => {
+    console.log('hello');
     try {
+      console.log('hello');
+      delete user.oldPassword;
       const { data } = await axios.put(
-        VITE_API_URL + `api/user/${userId}`,
-        { user },
+        VITE_API_URL + `/api/user/${userId}`,
+        user,
         { withCredentials: true }
       );
-
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err);
@@ -234,21 +237,25 @@ const userSlice = createSlice({
         }
       )
       /**
-       * * EDIT USER ACCOUNT INFO 
+       * * EDIT USER ACCOUNT INFO
        */
 
       .addCase(editUserAccountInfo.pending, (state) => {
         state.loading = true;
       })
-      .addCase(editUserAccountInfo.fulfilled, (state, {payload}) => {
+      .addCase(editUserAccountInfo.fulfilled, (state, { payload }) => {
+        console.log('asscase');
         state.loading = false;
         state.user = payload;
-        state.errors = {...initialState.errors}
+        state.errors = initialState.errors;
       })
-      .addCase(editUserAccountInfo.rejected, (state, action: PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = action.payload;
-      })
+      .addCase(
+        editUserAccountInfo.rejected,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = action.payload;
+        }
+      );
   },
 });
 

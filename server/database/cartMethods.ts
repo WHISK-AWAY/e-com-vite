@@ -6,31 +6,6 @@ const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
 import Product from './Product';
 import { ICart, IUser, TCartReturn, TProduct } from './dbTypes';
 
-export async function hashPassword(this: IUser) {
-  // if(this.password.length > 20 || this.password.length < 8) throw new Error('Do not meet max password length requirement')
-  if (this.isNew) {
-    console.log('hashing password @ hashPassword');
-    this.password = await bcrypt.hash(this.password, +SALT_ROUNDS!);
-  }
-}
-
-export async function hashUpdatedPassword(
-  this: IUser & { getUpdate(): IUser },
-  next: any
-) {
-  console.log(this.getUpdate());
-  const updatePassword = this.getUpdate() as IUser;
-
-  if (!updatePassword?.password) return next();
-  else {
-    console.log('hashing password @ hashUpdatedPassword');
-    updatePassword.password = await bcrypt.hash(
-      updatePassword.password,
-      +SALT_ROUNDS!
-    );
-  }
-  // console.log(Object.keys(updatePassword));
-}
 
 export async function addToCart(
   this: ICart & { parent?(): any },
