@@ -5,6 +5,8 @@ import {
   selectAllProducts,
 } from '../redux/slices/allProductSlice';
 import { useSearchParams, Link } from 'react-router-dom';
+import { addToFavorites } from '../redux/slices/userSlice';
+import { getUserId, selectAuthUserId } from '../redux/slices/authSlice';
 
 const PRODS_PER_PAGE = 9;
 
@@ -17,6 +19,12 @@ export default function AllProducts() {
   const allProducts = useAppSelector(selectAllProducts);
 
   const maxPages = Math.ceil(allProducts.count! / PRODS_PER_PAGE);
+
+  const userId = useAppSelector(selectAuthUserId)
+  
+  useEffect(() => {
+    dispatch(getUserId())
+  }, [userId]);
 
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
@@ -39,12 +47,18 @@ export default function AllProducts() {
     setParams({ page: String(prevPage) });
   };
 
+  const handleAddToFavorite = ({userId, productId}: {userId: string, productId: string}) => {
+    if(userId)
+    dispatch(addToFavorites({userId, productId}));
+  }
+
+
   if (!allProducts.products.length) return <p>...Loading</p>;
   return (
     <section className="all-product-container">
       <h1 className="text-2xl">SHOP ALL</h1>
       <div>
-        {allProducts.products.map((product) => (
+        {allProducts.products.map((product, productId) => (
           <li className="list-none" key={product._id.toString()}>
             <img src={product.imageURL} alt="cat" />
             <p>
@@ -55,6 +69,7 @@ export default function AllProducts() {
             </p>
             <p>{product.productShortDesc}</p>
             <p> {product.price}</p>
+            <button onClick={() => {handleAddToFavorite({userId:userId!, productId: product._id.toString()})}}>&lt;3</button>
           </li>
         ))}
         <button onClick={pageIncrementor}>next</button>
