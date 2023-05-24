@@ -9,6 +9,7 @@ import UserProfile from './components/UserAccount/UserProfile';
 import Cart from './components/Cart';
 import Navbar from './components/Navbar';
 import Checkout from './components/Checkout';
+import Favorite from './components/Favorite';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/product/:productId' element={<SingleProduct />} />
         <Route path='/user/:userId' element={<UserProfile />} />
         <Route path='/user/:userId/cart' element={<Cart />} />
+        <Route path='/user/:userId/favorites' element={<Favorite />} />
         <Route path='/checkout' element={<Checkout />} />
       </Routes>
     </React.Fragment>
