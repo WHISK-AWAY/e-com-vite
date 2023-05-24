@@ -35,7 +35,7 @@ export const generateUser = (count: number): Partial<IUser>[] => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email(firstName, lastName);
-    const password = faker.internet.password(8);
+    const password = 'seeduser';
     const address = {
       address_1: faker.address.streetAddress(),
       address_2: faker.address.secondaryAddress(),
