@@ -10,20 +10,39 @@ import { getUserId, selectAuthUserId } from '../redux/slices/authSlice';
 
 const PRODS_PER_PAGE = 9;
 
+/**
+ * sort by name or price (ascending & descending)
+ */
+
+export type TSort = {
+  key: 'productName' | 'price';
+  direction: 'asc' | 'desc';
+};
+
 export default function AllProducts() {
   const dispatch = useAppDispatch();
 
   const [params, setParams] = useSearchParams();
   const [pageNum, setPageNum] = useState<number | undefined>();
+  const [sort, setSort] = useState<TSort>({
+    key: 'productName',
+    direction: 'asc',
+  });
+  // TODO: turn key/direction chooser into a select box
+
+  useEffect(() => {
+    console.log('sort is now: ', sort);
+  }, [sort]);
+
   let curPage = Number(params.get('page'));
   const allProducts = useAppSelector(selectAllProducts);
 
   const maxPages = Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
-  const userId = useAppSelector(selectAuthUserId)
-  
+  const userId = useAppSelector(selectAuthUserId);
+
   useEffect(() => {
-    dispatch(getUserId())
+    dispatch(getUserId());
   }, [userId]);
 
   useEffect(() => {
@@ -32,8 +51,9 @@ export default function AllProducts() {
   }, [curPage]);
 
   useEffect(() => {
-    if (pageNum && pageNum > 0) dispatch(fetchAllProducts(pageNum));
-  }, [pageNum]);
+    if (pageNum && pageNum > 0)
+      dispatch(fetchAllProducts({ page: pageNum, sort }));
+  }, [pageNum, sort]);
 
   const pageIncrementor = () => {
     const nextPage = curPage + 1;
@@ -47,16 +67,39 @@ export default function AllProducts() {
     setParams({ page: String(prevPage) });
   };
 
-  const handleAddToFavorite = ({userId, productId}: {userId: string, productId: string}) => {
-    if(userId)
-    dispatch(addToFavorites({userId, productId}));
-  }
+  const handleAddToFavorite = ({
+    userId,
+    productId,
+  }: {
+    userId: string;
+    productId: string;
+  }) => {
+    if (userId) dispatch(addToFavorites({ userId, productId }));
+  };
 
+  function handleSort(sortKey: 'productName' | 'price'): void {
+    if (sort.key === sortKey)
+      setSort({
+        key: sortKey,
+        direction: sort.direction === 'asc' ? 'desc' : 'asc',
+      });
+    else setSort({ key: sortKey, direction: 'asc' });
+  }
 
   if (!allProducts.products.length) return <p>...Loading</p>;
   return (
     <section className="all-product-container">
       <h1 className="text-2xl">SHOP ALL</h1>
+      <div className="sort-buttons">
+        <h2>Sort by:</h2>
+        <button onClick={() => handleSort('productName')}>
+          Name{sort.key === 'productName' ? ` ${sort.direction}` : ''}
+        </button>
+        <br />
+        <button onClick={() => handleSort('price')}>
+          Price{sort.key === 'price' ? ` ${sort.direction}` : ''}
+        </button>
+      </div>
       <div>
         {allProducts.products.map((product, productId) => (
           <li className="list-none" key={product._id.toString()}>
@@ -69,7 +112,16 @@ export default function AllProducts() {
             </p>
             <p>{product.productShortDesc}</p>
             <p> {product.price}</p>
-            <button onClick={() => {handleAddToFavorite({userId:userId!, productId: product._id.toString()})}}>&lt;3</button>
+            <button
+              onClick={() => {
+                handleAddToFavorite({
+                  userId: userId!,
+                  productId: product._id.toString(),
+                });
+              }}
+            >
+              &lt;3
+            </button>
           </li>
         ))}
         <button onClick={pageIncrementor}>next</button>

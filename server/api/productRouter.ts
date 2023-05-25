@@ -15,14 +15,25 @@ const updateZodProduct = zodProduct
 
 router.get('/', async (req, res, next) => {
   try {
-    const page = +req.query.page!;
+    let { page, sortKey, sortDir, filterKey } = req.query as {
+      page: string | number;
+      sortKey: string;
+      sortDir: string;
+      filterKey: string;
+    };
+    if (!page) page = 1;
+    else page = +page;
+    if (!sortKey) sortKey = 'productName';
+    if (!sortDir) sortDir = 'asc';
+
     const numProds = 9;
+
     const skip = (page - 1) * numProds;
     const allProducts = await Product.find({}, null, {
       skip,
       limit: numProds,
-      sort: {'_id': 1}
-    }).populate({ path: 'tags' })
+      sort: { [sortKey]: sortDir === 'asc' ? 1 : -1 },
+    }).populate({ path: 'tags' });
     const countAllProducts = await Product.countDocuments({});
 
     if (!allProducts.length) return res.status(404).send('No products found');

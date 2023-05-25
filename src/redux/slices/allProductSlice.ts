@@ -2,15 +2,21 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 import { RootState } from '../store';
+import { TSort } from '../../components/AllProducts';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
+
+type TFetchAllParams = {
+  page: number;
+  sort: TSort;
+};
 
 const fetchAllProducts = createAsyncThunk(
   'product/fetchAllProducts',
-  async (page: number, thunkApi) => {
+  async ({ page, sort }: TFetchAllParams, thunkApi) => {
     try {
       let { data }: { data: { products: TProduct[]; count: number } } =
         await axios.get(VITE_API_URL + '/api/product', {
-          params: { page },
+          params: { page, sortKey: sort.key, sortDir: sort.direction },
           withCredentials: true,
         });
 
