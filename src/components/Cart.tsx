@@ -17,6 +17,7 @@ export default function Cart() {
 
 
   const handleCheckout = () => {
+
     navigate('/checkout')
   }
 
@@ -24,20 +25,34 @@ export default function Cart() {
   if(!userCart.cart.products) return <p>...Loading</p>
   return (
     <section className='cart-container'>
-      <h1>YOUR CART ({userCart.cart.products.reduce((total, product) => {
-        return total + product.qty
-      }, 0)})</h1>
+      <h1>
+        YOUR CART (
+        {userCart.cart.products.reduce((total, product) => {
+          return total + product.qty;
+        }, 0)}
+        )
+      </h1>
 
-<br/>
+      <br />
       <div>
-        {userCart.cart.products.map(({ product, qty}) => {
-        return   <CartItem product={product} qty={qty} userId={userId!}  key={product._id}/>;
+        {userCart.cart.products.map(({ product, qty }) => {
+          return (
+            <CartItem
+              product={product}
+              qty={qty}
+              userId={userId!}
+              key={product._id}
+            />
+          );
         })}
       </div>
-     
+
       <div>Subtotal:{userCart.cart.subtotal}</div>
-      <button onClick={handleCheckout}>CHECKOUT</button>
-      <br/>
+      {/* <button onClick={handleCheckout}>CHECKOUT</button> */}
+      <form action='http://localhost:3001/api/checkout/create-checkout-session' method='POST'>
+        <button type='submit'>Checkout</button>
+      </form>
+      <br />
       <Link to={'/shop-all'}>back to shopping</Link>
     </section>
   );

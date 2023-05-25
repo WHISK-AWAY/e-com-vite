@@ -10,6 +10,8 @@ import Cart from './components/Cart';
 import Navbar from './components/Navbar';
 import Checkout from './components/Checkout';
 import Favorite from './components/Favorite';
+import Success from './components/UserAccount/stripe/Success';
+import Failure from './components/UserAccount/stripe/Failure';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path='/user/:userId/cart' element={<Cart />} />
         <Route path='/user/:userId/favorites' element={<Favorite />} />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/checkout/success' element={<Success />} />
+        <Route path='/checkout/failure' element={<Failure />} />
       </Routes>
     </React.Fragment>
   );
