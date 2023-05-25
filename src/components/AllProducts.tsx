@@ -28,7 +28,6 @@ export default function AllProducts() {
     key: 'productName',
     direction: 'asc',
   });
-  // TODO: turn key/direction chooser into a select box
 
   useEffect(() => {
     console.log('sort is now: ', sort);
@@ -77,13 +76,16 @@ export default function AllProducts() {
     if (userId) dispatch(addToFavorites({ userId, productId }));
   };
 
-  function handleSort(sortKey: 'productName' | 'price'): void {
-    if (sort.key === sortKey)
-      setSort({
-        key: sortKey,
-        direction: sort.direction === 'asc' ? 'desc' : 'asc',
-      });
-    else setSort({ key: sortKey, direction: 'asc' });
+  // function handleSort(sortKey: 'productName' | 'price'): void {
+  //   if (sort.key === sortKey)
+  //     setSort({
+  //       key: sortKey,
+  //       direction: sort.direction === 'asc' ? 'desc' : 'asc',
+  //     });
+  //   else setSort({ key: sortKey, direction: 'asc' });
+  // }
+  function handleSort(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSort(JSON.parse(e.target.value));
   }
 
   if (!allProducts.products.length) return <p>...Loading</p>;
@@ -92,13 +94,24 @@ export default function AllProducts() {
       <h1 className="text-2xl">SHOP ALL</h1>
       <div className="sort-buttons">
         <h2>Sort by:</h2>
-        <button onClick={() => handleSort('productName')}>
-          Name{sort.key === 'productName' ? ` ${sort.direction}` : ''}
-        </button>
-        <br />
-        <button onClick={() => handleSort('price')}>
-          Price{sort.key === 'price' ? ` ${sort.direction}` : ''}
-        </button>
+        <select onChange={handleSort}>
+          <option
+            value={JSON.stringify({ key: 'productName', direction: 'asc' })}
+          >
+            Alphabetical, ascending
+          </option>
+          <option
+            value={JSON.stringify({ key: 'productName', direction: 'desc' })}
+          >
+            Alphabetical, descending
+          </option>
+          <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
+            Price, low-to-high
+          </option>
+          <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
+            Price, high-to-low
+          </option>
+        </select>
       </div>
       <div>
         {allProducts.products.map((product, productId) => (
