@@ -46,10 +46,14 @@ router.get('/', async (req, res, next) => {
     const { productId } = req.params as { productId: string };
     const validProductId = zodProductId.parse(productId);
 
-    const allReviews = await Review.find({ product: productId }).populate({
-      path: 'product',
-      populate: 'tags',
-    });
+    const allReviews = await Review.find({ product: productId })
+      .populate({
+        path: 'product',
+        populate: 'tags',
+      })
+      .populate(
+         'user',  ['skinConcerns', 'voteCount', 'reviewCount']
+      );
     if (!allReviews)
       return res.status(404).send('No reviews available for this product');
 
@@ -137,7 +141,14 @@ router.post('/:reviewId/upvote', checkAuthenticated, async (req, res, next) => {
       );
     }
 
-    res.status(201).json(upvoteReview);
+        const allReviews = await Review.find({ product: productId })
+          .populate({
+            path: 'product',
+            populate: 'tags',
+          })
+          .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
+
+    res.status(201).json(allReviews);
   } catch (err) {
     next(err);
   }
@@ -200,7 +211,14 @@ router.post(
         });
       }
 
-      res.status(201).json(downvoteReview);
+          const allReviews = await Review.find({ product: productId })
+            .populate({
+              path: 'product',
+              populate: 'tags',
+            })
+            .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
+
+      res.status(201).json(allReviews);
     } catch (err) {
       next(err);
     }
