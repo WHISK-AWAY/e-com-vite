@@ -119,6 +119,20 @@ export const generateProduct = (count: number): IProduct[] => {
  * * TAG
  */
 
+export const tagList = [
+  { tagName: 'moisturizers' },
+  { tagName: 'oils' },
+  { tagName: 'spf' },
+  { tagName: 'eye care' },
+  { tagName: 'acne' },
+  { tagName: 'cleansers' },
+  { tagName: 'exfoliators' },
+  { tagName: 'essence' },
+  { tagName: 'serums' },
+  { tagName: 'lip care' },
+  { tagName: 'creams' },
+];
+
 export const generateTag = (count: number): ITag[] => {
   const tags = [];
 
@@ -137,10 +151,9 @@ export const generateTag = (count: number): ITag[] => {
 export const generateOrder = (count: number): IOrder[] => {
   const orders = [];
 
-
   for (let i = 0; i < count; i++) {
-    let expDate:any = faker.date.future(4);
-    expDate = `${expDate.getMonth()+1}/${expDate.getFullYear()}`
+    let expDate: any = faker.date.future(4);
+    expDate = `${expDate.getMonth() + 1}/${expDate.getFullYear()}`;
 
     const orderDetails = [
       {
