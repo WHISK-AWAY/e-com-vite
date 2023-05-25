@@ -29,10 +29,6 @@ export default function AllProducts() {
     direction: 'asc',
   });
 
-  useEffect(() => {
-    console.log('sort is now: ', sort);
-  }, [sort]);
-
   let curPage = Number(params.get('page'));
   const allProducts = useAppSelector(selectAllProducts);
 
