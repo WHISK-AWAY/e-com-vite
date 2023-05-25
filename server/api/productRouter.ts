@@ -49,6 +49,8 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:productId', async (req, res, next) => {
+  const RELATED_PRODUCTS_COUNT = 8;
+
   try {
     const { productId } = req.params;
     const product = await Product.findById(productId).populate({
@@ -56,8 +58,59 @@ router.get('/:productId', async (req, res, next) => {
     });
 
     if (!product) return res.status(404).send('Product does not exist');
+    const tagList = product.tags.map((tag: any) => tag._id);
+    console.log('tagList', tagList);
+    // pull 4 products sharing same tag name
+    const sameTagProducts = await Product.find(
+      {
+        tags: { $in: tagList },
+        _id: { $ne: product._id },
+      },
+      {},
+      { limit: 4 }
+    ).populate('tags');
 
-    res.status(200).json(product);
+    let randomProductCount = RELATED_PRODUCTS_COUNT - sameTagProducts.length;
+    const differentTagProducts = await Product.find(
+      {
+        tags: { $nin: tagList },
+        _id: { $ne: product._id },
+      },
+      {},
+      { limit: randomProductCount }
+    ).populate('tags');
+
+    const relatedProducts = [...sameTagProducts, ...differentTagProducts];
+    console.log(
+      'related products: ',
+      relatedProducts.map((prod) => prod.productName)
+    );
+
+    // product.relatedProducts = relatedProducts;
+    const combinedProduct = {
+      ...JSON.parse(JSON.stringify(product)),
+      relatedProducts: relatedProducts,
+    };
+
+    // console.log('sameTagProducts', sameTagProducts);
+    // console.log('matching tag:', sameTagProducts.length);
+    // pull 4 products from not the same tag name
+    res.status(200).json(combinedProduct);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * * Pull related products
+ */
+
+router.get('/:productId/related', async (req, res, next) => {
+  try {
+    const { productId } = req.params;
+    const thisProduct = Product.findById(productId).populate('tags');
+    console.log('thisProduct:', thisProduct);
+    res.status(200).json(thisProduct);
   } catch (err) {
     next(err);
   }

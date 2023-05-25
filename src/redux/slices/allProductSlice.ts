@@ -127,6 +127,7 @@ export type TProduct = {
   qty: number;
   imageURL: string;
   tags: TTag[];
+  relatedProducts: Omit<TProduct, 'relatedProducts'>[];
 };
 
 export interface ProductState {
