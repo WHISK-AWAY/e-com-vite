@@ -30,7 +30,8 @@ const zodCreateOrder = zodOrder
   )
   .refine(
     (cc) => {
-      console.log('CC validator', cc.user.paymentInfo.cardNum);
+      // console.log('CC validator', cc.user.paymentInfo?.cardNum);
+      if (!cc.user.paymentInfo) return false; // ? may not be the correct approach - leaving this here for now to appease TS
       return validator.isCreditCard(cc.user.paymentInfo.cardNum);
     },
     {
