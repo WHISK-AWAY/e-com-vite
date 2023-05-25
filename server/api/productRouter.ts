@@ -28,13 +28,17 @@ router.get('/', async (req, res, next) => {
 
     const numProds = 9;
 
+    // do something with filterKey
+    let productFilter = {};
+
     const skip = (page - 1) * numProds;
-    const allProducts = await Product.find({}, null, {
+    const allProducts = await Product.find(productFilter, null, {
       skip,
       limit: numProds,
       sort: { [sortKey]: sortDir === 'asc' ? 1 : -1 },
     }).populate({ path: 'tags' });
-    const countAllProducts = await Product.countDocuments({});
+
+    const countAllProducts = await Product.countDocuments(productFilter);
 
     if (!allProducts.length) return res.status(404).send('No products found');
 
