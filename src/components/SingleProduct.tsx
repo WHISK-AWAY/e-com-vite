@@ -8,19 +8,27 @@ import {
 import { getUserId, selectAuth } from '../redux/slices/authSlice';
 import { addToCart, selectCart } from '../redux/slices/cartSlice';
 import { addToFavorites, removeFromFavorites } from '../redux/slices/userSlice';
+import {
+  selectReviewState,
+  fetchAllReviews,
+} from '../redux/slices/reviewSlice';
+import Review from './Review';
 
 export default function SingleProduct() {
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
+  const allReviews = useAppSelector(selectReviewState);
   const { userId } = useAppSelector(selectAuth);
   const userCart = useAppSelector(selectCart);
   const [count, setCount] = useState<number>(1);
 
   useEffect(() => {
-    if (productId) dispatch(fetchSingleProduct(productId));
-
-    dispatch(getUserId());
+    if (productId) {
+      dispatch(fetchSingleProduct(productId));
+      dispatch(getUserId());
+      dispatch(fetchAllReviews(productId));
+    }
   }, [productId]);
 
   const qtyIncrementor = () => {
@@ -53,14 +61,34 @@ export default function SingleProduct() {
   };
 
   const handleFavoriteRemove = () => {
-    dispatch(removeFromFavorites({userId: userId!, productId: String(singleProduct._id)}))
-  }
+    dispatch(
+      removeFromFavorites({
+        userId: userId!,
+        productId: String(singleProduct._id),
+      })
+    );
+  };
 
+  /**
+   * * ALL REVIEWS FETCH
+   */
+
+  const overallReviewScore = () => {
+    let score = 0;
+    for (let review of allReviews.reviews) {
+      let reviewScore = Object.values(review.rating).reduce(
+        (total, rating) => total + rating,
+        0
+      );
+      score += reviewScore / 3;
+    }
+    return score / allReviews.reviews.length || 0;
+  };
   return (
-    <section className="single-product-container">
-      <div className="single-product-info">
+    <section className='single-product-container'>
+      <div className='single-product-info'>
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt="single product view" />
+        <img src={singleProduct.imageURL} alt='single product view' />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
@@ -68,10 +96,17 @@ export default function SingleProduct() {
       <div>{count}</div>
       <div onClick={qtyDecrementor}>-</div>
       <button onClick={handleClick}>add to cart</button>
-      <br/>
+      <br />
       <button onClick={handleFavoriteAdd}>&lt;3</button>
-      <br/>
+      <br />
       <button onClick={handleFavoriteRemove}>remove from favorite</button>
+      <section className='review-container'>
+        <h1>REVIEWS: {allReviews.reviews.length}</h1>
+        <p>average: {overallReviewScore()}</p>
+        {allReviews.reviews.map((review) => (
+          <Review review={review} key={review._id} />
+        ))}
+      </section>
     </section>
   );
 }
