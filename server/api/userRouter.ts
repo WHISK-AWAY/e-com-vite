@@ -30,7 +30,7 @@ const updateZodUser = zodUser
         firstName !== undefined ||
         lastName !== undefined ||
         email !== undefined ||
-        password !== undefined || 
+        password !== undefined ||
         address?.address_1 !== undefined ||
         address?.address_2 !== undefined ||
         address?.city !== undefined ||
@@ -90,15 +90,14 @@ router.put(
       if (!userToUpdate)
         return res.status(404).send('User with this ID does not exist');
 
-        // console.log('req.body',req.body)
+      // console.log('req.body',req.body)
       const updateUserInput = updateZodUser.parse(req.body);
 
       if (!updateUserInput || updateUserInput === undefined)
         return res.status(404).send('Nothing to update');
 
-
       const updatedUser = await User.findByIdAndUpdate(
-         userId ,
+        userId,
         updateUserInput,
         { new: true, projection: '-password' }
       );
@@ -172,9 +171,7 @@ router.post(
         return res.status(404).send('User does not hav any favorites');
 
       user.favorites = user.favorites.filter((fav) => {
-        console.log('fav', fav);
-       return  String(fav._id) !== productId;
-
+        return String(fav._id) !== productId;
       });
       await user.save();
 
