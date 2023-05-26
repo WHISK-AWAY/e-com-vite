@@ -30,6 +30,13 @@ router.get('/', async (req, res, next) => {
 
     // do something with filterKey
     let productFilter = {};
+    if (filterKey !== 'all') {
+      productFilter = { tagName: filterKey };
+      const filterTag = await Tag.findOne({ tagName: filterKey });
+      if (filterTag) {
+        productFilter = { tags: filterTag._id };
+      } else productFilter = {};
+    }
 
     const skip = (page - 1) * numProds;
     const allProducts = await Product.find(productFilter, null, {
@@ -59,7 +66,6 @@ router.get('/:productId', async (req, res, next) => {
 
     if (!product) return res.status(404).send('Product does not exist');
     const tagList = product.tags.map((tag: any) => tag._id);
-    console.log('tagList', tagList);
     // pull 4 products sharing same tag name
     const sameTagProducts = await Product.find(
       {
@@ -81,10 +87,6 @@ router.get('/:productId', async (req, res, next) => {
     ).populate('tags');
 
     const relatedProducts = [...sameTagProducts, ...differentTagProducts];
-    console.log(
-      'related products: ',
-      relatedProducts.map((prod) => prod.productName)
-    );
 
     // product.relatedProducts = relatedProducts;
     const combinedProduct = {
@@ -108,9 +110,6 @@ router.get('/:productId', async (req, res, next) => {
 router.get('/:productId/related', async (req, res, next) => {
   try {
     const { productId } = req.params;
-    const thisProduct = Product.findById(productId).populate('tags');
-    console.log('thisProduct:', thisProduct);
-    res.status(200).json(thisProduct);
   } catch (err) {
     next(err);
   }
