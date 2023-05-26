@@ -6,14 +6,17 @@ import {
 } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useEffect } from 'react';
+import { fetchSingleUser } from '../redux/slices/userSlice';
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
-  const { userId } = useAppSelector(selectAuth);
+  const { userId, error: authError } = useAppSelector(selectAuth);
 
   useEffect(() => {
-    if (!userId) dispatch(getUserId());
-  }, []);
+    if (!userId && !authError) dispatch(getUserId());
+
+    if (userId) dispatch(fetchSingleUser(userId));
+  }, [userId]);
 
   function signOut() {
     dispatch(requestLogout());
