@@ -20,20 +20,6 @@ export type TSort = {
   direction: 'asc' | 'desc';
 };
 
-// const tagList = [
-//   { tagName: 'moisturizers' },
-//   { tagName: 'oils' },
-//   { tagName: 'spf' },
-//   { tagName: 'eye care' },
-//   { tagName: 'acne' },
-//   { tagName: 'cleansers' },
-//   { tagName: 'exfoliators' },
-//   { tagName: 'essence' },
-//   { tagName: 'serums' },
-//   { tagName: 'lip care' },
-//   { tagName: 'creams' },
-// ];
-
 export default function AllProducts() {
   const dispatch = useAppDispatch();
 
@@ -120,65 +106,72 @@ export default function AllProducts() {
   return (
     <section className="all-product-container">
       <h1 className="text-2xl">SHOP ALL</h1>
-      <div className="sort-buttons">
-        <h2>Sort by:</h2>
-        <select onChange={handleSort}>
-          <option
-            value={JSON.stringify({ key: 'productName', direction: 'asc' })}
-          >
-            Alphabetical, ascending
-          </option>
-          <option
-            value={JSON.stringify({ key: 'productName', direction: 'desc' })}
-          >
-            Alphabetical, descending
-          </option>
-          <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
-            Price, low-to-high
-          </option>
-          <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
-            Price, high-to-low
-          </option>
-        </select>
-      </div>
-      <div className="filter-selector">
-        <h2>Filter by:</h2>
-        <select onChange={(e) => setFilter(e.target.value)}>
-          <option className="capitalize" value="all">
-            all
-          </option>
-          {tagList.map((tag) => (
-            <option className="capitalize" value={tag.tagName} key={tag._id}>
-              {tag.tagName}
+      <div className="controls flex">
+        <div className="sort-selector border">
+          <h2>Sort by:</h2>
+          <select onChange={handleSort}>
+            <option
+              value={JSON.stringify({ key: 'productName', direction: 'asc' })}
+            >
+              Alphabetical, ascending
             </option>
-          ))}
-        </select>
-        ({allProducts.count})
+            <option
+              value={JSON.stringify({ key: 'productName', direction: 'desc' })}
+            >
+              Alphabetical, descending
+            </option>
+            <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
+              Price, low-to-high
+            </option>
+            <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
+              Price, high-to-low
+            </option>
+          </select>
+        </div>
+        <div className="filter-selector border">
+          <h2>Filter by:</h2>
+          <select onChange={(e) => setFilter(e.target.value)}>
+            <option className="capitalize" value="all">
+              all
+            </option>
+            {tagList.map((tag) => (
+              <option className="capitalize" value={tag.tagName} key={tag._id}>
+                {tag.tagName}
+              </option>
+            ))}
+          </select>
+          ({allProducts.count})
+        </div>
       </div>
       <div>
-        {allProducts.products.map((product, productId) => (
-          <li className="list-none" key={product._id.toString()}>
-            <img src={product.imageURL} alt="cat" />
-            <p>
-              <Link to={'/product/' + product._id}>
-                {' '}
-                {product.productName.toUpperCase()}{' '}
-              </Link>
-            </p>
-            <p>{product.productShortDesc}</p>
-            <p> {product.price}</p>
-            <button
-              onClick={() => {
-                handleAddToFavorite({
-                  userId: userId!,
-                  productId: product._id.toString(),
-                });
-              }}
-            >
-              &lt;3
-            </button>
-          </li>
-        ))}
+        {allProducts.products.map(
+          (
+            product,
+            productId // "productId" here refers to idx
+          ) => (
+            <li className="list-none" key={product._id.toString()}>
+              <img src={product.imageURL} alt="cat" />
+              <p>
+                <Link to={'/product/' + product._id}>
+                  {' '}
+                  {product.productName.toUpperCase()}{' '}
+                </Link>
+              </p>
+              <p>{product.productShortDesc}</p>
+              <p> {product.price}</p>
+              <button
+                onClick={() => {
+                  handleAddToFavorite({
+                    userId: userId!,
+                    productId: product._id.toString(),
+                  });
+                }}
+              >
+                &lt;3
+              </button>
+            </li>
+          )
+        )}
         {curPage < maxPages && <button onClick={pageIncrementor}>next</button>}
         <br />
         {curPage > 1 && <button onClick={pageDecrementor}>previous</button>}
