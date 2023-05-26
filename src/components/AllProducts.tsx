@@ -144,34 +144,29 @@ export default function AllProducts() {
         </div>
       </div>
       <div>
-        {allProducts.products.map(
-          (
-            product,
-            productId // "productId" here refers to idx
-          ) => (
-            <li className="list-none" key={product._id.toString()}>
-              <img src={product.imageURL} alt="cat" />
-              <p>
-                <Link to={'/product/' + product._id}>
-                  {' '}
-                  {product.productName.toUpperCase()}{' '}
-                </Link>
-              </p>
-              <p>{product.productShortDesc}</p>
-              <p> {product.price}</p>
-              <button
-                onClick={() => {
-                  handleAddToFavorite({
-                    userId: userId!,
-                    productId: product._id.toString(),
-                  });
-                }}
-              >
-                &lt;3
-              </button>
-            </li>
-          )
-        )}
+        {/* TODO: conditional favorite button */}
+        {allProducts.products.map((product) => (
+          <li className="list-none" key={product._id.toString()}>
+            <img src={product.imageURL} alt="cat" />
+            <p>
+              <Link to={'/product/' + product._id}>
+                {product.productName.toUpperCase()}
+              </Link>
+            </p>
+            <p>{product.productShortDesc}</p>
+            <p> {product.price}</p>
+            <button
+              onClick={() => {
+                handleAddToFavorite({
+                  userId: userId!,
+                  productId: product._id.toString(),
+                });
+              }}
+            >
+              &lt;3
+            </button>
+          </li>
+        ))}
         {curPage < maxPages && <button onClick={pageIncrementor}>next</button>}
         <br />
         {curPage > 1 && <button onClick={pageDecrementor}>previous</button>}
