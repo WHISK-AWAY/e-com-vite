@@ -7,7 +7,11 @@ import {
 } from '../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../redux/slices/authSlice';
 import { addToCart, selectCart } from '../redux/slices/cartSlice';
-import { addToFavorites, removeFromFavorites } from '../redux/slices/userSlice';
+import {
+  addToFavorites,
+  removeFromFavorites,
+  selectSingleUser,
+} from '../redux/slices/userSlice';
 import {
   selectReviewState,
   fetchAllReviews,
@@ -19,9 +23,11 @@ export default function SingleProduct() {
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
   const allReviews = useAppSelector(selectReviewState);
+  const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
   const userCart = useAppSelector(selectCart);
   const [count, setCount] = useState<number>(1);
+  const [itemIsFavorited, setItemIsFavorited] = useState(false);
 
   useEffect(() => {
     if (productId) {
@@ -30,6 +36,21 @@ export default function SingleProduct() {
       dispatch(fetchAllReviews(productId));
     }
   }, [productId]);
+
+  useEffect(() => {
+    console.log('thisUser', thisUser);
+
+    if (thisUser._id) {
+      console.log('favorites:', thisUser.favorites);
+      const isFav = thisUser.favorites.some(({ _id: favId }) => {
+        return favId.toString() === productId;
+      });
+      console.log('isFav:', isFav);
+      setItemIsFavorited(isFav);
+    }
+  }, [thisUser]);
+
+  // console.log('item is favorited?', itemIsFavorited);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -96,14 +117,20 @@ export default function SingleProduct() {
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
-      <div onClick={qtyIncrementor}>+</div>
+      <button onClick={qtyIncrementor}>+</button>
       <div>{count}</div>
-      <div onClick={qtyDecrementor}>-</div>
+      <button onClick={qtyDecrementor}>-</button>
+      <br />
       <button onClick={handleClick}>add to cart</button>
       <br />
-      <button onClick={handleFavoriteAdd}>&lt;3</button>
+      {itemIsFavorited ? (
+        <button onClick={handleFavoriteRemove}>&lt;/3</button>
+      ) : (
+        <button onClick={handleFavoriteAdd}>&lt;3</button>
+      )}
+      {/* <button onClick={handleFavoriteAdd}>&lt;3</button> */}
       <br />
-      <button onClick={handleFavoriteRemove}>remove from favorite</button>
+      {/* <button onClick={handleFavoriteRemove}>remove from favorite</button> */}
       {/* PRODUCT SUGGESTIONS */}
       <section className="product-suggestions">
         <h2>YOU MAY ALSO LIKEEE</h2>
