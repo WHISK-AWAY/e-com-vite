@@ -110,11 +110,11 @@ export default function EditAccountInfo({ user }: AccountProps) {
     reValidateMode: 'onBlur',
   });
 
-  useEffect(() => {
-    if (dirtyFields.oldPassword) {
-      checkPassword(getValues('oldPassword')!);
-    }
-  }, [dirtyFields.oldPassword]);
+  // useEffect(() => {
+  //   if (dirtyFields.oldPassword) {
+  //     checkPassword(getValues('oldPassword')!);
+  //   }
+  // }, [dirtyFields.oldPassword]);
 
   useEffect(() => {
     // console.log('errors', errors);
@@ -145,7 +145,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
 
   const passwordChecker = async (password: string) => {
     try {
-      if (!(await checkPassword(password))) {
+      if (dirtyFields.oldPassword && !(await checkPassword(password))) {
         reset({
           oldPassword: '',
         });
