@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
@@ -7,7 +7,11 @@ import {
 } from '../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../redux/slices/authSlice';
 import { addToCart, selectCart } from '../redux/slices/cartSlice';
-import { addToFavorites, removeFromFavorites } from '../redux/slices/userSlice';
+import {
+  addToFavorites,
+  removeFromFavorites,
+  selectSingleUser,
+} from '../redux/slices/userSlice';
 import {
   selectReviewState,
   fetchAllReviews,
@@ -19,17 +23,34 @@ export default function SingleProduct() {
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
   const allReviews = useAppSelector(selectReviewState);
+  const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
   const userCart = useAppSelector(selectCart);
   const [count, setCount] = useState<number>(1);
+  const [itemIsFavorited, setItemIsFavorited] = useState(false);
 
   useEffect(() => {
     if (productId) {
-      dispatch(fetchSingleProduct(productId));
       dispatch(getUserId());
+      dispatch(fetchSingleProduct(productId));
       dispatch(fetchAllReviews(productId));
     }
   }, [productId]);
+
+  useEffect(() => {
+    console.log('thisUser', thisUser);
+
+    if (thisUser._id) {
+      console.log('favorites:', thisUser.favorites);
+      const isFav = thisUser.favorites.some(({ _id: favId }) => {
+        return favId.toString() === productId;
+      });
+      console.log('isFav:', isFav);
+      setItemIsFavorited(isFav);
+    }
+  }, [thisUser]);
+
+  // console.log('item is favorited?', itemIsFavorited);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -84,23 +105,59 @@ export default function SingleProduct() {
     }
     return score / allReviews.reviews.length || 0;
   };
+
+  /**
+   * * MAIN RENDER
+   */
   return (
-    <section className='single-product-container'>
-      <div className='single-product-info'>
+    <section className="single-product-container">
+      <div className="single-product-info">
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt='single product view' />
+        <img src={singleProduct.imageURL} alt="single product view" />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
-      <div onClick={qtyIncrementor}>+</div>
+      <button onClick={qtyIncrementor}>+</button>
       <div>{count}</div>
-      <div onClick={qtyDecrementor}>-</div>
+      <button onClick={qtyDecrementor}>-</button>
+      <br />
       <button onClick={handleClick}>add to cart</button>
       <br />
-      <button onClick={handleFavoriteAdd}>&lt;3</button>
+      {itemIsFavorited ? (
+        <button onClick={handleFavoriteRemove}>&lt;/3</button>
+      ) : (
+        <button onClick={handleFavoriteAdd}>&lt;3</button>
+      )}
+      {/* <button onClick={handleFavoriteAdd}>&lt;3</button> */}
       <br />
-      <button onClick={handleFavoriteRemove}>remove from favorite</button>
-      <section className='review-container'>
+      {/* <button onClick={handleFavoriteRemove}>remove from favorite</button> */}
+      {/* PRODUCT SUGGESTIONS */}
+      <section className="product-suggestions">
+        <h2>YOU MAY ALSO LIKEEE</h2>
+        {singleProduct.relatedProducts.map((prod) => (
+          <article className="related-product-card" key={prod._id.toString()}>
+            <h3>
+              <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
+            </h3>
+            <img src={prod.imageURL} alt="single product view" />
+            {/* <button
+              onClick={() =>
+                dispatch(
+                  addToCart({
+                    userId: userId!,
+                    productId: prod._id.toString(),
+                    qty: 1,
+                  })
+                )
+              }
+            >
+              Add to cart
+            </button> */}
+          </article>
+        ))}
+      </section>
+      {/* REVIEWS */}
+      <section className="review-container">
         <h1>REVIEWS: {allReviews.reviews.length}</h1>
         <p>average: {overallReviewScore()}</p>
         {allReviews.reviews.map((review) => (

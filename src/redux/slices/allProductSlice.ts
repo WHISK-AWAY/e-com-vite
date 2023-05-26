@@ -8,15 +8,28 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 type TFetchAllParams = {
   page: number;
   sort: TSort;
+  filter: string;
 };
 
 const fetchAllProducts = createAsyncThunk(
   'product/fetchAllProducts',
-  async ({ page, sort }: TFetchAllParams, thunkApi) => {
+  async ({ page, sort, filter }: TFetchAllParams, thunkApi) => {
     try {
+      const params: {
+        page: number;
+        sortKey: string;
+        sortDir: string;
+        filterKey: string;
+      } = {
+        page,
+        sortKey: sort.key,
+        sortDir: sort.direction,
+        filterKey: filter,
+      };
+
       let { data }: { data: { products: TProduct[]; count: number } } =
         await axios.get(VITE_API_URL + '/api/product', {
-          params: { page, sortKey: sort.key, sortDir: sort.direction },
+          params,
           withCredentials: true,
         });
 
@@ -127,6 +140,7 @@ export type TProduct = {
   qty: number;
   imageURL: string;
   tags: TTag[];
+  relatedProducts: Omit<TProduct, 'relatedProducts'>[];
 };
 
 export interface ProductState {

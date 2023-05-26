@@ -3,10 +3,10 @@ import { mongooseConnection } from './database/index';
 import {
   generateUser,
   generateProduct, // hi buddy!
-  generateTag,
   generateOrder,
   generatePromo, //OMGGG
   generateReview,
+  tagList,
 } from './faker/mock-data';
 import { Tag, Promo, Product, User, Order, Review } from './database/index';
 import { IUser } from './database/dbTypes';
@@ -29,7 +29,7 @@ export async function seed() {
 
   console.log('Seeding tags...');
 
-  const newTag = await Tag.create(generateTag(18));
+  const newTag = await Tag.insertMany(tagList);
 
   console.log('Seeding tags successful');
 

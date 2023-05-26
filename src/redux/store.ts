@@ -5,6 +5,7 @@ import userSlice from './slices/userSlice';
 import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import reviewSlice from './slices/reviewSlice';
+import tagSlice from './slices/tagSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,10 +14,10 @@ export const store = configureStore({
     user: userSlice,
     cart: cartSlice,
     order: orderSlice,
-    review: reviewSlice
+    review: reviewSlice,
+    tag: tagSlice,
   },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-

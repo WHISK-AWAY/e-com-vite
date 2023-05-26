@@ -4,7 +4,7 @@ import { appendErrors, useForm } from 'react-hook-form';
 import { editUserAccountInfo } from '../../redux/slices/userSlice';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { checkAddress } from '../../utilities/googleAddressValidation';
@@ -33,6 +33,7 @@ const ZShippingData = z.object({
 
 export default function ShippingInfo({ user }: ShippingProps) {
   const [addressValidationFailed, setAddressValidationFailed] = useState(false);
+  const [saveIsDisabled, setSaveIsDisabled] = useState(true);
   const { address } = user;
   const dispatch = useAppDispatch();
   const { address_1, address_2, city, state, zip } = address!;
@@ -52,13 +53,20 @@ export default function ShippingInfo({ user }: ShippingProps) {
     setError,
     getValues,
     setValue,
-    formState: { errors },
+    formState: { errors, dirtyFields },
   } = useForm<ShippingInfoFields>({
     resolver: zodResolver(ZShippingData),
     defaultValues,
     mode: 'onBlur',
   });
 
+  // * disable save button while no fields have changed
+  useEffect(() => {
+    const dirtyFieldNames = Object.keys(dirtyFields);
+    setSaveIsDisabled(!dirtyFieldNames.length);
+  }, [Object.keys(dirtyFields)]);
+
+  // ! EARLY RETURN (no hooks beyond this point)
   if (!address) return <h1>No addresses saved...</h1>;
 
   const submitData = (addressData: ShippingInfoFields) => {
@@ -93,6 +101,7 @@ export default function ShippingInfo({ user }: ShippingProps) {
           | 'state'
           | 'zip'
         )[]) {
+          // TODO: figure out how to deal with validation failures - IMO, user should be able to push through after double-checking their entry is correct
           console.log('resetting ', field);
           setValue(field, ''); // clears unvalidated fields -- may be better just to highlight...
         }
@@ -133,7 +142,13 @@ export default function ShippingInfo({ user }: ShippingProps) {
           <label htmlFor="zip">Zip</label>
           <input id="zip" type="text" {...register('zip')} />
         </div>
-        <button type="submit">SAVE</button>
+        <button
+          className={saveIsDisabled ? 'bg-red-500' : 'bg-green-600'}
+          type="submit"
+          disabled={saveIsDisabled}
+        >
+          SAVE
+        </button>
         {addressValidationFailed && <h2>INVALID ADDRESS - RE-ENTER</h2>}
       </form>
     </div>

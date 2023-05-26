@@ -1,17 +1,19 @@
-import { IReviewState, downvoteReview, upvoteReview } from '../redux/slices/reviewSlice';
+import {
+  IReviewState,
+  downvoteReview,
+  upvoteReview,
+} from '../redux/slices/reviewSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 export default function Review({ review }: { review: IReviewState }) {
   const dispatch = useAppDispatch();
   const productId = review.product._id;
-  const reviewId = review._id
+  const reviewId = review._id;
 
-
-  console.log('review', review);
   return (
-    <section className='review-details'>
-      <div className='review-wrapper'>
-        <div className='rating-section'>
+    <section className="review-details">
+      <div className="review-wrapper">
+        <div className="rating-section">
           overall: {review.rating.overall}
           <br />
           quality: {review.rating.quality}
@@ -20,7 +22,7 @@ export default function Review({ review }: { review: IReviewState }) {
           <br />
         </div>
 
-        <div className='review-content'>
+        <div className="review-content">
           {review.title}
           <br />
           {review.content}
@@ -28,7 +30,7 @@ export default function Review({ review }: { review: IReviewState }) {
           {new Date(review.date).toLocaleDateString()}
           <br />
         </div>
-        <div className='review-user-details'>
+        <div className="review-user-details">
           {review.nickname}
           <br />
           {review.location ? review.location : ''}
@@ -48,7 +50,7 @@ export default function Review({ review }: { review: IReviewState }) {
             <p>review: {review.user.reviewCount}</p>
           )}
         </div>
-        <div className='vote-section'>
+        <div className="vote-section">
           <h3>Helpful?</h3>
           <button
             onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
@@ -57,7 +59,12 @@ export default function Review({ review }: { review: IReviewState }) {
             yes: {review.upvote}
           </button>
           <br />
-          <button onClick={() => dispatch(downvoteReview({productId, reviewId}))}> no: {review.downvote}</button>
+          <button
+            onClick={() => dispatch(downvoteReview({ productId, reviewId }))}
+          >
+            {' '}
+            no: {review.downvote}
+          </button>
         </div>
       </div>
     </section>

@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { TReduxError } from '../reduxTypes';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
   user: TUser;
   loading: boolean;
-  errors: {};
+  errors: TReduxError;
 }
 
 export type TProduct = {
@@ -85,9 +86,20 @@ export const fetchSingleUser = createAsyncThunk(
         { withCredentials: true }
       );
 
+      if (!data)
+        return thunkApi.rejectWithValue({
+          status: 404,
+          message: 'No data returned',
+        });
+
       return data;
     } catch (err: any) {
-      return thunkApi.rejectWithValue(err);
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      console.log(err);
     }
   }
 );
@@ -106,7 +118,12 @@ export const editUserAccountInfo = createAsyncThunk(
       );
       return data;
     } catch (err) {
-      return thunkApi.rejectWithValue(err);
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      console.log(err);
     }
   }
 );
@@ -132,7 +149,11 @@ export const addToFavorites = createAsyncThunk(
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
-        return thunkApi.rejectWithValue(err);
+        console.log(err);
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
       } else {
         console.error(err);
       }
@@ -158,7 +179,11 @@ export const removeFromFavorites = createAsyncThunk(
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
-        return thunkApi.rejectWithValue(err);
+        console.log(err);
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
       } else {
         console.error(err);
       }
@@ -173,7 +198,10 @@ export const removeFromFavorites = createAsyncThunk(
 const initialState: userState = {
   user: {} as TUser,
   loading: false,
-  errors: {},
+  errors: {
+    message: null,
+    status: null,
+  },
 };
 
 const userSlice = createSlice({
@@ -191,8 +219,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchSingleUser.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.user = payload;
-        state.errors = {};
+        state.user = payload!;
+        state.errors = initialState.errors;
       })
       .addCase(
         fetchSingleUser.rejected,
@@ -232,7 +260,7 @@ const userSlice = createSlice({
       .addCase(removeFromFavorites.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.user = payload;
-        state.errors = { ...initialState.errors };
+        state.errors = initialState.errors;
       })
       .addCase(
         removeFromFavorites.rejected,
@@ -266,4 +294,5 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 export const selectSingleUser = (state: RootState) => state.user;
-export const selectSingleUserFavorites = (state: RootState) => state.user.user.favorites;
+export const selectSingleUserFavorites = (state: RootState) =>
+  state.user.user.favorites;

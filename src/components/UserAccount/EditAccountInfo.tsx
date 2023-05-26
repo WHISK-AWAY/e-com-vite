@@ -2,8 +2,11 @@ import { TUser } from '../../redux/slices/userSlice';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
-import { checkPassword } from '../../utilities/helpers';
+import { useEffect, useState } from 'react';
+import {
+  checkPassword,
+  saveButtonShouldDisable,
+} from '../../utilities/helpers';
 import { editUserAccountInfo, TEditUser } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
@@ -21,7 +24,6 @@ type AccountFormData = {
   newPassword: string;
   confirmPassword: string;
 };
-
 
 const ZAccountData = z
   .object({
@@ -74,6 +76,7 @@ const ZAccountData = z
 export default function EditAccountInfo({ user }: AccountProps) {
   const dispatch = useAppDispatch();
   const { firstName, lastName, email } = user;
+  const [saveDisabled, setSaveDisabled] = useState(true);
 
   /**
    * * FORM SETUP
@@ -107,11 +110,11 @@ export default function EditAccountInfo({ user }: AccountProps) {
     reValidateMode: 'onBlur',
   });
 
-  useEffect(() => {
-    if (dirtyFields.oldPassword) {
-      checkPassword(getValues('oldPassword')!);
-    }
-  }, [dirtyFields.oldPassword]);
+  // useEffect(() => {
+  //   if (dirtyFields.oldPassword) {
+  //     checkPassword(getValues('oldPassword')!);
+  //   }
+  // }, [dirtyFields.oldPassword]);
 
   useEffect(() => {
     // console.log('errors', errors);
@@ -125,7 +128,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
       } else if (key === 'confirmPassword') {
         setValue('confirmPassword', '');
         setValue('newPassword', '');
-      } 
+      }
     }
   }, [
     errors.firstName,
@@ -135,11 +138,16 @@ export default function EditAccountInfo({ user }: AccountProps) {
     errors.newPassword,
   ]);
 
+  // * Disable save button until fields are edited
+  useEffect(() => {
+    setSaveDisabled(saveButtonShouldDisable(dirtyFields));
+  }, [Object.keys(dirtyFields)]);
+
   const passwordChecker = async (password: string) => {
     try {
-      if (!(await checkPassword(password))) {
+      if (dirtyFields.oldPassword && !(await checkPassword(password))) {
         reset({
-          oldPassword: undefined,
+          oldPassword: '',
         });
         setError('oldPassword', {
           type: 'custom',
@@ -168,74 +176,75 @@ export default function EditAccountInfo({ user }: AccountProps) {
     );
   }
 
-
   if (!user) return <h1>Loading...</h1>;
   return (
-    <div className='account-container'>
+    <div className="account-container">
       <h1>ACCOUNT INFO</h1>
-      <div className='form-wrapper'>
-        <form className='' onSubmit={handleSubmit(formSubmit)}>
-          <div className='input-pair'>
-            <label htmlFor='first-name'>First name:</label>
+      <div className="form-wrapper">
+        <form className="" onSubmit={handleSubmit(formSubmit)}>
+          <div className="input-pair">
+            <label htmlFor="first-name">First name:</label>
             <input
-              type='text'
-              id='first-name'
+              type="text"
+              id="first-name"
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
             />
           </div>
 
-          <div className='input-pair'>
-            <label htmlFor='last-name'>Last name:</label>
+          <div className="input-pair">
+            <label htmlFor="last-name">Last name:</label>
             <input
-              type='text'
-              id='last-name'
+              type="text"
+              id="last-name"
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
             />
           </div>
 
-          <div className='input-pair'>
-            <label htmlFor='email'>Email:</label>
+          <div className="input-pair">
+            <label htmlFor="email">Email:</label>
             <input
-              type='text'
-              id='email'
+              type="text"
+              id="email"
               placeholder={errors.email?.message || ''}
               {...register('email')}
             />
           </div>
-    
-          <div className='input-pair'>
-            <label htmlFor='old-password'>Current Password:</label>
+
+          <div className="input-pair">
+            <label htmlFor="old-password">Current Password:</label>
             <input
-              type='password'
-              id='old-password'
+              type="password"
+              id="old-password"
               {...register('oldPassword', {
                 onBlur: (e) => passwordChecker(e.target.value),
               })}
             />
           </div>
 
-          <div className='input-pair'>
-            <label htmlFor='new-password'>New Password:</label>
+          <div className="input-pair">
+            <label htmlFor="new-password">New Password:</label>
             <input
-              type='password'
-              id='new-password'
+              type="password"
+              id="new-password"
               placeholder={errors.newPassword?.message || ''}
               {...register('newPassword')}
             />
           </div>
 
-          <div className='input-pair'>
-            <label htmlFor='confirm-password'>Confirm New Password:</label>
+          <div className="input-pair">
+            <label htmlFor="confirm-password">Confirm New Password:</label>
             <input
-              type='password'
-              id='confirm-password'
+              type="password"
+              id="confirm-password"
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
             />
           </div>
-          <button type='submit'>SAVE</button>
+          <button type="submit" disabled={saveDisabled}>
+            SAVE
+          </button>
         </form>
       </div>
     </div>

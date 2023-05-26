@@ -80,7 +80,6 @@ export const requestLogin = createAsyncThunk(
   }
 );
 
-
 //* getUserId
 
 export const getUserId = createAsyncThunk(
@@ -144,7 +143,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-
     /**
      * * requestLogin
      */
@@ -187,7 +185,7 @@ export const authSlice = createSlice({
         state.loading = false;
         // console.log('payload', payload)
         state.userId = payload!.data.userId;
-        state.error = { ...initialState.error };
+        state.error = initialState.error;
       })
       .addCase(getUserId.rejected, (_, action: PayloadAction<any>) => {
         return { ...initialState, error: action.payload };

@@ -7,6 +7,7 @@ import {
 import { useSearchParams, Link } from 'react-router-dom';
 import { addToFavorites } from '../redux/slices/userSlice';
 import { getUserId, selectAuthUserId } from '../redux/slices/authSlice';
+import { fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
 const PRODS_PER_PAGE = 9;
 
@@ -28,13 +29,21 @@ export default function AllProducts() {
     key: 'productName',
     direction: 'asc',
   });
+  const [filter, setFilter] = useState('all');
 
   let curPage = Number(params.get('page'));
+
   const allProducts = useAppSelector(selectAllProducts);
+
+  const userId = useAppSelector(selectAuthUserId);
+
+  const tagState = useAppSelector(selectTagState);
 
   const maxPages = Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
-  const userId = useAppSelector(selectAuthUserId);
+  useEffect(() => {
+    dispatch(fetchAllTags());
+  }, []);
 
   useEffect(() => {
     dispatch(getUserId());
@@ -42,13 +51,18 @@ export default function AllProducts() {
 
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
+    // else if (curPage > maxPages) setParams({ page: maxPages.toString() });
     else setPageNum(Number(params.get('page')));
   }, [curPage]);
 
   useEffect(() => {
     if (pageNum && pageNum > 0)
-      dispatch(fetchAllProducts({ page: pageNum, sort }));
-  }, [pageNum, sort]);
+      dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
+  }, [pageNum, sort, filter]);
+
+  useEffect(() => {
+    setParams({ page: '1' });
+  }, [filter]);
 
   const pageIncrementor = () => {
     const nextPage = curPage + 1;
@@ -85,38 +99,58 @@ export default function AllProducts() {
   }
 
   if (!allProducts.products.length) return <p>...Loading</p>;
+  if (!tagState.tags.length) return <p>...Tags loading</p>;
+
+  const tagList = tagState.tags;
+
   return (
     <section className="all-product-container">
       <h1 className="text-2xl">SHOP ALL</h1>
-      <div className="sort-buttons">
-        <h2>Sort by:</h2>
-        <select onChange={handleSort}>
-          <option
-            value={JSON.stringify({ key: 'productName', direction: 'asc' })}
-          >
-            Alphabetical, ascending
-          </option>
-          <option
-            value={JSON.stringify({ key: 'productName', direction: 'desc' })}
-          >
-            Alphabetical, descending
-          </option>
-          <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
-            Price, low-to-high
-          </option>
-          <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
-            Price, high-to-low
-          </option>
-        </select>
+      <div className="controls flex">
+        <div className="sort-selector border">
+          <h2>Sort by:</h2>
+          <select onChange={handleSort}>
+            <option
+              value={JSON.stringify({ key: 'productName', direction: 'asc' })}
+            >
+              Alphabetical, ascending
+            </option>
+            <option
+              value={JSON.stringify({ key: 'productName', direction: 'desc' })}
+            >
+              Alphabetical, descending
+            </option>
+            <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
+              Price, low-to-high
+            </option>
+            <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
+              Price, high-to-low
+            </option>
+          </select>
+        </div>
+        <div className="filter-selector border">
+          <h2>Filter by:</h2>
+          <select onChange={(e) => setFilter(e.target.value)}>
+            <option className="capitalize" value="all">
+              all
+            </option>
+            {tagList.map((tag) => (
+              <option className="capitalize" value={tag.tagName} key={tag._id}>
+                {tag.tagName}
+              </option>
+            ))}
+          </select>
+          ({allProducts.count})
+        </div>
       </div>
       <div>
-        {allProducts.products.map((product, productId) => (
+        {/* TODO: conditional favorite button */}
+        {allProducts.products.map((product) => (
           <li className="list-none" key={product._id.toString()}>
             <img src={product.imageURL} alt="cat" />
             <p>
               <Link to={'/product/' + product._id}>
-                {' '}
-                {product.productName.toUpperCase()}{' '}
+                {product.productName.toUpperCase()}
               </Link>
             </p>
             <p>{product.productShortDesc}</p>
@@ -133,9 +167,9 @@ export default function AllProducts() {
             </button>
           </li>
         ))}
-        <button onClick={pageIncrementor}>next</button>
+        {curPage < maxPages && <button onClick={pageIncrementor}>next</button>}
         <br />
-        <button onClick={pageDecrementor}>previous</button>
+        {curPage > 1 && <button onClick={pageDecrementor}>previous</button>}
       </div>
     </section>
   );
