@@ -5,6 +5,7 @@ import productRouter from './productRouter';
 import adminOrderRouter from './adminOrderRouter';
 import promoRouter from './promoRouter';
 import checkoutRouter from './checkoutRouter';
+import tagRouter from './tagRouter';
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use('/product', productRouter);
 router.use('/adminOrder', adminOrderRouter);
 router.use('/promo', promoRouter);
 router.use('/checkout', checkoutRouter);
+router.use('/tag', tagRouter);
 
 export default router;
