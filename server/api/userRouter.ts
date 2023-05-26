@@ -88,19 +88,23 @@ router.put(
 
       const userToUpdate = await User.findById(userId);
       if (!userToUpdate)
-        return res.status(404).send('User with this ID does not exist');
+        return res
+          .status(404)
+          .json({ message: 'User with this ID does not exist' });
 
       // console.log('req.body',req.body)
       const updateUserInput = updateZodUser.parse(req.body);
 
       if (!updateUserInput || updateUserInput === undefined)
-        return res.status(404).send('Nothing to update');
+        return res.status(404).json({ message: 'Nothing to update' });
 
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         updateUserInput,
         { new: true, projection: '-password' }
-      );
+      )
+        .populate({ path: 'cart.products.product', populate: { path: 'tags' } })
+        .populate({ path: 'favorites', populate: { path: 'tags' } });
       res.status(200).json(updatedUser);
     } catch (err) {
       next(err);
@@ -135,17 +139,18 @@ router.post(
       if (!user.favorites) {
         // create favorites array
         user.favorites = [new mongoose.Types.ObjectId(productId)];
-      } else if (user.favorites.some((fav) => fav.toString() === productId)) {
-        // favorite already exists
-        return res.status(304).json(user);
-      } else {
+        await user.save();
+      } else if (!user.favorites.some((fav) => fav.toString() === productId)) {
         user.favorites.push(new mongoose.Types.ObjectId(productId));
+        await user.save();
       }
 
-      await user.save();
-      await user.populate('favorites');
-      console.log('fav user', user);
-      res.status(200).json(user);
+      // if favorite already exists, this just returns the existing user
+      const updatedUser = await User.findById(userId, '-password')
+        .populate({ path: 'cart.products.product', populate: { path: 'tags' } })
+        .populate({ path: 'favorites', populate: { path: 'tags' } });
+
+      res.status(200).json(updatedUser);
     } catch (err) {
       next(err);
     }
@@ -160,22 +165,31 @@ router.post(
       const { userId } = req.params;
       const { productId } = ZFavorite.parse(req.body);
       // console.log('reqb', req.body);
-      const user = await User.findById(userId).populate([
+      const user = await User.findById(userId, '-password').populate([
         'cart.products.product',
         'favorites',
       ]);
 
       if (!user)
-        return res.status(404).send('User with given ID does not exits');
+        return res
+          .status(404)
+          .json({ message: 'User with given ID does not exits' });
+
       if (!user.favorites)
-        return res.status(404).send('User does not hav any favorites');
+        return res
+          .status(404)
+          .send({ message: 'User does not have any favorites' });
 
       user.favorites = user.favorites.filter((fav) => {
         return String(fav._id) !== productId;
       });
       await user.save();
 
-      res.status(200).json(user);
+      const updatedUser = await User.findById(userId, '-password')
+        .populate({ path: 'cart.products.product', populate: { path: 'tags' } })
+        .populate({ path: 'favorites', populate: { path: 'tags' } });
+
+      res.status(200).json(updatedUser);
     } catch (err) {
       next(err);
     }

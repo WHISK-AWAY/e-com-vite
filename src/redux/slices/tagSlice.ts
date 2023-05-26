@@ -12,7 +12,6 @@ export const fetchAllTags = createAsyncThunk(
       const { data } = await axios.get(VITE_API_URL + '/api/tag', {
         withCredentials: true,
       });
-      console.log('data @ fetchAllTags', data);
 
       return data;
     } catch (err) {

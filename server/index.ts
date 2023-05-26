@@ -153,7 +153,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ZodError) {
     console.error(err);
     const validationError = fromZodError(err);
-    return res.status(400).send(validationError.message);
+    return res.status(400).json({ message: validationError.message });
   }
   next(err);
 });
