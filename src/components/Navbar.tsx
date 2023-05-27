@@ -28,7 +28,7 @@ export default function Navbar() {
       <Link to={'/shop-all'}>SHOP</Link>
 
       {/* <Link to="/shop-all/bestsellers">BESTSELLERS</Link> */}
-      <button
+      {/* <button
         onClick={() => {
           navigate('/shop-all/bestsellers', {
             state: { sortKey: 'saleCount' },
@@ -36,7 +36,10 @@ export default function Navbar() {
         }}
       >
         BESTSELLERS
-      </button>
+      </button> */}
+      <Link to="/shop-all/bestsellers" state={{ sortKey: 'saleCount' }}>
+        BESTSELLERS
+      </Link>
       <Link to={`/user/${userId}`}>ACCOUNT</Link>
       <Link to={`/sign-in`}>SIGN IN</Link>
       <button onClick={signOut}>SIGN OUT</button>
