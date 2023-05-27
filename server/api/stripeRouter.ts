@@ -1,9 +1,13 @@
 // This is your test secret API key.
 import { Response, Request, NextFunction } from 'express';
+import express from 'express';
+import { checkAuthenticated } from './authMiddleware';
+import { User } from '../database/index';
+import { number } from 'zod';
 const stripe = require('stripe')(
   'sk_test_51MhPjfBUQ6Oq9GtlnK1ksaPnlK2gGtXwS6RQGUWFogQMbLVKQllwO3kME0i4ZbBtruPXj5ao7kpxEkZ4x1SPUUpn00AcJ0lTm8'
 );
-const express = require('express');
+// const express = require('express');
 const router = express.Router();
 
 // const app = express();
@@ -11,26 +15,46 @@ const router = express.Router();
 
 const YOUR_DOMAIN = 'http://localhost:5173';
 
+// const calculateOrderAmount = (items) => {
+//   // Replace this constant with a calculation of the order's amount
+//   // Calculate the order total on the server to prevent
+//   // people from directly manipulating the amount on the client
+//   return 1400;
+// };
+
 router.post(
-  '/create-checkout-session',
+  '/create-payment-intent',
+  checkAuthenticated,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: 30000,
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${YOUR_DOMAIN}/checkout/success`,
-        cancel_url: `${YOUR_DOMAIN}/checkout/failure`,
+      // const { items } = req.body;
+      const userId = req.userId;
+      const userLookup = await User.findById(userId);
+
+      if (!userLookup)
+        return res
+          .status(404)
+          .json({ message: 'User with the given ID does not exist' });
+
+      const subtotal = (await userLookup?.cart.subtotal) as unknown as number;
+      if (!subtotal) return res.status(400).send('bad');
+      console.log('sub', subtotal);
+      console.log('UL', userLookup);
+
+      // Create a PaymentIntent with the order amount and currency
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: subtotal * 100,
+        currency: 'usd',
+        automatic_payment_methods: {
+          enabled: true,
+        },
       });
 
-      res.redirect(303, session.url);
+      // console.log('PI', paymentIntent);
+      res.json({
+        clientSecret: paymentIntent.client_secret,
+      });
     } catch (err) {
-      console.log(err);
       next(err);
     }
   }
