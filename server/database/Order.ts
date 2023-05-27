@@ -118,7 +118,7 @@ orderSchema.post('findOneAndUpdate', async function (result) {
       for (let product of result.orderDetails) {
         const updateSaleStats = await Statistics.findOneAndUpdate(
           { 'bestsellerRef.productId': product.productId },
-          { $inc: { 'bestsellerRef.saleCount': 1 } },
+          { $inc: { 'bestsellerRef.saleCount': product.qty } },
           { upsert: true, new: true }
         );
 

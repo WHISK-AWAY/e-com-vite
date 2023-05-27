@@ -15,19 +15,32 @@ const PRODS_PER_PAGE = 9;
  * sort by name or price (ascending & descending)
  */
 
+type SortKey = 'productName' | 'price' | 'saleCount';
+type SortDir = 'asc' | 'desc';
+
 export type TSort = {
-  key: 'productName' | 'price';
-  direction: 'asc' | 'desc';
+  key: SortKey;
+  direction: SortDir;
 };
 
-export default function AllProducts() {
+export type AllProductsProps = {
+  sortKey?: SortKey;
+  sortDir?: SortDir;
+};
+
+export default function AllProducts({
+  sortKey = 'productName',
+  sortDir = 'asc',
+}: AllProductsProps) {
   const dispatch = useAppDispatch();
+
+  if (sortKey === 'saleCount') sortDir = 'desc';
 
   const [params, setParams] = useSearchParams();
   const [pageNum, setPageNum] = useState<number | undefined>();
   const [sort, setSort] = useState<TSort>({
-    key: 'productName',
-    direction: 'asc',
+    key: sortKey,
+    direction: sortDir,
   });
   const [filter, setFilter] = useState('all');
 
@@ -48,6 +61,10 @@ export default function AllProducts() {
   useEffect(() => {
     dispatch(getUserId());
   }, [userId]);
+
+  // useEffect(() => {
+  //   setSort({ key: sortKey, direction: sortDir });
+  // }, [sortKey]);
 
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
@@ -109,33 +126,54 @@ export default function AllProducts() {
       <div className="controls flex">
         <div className="sort-selector border">
           <h2>Sort by:</h2>
-          <select onChange={handleSort}>
+          <select
+            onChange={handleSort}
+            defaultValue={JSON.stringify({
+              key: sortKey || 'productName',
+              direction: sortDir || 'desc',
+            })}
+            // defaultValue={
+            //   sortKey === 'saleCount'
+            //     ? JSON.stringify({ key: sortKey || 'productName', direction: sortDir || 'desc' })
+            //     : JSON.stringify({ key: 'productName', direction: 'asc' })
+            // }
+          >
             <option
               value={JSON.stringify({ key: 'productName', direction: 'asc' })}
+              // selected={sort.key === 'productName' && sort.direction === 'asc'}
             >
               Alphabetical, ascending
             </option>
             <option
               value={JSON.stringify({ key: 'productName', direction: 'desc' })}
+              // selected={sort.key === 'productName' && sort.direction === 'desc'}
             >
               Alphabetical, descending
             </option>
             <option
               className="capitalize"
               value={JSON.stringify({ key: 'saleCount', direction: 'desc' })}
+              // selected={sort.key === 'saleCount' && sort.direction === 'desc'}
             >
               best sellers, high-to-low
             </option>
             <option
               className="capitalize"
               value={JSON.stringify({ key: 'saleCount', direction: 'asc' })}
+              // selected={sort.key === 'saleCount' && sort.direction === 'asc'}
             >
               best sellers, low-to-high
             </option>
-            <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
+            <option
+              value={JSON.stringify({ key: 'price', direction: 'asc' })}
+              // selected={sort.key === 'price' && sort.direction === 'asc'}
+            >
               Price, low-to-high
             </option>
-            <option value={JSON.stringify({ key: 'price', direction: 'desc' })}>
+            <option
+              value={JSON.stringify({ key: 'price', direction: 'desc' })}
+              // selected={sort.key === 'price' && sort.direction === 'desc'}
+            >
               Price, high-to-low
             </option>
           </select>

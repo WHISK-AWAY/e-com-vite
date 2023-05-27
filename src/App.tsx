@@ -18,17 +18,21 @@ function App() {
     <React.Fragment>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Homepage />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/shop-all' element={<AllProducts />} />
-        <Route path='/product/:productId' element={<SingleProduct />} />
-        <Route path='/user/:userId' element={<UserProfile />} />
-        <Route path='/user/:userId/cart' element={<Cart />} />
-        <Route path='/user/:userId/favorites' element={<Favorite />} />
-        <Route path='/checkout' element={<Checkout />} />
-        <Route path='/checkout/success' element={<Success />} />
-        <Route path='/checkout/failure' element={<Failure />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/shop-all" element={<AllProducts />} />
+        <Route
+          path="/shop-all/bestsellers"
+          element={<AllProducts sortKey="saleCount" />}
+        />
+        <Route path="/product/:productId" element={<SingleProduct />} />
+        <Route path="/user/:userId" element={<UserProfile />} />
+        <Route path="/user/:userId/cart" element={<Cart />} />
+        <Route path="/user/:userId/favorites" element={<Favorite />} />
+        {/* <Route path="/checkout" element={<Checkout />} /> */}
+        <Route path="/checkout/success" element={<Success />} />
+        <Route path="/checkout/failure" element={<Failure />} />
       </Routes>
     </React.Fragment>
   );
