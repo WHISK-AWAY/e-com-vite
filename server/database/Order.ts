@@ -1,5 +1,6 @@
 import mongoose, { Schema, Types, UpdateQuery } from 'mongoose';
 import Statistics from './Statistics';
+import Product from './Product';
 
 export interface IOrder {
   _id?: Types.ObjectId;
@@ -107,24 +108,23 @@ orderSchema.virtual('total').get(function () {
 });
 
 orderSchema.post('findOneAndUpdate', async function (result) {
-  console.log('update order hook');
   const updatedFields = this.getUpdate() as UpdateQuery<any>;
 
   if (!updatedFields) return;
 
-  console.log('result', result);
   if (updatedFields) {
-    console.log('if fields are updated');
-    console.log('UF', updatedFields);
     if (updatedFields['$set']?.orderStatus === 'confirmed') {
-      console.log('if fields are updated & status === confirmed');
+      console.log('Updating sale counts');
       for (let product of result.orderDetails) {
         const updateSaleStats = await Statistics.findOneAndUpdate(
           { 'bestsellerRef.productId': product.productId },
           { $inc: { 'bestsellerRef.saleCount': 1 } },
           { upsert: true, new: true }
         );
-        console.log('updateSaleStats', updateSaleStats);
+
+        await Product.findByIdAndUpdate(product.productId, {
+          $inc: { saleCount: 1 },
+        });
       }
     }
   }

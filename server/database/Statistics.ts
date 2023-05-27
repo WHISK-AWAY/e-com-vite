@@ -1,6 +1,7 @@
 import mongoose, { Schema, Types } from 'mongoose';
 
 export interface IBestsellerRef {
+  _id?: Types.ObjectId;
   bestsellerRef: {
     productId: Types.ObjectId;
     saleCount: number;

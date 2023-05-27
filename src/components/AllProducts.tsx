@@ -120,6 +120,18 @@ export default function AllProducts() {
             >
               Alphabetical, descending
             </option>
+            <option
+              className="capitalize"
+              value={JSON.stringify({ key: 'saleCount', direction: 'desc' })}
+            >
+              best sellers, high-to-low
+            </option>
+            <option
+              className="capitalize"
+              value={JSON.stringify({ key: 'saleCount', direction: 'asc' })}
+            >
+              best sellers, low-to-high
+            </option>
             <option value={JSON.stringify({ key: 'price', direction: 'asc' })}>
               Price, low-to-high
             </option>
@@ -134,6 +146,7 @@ export default function AllProducts() {
             <option className="capitalize" value="all">
               all
             </option>
+
             {tagList.map((tag) => (
               <option className="capitalize" value={tag.tagName} key={tag._id}>
                 {tag.tagName}

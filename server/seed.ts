@@ -192,6 +192,10 @@ export async function seed() {
     await order.save();
   }
 
+  for (let order of newOrder) {
+    await Order.findByIdAndUpdate(order._id, { orderStatus: 'confirmed' });
+  }
+
   console.log('Seeding orders successful');
 
   /**

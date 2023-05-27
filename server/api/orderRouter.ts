@@ -192,27 +192,46 @@ router.post(
   }
 );
 
-router.put('/:orderId', checkAuthenticated, async (req, res, next) => {
-  try {
-    const { orderId } = req.params;
-    const orderLookup = await Order.findByIdAndUpdate(
-      orderId,
-      {
-        orderStatus: 'confirmed',
-      },
-      { new: true }
-    );
-    if (!orderLookup)
-      return res
-        .status(404)
-        .json({ message: 'Order with the given ID does not exist' });
+// update order status
+router.put(
+  '/:orderId',
+  checkAuthenticated,
+  sameUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const { orderId } = req.params;
 
-    res.status(200).json(orderLookup);
-  } catch (err) {
-    next(err);
+      // make sure the order exists & isn't already in 'confirmed' status
+      const existingOrder = await Order.findById(orderId);
+      if (!existingOrder)
+        return res
+          .status(404)
+          .json({ message: 'Order with the given ID does not exist' });
+
+      if (existingOrder.orderStatus === 'confirmed') {
+        return res
+          .status(304)
+          .json({ message: 'Order has already been confirmed' });
+      }
+
+      const orderLookup = await Order.findByIdAndUpdate(
+        orderId,
+        {
+          orderStatus: 'confirmed',
+        },
+        { new: true }
+      );
+
+      if (!orderLookup)
+        return res
+          .status(404)
+          .json({ message: 'Order with the given ID does not exist' });
+
+      res.status(200).json(orderLookup);
+    } catch (err) {
+      next(err);
+    }
   }
-});
-
-
+);
 
 export default router;

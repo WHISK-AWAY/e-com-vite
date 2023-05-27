@@ -10,12 +10,13 @@ export interface IProduct {
   qty: number;
   imageURL: string;
   tags: Types.ObjectId[];
+  saleCount: number;
 }
 
 const productSchema = new Schema<IProduct>({
   productName: { type: String, required: true, unique: true },
   productLongDesc: { type: String, required: true },
-  productShortDesc: {type: String, requires: true},
+  productShortDesc: { type: String, required: true },
   brand: { type: String, required: true },
   price: { type: Number, required: true },
   qty: { type: Number, required: true },
@@ -26,6 +27,7 @@ const productSchema = new Schema<IProduct>({
       ref: 'Tag',
     },
   ],
+  saleCount: { type: Number, required: true, default: 0 },
 });
 
 export default mongoose.model('Product', productSchema);

@@ -14,6 +14,8 @@ const updateZodProduct = zodProduct
   .strict();
 
 router.get('/', async (req, res, next) => {
+  const PRODUCTS_PER_PAGE = 9;
+
   try {
     let { page, sortKey, sortDir, filterKey } = req.query as {
       page: string | number;
@@ -26,8 +28,6 @@ router.get('/', async (req, res, next) => {
     if (!sortKey) sortKey = 'productName';
     if (!sortDir) sortDir = 'asc';
 
-    const numProds = 9;
-
     // do something with filterKey
     let productFilter = {};
     if (filterKey !== 'all') {
@@ -38,11 +38,13 @@ router.get('/', async (req, res, next) => {
       } else productFilter = {};
     }
 
-    const skip = (page - 1) * numProds;
+    const skip = (page - 1) * PRODUCTS_PER_PAGE;
+    let sort = { [sortKey]: sortDir === 'asc' ? 1 : -1 };
+
     const allProducts = await Product.find(productFilter, null, {
       skip,
-      limit: numProds,
-      sort: { [sortKey]: sortDir === 'asc' ? 1 : -1 },
+      limit: PRODUCTS_PER_PAGE,
+      sort,
     }).populate({ path: 'tags' });
 
     const countAllProducts = await Product.countDocuments(productFilter);
@@ -110,6 +112,7 @@ router.get('/:productId', async (req, res, next) => {
 router.get('/:productId/related', async (req, res, next) => {
   try {
     const { productId } = req.params;
+    res.send("We haven't written this route yet.");
   } catch (err) {
     next(err);
   }
