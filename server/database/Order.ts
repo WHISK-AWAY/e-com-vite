@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from 'mongoose';
+import mongoose, { Schema, Types, UpdateQuery } from 'mongoose';
 import Statistics from './Statistics';
 
 export interface IOrder {
@@ -106,30 +106,29 @@ orderSchema.virtual('total').get(function () {
   return +tot.toFixed(2);
 });
 
-orderSchema.post(
-  'findOneAndUpdate',
-  async function (this: IOrder & { getUpdate(): IOrder }, result) {
-    console.log('update order hook');
-    const updatedFields = this.getUpdate() as IOrder;
+orderSchema.post('findOneAndUpdate', async function (result) {
+  console.log('update order hook');
+  const updatedFields = this.getUpdate() as UpdateQuery<any>;
 
-    console.log('result', result);
-    if (updatedFields) {
-      console.log('if fields are updated');
-      console.log('UF', updatedFields);
-      if (updatedFields['$set'].orderStatus === 'confirmed') {
-        console.log('if fields are updated & status === confirmed');
-        for (let product of result.orderDetails) {
-          const updateSaleStats = await Statistics.findOneAndUpdate(
-            { 'bestsellerRef.productId': product.productId },
-            { $inc: { 'bestsellerRef.saleCount': 1 } },
-            { upsert: true, new: true }
-          );
-          console.log('updateSaleStats', updateSaleStats);
-        }
+  if (!updatedFields) return;
+
+  console.log('result', result);
+  if (updatedFields) {
+    console.log('if fields are updated');
+    console.log('UF', updatedFields);
+    if (updatedFields['$set']?.orderStatus === 'confirmed') {
+      console.log('if fields are updated & status === confirmed');
+      for (let product of result.orderDetails) {
+        const updateSaleStats = await Statistics.findOneAndUpdate(
+          { 'bestsellerRef.productId': product.productId },
+          { $inc: { 'bestsellerRef.saleCount': 1 } },
+          { upsert: true, new: true }
+        );
+        console.log('updateSaleStats', updateSaleStats);
       }
     }
   }
-);
+});
 
 export default mongoose.model('Order', orderSchema);
 
