@@ -13,6 +13,8 @@
     "@googlemaps/js-api-loader": "^1.15.2",
     "@hookform/resolvers": "^3.1.0",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.53.0",
     "@types/react-redux": "^7.1.25",
     "axios": "^1.4.0",
     "react": "^18.2.0",

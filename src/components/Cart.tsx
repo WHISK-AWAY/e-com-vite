@@ -18,9 +18,10 @@ import {
 import Checkout from './Checkout'
 import axios from 'axios';
 import CartItem from './CartItem';
+const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY
 
 const stripePromise = loadStripe(
-  'pk_test_51MhPjfBUQ6Oq9GtltqHsBziImzqDSOenRkaWI8aePQ1HsPMmaDT4FmQobJyPWg3ZktoP3S5Dukh0QtQvcfVYx1fl00R2BAqcze'
+  VITE_STRIPE_PUBLIC_KEY
 );
 
 export default function Cart() {

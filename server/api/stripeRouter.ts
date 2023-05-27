@@ -4,8 +4,9 @@ import express from 'express';
 import { checkAuthenticated } from './authMiddleware';
 import { User } from '../database/index';
 import { number } from 'zod';
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
 const stripe = require('stripe')(
-  'sk_test_51MhPjfBUQ6Oq9GtlnK1ksaPnlK2gGtXwS6RQGUWFogQMbLVKQllwO3kME0i4ZbBtruPXj5ao7kpxEkZ4x1SPUUpn00AcJ0lTm8'
+  STRIPE_SECRET_KEY
 );
 // const express = require('express');
 const router = express.Router();
