@@ -51,9 +51,8 @@ router.get('/', async (req, res, next) => {
         path: 'product',
         populate: 'tags',
       })
-      .populate(
-         'user',  ['skinConcerns', 'voteCount', 'reviewCount']
-      );
+      .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
+
     if (!allReviews)
       return res.status(404).send('No reviews available for this product');
 
@@ -86,11 +85,15 @@ router.post('/', checkAuthenticated, async (req, res, next) => {
     if (checkExistingReview.length >= 1)
       return res.status(409).send('Cannot create duplicate review');
 
-    const newReview = await (
-      await Review.create(parsedBody)
-    ).populate(['user', 'product']);
+    const newReview = await await Review.create(parsedBody);
+    const allReviews = await Review.find({ product: productId })
+      .populate({
+        path: 'product',
+        populate: 'tags',
+      })
+      .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
 
-    res.status(201).json(newReview);
+    res.status(201).json(allReviews);
   } catch (err) {
     next(err);
   }
@@ -141,12 +144,12 @@ router.post('/:reviewId/upvote', checkAuthenticated, async (req, res, next) => {
       );
     }
 
-        const allReviews = await Review.find({ product: productId })
-          .populate({
-            path: 'product',
-            populate: 'tags',
-          })
-          .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
+    const allReviews = await Review.find({ product: productId })
+      .populate({
+        path: 'product',
+        populate: 'tags',
+      })
+      .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
 
     res.status(201).json(allReviews);
   } catch (err) {
@@ -211,12 +214,12 @@ router.post(
         });
       }
 
-          const allReviews = await Review.find({ product: productId })
-            .populate({
-              path: 'product',
-              populate: 'tags',
-            })
-            .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
+      const allReviews = await Review.find({ product: productId })
+        .populate({
+          path: 'product',
+          populate: 'tags',
+        })
+        .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
 
       res.status(201).json(allReviews);
     } catch (err) {
