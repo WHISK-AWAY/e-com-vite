@@ -192,4 +192,27 @@ router.post(
   }
 );
 
+router.put('/:orderId', checkAuthenticated, async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const orderLookup = await Order.findByIdAndUpdate(
+      orderId,
+      {
+        orderStatus: 'confirmed',
+      },
+      { new: true }
+    );
+    if (!orderLookup)
+      return res
+        .status(404)
+        .json({ message: 'Order with the given ID does not exist' });
+
+    res.status(200).json(orderLookup);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+
 export default router;
