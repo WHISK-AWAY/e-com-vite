@@ -55,6 +55,7 @@ export default function AllProducts({
   const maxPages = Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
   useEffect(() => {
+    console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
     dispatch(fetchAllTags());
   }, []);
 
@@ -62,9 +63,9 @@ export default function AllProducts({
     dispatch(getUserId());
   }, [userId]);
 
-  // useEffect(() => {
-  //   setSort({ key: sortKey, direction: sortDir });
-  // }, [sortKey]);
+  useEffect(() => {
+    setSort({ key: sortKey, direction: sortDir });
+  }, [sortKey]);
 
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
