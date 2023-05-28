@@ -145,7 +145,7 @@ export default function Cart() {
   //     layout: 'tabs',
   //   };
 
-  if (!userCart.cart.products) return <p>...Loading</p>;
+  if (!userCart.cart.products?.length) return <p>Your cart is empty</p>;
   return (
     <section className='cart-container'>
       <h1>
