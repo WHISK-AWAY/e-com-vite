@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
     }
 
     const skip = (page - 1) * PRODUCTS_PER_PAGE;
-    let sort = { [sortKey]: sortDir === 'asc' ? 1 : -1 };
+    let sort = { [sortKey]: sortDir === 'asc' ? 1 : -1, _id: 1 };
 
     const allProducts = await Product.find(productFilter, null, {
       skip,
