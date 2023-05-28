@@ -197,7 +197,7 @@ export const authSlice = createSlice({
 
     builder
       .addCase(requestLogout.pending, (state) => {
-        state.loading = true;
+        return {...initialState, loading : true};
       })
       .addCase(requestLogout.fulfilled, () => {
         return { ...initialState };
