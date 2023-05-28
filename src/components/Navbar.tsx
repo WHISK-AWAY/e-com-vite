@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import {
   getUserId,
   requestLogout,
@@ -6,28 +6,32 @@ import {
 } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useEffect } from 'react';
-import { fetchSingleUser } from '../redux/slices/userSlice';
+import { fetchSingleUser, resetUserState } from '../redux/slices/userSlice';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userId, error: authError } = useAppSelector(selectAuth);
+  const { userId, error: authError, firstName } = useAppSelector(selectAuth);
 
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
     if (userId) dispatch(fetchSingleUser(userId));
+
   }, [userId]);
 
   function signOut() {
     dispatch(requestLogout());
+    // dispatch(resetUserState())
+    navigate('/')
   }
 
   return (
     <nav className="navbar-container flex justify-end gap-4">
-      <Link to={'/shop-all'}>SHOP</Link>
+      {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>}
+      <NavLink to={'/shop-all'}>SHOP</NavLink>
 
-      {/* <Link to="/shop-all/bestsellers">BESTSELLERS</Link> */}
+      {/* <NavLink to="/shop-all/bestsellers">BESTSELLERS</NavLink>/ */}
       {/* <button
         onClick={() => {
           navigate('/shop-all/bestsellers', {
@@ -37,14 +41,17 @@ export default function Navbar() {
       >
         BESTSELLERS
       </button> */}
-      <Link to="/shop-all/bestsellers" state={{ sortKey: 'saleCount' }}>
+      <NavLink to="/shop-all/bestsellers" state={{ sortKey: 'saleCount' }}>
         BESTSELLERS
-      </Link>
-      <Link to={`/user/${userId}`}>ACCOUNT</Link>
-      <Link to={`/sign-in`}>SIGN IN</Link>
-      <button onClick={signOut}>SIGN OUT</button>
-      <Link to={`/user/${userId}/cart`}>CART</Link>
-      <Link to={`/user/${userId}/favorites`}>FAVORITES</Link>
+      </NavLink>
+      {userId  &&
+      <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+      <NavLink to={`/user/${userId}/cart`}>CART</NavLink>
+      <NavLink to={`/user/${userId}/favorites`}>FAVORITES</NavLink>
+      {!userId &&
+      <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
+      {userId && 
+      <button onClick={signOut}>SIGN OUT</button>}
     </nav>
   );
 }
