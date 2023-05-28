@@ -42,6 +42,8 @@ export default function AllProducts({
     key: sortKey,
     direction: sortDir,
   });
+  const [bestsellers, setBestsellers] = useState(false);
+
   const [filter, setFilter] = useState('all');
 
   let curPage = Number(params.get('page'));
@@ -52,30 +54,33 @@ export default function AllProducts({
 
   const tagState = useAppSelector(selectTagState);
 
-  const maxPages = Math.ceil(allProducts.count! / PRODS_PER_PAGE);
+  const maxPages = bestsellers ? 2 : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
   useEffect(() => {
-    console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
+    // console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
+    // console.log('path', pathname);
     dispatch(fetchAllTags());
   }, []);
-
+  
   useEffect(() => {
     dispatch(getUserId());
   }, [userId]);
-
+  
   useEffect(() => {
     setSort({ key: sortKey, direction: sortDir });
   }, [sortKey]);
-
+  
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
     // else if (curPage > maxPages) setParams({ page: maxPages.toString() });
     else setPageNum(Number(params.get('page')));
   }, [curPage]);
-
+  
   useEffect(() => {
     if (pageNum && pageNum > 0)
-      dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
+    dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
+    const pathname = window.location.pathname.split('/');
+    setBestsellers(pathname[pathname.length -1].toLowerCase() === 'bestsellers')
   }, [pageNum, sort, filter]);
 
   useEffect(() => {
@@ -122,84 +127,103 @@ export default function AllProducts({
   const tagList = tagState.tags;
 
   return (
-    <section className="all-product-container">
-      <h1 className="text-2xl">SHOP ALL</h1>
-      <div className="controls flex">
-        <div className="sort-selector border">
-          <h2>Sort by:</h2>
-          <select
-            onChange={handleSort}
-            defaultValue={JSON.stringify({
-              key: sortKey || 'productName',
-              direction: sortDir || 'desc',
-            })}
-            // defaultValue={
-            //   sortKey === 'saleCount'
-            //     ? JSON.stringify({ key: sortKey || 'productName', direction: sortDir || 'desc' })
-            //     : JSON.stringify({ key: 'productName', direction: 'asc' })
-            // }
-          >
-            <option
-              value={JSON.stringify({ key: 'productName', direction: 'asc' })}
-              // selected={sort.key === 'productName' && sort.direction === 'asc'}
-            >
-              Alphabetical, ascending
-            </option>
-            <option
-              value={JSON.stringify({ key: 'productName', direction: 'desc' })}
-              // selected={sort.key === 'productName' && sort.direction === 'desc'}
-            >
-              Alphabetical, descending
-            </option>
-            <option
-              className="capitalize"
-              value={JSON.stringify({ key: 'saleCount', direction: 'desc' })}
-              // selected={sort.key === 'saleCount' && sort.direction === 'desc'}
-            >
-              best sellers, high-to-low
-            </option>
-            <option
-              className="capitalize"
-              value={JSON.stringify({ key: 'saleCount', direction: 'asc' })}
-              // selected={sort.key === 'saleCount' && sort.direction === 'asc'}
-            >
-              best sellers, low-to-high
-            </option>
-            <option
-              value={JSON.stringify({ key: 'price', direction: 'asc' })}
-              // selected={sort.key === 'price' && sort.direction === 'asc'}
-            >
-              Price, low-to-high
-            </option>
-            <option
-              value={JSON.stringify({ key: 'price', direction: 'desc' })}
-              // selected={sort.key === 'price' && sort.direction === 'desc'}
-            >
-              Price, high-to-low
-            </option>
-          </select>
-        </div>
-        <div className="filter-selector border">
-          <h2>Filter by:</h2>
-          <select onChange={(e) => setFilter(e.target.value)}>
-            <option className="capitalize" value="all">
-              all
-            </option>
+    <section className='all-product-container'>
+      <h1 className='text-2xl'>{bestsellers ? 'BESTSELLERS' : 'SHOP ALL'}</h1>
+      <div className='controls flex'>
+        {!bestsellers && (
+          <>
+            <div className='sort-selector border'>
+              <h2>Sort by:</h2>
+              <select
+                onChange={handleSort}
+                defaultValue={JSON.stringify({
+                  key: sortKey || 'productName',
+                  direction: sortDir || 'desc',
+                })}
+                // defaultValue={
+                //   sortKey === 'saleCount'
+                //     ? JSON.stringify({ key: sortKey || 'productName', direction: sortDir || 'desc' })
+                //     : JSON.stringify({ key: 'productName', direction: 'asc' })
+                // }
+              >
+                <option
+                  value={JSON.stringify({
+                    key: 'productName',
+                    direction: 'asc',
+                  })}
+                  // selected={sort.key === 'productName' && sort.direction === 'asc'}
+                >
+                  Alphabetical, ascending
+                </option>
+                <option
+                  value={JSON.stringify({
+                    key: 'productName',
+                    direction: 'desc',
+                  })}
+                  // selected={sort.key === 'productName' && sort.direction === 'desc'}
+                >
+                  Alphabetical, descending
+                </option>
+                <option
+                  className='capitalize'
+                  value={JSON.stringify({
+                    key: 'saleCount',
+                    direction: 'desc',
+                  })}
+                  // selected={sort.key === 'saleCount' && sort.direction === 'desc'}
+                >
+                  best sellers, high-to-low
+                </option>
+                <option
+                  className='capitalize'
+                  value={JSON.stringify({ key: 'saleCount', direction: 'asc' })}
+                  // selected={sort.key === 'saleCount' && sort.direction === 'asc'}
+                >
+                  best sellers, low-to-high
+                </option>
+                <option
+                  value={JSON.stringify({ key: 'price', direction: 'asc' })}
+                  // selected={sort.key === 'price' && sort.direction === 'asc'}
+                >
+                  Price, low-to-high
+                </option>
+                <option
+                  value={JSON.stringify({ key: 'price', direction: 'desc' })}
+                  // selected={sort.key === 'price' && sort.direction === 'desc'}
+                >
+                  Price, high-to-low
+                </option>
+              </select>
+            </div>
 
-            {tagList.map((tag) => (
-              <option className="capitalize" value={tag.tagName} key={tag._id}>
-                {tag.tagName}
-              </option>
-            ))}
-          </select>
-          ({allProducts.count})
-        </div>
+            <div className='filter-selector border'>
+              <h2>Filter by:</h2>
+              <select onChange={(e) => setFilter(e.target.value)}>
+                <option className='capitalize' value='all'>
+                  all
+                </option>
+
+                {tagList.map((tag) => (
+                  <option
+                    className='capitalize'
+                    value={tag.tagName}
+                    key={tag._id}
+                  >
+                    {tag.tagName}
+                  </option>
+                ))}
+              </select>
+              ({allProducts.count})
+            </div>
+          </>
+        )}
       </div>
+
       <div>
         {/* TODO: conditional favorite button */}
         {allProducts.products.map((product) => (
-          <li className="list-none" key={product._id.toString()}>
-            <img src={product.imageURL} alt="cat" />
+          <li className='list-none' key={product._id.toString()}>
+            <img src={product.imageURL} alt='cat' />
             <p>
               <Link to={'/product/' + product._id}>
                 {product.productName.toUpperCase()}
@@ -226,3 +250,6 @@ export default function AllProducts({
     </section>
   );
 }
+
+
+
