@@ -43,9 +43,9 @@ export default function Favorite() {
       );
   };
 
-  if (!userFavorite || !userFavorite[0]) return <p>...Loading</p>;
+  if (!userFavorite || !userFavorite[0]) return <p>You don't have any favorites</p>;
 
-  if (!userId) return <p>...Loading</p>;
+  if (!userId) return <p>You don't have any favorites</p>;
   return (
     <section className='user-favorites-container'>
       <div>
@@ -72,7 +72,7 @@ export default function Favorite() {
               </div>
             );
           })}
-          ;
+          
         </div>
       </div>
     </section>
