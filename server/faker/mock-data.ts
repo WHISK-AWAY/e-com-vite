@@ -15,13 +15,23 @@ import {
 // import { IPromo } from '../database/Promo';
 // import { IReview } from '../database/Review'; //you killed tippy toes :( idk what you're talking about
 
-const SKIN_CONCERNS = [
-  'oily skin',
-  'aging skin',
-  'acne prone skin',
-  'normal skin',
-  'dry skin',
-  'sensitive skin',
+const SKIN_CONCERN_OPTIONS = [
+  { value: 'oily skin', label: 'Oily skin' },
+  { value: 'aging skin', label: 'Aging skin' },
+  { value: 'acne prone skin', label: 'Acne-prone skin' },
+  { value: 'normal skin', label: 'Normal skin' },
+  { value: 'dry skin', label: 'Dry skin' },
+  { value: 'hyperpigmentation', label: 'Hyperpigmentation' },
+  { value: 'rosacea', label: 'Rosacea' },
+  { value: 'dark circles', label: 'Dark circles' },
+  { value: 'enlarged pores', label: 'Enlarged pores' },
+  { value: 'dull skin', label: 'Dull skin' },
+  { value: 'redness', label: 'Redness' },
+  { value: 'clogged pores', label: 'Clogged pores' },
+  { value: 'blackheads', label: 'Blackheads' },
+  { value: 'fine lines', label: 'Fine lines' },
+  { value: 'eczema', label: 'Eczema' },
+  { value: 'uneven skin tone', label: 'Uneven skin tone' },
 ];
 
 /**
@@ -64,7 +74,6 @@ export const generateUser = (count: number): Partial<IUser>[] => {
 
     const reviewCount = faker.datatype.number({ min: 0, max: 15 });
     const voteCount = faker.datatype.number({ min: 0, max: 15 });
-    const skinConcerns = faker.helpers.arrayElements(SKIN_CONCERNS, 2);
 
     users.push({
       firstName,
@@ -77,7 +86,6 @@ export const generateUser = (count: number): Partial<IUser>[] => {
       role,
       reviewCount,
       voteCount,
-      skinConcerns,
     });
   }
   return users;
@@ -99,6 +107,7 @@ export const generateProduct = (count: number): IProduct[] => {
     const qty = faker.datatype.number({ min: 4, max: 20 });
     const imageURL = faker.image.cats(300, 300, true);
     const tags = [new Types.ObjectId()];
+    const saleCount = 0;
 
     products.push({
       productName,
@@ -109,6 +118,7 @@ export const generateProduct = (count: number): IProduct[] => {
       qty,
       imageURL,
       tags,
+      saleCount,
     });
   }
 
@@ -261,6 +271,13 @@ export const generateReview = (count: number): Partial<IReview>[] => {
     const location = `${faker.address.cityName()},  ${faker.address.stateAbbr()}`;
     const upvote = faker.datatype.number({ min: 0, max: 14 });
 
+    let skinConcernOptions =[];
+
+    for (let i = 0; i < 3; i++) {
+      skinConcernOptions.push(SKIN_CONCERN_OPTIONS[Math.floor(Math.random() * SKIN_CONCERN_OPTIONS.length)])
+    }
+
+
     reviews.push({
       product,
       title,
@@ -271,6 +288,7 @@ export const generateReview = (count: number): Partial<IReview>[] => {
       nickname,
       location,
       upvote,
+      skinConcernOptions,
     });
   }
   return reviews;

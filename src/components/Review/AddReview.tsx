@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { selectAuthUserId } from '../../redux/slices/authSlice';
+import Select from 'react-select';
+import { Controller } from 'react-hook-form';
 
 export type AddReviewProps = {
   productId: string;
@@ -16,14 +18,22 @@ export type AddReviewProps = {
 const zodAddReview = z.object({
   title: z
     .string()
-    .min(10, 'minimum 10 chaacters')
-    .max(50, 'maximum 50 characters'),
-  content: z.string().min(50, 'minimum 50 characters'),
+    .min(10, 'minimum 10 characters')
+    .max(40, 'maximum 40 characters'),
+  content: z.string().min(30, 'minimum 30 characters'),
   rating: z.object({
     overall: z.coerce.number().min(1).max(5),
     quality: z.coerce.number().min(1).max(5),
     value: z.coerce.number().min(1).max(5),
   }),
+  skinConcernOptions: z
+    .object({
+      value: z.string(),
+      label: z.string(),
+    })
+    .array()
+    .min(3, 'minimum of 3 skin concerns')
+    .max(5, 'maximum of 5 skin concerns'),
   nickname: z.string().min(2, 'minimum of 2 characters'),
   location: z.string().min(2, 'minimum of 2 characters'),
 });
@@ -40,6 +50,7 @@ const defaultValues = {
   },
   nickname: '',
   location: '',
+  skinConcernOptions: [],
 };
 
 export default function AddReview({
@@ -58,7 +69,8 @@ export default function AddReview({
     clearErrors,
     getValues,
     setValue,
-    formState: { errors },
+    control,
+    formState: { errors, dirtyFields },
   } = useForm<TAddReview>({
     resolver: zodResolver(zodAddReview),
     defaultValues,
@@ -78,6 +90,9 @@ export default function AddReview({
       if (key === 'location') {
         setValue('location', '');
       }
+      if (key === 'skinConcernOptions') {
+        setValue('skinConcernOptions', []);
+      }
     }
   }, [Object.keys(errors)]);
 
@@ -85,6 +100,28 @@ export default function AddReview({
     if (userId) dispatch(addReview({ userId, productId, review: data }));
     setAddReview(false);
   };
+
+  console.log('errs', errors);
+  console.log('DF', getValues('skinConcernOptions'));
+
+  const skinConcernOptions = [
+    { value: 'oily skin', label: 'Oily skin' },
+    { value: 'aging skin', label: 'Aging skin' },
+    { value: 'acne prone skin', label: 'Acne-prone skin' },
+    { value: 'normal skin', label: 'Normal skin' },
+    { value: 'dry skin', label: 'Dry skin' },
+    { value: 'hyperpigmentation', label: 'Hyperpigmentation' },
+    { value: 'rosacea', label: 'Rosacea' },
+    { value: 'dark circles', label: 'Dark circles' },
+    { value: 'enlarged pores', label: 'Enlarged pores' },
+    { value: 'dull skin', label: 'Dull skin' },
+    { value: 'redness', label: 'Redness' },
+    { value: 'clogged pores', label: 'Clogged pores' },
+    { value: 'blackheads', label: 'Blackheads' },
+    { value: 'fine lines', label: 'Fine lines' },
+    { value: 'eczema', label: 'Eczema' },
+    { value: 'uneven skin tone', label: 'Uneven skin tone' },
+  ];
 
   return (
     <section className='new-review-container'>
@@ -112,6 +149,27 @@ export default function AddReview({
               placeholder={errors.content?.message || ''}
               {...register('content')}
             ></textarea>
+          </div>
+          <div className='skin-concerns-options'>
+            <h4>Skin concerns:</h4>
+            <Controller
+              control={control}
+              name='skinConcernOptions'
+              rules={{ required: true, min: 3, max: 5 }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                formState,
+              }) => (
+                <Select
+                  closeMenuOnSelect={false}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  isMulti={true}
+                  options={skinConcernOptions}
+                ></Select>
+              )}
+            ></Controller>
+            {errors.skinConcernOptions?.message || ''}
           </div>
           <div className='rating-section'>
             <div className='overall-rating'>

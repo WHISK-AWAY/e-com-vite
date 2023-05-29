@@ -43,15 +43,23 @@ export const zodProduct = z.object({
 });
 
 export const zodReview = z.object({
-  title: z.string().min(3),
-  content: z.string().min(10),
+  title: z.string().min(10).max(40),
+  content: z.string().min(30),
   rating: z.object({
     overall: z.number().nonnegative().gte(1).lte(5),
     quality: z.number().nonnegative().gte(1).lte(5),
     value: z.number().nonnegative().gte(1).lte(5),
   }),
+  skinConcernOptions: z
+    .object({
+      value: z.string(),
+      label: z.string(),
+    })
+    .array()
+    .min(3, 'minimum of 3 skin concerns')
+    .max(5, 'maximum of 5 skin concerns'),
   nickname: z.string().min(2).optional(),
-  location: z.string().min(3).optional(),
+  location: z.string().min(2).optional(),
 });
 
 export const zodOrder = z.object({
@@ -67,12 +75,14 @@ export const zodOrder = z.object({
       state: z.string().min(2),
       zip: z.string().min(5),
     }),
-    paymentInfo: z.object({
-      paymentType: z.string().min(3),
-      cardNum: z.string().min(16),
-      exp: z.string(),
-      cvv: z.string().min(3),
-    }).optional(),
+    paymentInfo: z
+      .object({
+        paymentType: z.string().min(3),
+        cardNum: z.string().min(16),
+        exp: z.string(),
+        cvv: z.string().min(3),
+      })
+      .optional(),
   }),
   promoCode: z
     .object({

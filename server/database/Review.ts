@@ -13,6 +13,10 @@ export interface IReview extends mongoose.Document {
     quality: number;
     value: number;
   };
+  skinConcernOptions: {
+    value: string;
+    label: string;
+  }[];
   user: string; //userId
   nickname?: string;
   location?: string;
@@ -35,6 +39,10 @@ const reviewSchema = new Schema<IReview>({
     quality: { type: Number, required: true },
     value: { type: Number, required: true },
   },
+  skinConcernOptions: [{
+    value: {type: String, required: true},
+    label: {type: String, required: true}
+  }],
   user: { type: String, ref: 'User' },
   nickname: { type: String, default: 'Anonymous' },
   location: String,

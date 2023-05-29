@@ -58,7 +58,6 @@ const userSchema = new Schema<IUser>({
   },
   reviewCount: { type: Number, default: 0 },
   voteCount: { type: Number, default: 0 },
-  skinConcerns: [String],
 });
 
 

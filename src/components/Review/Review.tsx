@@ -2,18 +2,35 @@ import {
   IReviewState,
   downvoteReview,
   upvoteReview,
+  deleteReview
 } from '../../redux/slices/reviewSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getUserId, selectAuth } from '../../redux/slices/authSlice';
+import { useEffect } from 'react';
 
 export default function Review({ review }: { review: IReviewState }) {
   const dispatch = useAppDispatch();
   const productId = review.product._id;
   const reviewId = review._id;
+  const {userId} = useAppSelector(selectAuth);
+
+    const handleDelete = () => {
+      if (userId && productId)
+        dispatch(
+          deleteReview({
+            userId,
+            productId,
+            reviewId,
+          })
+        );
+    };
+
 
   return (
     <section className='review-details'>
       <div className='review-wrapper'>
         <div className='rating-section'>
+          {userId === review.user._id && <button onClick={handleDelete}>delete</button>}
           overall: {review.rating.overall}
           <br />
           quality: {review.rating.quality}
@@ -35,7 +52,9 @@ export default function Review({ review }: { review: IReviewState }) {
           <br />
           {review.location ? review.location : ''}
           <br />
-          skin concerns: {review.user.skinConcerns}
+          skin concerns: {review.skinConcernOptions.map((option, idx) => {
+            return <p key={idx}>{option.label}</p>;
+          })}
           <br />
           {review.verifiedPurchase ? review.verifiedPurchase : ''}
           <br />

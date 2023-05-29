@@ -18,10 +18,13 @@ export interface IReviewState {
   };
   user: {
     _id: string;
-    skinConcerns: string[];
     voteCount: number;
     reviewCount: number;
   };
+  skinConcernOptions: {
+    value: string;
+    label: string;
+  }[];
   nickname?: string;
   location?: string;
   verifiedPurchase?: boolean;
@@ -37,6 +40,10 @@ export type TAddNewReview = {
     quality: number;
     value: number;
   };
+  skinConcernOptions: {
+    value: string;
+    label: string;
+  }[];
   nickname: string;
   location: string;
 };
@@ -66,7 +73,11 @@ export const fetchAllReviews = createAsyncThunk(
 export const addReview = createAsyncThunk(
   'review/addReview',
   async (
-    { userId, productId, review}: { userId: string; productId: string, review: TAddNewReview },
+    {
+      userId,
+      productId,
+      review,
+    }: { userId: string; productId: string; review: TAddNewReview },
     thunkApi
   ) => {
     try {
@@ -77,9 +88,32 @@ export const addReview = createAsyncThunk(
         { withCredentials: true }
       );
 
-      console.log('data fom add review', data);
+      // console.log('data fom add review', data);
 
       return data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
+export const deleteReview = createAsyncThunk(
+  'review/deleteReview',
+  async (
+    {
+      userId,
+      reviewId,
+      productId,
+    }: { userId: string; reviewId: string; productId: string },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.delete(
+        VITE_API_URL + `/api/product/${productId}/review/${reviewId}`,
+        { withCredentials: true }
+      );
+
+      return reviewId;
     } catch (err) {
       return thunkApi.rejectWithValue(err);
     }
@@ -175,6 +209,27 @@ const reviewSlice = createSlice({
         state.errors = payload;
       })
 
+      /**
+       * * DELETE REVEIW
+       */
+
+      .addCase(deleteReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteReview.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.reviews = state.reviews.filter((review) => {
+          return review._id !== payload; 
+        })
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        deleteReview.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
       /**
        * * UPVOTE REVIEW
        */

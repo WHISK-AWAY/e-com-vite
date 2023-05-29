@@ -105,9 +105,24 @@ export default function SingleProduct() {
       );
       score += reviewScore / 3;
     }
-    return score / allReviews.reviews.length || 0;
+    return (score / allReviews.reviews.length || 0).toFixed(1);
   };
 
+  const qualityAndValueAvg = () => {
+    let quality = 0;
+    let value = 0;
+
+    if (!allReviews.reviews.length) return { quality: 0, value: 0 };
+    for (let review of allReviews.reviews) {
+      value += review.rating.value;
+      quality += review.rating.quality;
+    }
+
+    return {
+      quality: Math.floor(quality / allReviews.reviews.length).toFixed(),
+      value: (value / allReviews.reviews.length).toFixed(),
+    };
+  };
   /**
    * * WRITE A REVEIW
    */
@@ -139,6 +154,7 @@ export default function SingleProduct() {
         <button onClick={handleFavoriteAdd}>&lt;3</button>
       )}
       <br />
+
       {/* PRODUCT SUGGESTIONS */}
       <section className='product-suggestions'>
         <h2>YOU MAY ALSO LIKEEE</h2>
@@ -151,20 +167,39 @@ export default function SingleProduct() {
           </article>
         ))}
       </section>
+
       {/* REVIEWS */}
       <section className='review-container'>
-        <h1>REVIEWS: {allReviews.reviews.length}</h1>
-        <p>average: {overallReviewScore()}</p>
+        <h1>REVIEWS: ({allReviews.reviews.length})</h1>
+        <h2>average customer rating:</h2>
+        <p>average overall: {overallReviewScore()}</p>
+
+        {allReviews.reviews.length ? (
+          <div>
+            <p>average value: {qualityAndValueAvg().value || 0}</p>
+            <p>average quality: {qualityAndValueAvg().quality || 0}</p>
+          </div>
+        ) : (
+          ''
+        )}
         {allReviews.reviews.map((review) => (
           <Review review={review} key={review._id} />
         ))}
-        <button onClick={handleAddReview}>write a review</button>
-        {addReview && (
-          <AddReview
-            productId={productId!}
-            product={singleProduct}
-            setAddReview={setAddReview}
-          />
+        {!allReviews.reviews
+          .map((review) => review.user._id)
+          .includes(userId!) ? (
+          <>
+            <button onClick={handleAddReview}>write a review</button>
+            {addReview && (
+              <AddReview
+                productId={productId!}
+                product={singleProduct}
+                setAddReview={setAddReview}
+              />
+            )}
+          </>
+        ) : (
+          ''
         )}
       </section>
     </section>
