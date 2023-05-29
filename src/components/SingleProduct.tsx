@@ -16,7 +16,8 @@ import {
   selectReviewState,
   fetchAllReviews,
 } from '../redux/slices/reviewSlice';
-import Review from './Review';
+import Review from './Review/Review';
+import AddReview from './Review/AddReview';
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -28,6 +29,7 @@ export default function SingleProduct() {
   const userCart = useAppSelector(selectCart);
   const [count, setCount] = useState<number>(1);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
+  const [addReview, setAddReview] = useState<boolean>(false);
 
   useEffect(() => {
     if (productId) {
@@ -38,14 +40,14 @@ export default function SingleProduct() {
   }, [productId]);
 
   useEffect(() => {
-    console.log('thisUser', thisUser);
+    // console.log('thisUser', thisUser);
 
     if (thisUser._id) {
-      console.log('favorites:', thisUser.favorites);
+      // console.log('favorites:', thisUser.favorites);
       const isFav = thisUser.favorites.some(({ _id: favId }) => {
         return favId.toString() === productId;
       });
-      console.log('isFav:', isFav);
+      // console.log('isFav:', isFav);
       setItemIsFavorited(isFav);
     }
   }, [thisUser]);
@@ -107,13 +109,21 @@ export default function SingleProduct() {
   };
 
   /**
+   * * WRITE A REVEIW
+   */
+
+  const handleAddReview = () => {
+    setAddReview(true);
+  };
+
+  /**
    * * MAIN RENDER
    */
   return (
-    <section className="single-product-container">
-      <div className="single-product-info">
+    <section className='single-product-container'>
+      <div className='single-product-info'>
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt="single product view" />
+        <img src={singleProduct.imageURL} alt='single product view' />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
@@ -128,41 +138,34 @@ export default function SingleProduct() {
       ) : (
         <button onClick={handleFavoriteAdd}>&lt;3</button>
       )}
-      {/* <button onClick={handleFavoriteAdd}>&lt;3</button> */}
       <br />
-      {/* <button onClick={handleFavoriteRemove}>remove from favorite</button> */}
       {/* PRODUCT SUGGESTIONS */}
-      <section className="product-suggestions">
+      <section className='product-suggestions'>
         <h2>YOU MAY ALSO LIKEEE</h2>
         {singleProduct.relatedProducts.map((prod) => (
-          <article className="related-product-card" key={prod._id.toString()}>
+          <article className='related-product-card' key={prod._id.toString()}>
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
             </h3>
-            <img src={prod.imageURL} alt="single product view" />
-            {/* <button
-              onClick={() =>
-                dispatch(
-                  addToCart({
-                    userId: userId!,
-                    productId: prod._id.toString(),
-                    qty: 1,
-                  })
-                )
-              }
-            >
-              Add to cart
-            </button> */}
+            <img src={prod.imageURL} alt='single product view' />
           </article>
         ))}
       </section>
       {/* REVIEWS */}
-      <section className="review-container">
+      <section className='review-container'>
         <h1>REVIEWS: {allReviews.reviews.length}</h1>
         <p>average: {overallReviewScore()}</p>
         {allReviews.reviews.map((review) => (
           <Review review={review} key={review._id} />
         ))}
+        <button onClick={handleAddReview}>write a review</button>
+        {addReview && (
+          <AddReview
+            productId={productId!}
+            product={singleProduct}
+            setAddReview={setAddReview}
+          />
+        )}
       </section>
     </section>
   );

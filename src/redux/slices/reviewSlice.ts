@@ -29,6 +29,17 @@ export interface IReviewState {
   downvote?: number;
 }
 
+export type TAddNewReview = {
+  title: string;
+  content: string;
+  rating: {
+    overall: number;
+    quality: number;
+    value: number;
+  };
+  nickname: string;
+  location: string;
+};
 export type TReviewState = {
   reviews: IReviewState[];
   loading: boolean;
@@ -45,6 +56,29 @@ export const fetchAllReviews = createAsyncThunk(
       );
 
       // console.log('dataR', data);
+      return data;
+    } catch (err) {
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
+export const addReview = createAsyncThunk(
+  'review/addReview',
+  async (
+    { userId, productId, review}: { userId: string; productId: string, review: TAddNewReview },
+    thunkApi
+  ) => {
+    try {
+      console.log('hi');
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/product/${productId}/review`,
+        review,
+        { withCredentials: true }
+      );
+
+      console.log('data fom add review', data);
+
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err);
@@ -82,7 +116,8 @@ export const downvoteReview = createAsyncThunk(
   ) => {
     try {
       const { data } = await axios.post(
-        VITE_API_URL + `/api/product/${productId}/review/${reviewId}/downvote`, {},
+        VITE_API_URL + `/api/product/${productId}/review/${reviewId}/downvote`,
+        {},
         { withCredentials: true }
       );
 
@@ -122,6 +157,23 @@ const reviewSlice = createSlice({
           state.errors = payload;
         }
       )
+
+      /**
+       * * ADD REVIEW
+       */
+
+      .addCase(addReview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addReview.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.reviews = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(addReview.rejected, (state, { payload }: PayloadAction<any>) => {
+        state.loading = false;
+        state.errors = payload;
+      })
 
       /**
        * * UPVOTE REVIEW
