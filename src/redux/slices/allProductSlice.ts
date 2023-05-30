@@ -59,12 +59,28 @@ const fetchSingleProduct = createAsyncThunk(
   }
 );
 
+export const searchProducts = createAsyncThunk(
+  'product/searchProducts',
+  async (_, thunkApi) => {
+    try {
+      const { data } = await axios.get(VITE_API_URL + '/api/product/search', {
+        withCredentials: true,
+      });
+      console.log('data', data);
+      return data;
+    } catch (err: any) {
+      return thunkApi.rejectWithValue({ status: err.response.status });
+    }
+  }
+);
+
 const initialState: ProductState = {
   allProducts: {
     products: [],
     count: null,
   },
   singleProduct: null,
+  searchProducts: [],
   loading: false,
   error: {
     status: null,
@@ -81,6 +97,9 @@ const productSlice = createSlice({
      */
 
     builder
+      .addCase(fetchAllProducts.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchAllProducts.fulfilled, (state, { payload }) => {
         if (!payload) return { ...initialState, error: { status: 404 } };
         state.allProducts.products = payload.products;
@@ -88,9 +107,7 @@ const productSlice = createSlice({
         state.loading = false;
         state.error.status = null;
       })
-      .addCase(fetchAllProducts.pending, (state) => {
-        state.loading = true;
-      })
+
       .addCase(
         fetchAllProducts.rejected,
         (state, action: PayloadAction<any>) => {
@@ -121,6 +138,26 @@ const productSlice = createSlice({
           state.loading = false;
           state.error = { status: action.payload.status };
         }
+      )
+
+      /**
+       * * SEARCH PRODUCT
+       */
+
+      .addCase(searchProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(searchProducts.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.searchProducts = payload;
+        state.error.status = null;
+      })
+      .addCase(
+        searchProducts.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.error = { status: payload.status };
+        }
       );
   },
 });
@@ -146,6 +183,7 @@ export type TProduct = {
 export interface ProductState {
   allProducts: { products: TProduct[]; count: number | null };
   singleProduct: TProduct | null;
+  searchProducts: [],
   loading: boolean;
   error: { status: number | null };
 }
