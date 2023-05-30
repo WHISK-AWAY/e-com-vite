@@ -39,8 +39,8 @@ router.post(
 
       const subtotal = (await userLookup?.cart.subtotal) as unknown as number;
       if (!subtotal) return res.status(400).send('bad');
-      console.log('sub', subtotal);
-      console.log('UL', userLookup);
+      // console.log('sub', subtotal);
+      // console.log('UL', userLookup);
 
       // Create a PaymentIntent with the order amount and currency
       const paymentIntent = await stripe.paymentIntents.create({
@@ -50,6 +50,7 @@ router.post(
           enabled: true,
         },
       });
+      // console.log('req.user', req.user)
 
       // console.log('PI', paymentIntent);
       res.json({
