@@ -6,7 +6,6 @@ import {
 } from '../../redux/slices/reviewSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
-import { useEffect } from 'react';
 
 export default function Review({ review }: { review: IReviewState }) {
   const dispatch = useAppDispatch();
@@ -71,6 +70,7 @@ export default function Review({ review }: { review: IReviewState }) {
         </div>
         <div className='vote-section'>
           <h3>Helpful?</h3>
+          
           <button
             onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
           >

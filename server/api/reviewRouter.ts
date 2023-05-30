@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router({ mergeParams: true });
-import { IUserVote, Product, Review, UserVote } from '../database/index';
+import { IUserVote, Product, Review, UserVote, User } from '../database/index';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 import { checkAuthenticated, sameUserOrAdmin } from './authMiddleware';
@@ -113,9 +113,13 @@ router.post('/:reviewId/upvote', checkAuthenticated, async (req, res, next) => {
     const userUpvote = await UserVote.find({ userId, reviewId });
     let upvoteReview;
     if (userUpvote.length >= 1 && userUpvote[0].voteChoice === 'upvote') {
-      return res
-        .status(409)
-        .send('Cannot upvote review: user has already voted');
+      upvoteReview = await Review.findOneAndUpdate(
+        { _id: reviewId, product: productId },
+        { $inc: { upvote: -1 } },
+        { new: true }
+      );
+      await User.findOneAndUpdate({ _id: userId }, { $inc: { voteCount: -1 } });
+      await UserVote.findOneAndDelete({ userId, reviewId });
     } else if (
       userUpvote.length >= 1 &&
       userUpvote[0].voteChoice !== 'upvote'
@@ -207,11 +211,21 @@ router.post(
           { userId, reviewId },
           { voteChoice: 'downvote' }
         );
-      } else if (userDownvote.voteChoice === 'downvote') {
+      } else if (
+        userDownvote.voteChoice.length > 1 &&
+        userDownvote.voteChoice === 'downvote'
+      ) {
         // user has already downvoted this review
-        return res.status(409).json({
-          message: 'Cannot downvote review: user already downvoted this review',
-        });
+        await User.findOneAndUpdate(
+          { _id: userId },
+          { $inc: { voteCount: -1 } },
+          { new: true }
+        );
+        await Review.findOneAndUpdate(
+          { _id: reviewId },
+          { $inc: { downvote: -1 } }
+        );
+        await UserVote.findOneAndDelete({ userId, reviewId });
       }
 
       const allReviews = await Review.find({ product: productId })
