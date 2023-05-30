@@ -48,7 +48,8 @@ type TOrderQuery = Omit<TzodOrderInput, 'promoCode'> & {
   orderDetails: {
     productId: mongoose.Types.ObjectId;
     productName: string;
-    productDesc: string;
+    productLongDesc: string;
+    productShortDesc: string;
     brand: string;
     imageURL: string;
     price: number;
@@ -65,7 +66,8 @@ type TExpandedCartProduct = {
   product: {
     _id: mongoose.Types.ObjectId;
     productName: string;
-    productDesc: string;
+    productLongDesc: string;
+    productShortDesc: string;
     brand: string;
     imageURL: string;
     price: number;
@@ -149,7 +151,8 @@ router.post(
             brand: prod.product.brand,
             imageURL: prod.product.imageURL,
             price: prod.price,
-            productDesc: prod.product.productDesc,
+            productLongDesc: prod.product.productLongDesc,
+            productShortDesc: prod.product.productShortDesc,
             productName: prod.product.productName,
             qty: prod.qty,
           };

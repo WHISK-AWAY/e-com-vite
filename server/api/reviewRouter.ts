@@ -85,7 +85,7 @@ router.post('/', checkAuthenticated, async (req, res, next) => {
     if (checkExistingReview.length >= 1)
       return res.status(409).send('Cannot create duplicate review');
 
-    const newReview = await await Review.create(parsedBody);
+    const newReview = await Review.create(parsedBody);
     const allReviews = await Review.find({ product: productId })
       .populate({
         path: 'product',
