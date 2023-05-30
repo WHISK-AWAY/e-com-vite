@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import * as cheerio from 'cheerio';
 import Downloader from 'nodejs-file-downloader';
-// import fs from 'fs' // TODO: read filesystem to avoid downloading duplicates
 
 const BAD_URLS = [
   '/collections/serums-imperfections',
