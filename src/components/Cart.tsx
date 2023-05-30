@@ -106,7 +106,7 @@ export default function Cart() {
     e: any
   ) => {
     e.preventDefault();
-    console.log('hi');
+    // console.log('hi');
     try {
       const { data } = await axios.post(
         'http://localhost:3001/api/checkout/create-payment-intent',
@@ -114,7 +114,7 @@ export default function Cart() {
         { withCredentials: true }
       );
       setClientSecret(data.clientSecret);
-      console.log('data', data);
+      // console.log('data', data);
       return data;
     } catch (err) {
       console.log(err);
