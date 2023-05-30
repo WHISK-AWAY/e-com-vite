@@ -71,10 +71,10 @@ const orderSchema = new Schema<IOrder>(
         zip: { type: String, required: true },
       },
       paymentInfo: {
-        paymentType: { type: String, required: true },
+        paymentType: { type: String },
         // cardType: {type: String, requred: true},
-        cardNum: { type: String, required: true },
-        exp: { type: String, required: true },
+        cardNum: { type: String },
+        exp: { type: String },
         cvv: String,
       },
     },
