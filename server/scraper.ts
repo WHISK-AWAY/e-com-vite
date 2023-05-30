@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import * as cheerio from 'cheerio';
-import Downloader from 'nodejs-file-downloader';
 
 const BAD_URLS = [
   '/collections/serums-imperfections',
@@ -31,12 +30,12 @@ export async function typologyVideoScraper() {
         let href = link.attribs.href;
         let branch = href.split('/')[1];
         if (
-          branch === 'collections' &&
+          (branch === 'collections' || branch === 'products') &&
           !visitedSites.has(href) &&
           !BAD_URLS.includes(href)
         ) {
           visitedSites.add(href);
-          q.push('https://us.typology.com' + href);
+          q.push('https://us.typology.com' + href); // ! crawly bit
         }
       }
 
@@ -61,13 +60,15 @@ export async function typologyVideoScraper() {
         if (vidUrl.includes('video-storyblok') && !visitedVideos.has(vidUrl)) {
           visitedVideos.add(vidUrl);
 
-          const downloader = new Downloader({
-            url: vidUrl,
-            directory: './server/scraperImages/typology/videos',
-            cloneFiles: false,
-          });
+          // ! begin downloady bit
+          // const downloader = new Downloader({
+          //   url: vidUrl,
+          //   directory: './server/scraperImages/typology/videos',
+          //   cloneFiles: false,
+          // });
 
-          await downloader.download();
+          // await downloader.download();
+          // ! end downloady bit
         }
       }
     } catch (err) {
@@ -103,34 +104,40 @@ export async function typologyImageScraper() {
         let href = link.attribs.href;
         let branch = href.split('/')[1];
         if (
-          branch === 'collections' &&
+          (branch === 'collections' || branch === 'products') &&
           !visitedSites.has(href) &&
           !BAD_URLS.includes(href)
         ) {
           visitedSites.add(href);
-          q.push('https://us.typology.com' + href);
+          q.push('https://us.typology.com' + href); // ! crawly bit
           // console.log('https://us.typology.com' + href);
         }
       }
 
-      let imgArray = $('img').toArray();
+      let titleArray = $('.product-card h2').toArray();
+      titleArray.forEach((title) => console.log(title.childNodes[0].data)); // ? this grabs titles -- how do I marry this up with images????????????????????
+
+      let imgArray = $('.product-card img').toArray();
 
       for (let img of imgArray) {
         let src = img.attribs.src.split('?')[0];
 
         if (src.includes('storyblok') && !visitedImages.has(src)) {
+          // console.log(img.attribs.alt);
           visitedImages.add(src);
 
-          const downloader = new Downloader({
-            url: img.attribs.src.split('?')[0],
-            directory: './server/scraperImages/typology',
-            cloneFiles: false,
-          });
+          // ! start of downloady bit
+          // const downloader = new Downloader({
+          //   url: img.attribs.src.split('?')[0],
+          //   directory: './server/scraperImages/typology',
+          //   cloneFiles: false,
+          // });
 
-          await downloader.download();
+          // await downloader.download();
 
           // const downloadReport = await downloader.download();
           // console.log('downloadReport', downloadReport);
+          // ! end of downloady bit
         }
       }
     } catch (err) {
