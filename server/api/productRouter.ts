@@ -6,6 +6,7 @@ import { checkAuthenticated, requireAdmin } from './authMiddleware';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 import { zodProduct } from '../utils';
+import { IProduct, ITag } from '../database/index';
 
 const createZodProduct = zodProduct.strict();
 const updateZodProduct = zodProduct
@@ -52,6 +53,48 @@ router.get('/', async (req, res, next) => {
     if (!allProducts.length) return res.status(404).send('No products found');
 
     res.status(200).json({ products: allProducts, count: countAllProducts });
+  } catch (err) {
+    next(err);
+  }
+});
+
+export type TSearch =
+  | (
+      | {
+          productId: string;
+          productName: string;
+        }
+      | {
+          tagId: string;
+          tagName: string;
+        }
+    )[];
+
+router.get('/search', async (req, res, next) => {
+  try {
+    const allProducts = await Product.find();
+    const allTags = await Tag.find();
+
+   
+    if (!allProducts.length || !allTags.length) {
+      return res.status(404).send('No products available');
+
+    }
+
+    const searchData: TSearch = [];
+
+    allProducts.forEach((product: IProduct) => {
+      searchData.push({
+        productId: product._id?.toString()!,
+        productName: product.productName,
+      });
+    });
+
+    allTags.forEach((tag: ITag) => {
+      searchData.push({ tagId: tag._id?.toString()!, tagName: tag.tagName });
+    });
+
+    res.status(200).json(searchData);
   } catch (err) {
     next(err);
   }
