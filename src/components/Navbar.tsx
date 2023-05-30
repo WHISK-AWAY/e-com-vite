@@ -6,28 +6,37 @@ import {
 } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useEffect } from 'react';
-import { fetchSingleUser, resetUserState } from '../redux/slices/userSlice';
+import {
+  fetchSingleUser,
+  resetUserState,
+  selectSingleUser,
+} from '../redux/slices/userSlice';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userId, error: authError, firstName } = useAppSelector(selectAuth);
+  const { userId, error: authError } = useAppSelector(selectAuth);
+  const {user: {firstName}} = useAppSelector(selectSingleUser);
+  const auth = useAppSelector(selectAuth);
 
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
     if (userId) dispatch(fetchSingleUser(userId));
-
   }, [userId]);
+
+  useEffect(() => {
+    dispatch(getUserId());
+  }, []);
 
   function signOut() {
     dispatch(requestLogout());
     // dispatch(resetUserState())
-    navigate('/')
+    navigate('/');
   }
 
   return (
-    <nav className="navbar-container flex justify-end gap-4">
+    <nav className='navbar-container flex justify-end gap-4'>
       {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>}
       <NavLink to={'/shop-all'}>SHOP</NavLink>
 
@@ -41,17 +50,14 @@ export default function Navbar() {
       >
         BESTSELLERS
       </button> */}
-      <NavLink to="/shop-all/bestsellers" state={{ sortKey: 'saleCount' }}>
+      <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
         BESTSELLERS
       </NavLink>
-      {userId  &&
-      <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+      {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
       <NavLink to={`/user/${userId}/cart`}>CART</NavLink>
       <NavLink to={`/user/${userId}/favorites`}>FAVORITES</NavLink>
-      {!userId &&
-      <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
-      {userId && 
-      <button onClick={signOut}>SIGN OUT</button>}
+      {!userId && <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
+      {userId && <button onClick={signOut}>SIGN OUT</button>}
     </nav>
   );
 }
