@@ -8,7 +8,7 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
  * * TYPES
  */
 
-type TOrder = {
+export type TOrder = {
   _id?: string;
   orderDetails: {
     productId: string;
@@ -75,12 +75,42 @@ export const fetchAllOrders = createAsyncThunk(
       return data; // ! make sure this is an array of orders
     } catch (err) {
       if (err instanceof AxiosError) {
-        return thunkApi.rejectWithValue({ status: 123, message: 'TODO' });
+        return thunkApi.rejectWithValue({
+          message: err.response?.data.message,
+          status: err.response?.status,
+        });
       }
     }
   }
 );
 
+/**
+ * * CREATE AN ORDER
+ */
+
+export const createOrder = createAsyncThunk(
+  'order/createOrder',
+  async ({ userId, order }: { userId: string; order: TOrder }, thunkApi) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/user/${userId}/order`,
+        order ,
+        { withCredentials: true }
+      );
+
+      console.log('order', order);
+      return order;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        thunkApi.rejectWithValue({
+          message: err.response?.data.message,
+          status: err.response?.status,
+        });
+      }
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
 /**
  * * ORDER SLICE
  */
@@ -100,6 +130,9 @@ const orderSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    /**
+     * *FETCH ALL ORDERS
+     */
     builder
       .addCase(fetchAllOrders.pending, (state) => {
         state.loading = true;
@@ -109,7 +142,27 @@ const orderSlice = createSlice({
       })
       .addCase(fetchAllOrders.rejected, (_, action: PayloadAction<any>) => {
         return { ...initialState, errors: action.payload };
-      });
+      })
+
+      /**
+       * * CREATE SINGLE ORDER
+       */
+
+      .addCase(createOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        createOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      );
   },
 });
 
