@@ -11,13 +11,16 @@ import {
   resetUserState,
   selectSingleUser,
 } from '../redux/slices/userSlice';
+import { searchProducts } from '../redux/slices/allProductSlice';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId, error: authError } = useAppSelector(selectAuth);
-  const {user: {firstName}} = useAppSelector(selectSingleUser);
-  const auth = useAppSelector(selectAuth);
+  const {
+    user: { firstName },
+  } = useAppSelector(selectSingleUser);
+  const auth = useAppSelector(selectAuth); 
 
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
@@ -27,6 +30,7 @@ export default function Navbar() {
 
   useEffect(() => {
     dispatch(getUserId());
+    dispatch(searchProducts());
   }, []);
 
   function signOut() {
@@ -34,6 +38,13 @@ export default function Navbar() {
     // dispatch(resetUserState())
     navigate('/');
   }
+
+  const handleSearch = (e:any) => {
+    e.preventDefault();
+
+
+  };
+
 
   return (
     <nav className='navbar-container flex justify-end gap-4'>
@@ -58,6 +69,11 @@ export default function Navbar() {
       <NavLink to={`/user/${userId}/favorites`}>FAVORITES</NavLink>
       {!userId && <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
       {userId && <button onClick={signOut}>SIGN OUT</button>}
+
+      <form>
+        <input type='text' id='search' placeholder='search...'></input>
+        <button onClick={(e) => handleSearch(e)}>search</button>
+      </form>
     </nav>
   );
 }
