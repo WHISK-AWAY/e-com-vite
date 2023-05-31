@@ -61,6 +61,7 @@ router.get('/', async (req, res, next) => {
 type ProductItem = {
   productId: string;
   productName: string;
+  imageURL: string;
 };
 
 type TagItem = {
@@ -88,6 +89,7 @@ router.get('/search', async (req, res, next) => {
       searchData.products.push({
         productId: product._id?.toString()!,
         productName: product.productName,
+        imageURL: product.imageURL,
       });
     });
 
