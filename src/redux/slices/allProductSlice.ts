@@ -80,7 +80,7 @@ const initialState: ProductState = {
     count: null,
   },
   singleProduct: null,
-  searchProducts: [],
+  searchProducts: { products: [], tags: [] },
   loading: false,
   error: {
     status: null,
@@ -180,10 +180,25 @@ export type TProduct = {
   relatedProducts: Omit<TProduct, 'relatedProducts'>[];
 };
 
+type ProductItem = {
+  productId: string;
+  productName: string;
+};
+
+type TagItem = {
+  tagId: string;
+  tagName: string;
+};
+
+export interface TSearch {
+  products: ProductItem[];
+  tags: TagItem[];
+}
+
 export interface ProductState {
   allProducts: { products: TProduct[]; count: number | null };
   singleProduct: TProduct | null;
-  searchProducts: [],
+  searchProducts: TSearch;
   loading: boolean;
   error: { status: number | null };
 }
@@ -193,4 +208,6 @@ export const selectAllProducts = (state: RootState) =>
   state.product.allProducts;
 export const selectSingleProduct = (state: RootState) =>
   state.product.singleProduct;
+export const selectSearchProducts = (state: RootState) =>
+  state.product.searchProducts;
 export default productSlice.reducer;

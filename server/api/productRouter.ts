@@ -58,40 +58,44 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-export type TSearch =
-  | (
-      | {
-          productId: string;
-          productName: string;
-        }
-      | {
-          tagId: string;
-          tagName: string;
-        }
-    )[];
+type ProductItem = {
+  productId: string;
+  productName: string;
+};
+
+type TagItem = {
+  tagId: string;
+  tagName: string;
+};
+
+export type TSearch = {
+  products: ProductItem[];
+  tags: TagItem[];
+};
 
 router.get('/search', async (req, res, next) => {
   try {
     const allProducts = await Product.find();
     const allTags = await Tag.find();
 
-   
     if (!allProducts.length || !allTags.length) {
       return res.status(404).send('No products available');
-
     }
 
-    const searchData: TSearch = [];
+    const searchData: TSearch = { products: [], tags: [] };
 
     allProducts.forEach((product: IProduct) => {
-      searchData.push({
+      searchData.products.push({
         productId: product._id?.toString()!,
         productName: product.productName,
       });
     });
 
     allTags.forEach((tag: ITag) => {
-      searchData.push({ tagId: tag._id?.toString()!, tagName: tag.tagName });
+      searchData.tags.push({
+        tagId: tag._id?.toString()!,
+        tagName: tag.tagName,
+      });
     });
 
     res.status(200).json(searchData);
