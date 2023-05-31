@@ -183,6 +183,7 @@ export type TProduct = {
 type ProductItem = {
   productId: string;
   productName: string;
+  imageURL: string;
 };
 
 type TagItem = {
