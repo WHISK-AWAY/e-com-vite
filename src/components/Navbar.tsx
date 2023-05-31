@@ -17,6 +17,7 @@ import {
 } from '../redux/slices/allProductSlice';
 import type { TSearch } from '../redux/slices/allProductSlice';
 import { Product } from '../../server/database';
+import Search from './Search';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function Navbar() {
   } = useAppSelector(selectSingleUser);
   const auth = useAppSelector(selectAuth);
   const catalogue = useAppSelector(selectSearchProducts);
+  const [search, setSearch] = useState('');
+  const [searchNotFound, setSearchNotFound] = useState(false);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -70,8 +73,9 @@ export default function Navbar() {
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
     const searchTerm = e.target.value;
-    console.log('searchTerm', searchTerm);
+    // console.log('searchTerm', searchTerm);
 
     const productResults = catalogue.products.filter((prod) => {
       return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -81,25 +85,53 @@ export default function Navbar() {
     });
 
     setSearchResults({ products: productResults, tags: tagResults });
-    console.log('productResults', productResults);
+  };
+
+  useEffect(() => {
+    if (search === '') {
+      setSearchNotFound(false);
+      if (searchResults.products.length || searchResults.tags.length) {
+        setSearchResults({
+          products: [],
+          tags: [],
+        });
+      }
+    } else {
+      if (!searchResults.products.length && !searchResults.tags.length) {
+        setSearchNotFound(true);
+      } else {
+        setSearchNotFound(false);
+      }
+    }
+  }, [search, searchResults]);
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchResults.products.length + searchResults.tags.length > 1) return;
+    setSearch('');
+
+    if (searchResults.tags.length === 1) {
+      navigate(`/shop-all?page=1`, {
+        state: { filterKey: searchResults.tags[0].tagName },
+      });
+    }
+
+    if (searchResults.products.length === 1) {
+      navigate(`/product/${searchResults.products[0].productId}`, {});
+    }
+
+    setSearchResults({
+      products: [],
+      tags: [],
+    });
   };
 
   return (
-    <nav className="navbar-container flex justify-end gap-4">
+    <nav className='navbar-container flex justify-end gap-4'>
       {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>}
       <NavLink to={'/shop-all'}>SHOP</NavLink>
 
-      {/* <NavLink to="/shop-all/bestsellers">BESTSELLERS</NavLink>/ */}
-      {/* <button
-        onClick={() => {
-          navigate('/shop-all/bestsellers', {
-            state: { sortKey: 'saleCount' },
-          });
-        }}
-      >
-        BESTSELLERS
-      </button> */}
-      <NavLink to="/shop-all/bestsellers" state={{ sortKey: 'saleCount' }}>
+      <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
         BESTSELLERS
       </NavLink>
       {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
@@ -108,16 +140,23 @@ export default function Navbar() {
       {!userId && <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
       {userId && <button onClick={signOut}>SIGN OUT</button>}
 
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={(e) => handleFormSubmit(e)}>
         <input
-          type="text"
-          id="search"
-          placeholder="search..."
+          type='text'
+          id='search'
+          value={search}
+          placeholder='search...'
           onChange={(e) => handleSearch(e)}
         ></input>
         <button>search</button>
       </form>
-      {(searchResults.products.length > 0 || searchResults.tags.length > 0) && (
+      <Search
+        searchResults={searchResults}
+        setSearch={setSearch}
+        setSearchResults={setSearchResults}
+        searchNotFound={searchNotFound}
+      />
+      {/* {(searchResults.products.length > 0 || searchResults.tags.length > 0) && (
         <select onChange={(e) => console.log(e.target.dataset.type)}>
           {searchResults.products.map((prod) => (
             <option
@@ -142,8 +181,8 @@ export default function Navbar() {
               {tag.tagName}
             </option>
           ))}
-        </select>
-      )}
+        </select> */}
+      {/* )} */}
     </nav>
   );
 }
