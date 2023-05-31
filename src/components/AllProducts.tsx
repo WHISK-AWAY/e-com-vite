@@ -4,9 +4,17 @@ import {
   fetchAllProducts,
   selectAllProducts,
 } from '../redux/slices/allProductSlice';
-import { useSearchParams, Link } from 'react-router-dom';
-import { addToFavorites } from '../redux/slices/userSlice';
-import { getUserId, selectAuthUserId } from '../redux/slices/authSlice';
+import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import {
+  addToFavorites,
+  removeFromFavorites,
+  selectSingleUserFavorites,
+} from '../redux/slices/userSlice';
+import {
+  getUserId,
+  selectAuth,
+  selectAuthUserId,
+} from '../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
 const PRODS_PER_PAGE = 9;
@@ -26,16 +34,17 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
+  filterKey?: string;
 };
 
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
-}: AllProductsProps) {
-  const dispatch = useAppDispatch();
-
+}: // filterKey = 'all',
+AllProductsProps) {
   if (sortKey === 'saleCount') sortDir = 'desc';
 
+  const dispatch = useAppDispatch();
   const [params, setParams] = useSearchParams();
   const [pageNum, setPageNum] = useState<number | undefined>();
   const [sort, setSort] = useState<TSort>({
@@ -46,6 +55,16 @@ export default function AllProducts({
 
   const [filter, setFilter] = useState('all');
 
+  let { state } = useLocation();
+
+  const userFavorites = useAppSelector(selectSingleUserFavorites);
+
+  // console.log('uf', userFavorites);
+
+  useEffect(() => {
+    if (state?.filterKey) setFilter(state.filterKey);
+  }, [state]);
+
   let curPage = Number(params.get('page'));
 
   const allProducts = useAppSelector(selectAllProducts);
@@ -54,33 +73,37 @@ export default function AllProducts({
 
   const tagState = useAppSelector(selectTagState);
 
-  const maxPages = bestsellers ? 2 : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
+  const maxPages = bestsellers
+    ? 2
+    : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
   useEffect(() => {
     // console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
     // console.log('path', pathname);
     dispatch(fetchAllTags());
   }, []);
-  
+
   useEffect(() => {
     dispatch(getUserId());
   }, [userId]);
-  
+
   useEffect(() => {
     setSort({ key: sortKey, direction: sortDir });
   }, [sortKey]);
-  
+
   useEffect(() => {
     if (!curPage) setParams({ page: '1' });
     // else if (curPage > maxPages) setParams({ page: maxPages.toString() });
     else setPageNum(Number(params.get('page')));
   }, [curPage]);
-  
+
   useEffect(() => {
     if (pageNum && pageNum > 0)
-    dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
+      dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
     const pathname = window.location.pathname.split('/');
-    setBestsellers(pathname[pathname.length -1].toLowerCase() === 'bestsellers')
+    setBestsellers(
+      pathname[pathname.length - 1].toLowerCase() === 'bestsellers'
+    );
   }, [pageNum, sort, filter]);
 
   useEffect(() => {
@@ -99,14 +122,26 @@ export default function AllProducts({
     setParams({ page: String(prevPage) });
   };
 
-  const handleAddToFavorite = ({
+  const handleAddOrRemoveFromFavorites = ({
     userId,
     productId,
   }: {
     userId: string;
     productId: string;
   }) => {
-    if (userId) dispatch(addToFavorites({ userId, productId }));
+    if (userId) {
+      let favId = [] as string[];
+      userFavorites.forEach((fav) => {
+        favId.push(fav._id);
+      });
+
+      if (!favId?.includes(productId)) {
+        dispatch(addToFavorites({ userId, productId }));
+      } else {
+        dispatch(removeFromFavorites({ userId, productId }));
+      }
+
+    }
   };
 
   // function handleSort(sortKey: 'productName' | 'price'): void {
@@ -126,6 +161,8 @@ export default function AllProducts({
 
   const tagList = tagState.tags;
 
+  // console.log('filter key', filterKey);
+
   return (
     <section className='all-product-container'>
       <h1 className='text-2xl'>{bestsellers ? 'BESTSELLERS' : 'SHOP ALL'}</h1>
@@ -140,11 +177,7 @@ export default function AllProducts({
                   key: sortKey || 'productName',
                   direction: sortDir || 'desc',
                 })}
-                // defaultValue={
-                //   sortKey === 'saleCount'
-                //     ? JSON.stringify({ key: sortKey || 'productName', direction: sortDir || 'desc' })
-                //     : JSON.stringify({ key: 'productName', direction: 'asc' })
-                // }
+            
               >
                 <option
                   value={JSON.stringify({
@@ -198,7 +231,10 @@ export default function AllProducts({
 
             <div className='filter-selector border'>
               <h2>Filter by:</h2>
-              <select onChange={(e) => setFilter(e.target.value)}>
+              <select
+                onChange={(e) => setFilter(e.target.value)}
+                value={filter}
+              >
                 <option className='capitalize' value='all'>
                   all
                 </option>
@@ -220,7 +256,8 @@ export default function AllProducts({
       </div>
 
       <div>
-        {/* TODO: conditional favorite button */}
+
+        {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
           <li className='list-none' key={product._id.toString()}>
             <img src={product.imageURL} alt='cat' />
@@ -233,7 +270,7 @@ export default function AllProducts({
             <p> {product.price}</p>
             <button
               onClick={() => {
-                handleAddToFavorite({
+                handleAddOrRemoveFromFavorites({
                   userId: userId!,
                   productId: product._id.toString(),
                 });
@@ -250,6 +287,3 @@ export default function AllProducts({
     </section>
   );
 }
-
-
-
