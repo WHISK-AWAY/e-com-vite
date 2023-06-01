@@ -181,14 +181,17 @@ router.post(
       }
 
       // create new order
-      const newOrder = await Order.create(newOrderInput);
+      const createdOrder = await Order.create(newOrderInput);
 
       // purge user cart if order creation was successful
-      if (newOrder) {
+      if (createdOrder) {
         user.cart.clearCart!({ restock: false });
       }
 
-      res.status(201).json(newOrder);
+      // const newOrder = await Order.findById(createdOrder._id);
+      // console.log('newOrder:', newOrder);
+
+      res.status(201).json(createdOrder);
     } catch (err) {
       next(err);
     }

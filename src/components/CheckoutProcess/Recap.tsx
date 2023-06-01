@@ -236,7 +236,7 @@ export default function Recap() {
         <div>
           {clientSecret ? (
             <Elements stripe={stripePromise} options={options}>
-              <Checkout options={options} />
+              <Checkout />
             </Elements>
           ) : (
             <button className="bg-amber-400" onClick={(e) => handleCheckout(e)}>

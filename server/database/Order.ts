@@ -100,9 +100,8 @@ orderSchema.virtual('subtotal').get(function () {
 orderSchema.virtual('total').get(function () {
   let tot: number = this.subtotal || 0;
 
-  if (this.promoCode) {
-    if (this.promoCode.promoCodeRate)
-      tot = tot * (1 - this.promoCode.promoCodeRate);
+  if (this.promoCode?.promoCodeRate) {
+    tot = tot * (1 - this.promoCode.promoCodeRate);
   }
   return +tot.toFixed(2);
 });

@@ -94,12 +94,12 @@ export const createOrder = createAsyncThunk(
     try {
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${userId}/order`,
-        order ,
+        order,
         { withCredentials: true }
       );
 
       console.log('order', order);
-      return order;
+      return data;
     } catch (err) {
       if (err instanceof AxiosError) {
         thunkApi.rejectWithValue({
@@ -128,7 +128,9 @@ const initialState: OrderState = {
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrderState: () => initialState,
+  },
   extraReducers: (builder) => {
     /**
      * *FETCH ALL ORDERS
@@ -167,4 +169,5 @@ const orderSlice = createSlice({
 });
 
 export const selectOrderState = (state: RootState) => state.order;
+export const { resetOrderState } = orderSlice.actions;
 export default orderSlice.reducer;

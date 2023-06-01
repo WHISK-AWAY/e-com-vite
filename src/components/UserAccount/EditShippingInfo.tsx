@@ -79,7 +79,8 @@ export default function ShippingInfo({ user }: ShippingProps) {
       postalCode: addressData.zip,
       regionCode: 'US',
     }).then((validationInfo) => {
-      if (validationInfo.result === 'confirmed') {
+      // if (validationInfo.result === 'confirmed') {
+      if (true) {
         // * good shit
         setAddressValidationFailed(false);
         console.log('address confirmed');
