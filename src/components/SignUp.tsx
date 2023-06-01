@@ -47,7 +47,6 @@ export default function SignUp() {
   const dispatch = useAppDispatch();
   const selectAuthUser = useAppSelector(selectAuth);
 
-  console.log('selector', selectAuthUser);
   const {
     register,
     handleSubmit,
@@ -146,7 +145,7 @@ export default function SignUp() {
             <input type="password" {...register('confirmPassword')}></input>
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
-          <button type='submit'>submit</button>
+          <button type="submit">submit</button>
         </form>
         <p>
           <Link to="/sign-in" className="text-green-400">
