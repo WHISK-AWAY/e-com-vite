@@ -160,5 +160,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(PORT, async () => {
   await mongoInit();
+  User.purgeInactiveCart();
+  setInterval(() => {
+    console.log('Purging stale carts...');
+    User.purgeInactiveCart();
+  }, 1000 * 60 * 60 * 24 * 2);
   console.log('Server is listening on port: ' + PORT);
 });
