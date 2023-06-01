@@ -49,7 +49,7 @@ export default function Navbar() {
 
   function signOut() {
     dispatch(requestLogout());
-    // dispatch(resetUserState())
+    dispatch(resetUserState())
     navigate('/');
   }
 
