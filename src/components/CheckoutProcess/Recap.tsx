@@ -140,6 +140,8 @@ export default function Recap() {
     setIsFormEdit(false);
   };
 
+  // ! Decline card: 4000 0000 0000 9995
+
   return (
     <div>
       <section className="order-recap">
