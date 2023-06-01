@@ -114,6 +114,7 @@ export const requestLogout = createAsyncThunk(
         {},
         { withCredentials: true }
       );
+      console.log('user signed out');
 
       return null;
     } catch (err) {
@@ -197,7 +198,7 @@ export const authSlice = createSlice({
 
     builder
       .addCase(requestLogout.pending, (state) => {
-        return {...initialState, loading : true};
+        return { ...initialState, loading: true };
       })
       .addCase(requestLogout.fulfilled, () => {
         return { ...initialState };
