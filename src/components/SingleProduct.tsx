@@ -32,6 +32,8 @@ export default function SingleProduct() {
   const [addReview, setAddReview] = useState<boolean>(false);
 
   useEffect(() => {
+    setCount(1);
+
     if (productId) {
       dispatch(getUserId());
       dispatch(fetchSingleProduct(productId));
@@ -50,7 +52,7 @@ export default function SingleProduct() {
       // console.log('isFav:', isFav);
       setItemIsFavorited(isFav);
     }
-  }, [thisUser]);
+  }, [thisUser, productId]);
 
   // console.log('item is favorited?', itemIsFavorited);
 
@@ -68,8 +70,9 @@ export default function SingleProduct() {
   };
 
   const handleClick = () => {
-    if (userId && productId)
+    if (userId && productId) {
       dispatch(addToCart({ userId, productId, qty: count }));
+    }
   };
 
   if (!singleProduct) return <p>...Loading</p>;
@@ -135,10 +138,10 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <section className='single-product-container'>
-      <div className='single-product-info'>
+    <section className="single-product-container">
+      <div className="single-product-info">
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt='single product view' />
+        <img src={singleProduct.imageURL} alt="single product view" />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
@@ -156,20 +159,20 @@ export default function SingleProduct() {
       <br />
 
       {/* PRODUCT SUGGESTIONS */}
-      <section className='product-suggestions'>
+      <section className="product-suggestions">
         <h2>YOU MAY ALSO LIKEEE</h2>
         {singleProduct.relatedProducts.map((prod) => (
-          <article className='related-product-card' key={prod._id.toString()}>
+          <article className="related-product-card" key={prod._id.toString()}>
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
             </h3>
-            <img src={prod.imageURL} alt='single product view' />
+            <img src={prod.imageURL} alt="single product view" />
           </article>
         ))}
       </section>
 
       {/* REVIEWS */}
-      <section className='review-container'>
+      <section className="review-container">
         <h1>REVIEWS: ({allReviews.reviews.length})</h1>
         <h2>average customer rating:</h2>
         <p>average overall: {overallReviewScore()}</p>
