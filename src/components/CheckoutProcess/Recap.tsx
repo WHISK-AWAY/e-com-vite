@@ -1,17 +1,17 @@
-import {
-  CartState,
-  fetchUserCart,
-  selectCart,
-} from '../../redux/slices/cartSlice';
+// import {
+//   CartState,
+//   fetchUserCart,
+//   selectCart,
+// } from '../../redux/slices/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
-import { getUserId, selectAuthUserId } from '../../redux/slices/authSlice';
+import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
   editUserAccountInfo,
   fetchSingleUser,
   selectSingleUser,
 } from '../../redux/slices/userSlice';
-import { appendErrors, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -45,6 +45,12 @@ export default function Recap() {
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
   }, [userId]);
+
+  useEffect(() => {
+    if (user && !user.address?.address_1) {
+      setIsFormEdit(true);
+    }
+  }, [user]);
 
   const ZShippingData = z.object({
     firstName: z.string().min(2),
@@ -136,7 +142,7 @@ export default function Recap() {
 
   return (
     <div>
-      <section className='order-recap'>
+      <section className="order-recap">
         {/* PRODUCTS RECAP */}
 
         <h1>ORDER RECAP</h1>
@@ -153,7 +159,7 @@ export default function Recap() {
 
         {/* SHIPPING FORM (PLAIN TEXT) */}
         {user && user.address && !isFormEdit && (
-          <section className='shipping-info-container'>
+          <section className="shipping-info-container">
             <br />
             <h1>SHIPPING INFO</h1>
             <div>
@@ -171,7 +177,7 @@ export default function Recap() {
           </section>
         )}
         {!isFormEdit && (
-          <button className='bg-blue-800' onClick={() => setIsFormEdit(true)}>
+          <button className="bg-blue-800" onClick={() => setIsFormEdit(true)}>
             EDIT{' '}
           </button>
         )}
@@ -180,61 +186,63 @@ export default function Recap() {
         {isFormEdit && (
           <form onSubmit={handleSubmit(handleEditForm)}>
             <h1>EDIT SHIPPING INFO</h1>
-            <div className='first-name-field'>
-              <label htmlFor='first-name'>First name</label>
-              <input id='first-name' type='text' {...register('firstName')} />
+            <div className="first-name-field">
+              <label htmlFor="first-name">First name</label>
+              <input id="first-name" type="text" {...register('firstName')} />
             </div>
-            <div className='address-1-field'>
-              <label htmlFor='last-name'>Last name</label>
-              <input id='last-name' type='text' {...register('lastName')} />
+            <div className="address-1-field">
+              <label htmlFor="last-name">Last name</label>
+              <input id="last-name" type="text" {...register('lastName')} />
             </div>
-            <div className='address-1-field'>
-              <label htmlFor='email'>Email</label>
-              <input id='email' type='text' {...register('email')} />
+            <div className="address-1-field">
+              <label htmlFor="email">Email</label>
+              <input id="email" type="text" {...register('email')} />
             </div>
-            <div className='address-1-field'>
-              <label htmlFor='address_1'>Address_1</label>
-              <input id='address_1' type='text' {...register('address_1')} />
+            <div className="address-1-field">
+              <label htmlFor="address_1">Address_1</label>
+              <input id="address_1" type="text" {...register('address_1')} />
             </div>
 
-            <div className='address-2-field'>
-              <label htmlFor='address_2'>Address_2</label>
-              <input id='address_2' type='text' {...register('address_2')} />
+            <div className="address-2-field">
+              <label htmlFor="address_2">Address_2</label>
+              <input id="address_2" type="text" {...register('address_2')} />
               {errors.address_2 && <p>{errors.address_2.message}</p>}
             </div>
 
-            <div className='city-field'>
-              <label htmlFor='city'>City</label>
-              <input id='city' type='text' {...register('city')} />
+            <div className="city-field">
+              <label htmlFor="city">City</label>
+              <input id="city" type="text" {...register('city')} />
             </div>
 
-            <div className='state-field'>
-              <label htmlFor='state'>State</label>
-              <input id='state' type='text' {...register('state')} />
+            <div className="state-field">
+              <label htmlFor="state">State</label>
+              <input id="state" type="text" {...register('state')} />
             </div>
 
-            <div className='zip-field'>
-              <label htmlFor='zip'>Zip</label>
-              <input id='zip' type='text' {...register('zip')} />
+            <div className="zip-field">
+              <label htmlFor="zip">Zip</label>
+              <input id="zip" type="text" {...register('zip')} />
             </div>
 
-            <button className='bg-green-800'>SAVE CHANGES</button>
+            <button className="bg-green-800">SAVE CHANGES</button>
 
             {addressValidationFailed && <h2>INVALID ADDRESS - RE-ENTER</h2>}
           </form>
         )}
       </section>
-      <div>
-        {clientSecret ? (
-          <Elements stripe={stripePromise} options={options}>
-            <Checkout options={options} />
-          </Elements>
-        ) : (
-          <button className='bg-amber-400' onClick={(e) => handleCheckout(e)}>
-            PROCEED TO PAYMENT
-          </button>
-        )}
-      </div>
+      {!isFormEdit && (
+        <div>
+          {clientSecret ? (
+            <Elements stripe={stripePromise} options={options}>
+              <Checkout options={options} />
+            </Elements>
+          ) : (
+            <button className="bg-amber-400" onClick={(e) => handleCheckout(e)}>
+              PROCEED TO PAYMENT
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
