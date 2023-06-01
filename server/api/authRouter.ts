@@ -1,6 +1,6 @@
 import express from 'express';
 // import axios from 'axios';
-import { User } from '../database/index';
+import { IUser, User } from '../database/index';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../.env' });
 const router = express.Router();
@@ -35,10 +35,12 @@ router.post('/signup', async (req, res, next) => {
           'Cannot signup user with given email- it already exists in the database'
         );
 
-    const newUser = await User.create(parsedBody);
+    const newUser: IUser = await User.create(parsedBody);
 
     // must call login method to get access to req.user
-    req.login(newUser, (err) => console.log(err));
+    req.login(newUser, (err) => {
+      if (err) throw err;
+    });
 
     res.status(201).json({
       userId: req.user!._id,
