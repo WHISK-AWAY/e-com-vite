@@ -207,7 +207,7 @@ const initialState: userState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {resetUserState: () => initialState},
+  reducers: { resetUserState: () => initialState },
   extraReducers: (builder) => {
     /**
      *  *SINGLE USER
@@ -296,4 +296,4 @@ export default userSlice.reducer;
 export const selectSingleUser = (state: RootState) => state.user;
 export const selectSingleUserFavorites = (state: RootState) =>
   state.user.user.favorites;
-export const {resetUserState} = userSlice.actions
+export const { resetUserState } = userSlice.actions;
