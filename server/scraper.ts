@@ -115,7 +115,7 @@ export async function typologyImageScraper() {
       }
 
       let titleArray = $('.product-card h2').toArray();
-      titleArray.forEach((title) => console.log(title.childNodes[0].data)); // ? this grabs titles -- how do I marry this up with images????????????????????
+      // titleArray.forEach((title) => console.log(title.childNodes[0].data)); // ? this grabs titles -- how do I marry this up with images????????????????????
 
       let imgArray = $('.product-card img').toArray();
 
