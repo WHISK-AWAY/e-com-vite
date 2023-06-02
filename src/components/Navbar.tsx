@@ -128,7 +128,7 @@ export default function Navbar() {
 
   return (
     <nav className='navbar-container flex justify-end gap-4'>
-      {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>}
+      {/* {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>} */}
       <NavLink to={'/shop-all'}>SHOP</NavLink>
 
       <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
