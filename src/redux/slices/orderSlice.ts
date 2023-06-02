@@ -98,7 +98,7 @@ export const createOrder = createAsyncThunk(
         { withCredentials: true }
       );
 
-      console.log('order', order);
+      // console.log('order', order);
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -111,6 +111,59 @@ export const createOrder = createAsyncThunk(
     }
   }
 );
+
+export const fetchSingleOrder = createAsyncThunk(
+  'order/fetchSingleOrder',
+  async (
+    { userId, orderId }: { userId: string; orderId: string },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.get(
+        VITE_API_URL + `/api/user/${userId}/order/${orderId}`,
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      }
+    }
+  }
+);
+/**
+ * * UPDATE AN ORDER
+ */
+
+export const updateOrder = createAsyncThunk(
+  'order/updateOrder',
+  async (
+    { userId, orderId }: { userId: string; orderId: string },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.put(
+        VITE_API_URL + `/api/user/${userId}/order/${orderId}`,
+        {},
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      }
+    }
+  }
+);
+
 /**
  * * ORDER SLICE
  */
@@ -147,6 +200,26 @@ const orderSlice = createSlice({
       })
 
       /**
+       * * FETCH SINGLE ORDER
+       */
+
+      .addCase(fetchSingleOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchSingleOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        fetchSingleOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
+
+      /**
        * * CREATE SINGLE ORDER
        */
 
@@ -160,6 +233,26 @@ const orderSlice = createSlice({
       })
       .addCase(
         createOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
+
+      /**
+       * * UPDATE AN ORDER
+       */
+
+      .addCase(updateOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        updateOrder.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
           state.errors = payload;
