@@ -1,5 +1,9 @@
 import mongoose from 'mongoose';
-import { mongooseConnection } from './database/index';
+import {
+  IShippingAddress,
+  Shipping,
+  mongooseConnection,
+} from './database/index';
 import {
   generateUser,
   generateProduct, // hi buddy!
@@ -111,6 +115,26 @@ export async function seed() {
   };
 
   const newUser = await User.create([...generateUser(25), regUser, adminUser]);
+
+  const gromitId = newUser
+    .find((user) => user.firstName === 'Gromit')!
+    ._id.toString();
+
+  const gromitShipAddress: Omit<IShippingAddress, '_id'> = {
+    userId: gromitId,
+    isDefault: true,
+    shipToAddress: {
+      firstName: 'Gromit',
+      lastName: 'Aardman',
+      email: 'gromit@veryoddjobs.co.uk',
+      address_1: '62 West Wallaby Street',
+      city: 'Wigan',
+      state: 'Yorkshire',
+      zip: '11228',
+    },
+  };
+
+  await Shipping.create(gromitShipAddress);
 
   for (let user of newUser) {
     // attach products to user favorites

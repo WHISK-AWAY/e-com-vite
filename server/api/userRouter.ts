@@ -3,6 +3,7 @@ const router = express.Router();
 import { User } from '../database/index';
 import cartRouter from './cartRouter';
 import orderRouter from './orderRouter';
+import shippingRouter from './shippingRouter';
 import {
   checkAuthenticated,
   requireAdmin,
@@ -64,7 +65,8 @@ router.get(
 
       const user = await User.findById(userId, '-password')
         .populate({ path: 'cart.products.product', populate: { path: 'tags' } })
-        .populate({ path: 'favorites', populate: { path: 'tags' } });
+        .populate({ path: 'favorites', populate: { path: 'tags' } })
+        .populate('shippingAddresses');
 
       if (!user)
         return res.status(404).send('User with the given ID does not exist');
@@ -214,5 +216,6 @@ router.delete(
 
 router.use('/:userId/cart', cartRouter);
 router.use('/:userId/order', orderRouter);
+router.use('/:userId/shipping', shippingRouter);
 
 export default router;

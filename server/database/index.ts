@@ -7,6 +7,7 @@ export { default as User } from './User';
 export { IUser, ICart, TCartReturn, TProduct } from './dbTypes';
 export { default as UserVote, IUserVote } from './UserVote';
 export { default as Statistics, IBestsellerRef } from './Statistics';
+export { default as Shipping, IShippingAddress } from './ShippingInfo';
 
 import dotenv from 'dotenv';
 dotenv.config();

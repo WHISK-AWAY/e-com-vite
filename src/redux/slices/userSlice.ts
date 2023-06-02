@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TReduxError } from '../reduxTypes';
+import type { ShippingInfoFields } from '../../components/CheckoutProcess/Recap';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
@@ -26,12 +27,30 @@ export type TProduct = {
   }[];
 };
 
+export type TShippingAddress = {
+  shipToAddress: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    address_1: string;
+    address_2?: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  isDefault: boolean;
+  userId: string;
+  _id: string;
+};
+
 export type TUser = {
   _id: string;
   firstName: string;
   lastName: string;
   email: string;
+  shippingAddresses: TShippingAddress[];
   address?: {
+    // TODO: get rid of "address" section in favor of shippingAddresses
     address_1: string;
     address_2?: string;
     city: string;
@@ -124,6 +143,37 @@ export const editUserAccountInfo = createAsyncThunk(
           message: err.response?.data.message,
         });
       console.log(err);
+    }
+  }
+);
+
+/**
+ * * ADD SHIPPING ADDRESS
+ */
+
+export const addShippingAddress = createAsyncThunk(
+  'singleUser/addShippingAddress',
+  async (
+    { shippingData }: { shippingData: ShippingInfoFields & { userId: string } },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.post(
+        VITE_API_URL + `/api/user/${shippingData.userId}/shipping/`,
+        shippingData,
+        { withCredentials: true }
+      );
+      return data;
+    } catch (err) {
+      // axios thingie
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          message: err.response?.data.message,
+          error: err.response?.status,
+        });
+      } else {
+        console.error(err);
+      }
     }
   }
 );
@@ -287,6 +337,24 @@ const userSlice = createSlice({
         (state, action: PayloadAction<any>) => {
           state.loading = false;
           state.errors = action.payload;
+        }
+      );
+
+    /**
+     * * ADD NEW SHIPPING ADDRESS
+     */
+
+    builder
+      .addCase(addShippingAddress.pending, (state) => {
+        return { ...state, loading: true };
+      })
+      .addCase(addShippingAddress.fulfilled, (state, { payload }) => {
+        return { ...state, loading: false, singleUser: payload };
+      })
+      .addCase(
+        addShippingAddress.rejected,
+        (state, action: PayloadAction<any>) => {
+          return { ...initialState, errors: action.payload };
         }
       );
   },

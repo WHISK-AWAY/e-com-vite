@@ -27,40 +27,41 @@ const cartSchema = new Schema<ICart>(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-const userSchema = new Schema<IUser>({
-  _id: { type: String, default: uuid },
-  firstName: { type: String, required: true, minLength: 2 },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true, minLength: 8 },
-  address: {
-    address_1: { type: String },
-    address_2: { type: String },
-    city: { type: String },
-    state: { type: String },
-    zip: { type: String },
-  },
-  favorites: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Product',
+const userSchema = new Schema<IUser>(
+  {
+    _id: { type: String, default: uuid },
+    firstName: { type: String, required: true, minLength: 2 },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true, lowercase: true },
+    password: { type: String, required: true, minLength: 8 },
+    address: {
+      address_1: { type: String },
+      address_2: { type: String },
+      city: { type: String },
+      state: { type: String },
+      zip: { type: String },
     },
-  ],
-  cart: {
-    type: cartSchema,
-    default: {},
+    favorites: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Product',
+      },
+    ],
+    cart: {
+      type: cartSchema,
+      default: {},
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'user', 'guest'],
+      required: true,
+      default: 'user',
+    },
+    reviewCount: { type: Number, default: 0 },
+    voteCount: { type: Number, default: 0 },
   },
-  role: {
-    type: String,
-    enum: ['admin', 'user', 'guest'],
-    required: true,
-    default: 'user',
-  },
-  reviewCount: { type: Number, default: 0 },
-  voteCount: { type: Number, default: 0 },
-});
-
-
+  { toJSON: { virtuals: true } }
+);
 
 export async function hashPassword(this: IUser) {
   // if(this.password.length > 20 || this.password.length < 8) throw new Error('Do not meet max password length requirement')
@@ -87,8 +88,12 @@ export async function hashUpdatedPassword(
   }
 }
 
-
-
+userSchema.virtual('shippingAddresses', {
+  ref: 'Shipping',
+  localField: '_id',
+  foreignField: 'userId',
+  justOne: false,
+});
 
 userSchema.plugin(softDeletePlugin);
 
