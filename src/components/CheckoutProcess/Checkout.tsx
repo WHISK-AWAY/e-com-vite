@@ -7,79 +7,16 @@ import {
   StripeElementsOptions,
   StripePaymentElementOptions,
 } from '@stripe/stripe-js';
-
-// import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-// import { appendErrors, useForm } from 'react-hook-form';
-// import { z } from 'zod';
-// import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import { checkAddress } from '../../utilities/googleAddressValidation';
-// import { selectSingleUser } from '../../redux/slices/userSlice';
+import { selectOrderState } from '../../redux/slices/orderSlice';
+import { useAppSelector } from '../../redux/hooks';
 
-// type ShippingInfoFields = {
-//   address_1: string;
-//   address_2: string;
-//   city: string;
-//   state: string;
-//   zip: string;
-// };
-
-export default function Checkout({}: // options,
-{
-  // options: StripeElementsOptions;
-}) {
-  /**
-   * * SHIPPING INFO
-   */
-
-  // const user = useAppSelector(selectSingleUser);
-  // console.log('user', user);
-
-  // const ZShippingData = z.object({
-  //   address_1: z.string().min(5),
-  //   address_2: z.string().optional(),
-  //   city: z.string().min(1),
-  //   state: z.string().min(2),
-  //   zip: z.string().min(5),
-  // });
-
-  // const [addressValidationFailed, setAddressValidationFailed] = useState(false);
-  // const [saveIsDisabled, setSaveIsDisabled] = useState(true);
-  // // const { address } = user;
-  // const dispatch = useAppDispatch();
-  // // const { address_1, address_2, city, state, zip } = address!;
-
-  // const defaultValues: ShippingInfoFields = {
-  //   address_1: user.user.address?.address_1 || '',
-  //   address_2: user.user.address?.address_2 || '',
-  //   city: user.user.address?.city || '',
-  //   state: user.user.address?.state || '',
-  //   zip: user.user.address?.zip || '',
-  // };
-
-  // const {
-  //   register,
-  //   reset,
-  //   handleSubmit,
-  //   setError,
-  //   getValues,
-  //   setValue,
-  //   formState: { errors, dirtyFields },
-  // } = useForm<ShippingInfoFields>({
-  //   resolver: zodResolver(ZShippingData),
-  //   defaultValues,
-  //   mode: 'onBlur',
-  // });
-
-  /**
-   * * PAYMENT FORM
-   */
-
+export default function Checkout() {
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const elements = useElements();
   const stripe = useStripe();
+  const order = useAppSelector(selectOrderState);
 
   useEffect(() => {
     if (!stripe) {
@@ -126,8 +63,10 @@ export default function Checkout({}: // options,
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
+        
+        receipt_email: 'stacylukavsky@gmail.com',
         // Make sure to change this to your payment completion page
-        return_url: 'http://localhost:5173/checkout/success',
+        return_url: `http://localhost:5173/checkout/success?order=${order.singleOrder?._id}`,
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
@@ -143,22 +82,31 @@ export default function Checkout({}: // options,
     layout: 'tabs',
   };
 
+
+
+
+
+
+
+
+
+
   return (
     <div>
-      <form id="payment-form" onSubmit={(e) => handlePaymentSubmit(e)}>
+      <form id='payment-form' onSubmit={(e) => handlePaymentSubmit(e)}>
         {/* PAYMENT FORM */}
-        <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <button disabled={isLoading || !stripe || !elements} id="submit">
-          <span id="button-text">
+        <PaymentElement id='payment-element' options={paymentElementOptions} />
+        <button disabled={isLoading || !stripe || !elements} id='submit'>
+          <span id='button-text'>
             {isLoading ? (
-              <div className="spinner" id="spinner"></div>
+              <div className='spinner' id='spinner'></div>
             ) : (
               'Pay now'
             )}
           </span>
         </button>
         {/* Show any error or success messages */}
-        {message && <div id="payment-message">{message}</div>}
+        {message && <div id='payment-message'>{message}</div>}
       </form>
     </div>
   );
