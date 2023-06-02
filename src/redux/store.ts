@@ -6,6 +6,7 @@ import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import reviewSlice from './slices/reviewSlice';
 import tagSlice from './slices/tagSlice';
+import promoSlice from './slices/promoCodeSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     order: orderSlice,
     review: reviewSlice,
     tag: tagSlice,
+    promoCode: promoSlice,
   },
 });
 
