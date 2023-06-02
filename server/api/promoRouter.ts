@@ -6,19 +6,6 @@ import { z } from 'zod';
 import mongoose from 'mongoose';
 const router = express.Router();
 
-// list all promo codes
-router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
-  try {
-    const promos = await Promo.find();
-    if (!promos.length)
-      return res.status(404).json({ message: 'No promo codes found...' });
-
-    res.status(200).json(promos);
-  } catch (err) {
-    next(err);
-  }
-});
-
 const zodPromo = z.object({
   promoCodeName: z.string().min(2),
   promoRate: z.number().min(0.01).max(MAX_PROMO_RATE),
@@ -34,6 +21,38 @@ const zodUpdatePromo = zodPromo
     },
     { message: 'Must provide either promo name or promo rate' }
   );
+
+
+// list all promo codes
+router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
+  try {
+    const promos = await Promo.find();
+    if (!promos.length)
+      return res.status(404).json({ message: 'No promo codes found...' });
+
+    res.status(200).json(promos);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
+router.get('/check-promo/:promoName', checkAuthenticated, async(req, res, next) => {
+  try{
+    const {promoName } = req.params;
+    const promoLookup = await Promo.findOne({promoCodeName: promoName});
+
+    if(!promoLookup) {
+      return res.status(404).json({message: 'Promo code with given name does not exist'})
+    }
+
+    
+    res.status(200).json(promoLookup)
+  }catch(err) {
+    next(err);
+  } 
+})
+
 
 // create promo code
 router.post('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
