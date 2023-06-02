@@ -175,7 +175,7 @@ router.post(
         if (promoLookup) {
           newOrderInput.promoCode = {
             promoCodeName: promoLookup.promoCodeName,
-            promoCodeRate: promoLookup.promoCodeRate,
+            promoCodeRate: promoLookup.promoRate,
           };
         }
       }
@@ -184,9 +184,9 @@ router.post(
       const createdOrder = await Order.create(newOrderInput);
 
       // purge user cart if order creation was successful
-      if (createdOrder) {
-        user.cart.clearCart!({ restock: false });
-      }
+      // if (createdOrder) {
+      //   user.cart.clearCart!({ restock: false });
+      // }
 
       // const newOrder = await Order.findById(createdOrder._id);
       // console.log('newOrder:', newOrder);
@@ -206,6 +206,14 @@ router.put(
   async (req, res, next) => {
     try {
       const { orderId } = req.params;
+      const { userId } = req.params;
+
+      const userLookup = await User.findById(userId);
+
+      if (!userLookup)
+        return res
+          .status(404)
+          .json({ message: 'User with the given ID does not exist' });
 
       // make sure the order exists & isn't already in 'confirmed' status
       const existingOrder = await Order.findById(orderId);
@@ -227,6 +235,10 @@ router.put(
         },
         { new: true }
       );
+
+      if (orderLookup) {
+        userLookup.cart.clearCart!({ restock: false });
+      }
 
       if (!orderLookup)
         return res
