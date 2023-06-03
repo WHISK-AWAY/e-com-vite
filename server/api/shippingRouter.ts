@@ -94,4 +94,32 @@ router.put(
     }
   }
 );
+
+router.delete(
+  '/:shippingAddressId',
+  checkAuthenticated,
+  sameUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const { shippingAddressId } = req.params;
+      const { userId } = req.params;
+      if (!shippingAddressId || !userId)
+        return res
+          .status(404)
+          .json({ message: 'Record with the given ID does not exist' });
+
+      await Shipping.findOneAndDelete({ _id: shippingAddressId });
+
+      const updatedUser = await User.findById(userId, '-password').populate([
+        'cart.products.product',
+        'favorites',
+        'shippingAddresses',
+      ]);
+
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 export default router;
