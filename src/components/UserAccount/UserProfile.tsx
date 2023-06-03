@@ -26,20 +26,18 @@ export default function UserProfile() {
     }
   }, [authUserId, userId]);
 
-
-
   // TODO: prop types for Shipping Info & Order History
 
   if (!user) return <h1>Loading...</h1>;
   return (
-    <section className="user-profile-container flex">
+    <section className='user-profile-container flex'>
       <h1>HELLO {user.user.firstName}</h1>
-      <div className="user-profile-menu-section flex flex-col">
+      <div className='user-profile-menu-section flex flex-col'>
         <button onClick={() => setView('account')}>ACCOUNT INFO</button>
         <button onClick={() => setView('shipping')}>SHIPPING INFO</button>
         <button onClick={() => setView('order')}>ORDER HISTORY</button>
       </div>
-      <div className="user-profile-edit-section h-full w-full border border-red-600">
+      <div className='user-profile-edit-section h-full w-full border border-red-600'>
         {view === 'account' && <EditAccountInfo user={user.user} />}
         {view === 'shipping' && <EditShippingInfo user={user.user} />}
         {view === 'order' && <OrderHistory />}
