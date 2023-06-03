@@ -115,37 +115,37 @@ export default function ShippingInfo({ user }: ShippingProps) {
   };
 
   return (
-    <div className="edit-shipping-info-container">
+    <div className='edit-shipping-info-container'>
       <h1>SHIPPING INFO</h1>
       <form onSubmit={handleSubmit(submitData)}>
-        <div className="address-1-field">
-          <label htmlFor="address_1">Address_1</label>
-          <input id="address_1" type="text" {...register('address_1')} />
+        <div className='address-1-field'>
+          <label htmlFor='address_1'>Address_1</label>
+          <input id='address_1' type='text' {...register('address_1')} />
         </div>
 
-        <div className="address-2-field">
-          <label htmlFor="address_2">Address_2</label>
-          <input id="address_2" type="text" {...register('address_2')} />
+        <div className='address-2-field'>
+          <label htmlFor='address_2'>Address_2</label>
+          <input id='address_2' type='text' {...register('address_2')} />
           {errors.address_2 && <p>{errors.address_2.message}</p>}
         </div>
 
-        <div className="city-field">
-          <label htmlFor="city">City</label>
-          <input id="city" type="text" {...register('city')} />
+        <div className='city-field'>
+          <label htmlFor='city'>City</label>
+          <input id='city' type='text' {...register('city')} />
         </div>
 
-        <div className="state-field">
-          <label htmlFor="state">State</label>
-          <input id="state" type="text" {...register('state')} />
+        <div className='state-field'>
+          <label htmlFor='state'>State</label>
+          <input id='state' type='text' {...register('state')} />
         </div>
 
-        <div className="zip-field">
-          <label htmlFor="zip">Zip</label>
-          <input id="zip" type="text" {...register('zip')} />
+        <div className='zip-field'>
+          <label htmlFor='zip'>Zip</label>
+          <input id='zip' type='text' {...register('zip')} />
         </div>
         <button
           className={saveIsDisabled ? 'bg-red-500' : 'bg-green-600'}
-          type="submit"
+          type='submit'
           disabled={saveIsDisabled}
         >
           SAVE
