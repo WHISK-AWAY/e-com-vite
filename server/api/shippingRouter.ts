@@ -73,10 +73,15 @@ router.put(
 
       const parsedBody = ZShippingAddress.deepPartial().parse(req.body);
 
-      const userToUpdate = await Shipping.findOneAndUpdate(
-        { _id: shippingAddressId },
-        parsedBody
-      );
+      if (parsedBody.isDefault) {
+        // find & update any existing default address for this user
+        await Shipping.updateMany(
+          { userId, isDefault: true, _id: { $ne: shippingAddressId } },
+          { isDefault: false }
+        );
+      }
+
+      await Shipping.findOneAndUpdate({ _id: shippingAddressId }, parsedBody);
 
       const updatedUser = await User.findById(userId, '-password')
         .populate({ path: 'cart.products.product' })
