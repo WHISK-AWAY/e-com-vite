@@ -192,7 +192,7 @@ export const editShippingAddress = createAsyncThunk(
     }: {
       userId: string;
       shippingAddressId: string;
-      shippingData: ShippingInfoFields;
+      shippingData: Partial<ShippingInfoFields>;
     },
     thunkApi
   ) => {

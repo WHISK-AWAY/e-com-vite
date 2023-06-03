@@ -25,19 +25,24 @@ const ZShippingData = z.object({
   }),
 });
 
+export type EditShippingAddressProps = {
+  user: TUser;
+  currentShippingAddress: TShippingAddress | null;
+  setIsFormEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  addressFormMode: EditFormModes;
+};
+
 export default function EditShippingAddress({
   user,
   currentShippingAddress,
   setIsFormEdit,
   addressFormMode,
-}: {
-  // ? let's define a props type for this - a bit tidier that way
-  user: TUser;
-  currentShippingAddress: TShippingAddress | null;
-  setIsFormEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  addressFormMode: EditFormModes;
-}) {
+}: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log('cur:', currentShippingAddress);
+  }, []);
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
@@ -69,10 +74,7 @@ export default function EditShippingAddress({
     register,
     reset,
     handleSubmit,
-    setError,
-    getValues,
-    setValue,
-    formState: { errors, dirtyFields, defaultValues: currentDefaults },
+    formState: { errors, defaultValues: currentDefaults },
   } = useForm<ShippingInfoFields>({
     resolver: zodResolver(ZShippingData),
     defaultValues,
@@ -91,12 +93,7 @@ export default function EditShippingAddress({
       dispatch(addShippingAddress({ shippingData: userFields }));
     } else if (addressFormMode === 'edit') {
       //dispatch edit address thunk (w/ address ID)
-      let shippingAddressId;
-      const userShippingAddresses = user.shippingAddresses.map((address) => {
-        // ? doesn't seem useful here, but we might want to use this in manager component
-        let shippingAddressId = address._id;
-        return shippingAddressId;
-      });
+
       dispatch(
         editShippingAddress({
           userId: user._id!,
@@ -206,7 +203,7 @@ export default function EditShippingAddress({
             <input
               type="checkbox"
               id="isDefault"
-              defaultChecked={currentDefaults?.isDefault || false}
+              defaultChecked={currentDefaults?.isDefault === true || false}
               {...register('isDefault')}
             />
           </div>

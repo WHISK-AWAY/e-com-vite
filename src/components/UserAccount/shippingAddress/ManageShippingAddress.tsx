@@ -1,6 +1,6 @@
 import { TShippingAddress, TUser } from '../../../redux/slices/userSlice';
-
-import { useState } from 'react';
+import { editShippingAddress } from '../../../redux/slices/userSlice';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import EditShippingAddress from './EditShippingAddress';
 
@@ -20,20 +20,73 @@ export type ShippingInfoFields = {
 
 export type EditFormModes = 'edit' | 'new';
 
-export default function ManageShippingAddress({
-  // ? we'll need to bring in a "current" setter so this component can choose an address & send choice back to recap component
-  user,
-  setManageShippingAddress,
-  currentShippingAddress,
-}: {
+export type ManageShippingAddressProps = {
   // ? getting a little bulky - maybe we should define a Props type (e.g., ManageShippingAddressProps)?
   user: TUser;
   setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  addressIndex: number;
+  setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
   currentShippingAddress: TShippingAddress | null;
-}) {
+  setCurrentShippingAddress: React.Dispatch<
+    React.SetStateAction<TShippingAddress | null>
+  >;
+  addresses: TShippingAddress[];
+};
+
+// TODO: render empty ('new') form on load if no addresses exist
+
+export default function ManageShippingAddress({
+  user,
+  setManageShippingAddress,
+  addressIndex,
+  setAddressIndex,
+  currentShippingAddress,
+  setCurrentShippingAddress,
+  addresses,
+}: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
   const [addressFormMode, setAddressFormMode] = useState<EditFormModes>('edit');
+  // const [addresses, setAddresses] = useState<TShippingAddress[]>([]);
+  const [selectorIdx, setSelectorIdx] = useState<number>(0);
+
+  useEffect(() => {
+    if (!selectorIdx) setSelectorIdx(addressIndex);
+  }, [addressIndex]);
+
+  function setDefault() {
+    let address = addresses[selectorIdx!];
+
+    let shippingData: Partial<ShippingInfoFields> = {
+      isDefault: true,
+    };
+
+    dispatch(
+      editShippingAddress({
+        userId: user._id,
+        shippingAddressId: address._id,
+        shippingData,
+      })
+    );
+
+    setAddressIndex(0);
+    setManageShippingAddress(false);
+  }
+
+  function selectAddress() {
+    setAddressIndex(selectorIdx);
+    setManageShippingAddress(false);
+  }
+
+  // TODO: checkbox on edit form isn't correct
+
+  // generate array of addresses
+  // set index to whatever matches currentShippingAddress
+  // render address based on index
+  // next/prev buttons increment/decrement index
+  // choose button sets current shipping address & unrenders form
+  // save new adds address & then sets current to the new one
+  // save edits does pretty much the same thing
 
   return (
     <div>
@@ -44,26 +97,54 @@ export default function ManageShippingAddress({
         {isFormEdit ? (
           <EditShippingAddress
             user={user}
-            currentShippingAddress={currentShippingAddress}
+            currentShippingAddress={addresses[selectorIdx!]}
             setIsFormEdit={setIsFormEdit}
             addressFormMode={addressFormMode}
           />
         ) : (
           <>
-            <p>first name: {currentShippingAddress?.shipToAddress.firstName}</p>
-            <p>last name: {currentShippingAddress?.shipToAddress.lastName}</p>
-            <p>email: {currentShippingAddress?.shipToAddress.email}</p>
-            <p>address 1: {currentShippingAddress?.shipToAddress.address_1}</p>
-            <p>address 2: {currentShippingAddress?.shipToAddress.address_2}</p>
-            <p>city: {currentShippingAddress?.shipToAddress.city}</p>
-            <p>state: {currentShippingAddress?.shipToAddress.state}</p>
-            <p>zip: {currentShippingAddress?.shipToAddress.zip}</p>
-
+            <p>
+              first name: {addresses[selectorIdx!]?.shipToAddress.firstName}
+            </p>
+            <p>last name: {addresses[selectorIdx!]?.shipToAddress.lastName}</p>
+            <p>email: {addresses[selectorIdx!]?.shipToAddress.email}</p>
+            <p>address 1: {addresses[selectorIdx!]?.shipToAddress.address_1}</p>
+            <p>address 2: {addresses[selectorIdx!]?.shipToAddress.address_2}</p>
+            <p>city: {addresses[selectorIdx!]?.shipToAddress.city}</p>
+            <p>state: {addresses[selectorIdx!]?.shipToAddress.state}</p>
+            <p>zip: {addresses[selectorIdx!]?.shipToAddress.zip}</p>
+            <button onClick={setDefault}>SET DEFAULT</button>
+            <br />
             <button onClick={() => setIsFormEdit(true)}>EDIT</button>
           </>
         )}
         <br />
-        <button // ? hide this while in edit mode
+        <button onClick={selectAddress}>USE THIS ADDRESS</button>
+        <br />
+        <button onClick={() => setManageShippingAddress(false)}>CANCEL</button>
+        <br />
+        <>
+          <button
+            onClick={() => {
+              if (selectorIdx! < addresses.length - 1)
+                setSelectorIdx((prev) => prev! + 1);
+              else setSelectorIdx(0);
+            }}
+          >
+            NEXT
+          </button>
+          <br />
+        </>
+        <button
+          onClick={() => {
+            if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
+            else setSelectorIdx(addresses.length - 1);
+          }}
+        >
+          PREVIOUS
+        </button>
+        <br />
+        <button
           onClick={() => {
             setIsFormEdit(true);
             setAddressFormMode('new');
