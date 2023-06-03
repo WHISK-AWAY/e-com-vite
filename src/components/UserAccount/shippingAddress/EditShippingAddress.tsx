@@ -29,7 +29,11 @@ export type EditShippingAddressProps = {
   user: TUser;
   currentShippingAddress: TShippingAddress | null;
   setIsFormEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddressFormMode : React.Dispatch<React.SetStateAction<EditFormModes>>
   addressFormMode: EditFormModes;
+  setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
+  addresses: TShippingAddress[];
+  addressIndex: number;
 };
 
 export default function EditShippingAddress({
@@ -37,6 +41,10 @@ export default function EditShippingAddress({
   currentShippingAddress,
   setIsFormEdit,
   addressFormMode,
+  setAddressFormMode,
+  setAddressIndex,
+  addresses,
+  addressIndex
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
 
@@ -81,7 +89,7 @@ export default function EditShippingAddress({
     mode: 'onBlur',
   });
 
-  const handleEditForm = (data: ShippingInfoFields) => {
+  const handleEditOrAddNewForm = async(data: ShippingInfoFields) => {
     const userFields = {
       isDefault: data.isDefault,
       userId: user._id!,
@@ -89,8 +97,18 @@ export default function EditShippingAddress({
     };
 
     if (addressFormMode === 'new') {
+      console.log('addressIdx', addressIndex)
       // dispatch new address thunk
-      dispatch(addShippingAddress({ shippingData: userFields }));
+      await dispatch(addShippingAddress({ shippingData: userFields }));
+      // setAddressIndex(addresses.length -1)
+      // console.log(setAddressIndex(addresses.length - 1));
+
+      if(userFields.isDefault) {
+        setAddressIndex(0);
+
+      } else {
+        setAddressIndex(addresses.length);
+      }
     } else if (addressFormMode === 'edit') {
       //dispatch edit address thunk (w/ address ID)
 
@@ -132,46 +150,53 @@ export default function EditShippingAddress({
       {/* EDIT SHIPPING INFO FORM */}
 
       <>
-        <form onSubmit={handleSubmit(handleEditForm)}>
-          <h1>EDIT SHIPPING INFO</h1>
-          <div className="first-name-field">
-            <label htmlFor="first-name">First name</label>
+        <form onSubmit={handleSubmit(handleEditOrAddNewForm)}>
+          <>
+            {addressFormMode === 'edit' ? (
+              <h1>EDIT SHIPPING INFO</h1>
+            ) : (
+              <h1>ADD NEW SHIPPING ADDRESS</h1>
+            )}
+          </>
+
+          <div className='first-name-field'>
+            <label htmlFor='first-name'>First name</label>
             <input
-              id="first-name"
-              type="text"
+              id='first-name'
+              type='text'
               {...register('shipToAddress.firstName')}
             />
           </div>
-          <div className="address-1-field">
-            <label htmlFor="last-name">Last name</label>
+          <div className='address-1-field'>
+            <label htmlFor='last-name'>Last name</label>
             <input
-              id="last-name"
-              type="text"
+              id='last-name'
+              type='text'
               {...register('shipToAddress.lastName')}
             />
           </div>
-          <div className="address-1-field">
-            <label htmlFor="email">Email</label>
+          <div className='address-1-field'>
+            <label htmlFor='email'>Email</label>
             <input
-              id="email"
-              type="text"
+              id='email'
+              type='text'
               {...register('shipToAddress.email')}
             />
           </div>
-          <div className="address-1-field">
-            <label htmlFor="address_1">Address_1</label>
+          <div className='address-1-field'>
+            <label htmlFor='address_1'>Address_1</label>
             <input
-              id="address_1"
-              type="text"
+              id='address_1'
+              type='text'
               {...register('shipToAddress.address_1')}
             />
           </div>
 
-          <div className="address-2-field">
-            <label htmlFor="address_2">Address_2</label>
+          <div className='address-2-field'>
+            <label htmlFor='address_2'>Address_2</label>
             <input
-              id="address_2"
-              type="text"
+              id='address_2'
+              type='text'
               {...register('shipToAddress.address_2')}
             />
             {errors.shipToAddress?.address_2 && (
@@ -179,42 +204,42 @@ export default function EditShippingAddress({
             )}
           </div>
 
-          <div className="city-field">
-            <label htmlFor="city">City</label>
-            <input id="city" type="text" {...register('shipToAddress.city')} />
+          <div className='city-field'>
+            <label htmlFor='city'>City</label>
+            <input id='city' type='text' {...register('shipToAddress.city')} />
           </div>
 
-          <div className="state-field">
-            <label htmlFor="state">State</label>
+          <div className='state-field'>
+            <label htmlFor='state'>State</label>
             <input
-              id="state"
-              type="text"
+              id='state'
+              type='text'
               {...register('shipToAddress.state')}
             />
           </div>
 
-          <div className="zip-field">
-            <label htmlFor="zip">Zip</label>
-            <input id="zip" type="text" {...register('shipToAddress.zip')} />
+          <div className='zip-field'>
+            <label htmlFor='zip'>Zip</label>
+            <input id='zip' type='text' {...register('shipToAddress.zip')} />
           </div>
 
-          <div className="default-field">
-            <label htmlFor="isDefault">Make this address the default:</label>
+          <div className='default-field'>
+            <label htmlFor='isDefault'>Make this address the default:</label>
             <input
-              type="checkbox"
-              id="isDefault"
+              type='checkbox'
+              id='isDefault'
               defaultChecked={currentDefaults?.isDefault === true || false}
               {...register('isDefault')}
             />
           </div>
 
-          <button type="submit" className="bg-green-800">
+          <button type='submit' className='bg-green-800'>
             SAVE CHANGES
           </button>
           <button
-            type="button"
-            className="bg-red-800"
-            onClick={() => setIsFormEdit(false)}
+            type='button'
+            className='bg-red-800'
+            onClick={() => {setIsFormEdit(false); setAddressFormMode('edit')}}
           >
             CANCEL
           </button>
