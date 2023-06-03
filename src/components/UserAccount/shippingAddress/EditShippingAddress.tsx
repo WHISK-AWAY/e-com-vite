@@ -31,13 +31,13 @@ export default function EditShippingAddress({
   setIsFormEdit,
   addressFormMode,
 }: {
+  // ? let's define a props type for this - a bit tidier that way
   user: TUser;
   currentShippingAddress: TShippingAddress | null;
   setIsFormEdit: React.Dispatch<React.SetStateAction<boolean>>;
   addressFormMode: EditFormModes;
 }) {
   const dispatch = useAppDispatch();
- 
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
@@ -93,6 +93,7 @@ export default function EditShippingAddress({
       //dispatch edit address thunk (w/ address ID)
       let shippingAddressId;
       const userShippingAddresses = user.shippingAddresses.map((address) => {
+        // ? doesn't seem useful here, but we might want to use this in manager component
         let shippingAddressId = address._id;
         return shippingAddressId;
       });
@@ -109,6 +110,7 @@ export default function EditShippingAddress({
   };
 
   function newShippingAddress() {
+    // ? this would probably make more sense as an object -- then we can pass the "new" or "default" object to reset() depending on form mode
 
     reset({
       shipToAddress: {
@@ -130,52 +132,49 @@ export default function EditShippingAddress({
 
   return (
     <section>
-
-
-
       {/* EDIT SHIPPING INFO FORM */}
 
       <>
         <form onSubmit={handleSubmit(handleEditForm)}>
           <h1>EDIT SHIPPING INFO</h1>
-          <div className='first-name-field'>
-            <label htmlFor='first-name'>First name</label>
+          <div className="first-name-field">
+            <label htmlFor="first-name">First name</label>
             <input
-              id='first-name'
-              type='text'
+              id="first-name"
+              type="text"
               {...register('shipToAddress.firstName')}
             />
           </div>
-          <div className='address-1-field'>
-            <label htmlFor='last-name'>Last name</label>
+          <div className="address-1-field">
+            <label htmlFor="last-name">Last name</label>
             <input
-              id='last-name'
-              type='text'
+              id="last-name"
+              type="text"
               {...register('shipToAddress.lastName')}
             />
           </div>
-          <div className='address-1-field'>
-            <label htmlFor='email'>Email</label>
+          <div className="address-1-field">
+            <label htmlFor="email">Email</label>
             <input
-              id='email'
-              type='text'
+              id="email"
+              type="text"
               {...register('shipToAddress.email')}
             />
           </div>
-          <div className='address-1-field'>
-            <label htmlFor='address_1'>Address_1</label>
+          <div className="address-1-field">
+            <label htmlFor="address_1">Address_1</label>
             <input
-              id='address_1'
-              type='text'
+              id="address_1"
+              type="text"
               {...register('shipToAddress.address_1')}
             />
           </div>
 
-          <div className='address-2-field'>
-            <label htmlFor='address_2'>Address_2</label>
+          <div className="address-2-field">
+            <label htmlFor="address_2">Address_2</label>
             <input
-              id='address_2'
-              type='text'
+              id="address_2"
+              type="text"
               {...register('shipToAddress.address_2')}
             />
             {errors.shipToAddress?.address_2 && (
@@ -183,41 +182,41 @@ export default function EditShippingAddress({
             )}
           </div>
 
-          <div className='city-field'>
-            <label htmlFor='city'>City</label>
-            <input id='city' type='text' {...register('shipToAddress.city')} />
+          <div className="city-field">
+            <label htmlFor="city">City</label>
+            <input id="city" type="text" {...register('shipToAddress.city')} />
           </div>
 
-          <div className='state-field'>
-            <label htmlFor='state'>State</label>
+          <div className="state-field">
+            <label htmlFor="state">State</label>
             <input
-              id='state'
-              type='text'
+              id="state"
+              type="text"
               {...register('shipToAddress.state')}
             />
           </div>
 
-          <div className='zip-field'>
-            <label htmlFor='zip'>Zip</label>
-            <input id='zip' type='text' {...register('shipToAddress.zip')} />
+          <div className="zip-field">
+            <label htmlFor="zip">Zip</label>
+            <input id="zip" type="text" {...register('shipToAddress.zip')} />
           </div>
 
-          <div className='default-field'>
-            <label htmlFor='isDefault'>Make this address the default:</label>
+          <div className="default-field">
+            <label htmlFor="isDefault">Make this address the default:</label>
             <input
-              type='checkbox'
-              id='isDefault'
+              type="checkbox"
+              id="isDefault"
               defaultChecked={currentDefaults?.isDefault || false}
               {...register('isDefault')}
             />
           </div>
 
-          <button type='submit' className='bg-green-800'>
+          <button type="submit" className="bg-green-800">
             SAVE CHANGES
           </button>
           <button
-            type='button'
-            className='bg-red-800'
+            type="button"
+            className="bg-red-800"
             onClick={() => setIsFormEdit(false)}
           >
             CANCEL

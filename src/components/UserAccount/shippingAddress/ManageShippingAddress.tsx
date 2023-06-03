@@ -21,10 +21,12 @@ export type ShippingInfoFields = {
 export type EditFormModes = 'edit' | 'new';
 
 export default function ManageShippingAddress({
+  // ? we'll need to bring in a "current" setter so this component can choose an address & send choice back to recap component
   user,
   setManageShippingAddress,
   currentShippingAddress,
 }: {
+  // ? getting a little bulky - maybe we should define a Props type (e.g., ManageShippingAddressProps)?
   user: TUser;
   setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
   currentShippingAddress: TShippingAddress | null;
@@ -61,7 +63,7 @@ export default function ManageShippingAddress({
           </>
         )}
         <br />
-        <button
+        <button // ? hide this while in edit mode
           onClick={() => {
             setIsFormEdit(true);
             setAddressFormMode('new');

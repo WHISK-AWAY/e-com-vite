@@ -24,6 +24,11 @@ import {
 import { TShippingAddress } from '../../redux/slices/userSlice';
 import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShippingAddress';
 
+// TODO: clear out unused deps
+
+// ! Decline card: 4000 0000 0000 9995
+// * Success card: 4242 4242 4242 4242
+
 export default function Recap() {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(selectAuthUserId);
@@ -38,10 +43,25 @@ export default function Recap() {
   const [isCheckoutCancel, setIsCheckoutCancel] = useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string>('');
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
-  const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
-  const stripePromise = loadStripe(VITE_STRIPE_PUBLIC_KEY);
+  const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY; // ? shift up to imports section so we're not reading it on every render
+  const stripePromise = loadStripe(VITE_STRIPE_PUBLIC_KEY); // ? hopefully can move all the Stripe stuff to its own home (utilities or similar)
+
+  useEffect(() => {
+    if (promoErrors.status) setPromo('');
+  }, [promoErrors.status]);
+
+  useEffect(() => {
+    if (user && !user.address?.address_1) {
+      setIsFormEdit(true);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (userId) dispatch(fetchSingleUser(userId));
+  }, [userId]);
 
   function getCurrentAddress() {
+    // ? once we're happy with how all this works, let's shift this to utilities
     if (user._id) {
       if (user.shippingAddresses.length > 0) {
         return (
@@ -54,12 +74,8 @@ export default function Recap() {
     } else return null;
   }
 
-  const currentShippingAddress = getCurrentAddress();
-
-
-  useEffect(() => {
-    if (userId) dispatch(fetchSingleUser(userId));
-  }, [userId]);
+  const currentShippingAddress = getCurrentAddress(); // ? should probably call this from a useEffect
+  // ? should store this info in a state variable & pass setter to manager component
 
   /**
    * *ORDER CREATION WITH PENDING STATUS
@@ -71,7 +87,12 @@ export default function Recap() {
   };
 
   const orderDetails = () => {
-    console.log('hello from orderDetails function @ Success.tsx');
+    // ? can this be shifted off to utilities?
+    /**
+     * Construct object for use in order creation
+     * Called by submit handler
+     */
+    console.log('hello from orderDetails function @ Recap.tsx');
     const userOrder = {} as Partial<TOrder>;
     userOrder.orderDetails = [];
     for (let product of user.cart.products) {
@@ -121,13 +142,7 @@ export default function Recap() {
 
   //address shit
 
-  useEffect(() => {
-    if (user && !user.address?.address_1) {
-      setIsFormEdit(true);
-    }
-  }, [user]);
-
-
+  // ? consider pulling Stripe shit into a separate component
   const handleCheckout = async (e: any) => {
     e.preventDefault();
     try {
@@ -149,10 +164,6 @@ export default function Recap() {
     }
   };
 
-  useEffect(() => {
-    if (promoErrors.status) setPromo('');
-  }, [promoErrors.status]);
-
   const options: StripeElementsOptions = {
     clientSecret: clientSecret!,
     appearance: {
@@ -169,16 +180,13 @@ export default function Recap() {
     },
   };
 
-
-  // ! Decline card: 4000 0000 0000 9995
-
   const handleCancel = () => {
     setClientSecret('');
     setIsCheckoutCancel(true);
   };
 
-
   const handleManageShippingAddress = () => {
+    // ? could make this in-line if all it's doing is setting a state var
     setManageShippingAddress(true);
   };
 
@@ -186,9 +194,7 @@ export default function Recap() {
 
   return (
     <div>
-      <section className='order-recap'>
-
-        
+      <section className="order-recap">
         {/* PRODUCTS RECAP */}
 
         <h1>ORDER RECAP</h1>
@@ -211,13 +217,13 @@ export default function Recap() {
         )}
 
         {/* PROMO CODE SECTION */}
-        <section className='promo-section'>
+        <section className="promo-section">
           <form onSubmit={(e) => handlePromoSubmit(e)}>
-            <label htmlFor='promo-code'>enter your promo-code:</label>
+            <label htmlFor="promo-code">enter your promo-code:</label>
 
             <input
-              id='promo-code'
-              type='text'
+              id="promo-code"
+              type="text"
               value={promo}
               placeholder={promoErrors.status ? 'invalid promo-code' : ''}
               onChange={(e) => setPromo(e.target.value)}
@@ -239,11 +245,11 @@ export default function Recap() {
         <p>city: {currentShippingAddress?.shipToAddress.city}</p>
         <p>state: {currentShippingAddress?.shipToAddress.state}</p>
         <p>zip: {currentShippingAddress?.shipToAddress.zip}</p>
-        <button className='bg-green-300' onClick={handleManageShippingAddress}>
+        <button className="bg-green-300" onClick={handleManageShippingAddress}>
           MANAGE ADDRESSES
         </button>
         {manageShippingAddress && (
-          <ManageShippingAddress
+          <ManageShippingAddress // ? need to pass along current address setter
             user={user}
             setManageShippingAddress={setManageShippingAddress}
             currentShippingAddress={currentShippingAddress}
@@ -259,14 +265,14 @@ export default function Recap() {
               <Checkout />
             </Elements>
           ) : (
-            <button className='bg-amber-400' onClick={(e) => handleCheckout(e)}>
+            <button className="bg-amber-400" onClick={(e) => handleCheckout(e)}>
               PROCEED TO PAYMENT
             </button>
           )}
         </div>
       )}
       {clientSecret && (
-        <button className='bg-red-400' onClick={handleCancel}>
+        <button className="bg-red-400" onClick={handleCancel}>
           CANCEL
         </button>
       )}
@@ -274,4 +280,3 @@ export default function Recap() {
     </div>
   );
 }
-
