@@ -215,6 +215,38 @@ export const editShippingAddress = createAsyncThunk(
   }
 );
 
+/**
+ * * DELETE SHIPPING ADDRESS
+ */
+
+export const deleteShippingAddress = createAsyncThunk(
+  'singleUser/deleteShippingAddress',
+  async (
+    {
+      shippingAddressId,
+      userId,
+    }: { shippingAddressId: string; userId: string },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.delete(
+        VITE_API_URL + `/api/user/${userId}/shipping/${shippingAddressId}`,
+        { withCredentials: true }
+      );
+
+      console.log('data', data);
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      }
+    }
+  }
+);
+
 //* ADD FAVORITE
 export const addToFavorites = createAsyncThunk(
   'singleUser/addToFavorites',
@@ -409,6 +441,26 @@ const userSlice = createSlice({
       })
       .addCase(
         editShippingAddress.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
+
+      /**
+       * * DELETE USER SHIPPING ADDRESS
+       */
+
+      .addCase(deleteShippingAddress.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteShippingAddress.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.user = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        deleteShippingAddress.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
           state.errors = payload;
