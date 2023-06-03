@@ -9,8 +9,8 @@ const ZShippingAddress = z
     userId: z.string(),
     isDefault: z.boolean(),
     shipToAddress: z.object({
-      firstName: z.string().min(1),
-      lastName: z.string().min(1),
+      firstName: z.string().min(2),
+      lastName: z.string().min(2),
       email: z.string().email(),
       address_1: z.string(),
       address_2: z.string().optional(),
@@ -58,4 +58,35 @@ router.post(
  * * EDIT EXISTING SHIPPING ADDRESS
  */
 
+router.put(
+  '/:shippingAddressId',
+  checkAuthenticated,
+  sameUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      const { shippingAddressId } = req.params;
+
+      if (!userId || !shippingAddressId) {
+        return res.status(404).json({ message: 'Record does not exist' });
+      }
+
+      const parsedBody = ZShippingAddress.deepPartial().parse(req.body);
+
+      const userToUpdate = await Shipping.findOneAndUpdate(
+        { _id: shippingAddressId },
+        parsedBody
+      );
+
+      const updatedUser = await User.findById(userId, '-password')
+        .populate({ path: 'cart.products.product' })
+        .populate('favorites')
+        .populate('shippingAddresses');
+
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 export default router;
