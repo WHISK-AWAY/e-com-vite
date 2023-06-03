@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TReduxError } from '../reduxTypes';
-import type { ShippingInfoFields } from '../../components/CheckoutProcess/Recap';
+import type { ShippingInfoFields } from '../../components/UserAccount/shippingAddress/ManageShippingAddress';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
@@ -173,6 +173,43 @@ export const addShippingAddress = createAsyncThunk(
         });
       } else {
         console.error(err);
+      }
+    }
+  }
+);
+
+/**
+ * *  EDIT USER SHIPPING ADDRESS
+ */
+
+export const editShippingAddress = createAsyncThunk(
+  'singleUser/editShippingAddress',
+  async (
+    {
+      userId,
+      shippingAddressId,
+      shippingData,
+    }: {
+      userId: string;
+      shippingAddressId: string;
+      shippingData: ShippingInfoFields;
+    },
+    thunkApi
+  ) => {
+    try {
+      const { data } = await axios.put(
+        VITE_API_URL + `/api/user/${userId}/shipping/${shippingAddressId}`,
+        shippingData,
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
       }
     }
   }
@@ -349,12 +386,32 @@ const userSlice = createSlice({
         return { ...state, loading: true };
       })
       .addCase(addShippingAddress.fulfilled, (state, { payload }) => {
-        return { ...state, loading: false, singleUser: payload };
+        return { ...state, loading: false, user: payload };
       })
       .addCase(
         addShippingAddress.rejected,
         (state, action: PayloadAction<any>) => {
           return { ...initialState, errors: action.payload };
+        }
+      )
+
+      /**
+       * * EDIT USER SHIPPING ADDRESS
+       */
+
+      .addCase(editShippingAddress.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(editShippingAddress.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.user = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        editShippingAddress.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
         }
       );
   },
