@@ -1,4 +1,8 @@
-import { TShippingAddress, TUser } from '../../../redux/slices/userSlice';
+import {
+  TShippingAddress,
+  TUser,
+  deleteShippingAddress,
+} from '../../../redux/slices/userSlice';
 import { editShippingAddress } from '../../../redux/slices/userSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -26,10 +30,10 @@ export type ManageShippingAddressProps = {
   setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
   addressIndex: number;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
-  currentShippingAddress: TShippingAddress | null;
-  setCurrentShippingAddress: React.Dispatch<
-    React.SetStateAction<TShippingAddress | null>
-  >;
+  // currentShippingAddress: TShippingAddress | null;
+  // setCurrentShippingAddress: React.Dispatch<
+  //   React.SetStateAction<TShippingAddress | null>
+  // >;
   addresses: TShippingAddress[];
 };
 
@@ -40,8 +44,8 @@ export default function ManageShippingAddress({
   setManageShippingAddress,
   addressIndex,
   setAddressIndex,
-  currentShippingAddress,
-  setCurrentShippingAddress,
+  // currentShippingAddress,
+  // setCurrentShippingAddress,
   addresses,
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
@@ -78,16 +82,20 @@ export default function ManageShippingAddress({
     setManageShippingAddress(false);
   }
 
-  // TODO: checkbox on edit form isn't correct
+  const handleShippingAddressDelete = async() => {
+    // console.log('fuck you');
+   await dispatch(
+      deleteShippingAddress({
+        shippingAddressId: addresses[selectorIdx]._id,
+        userId: user._id,
+      })
+    );
+    setSelectorIdx((prev) => Math.max(prev - 1, 0));
+    // setAddressIndex(0);
+  };
 
-  // generate array of addresses
-  // set index to whatever matches currentShippingAddress
-  // render address based on index
-  // next/prev buttons increment/decrement index
-  // choose button sets current shipping address & unrenders form
-  // save new adds address & then sets current to the new one
-  // save edits does pretty much the same thing
-
+  console.log('addresses', addresses)
+  console.log('selectorIdx',selectorIdx)
   return (
     <div>
       <h1>address book</h1>
@@ -100,6 +108,10 @@ export default function ManageShippingAddress({
             currentShippingAddress={addresses[selectorIdx!]}
             setIsFormEdit={setIsFormEdit}
             addressFormMode={addressFormMode}
+            setAddressFormMode={setAddressFormMode}
+            setAddressIndex={setAddressIndex}
+            addressIndex={addressIndex}
+            addresses={addresses}
           />
         ) : (
           <>
@@ -113,18 +125,33 @@ export default function ManageShippingAddress({
             <p>city: {addresses[selectorIdx!]?.shipToAddress.city}</p>
             <p>state: {addresses[selectorIdx!]?.shipToAddress.state}</p>
             <p>zip: {addresses[selectorIdx!]?.shipToAddress.zip}</p>
-            <button onClick={setDefault}>SET DEFAULT</button>
+            <button onClick={setDefault} className='bg-blue-300'>
+              SET DEFAULT
+            </button>
             <br />
-            <button onClick={() => setIsFormEdit(true)}>EDIT</button>
+            <button
+              onClick={() => setIsFormEdit(true)}
+              className='bg-green-500'
+            >
+              EDIT
+            </button>
           </>
         )}
         <br />
-        <button onClick={selectAddress}>USE THIS ADDRESS</button>
+        <button onClick={selectAddress} className='bg-fuchsia-500'>
+          USE THIS ADDRESS
+        </button>
         <br />
-        <button onClick={() => setManageShippingAddress(false)}>CANCEL</button>
+        <button
+          onClick={() => setManageShippingAddress(false)}
+          className='bg-red-400'
+        >
+          CANCEL
+        </button>
         <br />
         <>
           <button
+            className='bg-gray-500'
             onClick={() => {
               if (selectorIdx! < addresses.length - 1)
                 setSelectorIdx((prev) => prev! + 1);
@@ -136,6 +163,7 @@ export default function ManageShippingAddress({
           <br />
         </>
         <button
+          className='bg-gray-500'
           onClick={() => {
             if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
             else setSelectorIdx(addresses.length - 1);
@@ -149,8 +177,13 @@ export default function ManageShippingAddress({
             setIsFormEdit(true);
             setAddressFormMode('new');
           }}
+          className='bg-yellow-400'
         >
           ADD NEW
+        </button>
+        <br />
+        <button className='bg-rose-900' onClick={handleShippingAddressDelete}>
+          DELETE
         </button>
       </section>
     </div>
