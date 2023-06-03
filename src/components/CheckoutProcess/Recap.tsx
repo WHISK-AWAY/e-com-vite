@@ -148,14 +148,14 @@ export default function Recap() {
       user: {
         userId: userId,
         shippingInfo: {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          address_1: user.address!.address_1,
-          address_2: user.address?.address_2,
-          city: user.address?.city!,
-          state: user.address?.state!,
-          zip: user.address?.zip!,
+          firstName: addresses[addressIndex].shipToAddress.firstName,
+          lastName: addresses[addressIndex].shipToAddress.lastName,
+          email: addresses[addressIndex].shipToAddress.email,
+          address_1: addresses[addressIndex].shipToAddress.address_1,
+          address_2: addresses[addressIndex].shipToAddress.address_2,
+          city: addresses[addressIndex].shipToAddress.city,
+          state: addresses[addressIndex].shipToAddress.state,
+          zip: addresses[addressIndex].shipToAddress.zip,
         },
       },
     } as Pick<TOrder, 'user'>;
@@ -236,7 +236,7 @@ export default function Recap() {
 
   return (
     <div>
-      <section className="order-recap">
+      <section className='order-recap'>
         {/* PRODUCTS RECAP */}
 
         <h1>ORDER RECAP</h1>
@@ -253,16 +253,16 @@ export default function Recap() {
         <h2>Subtotal: {user.cart.subtotal}</h2>
         {/* PROMO CODE SECTION */}
         {!verifyPromo && (
-          <section className="promo-section">
+          <section className='promo-section'>
             <form
-              className="border border-red-600"
+              className='border border-red-600'
               onSubmit={(e) => handlePromoSubmit(e)}
             >
-              <label htmlFor="promo-code">enter your promo-code:</label>
+              <label htmlFor='promo-code'>enter your promo-code:</label>
 
               <input
-                id="promo-code"
-                type="text"
+                id='promo-code'
+                type='text'
                 value={promo}
                 placeholder={promoErrors.status ? 'invalid promo-code' : ''}
                 onChange={(e) => setPromo(e.target.value)}
@@ -297,7 +297,7 @@ export default function Recap() {
         <p>city: {addresses[addressIndex].shipToAddress.city}</p>
         <p>state: {addresses[addressIndex].shipToAddress.state}</p>
         <p>zip: {addresses[addressIndex].shipToAddress.zip}</p>
-        <button className="bg-green-300" onClick={handleManageShippingAddress}>
+        <button className='bg-green-300' onClick={handleManageShippingAddress}>
           MANAGE ADDRESSES
         </button>
         {manageShippingAddress && (
@@ -321,14 +321,14 @@ export default function Recap() {
               <Checkout />
             </Elements>
           ) : (
-            <button className="bg-amber-400" onClick={(e) => handleCheckout(e)}>
+            <button className='bg-amber-400' onClick={(e) => handleCheckout(e)}>
               PROCEED TO PAYMENT
             </button>
           )}
         </div>
       )}
       {clientSecret && (
-        <button className="bg-red-400" onClick={handleCancel}>
+        <button className='bg-red-400' onClick={handleCancel}>
           CANCEL
         </button>
       )}
