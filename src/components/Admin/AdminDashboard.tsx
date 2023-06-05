@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+
 export default function AdminDashboard() {
   return (
     <section className='admin-dashboard'>
       <h1>ADMIN DASHBOARD</h1>
-      <br/>
+      <br />
       <section className='inventory-section'>
         <h1>INVENTORY</h1>
       </section>
@@ -16,7 +18,9 @@ export default function AdminDashboard() {
         <h1>REVIEWS</h1>
       </section>
       <section className='reporting-section'>
-        <h1>REPORTS</h1>
+        <Link to='/admin/reports'>
+          <h2>REPORTS</h2>
+        </Link>
       </section>
     </section>
   );

@@ -14,6 +14,7 @@ import Success from './components/CheckoutProcess/stripe/Success';
 import Failure from './components/CheckoutProcess/stripe/Failure';
 import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import AdminReports from './components/Admin/AdminReports';
 
 function App() {
   return (
@@ -32,10 +33,11 @@ function App() {
         <Route path='/user/:userId' element={<UserProfile />} />
         <Route path='/user/:userId/cart' element={<Cart />} />
         <Route path='/user/:userId/favorites' element={<Favorite />} />
-        <Route path="/checkout" element={<Recap />} />
+        <Route path='/checkout' element={<Recap />} />
         <Route path='/checkout/success' element={<Success />} />
         <Route path='/checkout/failure' element={<Failure />} />
-        <Route path='/admin' element={<AdminDashboard/>}/>
+        <Route path='/admin' element={<AdminDashboard />} />
+        <Route path='/admin/reports' element={<AdminReports />} />
       </Routes>
     </React.Fragment>
   );
