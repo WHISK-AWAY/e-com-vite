@@ -307,8 +307,6 @@ export default function Recap() {
             addresses={addresses}
             addressIndex={addressIndex}
             setAddressIndex={setAddressIndex}
-            currentShippingAddress={currentShippingAddress}
-            setCurrentShippingAddress={setCurrentShippingAddress}
           />
         )}
       </section>
