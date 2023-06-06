@@ -48,9 +48,7 @@ export default function EditShippingAddress({
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   console.log('cur:', currentShippingAddress);
-  // }, []);
+
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
