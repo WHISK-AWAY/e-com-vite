@@ -7,6 +7,7 @@ import orderSlice from './slices/orderSlice';
 import reviewSlice from './slices/reviewSlice';
 import tagSlice from './slices/tagSlice';
 import promoSlice from './slices/promoCodeSlice';
+import  adminProductSlice  from './slices/admin/productsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     review: reviewSlice,
     tag: tagSlice,
     promoCode: promoSlice,
+    adminProducts: adminProductSlice
   },
 });
 
