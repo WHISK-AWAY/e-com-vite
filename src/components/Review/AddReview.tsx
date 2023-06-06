@@ -101,8 +101,8 @@ export default function AddReview({
     setAddReview(false);
   };
 
-  console.log('errs', errors);
-  console.log('DF', getValues('skinConcernOptions'));
+  // console.log('errs', errors);
+  // console.log('DF', getValues('skinConcernOptions'));
 
   const skinConcernOptions = [
     { value: 'oily skin', label: 'Oily skin' },
