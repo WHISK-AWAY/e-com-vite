@@ -38,7 +38,7 @@ export default function AdminReviews() {
   return (
     <main className='reviews-admin'>
       <header>
-        <h1>REVIEWS ADMINISTRATION</h1>
+        <h1>REVIEWS</h1>
       </header>
       <section className='reviews-section'>
         <table className='text-center'>
