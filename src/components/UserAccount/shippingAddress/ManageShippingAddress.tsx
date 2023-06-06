@@ -94,8 +94,8 @@ export default function ManageShippingAddress({
     // setAddressIndex(0);
   };
 
-  console.log('addresses', addresses)
-  console.log('selectorIdx',selectorIdx)
+  // console.log('addresses', addresses)
+  // console.log('selectorIdx',selectorIdx)
   return (
     <div>
       <h1>address book</h1>
