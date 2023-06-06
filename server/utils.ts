@@ -34,7 +34,8 @@ export const zodUser = z.object({
 
 export const zodProduct = z.object({
   productName: z.string().min(3),
-  productDesc: z.string().min(10),
+  productLongDesc: z.string().min(20),
+  productShortDesc: z.string().min(10),
   brand: z.string().min(3),
   price: z.number().nonnegative().gt(20),
   qty: z.number().nonnegative().gt(0),
