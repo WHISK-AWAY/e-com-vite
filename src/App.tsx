@@ -14,6 +14,8 @@ import Success from './components/CheckoutProcess/stripe/Success';
 import Failure from './components/CheckoutProcess/stripe/Failure';
 import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import Inventory from './components/Admin/products/Inventory';
+import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct';
 
 function App() {
   return (
@@ -32,10 +34,13 @@ function App() {
         <Route path='/user/:userId' element={<UserProfile />} />
         <Route path='/user/:userId/cart' element={<Cart />} />
         <Route path='/user/:userId/favorites' element={<Favorite />} />
-        <Route path="/checkout" element={<Recap />} />
+        <Route path='/checkout' element={<Recap />} />
         <Route path='/checkout/success' element={<Success />} />
         <Route path='/checkout/failure' element={<Failure />} />
-        <Route path='/admin' element={<AdminDashboard/>}/>
+        <Route path='/admin' element={<AdminDashboard />} />
+        <Route path='/admin/inventory' element={<Inventory />} />
+        <Route path='/admin/product/new' element={<CreateOrEditProduct />} />
+        <Route path='/admin/product/:productId' element={<CreateOrEditProduct />} />
       </Routes>
     </React.Fragment>
   );
