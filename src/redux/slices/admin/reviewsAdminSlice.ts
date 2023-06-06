@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import axios, { AxiosError } from 'axios';
 
+import type { ReviewSortFields } from '../../../components/Admin/AdminReviews';
+
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 /**
@@ -119,6 +121,68 @@ const adminReviewState = createSlice({
   initialState,
   reducers: {
     resetAdminState: () => initialState,
+
+    /**
+     * * Sort Reviews
+     *   lots of options for sort fields, and they don't all work the same due to nestedness / type
+     */
+    sortReviews: (
+      state,
+      {
+        payload: { sortField, sortDir },
+      }: { payload: { sortField: keyof ReviewSortFields; sortDir: string } }
+    ) => {
+      const { allReviews } = state;
+      if (!allReviews.length) return state;
+
+      if (sortField === 'productName') {
+        return {
+          ...state,
+          allReviews: [...allReviews].sort((a, b) => {
+            if (sortDir === 'asc') {
+              return a.product[sortField] >= b.product[sortField] ? 1 : -1;
+            } else {
+              return b.product[sortField] >= a.product[sortField] ? 1 : -1;
+            }
+          }),
+        };
+      } else if (sortField === 'content') {
+        return {
+          ...state,
+          allReviews: [...allReviews].sort((a, b) => {
+            if (sortDir === 'asc') {
+              return b[sortField].length - a[sortField].length;
+            } else {
+              return a[sortField].length - b[sortField].length;
+            }
+          }),
+        };
+      } else if (['upvote', 'downvote'].includes(sortField)) {
+        return {
+          ...state,
+          allReviews: [...allReviews].sort((a: any, b: any) => {
+            // intentional 'any' type
+            if (sortDir === 'asc') {
+              return b[sortField] - a[sortField];
+            } else {
+              return a[sortField] - b[sortField];
+            }
+          }),
+        };
+      } else {
+        return {
+          ...state,
+          allReviews: [...allReviews].sort((a: any, b: any) => {
+            // intentional 'any' type
+            if (sortDir === 'asc') {
+              return a[sortField] >= b[sortField] ? 1 : -1;
+            } else {
+              return b[sortField] >= a[sortField] ? 1 : -1;
+            }
+          }),
+        };
+      }
+    },
   },
   extraReducers: (builder) => {
     /**
@@ -175,5 +239,7 @@ export const selectAllAdminReviews = (state: RootState) =>
   state.adminReviews.allReviews;
 export const selectSingleAdminReview = (state: RootState) =>
   state.adminReviews.singleReview;
+
+export const { sortReviews, resetAdminState } = adminReviewState.actions;
 
 export default adminReviewState.reducer;
