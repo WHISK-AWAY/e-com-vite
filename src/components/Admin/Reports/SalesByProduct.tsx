@@ -4,17 +4,22 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 // Chart shit
 import {
   BarElement,
+  BubbleDataPoint,
   CategoryScale,
+  ChartData,
   Chart as ChartJS,
   Legend,
   LinearScale,
+  Point,
   Title,
   Tooltip,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import {
   fetchReportOrders,
+  fetchReportProducts,
   selectReportOrders,
+  selectReportProducts,
 } from '../../../redux/slices/admin/reportsAdminSlice';
 
 ChartJS.register(
@@ -28,46 +33,73 @@ ChartJS.register(
 
 export const options = {
   plugins: {
-    legend: {
-      position: 'top' as const,
-    },
+    // legend: {
+    //   position: 'top' as const,
+    // },
     title: {
       display: true,
-      text: 'This is my report.',
+      text: 'Sales by Product (all time)',
     },
   },
 };
 
 export default function SalesByProduct() {
   const dispatch = useAppDispatch();
-  const orders = useAppSelector(selectReportOrders);
+  const products = useAppSelector(selectReportProducts);
   const [labels, setLabels] = useState<string[]>();
+  const [figures, setFigures] = useState<number[]>();
+  const [data, setData] =
+    useState<
+      ChartData<
+        'bar',
+        (number | [number, number] | Point | BubbleDataPoint | null)[],
+        unknown
+      >
+    >();
 
   useEffect(() => {
-    dispatch(fetchReportOrders());
+    dispatch(fetchReportProducts());
   }, []);
 
   useEffect(() => {
-    if (orders.length > 1) {
-      const productSet = new Set();
-      orders.forEach((order) => {
-        order.orderDetails.forEach((product) => {
-          // return product name
-        });
-      });
-      // setLabels()
+    if (products.length > 0) {
+      let tempProducts = [...products].sort(
+        (a, b) => b.saleCount - a.saleCount
+      );
+      let tempLabels = tempProducts.map((prod) => prod.productName);
+      let tempData = tempProducts.map((prod) => prod.saleCount);
+      setLabels(tempLabels);
+      setFigures(tempData);
     }
-  }, [orders]);
+  }, [products]);
+
+  useEffect(() => {
+    if (labels?.length && figures?.length) {
+      setData({
+        labels,
+        datasets: [
+          {
+            label: 'Product Sales (count)',
+            data: figures,
+            backgroundColor: 'rgba(50, 50, 50, 0.8)',
+          },
+        ],
+      });
+    }
+  }, [labels, figures]);
 
   // const allProducts = dispatch()
-  if (!orders.length) return <h1>Loading orders...</h1>;
+  if (!products.length) return <h1>Loading orders...</h1>;
+  if (!data) return <h1>Loading data...</h1>;
 
   return (
     <>
       <header>
         <h1>Sales by Product</h1>
       </header>
-      <main>(product sales graph goes here)</main>
+      <main className='h-screen w-[80vw]'>
+        <Bar options={options} data={data} />
+      </main>
     </>
   );
 }
