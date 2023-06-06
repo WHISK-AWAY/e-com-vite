@@ -1,7 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
+  fetchAllProducts,
   fetchSingleProduct,
   selectSingleProduct,
 } from '../redux/slices/allProductSlice';
@@ -18,6 +19,7 @@ import {
 } from '../redux/slices/reviewSlice';
 import Review from './Review/Review';
 import AddReview from './Review/AddReview';
+import { adminDeleteSingleProduct, adminFetchAllProducts } from '../redux/slices/admin/productsSlice';
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -30,6 +32,9 @@ export default function SingleProduct() {
   const [count, setCount] = useState<number>(1);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
   const [addReview, setAddReview] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  // console.log('user', thisUser)
 
   useEffect(() => {
     setCount(1);
@@ -138,10 +143,24 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <section className="single-product-container">
-      <div className="single-product-info">
+    <section className='single-product-container'>
+      {thisUser.role === 'admin' && (
+        <>
+          <Link to={`/admin/product/${productId}`} className='pr-2'>EDIT</Link>
+
+          <button
+            onClick={async () => {
+              await dispatch(adminDeleteSingleProduct(productId!));
+              navigate('/shop-all');
+            }}
+          >
+            DELETE
+          </button>
+              </>
+        )}
+      <div className='single-product-info'>
         <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt="single product view" />
+        <img src={singleProduct.imageURL} alt='single product view' />
         <p>{singleProduct.productLongDesc}</p>
         <p>{singleProduct.price}</p>
       </div>
@@ -159,20 +178,20 @@ export default function SingleProduct() {
       <br />
 
       {/* PRODUCT SUGGESTIONS */}
-      <section className="product-suggestions">
+      <section className='product-suggestions'>
         <h2>YOU MAY ALSO LIKEEE</h2>
         {singleProduct.relatedProducts.map((prod) => (
-          <article className="related-product-card" key={prod._id.toString()}>
+          <article className='related-product-card' key={prod._id.toString()}>
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
             </h3>
-            <img src={prod.imageURL} alt="single product view" />
+            <img src={prod.imageURL} alt='single product view' />
           </article>
         ))}
       </section>
 
       {/* REVIEWS */}
-      <section className="review-container">
+      <section className='review-container'>
         <h1>REVIEWS: ({allReviews.reviews.length})</h1>
         <h2>average customer rating:</h2>
         <p>average overall: {overallReviewScore()}</p>

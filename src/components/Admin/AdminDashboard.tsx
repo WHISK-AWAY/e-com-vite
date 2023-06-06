@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { selectSingleUser } from '../../redux/slices/userSlice';
 import { useEffect } from 'react';
+import Inventory from './products/Inventory';
+import CreateOrEditProduct from './products/CreateOrEditProduct';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -19,7 +21,10 @@ export default function AdminDashboard() {
       <h1>ADMIN DASHBOARD</h1>
       <br />
       <section className='inventory-section'>
-        <h1>INVENTORY</h1>
+        <Link to={'/admin/inventory'}>INVENTORY</Link>
+        <br />
+        <Link to={'/admin/product/new'}>CREATE NEW PRODUCT</Link>
+        {/* <Link to={'/admin/product/:productId'}>EDIT PRODUCT</Link> */}
       </section>
       <section className='tag-section'>
         <h1>TAGS</h1>

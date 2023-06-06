@@ -3,10 +3,9 @@ const router = express.Router({ mergeParams: true });
 import reviewRouter from './reviewRouter';
 import { Product, Tag } from '../database/index';
 import { checkAuthenticated, requireAdmin } from './authMiddleware';
-import { z } from 'zod';
-import mongoose from 'mongoose';
 import { zodProduct } from '../utils';
 import { IProduct, ITag } from '../database/index';
+import { all } from 'axios';
 
 const createZodProduct = zodProduct.strict();
 const updateZodProduct = zodProduct
@@ -57,6 +56,18 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/admin',requireAdmin,  async(req, res, next) => {
+  try{
+    const allProducts = await Product.find().populate('tags');
+
+    if(!allProducts.length) return res.status(404).json({message: 'Troubles fetching all products'});
+
+    res.status(200).json(allProducts)
+  }catch(err){
+    next(err);
+  }
+})
 
 type ProductItem = {
   productId: string;
@@ -228,7 +239,7 @@ router.put(
         }
       }
       parsedBody.tags = tagId;
-      updateProduct = await Product.updateOne(parsedBody);
+      updateProduct = await Product.findOneAndUpdate({_id: productId}, parsedBody );
 
       res.status(200).json(updateProduct);
     } catch (err) {

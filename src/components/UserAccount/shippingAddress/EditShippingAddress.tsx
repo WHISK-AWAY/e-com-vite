@@ -48,9 +48,7 @@ export default function EditShippingAddress({
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    console.log('cur:', currentShippingAddress);
-  }, []);
+
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
@@ -97,7 +95,7 @@ export default function EditShippingAddress({
     };
 
     if (addressFormMode === 'new') {
-      console.log('addressIdx', addressIndex)
+      // console.log('addressIdx', addressIndex)
       // dispatch new address thunk
       await dispatch(addShippingAddress({ shippingData: userFields }));
       // setAddressIndex(addresses.length -1)
