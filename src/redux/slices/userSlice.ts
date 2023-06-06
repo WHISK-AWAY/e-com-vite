@@ -21,6 +21,7 @@ export type TProduct = {
   price: number;
   qty: number;
   imageURL: string;
+  saleCount: number;
   tags: {
     _id: string;
     tagName: string;
