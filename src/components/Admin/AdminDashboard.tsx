@@ -1,10 +1,20 @@
+import Inventory from './products/Inventory';
+import { Link } from 'react-router-dom';
+import CreateOrEditProduct from './products/CreateOrEditProduct';
+
 export default function AdminDashboard() {
   return (
     <section className='admin-dashboard'>
       <h1>ADMIN DASHBOARD</h1>
-      <br/>
+      <br />
       <section className='inventory-section'>
-        <h1>INVENTORY</h1>
+        <Link to={'/admin/inventory'} >
+          INVENTORY
+       
+        </Link>
+        <br/>
+        <Link to={'/admin/product/new'}>CREATE NEW PRODUCT</Link>
+        {/* <Link to={'/admin/product/:productId'}>EDIT PRODUCT</Link> */}
       </section>
       <section className='tag-section'>
         <h1>TAGS</h1>
