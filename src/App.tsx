@@ -15,6 +15,7 @@ import Failure from './components/CheckoutProcess/stripe/Failure';
 import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import AdminReports from './components/Admin/AdminReports';
+import AdminReviews from './components/Admin/AdminReviews';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path='/checkout/failure' element={<Failure />} />
         <Route path='/admin' element={<AdminDashboard />} />
         <Route path='/admin/reports' element={<AdminReports />} />
+        <Route path='/admin/reviews' element={<AdminReviews />} />
       </Routes>
     </React.Fragment>
   );

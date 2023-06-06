@@ -24,7 +24,7 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const { userId, error: authError } = useAppSelector(selectAuth);
   const {
-    user: { firstName },
+    user: { role },
   } = useAppSelector(selectSingleUser);
   const auth = useAppSelector(selectAuth);
   const catalogue = useAppSelector(selectSearchProducts);
@@ -135,6 +135,7 @@ export default function Navbar() {
         BESTSELLERS
       </NavLink>
       {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+
       <NavLink to={`/user/${userId}/cart`}>CART</NavLink>
       <NavLink to={`/user/${userId}/favorites`}>FAVORITES</NavLink>
       {!userId && <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
@@ -156,6 +157,11 @@ export default function Navbar() {
         setSearchResults={setSearchResults}
         searchNotFound={searchNotFound}
       />
+      {userId && role === 'admin' && (
+        <NavLink to='/admin' className='text-red-500'>
+          ADMIN
+        </NavLink>
+      )}
       {/* {(searchResults.products.length > 0 || searchResults.tags.length > 0) && (
         <select onChange={(e) => console.log(e.target.dataset.type)}>
           {searchResults.products.map((prod) => (

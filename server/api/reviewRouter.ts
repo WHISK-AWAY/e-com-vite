@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import { checkAuthenticated, sameUserOrAdmin } from './authMiddleware';
 import { zodReview } from '../utils';
 
+// ! CALLED FROM PRODUCT ROUTER (/api/product/:productId/review/...)
+
 const zodCreateReview = zodReview.strict();
 const zodUpdateReview = zodReview
   .strict()

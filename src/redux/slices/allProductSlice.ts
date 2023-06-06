@@ -66,7 +66,6 @@ export const searchProducts = createAsyncThunk(
       const { data } = await axios.get(VITE_API_URL + '/api/product/search', {
         withCredentials: true,
       });
-      console.log('data', data);
       return data;
     } catch (err: any) {
       return thunkApi.rejectWithValue({ status: err.response.status });
