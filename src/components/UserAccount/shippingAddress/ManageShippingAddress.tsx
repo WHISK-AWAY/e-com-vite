@@ -30,10 +30,7 @@ export type ManageShippingAddressProps = {
   setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
   addressIndex: number;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
-  // currentShippingAddress: TShippingAddress | null;
-  // setCurrentShippingAddress: React.Dispatch<
-  //   React.SetStateAction<TShippingAddress | null>
-  // >;
+
   addresses: TShippingAddress[];
 };
 
@@ -44,14 +41,11 @@ export default function ManageShippingAddress({
   setManageShippingAddress,
   addressIndex,
   setAddressIndex,
-  // currentShippingAddress,
-  // setCurrentShippingAddress,
   addresses,
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
   const [addressFormMode, setAddressFormMode] = useState<EditFormModes>('edit');
-  // const [addresses, setAddresses] = useState<TShippingAddress[]>([]);
   const [selectorIdx, setSelectorIdx] = useState<number>(0);
 
   useEffect(() => {
@@ -83,7 +77,6 @@ export default function ManageShippingAddress({
   }
 
   const handleShippingAddressDelete = async() => {
-    // console.log('fuck you');
    await dispatch(
       deleteShippingAddress({
         shippingAddressId: addresses[selectorIdx]._id,
@@ -91,11 +84,9 @@ export default function ManageShippingAddress({
       })
     );
     setSelectorIdx((prev) => Math.max(prev - 1, 0));
-    // setAddressIndex(0);
   };
 
-  // console.log('addresses', addresses)
-  // console.log('selectorIdx',selectorIdx)
+
   return (
     <div>
       <h1>address book</h1>
