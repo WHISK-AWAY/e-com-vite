@@ -1,6 +1,4 @@
 import { Controller, useForm } from 'react-hook-form';
-import Select from 'react-select';
-import Creatable from 'react-select/creatable';
 import CreatableSelect from 'react-select/creatable';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,17 +7,16 @@ import {
   adminDeleteSingleProduct,
   adminEditSingleProduct,
   adminFetchAllProducts,
-} from '../../../redux/slices/admin/productsSlice';
+} from '../../../redux/slices/admin/adminProductsSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
-  TProduct,
-  fetchAllProducts,
   fetchSingleProduct,
   selectSingleProduct,
 } from '../../../redux/slices/allProductSlice';
 import { fetchAllTags, selectTagState } from '../../../redux/slices/tagSlice';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export type TCreateSingleProduct = {
   productName: string;
@@ -36,13 +33,25 @@ export type TCreateSingleProduct = {
 };
 
 const ZSingleProduct = z.object({
-  productName: z.string().min(3),
-  productLongDesc: z.string().min(20),
-  productShortDesc: z.string().min(10),
+  productName: z
+    .string()
+    .min(3, { message: 'Product name must be at lest 3 characters long' }),
+  productLongDesc: z.string().min(20, {
+    message: 'Products long description must be at least 20 characters long',
+  }),
+  productShortDesc: z.string().min(10, {
+    message: 'Products short description must be at least 10 characters long',
+  }),
   brand: z.string(),
-  price: z.number().nonnegative(),
-  qty: z.number().nonnegative(),
-  imageURL: z.string(),
+  price: z
+    .number()
+    .nonnegative({ message: 'Price must not be a negative number' })
+    .min(5, { message: 'Price must higher be than 5' }),
+  qty: z
+    .number()
+    .nonnegative({ message: 'Price must not be a negative number' })
+    .min(1, { message: 'Quantity must not be a negative number' }),
+  imageURL: z.string().url({ message: 'Should be a valid URL' }),
   tags: z
     .array(
       z.object({
@@ -50,20 +59,21 @@ const ZSingleProduct = z.object({
         label: z.string(),
       })
     )
-    .min(3)
-    .max(5),
+    .min(3, { message: 'Must select at least 3 tags' })
+    .max(5, { message: 'Must select at most 5 tags' }),
 });
 
 export type EditOrCreateFormModes = 'edit' | 'new';
 
 export default function CreateOrEditProduct() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState<TCreateSingleProduct>();
-  const { productId } = useParams();
-  const product = useAppSelector(selectSingleProduct);
-  const allTags = useAppSelector(selectTagState);
   const [editOrCreateFormModes, setEditOrCreateFormModes] =
     useState<EditOrCreateFormModes>('new');
+  const product = useAppSelector(selectSingleProduct);
+  const allTags = useAppSelector(selectTagState);
+  const { productId } = useParams();
 
   useEffect(() => {
     dispatch(fetchAllTags());
@@ -75,7 +85,6 @@ export default function CreateOrEditProduct() {
       setEditOrCreateFormModes('edit');
     } else setEditOrCreateFormModes('new');
   }, [productId]);
-
 
   useEffect(() => {
     if (product?._id && editOrCreateFormModes === 'edit')
@@ -94,7 +103,6 @@ export default function CreateOrEditProduct() {
       });
     else newProduct();
   }, [product, editOrCreateFormModes]);
-
 
   const defaultValues: TCreateSingleProduct = {
     productName: product?.productName || '',
@@ -149,6 +157,7 @@ export default function CreateOrEditProduct() {
 
     if (editOrCreateFormModes === 'new') {
       await dispatch(adminCreateSingleProduct(productFields));
+      navigate('/admin/inventory');
     } else if (editOrCreateFormModes === 'edit') {
       if (productId)
         await dispatch(
@@ -157,69 +166,79 @@ export default function CreateOrEditProduct() {
             productId: productId,
           })
         );
+      navigate('/admin/inventory');
     }
   };
-    // useEffect(() => {
-    //   if (productId) dispatch(adminDeleteSingleProduct(productId));
-    //   dispatch(adminFetchAllProducts())
-    // }, [productId]);
-  
 
-  console.log('DF', getValues('tags'));
-  console.log('errs', errors);
+
   return (
     <section className='product-form-container'>
       <form onSubmit={handleSubmit(handleCreateOrEditProduct)}>
         <div className='product-name-section'>
-          {!productId ? <h1>NEW PRODUCT FORM</h1>: <h1>EDIT PRODUCT FORM </h1>}
+          {!productId ? <h1>NEW PRODUCT FORM</h1> : <h1>EDIT PRODUCT FORM </h1>}
           <label htmlFor='product-name'>PRODUCT NAME</label>
           <input
             type='text'
             id='product-name'
             {...register('productName')}
           ></input>
+          {errors.productName && (
+            <p className='text-red-700'>{errors.productName?.message}</p>
+          )}
         </div>
         <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT LONG DESCRIPTION</label>
+          <label htmlFor='product-long-desc'>PRODUCT LONG DESCRIPTION</label>
           <textarea
-            id='product-name'
+            id='product-long-desc'
             {...register('productLongDesc')}
           ></textarea>
+          {errors.productLongDesc && (
+            <p className='text-red-700'>{errors.productLongDesc?.message}</p>
+          )}
         </div>
         <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT SHORT DESCRIPTION</label>
+          <label htmlFor='product-short-desc'>PRODUCT SHORT DESCRIPTION</label>
           <textarea
-            id='product-name'
+            id='product-short-desc'
             {...register('productShortDesc')}
           ></textarea>
+          {errors.productShortDesc && (
+            <p className='text-red-700'>{errors.productShortDesc?.message}</p>
+          )}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT BRAND</label>
-          <input type='text' id='product-name' {...register('brand')}></input>
+        <div className='brand-section'>
+          <label htmlFor='brand'>PRODUCT BRAND</label>
+          <input type='text' id='brand' {...register('brand')}></input>
+          {errors.brand && (
+            <p className='text-red-700'>{errors.brand?.message}</p>
+          )}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT PRICE</label>
+        <div className='price-section'>
+          <label htmlFor='price'>PRODUCT PRICE</label>
           <input
             type='number'
-            id='product-name'
+            id='price'
             {...register('price', { valueAsNumber: true })}
           ></input>
+          {errors.price && (
+            <p className='text-red-700'>{errors.price?.message}</p>
+          )}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT QTY</label>
+        <div className='qty-section'>
+          <label htmlFor='qty'>PRODUCT QTY</label>
           <input
             type='number'
-            id='product-name'
+            id='qty'
             {...register('qty', { valueAsNumber: true })}
           ></input>
+          {errors.qty && <p className='text-red-700'>{errors.qty?.message}</p>}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-name'>PRODUCT IMAGE</label>
-          <input
-            type='text'
-            id='product-name'
-            {...register('imageURL')}
-          ></input>
+        <div className='image-section'>
+          <label htmlFor='image-URL'>PRODUCT IMAGE</label>
+          <input type='text' id='image-URL' {...register('imageURL')}></input>
+          {errors.imageURL && (
+            <p className='text-red-700'>{errors.imageURL?.message}</p>
+          )}
         </div>
 
         <h1>SELECT TAGS:</h1>
@@ -245,6 +264,9 @@ export default function CreateOrEditProduct() {
             );
           }}
         ></Controller>
+        {errors.tags && (
+          <p className='text-red-700'>{errors.tags?.message}</p>
+        )}
         {productId && <button className='bg-blue-300'>EDIT</button>}
 
         <br />
