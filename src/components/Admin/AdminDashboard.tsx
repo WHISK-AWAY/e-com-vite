@@ -21,9 +21,6 @@ export default function AdminDashboard() {
       <h1>ADMIN DASHBOARD</h1>
       <br />
       <section className='inventory-section'>
-        <Link to={'/admin/inventory'}>INVENTORY</Link>
-        <br />
-        <Link to={'/admin/product/new'}>CREATE NEW PRODUCT</Link>
         <Link to={'/admin/inventory'} className='text-blue-300'>
           INVENTORY
         </Link>
