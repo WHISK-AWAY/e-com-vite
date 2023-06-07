@@ -18,6 +18,9 @@ import AdminReports from './components/Admin/AdminReports';
 import AdminReviews from './components/Admin/AdminReviews';
 import Inventory from './components/Admin/products/Inventory';
 import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct';
+import AdminUsers from './components/Admin/users/AdminUsers';
+import AdminUserOrderHistory from './components/Admin/users/AdminUserOrderHistory';
+import AdminOrderDetails from './components/Admin/users/AdminOrderDetails';
 
 function App() {
   return (
@@ -42,6 +45,15 @@ function App() {
         <Route path='/admin' element={<AdminDashboard />} />
         <Route path='/admin/reports' element={<AdminReports />} />
         <Route path='/admin/reviews' element={<AdminReviews />} />
+        <Route path='/admin/users' element={<AdminUsers />} />
+        <Route
+          path='/admin/users/:userId/orders'
+          element={<AdminUserOrderHistory />}
+        />
+        <Route
+          path='/admin/users/:userId/orders/details'
+          element={<AdminOrderDetails />}
+        />
         <Route path='/admin/inventory' element={<Inventory />} />
         <Route path='/admin/product/new' element={<CreateOrEditProduct />} />
         <Route

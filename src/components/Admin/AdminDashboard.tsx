@@ -30,7 +30,9 @@ export default function AdminDashboard() {
         <h1>TAGS</h1>
       </section>
       <section className='user-section'>
-        <h1>USERS</h1>
+        <Link to='/admin/users'>
+          <h1>USERS</h1>
+        </Link>
       </section>
       <section className='review-section'>
         <Link to='/admin/reviews'>

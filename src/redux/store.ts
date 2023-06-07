@@ -10,6 +10,7 @@ import promoSlice from './slices/promoCodeSlice';
 import adminReviewsSlice from './slices/admin/reviewsAdminSlice';
 import adminReportSlice from './slices/admin/reportsAdminSlice';
 import adminProductSlice from './slices/admin/productsSlice';
+import adminUserSlice from './slices/admin/usersAdminSlice';
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     adminReviews: adminReviewsSlice,
     reports: adminReportSlice,
     adminProducts: adminProductSlice,
+    adminUsers: adminUserSlice,
   },
 });
 

@@ -116,7 +116,7 @@ const initialState: TAdminReviewsState = {
   },
 };
 
-const adminReviewState = createSlice({
+const adminReviewSlice = createSlice({
   name: 'adminReviews',
   initialState,
   reducers: {
@@ -240,6 +240,6 @@ export const selectAllAdminReviews = (state: RootState) =>
 export const selectSingleAdminReview = (state: RootState) =>
   state.adminReviews.singleReview;
 
-export const { sortReviews, resetAdminState } = adminReviewState.actions;
+export const { sortReviews, resetAdminState } = adminReviewSlice.actions;
 
-export default adminReviewState.reducer;
+export default adminReviewSlice.reducer;

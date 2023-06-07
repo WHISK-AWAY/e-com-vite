@@ -16,9 +16,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import {
-  fetchReportOrders,
   fetchReportProducts,
-  selectReportOrders,
   selectReportProducts,
 } from '../../../redux/slices/admin/reportsAdminSlice';
 
@@ -33,9 +31,9 @@ ChartJS.register(
 
 export const options = {
   plugins: {
-    // legend: {
-    //   position: 'top' as const,
-    // },
+    legend: {
+      position: 'bottom' as const,
+    },
     title: {
       display: true,
       text: 'Sales by Product (all time)',
@@ -66,10 +64,8 @@ export default function SalesByProduct() {
       let tempProducts = [...products].sort(
         (a, b) => b.saleCount - a.saleCount
       );
-      let tempLabels = tempProducts.map((prod) => prod.productName);
-      let tempData = tempProducts.map((prod) => prod.saleCount);
-      setLabels(tempLabels);
-      setFigures(tempData);
+      setLabels(tempProducts.map((prod) => prod.productName));
+      setFigures(tempProducts.map((prod) => prod.saleCount));
     }
   }, [products]);
 
@@ -79,9 +75,9 @@ export default function SalesByProduct() {
         labels,
         datasets: [
           {
-            label: 'Product Sales (count)',
+            label: 'Product Sales (1)',
             data: figures,
-            backgroundColor: 'rgba(50, 50, 50, 0.8)',
+            backgroundColor: 'rgba(50, 50, 200, 0.8)',
           },
         ],
       });

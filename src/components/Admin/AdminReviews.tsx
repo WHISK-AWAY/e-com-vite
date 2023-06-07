@@ -60,9 +60,7 @@ export default function AdminReviews() {
   }, [sortField, sortDir]);
 
   function handleDeleteReview(reviewId: string) {
-    dispatch(deleteReview({ reviewId: reviewId })).then(() =>
-      dispatch(fetchAllAdminReviews())
-    );
+    dispatch(deleteReview({ reviewId: reviewId }));
   }
 
   function setSort(fieldName: typeof sortField) {
