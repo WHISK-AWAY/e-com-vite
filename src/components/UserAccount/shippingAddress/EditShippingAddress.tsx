@@ -95,11 +95,9 @@ export default function EditShippingAddress({
     };
 
     if (addressFormMode === 'new') {
-      // console.log('addressIdx', addressIndex)
-      // dispatch new address thunk
+
       await dispatch(addShippingAddress({ shippingData: userFields }));
-      // setAddressIndex(addresses.length -1)
-      // console.log(setAddressIndex(addresses.length - 1));
+
 
       if(userFields.isDefault) {
         setAddressIndex(0);
@@ -108,7 +106,7 @@ export default function EditShippingAddress({
         setAddressIndex(addresses.length);
       }
     } else if (addressFormMode === 'edit') {
-      //dispatch edit address thunk (w/ address ID)
+   
 
       dispatch(
         editShippingAddress({
