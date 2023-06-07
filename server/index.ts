@@ -24,6 +24,7 @@ dotenv.config({ path: '../.env' });
 
 const PORT = process.env.PORT || 3002;
 const MONGO_DB_URL = process.env.MONGO_DB_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 
 const app = express();
 
@@ -33,7 +34,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(passport.initialize());
 app.use(
   session({
