@@ -223,7 +223,7 @@ const adminUsersSlice = createSlice({
           loading: false,
           errors: { message: null, status: null },
           allUsers: [...state.allUsers].filter(
-            (user) => user._id !== payload.userId
+            (user) => user._id !== payload!.userId
           ),
         };
       })
