@@ -33,7 +33,6 @@ const fetchAllProducts = createAsyncThunk(
           withCredentials: true,
         });
 
-      // console.log('data', data);
       return data;
     } catch (err) {
       if (err instanceof AxiosError && err.response?.status === 404) {
@@ -51,7 +50,6 @@ const fetchSingleProduct = createAsyncThunk(
         VITE_API_URL + `/api/product/${productId}`,
         { withCredentials: true }
       );
-      // console.log('data', data);
       return data;
     } catch (err: any) {
       return thunkApi.rejectWithValue({ status: err.response.status });
