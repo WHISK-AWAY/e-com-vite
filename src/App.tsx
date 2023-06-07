@@ -16,6 +16,8 @@ import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import Inventory from './components/Admin/products/Inventory';
 import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct';
+import TagInventory from './components/Admin/tags/TagInventory';
+import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
 
 function App() {
   return (
@@ -39,8 +41,14 @@ function App() {
         <Route path='/checkout/failure' element={<Failure />} />
         <Route path='/admin' element={<AdminDashboard />} />
         <Route path='/admin/inventory' element={<Inventory />} />
+        <Route path='/admin/tags' element={<TagInventory />} />
+        <Route path='/admin/tags/new' element={<CreateOrEditTag />} />
+        <Route path='/admin/tags/:tagId' element={<CreateOrEditTag />} />
         <Route path='/admin/product/new' element={<CreateOrEditProduct />} />
-        <Route path='/admin/product/:productId' element={<CreateOrEditProduct />} />
+        <Route
+          path='/admin/product/:productId'
+          element={<CreateOrEditProduct />}
+        />
       </Routes>
     </React.Fragment>
   );
