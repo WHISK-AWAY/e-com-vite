@@ -19,7 +19,10 @@ import {
 } from '../redux/slices/reviewSlice';
 import Review from './Review/Review';
 import AddReview from './Review/AddReview';
-import { adminDeleteSingleProduct, adminFetchAllProducts } from '../redux/slices/admin/productsSlice';
+import {
+  adminDeleteSingleProduct,
+  adminFetchAllProducts,
+} from '../redux/slices/admin/adminProductsSlice';
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -146,7 +149,9 @@ export default function SingleProduct() {
     <section className='single-product-container'>
       {thisUser.role === 'admin' && (
         <>
-          <Link to={`/admin/product/${productId}`} className='pr-2'>EDIT</Link>
+          <Link to={`/admin/product/${productId}`} className='pr-2'>
+            EDIT
+          </Link>
 
           <button
             onClick={async () => {
@@ -156,8 +161,8 @@ export default function SingleProduct() {
           >
             DELETE
           </button>
-              </>
-        )}
+        </>
+      )}
       <div className='single-product-info'>
         <p> {singleProduct.productName.toUpperCase()}</p>
         <img src={singleProduct.imageURL} alt='single product view' />

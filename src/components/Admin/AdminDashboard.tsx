@@ -24,10 +24,22 @@ export default function AdminDashboard() {
         <Link to={'/admin/inventory'}>INVENTORY</Link>
         <br />
         <Link to={'/admin/product/new'}>CREATE NEW PRODUCT</Link>
+        <Link to={'/admin/inventory'} className='text-blue-300'>
+          INVENTORY
+        </Link>
+        <br />
+        <Link to={'/admin/product/new'} className='text-blue-600'>
+          CREATE NEW PRODUCT
+        </Link>
         {/* <Link to={'/admin/product/:productId'}>EDIT PRODUCT</Link> */}
       </section>
       <section className='tag-section'>
-        <h1>TAGS</h1>
+        <Link to={'/admin/tags'} className='text-blue-300'>
+          <h1>TAGS</h1>
+          <Link to={'/admin/tags/new'} className='text-blue-600'>
+            CREATE NEW TAG
+          </Link>
+        </Link>
       </section>
       <section className='user-section'>
         <Link to='/admin/users'>

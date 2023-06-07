@@ -21,6 +21,8 @@ import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct
 import AdminUsers from './components/Admin/users/AdminUsers';
 import AdminUserOrderHistory from './components/Admin/users/AdminUserOrderHistory';
 import AdminOrderDetails from './components/Admin/users/AdminOrderDetails';
+import TagInventory from './components/Admin/tags/TagInventory';
+import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
 
 function App() {
   return (
@@ -55,6 +57,9 @@ function App() {
           element={<AdminOrderDetails />}
         />
         <Route path='/admin/inventory' element={<Inventory />} />
+        <Route path='/admin/tags' element={<TagInventory />} />
+        <Route path='/admin/tags/new' element={<CreateOrEditTag />} />
+        <Route path='/admin/tags/:tagId' element={<CreateOrEditTag />} />
         <Route path='/admin/product/new' element={<CreateOrEditProduct />} />
         <Route
           path='/admin/product/:productId'

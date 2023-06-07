@@ -1,8 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TProduct } from '../userSlice';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
-import axios, { Axios, AxiosError } from 'axios';
-import { fetchAllOrders } from '../orderSlice';
+import axios, { AxiosError } from 'axios';
 import { RootState } from '../../store';
 import { zodProduct } from '../../../../server/utils';
 import z from 'zod';
@@ -33,7 +32,6 @@ export const adminFetchAllProducts = createAsyncThunk(
   'allProducts/adminFetchAllProducts',
   async (_, thunkApi) => {
     try {
-      // console.log('admin fetch all')
       const { data } = await axios.get(VITE_API_URL + '/api/product/admin', {
         withCredentials: true,
       });
@@ -100,7 +98,10 @@ export const adminDeleteSingleProduct = createAsyncThunk(
   'singleProduct/adminDeleteSingleProduct',
   async (productId: string, thunkApi) => {
     try {
-      const {data} = await axios.delete(VITE_API_URL + `/api/product/${productId}`, {withCredentials: true});
+      const { data } = await axios.delete(
+        VITE_API_URL + `/api/product/${productId}`,
+        { withCredentials: true }
+      );
 
       return data;
     } catch (err) {
@@ -113,11 +114,58 @@ export const adminDeleteSingleProduct = createAsyncThunk(
     }
   }
 );
+export type TColumnFields = {
+  productName: string;
+  qty: number;
+  price: number;
+  saleCount: number;
+};
 
 export const adminProductSlice = createSlice({
   name: 'adminProduct',
   initialState,
-  reducers: {},
+  reducers: {
+    sort: (
+      state,
+      {
+        payload: { column, sortDir },
+      }: { payload: { column: keyof TColumnFields; sortDir: string } }
+    ) => {
+      return {
+        ...state,
+        allProducts: {
+          products: [...state.allProducts.products].sort((a: any, b: any) => {
+            if (sortDir === 'desc' && column === 'productName') {
+              return a.productName > b.productName ? 1 : -1;
+            }
+            if (sortDir === 'asc' && column === 'productName') {
+              return a.productName < b.productName ? 1 : -1;
+            }
+            if (sortDir === 'desc' && column === 'qty') {
+              return b.qty - a.qty;
+            }
+            if (sortDir === 'asc' && column === 'qty') {
+              return a.qty - b.qty;
+            }
+            if (sortDir === 'desc' && column === 'price') {
+              return b.price - a.price;
+            }
+            if (sortDir === 'asc' && column === 'price') {
+              return a.price - b.price;
+            }
+            if (sortDir === 'desc' && column === 'saleCount') {
+              return b.saleCount - a.saleCount;
+            }
+            if (sortDir === 'asc' && column === 'saleCount') {
+              return a.saleCount - b.saleCount;
+            }
+
+            return 1;
+          }),
+        },
+      };
+    },
+  },
   extraReducers: (builder) => {
     /**
      * *FETCH ALL PRODUCTS
@@ -185,17 +233,21 @@ export const adminProductSlice = createSlice({
       .addCase(adminDeleteSingleProduct.pending, (state) => {
         state.loading = true;
       })
-      .addCase(adminDeleteSingleProduct.fulfilled, (state, {payload}) => {
+      .addCase(adminDeleteSingleProduct.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.singleProduct = payload;
-        state.errors = {...initialState.errors}
+        state.errors = { ...initialState.errors };
       })
-      .addCase(adminDeleteSingleProduct.rejected, (state, {payload}:PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = payload;
-      })
+      .addCase(
+        adminDeleteSingleProduct.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      );
   },
 });
 
 export default adminProductSlice.reducer;
+export const { sort } = adminProductSlice.actions;
 export const adminSelectAllProducts = (state: RootState) => state.adminProducts;

@@ -5,10 +5,9 @@ import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export const fetchAllTags = createAsyncThunk(
-  'tag/fetchAllTags',
+  'tags/fetchAllTags',
   async (_, thunkApi) => {
     try {
-      console.log('hello from fetchAllTags');
       const { data } = await axios.get(VITE_API_URL + '/api/tag', {
         withCredentials: true,
       });
@@ -54,8 +53,6 @@ const tagSlice = createSlice({
   },
 });
 
-export const selectTagState = (state: RootState) => state.tag;
-export default tagSlice.reducer;
 
 export type TTag = {
   tagName: string;
@@ -70,3 +67,6 @@ export type TagState = {
     message: string | null;
   };
 };
+
+    export const selectTagState = (state: RootState) => state.tag;
+    export default tagSlice.reducer;

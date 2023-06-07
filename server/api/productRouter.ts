@@ -5,7 +5,6 @@ import { Product, Tag } from '../database/index';
 import { checkAuthenticated, requireAdmin } from './authMiddleware';
 import { zodProduct } from '../utils';
 import { IProduct, ITag } from '../database/index';
-import { all } from 'axios';
 
 const createZodProduct = zodProduct.strict();
 const updateZodProduct = zodProduct
@@ -51,23 +50,33 @@ router.get('/', async (req, res, next) => {
 
     if (!allProducts.length) return res.status(404).send('No products found');
 
-    res.status(200).json({ products: allProducts, count: countAllProducts });
+    res.status(200).json({
+      products: allProducts,
+      count: countAllProducts,
+    });
   } catch (err) {
     next(err);
   }
 });
 
-router.get('/admin',requireAdmin,  async(req, res, next) => {
-  try{
-    const allProducts = await Product.find().populate('tags');
+router.get('/admin', requireAdmin, async (req, res, next) => {
+  try {
+    let allProducts = await Product.find().populate('tags');
 
-    if(!allProducts.length) return res.status(404).json({message: 'Troubles fetching all products'});
+    if (!allProducts.length)
+      return res
+        .status(404)
+        .json({ message: 'Troubles fetching all products' });
 
-    res.status(200).json(allProducts)
-  }catch(err){
+    allProducts = JSON.parse(JSON.stringify(allProducts)).map((prod: IProduct) => {
+      return { ...prod, productName: prod.productName.toUpperCase() };
+    });
+    
+    res.status(200).json(allProducts);
+  } catch (err) {
     next(err);
   }
-})
+});
 
 type ProductItem = {
   productId: string;
@@ -156,8 +165,7 @@ router.get('/:productId', async (req, res, next) => {
       relatedProducts: relatedProducts,
     };
 
-    // console.log('sameTagProducts', sameTagProducts);
-    // console.log('matching tag:', sameTagProducts.length);
+    
     // pull 4 products from not the same tag name
     res.status(200).json(combinedProduct);
   } catch (err) {
@@ -239,7 +247,10 @@ router.put(
         }
       }
       parsedBody.tags = tagId;
-      updateProduct = await Product.findOneAndUpdate({_id: productId}, parsedBody );
+      updateProduct = await Product.findOneAndUpdate(
+        { _id: productId },
+        parsedBody
+      );
 
       res.status(200).json(updateProduct);
     } catch (err) {
