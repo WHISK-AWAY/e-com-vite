@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import Inventory from './products/Inventory';
 import CreateOrEditProduct from './products/CreateOrEditProduct';
 
+
 export default function AdminDashboard() {
   const navigate = useNavigate();
 
@@ -36,6 +37,15 @@ export default function AdminDashboard() {
           <Link to={'/admin/tags/new'} className='text-blue-600'>
             CREATE NEW TAG
           </Link>
+        </Link>
+      </section>
+      <section className='promo-section'>
+        <Link to={'/admin/promos'} className='text-blue-300'>
+          PROMOS
+        </Link>
+        <br />
+        <Link to={'/admin/promos/new'} className='text-blue-600'>
+          CREATE NEW PROMO
         </Link>
       </section>
       <section className='user-section'>
