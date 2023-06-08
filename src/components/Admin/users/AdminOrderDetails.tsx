@@ -14,16 +14,11 @@ export default function AdminOrderDetails() {
   const { orderId } = useParams();
   const { userId } = useParams();
   const allOrders = useAppSelector(selectOrderState);
-  console.log('AO', allOrders);
-
-  console.log('order', order);
-  console.log('orderID', orderId);
 
   useEffect(() => {
     if (userId && orderId) dispatch(fetchSingleOrder({ userId, orderId }));
   }, []);
 
-  console.log(typeof order?.date)
   if (!userId) return <h1>No user ID found...</h1>;
   return (
     <section className='order-history-details'>
