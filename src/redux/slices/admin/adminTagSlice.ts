@@ -121,7 +121,6 @@ const adminTagSlice = createSlice({
         payload: { column, sortDir },
       }: { payload: { column: string; sortDir: string } }
     ) => {
-      console.log('payload', sortDir, column);
       return {
         ...state,
         tags: [...state.tags].sort((a: any, b: any) => {
