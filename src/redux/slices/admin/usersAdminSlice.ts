@@ -107,7 +107,7 @@ const adminUsersSlice = createSlice({
       let sortedUsers: TUser[] = [];
       if (sortDir === 'asc') {
         if (['firstName', 'email', 'role'].includes(sortField)) {
-          sortedUsers = [...state.allUsers].sort((a, b) => {
+          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
             if (a[sortField].toLowerCase() === b[sortField].toLowerCase()) {
               return a._id > b._id ? 1 : -1;
             }
@@ -133,7 +133,7 @@ const adminUsersSlice = createSlice({
             return b.cart.products.length - a.cart.products.length;
           });
         } else {
-          sortedUsers = [...state.allUsers].sort((a, b) => {
+          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
             if (a[sortField] === b[sortField]) {
               return a._id < b._id ? 1 : -1;
             } else {
@@ -143,7 +143,7 @@ const adminUsersSlice = createSlice({
         }
       } else {
         if (['firstName', 'email', 'state', 'role'].includes(sortField)) {
-          sortedUsers = [...state.allUsers].sort((a, b) => {
+          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
             if (a[sortField].toLowerCase() === b[sortField].toLowerCase()) {
               return a._id < b._id ? 1 : -1;
             }
@@ -161,7 +161,7 @@ const adminUsersSlice = createSlice({
             return a.lastName.toLowerCase() < b.lastName.toLowerCase() ? 1 : -1;
           });
         } else {
-          sortedUsers = [...state.allUsers].sort((a, b) => {
+          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
             if (a[sortField] === b[sortField]) {
               return a._id < b._id ? 1 : -1;
             } else {
