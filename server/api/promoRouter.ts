@@ -37,6 +37,20 @@ router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
 });
 
 
+router.get('/:promoId', checkAuthenticated, requireAdmin, async (req, res, next) => {
+  try {
+    const {promoId} = req.params;
+    const promoLookup = await Promo.findById(promoId);
+    if (!promoLookup)
+      return res.status(404).json({ message: 'No promo code with the given ID found...' });
+
+    res.status(200).json(promoLookup);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 router.get('/check-promo/:promoName', checkAuthenticated, async(req, res, next) => {
   try{
     const {promoName } = req.params;
