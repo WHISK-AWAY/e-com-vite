@@ -14,7 +14,7 @@ import Success from './components/CheckoutProcess/stripe/Success';
 import Failure from './components/CheckoutProcess/stripe/Failure';
 import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
-import AdminReports from './components/Admin/AdminReports';
+import AdminReports from './components/Admin/Reports/AdminReports';
 import AdminReviews from './components/Admin/AdminReviews';
 import Inventory from './components/Admin/products/Inventory';
 import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct';
@@ -23,6 +23,8 @@ import AdminUserOrderHistory from './components/Admin/users/AdminUserOrderHistor
 import AdminOrderDetails from './components/Admin/users/AdminOrderDetails';
 import TagInventory from './components/Admin/tags/TagInventory';
 import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
+import PromoInventory from './components/Admin/promos/PromoInventory';
+import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 
 function App() {
   return (
@@ -53,7 +55,7 @@ function App() {
           element={<AdminUserOrderHistory />}
         />
         <Route
-          path='/admin/users/:userId/orders/details'
+          path='/admin/users/:userId/order/:orderId/details'
           element={<AdminOrderDetails />}
         />
         <Route path='/admin/inventory' element={<Inventory />} />
@@ -65,6 +67,9 @@ function App() {
           path='/admin/product/:productId'
           element={<CreateOrEditProduct />}
         />
+        <Route path='/admin/promos' element={<PromoInventory />} />
+        <Route path='/admin/promos/new' element={<CreateOrEditPromo />} />
+        <Route path='/admin/promos/:promoId' element={<CreateOrEditPromo />} />
       </Routes>
     </React.Fragment>
   );
