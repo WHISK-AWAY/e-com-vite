@@ -22,24 +22,27 @@ export default function AdminUserOrderHistory() {
       <table>
         <thead>
           <tr>
-            <th>ORDER ID</th>
-            <th>STATUS</th>
-            <th>DATE</th>
+            <th className='pr-10'>ORDER ID</th>
+            <th className='pr-10'>STATUS</th>
+            <th className='pr-10'>DATE</th>
             <th colSpan={2}>PROMO</th>
-            <th>SUBTOTAL</th>
-            <th>DISCOUNT</th>
-            <th>TOTAL</th>
-            <th>DETAILS</th>
+            <th className='pr-10'>SUBTOTAL</th>
+            <th className='pr-10'>DISCOUNT</th>
+            <th className='pr-10'>TOTAL</th>
+            <th className='pr-10'>DETAILS</th>
           </tr>
         </thead>
         <tbody>
           {userOrders.map((order) => (
             <tr key={order._id}>
-              <td>{order._id}</td>
-              <td>{order.orderStatus}</td>
-              <td>{new Date(order.date).toLocaleDateString()}</td>
-              <td>{order.promoCode?.promoCodeName}</td>
-              <td>
+              <td className='pr-5'>{order._id}</td>
+              <td className='pr-5'>{order.orderStatus}</td>
+              <td className='pr-5'>
+                {' '}
+                {new Date(order.date).toLocaleDateString()}
+              </td>
+              <td className='pr-5'>{order.promoCode?.promoCodeName}</td>
+              <td className='pr-5'>
                 {order.promoCode?.promoCodeRate
                   ? (order.promoCode.promoCodeRate * 100).toFixed(1) + '%'
                   : ''}
@@ -50,7 +53,7 @@ export default function AdminUserOrderHistory() {
               <td
                 className='cursor-pointer'
                 onClick={() =>
-                  navigate(`/admin/users/${userId}/orders/details`)
+                  navigate(`/admin/users/${userId}/order/${order._id}/details`)
                 }
               >
                 (view)
