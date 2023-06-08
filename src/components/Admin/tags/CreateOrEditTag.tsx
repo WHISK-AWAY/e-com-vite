@@ -61,11 +61,11 @@ export default function CreateOrEditTag() {
   const handleCreateOrEditForm = async (data: TCreateTag) => {
     if (formMode === 'new') {
       await dispatch(createSingleTag(data.tagName));
-      navigate('/admin');
+      navigate('/admin/tags');
     } else if (formMode === 'edit') {
       if (tagId) {
         dispatch(editSingleTag({ tagId, tag: data }));
-        navigate('/admin');
+        navigate('/admin/tags');
       }
     }
   };
