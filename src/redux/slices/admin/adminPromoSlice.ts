@@ -2,7 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import { RootState } from '../../store';
-import { startOfYesterday } from 'date-fns';
 
 export type TPromo = {
   _id?: string;
@@ -273,7 +272,7 @@ const adminPromoSlice = createSlice({
 });
 
 export default adminPromoSlice.reducer;
-export const {sort} = adminPromoSlice.actions;
+export const { sort } = adminPromoSlice.actions;
 export const selectAdminPromos = (state: RootState) => state.adminPromo;
 export const selectAdminSinglePromo = (state: RootState) =>
   state.adminPromo.singlePromo;

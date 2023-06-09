@@ -15,12 +15,11 @@ export interface userState {
 export type TProduct = {
   _id: string;
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
+  imageURL: string[];
   saleCount: number;
   tags: {
     _id: string;

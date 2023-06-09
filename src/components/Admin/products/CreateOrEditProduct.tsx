@@ -4,9 +4,7 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   adminCreateSingleProduct,
-  adminDeleteSingleProduct,
   adminEditSingleProduct,
-  adminFetchAllProducts,
 } from '../../../redux/slices/admin/adminProductsSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -20,12 +18,11 @@ import { useNavigate } from 'react-router';
 
 export type TCreateSingleProduct = {
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
+  imageURL: string[];
   tags: {
     value: string;
     label: string;
@@ -36,13 +33,12 @@ const ZSingleProduct = z.object({
   productName: z
     .string()
     .min(3, { message: 'Product name must be at lest 3 characters long' }),
-  productLongDesc: z.string().min(20, {
+  productIngredients: z.string().min(20, {
     message: 'Products long description must be at least 20 characters long',
   }),
   productShortDesc: z.string().min(10, {
     message: 'Products short description must be at least 10 characters long',
   }),
-  brand: z.string(),
   price: z
     .number()
     .nonnegative({ message: 'Price must not be a negative number' })
@@ -51,7 +47,7 @@ const ZSingleProduct = z.object({
     .number()
     .nonnegative({ message: 'Price must not be a negative number' })
     .min(1, { message: 'Quantity must not be a negative number' }),
-  imageURL: z.string().url({ message: 'Should be a valid URL' }),
+  imageURL: z.array(z.string().url({ message: 'Should be a valid URL' })),
   tags: z
     .array(
       z.object({
@@ -90,12 +86,11 @@ export default function CreateOrEditProduct() {
     if (product?._id && editOrCreateFormModes === 'edit')
       reset({
         productName: product?.productName || '',
-        productLongDesc: product?.productLongDesc || '',
+        productIngredients: product?.productIngredients || '',
         productShortDesc: product?.productShortDesc || '',
-        brand: product?.brand || '',
         price: product?.price || 0,
         qty: product?.qty || 0,
-        imageURL: product?.imageURL || '',
+        imageURL: product?.imageURL || [],
         tags:
           product?.tags.map((tag) => {
             return { label: tag.tagName, value: tag.tagName };
@@ -106,12 +101,11 @@ export default function CreateOrEditProduct() {
 
   const defaultValues: TCreateSingleProduct = {
     productName: product?.productName || '',
-    productLongDesc: product?.productLongDesc || '',
+    productIngredients: product?.productIngredients || '',
     productShortDesc: product?.productShortDesc || '',
-    brand: product?.brand || '',
     price: product?.price || 0,
     qty: product?.qty || 0,
-    imageURL: product?.imageURL || '',
+    imageURL: product?.imageURL || [],
     tags:
       product?.tags.map((tag) => {
         return { label: tag.tagName, value: tag.tagName };
@@ -133,12 +127,11 @@ export default function CreateOrEditProduct() {
   const newProduct = () => {
     reset({
       productName: '',
-      productLongDesc: '',
+      productIngredients: '',
       productShortDesc: '',
-      brand: '',
       price: 0,
       qty: 0,
-      imageURL: '',
+      imageURL: [],
       tags: [],
     });
   };
@@ -146,9 +139,8 @@ export default function CreateOrEditProduct() {
   const handleCreateOrEditProduct = async (data: TCreateSingleProduct) => {
     const productFields = {
       productName: data.productName,
-      productLongDesc: data.productLongDesc,
+      productIngredients: data.productIngredients,
       productShortDesc: data.productShortDesc,
-      brand: data.brand,
       price: data.price,
       qty: data.qty,
       imageURL: data.imageURL,
@@ -170,7 +162,6 @@ export default function CreateOrEditProduct() {
     }
   };
 
-
   return (
     <section className='product-form-container'>
       <form onSubmit={handleSubmit(handleCreateOrEditProduct)}>
@@ -190,10 +181,10 @@ export default function CreateOrEditProduct() {
           <label htmlFor='product-long-desc'>PRODUCT LONG DESCRIPTION</label>
           <textarea
             id='product-long-desc'
-            {...register('productLongDesc')}
+            {...register('productIngredients')}
           ></textarea>
-          {errors.productLongDesc && (
-            <p className='text-red-700'>{errors.productLongDesc?.message}</p>
+          {errors.productIngredients && (
+            <p className='text-red-700'>{errors.productIngredients?.message}</p>
           )}
         </div>
         <div className='product-name-section'>
@@ -204,13 +195,6 @@ export default function CreateOrEditProduct() {
           ></textarea>
           {errors.productShortDesc && (
             <p className='text-red-700'>{errors.productShortDesc?.message}</p>
-          )}
-        </div>
-        <div className='brand-section'>
-          <label htmlFor='brand'>PRODUCT BRAND</label>
-          <input type='text' id='brand' {...register('brand')}></input>
-          {errors.brand && (
-            <p className='text-red-700'>{errors.brand?.message}</p>
           )}
         </div>
         <div className='price-section'>
@@ -264,9 +248,7 @@ export default function CreateOrEditProduct() {
             );
           }}
         ></Controller>
-        {errors.tags && (
-          <p className='text-red-700'>{errors.tags?.message}</p>
-        )}
+        {errors.tags && <p className='text-red-700'>{errors.tags?.message}</p>}
         {productId && <button className='bg-blue-300'>EDIT</button>}
 
         <br />

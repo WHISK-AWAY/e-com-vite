@@ -16,16 +16,12 @@ export type CartProps = {
 };
 export default function CartItem(props: CartProps) {
   const { product, userId, qty } = props;
-  const { productName, productShortDesc, price, imageURL, _id, brand } =
-    product;
+  const { productName, productShortDesc, price, imageURL, _id } = product;
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
   const cart = useAppSelector(selectCart);
 
-
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, []);
   const handleRemove = (productId: string, qty: number) => {
     dispatch(removeFromCart({ userId: userId!, productId, qty }));
   };
@@ -35,22 +31,21 @@ export default function CartItem(props: CartProps) {
   const handleDecrement = () => {
     if (count <= 1) setCount(1);
     else setCount(count - 1);
-    dispatch(removeFromCart({userId: userId!, productId: product._id, qty: 1}))
+    dispatch(
+      removeFromCart({ userId: userId!, productId: product._id, qty: 1 })
+    );
   };
 
   const handleIncrement = () => {
     if (count >= totalQty) return;
     else setCount(count + 1);
-    dispatch(addToCart({userId: userId!, productId: product._id, qty: 1}))
+    dispatch(addToCart({ userId: userId!, productId: product._id, qty: 1 }));
   };
-
-
 
   return (
     <div className='cart-item-container'>
       <div>{productName}</div>
-      <div>{brand}</div>
-      <img src={imageURL} />
+      <img src={imageURL[0]} />
       <div>{productShortDesc}</div>
       <div>{price}</div>
 

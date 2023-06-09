@@ -175,7 +175,7 @@ export default function SingleProduct() {
               <img src={h2} className='h-5' />
             </div>
           )}
-          <img src={singleProduct.imageURL} alt='single product view' />
+          <img src={singleProduct.imageURL[0]} alt='single product view' />
         </section>
 
         <section className='product-details flex basis-3/5 flex-col items-center '>
@@ -248,7 +248,7 @@ export default function SingleProduct() {
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
             </h3>
-            <img src={prod.imageURL} alt='single product view' />
+            <img src={prod.imageURL[0]} alt='single product view' />
           </article>
         ))}
       </section>

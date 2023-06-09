@@ -68,10 +68,12 @@ router.get('/admin', requireAdmin, async (req, res, next) => {
         .status(404)
         .json({ message: 'Troubles fetching all products' });
 
-    allProducts = JSON.parse(JSON.stringify(allProducts)).map((prod: IProduct) => {
-      return { ...prod, productName: prod.productName.toUpperCase() };
-    });
-    
+    allProducts = JSON.parse(JSON.stringify(allProducts)).map(
+      (prod: IProduct) => {
+        return { ...prod, productName: prod.productName.toUpperCase() };
+      }
+    );
+
     res.status(200).json(allProducts);
   } catch (err) {
     next(err);
@@ -81,7 +83,7 @@ router.get('/admin', requireAdmin, async (req, res, next) => {
 type ProductItem = {
   productId: string;
   productName: string;
-  imageURL: string;
+  imageURL: string[];
 };
 
 type TagItem = {
@@ -165,7 +167,6 @@ router.get('/:productId', async (req, res, next) => {
       relatedProducts: relatedProducts,
     };
 
-    
     // pull 4 products from not the same tag name
     res.status(200).json(combinedProduct);
   } catch (err) {

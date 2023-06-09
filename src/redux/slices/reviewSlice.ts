@@ -20,6 +20,10 @@ export interface IReviewState {
     _id: string;
     voteCount: number;
     reviewCount: number;
+    skinConcernOptions: {
+      value: string;
+      label: string;
+    };
   };
   skinConcernOptions: {
     value: string;
@@ -219,8 +223,8 @@ const reviewSlice = createSlice({
       .addCase(deleteReview.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.reviews = state.reviews.filter((review) => {
-          return review._id !== payload; 
-        })
+          return review._id !== payload;
+        });
         state.errors = { ...initialState.errors };
       })
       .addCase(

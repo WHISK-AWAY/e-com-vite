@@ -167,12 +167,11 @@ export type TTag = {
 export type TProduct = {
   _id: Types.ObjectId;
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
+  imageURL: string[];
   tags: TTag[];
   relatedProducts: Omit<TProduct, 'relatedProducts'>[];
 };
@@ -180,7 +179,7 @@ export type TProduct = {
 type ProductItem = {
   productId: string;
   productName: string;
-  imageURL: string;
+  imageURL: string[];
 };
 
 type TagItem = {

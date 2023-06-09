@@ -11,9 +11,9 @@ export default function Review({ review }: { review: IReviewState }) {
   const reviewId = review._id;
 
   return (
-    <section className="review-details">
-      <div className="review-wrapper">
-        <div className="rating-section">
+    <section className='review-details'>
+      <div className='review-wrapper'>
+        <div className='rating-section'>
           overall: {review.rating.overall}
           <br />
           quality: {review.rating.quality}
@@ -22,7 +22,7 @@ export default function Review({ review }: { review: IReviewState }) {
           <br />
         </div>
 
-        <div className="review-content">
+        <div className='review-content'>
           {review.title}
           <br />
           {review.content}
@@ -30,12 +30,12 @@ export default function Review({ review }: { review: IReviewState }) {
           {new Date(review.date).toLocaleDateString()}
           <br />
         </div>
-        <div className="review-user-details">
+        <div className='review-user-details'>
           {review.nickname}
           <br />
           {review.location ? review.location : ''}
           <br />
-          skin concerns: {review.user.skinConcerns}
+          skin concerns: {review.user.skinConcernOptions?.label}
           <br />
           {review.verifiedPurchase ? review.verifiedPurchase : ''}
           <br />
@@ -50,7 +50,7 @@ export default function Review({ review }: { review: IReviewState }) {
             <p>review: {review.user.reviewCount}</p>
           )}
         </div>
-        <div className="vote-section">
+        <div className='vote-section'>
           <h3>Helpful?</h3>
           <button
             onClick={() => dispatch(upvoteReview({ productId, reviewId }))}

@@ -24,7 +24,7 @@ import cart from '../../src/assets/icons/cart.svg';
 import cart3 from '../../src/assets/icons/cart3.svg';
 import user from '../../src/assets/icons/user.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
-import { ReactSVG } from 'react-svg';
+// import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -154,7 +154,6 @@ export default function Navbar() {
           <img src={cart3} className=' w-7 ' />
         </NavLink>
 
-
         <NavLink to={`/user/${userId}/favorites`}>
           {' '}
           <img src={heart3} className='w-6' />
@@ -180,13 +179,13 @@ export default function Navbar() {
           ></input>
           <button>search</button>
         </form>  */}
-      {/* <Search
+        {/* <Search
           searchResults={searchResults}
           setSearch={setSearch}
           setSearchResults={setSearchResults}
           searchNotFound={searchNotFound}
         /> */}
-      </div> 
+      </div>
       {userId && role === 'admin' && (
         <NavLink to='/admin' className='text-red-500'>
           ADMIN

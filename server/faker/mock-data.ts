@@ -95,25 +95,33 @@ export const generateUser = (count: number): Partial<IUser>[] => {
  * * PRODUCT
  */
 
+function randomCatImages(num = 10) {
+  const images = [];
+
+  for (let i = 0; i < num; i++) {
+    images.push(faker.image.cats(300, 300, true));
+  }
+
+  return images;
+}
+
 export const generateProduct = (count: number): IProduct[] => {
   const products = [];
 
   for (let i = 0; i < count; i++) {
     const productName = faker.commerce.productName();
-    const productLongDesc = faker.commerce.productDescription();
+    const productIngredients = faker.commerce.productDescription();
     const productShortDesc = faker.lorem.sentence(4);
-    const brand = faker.company.name();
     const price = faker.datatype.float({ min: 20, max: 1000, precision: 0.01 });
     const qty = faker.datatype.number({ min: 4, max: 20 });
-    const imageURL = faker.image.cats(300, 300, true);
+    const imageURL = randomCatImages();
     const tags = [new Types.ObjectId()];
     const saleCount = 0;
 
     products.push({
       productName,
-      productLongDesc,
+      productIngredients,
       productShortDesc,
-      brand,
       price,
       qty,
       imageURL,
@@ -169,11 +177,9 @@ export const generateOrder = (count: number): IOrder[] => {
       {
         productId: new Types.ObjectId(),
         productName: faker.commerce.productName(),
-        productLongDesc: faker.commerce.productDescription(),
         productShortDesc: faker.lorem.sentence(4),
-        brand: faker.company.name(),
-        imageURL: faker.image.cats(),
-        price: faker.datatype.float({ min: 20, max: 1000, precision: 0.01 }),
+        imageURL: randomCatImages(2),
+        price: faker.datatype.float({ min: 20, max: 60, precision: 1 }),
         qty: faker.datatype.number({ min: 1, max: 5 }),
       },
     ];
@@ -271,12 +277,15 @@ export const generateReview = (count: number): Partial<IReview>[] => {
     const location = `${faker.address.cityName()},  ${faker.address.stateAbbr()}`;
     const upvote = faker.datatype.number({ min: 0, max: 14 });
 
-    let skinConcernOptions =[];
+    let skinConcernOptions = [];
 
     for (let i = 0; i < 3; i++) {
-      skinConcernOptions.push(SKIN_CONCERN_OPTIONS[Math.floor(Math.random() * SKIN_CONCERN_OPTIONS.length)])
+      skinConcernOptions.push(
+        SKIN_CONCERN_OPTIONS[
+          Math.floor(Math.random() * SKIN_CONCERN_OPTIONS.length)
+        ]
+      );
     }
-
 
     reviews.push({
       product,

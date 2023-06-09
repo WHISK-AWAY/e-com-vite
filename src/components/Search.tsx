@@ -5,12 +5,12 @@ export default function Search({
   searchResults,
   setSearch,
   setSearchResults,
-  searchNotFound
+  searchNotFound,
 }: {
   searchResults: TSearch;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  setSearchResults: React.Dispatch<React.SetStateAction<TSearch>>,
-  searchNotFound: boolean
+  setSearchResults: React.Dispatch<React.SetStateAction<TSearch>>;
+  searchNotFound: boolean;
 }) {
   const navigate = useNavigate();
 
@@ -39,9 +39,7 @@ export default function Search({
       products: [],
       tags: [],
     });
-    navigate(`/shop-all?page=1`, {state:{filterKey: tagName}});
-
-
+    navigate(`/shop-all?page=1`, { state: { filterKey: tagName } });
   };
 
   return (
@@ -57,7 +55,7 @@ export default function Search({
                 onClick={(e) => handleProductNameSearch(e, result.productId)}
                 key={result.productId}
               >
-                <img src={result.imageURL} />
+                <img src={result.imageURL[0]} />
                 <p>{result.productName}</p>
               </div>
             );
@@ -71,18 +69,18 @@ export default function Search({
           {searchResults.tags.map((tag) => {
             return (
               // <Link to={`/shop-all?page=1`} state={{ filterKey: tag.tagName }}>
-              
-                <div onClick={e => handleTagNameSearch(e, tag.tagId, tag.tagName)} key={tag.tagId}> 
-                  <p>{tag.tagName}</p>
-                </div>
+
+              <div
+                onClick={(e) => handleTagNameSearch(e, tag.tagId, tag.tagName)}
+                key={tag.tagId}
+              >
+                <p>{tag.tagName}</p>
+              </div>
               // </Link>
             );
           })}
         </article>
       )}
-
-
-
     </section>
   );
 }

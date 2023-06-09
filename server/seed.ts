@@ -26,6 +26,7 @@ export async function seed() {
   await mongoose.connection.db.dropDatabase();
   await Product.ensureIndexes();
   await Tag.ensureIndexes();
+  await User.ensureIndexes();
   await Promo.ensureIndexes();
   /**
    * * SEEDING TAGS
@@ -53,11 +54,6 @@ export async function seed() {
 
   console.log('Seeding products...'); // * experiment with Product.insertMany() instead -- possibly more performant
 
-  // const newProduct = await Product.create(generateProduct(20));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
   const newProduct = await Product.insertMany(generateProduct(50));
 
   // attach tags to products
@@ -197,9 +193,7 @@ export async function seed() {
       const orderProduct = {
         productId: randomProduct._id,
         productName: randomProduct.productName,
-        productLongDesc: randomProduct.productLongDesc,
         productShortDesc: randomProduct.productShortDesc,
-        brand: randomProduct.brand,
         imageURL: randomProduct.imageURL,
         price: randomProduct.price,
         qty: productQty,
