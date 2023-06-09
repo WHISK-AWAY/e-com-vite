@@ -66,7 +66,6 @@ const userSchema = new Schema<IUser>(
 export async function hashPassword(this: IUser) {
   // if(this.password.length > 20 || this.password.length < 8) throw new Error('Do not meet max password length requirement')
   if (this.isNew) {
-    console.log('hashing password @ hashPassword');
     this.password = await bcrypt.hash(this.password, +SALT_ROUNDS!);
   }
 }
@@ -75,12 +74,10 @@ export async function hashUpdatedPassword(
   this: IUser & { getUpdate(): IUser },
   next: any
 ) {
-  console.log(this.getUpdate());
   const updatePassword = this.getUpdate() as IUser;
 
   if (!updatePassword?.password) return next();
   else {
-    console.log('hashing password @ hashUpdatedPassword');
     updatePassword.password = await bcrypt.hash(
       updatePassword.password,
       +SALT_ROUNDS!

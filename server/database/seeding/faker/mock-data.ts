@@ -1,13 +1,6 @@
 import { Types } from 'mongoose';
 import { faker } from '@faker-js/faker';
-import {
-  IUser,
-  IProduct,
-  ITag,
-  IOrder,
-  IPromo,
-  IReview,
-} from '../database/index';
+import { IUser, IProduct, ITag, IOrder, IPromo, IReview } from '../../index';
 // import { IUser } from '../database/User';
 // import { IProduct } from '../database/Product';
 // import { ITag } from '../database/Tag';
@@ -112,7 +105,7 @@ export const generateProduct = (count: number): IProduct[] => {
     const productName = faker.commerce.productName();
     const productIngredients = faker.commerce.productDescription();
     const productShortDesc = faker.lorem.sentence(4);
-    const price = faker.datatype.float({ min: 20, max: 1000, precision: 0.01 });
+    const price = faker.datatype.number({ min: 20, max: 70 });
     const qty = faker.datatype.number({ min: 4, max: 20 });
     const imageURL = randomCatImages();
     const tags = [new Types.ObjectId()];

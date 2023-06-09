@@ -109,7 +109,6 @@ orderSchema.post('findOneAndUpdate', async function (result) {
 
   if (updatedFields) {
     if (updatedFields['$set']?.orderStatus === 'confirmed') {
-      console.log('Updating sale counts');
       for (let product of result.orderDetails) {
         const updateSaleStats = await Statistics.findOneAndUpdate(
           { 'bestsellerRef.productId': product.productId },

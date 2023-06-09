@@ -12,7 +12,7 @@ export { default as Shipping, IShippingAddress } from './ShippingInfo';
 import dotenv from 'dotenv';
 dotenv.config();
 import mongoose from 'mongoose';
-const MONGO_DB_URL = process.env.MONGO_DB_URL;
+export const MONGO_DB_URL = process.env.MONGO_DB_URL;
 
 export async function mongooseConnection() {
   return await mongoose.connect(MONGO_DB_URL!, {

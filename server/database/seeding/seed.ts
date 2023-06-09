@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import {
+  IProduct,
   IShippingAddress,
   Shipping,
   mongooseConnection,
-} from './database/index';
+} from '../index';
 import {
   generateUser,
   generateProduct, // hi buddy!
@@ -12,8 +13,9 @@ import {
   generateReview,
   tagList,
 } from './faker/mock-data';
-import { Tag, Promo, Product, User, Order, Review } from './database/index';
-import { IUser } from './database/dbTypes';
+import { Tag, Promo, Product, User, Order, Review } from '../index';
+import { IUser } from '../dbTypes';
+import { seedRealProducts } from './seedRealProducts';
 
 function randomElement<T>(inputArr: T[]): T {
   const i = Math.floor(Math.random() * inputArr.length);
@@ -55,7 +57,7 @@ export async function seed() {
   console.log('Seeding products...'); // * experiment with Product.insertMany() instead -- possibly more performant
 
   const newProduct = await Product.insertMany(generateProduct(50));
-
+  console.log('seeding generated fakes complete');
   // attach tags to products
   for (let product of newProduct) {
     const numberOfTags = Math.floor(Math.random() * 3) + 1;
@@ -66,6 +68,8 @@ export async function seed() {
     await product.save();
   }
 
+  // add "real" products to pool of seeded products
+  newProduct.concat(await seedRealProducts());
   console.log('Seeding products successful');
 
   /**

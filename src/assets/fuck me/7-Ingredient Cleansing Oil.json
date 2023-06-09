@@ -14,10 +14,14 @@
   ],
   "imageURL": [
     "https://media.typology.com/storyblok/d5acc8f11e/huile-demaquillante-a-7-ingredients__main__f36121279887463d801212c3fb0ad4fe.jpg",
-    "https://media.typology.com/storyblok/9683a85879/huile-demaquillante-a-7-ingredients__additional__243b950b663d4c1c8cff761be4cc2f58.jpg",
-    "https://media.typology.com/storyblok/a25144c77b/huile-demaquillante-a-7-ingredients__additional__d24d2996ab2e4b32b76b93604ab17774.jpg",
     "https://media.typology.com/storyblok/f33d7491d9/huile-demaquillante-a-7-ingredients__additional__b45d27efbbc34180abef313517afc6a9.jpg",
     "https://media.typology.com/storyblok/13e160499e/huile-demaquillante-a-7-ingredients__additional__194e02bd53104de7bf5add302ad1c511.jpg",
-    "https://media.typology.com/storyblok/b76ea85cb0/huile-demaquillante-a-7-ingredients__additional__36ff1ebe19fe488c94e2f740420e404f.jpg"
+    "https://media.typology.com/video-storyblok/x/4be2f1aab7/19_huile-demaquillante-ok.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-back",
+    "product-dimensions",
+    "video-usage"
   ]
 }
