@@ -1,0 +1,21 @@
+{
+  "productName": "9-Ingredient Face Moisturizer",
+  "productShortDesc": "Give your skin daily hydration and nourishment with a minimalist moisturizer made from only 9 essential ingredients. The texture is lightweight and non-greasy. Fragrance-free. Dermatologist tested and suitable for all skin types, including sensitive. 99% naturally derived. Vegan. Made in France.",
+  "productIngredients": "\n Hyaluronic acid:\nDerived from fermented wheat, this molecule is known for its hydrating prowess. It can hold upto a thousand times its weight in water, making it a powerful skincare ingredient for instant hydration. As we age, our bodies produce significantly less hyaluronic acid, causing our skin to dehydrate and develop fine lines. With daily use hyaluronic acid restores moisture to the skin, reduces the appearance of fine lines and creates a complexion that’s noticeably more supple, plump and toned.\n Organic coconut oil:\nRich in saturated fatty acids, this oil nourishes, softens and smooths the skin and prevents dehydration.\n Purified water:\nThis serves as a natural solvent to mix together the other ingredients. It’s been purified to remove all traces of bacteria.\n Vegetable glycerin:\nNaturally-derived from rapeseed and sunflower, glycerin holds moisture in the surface layers of the skin.\n Coconut cetyl alcohol:\nDerived from coconut, this alcohol thickens the formula to give it a creamy texture.\n Coconut cetyl phosphate:\nA coconut-derived emulsifier that allows the purified water and organic coconut oil to mix in a lasting and stable way.\n Sodium hydroxide:\nTo avoid any risk of irritation, a cosmetic product must have a pH that’s similar to the skin. Sodium hydroxide lowers the cream's acidity to make it more compatible with the skin.\n Sugar cane Pentylene glycol:\nA humectant sourced from sugar cane which allows superficial skin hydration.\n O-cymen-5-ol:\nA preservative added to prevent bacteria growth, eliminating the risk of infection.",
+  "images": [
+    "01_ten_packshot.jpg",
+    "01_ten_packshot.jpg",
+    "03_carroussel_produit_creme10_texture.jpg",
+    "04_carroussel_produit_pack2_creme10.jpg",
+    "05_lab_1025_1026_page-produit.jpg",
+    "06_lab_1025_1026_page-produit4.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/72704fea0e/01_ten_packshot.jpg",
+    "https://media.typology.com/storyblok/1600x1600/4ff59de5f4/01_ten_packshot.jpg",
+    "https://media.typology.com/storyblok/2630x2630/7270b86809/03_carroussel_produit_creme10_texture.jpg",
+    "https://media.typology.com/storyblok/2630x2630/ff4984e885/04_carroussel_produit_pack2_creme10.jpg",
+    "https://media.typology.com/storyblok/3333x3333/448cc522c6/05_lab_1025_1026_page-produit.jpg",
+    "https://media.typology.com/storyblok/1600x1600/3e53df13a9/06_lab_1025_1026_page-produit4.jpg"
+  ]
+}
