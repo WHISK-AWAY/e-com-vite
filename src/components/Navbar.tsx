@@ -18,6 +18,13 @@ import {
 import type { TSearch } from '../redux/slices/allProductSlice';
 import { Product } from '../../server/database';
 import Search from './Search';
+import heart3 from '../../src/assets/icons/heart3.svg';
+// import heart2 from '../../src/assets/icons/heart2.svg';
+import cart from '../../src/assets/icons/cart.svg';
+import cart3 from '../../src/assets/icons/cart3.svg';
+import user from '../../src/assets/icons/user.svg';
+import searchIcon from '../../src/assets/icons/search.svg';
+import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -127,36 +134,59 @@ export default function Navbar() {
   };
 
   return (
-    <nav className='navbar-container flex justify-end gap-4'>
-      {/* {firstName && <p>{`HELLO ${firstName.toUpperCase()}`}</p>} */}
-      <NavLink to={'/shop-all'}>SHOP</NavLink>
+    <nav className='navbar-container flex h-16 items-center justify-between px-10'>
+      <div className='shop-links flex h-full flex-auto basis-1/3 items-center justify-start gap-7 text-base '>
+        <NavLink to={'/shop-all'}>SHOP</NavLink>
 
-      <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
-        BESTSELLERS
-      </NavLink>
-      {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+        <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
+          BESTSELLERS
+        </NavLink>
+        <NavLink to={''}>FEATURED</NavLink>
+        <NavLink to={''}>NEW IN</NavLink>
+      </div>
 
-      <NavLink to={`/user/${userId}/cart`}>CART</NavLink>
-      <NavLink to={`/user/${userId}/favorites`}>FAVORITES</NavLink>
-      {!userId && <NavLink to={`/sign-in`}>SIGN IN</NavLink>}
-      {userId && <button onClick={signOut}>SIGN OUT</button>}
+      <div className='logo-section flex h-full flex-auto basis-1/3 items-center justify-center '>
+        <p className='text-3xl'>ASTORIA</p>
+      </div>
 
-      <form onSubmit={(e) => handleFormSubmit(e)}>
-        <input
-          type='text'
-          id='search'
-          value={search}
-          placeholder='search...'
-          onChange={(e) => handleSearch(e)}
-        ></input>
-        <button>search</button>
-      </form>
-      <Search
-        searchResults={searchResults}
-        setSearch={setSearch}
-        setSearchResults={setSearchResults}
-        searchNotFound={searchNotFound}
-      />
+      <div className='user-section flex h-full flex-auto basis-1/3 items-center justify-end gap-5  '>
+        <NavLink to={`/user/${userId}/cart`}>
+          <img src={cart3} className=' w-7 ' />
+        </NavLink>
+
+
+        <NavLink to={`/user/${userId}/favorites`}>
+          {' '}
+          <img src={heart3} className='w-6' />
+        </NavLink>
+        {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+
+        {!userId && (
+          <NavLink to={`/sign-in`}>
+            {' '}
+            <img src={user} className=' w-6 ' />
+          </NavLink>
+        )}
+        {userId && <button onClick={signOut}>SIGN OUT</button>}
+        {/* <img src={searchIcon} className=' w-6 ' /> */}
+
+        {/* <form onSubmit={(e) => handleFormSubmit(e)}>
+          <input
+            type='text'
+            id='search'
+            value={search}
+            placeholder='search...'
+            onChange={(e) => handleSearch(e)}
+          ></input>
+          <button>search</button>
+        </form>  */}
+      {/* <Search
+          searchResults={searchResults}
+          setSearch={setSearch}
+          setSearchResults={setSearchResults}
+          searchNotFound={searchNotFound}
+        /> */}
+      </div> 
       {userId && role === 'admin' && (
         <NavLink to='/admin' className='text-red-500'>
           ADMIN

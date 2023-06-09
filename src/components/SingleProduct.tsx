@@ -23,6 +23,12 @@ import {
   adminDeleteSingleProduct,
   adminFetchAllProducts,
 } from '../redux/slices/admin/adminProductsSlice';
+import star from '../../src/assets/icons/star.svg';
+import plus from '../../src/assets/icons/circlePlus.svg';
+import minus from '../../src/assets/icons/circleMinus.svg';
+import heart from '../../src/assets/icons/heart3.svg';
+import h1 from '../../src/assets/icons/hr1.svg';
+import h2 from '../../src/assets/icons/hr2.svg';
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -37,8 +43,6 @@ export default function SingleProduct() {
   const [addReview, setAddReview] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  // console.log('user', thisUser)
-
   useEffect(() => {
     setCount(1);
 
@@ -50,10 +54,7 @@ export default function SingleProduct() {
   }, [productId]);
 
   useEffect(() => {
-    // console.log('thisUser', thisUser);
-
     if (thisUser._id) {
-      // console.log('favorites:', thisUser.favorites);
       const isFav = thisUser.favorites.some(({ _id: favId }) => {
         return favId.toString() === productId;
       });
@@ -61,8 +62,6 @@ export default function SingleProduct() {
       setItemIsFavorited(isFav);
     }
   }, [thisUser, productId]);
-
-  // console.log('item is favorited?', itemIsFavorited);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -146,7 +145,7 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <section className='single-product-container'>
+    <section className='single-product-container w-full  px-12 pt-10'>
       {thisUser.role === 'admin' && (
         <>
           <Link to={`/admin/product/${productId}`} className='pr-2'>
@@ -163,24 +162,83 @@ export default function SingleProduct() {
           </button>
         </>
       )}
-      <div className='single-product-info'>
-        <p> {singleProduct.productName.toUpperCase()}</p>
-        <img src={singleProduct.imageURL} alt='single product view' />
-        <p>{singleProduct.productLongDesc}</p>
-        <p>{singleProduct.price}</p>
+      <div className='single-product-container flex w-full'>
+        <section className='image-section flex basis-2/5 flex-col items-center pt-14'>
+          {/* <img src={h2} className='h-5 ' />
+          <img src={h1} className='h-5' /> */}
+          {itemIsFavorited ? (
+            <div onClick={handleFavoriteRemove}>
+              <img src={h1} className='h-5' />
+            </div>
+          ) : (
+            <div onClick={handleFavoriteAdd}>
+              <img src={h2} className='h-5' />
+            </div>
+          )}
+          <img src={singleProduct.imageURL} alt='single product view' />
+        </section>
+
+        <section className='product-details flex basis-3/5 flex-col items-center '>
+          <div className='product-desc flex flex-col items-center'>
+            <h1 className='product-name pb-8 text-[1.5rem]'>
+              {' '}
+              {singleProduct.productName.toUpperCase()}
+            </h1>
+
+            <div className='star-section flex self-start'>
+              <img src={star} className=' h-3' />
+              <img src={star} className='h-3' />
+              <img src={star} className='h-3' />
+              <img src={star} className='h-3' />
+              <img src={star} className='h-3' />
+              <p className='pl-2'> {overallReviewScore()}</p>
+            </div>
+
+            <div className='flex flex-col items-center text-center'>
+              <p className='product-long-desc py-5 text-lg'>
+                {/* {singleProduct.productLongDesc} */}
+                "Retinol stimulates the synthesis of collagen and elastin to
+                combat loss of firmness and wrinkles. This retinol serum visibly
+                improves fine lines and smooths skin. 99% naturally derived.
+                Vegan. Made in France.",
+              </p>
+
+              <div className='price-counter my-5 flex flex-col items-center'>
+                <p className='price'>${singleProduct.price}</p>
+
+                <div className='qty-counter mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-black px-2 py-1'>
+                  <div
+                    onClick={qtyIncrementor}
+                    className='incrementor cursor-pointer'
+                  >
+                    <img src={plus} className='w-5' />
+                  </div>
+
+                  <div className='count px-4'>{count}</div>
+                  <div onClick={qtyDecrementor}>
+                    <img src={minus} className='w-5' />
+                  </div>
+                </div>
+                <br />
+                <button
+                  onClick={handleClick}
+                  className='text-md bg-black px-24 py-2 uppercase text-white'
+                >
+                  add to cart
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h1>why we love it(soon to be)</h1>
+          </div>
+
+          <br />
+
+          <br />
+        </section>
       </div>
-      <button onClick={qtyIncrementor}>+</button>
-      <div>{count}</div>
-      <button onClick={qtyDecrementor}>-</button>
-      <br />
-      <button onClick={handleClick}>add to cart</button>
-      <br />
-      {itemIsFavorited ? (
-        <button onClick={handleFavoriteRemove}>&lt;/3</button>
-      ) : (
-        <button onClick={handleFavoriteAdd}>&lt;3</button>
-      )}
-      <br />
 
       {/* PRODUCT SUGGESTIONS */}
       <section className='product-suggestions'>
