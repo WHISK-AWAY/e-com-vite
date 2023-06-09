@@ -1,0 +1,27 @@
+{
+  "productName": "Self-Tanning Gel with 6% DHA + aloe vera",
+  "productShortDesc": "Provides a natural progressive tan with a combination of plant-derived tanning molecules. The gel texture penetrates quickly for an even tan, without streaks or orange undertones. 98% naturally derived. Vegan. Made in France.",
+  "productIngredients": "SELF-TANNING GEL ACTIVE INGREDIENTS\nThe active self-tanning ingredients in this gel are 100% natural. They react with the amino acids present on the surface of the epidermis to cause a progressive coloring of the skin without exposure to UV rays.\n6% DHA:\nObtained from wheat, colza or beet, dihydroxyacetone (DHA) is 100% of vegetable origin.\nThis molecule reacts with the amino acids present on skin's surface to deliver  a natural tan without UV exposure.\nErythrulose:\nObtained by biotechnology from plant cells, this natural sugar has the same benefit as DHA. It naturally colors the skin upon contact with amino acids.\nThe combination of DHA and erythrulose allows for a more uniform and longer-lasting tan, without an orange undertone.\nAloe vera:\nRich in minerals, vitamins and amino acids, the pulp extracted from aloe vera leaves is known for its moisturizing and soothing properties. Its capacity for water retention makes it possible to fight dehydration and soften the surface of the skin.\nTurmeric:\nTurmeric has been cultivated since ancient times in India, and its name is derived from the Sankrit, \"kunkuma,\" \"that which gives color.\" It is traditionally used in Ayurvedic medicine for its antioxidant and anti-inflammatory properties. These properties are attributed to curcumin, a major compound in turmeric roots.\nHOW TO USE\nThis self-tanning body gel offers a progressive tan from 6 hours after application and lasts 5 to 7 days.\nHow to get the ideal, long-lasting tan:\nThe gel texture spreads easily and penetrates quickly, without risk of transfer to clothing.\nExfoliate skin before application. Use a light touch on elbows, knees, and heels, as these areas tend to absorb more product. Keep your tan by applying the self-tanning gel once a week and moisturizing your skin regularly.",
+  "images": [
+    "body-tan_packshot-face_.jpg",
+    "body-tan_focus-texture_.jpg",
+    "body-tan-avant-apres.jpg",
+    "avant-apres-bras.jpg",
+    "body-tan_packshot-dos.jpg",
+    "body-tan_focus-ingredients-en.jpg"
+  ],
+  "imageURLs": [
+    "https://media.typology.com/storyblok/3287x3287/308fca78db/body-tan_packshot-face_.jpg",
+    "https://media.typology.com/storyblok/3287x3287/ee67cb87f7/body-tan_focus-texture_.jpg",
+    "https://media.typology.com/storyblok/1600x1600/9333a51204/body-tan-avant-apres.jpg",
+    "https://media.typology.com/storyblok/1600x1600/e699fa2773/avant-apres-bras.jpg",
+    "https://media.typology.com/storyblok/2958x2958/a975d73382/body-tan_packshot-dos.jpg"
+  ],
+  "productDesc": [
+    "product-front",
+    "product-close",
+    "product-alt",
+    "product-alt",
+    "product-back"
+  ]
+}
