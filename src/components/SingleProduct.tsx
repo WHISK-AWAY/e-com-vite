@@ -175,7 +175,14 @@ export default function SingleProduct() {
               <img src={h2} className='h-5' />
             </div>
           )}
-          <img src={singleProduct.imageURL[0]} alt='single product view' />
+          <img
+            src={
+              singleProduct.images.find(
+                (image) => image.imageDesc === 'product-front'
+              )?.imageURL || singleProduct.images[0].imageURL
+            }
+            alt='single product view'
+          />
         </section>
 
         <section className='product-details flex basis-3/5 flex-col items-center '>
@@ -196,11 +203,11 @@ export default function SingleProduct() {
 
             <div className='flex flex-col items-center text-center'>
               <p className='product-long-desc py-5 text-lg'>
-                {/* {singleProduct.productLongDesc} */}
-                "Retinol stimulates the synthesis of collagen and elastin to
+                {singleProduct.productIngredients}
+                {/* "Retinol stimulates the synthesis of collagen and elastin to
                 combat loss of firmness and wrinkles. This retinol serum visibly
                 improves fine lines and smooths skin. 99% naturally derived.
-                Vegan. Made in France.",
+                Vegan. Made in France.", */}
               </p>
 
               <div className='price-counter my-5 flex flex-col items-center'>
@@ -248,7 +255,13 @@ export default function SingleProduct() {
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
             </h3>
-            <img src={prod.imageURL[0]} alt='single product view' />
+            <img
+              src={
+                prod.images.find((image) => image.imageDesc === 'product-front')
+                  ?.imageURL || prod.images[0].imageURL
+              }
+              alt='single product view'
+            />
           </article>
         ))}
       </section>

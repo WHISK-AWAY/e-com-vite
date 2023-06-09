@@ -1,4 +1,5 @@
 import fs from 'fs';
+import type { ImageData, ImageDesc } from '../dbTypes';
 
 const WORKING_DIR = '../../../../src/assets/fuck me/';
 console.log('WORKING_DIR', fs.realpathSync(WORKING_DIR));
@@ -7,31 +8,20 @@ console.log('OUTPUT_DIR', fs.realpathSync(OUTPUT_DIR));
 const OUTPUT_FILENAME = '_combinedProductInfo.json';
 // console.log('OUTPUT_FILENAME', fs.realpathSync(OUTPUT_FILENAME));
 
-type ImageDesc =
-  | 'product-front'
-  | 'product-close'
-  | 'product-packaging-back'
-  | 'product-texture'
-  | 'video-usage';
-
 type FileMetadataInput = {
   productName: string;
   productShortDesc: string;
   productIngredients: string;
-  images?: string[];
+  images: string[];
   imageURL: string[];
   imageDesc: ImageDesc[];
 };
 
 export type FileMetadataOutput = Omit<
   FileMetadataInput,
-  'images' | 'imageDesc'
+  'images' | 'imageDesc' | 'imageURL'
 > & {
-  images: {
-    image: string;
-    imageURL: string;
-    imageDesc: string;
-  }[];
+  images: ImageData[];
 };
 
 export function combineProductInfo() {
@@ -55,7 +45,6 @@ export function combineProductInfo() {
       productName,
       productShortDesc,
       productIngredients,
-      imageURL,
       images: imageURL.map((image, idx) => {
         return {
           imageURL: image,

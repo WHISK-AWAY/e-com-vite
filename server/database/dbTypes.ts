@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 export type TProduct = {
   product: mongoose.Types.ObjectId;
@@ -42,4 +42,29 @@ export interface IUser extends mongoose.Document {
   voteCount?: number;
   skinConcerns?: string[];
   purgeInactiveCart?(): void;
+}
+
+export type ImageData = {
+  image: string;
+  imageURL: string;
+  imageDesc: ImageDesc;
+};
+
+export type ImageDesc =
+  | 'product-front'
+  | 'product-close'
+  | 'product-packaging-back'
+  | 'product-texture'
+  | 'video-usage';
+
+export interface IProduct {
+  _id?: Types.ObjectId;
+  productName: string;
+  productIngredients: string;
+  productShortDesc: string;
+  price: number;
+  qty: number;
+  tags: Types.ObjectId[];
+  saleCount: number;
+  images: ImageData[];
 }

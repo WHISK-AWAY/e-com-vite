@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import {
   IProduct,
   IShippingAddress,
@@ -14,7 +14,7 @@ import {
   tagList,
 } from './faker/mock-data';
 import { Tag, Promo, Product, User, Order, Review } from '../index';
-import { IUser } from '../dbTypes';
+import { IUser, ImageData } from '../dbTypes';
 import { seedRealProducts } from './seedRealProducts';
 
 function randomElement<T>(inputArr: T[]): T {
@@ -106,7 +106,7 @@ export async function seed() {
     cart: {
       products: [
         {
-          product: newProduct[0]._id,
+          product: newProduct[0]._id as Types.ObjectId,
           price: newProduct[0].price,
           qty: 2,
         },
@@ -141,7 +141,7 @@ export async function seed() {
     const numberOfFavorites = Math.floor(Math.random() * 5);
     user.favorites = [];
     for (let i = 0; i < numberOfFavorites; i++) {
-      user.favorites.push(randomElement(newProduct)._id);
+      user.favorites.push(randomElement(newProduct)._id as Types.ObjectId);
     }
 
     // attach products to user cart
@@ -150,7 +150,7 @@ export async function seed() {
     for (let i = 0; i < numberInCart; i++) {
       const randomProduct = randomElement(newProduct);
       user.cart!.products.push({
-        product: randomProduct._id,
+        product: randomProduct._id as Types.ObjectId,
         price: randomProduct.price,
         qty: Math.ceil(Math.random() * 3),
       });
@@ -195,10 +195,13 @@ export async function seed() {
       const randomProduct = randomElement(newProduct);
 
       const orderProduct = {
-        productId: randomProduct._id,
+        productId: randomProduct._id as Types.ObjectId,
         productName: randomProduct.productName,
         productShortDesc: randomProduct.productShortDesc,
-        imageURL: randomProduct.imageURL,
+        imageURL:
+          randomProduct.images.find(
+            (image: ImageData) => image.imageDesc === 'product-front'
+          )?.imageURL || randomProduct.images[0].imageURL,
         price: randomProduct.price,
         qty: productQty,
       };
@@ -248,7 +251,7 @@ export async function seed() {
       // choose a random product from the array of seeded products
       const reviewProduct = randomElement(newProduct);
       // assign the product as the subject of this review
-      currentReview.product = reviewProduct._id;
+      currentReview.product = reviewProduct._id as Types.ObjectId;
 
       await currentReview.save();
     }

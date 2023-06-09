@@ -257,7 +257,14 @@ AllProductsProps) {
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
           <li className='list-none' key={product._id.toString()}>
-            <img src={product.imageURL[0]} alt='cat' />
+            <img
+              src={
+                product.images.find(
+                  (image) => image.imageDesc === 'product-front'
+                )?.imageURL || product.images[0].imageURL
+              }
+              alt='cat'
+            />
             <p>
               <Link to={'/product/' + product._id}>
                 {product.productName.toUpperCase()}

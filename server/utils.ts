@@ -38,7 +38,19 @@ export const zodProduct = z.object({
   productShortDesc: z.string().min(10),
   price: z.number().nonnegative().gt(20),
   qty: z.number().nonnegative().gt(0),
-  imageURL: z.array(z.string().url()),
+  images: z.array(
+    z.object({
+      image: z.string(),
+      imageURL: z.string(),
+      imageDesc: z.enum([
+        'product-front',
+        'product-close',
+        'product-packaging-back',
+        'product-texture',
+        'video-usage',
+      ]),
+    })
+  ),
   tags: z.string().min(3).array(),
 });
 

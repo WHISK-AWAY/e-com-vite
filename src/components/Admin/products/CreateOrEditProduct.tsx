@@ -15,6 +15,7 @@ import {
 import { fetchAllTags, selectTagState } from '../../../redux/slices/tagSlice';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
+import { ImageDesc } from '../../../../server/database/dbTypes';
 
 export type TCreateSingleProduct = {
   productName: string;
@@ -47,7 +48,19 @@ const ZSingleProduct = z.object({
     .number()
     .nonnegative({ message: 'Price must not be a negative number' })
     .min(1, { message: 'Quantity must not be a negative number' }),
-  imageURL: z.array(z.string().url({ message: 'Should be a valid URL' })),
+  images: z.array(
+    z.object({
+      image: z.string(),
+      imageURL: z.string().url({ message: 'Should be a valid URL' }),
+      imageDesc: z.enum([
+        'product-front',
+        'product-close',
+        'product-packaging-back',
+        'product-texture',
+        'video-usage',
+      ]),
+    })
+  ),
   tags: z
     .array(
       z.object({
@@ -90,7 +103,7 @@ export default function CreateOrEditProduct() {
         productShortDesc: product?.productShortDesc || '',
         price: product?.price || 0,
         qty: product?.qty || 0,
-        imageURL: product?.imageURL || [],
+        imageURL: product?.images.map((image) => image.imageURL) || [],
         tags:
           product?.tags.map((tag) => {
             return { label: tag.tagName, value: tag.tagName };
@@ -105,7 +118,7 @@ export default function CreateOrEditProduct() {
     productShortDesc: product?.productShortDesc || '',
     price: product?.price || 0,
     qty: product?.qty || 0,
-    imageURL: product?.imageURL || [],
+    imageURL: product?.images.map((image) => image.imageURL) || [],
     tags:
       product?.tags.map((tag) => {
         return { label: tag.tagName, value: tag.tagName };
@@ -143,7 +156,13 @@ export default function CreateOrEditProduct() {
       productShortDesc: data.productShortDesc,
       price: data.price,
       qty: data.qty,
-      imageURL: data.imageURL,
+      images: data.imageURL.map((url) => {
+        return {
+          image: url.split('/')[-1],
+          imageURL: url,
+          imageDesc: 'product-alt' as ImageDesc,
+        };
+      }),
       tags: data.tags.map((tag) => tag.label),
     };
 

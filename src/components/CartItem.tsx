@@ -16,7 +16,7 @@ export type CartProps = {
 };
 export default function CartItem(props: CartProps) {
   const { product, userId, qty } = props;
-  const { productName, productShortDesc, price, imageURL, _id } = product;
+  const { productName, productShortDesc, price, images, _id } = product;
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
   const cart = useAppSelector(selectCart);
@@ -45,7 +45,12 @@ export default function CartItem(props: CartProps) {
   return (
     <div className='cart-item-container'>
       <div>{productName}</div>
-      <img src={imageURL[0]} />
+      <img
+        src={
+          images.find((image) => image.imageDesc === 'product-front')
+            ?.imageURL || images[0].imageURL
+        }
+      />
       <div>{productShortDesc}</div>
       <div>{price}</div>
 

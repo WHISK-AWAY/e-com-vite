@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
+import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
@@ -20,7 +21,7 @@ export type TProduct = {
   productShortDesc: string;
   price: number;
   qty: number;
-  imageURL: string[];
+  images: ImageData[];
   tags: {
     _id: string;
     tagName: string;

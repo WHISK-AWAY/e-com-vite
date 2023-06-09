@@ -1,6 +1,6 @@
 import type { FileMetadataOutput } from './combineProductInfo';
 import { Product, Tag, ITag } from '../index';
-import type { IProduct } from '../Product';
+import type { IProduct } from '../dbTypes';
 import mongoose from 'mongoose';
 
 function randomTags(tagArray: ITag[], count: number) {
@@ -32,9 +32,8 @@ export async function seedRealProducts() {
       productIngredients: product.productIngredients.trim(),
       price: Math.floor(Math.random() * (60 - 30) + 30),
       qty: Math.floor(Math.random() * (50 - 1) + 1),
-      // saleCount: Math.floor(Math.random() * (10 - 3) + 3),
       saleCount: 0,
-      imageURL: product.images.map((image) => image.imageURL),
+      images: product.images,
       tags: tagIDs,
     };
 

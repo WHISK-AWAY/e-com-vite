@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 import { RootState } from '../store';
 import { TSort } from '../../components/AllProducts';
+import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 type TFetchAllParams = {
@@ -171,7 +172,7 @@ export type TProduct = {
   productShortDesc: string;
   price: number;
   qty: number;
-  imageURL: string[];
+  images: ImageData[];
   tags: TTag[];
   relatedProducts: Omit<TProduct, 'relatedProducts'>[];
 };
@@ -179,7 +180,7 @@ export type TProduct = {
 type ProductItem = {
   productId: string;
   productName: string;
-  imageURL: string[];
+  images: ImageData[];
 };
 
 type TagItem = {

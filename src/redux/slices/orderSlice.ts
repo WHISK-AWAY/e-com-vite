@@ -14,7 +14,7 @@ export type TOrder = {
     productId: string;
     productName: string;
     productShortDesc: string;
-    imageURL: string[];
+    imageURL: string;
     price: number;
     qty: number;
   }[];

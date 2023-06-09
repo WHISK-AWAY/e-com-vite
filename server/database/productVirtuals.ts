@@ -1,5 +1,5 @@
 import Review from './Review';
-import type { IProduct } from './Product';
+import type { IProduct } from './dbTypes';
 import { promise } from 'zod';
 
 export type TProductRating = {

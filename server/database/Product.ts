@@ -1,16 +1,5 @@
 import mongoose, { Schema, Types } from 'mongoose';
-
-export interface IProduct {
-  _id?: Types.ObjectId;
-  productName: string;
-  productIngredients: string;
-  productShortDesc: string;
-  price: number;
-  qty: number;
-  imageURL: string[];
-  tags: Types.ObjectId[];
-  saleCount: number;
-}
+import type { ImageData, IProduct } from './dbTypes';
 
 const productSchema = new Schema<IProduct>({
   productName: { type: String, required: true, unique: true },
@@ -18,7 +7,13 @@ const productSchema = new Schema<IProduct>({
   productShortDesc: { type: String, required: true },
   price: { type: Number, required: true },
   qty: { type: Number, required: true },
-  imageURL: [{ type: String, required: true }],
+  images: [
+    {
+      image: String,
+      imageURL: String,
+      imageDesc: String,
+    },
+  ],
   tags: [
     {
       type: Schema.Types.ObjectId,

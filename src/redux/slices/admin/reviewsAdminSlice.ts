@@ -3,6 +3,7 @@ import { RootState } from '../../store';
 import axios, { AxiosError } from 'axios';
 
 import type { ReviewSortFields } from '../../../components/Admin/AdminReviews';
+import { ImageData } from '../../../../server/database';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,12 +16,11 @@ export type TAdminReview = {
   product: {
     _id: string;
     productName: string;
-    productLongDesc: string;
+    productIngredients: string;
     productShortDesc: string;
-    brand: string;
     price: number;
     qty: number;
-    imageURL: string;
+    images: ImageData;
     tags: string[];
     saleCount: number;
   };

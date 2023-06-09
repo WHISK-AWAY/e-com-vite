@@ -8,7 +8,7 @@ export interface IOrder {
     productId: Types.ObjectId;
     productName: string;
     productShortDesc: string;
-    imageURL: string[];
+    imageURL: string;
     price: number;
     qty: number;
   }[];
@@ -49,7 +49,7 @@ const orderSchema = new Schema<IOrder>(
         productId: { type: Schema.Types.ObjectId, ref: 'Product' },
         productName: { type: String, required: true },
         productShortDesc: { type: String, required: true },
-        imageURL: [{ type: String, required: true }],
+        imageURL: { type: String, required: true },
         price: { type: Number, required: true },
         qty: { type: Number, required: true },
       },

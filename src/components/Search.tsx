@@ -55,7 +55,13 @@ export default function Search({
                 onClick={(e) => handleProductNameSearch(e, result.productId)}
                 key={result.productId}
               >
-                <img src={result.imageURL[0]} />
+                <img
+                  src={
+                    result.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || result.images[0].imageURL
+                  }
+                />
                 <p>{result.productName}</p>
               </div>
             );

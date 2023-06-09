@@ -136,7 +136,10 @@ export default function Recap() {
         productId: product._id,
         productName: product.product.productName,
         productShortDesc: product.product.productShortDesc,
-        imageURL: product.product.imageURL,
+        imageURL:
+          product.product.images.find(
+            (image) => image.imageDesc === 'product-front'
+          )?.imageURL || product.product.images[0].imageURL,
         price: product.price,
         qty: product.qty,
       });
@@ -243,7 +246,13 @@ export default function Recap() {
             <div key={item._id}>
               <p>{item.product.productName}</p>
               <p>{item.qty}</p>
-              <img src={item.product.imageURL[0]} />
+              <img
+                src={
+                  item.product.images.find(
+                    (image) => image.imageDesc === 'product-front'
+                  )?.imageURL || item.product.images[0].imageURL
+                }
+              />
             </div>
           );
         })}

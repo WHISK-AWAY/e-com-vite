@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router({ mergeParams: true });
 import reviewRouter from './reviewRouter';
-import { Product, Tag } from '../database/index';
+import { ImageData, Product, Tag } from '../database/index';
 import { checkAuthenticated, requireAdmin } from './authMiddleware';
 import { zodProduct } from '../utils';
 import { IProduct, ITag } from '../database/index';
@@ -83,7 +83,7 @@ router.get('/admin', requireAdmin, async (req, res, next) => {
 type ProductItem = {
   productId: string;
   productName: string;
-  imageURL: string[];
+  images: ImageData[];
 };
 
 type TagItem = {
@@ -111,7 +111,7 @@ router.get('/search', async (req, res, next) => {
       searchData.products.push({
         productId: product._id?.toString()!,
         productName: product.productName,
-        imageURL: product.imageURL,
+        images: product.images,
       });
     });
 

@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 import { faker } from '@faker-js/faker';
 import { IUser, IProduct, ITag, IOrder, IPromo, IReview } from '../../index';
+import { ImageDesc } from '../../dbTypes';
 // import { IUser } from '../database/User';
 // import { IProduct } from '../database/Product';
 // import { ITag } from '../database/Tag';
@@ -117,9 +118,15 @@ export const generateProduct = (count: number): IProduct[] => {
       productShortDesc,
       price,
       qty,
-      imageURL,
       tags,
       saleCount,
+      images: imageURL.map((image) => {
+        return {
+          imageURL: image,
+          image: image.split('/')[-1],
+          imageDesc: 'product-front' as ImageDesc,
+        };
+      }),
     });
   }
 
@@ -171,7 +178,7 @@ export const generateOrder = (count: number): IOrder[] => {
         productId: new Types.ObjectId(),
         productName: faker.commerce.productName(),
         productShortDesc: faker.lorem.sentence(4),
-        imageURL: randomCatImages(2),
+        imageURL: randomCatImages(1)[0],
         price: faker.datatype.float({ min: 20, max: 60, precision: 1 }),
         qty: faker.datatype.number({ min: 1, max: 5 }),
       },
