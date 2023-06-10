@@ -22,7 +22,8 @@
     "https://media.typology.com/storyblok/2344x2344/9729b6ec57/mascara_before-after_blonde.jpg",
     "https://media.typology.com/storyblok/3287x3287/8425dba778/mascara_carroussel_produit-ingredient.jpg",
     "https://media.typology.com/storyblok/2301x2301/2f2d8a1722/mascara_carroussel_produit-texture_ingredient.jpg",
-    "https://media.typology.com/storyblok/2518x2518/75872a5b5b/mascara_carroussel_produit-applicateur.jpg"
+    "https://media.typology.com/storyblok/2518x2518/75872a5b5b/mascara_carroussel_produit-applicateur.jpg",
+    "https://media.typology.com/video-storyblok/x/a4578b1ffe/application_mascara.mp4"
   ],
   "imageDesc": [
     "product-front",
@@ -30,6 +31,7 @@
     "product-alt",
     "product-alt",
     "product-alt",
-    "product-close"
+    "product-close",
+    "video-usage"
   ]
 }

@@ -37,7 +37,8 @@
     "https://media.typology.com/storyblok/4159x4159/b21c4bca00/lip_oil_produit_carrousel_avant-apres_orange_m.jpg",
     "https://media.typology.com/storyblok/3327x3327/c1906c6014/lip_oil_produit_carrousel_avant-apres_orangeok.jpg",
     "https://media.typology.com/storyblok/4159x4159/ca5ca268a6/lip_oil_produit_carrousel_avant-apres_maylis_purple.jpg",
-    "https://media.typology.com/storyblok/3327x3327/03a8c8a264/lip_oil_produit_carrousel_avant-apres_purpleok.jpg"
+    "https://media.typology.com/storyblok/3327x3327/03a8c8a264/lip_oil_produit_carrousel_avant-apres_purpleok.jpg",
+    "https://media.typology.com/video-storyblok/x/cc0d052724/1_huile-a-levres.mp4"
   ],
   "imageDesc": [
     "product-front",
@@ -55,6 +56,7 @@
     "product-alt",
     "product-alt",
     "product-alt",
-    "product-alt"
+    "product-alt",
+    "video-usage"
   ]
 }

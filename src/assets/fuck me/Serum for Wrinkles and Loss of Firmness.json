@@ -12,7 +12,8 @@
   "imageURLs": [
     "https://media.typology.com/storyblok/1600x1600/86ed22b56f/01_lab-1025_15ml.jpg",
     "https://media.typology.com/storyblok/1972x1972/1f0e8d716b/03_better_aging_carroussel_produit_texture_collagene.jpg",
-    "https://media.typology.com/storyblok/2958x2958/7c5a21b05e/04_better_aging_carroussel_produit_back_collagene.jpg"
+    "https://media.typology.com/storyblok/2958x2958/7c5a21b05e/04_better_aging_carroussel_produit_back_collagene.jpg",
+    "https://media.typology.com/video-storyblok/x/2a7ea2714f/application_collagene.mp4"
   ],
-  "imageDesc": ["product-front", "product-close", "product-back"]
+  "imageDesc": ["product-front", "product-close", "product-back", "video-usage"]
 }

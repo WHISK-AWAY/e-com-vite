@@ -13,12 +13,14 @@
     "https://media.typology.com/storyblok/1600x1600/782bfffce1/rayons_1003_packshot_web.jpg",
     "https://media.typology.com/storyblok/3743x3743/b46de33f5e/spf_produit_carrousel_face_texture.jpg",
     "https://media.typology.com/storyblok/4159x4159/30b07e60bf/spf_application_face_produit_carrousel.jpg",
-    "https://media.typology.com/storyblok/3327x3327/af396e4d0e/spf_produit_carrousel_back.jpg"
+    "https://media.typology.com/storyblok/3327x3327/af396e4d0e/spf_produit_carrousel_back.jpg",
+    "https://media.typology.com/video-storyblok/x/ac0dcc3e0a/22_creme-solaire.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-alt",
-    "product-packaging-back"
+    "product-packaging-back",
+    "video-usage"
   ]
 }

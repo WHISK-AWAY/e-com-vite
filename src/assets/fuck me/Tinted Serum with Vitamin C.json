@@ -25,7 +25,8 @@
     "https://media.typology.com/storyblok/b449ee8f57/serum-teinte__carousel_images__2b00bb7e3c8d45258276714352b07cb9.jpg",
     "https://media.typology.com/storyblok/716032accd/serum-teinte__carousel_images__c1bf94ae7e984f1aa563d4661088d938.jpg",
     "https://media.typology.com/storyblok/cd0390c124/serum-teinte__carousel_images__298abe364cee443d8c4b168dffdad817.jpg",
-    "https://media.typology.com/storyblok/82e8344d0e/serum-teinte__carousel_images__9781bd9c88a4413282eda4b73da7f238.jpg"
+    "https://media.typology.com/storyblok/82e8344d0e/serum-teinte__carousel_images__9781bd9c88a4413282eda4b73da7f238.jpg",
+    "https://media.typology.com/video-storyblok/x/fab989f849/teint_tuto_pipette_video_en.mp4"
   ],
   "imageDesc": [
     "product-front",
@@ -36,6 +37,7 @@
     "product-alt",
     "product-alt",
     "product-alt",
-    "product-alt"
+    "product-alt",
+    "video-usage"
   ]
 }

@@ -12,7 +12,14 @@
     "https://media.typology.com/storyblok/1600x1600/f422cc5626/plantes-1006_web.jpg",
     "https://media.typology.com/storyblok/1280x1280/0169801f6c/auto_bronzant_carousel-produit-buriti-ingredient.jpg",
     "https://media.typology.com/storyblok/1600x1600/ae5043b388/auto_bronzant_carousel-produit-buriti.jpg",
-    "https://media.typology.com/storyblok/1600x1600/27dac2ceb5/auto_bronzant_carousel-produit-buriti-back.jpg"
+    "https://media.typology.com/storyblok/1600x1600/27dac2ceb5/auto_bronzant_carousel-produit-buriti-back.jpg",
+    "https://media.typology.com/video-storyblok/x/dfdebd93eb/typology_buriti_video_application.mp4"
   ],
-  "imageDesc": ["product-front", "product-alt", "product-front", "product-back"]
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-front",
+    "product-back",
+    "video-usage"
+  ]
 }

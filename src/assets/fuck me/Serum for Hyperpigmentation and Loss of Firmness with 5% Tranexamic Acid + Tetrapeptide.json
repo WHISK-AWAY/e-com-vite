@@ -15,12 +15,14 @@
     "https://media.typology.com/storyblok/1600x1600/4b833bc918/lab_1024_15ml.jpg",
     "https://media.typology.com/storyblok/1600x1600/3684762f2c/better_aging_carousel-produit_pipette.jpg",
     "https://media.typology.com/storyblok/1600x1600/f0134e402c/better_aging_carousel-produit_serum_2.jpg",
-    "https://media.typology.com/storyblok/1600x1600/8a3a8839e5/better_aging_carousel-produit_serum.jpg"
+    "https://media.typology.com/storyblok/1600x1600/8a3a8839e5/better_aging_carousel-produit_serum.jpg",
+    "https://media.typology.com/video-storyblok/x/9862a16761/typology_application_serum_4-5_ld.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-close",
-    "product-alt"
+    "product-alt",
+    "video-usage"
   ]
 }
