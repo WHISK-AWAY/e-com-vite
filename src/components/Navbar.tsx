@@ -24,6 +24,7 @@ import cart from '../../src/assets/icons/fcart.svg';
 import cart3 from '../../src/assets/icons/fcart.svg';
 import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
+import bag from '../../src/assets/icons/bag-blanc.svg';
 // import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
@@ -151,12 +152,12 @@ export default function Navbar() {
 
       <div className='user-section flex h-full flex-auto basis-1/3 items-center justify-end gap-5  '>
         <NavLink to={`/user/${userId}/cart`}>
-          <img src={cart3} className=' w-7 ' />
+          <img src={bag} className=' w-6 ' />
         </NavLink>
 
         <NavLink to={`/user/${userId}/favorites`}>
           {' '}
-          <img src={heart3} className='w-6' />
+          <img src={heart3} className='w-7' />
         </NavLink>
         {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
 
