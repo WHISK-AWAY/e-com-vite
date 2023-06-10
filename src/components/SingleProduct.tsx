@@ -23,12 +23,13 @@ import {
   adminDeleteSingleProduct,
   adminFetchAllProducts,
 } from '../redux/slices/admin/adminProductsSlice';
-import star from '../../src/assets/icons/star.svg';
+import starBlanc from '../../src/assets/icons/star-blanc.svg';
+import starFilled from '../../src/assets/icons/star-filled.svg';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
-import heart from '../../src/assets/icons/heart3.svg';
-import h1 from '../../src/assets/icons/hr1.svg';
-import h2 from '../../src/assets/icons/hr2.svg';
+import heartBlanc from '../../src/assets/icons/heart-blanc.svg';
+import heartFilled from '../../src/assets/icons/heart-filled.svg';
+
 
 export default function SingleProduct() {
   const { productId } = useParams();
@@ -168,11 +169,11 @@ export default function SingleProduct() {
           <img src={h1} className='h-5' /> */}
           {itemIsFavorited ? (
             <div onClick={handleFavoriteRemove}>
-              <img src={h1} className='h-5' />
+              <img src={heartFilled} className='h-5' />
             </div>
           ) : (
             <div onClick={handleFavoriteAdd}>
-              <img src={h2} className='h-5' />
+              <img src={heartBlanc} className='h-5' />
             </div>
           )}
           <img src={singleProduct.imageURL} alt='single product view' />
@@ -180,22 +181,21 @@ export default function SingleProduct() {
 
         <section className='product-details flex basis-3/5 flex-col items-center '>
           <div className='product-desc flex flex-col items-center'>
-            <h1 className='product-name pb-8 text-[1.5rem]'>
-              {' '}
+            <h1 className='product-name pb-8 text-[1.5rem] font-federo'>
               {singleProduct.productName.toUpperCase()}
             </h1>
 
             <div className='star-section flex self-start'>
-              <img src={star} className=' h-3' />
-              <img src={star} className='h-3' />
-              <img src={star} className='h-3' />
-              <img src={star} className='h-3' />
-              <img src={star} className='h-3' />
-              <p className='pl-2'> {overallReviewScore()}</p>
+              <img src={starFilled} className=' h-3' />
+              <img src={starFilled} className='h-3' />
+              <img src={starFilled} className='h-3' />
+              <img src={starFilled} className='h-3' />
+              <img src={starFilled} className='h-3' />
+              <p className='pl-2 font-grotesque'> {overallReviewScore()}</p>
             </div>
 
             <div className='flex flex-col items-center text-center'>
-              <p className='product-long-desc py-5 text-lg'>
+              <p className='product-long-desc py-5 text-lg font-grotesque'>
                 {/* {singleProduct.productLongDesc} */}
                 "Retinol stimulates the synthesis of collagen and elastin to
                 combat loss of firmness and wrinkles. This retinol serum visibly
@@ -204,7 +204,7 @@ export default function SingleProduct() {
               </p>
 
               <div className='price-counter my-5 flex flex-col items-center'>
-                <p className='price'>${singleProduct.price}</p>
+                <p className='price font-grotesque font-medium text-lg'>${singleProduct.price}</p>
 
                 <div className='qty-counter mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-black px-2 py-1'>
                   <div
@@ -214,7 +214,7 @@ export default function SingleProduct() {
                     <img src={plus} className='w-5' />
                   </div>
 
-                  <div className='count px-4'>{count}</div>
+                  <div className='count px-4 font-grotesque text-lg'>{count}</div>
                   <div onClick={qtyDecrementor}>
                     <img src={minus} className='w-5' />
                   </div>
@@ -222,7 +222,7 @@ export default function SingleProduct() {
                 <br />
                 <button
                   onClick={handleClick}
-                  className='text-md bg-black px-24 py-2 uppercase text-white'
+                  className='text-md bg-charcoal px-24 py-2 uppercase text-white rounded-sm font-italiana'
                 >
                   add to cart
                 </button>
