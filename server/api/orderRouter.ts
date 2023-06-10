@@ -6,7 +6,7 @@ import { z } from 'zod';
 import validator from 'validator';
 import { User, Order, Promo, Product } from '../database/index';
 import { zodOrder, zodUserId, zodOrderId } from '../utils';
-import { TProduct } from '../database/dbTypes';
+import { ImageData, TProduct } from '../database/dbTypes';
 
 const zodCreateOrder = zodOrder
   .strict()
@@ -48,9 +48,8 @@ type TOrderQuery = Omit<TzodOrderInput, 'promoCode'> & {
   orderDetails: {
     productId: mongoose.Types.ObjectId;
     productName: string;
-    productLongDesc: string;
+    productIngredients: string;
     productShortDesc: string;
-    brand: string;
     imageURL: string;
     price: number;
     qty: number;
@@ -66,10 +65,9 @@ type TExpandedCartProduct = {
   product: {
     _id: mongoose.Types.ObjectId;
     productName: string;
-    productLongDesc: string;
+    productIngredients: string;
     productShortDesc: string;
-    brand: string;
-    imageURL: string;
+    images: ImageData[];
     price: number;
     qty: number;
     tags: mongoose.Types.ObjectId[];
@@ -148,10 +146,12 @@ router.post(
         orderDetails: userCart.map((prod) => {
           return {
             productId: prod.product._id,
-            brand: prod.product.brand,
-            imageURL: prod.product.imageURL,
+            imageURL:
+              prod.product.images.find(
+                (image) => image.imageDesc === 'product-front'
+              )?.imageURL || prod.product.images[0].imageURL,
             price: prod.price,
-            productLongDesc: prod.product.productLongDesc,
+            productIngredients: prod.product.productIngredients,
             productShortDesc: prod.product.productShortDesc,
             productName: prod.product.productName,
             qty: prod.qty,

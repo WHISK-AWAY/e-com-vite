@@ -7,9 +7,7 @@ export interface IOrder {
   orderDetails: {
     productId: Types.ObjectId;
     productName: string;
-    productLongDesc: string;
     productShortDesc: string;
-    brand: string;
     imageURL: string;
     price: number;
     qty: number;
@@ -50,9 +48,7 @@ const orderSchema = new Schema<IOrder>(
       {
         productId: { type: Schema.Types.ObjectId, ref: 'Product' },
         productName: { type: String, required: true },
-        productLongDesc: { type: String, required: true },
         productShortDesc: { type: String, required: true },
-        brand: { type: String, required: true },
         imageURL: { type: String, required: true },
         price: { type: Number, required: true },
         qty: { type: Number, required: true },
@@ -113,7 +109,6 @@ orderSchema.post('findOneAndUpdate', async function (result) {
 
   if (updatedFields) {
     if (updatedFields['$set']?.orderStatus === 'confirmed') {
-      console.log('Updating sale counts');
       for (let product of result.orderDetails) {
         const updateSaleStats = await Statistics.findOneAndUpdate(
           { 'bestsellerRef.productId': product.productId },

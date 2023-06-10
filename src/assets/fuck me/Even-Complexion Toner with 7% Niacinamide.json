@@ -15,9 +15,16 @@
     "https://media.typology.com/storyblok/99d2c261b0/tonique-apaisant__main__09216e1e3d564a11a9a8f3a900b1b30c.jpg",
     "https://media.typology.com/storyblok/1490x1570/da2115b4d7/tone-1003_image-full_web2.jpg",
     "https://media.typology.com/storyblok/1490x1570/523941699c/tone-1003_image-full_web1.jpg",
-    "https://media.typology.com/storyblok/5d03581031/tonique-apaisant__additional__5e1c8412daa941c787393deb7235d381.jpg",
-    "https://media.typology.com/storyblok/d4c93a52df/tonique-apaisant__additional__a1913388292542d389f92608932bb0bb.jpg",
     "https://media.typology.com/storyblok/1600x1600/553f2bbb81/tone_1003_barcode.jpg",
-    "https://media.typology.com/storyblok/44aa38a900/tonique-apaisant__additional__36d17fcf77b54a73ba2011396cfd8a69.jpg"
+    "https://media.typology.com/storyblok/44aa38a900/tonique-apaisant__additional__36d17fcf77b54a73ba2011396cfd8a69.jpg",
+    "https://media.typology.com/video-storyblok/339f21a8c4/tonique-apaisant__content_2cols_image__fb1872626e9b43b8b9390b1cb1a5bff2.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-alt",
+    "product-back",
+    "product-dimensions",
+    "video-usage"
   ]
 }

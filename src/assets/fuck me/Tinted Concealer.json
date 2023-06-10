@@ -1,0 +1,40 @@
+{
+  "productName": "Tinted Concealer",
+  "productShortDesc": "This medium-high coverage tinted concealer is enriched with caffeine, niacinamide, and cornflower hydrolate to reduce the appearance of dark circles and puffiness, instantly and long term. It can also be used to conceal blemishes or redness. 97% naturally derived. Vegan. Made in France. 15ml/0.50 fl.oz. Find your shade here .",
+  "productIngredients": "ACTIVE INGREDIENTS\nCaffeine:\nNaturally present in coffee beans, tea leaves, cocoa beans, and kola nuts, caffeine is known to facilitate blood circulation and reduce water retention, diminishing the appearance of puffiness and dark circles under the eyes.\nNiacinamide:\nNiacinamide strengthens the skin's barrier and accelerates the healing process. It has anti-inflammatory properties that target imperfections and promote a more even complexion. In addition, by boosting blood micro-circulation around the eye area, niacinamide helps reduce the appearance of dark circles.\nCornflower hydrolate:\nCornflower hydrolate activates the micro-circulation of the blood, it stimulates the liquid accumulated in under-eyes bags to disperse and thus helps to decongest around the eyes, leaving the area refreshed and illuminated.\nHOW TO CHOOSE YOUR SHADE\nOur six shades were developed using the Fitzpatrick phototype scale which takes into account factors like skin tone and reactions to sun exposure.\nTYPE 1:\nFair with cool undertones. This is for fair skin that doesn't tan and becomes red in the sun.\nTYPE 2:\nLight. Recommended for light skin with pink or yellow undertones that tans gradually and is prone to sunburns.\nTYPE 3:\nMedium. This shade is for medium-toned skin with warm or olive undertones, which tans easily but sometimes burns.\nTYPE 4:\nTan. For dark skin with predominantly bronze undertones that occasionally sunburns.\nTYPE 5:\nMedium dark. This is for light brown skin that rarely gets sunburned and easily tans in the sun.\nTYPE 6:\nDark. The shade for dark brown skin with naturally cold undertones that rarely sunburns.\nAs a concealer, we recommend choosing one shade lighter than your skin tone, to illuminate the eyes.\nAs a corrector, we recommend taking the shade closest to your skin tone.",
+  "images": [
+    "teint_packshots_web.jpg",
+    "teint_concealer_family_website_editorial-page_texture_image_human-arms_swatch_rgb.png",
+    "teint_1006_page_produit2.jpg",
+    "teint_1006_page_produit3.jpg",
+    "teint_1006_page_produit4.jpg",
+    "before-after_concealer_shade-1_eva.jpg",
+    "before-after_concealer_shade-2.jpg",
+    "before-after_concealer_shade-2_laureen.jpg",
+    "before-after_concealer_shade-2_laura.jpg",
+    "before-after_concealer_shade-4_client.jpg",
+    "0000_before-after_concealer_shade-5.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/505ee4de32/teint_packshots_web.jpg",
+    "https://media.typology.com/storyblok/1300x1300/4e3d4156f4/teint_concealer_family_website_editorial-page_texture_image_human-arms_swatch_rgb.png",
+    "https://media.typology.com/storyblok/1500x1500/186ad51878/before-after_concealer_shade-1_eva.jpg",
+    "https://media.typology.com/storyblok/1500x1500/85e41761d9/before-after_concealer_shade-2.jpg",
+    "https://media.typology.com/storyblok/1500x1500/ddc411a086/before-after_concealer_shade-2_laureen.jpg",
+    "https://media.typology.com/storyblok/1500x1500/396e3ee35b/before-after_concealer_shade-2_laura.jpg",
+    "https://media.typology.com/storyblok/1500x1500/fb6f63ce39/before-after_concealer_shade-4_client.jpg",
+    "https://media.typology.com/storyblok/1500x1500/2754083876/0000_before-after_concealer_shade-5.jpg",
+    "https://media.typology.com/video-storyblok/x/4ae142ad92/typology_concealer_video-utilisation.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "video-usage"
+  ]
+}

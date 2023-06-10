@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
+import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
@@ -16,12 +17,11 @@ export interface ICart {
 export type TProduct = {
   _id: string;
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
+  images: ImageData[];
   tags: {
     _id: string;
     tagName: string;
@@ -100,7 +100,6 @@ const cartSlice = createSlice({
   },
 });
 
-
 // * FETCH USER CART
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
@@ -129,7 +128,6 @@ export const fetchUserCart = createAsyncThunk(
   }
 );
 
-
 //*ADD TO CART
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
@@ -155,7 +153,6 @@ export const addToCart = createAsyncThunk(
     }
   }
 );
-
 
 //* REMOVE FAROM CART
 export const removeFromCart = createAsyncThunk(

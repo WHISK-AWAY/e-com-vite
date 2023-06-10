@@ -13,9 +13,7 @@ export type TOrder = {
   orderDetails: {
     productId: string;
     productName: string;
-    productLongDesc: string;
     productShortDesc: string;
-    brand: string;
     imageURL: string;
     price: number;
     qty: number;
@@ -262,6 +260,6 @@ const orderSlice = createSlice({
 });
 
 export const selectOrderState = (state: RootState) => state.order;
-export const selectSingleOrder = (state:RootState) => state.order.singleOrder;
+export const selectSingleOrder = (state: RootState) => state.order.singleOrder;
 export const { resetOrderState } = orderSlice.actions;
 export default orderSlice.reducer;

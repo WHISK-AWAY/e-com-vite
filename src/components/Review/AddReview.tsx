@@ -101,8 +101,6 @@ export default function AddReview({
     setAddReview(false);
   };
 
-
-
   const skinConcernOptions = [
     { value: 'oily skin', label: 'Oily skin' },
     { value: 'aging skin', label: 'Aging skin' },
@@ -126,7 +124,12 @@ export default function AddReview({
     <section className='new-review-container'>
       <section className='product-section'>
         <h3>{product.productName}</h3>
-        <img src={product.imageURL}></img>
+        <img
+          src={
+            product.images.find((image) => image.imageDesc === 'product-front')
+              ?.imageURL || product.images[0].imageURL
+          }
+        ></img>
         <p>{product.productShortDesc}</p>
       </section>
       <br />

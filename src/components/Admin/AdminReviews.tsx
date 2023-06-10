@@ -5,21 +5,17 @@ import {
   fetchAllAdminReviews,
   deleteReview,
   selectAllAdminReviews,
-  TAdminReview,
   sortReviews,
 } from '../../redux/slices/admin/reviewsAdminSlice';
 import { selectSingleUser } from '../../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
-import { TProduct } from '../../redux/slices/userSlice';
 
 export type ReviewSortFields = {
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
   tags: string[];
   saleCount: number;
   title: string;

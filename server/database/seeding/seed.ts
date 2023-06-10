@@ -1,9 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import {
+  IProduct,
   IShippingAddress,
   Shipping,
   mongooseConnection,
-} from './database/index';
+} from '../index';
 import {
   generateUser,
   generateProduct, // hi buddy!
@@ -12,8 +13,9 @@ import {
   generateReview,
   tagList,
 } from './faker/mock-data';
-import { Tag, Promo, Product, User, Order, Review } from './database/index';
-import { IUser } from './database/dbTypes';
+import { Tag, Promo, Product, User, Order, Review } from '../index';
+import { IUser, ImageData } from '../dbTypes';
+import { seedRealProducts } from './seedRealProducts';
 
 function randomElement<T>(inputArr: T[]): T {
   const i = Math.floor(Math.random() * inputArr.length);
@@ -26,6 +28,7 @@ export async function seed() {
   await mongoose.connection.db.dropDatabase();
   await Product.ensureIndexes();
   await Tag.ensureIndexes();
+  await User.ensureIndexes();
   await Promo.ensureIndexes();
   /**
    * * SEEDING TAGS
@@ -53,13 +56,8 @@ export async function seed() {
 
   console.log('Seeding products...'); // * experiment with Product.insertMany() instead -- possibly more performant
 
-  // const newProduct = await Product.create(generateProduct(20));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
-  // newProduct.push(...(await Product.create(generateProduct(20))));
   const newProduct = await Product.insertMany(generateProduct(50));
-
+  console.log('seeding generated fakes complete');
   // attach tags to products
   for (let product of newProduct) {
     const numberOfTags = Math.floor(Math.random() * 3) + 1;
@@ -70,6 +68,8 @@ export async function seed() {
     await product.save();
   }
 
+  // add "real" products to pool of seeded products
+  newProduct.concat(await seedRealProducts());
   console.log('Seeding products successful');
 
   /**
@@ -106,7 +106,7 @@ export async function seed() {
     cart: {
       products: [
         {
-          product: newProduct[0]._id,
+          product: newProduct[0]._id as Types.ObjectId,
           price: newProduct[0].price,
           qty: 2,
         },
@@ -141,7 +141,7 @@ export async function seed() {
     const numberOfFavorites = Math.floor(Math.random() * 5);
     user.favorites = [];
     for (let i = 0; i < numberOfFavorites; i++) {
-      user.favorites.push(randomElement(newProduct)._id);
+      user.favorites.push(randomElement(newProduct)._id as Types.ObjectId);
     }
 
     // attach products to user cart
@@ -150,7 +150,7 @@ export async function seed() {
     for (let i = 0; i < numberInCart; i++) {
       const randomProduct = randomElement(newProduct);
       user.cart!.products.push({
-        product: randomProduct._id,
+        product: randomProduct._id as Types.ObjectId,
         price: randomProduct.price,
         qty: Math.ceil(Math.random() * 3),
       });
@@ -195,12 +195,13 @@ export async function seed() {
       const randomProduct = randomElement(newProduct);
 
       const orderProduct = {
-        productId: randomProduct._id,
+        productId: randomProduct._id as Types.ObjectId,
         productName: randomProduct.productName,
-        productLongDesc: randomProduct.productLongDesc,
         productShortDesc: randomProduct.productShortDesc,
-        brand: randomProduct.brand,
-        imageURL: randomProduct.imageURL,
+        imageURL:
+          randomProduct.images.find(
+            (image: ImageData) => image.imageDesc === 'product-front'
+          )?.imageURL || randomProduct.images[0].imageURL,
         price: randomProduct.price,
         qty: productQty,
       };
@@ -250,7 +251,7 @@ export async function seed() {
       // choose a random product from the array of seeded products
       const reviewProduct = randomElement(newProduct);
       // assign the product as the subject of this review
-      currentReview.product = reviewProduct._id;
+      currentReview.product = reviewProduct._id as Types.ObjectId;
 
       await currentReview.save();
     }

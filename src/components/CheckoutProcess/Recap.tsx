@@ -62,7 +62,7 @@ export default function Recap() {
     // if none, open the manage addresses view & have it render the new address form
     // otherwise, rearrange address array such that any default is at pos'n 0
     if (user) {
-      if (user.shippingAddresses.length === 0) {
+      if (user.shippingAddresses?.length === 0) {
         setManageShippingAddress(true); // TODO: make the manage form render the create new address form
       } else {
         orderAddressArray(); // this SHOULD get fired when we select a new default...
@@ -135,10 +135,11 @@ export default function Recap() {
       userOrder.orderDetails.push({
         productId: product._id,
         productName: product.product.productName,
-        productLongDesc: product.product.productLongDesc,
         productShortDesc: product.product.productShortDesc,
-        brand: product.product.brand,
-        imageURL: product.product.imageURL,
+        imageURL:
+          product.product.images.find(
+            (image) => image.imageDesc === 'product-front'
+          )?.imageURL || product.product.images[0].imageURL,
         price: product.price,
         qty: product.qty,
       });
@@ -245,7 +246,13 @@ export default function Recap() {
             <div key={item._id}>
               <p>{item.product.productName}</p>
               <p>{item.qty}</p>
-              <img src={item.product.imageURL} />
+              <img
+                src={
+                  item.product.images.find(
+                    (image) => image.imageDesc === 'product-front'
+                  )?.imageURL || item.product.images[0].imageURL
+                }
+              />
             </div>
           );
         })}

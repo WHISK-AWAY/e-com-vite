@@ -4,6 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TReduxError } from '../reduxTypes';
 import type { ShippingInfoFields } from '../../components/UserAccount/shippingAddress/ManageShippingAddress';
+import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
@@ -15,12 +16,11 @@ export interface userState {
 export type TProduct = {
   _id: string;
   productName: string;
-  productLongDesc: string;
+  productIngredients: string;
   productShortDesc: string;
-  brand: string;
   price: number;
   qty: number;
-  imageURL: string;
+  images: ImageData[];
   saleCount: number;
   tags: {
     _id: string;

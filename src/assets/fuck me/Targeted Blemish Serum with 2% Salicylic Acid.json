@@ -1,0 +1,32 @@
+{
+  "productName": "Targeted Blemish Serum with 2% Salicylic Acid",
+  "productShortDesc": "Target blemishes and localized breakouts with a salicylic acid serum enriched with antibacterial actives. 96% naturally derived. Vegan. Made in France.",
+  "productIngredients": "THE ACTIVES\nSalicylic Acid (2%):\nSalicylic acid is a beta-hydroxy acid (BHA). Its keratolytic (peeling) and exfoliating effects help promote desquamation – the elimination of dead skin. This makes it ideal for oily skin, acne-prone skin, skin with imperfections, as well as smooth fine lines and wrinkles.Salicylic acid is also known to limit the development of harmful microorganisms, making it an effective ingredient for cleaning and purifying the surface layers of the skin. It also helps prevent the appearance of blackheads and the clogging of pores.\nA molecule extracted from plants, salicylic acid was first extracted from willow bark in 1829 by a French pharmacist named Pierre-Joseph Leroux. Salicylic acid is naturally present in several plants, particularly meadowsweet and willow, from which it takes its name.The common aspirin pill is actually a synthetic derivative of salicylic acid (acetyl-salicylic acid). It was first manufactured in 1853 by the chemist C.F. Gerhardt.\nZinc (1%):\nDerived from beetroot, zinc is ideal for oily skin and significantly reduces sebum (oil) secretion.Coupled with L-Pyrrolidone Carboxylic Acid, zinc promotes cell differentiation and strengthens the skin's barrier function to protect from future flare-ups.\nA trace element naturally present in the body, zinc is an essential part of many of the body's enzymatic mechanisms from the metabolism of food, supporting our natural defenses and the renewal of tissues.\nFinally, zinc is also known to limit the development of microorganisms that cause many skin imbalances.",
+  "images": [
+    "serum-a-l-acide-salicylique__main__3f87136eb78c4fea96c4fd41a0300994.jpg",
+    "03_acide_salicylique_pipette_texture.jpg",
+    "05_dos_salicylique.jpg",
+    "serum-a-l-acide-salicylique__additional__de23972c3de84c6f855164eb0813efc4.jpg",
+    "serum-a-l-acide-salicylique__carousel_images__c624528d3aaa49b0a6de5bf34f44d4df.png",
+    "serum-a-l-acide-salicylique__carousel_images__414bcffdb32c41128c37752324c5a16e.png",
+    "serum-a-l-acide-salicylique__carousel_images__2a0acbaa741f494bbbc8d3948a81b376.png"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/ed1914b9d5/serum-a-l-acide-salicylique__main__3f87136eb78c4fea96c4fd41a0300994.jpg",
+    "https://media.typology.com/storyblok/1600x1600/097ae55b2f/03_acide_salicylique_pipette_texture.jpg",
+    "https://media.typology.com/storyblok/1280x1280/1678d89dc8/05_dos_salicylique.jpg",
+    "https://media.typology.com/storyblok/2e0739c214/serum-a-l-acide-salicylique__carousel_images__c624528d3aaa49b0a6de5bf34f44d4df.png",
+    "https://media.typology.com/storyblok/6f2673a00b/serum-a-l-acide-salicylique__carousel_images__414bcffdb32c41128c37752324c5a16e.png",
+    "https://media.typology.com/storyblok/e9e6d70495/serum-a-l-acide-salicylique__carousel_images__2a0acbaa741f494bbbc8d3948a81b376.png",
+    "https://media.typology.com/video-storyblok/x/5e170a3a14/02_serum-imperfections.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-back",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "video-usage"
+  ]
+}

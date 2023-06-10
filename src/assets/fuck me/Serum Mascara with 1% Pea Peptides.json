@@ -1,0 +1,37 @@
+{
+  "productName": "Serum Mascara with 1% Pea Peptides",
+  "productShortDesc": "Enriched with pea peptides, castor oil, and plant keratin, this serum-infused mascara gives lashes volume and length, while nourishing and strengthening them long term. Shade: Black Formulated without silicone or mineral oils. 95% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Enriched with pea peptides, castor oil and plant keratin, this serum mascara is formulated with no silicones, mineral oils or beeswax.\nactive ingredients\nPea peptides (1%):\nPea peptides are long chains of amino acids rich in lysine, and are known for their volumizing properties. They stimulate, enhance, and thicken eyelash cells while keeping them looking healthy.\nCastor oil:\nThis plant oil has nourishing and strengthening properties and is renowned for promoting lash growth.\nPlant keratin:\nA fibrous protein, rich in sulphur, keratin forms the outermost layers of the epidermis and appendages (nails; hair on the body/head). It strengthens lashes and makes them more resistant.\nArginine:\nAmino acid that helps to make proteins. Arginine stimulates lash growth and protects against lash loss.\nVegetable charcoal powder:\nNatural pigmentation that, combined with cellulose fibers, colors and extends lashes.\nHOW TO USE\nBrush upwards along your lashes from root to tip. Repeat until you achieve the desired result. This serum mascara is not waterproof.\nAt night, use our Bi-Phase Makeup Remover or reusable cotton pads soaked in micellar water to remove your makeup.\nCharcoal-enriched cellulose fibers may be visible on the brush. These fibers make your lashes look instantly longer.",
+  "images": [
+    "mascara_carroussel_produit_packshot.jpg",
+    "mascara_before-after_brune.jpg",
+    "mascara_before-after_blonde.jpg",
+    "mascara_carroussel_produit-ingredient.jpg",
+    "mascara_carroussel_produit-texture_ingredient.jpg",
+    "mascara_carroussel_produit-applicateur.jpg",
+    "teinte-5001_lab_3006_page-produit.jpg",
+    "teinte-5001_lab_3006_page-produit2.jpg",
+    "teinte-5001_lab_3006_page-produit3.jpg",
+    "teinte-5001_lab_3006_page-produit4.jpg",
+    "mascara_before-after_brune.jpg",
+    "mascara_before-after_blonde.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/3287x3287/a0a8ced79d/mascara_carroussel_produit_packshot.jpg",
+    "https://media.typology.com/storyblok/1632x1632/4b733ff5cc/mascara_before-after_brune.jpg",
+    "https://media.typology.com/storyblok/2344x2344/9729b6ec57/mascara_before-after_blonde.jpg",
+    "https://media.typology.com/storyblok/3287x3287/8425dba778/mascara_carroussel_produit-ingredient.jpg",
+    "https://media.typology.com/storyblok/2301x2301/2f2d8a1722/mascara_carroussel_produit-texture_ingredient.jpg",
+    "https://media.typology.com/storyblok/2518x2518/75872a5b5b/mascara_carroussel_produit-applicateur.jpg",
+    "https://media.typology.com/video-storyblok/x/a4578b1ffe/application_mascara.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-alt",
+    "product-close",
+    "video-usage"
+  ]
+}

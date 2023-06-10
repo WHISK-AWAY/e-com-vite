@@ -34,12 +34,23 @@ export const zodUser = z.object({
 
 export const zodProduct = z.object({
   productName: z.string().min(3),
-  productLongDesc: z.string().min(20),
+  productIngredients: z.string().min(20),
   productShortDesc: z.string().min(10),
-  brand: z.string().min(3),
   price: z.number().nonnegative().gt(20),
   qty: z.number().nonnegative().gt(0),
-  imageURL: z.string().url(),
+  images: z.array(
+    z.object({
+      image: z.string(),
+      imageURL: z.string(),
+      imageDesc: z.enum([
+        'product-front',
+        'product-close',
+        'product-packaging-back',
+        'product-texture',
+        'video-usage',
+      ]),
+    })
+  ),
   tags: z.string().min(3).array(),
 });
 

@@ -140,7 +140,6 @@ AllProductsProps) {
       } else {
         dispatch(removeFromFavorites({ userId, productId }));
       }
-
     }
   };
 
@@ -177,7 +176,6 @@ AllProductsProps) {
                   key: sortKey || 'productName',
                   direction: sortDir || 'desc',
                 })}
-            
               >
                 <option
                   value={JSON.stringify({
@@ -256,11 +254,17 @@ AllProductsProps) {
       </div>
 
       <div>
-
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
           <li className='list-none' key={product._id.toString()}>
-            <img src={product.imageURL} alt='cat' />
+            <img
+              src={
+                product.images.find(
+                  (image) => image.imageDesc === 'product-front'
+                )?.imageURL || product.images[0].imageURL
+              }
+              alt='cat'
+            />
             <p>
               <Link to={'/product/' + product._id}>
                 {product.productName.toUpperCase()}

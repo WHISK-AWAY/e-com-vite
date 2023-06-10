@@ -12,10 +12,16 @@
   ],
   "imageURL": [
     "https://media.typology.com/storyblok/1600x1600/72704fea0e/01_ten_packshot.jpg",
-    "https://media.typology.com/storyblok/1600x1600/4ff59de5f4/01_ten_packshot.jpg",
     "https://media.typology.com/storyblok/2630x2630/7270b86809/03_carroussel_produit_creme10_texture.jpg",
     "https://media.typology.com/storyblok/2630x2630/ff4984e885/04_carroussel_produit_pack2_creme10.jpg",
     "https://media.typology.com/storyblok/3333x3333/448cc522c6/05_lab_1025_1026_page-produit.jpg",
-    "https://media.typology.com/storyblok/1600x1600/3e53df13a9/06_lab_1025_1026_page-produit4.jpg"
+    "https://media.typology.com/video-storyblok/x/5aa869a756/02_application_creme_ten_1-1.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-packaging-back",
+    "product-texture",
+    "video-usage"
   ]
 }

@@ -42,9 +42,12 @@ export default function FavoriteItem({
         <h2>
           <Link to={`/product/${product._id}`}>{product.productName}</Link>
         </h2>
-        <img src={product.imageURL} />
-        <p>{product.brand}</p>
-
+        <img
+          src={
+            product.images.find((image) => image.imageDesc === 'product-front')
+              ?.imageURL || product.images[0].imageURL
+          }
+        />
         <p>{product.productShortDesc}</p>
         <p>{product.price}</p>
         <button onClick={qtyDecrementer}>-</button>
