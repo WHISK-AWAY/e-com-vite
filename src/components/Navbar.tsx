@@ -18,12 +18,13 @@ import {
 import type { TSearch } from '../redux/slices/allProductSlice';
 import { Product } from '../../server/database';
 import Search from './Search';
-import heart3 from '../../src/assets/icons/heart3.svg';
+import heart3 from '../../src/assets/icons/heart-blanc.svg';
 // import heart2 from '../../src/assets/icons/heart2.svg';
-import cart from '../../src/assets/icons/cart.svg';
-import cart3 from '../../src/assets/icons/cart3.svg';
-import user from '../../src/assets/icons/user.svg';
+import cart from '../../src/assets/icons/fcart.svg';
+import cart3 from '../../src/assets/icons/fcart.svg';
+import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
+import bag from '../../src/assets/icons/bag-blanc.svg';
 // import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
@@ -135,7 +136,7 @@ export default function Navbar() {
 
   return (
     <nav className='navbar-container flex h-16 items-center justify-between px-10'>
-      <div className='shop-links flex h-full flex-auto basis-1/3 items-center justify-start gap-7 text-base '>
+      <div className='shop-links flex h-full flex-auto basis-1/3 items-center justify-start gap-7  font-hubbali text-xl '>
         <NavLink to={'/shop-all'}>SHOP</NavLink>
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
@@ -146,17 +147,17 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section flex h-full flex-auto basis-1/3 items-center justify-center '>
-        <p className='text-3xl'>ASTORIA</p>
+        <p className='text-3xl font-chonburi'>ASTORIA</p>
       </div>
 
       <div className='user-section flex h-full flex-auto basis-1/3 items-center justify-end gap-5  '>
         <NavLink to={`/user/${userId}/cart`}>
-          <img src={cart3} className=' w-7 ' />
+          <img src={bag} className=' w-6 ' />
         </NavLink>
 
         <NavLink to={`/user/${userId}/favorites`}>
           {' '}
-          <img src={heart3} className='w-6' />
+          <img src={heart3} className='w-7' />
         </NavLink>
         {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
 

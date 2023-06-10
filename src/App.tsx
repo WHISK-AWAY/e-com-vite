@@ -4,7 +4,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Homepage from './components/Homepage';
 import AllProducts from './components/AllProducts';
-import SingleProduct from './components/SingleProduct';
+import SingleProduct from './components/singleProduct/SingleProduct';
 import UserProfile from './components/UserAccount/UserProfile';
 import Cart from './components/Cart';
 import Navbar from './components/Navbar';
@@ -28,7 +28,7 @@ import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 
 function App() {
   return (
-    <React.Fragment>
+    <div className='text-charcoal'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
@@ -71,7 +71,7 @@ function App() {
         <Route path='/admin/promos/new' element={<CreateOrEditPromo />} />
         <Route path='/admin/promos/:promoId' element={<CreateOrEditPromo />} />
       </Routes>
-    </React.Fragment>
+    </div>
   );
 }
 
