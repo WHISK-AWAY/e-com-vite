@@ -53,8 +53,11 @@ export type ImageData = {
 export type ImageDesc =
   | 'product-front'
   | 'product-close'
+  | 'product-back'
   | 'product-packaging-back'
   | 'product-texture'
+  | 'product-dimensions'
+  | 'product-usage'
   | 'video-usage';
 
 export interface IProduct {

@@ -1,0 +1,30 @@
+{
+  "productName": "Resurfacing Mask with 10% AHA and 10% PHA",
+  "productShortDesc": "Composed of an exfoliating complex (4 AHA + 1 PHA), this concentrated gel-mask eliminates dead cells to unclog pores and refine skin texture. The complexion is left smoother and more even. This formulation also helps reduce the presence of blackheads over time. 88% naturally derived. Vegan. Made in France.",
+  "productIngredients": "PRINCIPAL ACTIVES\nAHA complex (10%):\nCombination of 4 AHAs (alpha hydroxy acids) of different molecular sizes to penetrate more or less deeply into the surface layers of the epidermis. Their exfoliating action helps renew the skin surface, reduce blackheads and tighten pores.\nFrom the smallest molecule to the largest, this complex consists of :\n7% glycolic acid (the chemical exfoliant of choice)\n1.5% lactic acid\n0.5% tartaric acid (tamarind extract)\nGluconolactone (10%):\n1% mandelic acid\nThis active ingredient from the PHA (poly-hydroxy-acid) family is a gentle chemical exfoliant. It stimulates the natural hydration of the skin while ensuring a micro-exfoliation complementary to the action of the AHA.\nHOW TO APPLY THE RESURFACING MASK\nThis mask is applied once or twice a week on clean, dry skin, in the evening only.\nApply the mask in a semi-thick layer to the face, avoiding the eye area. Leave on for 10 minutes. Rinse off.\nA build-up of dead skin cells can lead to clogged pores, blackheads and lack of radiance. Regular chemical exfoliation removes dead skin cells to improve skin texture.\nThe high concentration of AHA + PHA in this mask promotes skin surface renewal. The skin is softer, smoother and more radiant. In the long term, blackheads are visibly reduced.",
+  "images": [
+    "packshot-masque.jpg",
+    "hover-masque.jpg",
+    "focus-texture_3.jpg",
+    "typology_before_after_aha.jpg",
+    "photo-application-masque.jpg",
+    "pack-texture.jpg",
+    "page-ingredients2.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/1161ec9e0e/packshot-masque.jpg",
+    "https://media.typology.com/storyblok/2630x2630/9ca1e3649d/focus-texture_3.jpg",
+    "https://media.typology.com/storyblok/3327x3327/57974b976b/typology_before_after_aha.jpg",
+    "https://media.typology.com/storyblok/2137x2137/c81d7f1387/photo-application-masque.jpg",
+    "https://media.typology.com/storyblok/3287x3287/187bb94502/pack-texture.jpg",
+    "https://media.typology.com/video-storyblok/x/66502110bb/video-application-ok.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-alt",
+    "product-alt",
+    "product-close",
+    "video-usage"
+  ]
+}

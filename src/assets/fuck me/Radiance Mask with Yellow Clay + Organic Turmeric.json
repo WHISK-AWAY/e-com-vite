@@ -1,0 +1,32 @@
+{
+  "productName": "Radiance Mask with Yellow Clay + Organic Turmeric",
+  "productShortDesc": "Concentrated in active antioxidants to restore radiance to the complexion. After 10 minutes, skin texture is refined and the complexion is more luminous. Active ingredients: Turmeric extract, yellow clay, mango butter, lemon verbena water. 98% naturally derived. Certified organic.",
+  "productIngredients": "principal actives\nTurmeric extract:\nTurmeric has been cultivated since ancient times in India, and its name comes from the Sankrit, \"kunkuma\", \"that which gives color.\" It is traditionally used in Ayurvedic medicine for its antioxidant properties. Curcumin, a majority compound in turmeric roots, helps neutralize excess pro-oxidant free radicals.\nYellow Clay:\nA natural mineral known for its purifying and revitalizing properties. It helps absorb excess sebum and brightens the complexion.\nMango Butter:\nRich in essential fatty acids and vitamins, mango butter protects the skin from drying out and external aggressions.\nLemon verbena water:\nLemon verbena hydrosol restores radiance to the complexion.\nhow to apply\nUse once or twice a week on clean, dry skin.\nApply a semi-thick layer on the face. Leave on for 10 minutes and then rinse with warm water.\nOur skin is constantly under attack by free radicals triggered by UV rays, stress, smoking, and pollution. These damage the skin's protective barrier, accelerate skin aging, and cause dullness.\nThis certified-organic mask is enriched with antioxidant actives that revive the complexion's radiance and help keep the skin healthy. They also give the mask its rich ochre hue.\n",
+  "images": [
+    "packshot-3d-masque.jpg",
+    "antioxydant_masque_texture.jpg",
+    "antioxydant_masque_application-16-12-46.jpg",
+    "antioxydant_avant-apres.jpg",
+    "antioxydant_masque_ingredient-pack.jpg",
+    "masque-antioxydant-ingredients-en.jpg",
+    "antioxydant_masque_pack-dos.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/3200x3200/b365237508/packshot-3d-masque.jpg",
+    "https://media.typology.com/storyblok/3287x3287/a7ee03200b/antioxydant_masque_texture.jpg",
+    "https://media.typology.com/storyblok/3287x3287/d3df0a0280/antioxydant_masque_application-16-12-46.jpg",
+    "https://media.typology.com/storyblok/3287x3287/72585b5b54/antioxydant_avant-apres.jpg",
+    "https://media.typology.com/storyblok/3287x3287/607e861bd8/antioxydant_masque_ingredient-pack.jpg",
+    "https://media.typology.com/storyblok/3287x3287/4da0f92ff9/antioxydant_masque_pack-dos.jpg",
+    "https://media.typology.com/video-storyblok/x/6938a95a74/application-antioxydant-masque.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-usage",
+    "product-usage",
+    "product-alt",
+    "product-packaging-back",
+    "video-usage"
+  ]
+}
