@@ -151,41 +151,34 @@ export default function SingleProduct() {
     let arr = [];
     let header;
     for (let i = 0; i < text.length; i++) {
-    // let t= text[i].trim().split('\n').join(':');
+      // let t= text[i].trim().split('\n').join(':');
 
-    arr.push(text[i].trim().split(':'))
-   
+      arr.push(text[i].trim().split(':'));
     }
 
     let evens = [];
     let odds = [];
-    for (let i =  0; i < arr.length; i++) {
-
-       if(i % 2) {
-        odds.push(arr[i])
-       } else {
+    for (let i = 0; i < arr.length; i++) {
+      if (i % 2) {
+        odds.push(arr[i]);
+      } else {
         evens.push(arr[i]);
-       }
+      }
     }
-// console.log('evens', evens);
-let res =[]
-for (let i = 0; i < evens.length; i++) {
-  // for (let j = 0; j < evens[i].length; j++) {
-  //   console.log('j', evens[i][j])
-   
-  // }
-   res.push(evens[i][0] + ': ' + odds[i][0])
-}
+    // console.log('evens', evens);
+    let res = [];
+    for (let i = 0; i < evens.length; i++) {
+      // for (let j = 0; j < evens[i].length; j++) {
+      //   console.log('j', evens[i][j])
 
+      // }
+      res.push(evens[i][0] + ': ' + odds[i][0]);
+    }
 
-
-    console.log('res', res);
     return res;
   };
 
-
   // func();
-
 
   /**
    * * MAIN RENDER
@@ -323,21 +316,26 @@ for (let i = 0; i < evens.length; i++) {
         <div className='ingredients flex basis-2/5 flex-col gap-6 pt-16'>
           <h3 className='font-aurora text-3xl'>key ingredients</h3>
           {func().map((el) => {
-           return (
-             <p className="font-grotesque text-xl">
-               {' '}
-               <span className='font-grotesque font-bold uppercase text-xl'>{el.split(':')[0]}</span>:  {el.split(':')[1]}
-             </p>
-           );
+            return (
+              <p className='font-grotesque text-xl'>
+                {' '}
+                <span className='font-grotesque text-xl font-bold uppercase'>
+                  {el.split(':')[0]}
+                </span>
+                : {el.split(':')[1]}
+              </p>
+            );
           })}
         </div>
       </section>
 
       {/* PRODUCT SUGGESTIONS */}
-      <section className='product-suggestions pt-52'>
-        <ProductCarousel products={singleProduct.relatedProducts} num={4}/>
-        <h2 className='text-5xl font-marcellus'>YOU MAY ALSO LIKE</h2>
-        {singleProduct.relatedProducts.map((prod) => (
+      <section className='product-suggestions mb-52 flex flex-col items-center pt-52'>
+        <h2 className='mb-20 font-marcellus text-[3.5rem]'>
+          YOU MAY ALSO LIKE
+        </h2>
+        <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+        {/*{singleProduct.relatedProducts.map((prod) => (
           <article className='related-product-card' key={prod._id.toString()}>
             <h3>
               <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
@@ -350,12 +348,12 @@ for (let i = 0; i < evens.length; i++) {
               alt='single product view'
             />
           </article>
-        ))}
+            ))}*/}
       </section>
 
       {/* REVIEWS */}
-      <section className='review-container'>
-        <h1>REVIEWS: ({allReviews.reviews.length})</h1>
+      <section className='review-container w-4/5 border-t border-charcoal pt-24'>
+        <h2 className='font-gayathri text-[15rem]'>REVIEWS</h2>
         <h2>average customer rating:</h2>
         <p>average overall: {overallReviewScore()}</p>
 
