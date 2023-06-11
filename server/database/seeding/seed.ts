@@ -56,20 +56,21 @@ export async function seed() {
 
   console.log('Seeding products...'); // * experiment with Product.insertMany() instead -- possibly more performant
 
-  const newProduct = await Product.insertMany(generateProduct(50));
-  console.log('seeding generated fakes complete');
-  // attach tags to products
-  for (let product of newProduct) {
-    const numberOfTags = Math.floor(Math.random() * 3) + 1;
-    product.tags = [];
-    for (let i = 1; i <= numberOfTags; i++) {
-      product.tags.push(randomElement(newTag)._id);
-    }
-    await product.save();
-  }
+  const newProduct: IProduct[] = await seedRealProducts();
+  // const newProduct = await Product.insertMany(generateProduct(50));
+  // console.log('seeding generated fakes complete');
+  // // attach tags to products
+  // for (let product of newProduct) {
+  //   const numberOfTags = Math.floor(Math.random() * 3) + 1;
+  //   product.tags = [];
+  //   for (let i = 1; i <= numberOfTags; i++) {
+  //     product.tags.push(randomElement(newTag)._id);
+  //   }
+  //   await product.save();
+  // }
 
   // add "real" products to pool of seeded products
-  newProduct.concat(await seedRealProducts());
+  // newProduct.concat(await seedRealProducts());
   console.log('Seeding products successful');
 
   /**
