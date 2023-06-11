@@ -17,6 +17,7 @@ export default {
       poiret: ['Poiret One', 'cursive'],
       yeseva: ['Yeseva One', 'cursive'],
       federo: ['Federo', 'sans-serif'],
+      gayathri: ['Gayathri', 'sans-serif'],
     },
     fontWeight: {
       light: 300,
@@ -35,7 +36,6 @@ export default {
   },
   plugins: [],
 };
-
 
 // font-family: 'Chonburi', cursive;
 // font-family: 'Darker Grotesque', sans-serif;
