@@ -32,6 +32,11 @@ export default {
       colors: {
         charcoal: '#4A4A4A',
       },
+      screens: {
+        'xs': '375px',
+        '2xl' : '1440px',
+
+      }
     },
   },
   plugins: [],
