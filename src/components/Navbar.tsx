@@ -23,6 +23,7 @@ import heart3 from '../../src/assets/icons/heart-blanc.svg';
 import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
 import bag from '../../src/assets/icons/bag-blanc.svg';
+import Cart from './Cart';
 // import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
@@ -36,6 +37,7 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
+  const [isCartHidden, setIsCartHidden] = useState(false);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -133,8 +135,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className='navbar-container flex h-16 items-center justify-between lg:px-10 px-6'>
-      <div className='shop-links flex h-full shrink-1 grow-0  basis-1/2   items-center justify-start lg:gap-7 gap-5  font-hubbali text-sm lg:text-xl'>
+    <nav className='navbar-container flex h-16 items-center justify-between px-6 lg:px-10'>
+      <div className='shop-links shrink-1 flex h-full grow-0  basis-1/2   items-center justify-start gap-5 font-hubbali  text-sm lg:gap-7 lg:text-xl'>
         <NavLink to={'/shop-all'}>SHOP</NavLink>
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
@@ -144,14 +146,20 @@ export default function Navbar() {
         <NavLink to={''}>NEW IN</NavLink>
       </div>
 
-      <div className='logo-section flex h-full max-w-1/3 items-center justify-center'>
+      <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
         <p className='font-chonburi text-2xl lg:text-3xl '>ASTORIA</p>
       </div>
 
-      <div className='user-section flex h-full w-1/2 shrink-1 items-center justify-end gap-5 '>
-        <NavLink to={`/user/${userId}/cart`}>
+      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
+        {userId && (
+          <div onClick={() => setIsCartHidden((prev) => !prev)}>
+            <img src={bag} className=' lg:w-5 ' />
+          </div>
+        )}
+        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden}/>}
+        {/* <NavLink to={`/user/${userId}/cart`}>
           <img src={bag} className=' lg:w-5 ' />
-        </NavLink>
+        </NavLink> */}
 
         <NavLink to={`/user/${userId}/favorites`}>
           {' '}
