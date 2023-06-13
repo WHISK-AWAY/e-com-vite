@@ -19,9 +19,7 @@ import type { TSearch } from '../redux/slices/allProductSlice';
 import { Product } from '../../server/database';
 import Search from './Search';
 import heart3 from '../../src/assets/icons/heart-blanc.svg';
-// import heart2 from '../../src/assets/icons/heart2.svg';
-import cart from '../../src/assets/icons/fcart.svg';
-import cart3 from '../../src/assets/icons/fcart.svg';
+
 import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
 import bag from '../../src/assets/icons/bag-blanc.svg';
@@ -135,8 +133,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className='navbar-container flex h-16 items-center justify-between px-10'>
-      <div className='shop-links flex h-full flex-auto basis-1/3 items-center justify-start gap-7  font-hubbali text-xl '>
+    <nav className='navbar-container flex h-16 items-center justify-between lg:px-10 px-6'>
+      <div className='shop-links flex h-full shrink-1 grow-0  basis-1/2   items-center justify-start lg:gap-7 gap-5  font-hubbali text-sm lg:text-xl'>
         <NavLink to={'/shop-all'}>SHOP</NavLink>
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
@@ -146,25 +144,25 @@ export default function Navbar() {
         <NavLink to={''}>NEW IN</NavLink>
       </div>
 
-      <div className='logo-section flex h-full flex-auto basis-1/3 items-center justify-center '>
-        <p className='text-3xl font-chonburi'>ASTORIA</p>
+      <div className='logo-section flex h-full max-w-1/3 items-center justify-center'>
+        <p className='font-chonburi text-2xl lg:text-3xl '>ASTORIA</p>
       </div>
 
-      <div className='user-section flex h-full flex-auto basis-1/3 items-center justify-end gap-5  '>
+      <div className='user-section flex h-full w-1/2 shrink-1 items-center justify-end gap-5 '>
         <NavLink to={`/user/${userId}/cart`}>
-          <img src={bag} className=' w-6 ' />
+          <img src={bag} className=' lg:w-5 ' />
         </NavLink>
 
         <NavLink to={`/user/${userId}/favorites`}>
           {' '}
-          <img src={heart3} className='w-7' />
+          <img src={heart3} className='lg:w-6' />
         </NavLink>
         {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
 
         {!userId && (
           <NavLink to={`/sign-in`}>
             {' '}
-            <img src={user} className=' w-6 ' />
+            <img src={user} className=' lg:w-5 ' />
           </NavLink>
         )}
         {userId && <button onClick={signOut}>SIGN OUT</button>}
