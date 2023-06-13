@@ -37,30 +37,31 @@ export default function ProductCarousel({
   };
   // decrementor()
   return (
-    <div className='relative flex w-3/4 items-start justify-center gap-10'>
+    <div className='relative flex w-3/4 items-start justify-center gap-10 2xl:w-4/5'>
       <button
         onClick={decrementor}
-        className='absolute -left-[40px] top-[75px] shrink-0 self-center'
+        className='absolute -left-24 top-[75px] shrink-0 grow-0 self-center xl:-left-32 xl:top-[125px] 2xl:-left-40'
       >
-        <img src={arrowLeft} alt='' className='h-3' />
+        <img src={arrowLeft} alt='' className='h-3 xl:h-5' />
       </button>
       {renderProduct.map((prod) => {
         return (
           <div
+            key={prod._id.toString()}
             onClick={() => {
               navigate('/product/' + prod._id);
             }}
-            className='ymal-card flex w-full cursor-pointer flex-col items-center justify-center gap-4'
+            className='ymal-card flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px]'
           >
             <img
-              className='aspect-[3/4] w-[100px] object-cover'
+              className='aspect-[3/4] w-[100px] object-cover xl:w-[175px] 2xl:w-[200px]'
               src={
                 prod.images.find((image) => image.imageDesc === 'product-front')
                   ?.imageURL || prod.images[0].imageURL
               }
               alt=''
             />
-            <h4 className='text-center font-hubbali text-xs uppercase'>
+            <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
               {prod.productName}
             </h4>
           </div>
@@ -68,21 +69,10 @@ export default function ProductCarousel({
       })}
       <button
         onClick={incrementor}
-        className='absolute -right-[40px] top-[75px] shrink-0 self-center'
+        className='absolute -right-24 top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40'
       >
-        <img src={arrowRight} alt='' className='h-3 rotate-180' />
+        <img src={arrowRight} alt='' className='h-3 rotate-180 xl:h-5' />
       </button>
     </div>
   );
 }
-
-// const decrementor = () => {
-//   if (prodIdx === 0) {
-//     setProdIdx(products.length - 1);
-//   } else setProdIdx(prodIdx - 1);
-// };
-// const incrementor = () => {
-//   if (prodIdx === products.length - 1) {
-//     setProdIdx(0);
-//   } else setProdIdx(prodIdx + 1);
-// };

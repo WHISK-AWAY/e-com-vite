@@ -136,7 +136,7 @@ export default function Navbar() {
 
   return (
     <nav className='navbar-container flex h-16 items-center justify-between px-6 lg:px-10'>
-      <div className='shop-links shrink-1 flex h-full grow-0  basis-1/2   items-center justify-start gap-5 font-hubbali  text-sm lg:gap-7 lg:text-xl'>
+      <div className='shop-links shrink-1 flex h-full grow-0  basis-1/2   items-center justify-start gap-5 font-hubbali  text-sm lg:gap-7 lg:text-lg'>
         <NavLink to={'/shop-all'}>SHOP</NavLink>
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>

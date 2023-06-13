@@ -9,7 +9,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
 import StarsBar from '../StarsBar';
-import upvote from '../../assets/icons/thumbsup.svg';
+import thumb from '../../assets/icons/thumb.svg';
+import thumbFilled from '../../assets/icons/thumbFilled.svg';
 import { useEffect } from 'react';
 
 dayjs.extend(relativeTime);
@@ -38,15 +39,15 @@ export default function Review({ review, last = false }: ReviewProps) {
 
   return (
     <section
-      className={`review-details flex w-full justify-center font-hubbali text-sm ${
-        last ? '' : 'border-b border-charcoal pb-4'
+      className={`review-details flex w-full justify-center font-hubbali text-sm lg:w-10/12 lg:text-lg lg:leading-5 ${
+        last ? '' : 'border-b border-charcoal pb-4 lg:pb-6 xl:pb-8'
       }`}
     >
-      <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs'>
-        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white'>
+      <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5'>
+        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem]'>
           {review.nickname![0]}
         </div>
-        <p className='font-grotesque text-sm font-semibold'>
+        <p className='font-grotesque text-sm font-semibold lg:text-base xl:text-xl 2xl:text-2xl'>
           {review.nickname}
         </p>
         <div className='review-user-info-group'>
@@ -63,7 +64,7 @@ export default function Review({ review, last = false }: ReviewProps) {
             : '(none provided)'}
         </p>
       </div>
-      <div className='review-right flex basis-3/5 flex-col items-center gap-7'>
+      <div className='review-right flex basis-3/5 flex-col items-center gap-7 xl:gap-10'>
         <div className='individual-review-scores flex w-full justify-between'>
           <div className='review-stars'>
             <StarsBar
@@ -72,7 +73,7 @@ export default function Review({ review, last = false }: ReviewProps) {
               date={review.date}
             />
           </div>
-          <div className='review-bars flex flex-col items-start font-hubbali text-xs'>
+          <div className='review-bars flex flex-col items-start font-hubbali text-xs xl:text-base'>
             <div className='quality-score'>
               <p>QUALITY</p>
               <div>********************</div>
@@ -83,10 +84,10 @@ export default function Review({ review, last = false }: ReviewProps) {
             </div>
           </div>
         </div>
-        <h3 className='review-title font-federo text-lg uppercase'>
+        <h3 className='review-title font-federo text-lg uppercase lg:text-[1.5rem] xl:text-[1.75rem] 2xl:text-[2rem]'>
           {review.title}
         </h3>
-        <div className='review-content'>
+        <div className='review-content 2xl:text-xl 2xl:leading-5'>
           {review.content +
             (review.content.length < 100
               ? ' This hydrating antioxidant formula instantly illuminates the complexion with bright radiance, while phytosterols help to reduce the signs of skin sensitivity. Saccharide Isomerate extract diminishes the appearance of pores and reinforces the skin’s moisture barrier for a skin-smoothing glow. Rapidly brighten the appearance of the skin and boost vital skin bounce, in a flash!'
@@ -98,13 +99,27 @@ export default function Review({ review, last = false }: ReviewProps) {
             <button
               onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
             >
-              <img src={upvote} className='w-5' alt='thumbs up' />
+              <img
+                src={review.userVote === 'upvote' ? thumbFilled : thumb}
+                className='w-5'
+                alt='thumbs up'
+                title={`${review.upvote} ${
+                  review.upvote === 1 ? 'person has' : 'people have'
+                } found this helpful`}
+              />
             </button>
             <br />
             <button
               onClick={() => dispatch(downvoteReview({ productId, reviewId }))}
             >
-              <img src={upvote} className='w-5 rotate-180' alt='thumbs down' />
+              <img
+                src={review.userVote === 'downvote' ? thumbFilled : thumb}
+                className='w-5 rotate-180'
+                alt='thumbs down'
+                title={`${review.downvote} ${
+                  review.downvote === 1 ? 'person has' : 'people have'
+                } found this unhelpful`}
+              />
             </button>
           </div>
         </div>
