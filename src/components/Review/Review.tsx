@@ -9,7 +9,8 @@ import {
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
 import StarsBar from '../StarsBar';
-import upvote from '../../assets/icons/thumbsup.svg';
+import thumb from '../../assets/icons/thumb.svg';
+import thumbFilled from '../../assets/icons/thumbFilled.svg';
 import { useEffect } from 'react';
 
 dayjs.extend(relativeTime);
@@ -39,11 +40,11 @@ export default function Review({ review, last = false }: ReviewProps) {
   return (
     <section
       className={`review-details flex w-full justify-center font-hubbali text-sm ${
-        last ? '' : 'border-b border-charcoal pb-4'
+        last ? '' : 'border-b border-charcoal pb-4 lg:pb-6'
       }`}
     >
       <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs'>
-        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white'>
+        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem]'>
           {review.nickname![0]}
         </div>
         <p className='font-grotesque text-sm font-semibold'>
@@ -83,7 +84,7 @@ export default function Review({ review, last = false }: ReviewProps) {
             </div>
           </div>
         </div>
-        <h3 className='review-title font-federo text-lg uppercase'>
+        <h3 className='review-title font-federo text-lg uppercase lg:text-[1.5rem]'>
           {review.title}
         </h3>
         <div className='review-content'>
@@ -98,13 +99,27 @@ export default function Review({ review, last = false }: ReviewProps) {
             <button
               onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
             >
-              <img src={upvote} className='w-5' alt='thumbs up' />
+              <img
+                src={review.userVote === 'upvote' ? thumbFilled : thumb}
+                className='w-5'
+                alt='thumbs up'
+                title={`${review.upvote} ${
+                  review.upvote === 1 ? 'person has' : 'people have'
+                } found this helpful`}
+              />
             </button>
             <br />
             <button
               onClick={() => dispatch(downvoteReview({ productId, reviewId }))}
             >
-              <img src={upvote} className='w-5 rotate-180' alt='thumbs down' />
+              <img
+                src={review.userVote === 'downvote' ? thumbFilled : thumb}
+                className='w-5 rotate-180'
+                alt='thumbs down'
+                title={`${review.downvote} ${
+                  review.downvote === 1 ? 'person has' : 'people have'
+                } found this unhelpful`}
+              />
             </button>
           </div>
         </div>

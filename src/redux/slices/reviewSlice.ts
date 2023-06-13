@@ -34,6 +34,7 @@ export interface IReviewState {
   verifiedPurchase?: boolean;
   upvote?: number;
   downvote?: number;
+  userVote?: 'upvote' | 'downvote';
 }
 
 export type TAddNewReview = {
@@ -66,7 +67,6 @@ export const fetchAllReviews = createAsyncThunk(
         { withCredentials: true }
       );
 
-      // console.log('dataR', data);
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err);

@@ -1,6 +1,13 @@
 import express from 'express';
 const router = express.Router({ mergeParams: true });
-import { IUserVote, Product, Review, UserVote, User } from '../database/index';
+import {
+  IUserVote,
+  Product,
+  Review,
+  UserVote,
+  User,
+  IReview,
+} from '../database/index';
 import { z } from 'zod';
 import mongoose from 'mongoose';
 import { checkAuthenticated, sameUserOrAdmin } from './authMiddleware';
@@ -48,7 +55,21 @@ router.get('/', async (req, res, next) => {
     const { productId } = req.params as { productId: string };
     const validProductId = zodProductId.parse(productId);
 
-    const allReviews = await Review.find({ product: productId })
+    let allReviews: (Omit<
+      Omit<
+        mongoose.Document<unknown, {}, IReview> &
+          Omit<
+            IReview & {
+              _id: mongoose.Types.ObjectId;
+            },
+            never
+          >,
+        never
+      >,
+      never
+    > & { userVote?: 'upvote' | 'downvote' })[] = await Review.find({
+      product: productId,
+    })
       .populate({
         path: 'product',
         populate: 'tags',
@@ -58,11 +79,56 @@ router.get('/', async (req, res, next) => {
     if (!allReviews)
       return res.status(404).send('No reviews available for this product');
 
+    // find & append upvotes/downvotes for logged-in user for this product
+    if (req.user?._id) {
+      allReviews = await addUserVotesToReviews(
+        JSON.parse(JSON.stringify(allReviews)), // json cycle to strip out mongoose stuff & allow new 'userVote' prop
+        req.user._id
+      );
+    }
+
     res.status(200).json(allReviews);
   } catch (err) {
     next(err);
   }
 });
+
+async function addUserVotesToReviews(
+  allReviews: (Omit<
+    Omit<
+      mongoose.Document<unknown, {}, IReview> &
+        Omit<
+          IReview & {
+            _id: mongoose.Types.ObjectId;
+          },
+          never
+        >,
+      never
+    >,
+    never
+  > & {
+    userVote?: 'upvote' | 'downvote' | undefined;
+  })[],
+  userId: string
+) {
+  if (userId) {
+    let votedReviews: IUserVote[] = await UserVote.find({
+      userId: userId,
+      reviewId: { $in: allReviews.map((review) => review._id) },
+    });
+    let mappedVotes: Iterable<readonly [string, 'upvote' | 'downvote']> =
+      votedReviews.map((vote) => [vote.reviewId.toString(), vote.voteChoice]);
+    let voteMap: Map<string, 'upvote' | 'downvote'> = new Map(mappedVotes);
+
+    for (let review of allReviews) {
+      if (voteMap.has(review._id.toString())) {
+        review.userVote = voteMap.get(review._id.toString());
+      }
+    }
+  }
+
+  return allReviews;
+}
 
 router.post('/', checkAuthenticated, async (req, res, next) => {
   try {
@@ -150,13 +216,19 @@ router.post('/:reviewId/upvote', checkAuthenticated, async (req, res, next) => {
       );
     }
 
-    const allReviews = await Review.find({ product: productId })
+    let allReviews = await Review.find({ product: productId })
       .populate({
         path: 'product',
         populate: 'tags',
       })
       .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
 
+    if (req.user?._id) {
+      allReviews = await addUserVotesToReviews(
+        JSON.parse(JSON.stringify(allReviews)),
+        req.user._id
+      );
+    }
     res.status(201).json(allReviews);
   } catch (err) {
     next(err);
@@ -230,13 +302,18 @@ router.post(
         await UserVote.findOneAndDelete({ userId, reviewId });
       }
 
-      const allReviews = await Review.find({ product: productId })
+      let allReviews = await Review.find({ product: productId })
         .populate({
           path: 'product',
           populate: 'tags',
         })
         .populate('user', ['skinConcerns', 'voteCount', 'reviewCount']);
-
+      if (req.user?._id) {
+        allReviews = await addUserVotesToReviews(
+          JSON.parse(JSON.stringify(allReviews)),
+          req.user._id
+        );
+      }
       res.status(201).json(allReviews);
     } catch (err) {
       next(err);

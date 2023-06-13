@@ -47,6 +47,7 @@ export default function ProductCarousel({
       {renderProduct.map((prod) => {
         return (
           <div
+            key={prod._id.toString()}
             onClick={() => {
               navigate('/product/' + prod._id);
             }}
@@ -60,7 +61,7 @@ export default function ProductCarousel({
               }
               alt=''
             />
-            <h4 className='text-center font-hubbali text-xs uppercase'>
+            <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm'>
               {prod.productName}
             </h4>
           </div>

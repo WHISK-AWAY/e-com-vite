@@ -144,16 +144,11 @@ export default function SingleProduct() {
     setAddReview(true);
   };
 
-  // {singleProduct.productIngredients.split(/[\n]/g).forEach(( text) => console.log(text.match(':')))}
-
-  const func = () => {
+  const parseIngredients = () => {
     const text = singleProduct.productIngredients.split('\n');
     // console.log( 'etxt', text)
     let arr = [];
-    let header;
     for (let i = 0; i < text.length; i++) {
-      // let t= text[i].trim().split('\n').join(':');
-
       arr.push(text[i].trim().split(':'));
     }
 
@@ -166,42 +161,41 @@ export default function SingleProduct() {
         evens.push(arr[i]);
       }
     }
-    // console.log('evens', evens);
     let res = [];
     for (let i = 0; i < evens.length; i++) {
-      // for (let j = 0; j < evens[i].length; j++) {
-      //   console.log('j', evens[i][j])
-
-      // }
       res.push(evens[i][0] + ': ' + odds[i][0]);
     }
 
     return res;
   };
 
-  // func();
-
   /**
    * * MAIN RENDER
    */
   return (
-    <main className='single-product-main mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[1440px] flex-col items-center px-12'>
-      <section className='single-product-top-screen mb-11 flex w-full justify-center'>
+    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12'>
+      <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:basis-[576px]'>
           {/* <img src={h2} className='h-5 ' />
           <img src={h1} className='h-5' /> */}
           <div className='relative flex w-fit flex-col items-center'>
             {itemIsFavorited ? (
-              <div onClick={handleFavoriteRemove}>
-                <img src={heartFilled} className='absolute right-7 top-6 h-3' />
+              <div onClick={handleFavoriteRemove} className='w-fit'>
+                <img
+                  src={heartFilled}
+                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4'
+                />
               </div>
             ) : (
               <div onClick={handleFavoriteAdd} className='w-fit'>
-                <img src={heartBlanc} className='absolute right-7 top-6 h-3' />
+                <img
+                  src={heartBlanc}
+                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4'
+                />
               </div>
             )}
-            <div className='w-[230px] xl:min-h-[560px] xl:w-[424px]'>
+            <div className='w-[230px] lg:w-[300px] xl:min-h-[560px] xl:w-[424px]'>
               <img
                 src={
                   singleProduct.images.find(
@@ -216,30 +210,26 @@ export default function SingleProduct() {
           </div>
         </section>
 
-        <section className='product-details flex max-w-[900px] basis-3/5 flex-col items-center px-12'>
+        <section className='product-details flex max-w-[750px] basis-3/5 flex-col items-center px-12'>
           <div className='product-desc mb-9 flex flex-col items-center'>
             <h1 className='product-name pb-9 font-federo text-[1rem] uppercase'>
               {singleProduct.productName}
             </h1>
-
-            <div className='star-section flex h-2 self-start pb-8'>
-              <img src={starFilled} className='h-2' />
-              <img src={starFilled} className='h-2' />
-              <img src={starFilled} className='h-2' />
-              <img src={starFilled} className='h-2' />
-              <img src={starFilled} className='h-2' />
-              <p className='pl-2 font-grotesque text-xs'>
-                {overallReviewScore()}
-              </p>
+            <div className='star-bar-placement self-start'>
+              <StarsBar
+                score={overallReviewScore()}
+                option='count'
+                reviewCount={allReviews.reviews.length}
+              />
             </div>
-            <p className='product-long-desc font-grotesque text-xs'>
+            <p className='product-long-desc font-grotesque text-xs lg:text-sm'>
               {singleProduct.productShortDesc} Retinol stimulates the synthesis
               of collagen and elastin to combat loss of firmness and wrinkles.
               This retinol serum visibly improves fine lines and smooths skin.
               99% naturally derived. Vegan. Made in France.
             </p>
           </div>
-          <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium'>
+          <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium lg:mb-28 lg:text-lg'>
             <div className='cart-section flex w-full flex-col items-center text-center'>
               <div className='price-counter flex flex-col items-center'>
                 <p className='price font-bold'>${singleProduct.price}</p>
@@ -248,7 +238,9 @@ export default function SingleProduct() {
                   <div onClick={qtyDecrementor}>
                     <img src={minus} className='w-4' />
                   </div>
-                  <div className='count px-4'>{count}</div>
+                  <div className='count translate-y-[-7%] px-4 text-center'>
+                    {count}
+                  </div>
 
                   <div
                     onClick={qtyIncrementor}
@@ -260,7 +252,7 @@ export default function SingleProduct() {
               </div>
               <button
                 onClick={handleClick}
-                className='w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white'
+                className='w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white lg:max-w-[400px] lg:text-2xl'
               >
                 add to cart
               </button>
@@ -268,10 +260,10 @@ export default function SingleProduct() {
           </div>
 
           <div className='why-we-love-it'>
-            <h2 className='mb-4 text-center font-federo text-sm uppercase'>
+            <h2 className='mb-4 text-center font-federo text-sm uppercase lg:text-base'>
               why we love it
             </h2>
-            <p className='text-center font-grotesque text-xs'>
+            <p className='text-center font-grotesque text-xs lg:text-base'>
               CEO 15% Vitamin C Brightening Serum, is targeted to quickly fight
               the look of dullness, dark spots, and discolorations at the
               source, while diminishing the signs of premature aging. Skin looks
@@ -292,13 +284,13 @@ export default function SingleProduct() {
           </div>
         </section>
       </section>
-      <section className='ingredients-container mb-20 flex max-w-[768px] flex-row-reverse justify-center gap-5'>
-        <div className='bg-img basis-3/5'>
+      <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7'>
+        <div className='bg-img basis-3/5 px-4'>
           <img src={bgImg} className='aspect-[2/3] object-cover' />
         </div>
-        <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6'>
-          <h3 className='font-aurora text-xl'>key ingredients</h3>
-          {func().map((el) => {
+        <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8'>
+          <h3 className='font-aurora text-xl lg:text-2xl'>key ingredients</h3>
+          {parseIngredients().map((el) => {
             return (
               <p className='font-grotesque text-base'>
                 <span className='font-grotesque font-xbold uppercase'>
@@ -312,14 +304,18 @@ export default function SingleProduct() {
       </section>
 
       {/* // * PRODUCT SUGGESTIONS */}
-      <section className='product-suggestions mb-20 flex flex-col items-center'>
-        <h2 className='mb-5 font-marcellus text-2xl'>YOU MAY ALSO LIKE</h2>
+      <section className='product-suggestions mb-20 flex flex-col items-center lg:mb-24'>
+        <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl'>
+          YOU MAY ALSO LIKE
+        </h2>
         <ProductCarousel products={singleProduct.relatedProducts} num={4} />
       </section>
 
       {/* REVIEWS */}
-      <section className='review-container flex w-full flex-col border-t border-charcoal pt-8'>
-        <h2 className='font-gayathri text-[4.25rem]'>REVIEWS</h2>
+      <section className='review-container flex w-full flex-col border-t border-charcoal pt-8 lg:pt-10'>
+        <h2 className='font-gayathri text-[4.25rem] lg:text-[5.7rem]'>
+          REVIEWS
+        </h2>
         {allReviews.reviews.length > 0 ? (
           <>
             <div className='star-bar-placement'>
@@ -331,9 +327,9 @@ export default function SingleProduct() {
             {!allReviews.reviews
               .map((review) => review.user._id)
               .includes(userId!) && (
-              <div className='add-review-container mb-12 self-end'>
+              <div className='add-review-container mb-12 self-end lg:mb-20'>
                 <button
-                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase'
+                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base'
                   onClick={handleAddReview}
                 >
                   write a review
@@ -347,7 +343,7 @@ export default function SingleProduct() {
                 )}
               </div>
             )}
-            <div className='reviews-wrapper flex w-full flex-col items-center gap-4'>
+            <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6'>
               {allReviews.reviews.map((review, idx) => (
                 <Review
                   review={review}
