@@ -44,10 +44,10 @@ export default function Review({ review, last = false }: ReviewProps) {
       }`}
     >
       <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5'>
-        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem]'>
+        <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem]'>
           {review.nickname![0]}
         </div>
-        <p className='font-grotesque text-sm font-semibold lg:text-base xl:text-xl'>
+        <p className='font-grotesque text-sm font-semibold lg:text-base xl:text-xl 2xl:text-2xl'>
           {review.nickname}
         </p>
         <div className='review-user-info-group'>
@@ -84,10 +84,10 @@ export default function Review({ review, last = false }: ReviewProps) {
             </div>
           </div>
         </div>
-        <h3 className='review-title font-federo text-lg uppercase lg:text-[1.5rem] xl:text-[1.75rem]'>
+        <h3 className='review-title font-federo text-lg uppercase lg:text-[1.5rem] xl:text-[1.75rem] 2xl:text-[2rem]'>
           {review.title}
         </h3>
-        <div className='review-content'>
+        <div className='review-content 2xl:text-xl 2xl:leading-5'>
           {review.content +
             (review.content.length < 100
               ? ' This hydrating antioxidant formula instantly illuminates the complexion with bright radiance, while phytosterols help to reduce the signs of skin sensitivity. Saccharide Isomerate extract diminishes the appearance of pores and reinforces the skin’s moisture barrier for a skin-smoothing glow. Rapidly brighten the appearance of the skin and boost vital skin bounce, in a flash!'

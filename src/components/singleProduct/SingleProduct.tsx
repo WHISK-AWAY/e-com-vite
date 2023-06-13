@@ -173,29 +173,30 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-10'>
+    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-10 2xl:max-w-[1420px]'>
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-        <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20 xl:basis-[576px]'>
-          {/* <img src={h2} className='h-5 ' />
-          <img src={h1} className='h-5' /> */}
+        <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
           <div className='relative flex w-fit flex-col items-center'>
             {itemIsFavorited ? (
-              <div onClick={handleFavoriteRemove} className='w-fit'>
+              <div
+                onClick={handleFavoriteRemove}
+                className='w-fit cursor-pointer'
+              >
                 <img
                   src={heartFilled}
-                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4'
+                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4 2xl:w-6'
                 />
               </div>
             ) : (
-              <div onClick={handleFavoriteAdd} className='w-fit'>
+              <div onClick={handleFavoriteAdd} className='w-fit cursor-pointer'>
                 <img
                   src={heartBlanc}
-                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4'
+                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4 2xl:w-6'
                 />
               </div>
             )}
-            <div className='w-[230px] lg:w-[300px] xl:w-[375px]'>
+            <div className='w-[230px] lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               <img
                 src={
                   singleProduct.images.find(
@@ -222,21 +223,21 @@ export default function SingleProduct() {
                 reviewCount={allReviews.reviews.length}
               />
             </div>
-            <p className='product-long-desc font-grotesque text-xs lg:text-sm xl:text-lg'>
+            <p className='product-long-desc font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl'>
               {singleProduct.productShortDesc} Retinol stimulates the synthesis
               of collagen and elastin to combat loss of firmness and wrinkles.
               This retinol serum visibly improves fine lines and smooths skin.
               99% naturally derived. Vegan. Made in France.
             </p>
           </div>
-          <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium lg:mb-28 lg:text-lg xl:text-xl'>
+          <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium lg:mb-28 lg:text-lg xl:text-xl 2xl:text-2xl'>
             <div className='cart-section flex w-full flex-col items-center text-center'>
               <div className='price-counter flex flex-col items-center'>
                 <p className='price font-bold'>${singleProduct.price}</p>
 
                 <div className='qty-counter mb-14 mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
-                  <div onClick={qtyDecrementor}>
-                    <img src={minus} className='w-4' />
+                  <div onClick={qtyDecrementor} className='cursor-pointer'>
+                    <img src={minus} className='w-4 2xl:w-5' />
                   </div>
                   <div className='count translate-y-[-7%] px-4 text-center'>
                     {count}
@@ -246,24 +247,24 @@ export default function SingleProduct() {
                     onClick={qtyIncrementor}
                     className='incrementor cursor-pointer'
                   >
-                    <img src={plus} className='w-4' />
+                    <img src={plus} className='w-4 2xl:w-5' />
                   </div>
                 </div>
               </div>
               <button
                 onClick={handleClick}
-                className='w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl'
+                className='w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
               >
                 add to cart
               </button>
             </div>
           </div>
 
-          <div className='why-we-love-it'>
-            <h2 className='mb-4 text-center font-federo text-sm uppercase lg:text-base xl:text-lg'>
+          <div className='why-we-love-it text-sm lg:text-base xl:text-lg 2xl:text-xl'>
+            <h2 className='mb-4 text-center font-federo uppercase'>
               why we love it
             </h2>
-            <p className='text-center font-grotesque text-xs lg:text-base xl:text-lg'>
+            <p className='text-center font-grotesque'>
               CEO 15% Vitamin C Brightening Serum, is targeted to quickly fight
               the look of dullness, dark spots, and discolorations at the
               source, while diminishing the signs of premature aging. Skin looks
@@ -284,17 +285,17 @@ export default function SingleProduct() {
           </div>
         </section>
       </section>
-      <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9'>
+      <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
         <div className='bg-img basis-3/5 px-4'>
           <img src={bgImg} className='aspect-[2/3] object-cover' />
         </div>
         <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
-          <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl'>
+          <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
             key ingredients
           </h3>
           {parseIngredients().map((el) => {
             return (
-              <p className='font-grotesque text-base xl:text-xl'>
+              <p className='font-grotesque text-base xl:text-xl 2xl:text-2xl'>
                 <span className='font-grotesque font-xbold uppercase'>
                   {el.split(':')[0]}:
                 </span>
@@ -315,7 +316,7 @@ export default function SingleProduct() {
 
       {/* REVIEWS */}
       <section className='review-container flex w-full flex-col border-t border-charcoal pt-8 lg:pt-10'>
-        <h2 className='font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem]'>
+        <h2 className='font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
         </h2>
         {allReviews.reviews.length > 0 ? (
@@ -331,7 +332,7 @@ export default function SingleProduct() {
               .includes(userId!) && (
               <div className='add-review-container mb-12 self-end lg:mb-20'>
                 <button
-                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base'
+                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
                   onClick={handleAddReview}
                 >
                   write a review
