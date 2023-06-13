@@ -28,7 +28,7 @@ import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 
 function App() {
   return (
-    <div className='text-charcoal'>
+    <div className='min-h-screen w-screen text-charcoal'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />

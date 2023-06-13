@@ -23,7 +23,7 @@ export interface IReviewState {
     skinConcernOptions: {
       value: string;
       label: string;
-    };
+    }[];
   };
   skinConcernOptions: {
     value: string;
