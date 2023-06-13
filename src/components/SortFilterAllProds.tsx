@@ -30,7 +30,7 @@ export default function SortFilterAllProds({
   }
 
   return (
-    <div className='controls '>
+    <div className='controls flex font-marcellus '>
       <div className='sort-selector border'>
         <h2>Sort by:</h2>
         <select

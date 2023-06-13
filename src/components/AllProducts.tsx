@@ -165,23 +165,25 @@ AllProductsProps) {
   };
 
   type TPageFlipper = {
+    firstPage: number;
     currentPage: number;
     nextPage: number;
     lastPage: number;
   };
+
   const pageFlipper = () => {
     let pages = {} as TPageFlipper;
     let currentPage = Number(params.get('page'));
-    for (let i = 1; i <= maxPages; i++) {
-      pages.currentPage = currentPage;
-      pages.nextPage = currentPage + 1;
-      pages.lastPage = maxPages;
-    }
-    console.log('params', pages);
+
+    pages.firstPage = 1;
+    pages.currentPage = currentPage;
+    pages.nextPage = currentPage + 1;
+    pages.lastPage = maxPages;
+
     return pages;
   };
 
-  pageFlipper();
+  // pageFlipper();
 
   if (!allProducts.products.length) return <p>...Loading</p>;
   // if(!userFavorites) return <p>no favs</p>
@@ -224,16 +226,17 @@ AllProductsProps) {
                 )?.imageURL || randomProd!.images[0].imageURL
               }
             />
-            <p className='text-md pb-3 pt-7 text-center font-hubbali text-sm uppercase lg:text-lg xl:text-2xl'>
-              {randomProd!.productName}
-            </p>
+            <Link to={'/product/' + randomProd._id}>
+              <p className='text-md pb-3 pt-7 text-center font-hubbali text-sm uppercase lg:text-lg xl:text-2xl'>
+                {randomProd!.productName}
+              </p>
+            </Link>
             <p className='text-center font-grotesque text-sm lg:text-lg  xl:text-2xl'>
               ${randomProd!.price}
             </p>
           </div>
         </section>
       </section>
-
       <div className='sub-header pt-32 font-marcellus text-3xl uppercase tracking-wide'>
         {filter && filter === 'all' ? (
           <p>{filter} products</p>
@@ -241,14 +244,16 @@ AllProductsProps) {
           <p>all {filter}</p>
         )}
       </div>
-      <section className='filter-section flex  gap-6 self-end pb-10 pt-20'>
-        <p className='flex font-marcellus lg:text-lg'>sort/filter by </p>
+      <section className='filter-section flex flex-col  self-end pb-10 pt-20'>
+        <div className='flex gap-6  self-end '>
+          <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
 
-        <img
-          src={filterI}
-          className='w-6'
-          onClick={() => setIsSearchHidden((prev) => !prev)}
-        />
+          <img
+            src={filterI}
+            className='flex w-6 flex-row'
+            onClick={() => setIsSearchHidden((prev) => !prev)}
+          />
+        </div>
         {!isSearchHidden && (
           <SortFilterAllProds
             setSort={setSort}
@@ -261,7 +266,6 @@ AllProductsProps) {
           />
         )}
       </section>
-
       <div className='grid grid-cols-3 gap-16 lg:gap-36'>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
@@ -280,10 +284,10 @@ AllProductsProps) {
                 className='aspect-[3/4] w-full object-cover'
               />
 
-              {userId &&
+              {(userId &&
               !userFavorites
                 .map((fav) => fav._id)
-                .includes(product._id.toString()) ? (
+                .includes(product._id.toString())) || !userId ? (
                 <div
                   className=' absolute right-[6%] top-[5%]'
                   onClick={() => {
@@ -315,7 +319,6 @@ AllProductsProps) {
                 {product.productName.toUpperCase()}
               </Link>
             </p>
-            {/* <p>{product.productShortDesc}</p> */}
             <p className='pt-3 text-center font-grotesque lg:text-xl'>
               ${product.price}
             </p>
@@ -323,41 +326,87 @@ AllProductsProps) {
         ))}
       </div>
       <div className='flex w-full justify-center pt-20 tracking-widest'>
-        <div className='flex items-center font-grotesque text-xl font-medium'>
-          {pageFlipper().currentPage <= maxPages && (
+        <div className='flex items-center font-grotesque text-xl '>
+          <img
+            src={arrowLeft}
+            alt='left-arrow'
+            className='h-4 cursor-pointer pr-8'
+            onClick={pageDecrementor}
+          />
+          {pageFlipper().firstPage}
+          {pageNum! !== 1 && pageNum! !== maxPages && (
             <img
-              src={arrowLeft}
-              alt='left-arrow'
-              className='h-5 pr-5'
-              onClick={pageDecrementor}
+              src={dots}
+              alt='three-dots'
+              className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
             />
           )}
-          {pageFlipper().currentPage}
-          {pageFlipper().nextPage > 1 && pageFlipper().nextPage < maxPages &&  pageFlipper().nextPage !== pageFlipper().lastPage && (
-            <span>, {pageFlipper().nextPage}</span>
+          {pageNum! !== 1 && pageNum! !== maxPages && (
+            <p>{pageFlipper().currentPage}</p>
           )}
-          /**
-          TODO: add firstPage */
-          {pageFlipper().lastPage <= maxPages && (
-            <>
-              <img
-                src={dots}
-                alt='three-dots'
-                className='flex w-8 translate-y-[20%]'
-              />
-              {pageFlipper().lastPage === maxPages && (
-                <p className=''>{pageFlipper().lastPage}</p>
-              )}
-              <img
-                src={arrowRight}
-                alt='right-arrow'
-                className='h-5 rotate-180 pr-5'
-                onClick={pageIncrementor}
-              />
-            </>
-          )}
+          <img
+            src={dots}
+            alt='three-dots'
+            className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
+          />
+          {pageFlipper().lastPage}
+          <img
+            src={arrowRight}
+            alt='right-arrow'
+            className='h-4 rotate-180 cursor-pointer pr-8'
+            onClick={pageIncrementor}
+          />
         </div>
       </div>
     </section>
   );
 }
+
+// {
+//   pageNum! >= 1 && (
+//     <img
+//       src={arrowLeft}
+//       alt='left-arrow'
+//       className='h-5 cursor-pointer pr-5'
+//       onClick={pageDecrementor}
+//     />
+//   );
+// }
+// {
+//   /* {pageFlipper().firstPage} */
+// }
+// {
+//   pageFlipper().nextPage > 1 && pageFlipper().nextPage < maxPages && (
+//     <>
+//       <span>
+//         {' '}
+//         {pageFlipper().firstPage}, {pageFlipper().currentPage}
+//       </span>
+//     </>
+//   );
+// }
+// {
+//   pageFlipper().currentPage <= maxPages && (
+//     <>
+//       <img
+//         src={dots}
+//         alt='three-dots'
+//         className='flex w-8 translate-y-[20%] cursor-pointer'
+//       />
+//       <p className=''>{pageFlipper().lastPage}</p>
+//     </>
+//   );
+// }
+// {
+//   /* {pageNum === maxPages ? pageFlipper().firstPage : pageFlipper().lastPage} */
+// }
+// {
+//   pageNum! <= maxPages && (
+//     <img
+//       src={arrowRight}
+//       alt='right-arrow'
+//       className='h-5 rotate-180 cursor-pointer pr-5'
+//       onClick={pageIncrementor}
+//     />
+//   );
+// }
