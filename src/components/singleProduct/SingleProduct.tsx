@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchAllProducts,
@@ -34,6 +34,7 @@ import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 
 export default function SingleProduct() {
+  const reviewSection = useRef<HTMLDivElement>(null);
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
@@ -216,7 +217,12 @@ export default function SingleProduct() {
             <h1 className='product-name pb-9 font-federo text-[1rem] uppercase xl:text-[1.5rem]'>
               {singleProduct.productName}
             </h1>
-            <div className='star-bar-placement self-start'>
+            <div
+              className='star-bar-placement cursor-pointer self-start'
+              onClick={() =>
+                reviewSection.current?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
               <StarsBar
                 score={overallReviewScore()}
                 option='count'
@@ -315,7 +321,11 @@ export default function SingleProduct() {
       </section>
 
       {/* REVIEWS */}
-      <section className='review-container flex w-full flex-col border-t border-charcoal pt-8 lg:pt-10'>
+      <section
+        id='review-container'
+        ref={reviewSection}
+        className='review-container flex w-full flex-col border-t border-charcoal pt-8 lg:pt-10'
+      >
         <h2 className='font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
         </h2>
