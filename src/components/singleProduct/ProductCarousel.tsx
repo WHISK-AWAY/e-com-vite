@@ -40,9 +40,9 @@ export default function ProductCarousel({
     <div className='relative flex w-3/4 items-start justify-center gap-10'>
       <button
         onClick={decrementor}
-        className='absolute -left-[40px] top-[75px] shrink-0 self-center'
+        className='absolute -left-[40px] top-[75px] shrink-0 self-center xl:-left-[60px] xl:top-[125px]'
       >
-        <img src={arrowLeft} alt='' className='h-3' />
+        <img src={arrowLeft} alt='' className='h-3 xl:h-5' />
       </button>
       {renderProduct.map((prod) => {
         return (
@@ -51,17 +51,17 @@ export default function ProductCarousel({
             onClick={() => {
               navigate('/product/' + prod._id);
             }}
-            className='ymal-card flex w-full cursor-pointer flex-col items-center justify-center gap-4'
+            className='ymal-card flex w-full cursor-pointer flex-col items-center justify-center gap-4 xl:gap-6'
           >
             <img
-              className='aspect-[3/4] w-[100px] object-cover'
+              className='aspect-[3/4] w-[100px] object-cover xl:w-[175px]'
               src={
                 prod.images.find((image) => image.imageDesc === 'product-front')
                   ?.imageURL || prod.images[0].imageURL
               }
               alt=''
             />
-            <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm'>
+            <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
               {prod.productName}
             </h4>
           </div>
@@ -69,9 +69,9 @@ export default function ProductCarousel({
       })}
       <button
         onClick={incrementor}
-        className='absolute -right-[40px] top-[75px] shrink-0 self-center'
+        className='absolute -right-[40px] top-[75px] shrink-0 self-center xl:-right-[60px] xl:top-[125px]'
       >
-        <img src={arrowRight} alt='' className='h-3 rotate-180' />
+        <img src={arrowRight} alt='' className='h-3 rotate-180 xl:h-5' />
       </button>
     </div>
   );
