@@ -248,6 +248,7 @@ export default function AddReview({
           </div>
           <button type='submit'>submit review</button>
         </form>
+        <button onClick={() => setAddReview((prev) => !prev)}>cancel</button>
       </section>
     </section>
   );
