@@ -49,6 +49,7 @@ export default function ProductCarousel({
           <div
             key={prod._id.toString()}
             onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
               navigate('/product/' + prod._id);
             }}
             className='ymal-card flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px]'

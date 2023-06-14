@@ -32,6 +32,7 @@ import heartFilled from '../../../src/assets/icons/heart-filled.svg';
 import bgImg from '../../../src/assets/bg-img/pexels-bogdan-krupin-3986706.jpg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
+import ImageCarousel from './ImageCarousel';
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -41,11 +42,11 @@ export default function SingleProduct() {
   const allReviews = useAppSelector(selectReviewState);
   const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
-  const userCart = useAppSelector(selectCart);
+
   const [count, setCount] = useState<number>(1);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
   const [addReview, setAddReview] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState('');
 
   useEffect(() => {
     setCount(1);
@@ -66,6 +67,16 @@ export default function SingleProduct() {
       setItemIsFavorited(isFav);
     }
   }, [thisUser, productId]);
+
+  useEffect(() => {
+    if (singleProduct?._id) {
+      setSelectedImage(
+        singleProduct.images.find(
+          (image) => image.imageDesc === 'product-front'
+        )?.imageURL || singleProduct.images[0].imageURL
+      );
+    }
+  }, [singleProduct]);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -178,7 +189,7 @@ export default function SingleProduct() {
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
-          <div className='relative flex w-fit flex-col items-center'>
+          <div className='relative flex flex-col items-center justify-between gap-3'>
             {itemIsFavorited ? (
               <div
                 onClick={handleFavoriteRemove}
@@ -186,29 +197,29 @@ export default function SingleProduct() {
               >
                 <img
                   src={heartFilled}
-                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4 2xl:w-6'
+                  className='absolute right-[6%] top-[5%] w-3 lg:w-4 2xl:w-6'
                 />
               </div>
             ) : (
               <div onClick={handleFavoriteAdd} className='w-fit cursor-pointer'>
                 <img
                   src={heartBlanc}
-                  className='absolute right-[6%] top-[3.33%] w-3 lg:w-4 2xl:w-6'
+                  className='absolute right-[6%] top-[5%] w-3 lg:w-4 2xl:w-6'
                 />
               </div>
             )}
             <div className='w-[230px] lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               <img
-                src={
-                  singleProduct.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || singleProduct.images[0].imageURL
-                }
-                alt='single product view'
+                src={selectedImage}
+                alt='product image'
                 className='aspect-[3/4] border  border-charcoal object-cover'
               />
             </div>
-            {/* carousel goes here */}
+            <ImageCarousel
+              num={3}
+              product={singleProduct}
+              setSelectedImage={setSelectedImage}
+            />
           </div>
         </section>
 
@@ -239,7 +250,7 @@ export default function SingleProduct() {
           <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium lg:mb-28 lg:text-lg xl:text-xl 2xl:text-2xl'>
             <div className='cart-section flex w-full flex-col items-center text-center'>
               <div className='price-counter flex flex-col items-center'>
-                <p className='price font-bold'>${singleProduct.price}</p>
+                <p className='price'>${singleProduct.price}</p>
 
                 <div className='qty-counter mb-14 mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
                   <div onClick={qtyDecrementor} className='cursor-pointer'>
@@ -299,9 +310,12 @@ export default function SingleProduct() {
           <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
             key ingredients
           </h3>
-          {parseIngredients().map((el) => {
+          {parseIngredients().map((el, idx) => {
             return (
-              <p className='font-grotesque text-base xl:text-xl 2xl:text-2xl'>
+              <p
+                key={idx}
+                className='font-grotesque text-base xl:text-xl 2xl:text-2xl'
+              >
                 <span className='font-grotesque font-xbold uppercase'>
                   {el.split(':')[0]}:
                 </span>
