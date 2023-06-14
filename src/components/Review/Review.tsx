@@ -74,18 +74,14 @@ export default function Review({ review, last = false }: ReviewProps) {
               date={review.date}
             />
           </div>
-          <div className='review-bars flex flex-col items-start font-hubbali text-xs xl:text-base'>
-            <div className='quality-score'>
+          <div className='review-bars flex flex-col items-start gap-2 font-hubbali text-xs xl:text-base'>
+            <div className='quality-score flex flex-col items-start'>
               <p>QUALITY</p>
-              <div>
-                <ScoreBar score={review.rating.value} />
-              </div>
+              <ScoreBar score={review.rating.quality} />
             </div>
-            <div className='value-score'>
+            <div className='value-score flex flex-col items-start'>
               <p>VALUE</p>
-              <div>
-                <ScoreBar score={review.rating.value} />
-              </div>
+              <ScoreBar score={review.rating.value} />
             </div>
           </div>
         </div>

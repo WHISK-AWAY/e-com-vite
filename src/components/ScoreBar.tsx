@@ -1,7 +1,9 @@
-import barEndcapFilled from '../../src/assets/icons/barEndcapFilled.svg';
+import barEndcapFilledLeft from '../../src/assets/icons/barEndcapFilledLeft.svg';
+import barEndcapFilledRight from '../../src/assets/icons/barEndcapFilledRight.svg';
 import barEndcapHalfLeft from '../../src/assets/icons/barEndcapHalfLeft.svg';
 import barEndcapHalfRight from '../../src/assets/icons/barEndcapHalfRight.svg';
-import barEndcapHollow from '../../src/assets/icons/barEndcapHollow.svg';
+import barEndcapHollowLeft from '../../src/assets/icons/barEndcapHollowLeft.svg';
+import barEndcapHollowRight from '../../src/assets/icons/barEndcapHollowRight.svg';
 import barSectionFilled from '../../src/assets/icons/barSectionFilled.svg';
 import barSectionHalf from '../../src/assets/icons/barSectionHalf.svg';
 import barSectionHollow from '../../src/assets/icons/barSectionHollow.svg';
@@ -12,7 +14,7 @@ export type ScoreBarProps = {
 };
 
 export default function ScoreBar({ score, maxScore = 5 }: ScoreBarProps) {
-  const BAR_STYLES = 'w-3';
+  const BAR_STYLES = 'w-4 lg:w-5 xl:w-6 2xl:w-7';
 
   let filledFirstSection = 0;
   let halfFirstSection = 0;
@@ -53,29 +55,39 @@ export default function ScoreBar({ score, maxScore = 5 }: ScoreBarProps) {
   else hollowLastSection = 1;
 
   return (
-    <div className='bar-container flex justify-center'>
-      {filledFirstSection > 0 && <img src={barEndcapFilled} />}
-      {halfFirstSection > 0 && <img src={barEndcapHalfLeft} />}
-      {hollowFirstSection > 0 && <img src={barEndcapHollow} />}
+    <div className='bar-container flex flex-nowrap justify-center'>
+      {filledFirstSection > 0 && (
+        <img src={barEndcapFilledLeft} className={BAR_STYLES} />
+      )}
+      {halfFirstSection > 0 && (
+        <img src={barEndcapHalfLeft} className={BAR_STYLES} />
+      )}
+      {hollowFirstSection > 0 && (
+        <img src={barEndcapHollowLeft} className={BAR_STYLES} />
+      )}
 
       {Array(filledMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionFilled} key={idx} />
+          <img src={barSectionFilled} className={BAR_STYLES} key={idx} />
         ))}
-      {halfMidsection > 0 && <img src={barSectionHalf} />}
+      {halfMidsection > 0 && (
+        <img src={barSectionHalf} className={BAR_STYLES} />
+      )}
       {Array(hollowMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionHollow} key={idx} />
+          <img src={barSectionHollow} className={BAR_STYLES} key={idx} />
         ))}
 
       {filledLastSection > 0 && (
-        <img src={barEndcapFilled} className='rotate-180' />
+        <img src={barEndcapFilledRight} className={BAR_STYLES} />
       )}
-      {halfLastSection > 0 && <img src={barEndcapHalfRight} />}
+      {halfLastSection > 0 && (
+        <img src={barEndcapHalfRight} className={BAR_STYLES} />
+      )}
       {hollowLastSection > 0 && (
-        <img src={barEndcapHollow} className='rotate-180' />
+        <img src={barEndcapHollowRight} className={BAR_STYLES} />
       )}
     </div>
   );
