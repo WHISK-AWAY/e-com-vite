@@ -12,6 +12,7 @@ import StarsBar from '../StarsBar';
 import thumb from '../../assets/icons/thumb.svg';
 import thumbFilled from '../../assets/icons/thumbFilled.svg';
 import { useEffect } from 'react';
+import ScoreBar from '../ScoreBar';
 
 dayjs.extend(relativeTime);
 
@@ -76,11 +77,15 @@ export default function Review({ review, last = false }: ReviewProps) {
           <div className='review-bars flex flex-col items-start font-hubbali text-xs xl:text-base'>
             <div className='quality-score'>
               <p>QUALITY</p>
-              <div>********************</div>
+              <div>
+                <ScoreBar score={review.rating.value} />
+              </div>
             </div>
             <div className='value-score'>
               <p>VALUE</p>
-              <div>********************</div>
+              <div>
+                <ScoreBar score={review.rating.value} />
+              </div>
             </div>
           </div>
         </div>
