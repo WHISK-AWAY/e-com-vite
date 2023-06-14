@@ -23,6 +23,8 @@ import {
 } from '../../redux/slices/promoCodeSlice';
 import { TShippingAddress } from '../../redux/slices/userSlice';
 import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShippingAddress';
+import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
+import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 
 // TODO: clear out unused deps
 
@@ -173,7 +175,6 @@ export default function Recap() {
     userOrder.date = new Date();
     userOrder.user = usr.user;
 
-    console.log('UO', userOrder);
     return userOrder;
   };
 
@@ -236,98 +237,169 @@ export default function Recap() {
     return <h1>Loading address book...</h1>;
 
   return (
-    <div>
-      <section className='order-recap'>
+    <div className='recap-container m-10'>
+      <section className='order-recap flex flex-col items-center'>
         {/* PRODUCTS RECAP */}
 
-        <h1>ORDER RECAP</h1>
-        {user.cart.products.map((item) => {
-          return (
-            <div key={item._id}>
-              <p>{item.product.productName}</p>
-              <p>{item.qty}</p>
-              <img
-                src={
-                  item.product.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || item.product.images[0].imageURL
-                }
-              />
-            </div>
-          );
-        })}
+        <div className='header-section w-5/6 border-l border-r border-t border-charcoal py-2 text-center font-italiana text-xl'>
+          <h1>ORDER CONFIRMATION</h1>
+        </div>
 
-        <h2>Subtotal: {user.cart.subtotal}</h2>
-        {/* PROMO CODE SECTION */}
-        {!verifyPromo && (
-          <section className='promo-section'>
-            <form
-              className='border border-red-600'
-              onSubmit={(e) => handlePromoSubmit(e)}
-            >
-              <label htmlFor='promo-code'>enter your promo-code:</label>
+        <div className='product-recap flex  w-full border border-charcoal p-10'>
+          <div className='flex w-3/5 flex-col'>
+            {user.cart.products.map((item) => {
+              return (
+                <div key={item._id} className='flex h-56 pb-2'>
+                  <img
+                    className='w-44 border border-black'
+                    src={
+                      item.product.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || item.product.images[0].imageURL
+                    }
+                  />
+                  <div className='flex flex-col items-center justify-center pl-10'>
+                    <p className='pb-5 font-hubbali text-xl uppercase'>
+                      {item.product.productName}
+                    </p>
+                    <p className='font-grotesque text-lg'>
+                      ${item.product.price}
+                    </p>
+                    <p className='font-grotesque text-lg'>{item.qty}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-              <input
-                id='promo-code'
-                type='text'
-                value={promo}
-                placeholder={promoErrors.status ? 'invalid promo-code' : ''}
-                onChange={(e) => setPromo(e.target.value)}
-              ></input>
-              <button>verify</button>
-            </form>
-          </section>
-        )}
-        {verifyPromo.promoRate && ( // ? maybe add a button to bring back the promo form?
-          <>
-            <p>
-              discount (promo code {verifyPromo.promoCodeName}): -
-              {(user.cart.subtotal * verifyPromo.promoRate).toFixed(2)}
-            </p>
-            <p>
-              total:{' '}
-              {(user.cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
-            </p>
-          </>
-        )}
+          <div className='bg-img-container relative flex w-2/5 flex-col '>
+            <img src={oceanBg} alt='ocean waves and rocks' />
+            <img
+              src={sandLady}
+              alt='lady rubbing sand on her lips'
+              className='absolute w-4/5 top-0 translate-x-[-20%] translate-y-[12%]'
+            />
+          </div>
+        </div>
+
+        <div className='flex h-44 w-5/6 flex-col justify-center border border-charcoal bg-[#31333A]'>
+          <h2 className='pl-5 font-marcellus text-xl uppercase tracking-wide text-white'>
+            order subtotal: ${user.cart.subtotal}
+          </h2>
+          {/* PROMO CODE SECTION */}
+          {verifyPromo && (
+            <section className='promo-section pl-20 pt-6 text-white'>
+              <form className='' onSubmit={(e) => handlePromoSubmit(e)}>
+                <label
+                  htmlFor='promo-code'
+                  className='border border-white px-16 py-1 font-italiana'
+                >
+                  enter your promo-code:
+                </label>
+
+                <input
+                  id='promo-code'
+                  type='text'
+                  value={promo}
+                  placeholder={promoErrors.status ? 'invalid promo-code' : ''}
+                  onChange={(e) => setPromo(e.target.value)}
+                  className='mx-2 border-2 border-white text-charcoal'
+                ></input>
+                <button className='border border-white px-10 font-italiana text-lg uppercase'>
+                  verify
+                </button>
+              </form>
+            </section>
+          )}
+          {verifyPromo.promoRate && ( // ? maybe add a button to bring back the promo form?
+            <>
+              <p>
+                discount (promo code {verifyPromo.promoCodeName}): -
+                {(user.cart.subtotal * verifyPromo.promoRate).toFixed(2)}
+              </p>
+              <p>
+                total:{' '}
+                {(user.cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
+              </p>
+            </>
+          )}
+        </div>
       </section>
 
       {/* PLAIN TEXT USER ADDRESS */}
-      <section>
-        <br />
-        <h1>SHIPPING DETAILS</h1>
-        <p>first name: {addresses[addressIndex].shipToAddress.firstName}</p>
-        <p>last name: {addresses[addressIndex].shipToAddress.lastName}</p>
-        <p>email: {addresses[addressIndex].shipToAddress.email}</p>
-        <p>address 1: {addresses[addressIndex].shipToAddress.address_1}</p>
-        <p>address 2: {addresses[addressIndex].shipToAddress.address_2}</p>
-        <p>city: {addresses[addressIndex].shipToAddress.city}</p>
-        <p>state: {addresses[addressIndex].shipToAddress.state}</p>
-        <p>zip: {addresses[addressIndex].shipToAddress.zip}</p>
-        <button className='bg-green-300' onClick={handleManageShippingAddress}>
-          MANAGE ADDRESSES
-        </button>
-        {manageShippingAddress && (
-          <ManageShippingAddress // ? need to pass along current address setter
-            user={user}
-            setManageShippingAddress={setManageShippingAddress}
-            addresses={addresses}
-            addressIndex={addressIndex}
-            setAddressIndex={setAddressIndex}
-          />
-        )}
-      </section>
+      <section className='border border-charcoal'>
+        <div className='flex place-content-center place-items-center relative border-b border-charcoal font-italiana'>
+          <h1 className='items-center py-3 text-center text-xl'>
+            SHIPPING INFO
+          </h1>
+          <div className='flex absolute right-3'>
+            <button
+              className=' rounded-sm bg-charcoal px-10 py-1  text-white'
+              onClick={handleManageShippingAddress}
+            >
+              MANAGE ADDRESSES
+            </button>
+          </div>
+        </div>
+
+        <div className='shipping-detail m-20 flex flex-col h-full justify-center items-center'>
+          <div className='flex h-full w-4/6 flex-col items-center'>
+            <h2 className='h-full w-3/6 border-l border-r border-t border-charcoal  py-2 text-center font-italiana text-lg uppercase'>
+              your order will be delivered to:{' '}
+            </h2>
+            <div className='flex h-full w-4/6 border border-charcoal font-marcellus '>
+              <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose '>
+                <div className='flex flex-col self-center'>
+                  <p className=''>full name</p>
+
+                  <p>email</p>
+                  <p>address 1</p>
+                  <p>address 2</p>
+                  <p>city</p>
+                  <p>state</p>
+                  <p>zip</p>
+                  {manageShippingAddress && (
+                    <ManageShippingAddress // ? need to pass along current address setter
+                      user={user}
+                      setManageShippingAddress={setManageShippingAddress}
+                      addresses={addresses}
+                      addressIndex={addressIndex}
+                      setAddressIndex={setAddressIndex}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className='form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose'>
+                <div className='flex flex-col self-center'>
+                  <p>
+                    {addresses[addressIndex].shipToAddress.firstName}{' '}
+                    {addresses[addressIndex].shipToAddress.lastName}
+                  </p>
+                  <p>{addresses[addressIndex].shipToAddress.email}</p>
+                  <p>{addresses[addressIndex].shipToAddress.address_1}</p>
+                  <p>
+                    {addresses[addressIndex].shipToAddress.address_2
+                      ? addresses[addressIndex].shipToAddress.address_2
+                      : '-'}
+                  </p>
+                  <p>{addresses[addressIndex].shipToAddress.city}</p>
+                  <p>{addresses[addressIndex].shipToAddress.state}</p>
+                  <p>{addresses[addressIndex].shipToAddress.zip}</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
       {/* STRIPE PAYMENT SECTION */}
       {!manageShippingAddress && (
-        <div>
+        <div className='flex flex-col justify-end w-2/6 self-center pt-3'>
           {clientSecret ? (
             <Elements stripe={stripePromise} options={options}>
               <Checkout />
             </Elements>
           ) : (
-            <button className='bg-amber-400' onClick={(e) => handleCheckout(e)}>
-              PROCEED TO PAYMENT
+            <button className='bg-charcoal px-16 py-2 rounded-sm uppercase text-white font-italiana text-lg' onClick={(e) => handleCheckout(e)}>
+              confirm&proceed
             </button>
           )}
         </div>
@@ -338,6 +410,10 @@ export default function Recap() {
         </button>
       )}
       {isCheckoutCancel && <p>checkout cancelled</p>}
+        </div>
+
+      </section>
+
     </div>
   );
 }
