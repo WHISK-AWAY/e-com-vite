@@ -46,36 +46,45 @@ export default function CartItem(props: CartProps) {
   };
 
   return (
-    <div className='cart-item-container min-w-[40vw]'>
-      <div className=' m-12 flex flex-col  p-6'>
+    <div className='cart-item-container w-9/10'>
+      <div className=' flex  justify-between '>
         <img
-          className='aspect-[3/4] h-48  w-fit object-cover'
+          className='aspect-[3/4] lg:h-48 h-32 w-4/12 object-cover'
           src={
             images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || images[0].imageURL
           }
         />
-        <div className='absolute flex flex-col self-end p-6'>
+        <div className='relative flex flex-col w-8/12 items-center'>
           <img
             src={x}
             alt='x-icon'
             onClick={() => handleRemove(_id, qty)}
-            className='absolute right-10 top-0 h-4'
+            className='absolute right-0 top-0 lg:h-3 lg:w-3 h-2 w-3'
           />
-          <div className='top-10 mt-10 flex  text-center font-hubbali  text-xl uppercase'>
+       
+
+          <h4 className='top-10 lg:mt-10 mt-5 mb-2 lg:mx-1 text-center font-hubbali  lg:text-md xl:text-xl text-sm uppercase'>
             {productName}
-          </div>
-          <div className='text-center font-grotesque text-lg '>${price}</div>
-          <div className='flex border border-charcoal rounded-full w-24 items-center self-center'>
-
-          <img src={minus} alt='minus-icon' onClick={handleDecrement} className='h-5'/>
-          <span className='px-4 font-grotesque text-lg'>{count}</span>
-          <img src={plus} alt='plus-icon' onClick={handleIncrement} className='h-5'/>
-
-          </div>
-      
-        
+          </h4>
+          <div className='text-center font-grotesque lg:text-md xl:text-lg  text-sm mb-1'>${price}</div>
+          < div className='flex xl:w-24 lg:w-16 w-14 items-center self-center rounded-full border justify-around  border-charcoal'>
+            <img
+              src={minus}
+              alt='minus-icon'
+              onClick={handleDecrement}
+              className='xl:h-5 lg:h-3 h-3'
+              />
+            <span className='xl:px-4 lg:px-2  font-grotesque xl:text-lg lg:text-md text-sm'>{count}</span>
+            <img
+              src={plus}
+              alt='plus-icon'
+              onClick={handleIncrement}
+              className='xl:h-5 lg:h-3 h-3'
+              />
+          
         </div>
+              </div>
       </div>
     </div>
   );
