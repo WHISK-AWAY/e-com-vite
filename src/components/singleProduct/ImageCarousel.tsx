@@ -39,6 +39,10 @@ export default function ImageCarousel({
     setRenderImage(prodImagesCopy?.slice(0, num));
   }, [prodImagesCopy, num]);
 
+  useEffect(() => {
+    if (renderImage) setSelectedImage(renderImage![0].imageURL);
+  }, [renderImage]);
+
   function autoIncrementImage() {
     console.log('autoincrement running'); // but doesn't work yet
     incrementor();

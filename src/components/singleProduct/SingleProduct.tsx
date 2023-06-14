@@ -29,7 +29,7 @@ import plus from '../../../src/assets/icons/circlePlus.svg';
 import minus from '../../../src/assets/icons/circleMinus.svg';
 import heartBlanc from '../../../src/assets/icons/heart-blanc.svg';
 import heartFilled from '../../../src/assets/icons/heart-filled.svg';
-import bgImg from '../../../src/assets/bg-img/pexels-bogdan-krupin-3986706.jpg';
+import bgCoconut from '../../../src/assets/bg-img/ingredients/coconut.jpg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
@@ -304,7 +304,7 @@ export default function SingleProduct() {
       </section>
       <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
         <div className='bg-img basis-3/5 px-4'>
-          <img src={bgImg} className='aspect-[2/3] object-cover' />
+          <img src={bgCoconut} className='aspect-[2/3] object-cover' />
         </div>
         <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
           <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
