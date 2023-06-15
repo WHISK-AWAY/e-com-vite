@@ -42,7 +42,7 @@ router.post(
       });;
 
       if (!addItem)
-        res
+        return res
           .status(409)
           .json({ message: 'Not enough inventory - nothing added to cart' });
 
