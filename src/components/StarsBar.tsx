@@ -57,7 +57,7 @@ export default function StarsBar({
       </div>
       <h4
         className={
-          'absolute top-4 font-grotesque text-xs lg:text-sm xl:text-base' +
+          'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base' +
           (option === 'count' ? ' translate-x-[150%]' : ' translate-x-full')
         }
       >

@@ -1,13 +1,12 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
-  fetchAllProducts,
   fetchSingleProduct,
   selectSingleProduct,
 } from '../../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
-import { addToCart, selectCart } from '../../redux/slices/cartSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 import {
   addToFavorites,
   removeFromFavorites,
@@ -19,12 +18,6 @@ import {
 } from '../../redux/slices/reviewSlice';
 import Review from '../Review/Review';
 import AddReview from '../Review/AddReview';
-import {
-  adminDeleteSingleProduct,
-  adminFetchAllProducts,
-} from '../../redux/slices/admin/adminProductsSlice';
-import starBlanc from '../../../src/assets/icons/star-blanc.svg';
-import starFilled from '../../../src/assets/icons/star-filled.svg';
 import plus from '../../../src/assets/icons/circlePlus.svg';
 import minus from '../../../src/assets/icons/circleMinus.svg';
 import heartBlanc from '../../../src/assets/icons/heart-blanc.svg';
@@ -43,12 +36,14 @@ export default function SingleProduct() {
   const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
 
-  const [count, setCount] = useState<number>(1);
+  const [count, setCount] = useState(1);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
-  const [addReview, setAddReview] = useState<boolean>(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [userHasReviewed, setUserHasReviewed] = useState(true);
   const [selectedImage, setSelectedImage] = useState('');
 
   useEffect(() => {
+    // * component initialization
     setCount(1);
 
     if (productId) {
@@ -59,6 +54,7 @@ export default function SingleProduct() {
   }, [productId]);
 
   useEffect(() => {
+    // * determine whether item is in user's favorites & fill/clear heart icon
     if (thisUser._id) {
       const isFav = thisUser.favorites.some(({ _id: favId }) => {
         return favId.toString() === productId;
@@ -69,6 +65,7 @@ export default function SingleProduct() {
   }, [thisUser, productId]);
 
   useEffect(() => {
+    // * initialize image as first 'product-front' image in product images array
     if (singleProduct?._id) {
       setSelectedImage(
         singleProduct.images.find(
@@ -77,6 +74,24 @@ export default function SingleProduct() {
       );
     }
   }, [singleProduct]);
+
+  useEffect(() => {
+    // * determine whether user has left a review on this product already
+    if (userId) {
+      if (
+        allReviews.reviews.map((review) => review.user._id).includes(userId)
+      ) {
+        setUserHasReviewed(true);
+      } else setUserHasReviewed(false);
+    }
+  }, [allReviews, userId]);
+
+  useEffect(() => {
+    // ! debugging
+    console.log(
+      userHasReviewed ? 'user has reviewed' : 'user has not reviewed'
+    );
+  }, [userHasReviewed]);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -152,9 +167,9 @@ export default function SingleProduct() {
    * * WRITE A REVIEW
    */
 
-  const handleAddReview = () => {
-    setAddReview(true);
-  };
+  // const handleAddReview = () => {
+  //   setAddReview(true);
+  // };
 
   const parseIngredients = () => {
     const text = singleProduct.productIngredients.split('\n');
@@ -212,7 +227,7 @@ export default function SingleProduct() {
               <img
                 src={selectedImage}
                 alt='product image'
-                className='aspect-[3/4] border  border-charcoal object-cover'
+                className='aspect-[3/4] border  border-charcoal  object-cover'
               />
             </div>
             <ImageCarousel
@@ -338,71 +353,60 @@ export default function SingleProduct() {
       <section
         id='review-container'
         ref={reviewSection}
-        className='review-container flex w-full flex-col border-t border-charcoal pt-8 lg:pt-10'
+        className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 lg:w-10/12 lg:pt-10'
       >
-        <h2 className='font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
+        <h2 className='self-start font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
         </h2>
-        {allReviews.reviews.length > 0 ? (
-          <>
-            <div className='star-bar-placement'>
+        <div className='review-subtitle-container flex flex-col items-center justify-between'>
+          {allReviews.reviews?.length > 0 && (
+            <div className='star-bar-placement self-start'>
               <StarsBar
                 score={overallReviewScore()}
                 reviewCount={allReviews.reviews.length}
               />
             </div>
-            {!allReviews.reviews
-              .map((review) => review.user._id)
-              .includes(userId!) && (
-              <div className='add-review-container mb-12 self-end lg:mb-20'>
-                <button
-                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
-                  onClick={handleAddReview}
-                >
-                  write a review
-                </button>
-                {addReview && (
-                  <AddReview
-                    productId={productId!}
-                    product={singleProduct}
-                    setAddReview={setAddReview}
+          )}
+          {showReviewForm ? (
+            <AddReview
+              product={singleProduct}
+              productId={productId!}
+              setShowReviewForm={setShowReviewForm}
+            />
+          ) : allReviews.reviews?.length < 1 ? (
+            <>
+              <p>No reviews yet...be the first to leave one!</p>
+              <button
+                className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+                onClick={() => setShowReviewForm((prev) => !prev)}
+              >
+                write a review
+              </button>
+            </>
+          ) : userHasReviewed ? (
+            ''
+          ) : (
+            <button
+              className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+              onClick={() => setShowReviewForm((prev) => !prev)}
+            >
+              write a review
+            </button>
+          )}
+          {allReviews.reviews.length > 0 && (
+            <div className='reviews-wrapper mt-6'>
+              <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8'>
+                {allReviews.reviews.map((review, idx) => (
+                  <Review
+                    review={review}
+                    key={review._id}
+                    last={allReviews.reviews.length - 1 === idx}
                   />
-                )}
+                ))}
               </div>
-            )}
-            <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8'>
-              {allReviews.reviews.map((review, idx) => (
-                <Review
-                  review={review}
-                  key={review._id}
-                  last={allReviews.reviews.length - 1 === idx}
-                />
-              ))}
             </div>
-          </>
-        ) : (
-          <>
-            <div className='add-review-container mb-12 self-end'>
-              {!addReview ? (
-                <>
-                  <p>No reviews yet...be the first to leave one!</p>{' '}
-                  <button
-                    className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase'
-                    onClick={handleAddReview}
-                  >
-                    write a review
-                  </button>
-                </>
-              ) : (
-                <AddReview
-                  productId={productId!}
-                  product={singleProduct}
-                  setAddReview={setAddReview}
-                />
-              )}
-            </div>
-          </>
-        )}
+          )}
+        </div>
       </section>
     </main>
   );

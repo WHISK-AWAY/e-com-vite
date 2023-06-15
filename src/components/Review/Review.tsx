@@ -40,13 +40,13 @@ export default function Review({ review, last = false }: ReviewProps) {
 
   return (
     <section
-      className={`review-details flex w-full justify-center font-hubbali text-sm lg:w-10/12 lg:text-lg lg:leading-5 ${
+      className={`review-details flex w-full justify-center font-hubbali text-sm lg:text-lg lg:leading-5 ${
         last ? '' : 'border-b border-charcoal pb-4 lg:pb-6 xl:pb-8'
       }`}
     >
       <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5'>
         <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem]'>
-          {review.nickname![0]}
+          {review.nickname![0].toUpperCase()}
         </div>
         <p className='font-grotesque text-sm font-semibold lg:text-base xl:text-xl 2xl:text-2xl'>
           {review.nickname}

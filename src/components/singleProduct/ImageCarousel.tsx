@@ -19,7 +19,6 @@ export default function ImageCarousel({
   const [renderImage, setRenderImage] = useState<ImageData[]>();
 
   useEffect(() => {
-    console.log('useeffect');
     let clearId = setInterval(autoIncrementImage, 1000 * 10);
 
     return clearInterval(clearId);

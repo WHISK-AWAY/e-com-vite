@@ -15,18 +15,17 @@ export default function Cart({
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
   const userId = useAppSelector(selectAuthUserId);
-  console.log('UID from cart', userId);
 
   useEffect(() => {
     if (userId) dispatch(fetchUserCart(userId));
   }, [userId]);
 
-  if (!userCart.cart.products?.length) return <p>Your cart is empty</p>
+  if (!userCart.cart.products?.length) return <p>Your cart is empty</p>;
 
   return (
-    <section className='cart-container h-screen fixed right-0 top-0 z-10  flex w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'>
-      <div className='flex max-w-[40vw] flex-col self-end h-full  bg-white 2xl:max-w-[40vw] '>
-        <div className='flex flex-col  items-center justify-start h-full lg:gap-4 '>
+    <section className='cart-container fixed right-0 top-0 z-10 flex  h-screen w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'>
+      <div className='flex h-full max-w-[40vw] flex-col self-end  bg-white 2xl:max-w-[40vw] '>
+        <div className='flex h-full  flex-col items-center justify-start lg:gap-4 '>
           <div className='header w-full border-b border-charcoal pt-5'>
             <h1 className='flex justify-center pb-3 font-italiana text-base lg:text-2xl'>
               YOUR CART (
@@ -44,9 +43,9 @@ export default function Cart({
             />
           </div>
 
-          <div className='h-full overflow-hidden w-full p-6  lg:p-10'>
-            <div className='flex overflow-hidden h-full w-full flex-col justify-between border  border-charcoal p-5 lg:p-10 '>
-              <div className='flex flex-col overflow-auto h-full gap-6'>
+          <div className='h-full w-full overflow-hidden p-6  lg:p-10'>
+            <div className='flex h-full w-full flex-col justify-between overflow-hidden border  border-charcoal p-5 lg:p-10 '>
+              <div className='flex h-full flex-col gap-6 overflow-auto'>
                 {userCart.cart.products.map(({ product, qty }) => {
                   return (
                     <CartItem
@@ -59,7 +58,7 @@ export default function Cart({
                 })}
               </div>
 
-              <div className='flex flex-col items-center justify-end  gap-3 pt-5 border-t-[.5px] border-charcoal/80'>
+              <div className='flex flex-col items-center justify-end  gap-3 border-t-[.5px] border-charcoal/80 pt-5'>
                 <div className='font-italiana text-base lg:text-base xl:text-xl '>
                   subtotal: ${userCart.cart.subtotal}
                 </div>
