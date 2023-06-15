@@ -29,7 +29,7 @@ import plus from '../../../src/assets/icons/circlePlus.svg';
 import minus from '../../../src/assets/icons/circleMinus.svg';
 import heartBlanc from '../../../src/assets/icons/heart-blanc.svg';
 import heartFilled from '../../../src/assets/icons/heart-filled.svg';
-import bgImg from '../../../src/assets/bg-img/pexels-bogdan-krupin-3986706.jpg';
+import bgImg from '../../../src/assets/bg-img/ingredient-bg/pexels-bogdan-krupin-3986706.jpg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
