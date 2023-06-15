@@ -186,7 +186,7 @@ AllProductsProps) {
   // pageFlipper();
 
   if (!allProducts.products.length) return <p>...Loading</p>;
-  // if(!userFavorites) return <p>no favs</p>
+  if(!userFavorites) return <p>no favs</p>
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
   const tagList = tagState.tags;
