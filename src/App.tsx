@@ -41,7 +41,7 @@ function App() {
         />
         <Route path='/product/:productId' element={<SingleProduct />} />
         <Route path='/user/:userId' element={<UserProfile />} />
-        <Route path='/user/:userId/cart' element={<Cart />} />
+        {/* <Route path='/user/:userId/cart' element={<Cart />} /> */}
         <Route path='/user/:userId/favorites' element={<Favorite />} />
         <Route path='/checkout' element={<Recap />} />
         <Route path='/checkout/success' element={<Success />} />

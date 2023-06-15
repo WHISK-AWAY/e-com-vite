@@ -58,7 +58,7 @@ export default function Cart({
                 })}
               </div>
 
-              <div className='flex flex-col items-center justify-end  gap-3 border-t-[.5px] border-charcoal/80 pt-5'>
+              <div className='flex flex-col items-center justify-end  gap-3 border-t-[0.75px] border-charcoal/80 pt-5'>
                 <div className='font-italiana text-base lg:text-base xl:text-xl '>
                   subtotal: ${userCart.cart.subtotal}
                 </div>
