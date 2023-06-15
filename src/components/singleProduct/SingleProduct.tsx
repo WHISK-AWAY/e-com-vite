@@ -22,10 +22,28 @@ import plus from '../../../src/assets/icons/circlePlus.svg';
 import minus from '../../../src/assets/icons/circleMinus.svg';
 import heartBlanc from '../../../src/assets/icons/heart-blanc.svg';
 import heartFilled from '../../../src/assets/icons/heart-filled.svg';
-import bgImg from '../../../src/assets/bg-img/ingredient-bg/pexels-bogdan-krupin-3986706.jpg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
+
+// * background images
+import lemons from '../../../src/assets/bg-img/ingredient-bg/lemon-slice.jpg';
+import coconut from '../../../src/assets/bg-img/ingredient-bg/coconut.jpg';
+import bee from '../../../src/assets/bg-img/ingredient-bg/bee.jpg';
+import flaxSpoons from '../../../src/assets/bg-img/ingredient-bg/flax-spoons.jpg';
+import olives from '../../../src/assets/bg-img/ingredient-bg/hand-olives.jpg';
+import honeyDrip from '../../../src/assets/bg-img/ingredient-bg/honey-drip.jpg';
+import slicedCitrus from '../../../src/assets/bg-img/ingredient-bg/sliced-citrus.jpg';
+
+const bgImgs = [
+  lemons,
+  coconut,
+  bee,
+  flaxSpoons,
+  olives,
+  honeyDrip,
+  slicedCitrus,
+];
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -41,6 +59,7 @@ export default function SingleProduct() {
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [userHasReviewed, setUserHasReviewed] = useState(true);
   const [selectedImage, setSelectedImage] = useState('');
+  const [bgImg, setBgImg] = useState('');
 
   useEffect(() => {
     // * component initialization
@@ -51,6 +70,8 @@ export default function SingleProduct() {
       dispatch(fetchSingleProduct(productId));
       dispatch(fetchAllReviews(productId));
     }
+
+    setBgImg(bgImgs[Math.floor(Math.random() * bgImgs.length)]);
   }, [productId]);
 
   useEffect(() => {
