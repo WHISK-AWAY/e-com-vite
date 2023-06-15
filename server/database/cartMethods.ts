@@ -69,7 +69,7 @@ export async function removeFromCart(
   try {
     // const productsInCart: string[] = this.products.map((prod: TProduct) => prod.product.toString());
     const productToRemove: TProduct | undefined = this.products.find(
-      (prod: TProduct) => prod.product.toString() === productId.toString()
+      (prod: TProduct) => prod.product._id.toString() === productId.toString()
     );
     if (!productToRemove) {
       console.log('no productToRemove');
