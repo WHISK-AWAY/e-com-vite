@@ -26,7 +26,7 @@ import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShipping
 import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
 import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 import { selectCart, removeFromCart } from '../../redux/slices/cartSlice';
-import x from '../../../src/assets/icons/x.svg'
+import x from '../../../src/assets/icons/x.svg';
 import Counter from '../Counter';
 
 // TODO: clear out unused deps
@@ -50,8 +50,6 @@ export default function Recap() {
   const [isCheckoutCancel, setIsCheckoutCancel] = useState<boolean>(false);
   const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY; // ? shift up to imports section so we're not reading it on every render
   const stripePromise = loadStripe(VITE_STRIPE_PUBLIC_KEY); // ? hopefully can move all the Stripe stuff to its own home (utilities or similar)
-
-
 
   // conditional component rendering controllers
   const [clientSecret, setClientSecret] = useState<string>('');
@@ -79,12 +77,17 @@ export default function Recap() {
     }
   }, [user]);
 
- 
+  useEffect(() => {
+    if (isCheckoutCancel) {
+      setTimeout(() => {
+        setIsCheckoutCancel(false);
+      }, 5000);
+    }
+  }, [isCheckoutCancel]);
+
   useEffect(() => {
     if (promoErrors.status) setPromo('');
   }, [promoErrors.status]);
-
-
 
   function orderAddressArray() {
     let addressList: TShippingAddress[] = user.shippingAddresses;
@@ -174,7 +177,6 @@ export default function Recap() {
     return userOrder;
   };
 
-
   //address shit
 
   // ? consider pulling Stripe shit into a separate component
@@ -229,12 +231,13 @@ export default function Recap() {
    * ! EARLY RETURN GUARDS (no hooks below here, please!)
    */
 
+
   if (!user?.cart?.products) return <h1>Loading cart...</h1>;
   if (!addresses || addresses.length === 0)
     return <h1>Loading address book...</h1>;
 
   return (
-    <div className='recap-container m-10'>
+    <div className='recap-container m-10 max-w-[1440px] mx-auto'>
       <section className='order-recap flex flex-col items-center'>
         {/* PRODUCTS RECAP */}
 
@@ -272,10 +275,10 @@ export default function Recap() {
                     />
                   </div>
                   <div className='flex w-3/5 flex-col items-center justify-center'>
-                    <p className='pb-2 text-center font-hubbali text-sm uppercase lg:pb-5 lg:text-base xl:text-xl '>
+                    <p className='pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl'>
                       {item.product.productName}
                     </p>
-                    <p className='font-grotesque text-base lg:text-lg xl:text-lg'>
+                    <p className='pb-2 font-grotesque text-base lg:text-lg xl:text-lg'>
                       ${item.product.price}
                     </p>
                     <Counter
@@ -301,7 +304,7 @@ export default function Recap() {
         </div>
 
         <div className='flex h-44 w-5/6 flex-col justify-center border border-charcoal bg-[#31333A]'>
-          <h2 className='pl-5 font-italiana lg:text-xl text-base uppercase tracking-wide text-white'>
+          <h2 className='pl-5 font-italiana text-base uppercase tracking-wide text-white lg:text-xl'>
             order subtotal: ${user.cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
@@ -310,11 +313,11 @@ export default function Recap() {
               <form
                 className='flex flex-nowrap'
                 onSubmit={(e) => handlePromoSubmit(e)}
-                >
+              >
                 <label
                   htmlFor='promo-code'
                   className='border border-white px-5  py-1 font-italiana text-sm lg:px-16 lg:text-base'
-                  >
+                >
                   enter your promo code:
                 </label>
 
@@ -325,25 +328,25 @@ export default function Recap() {
                   placeholder={promoErrors.status ? 'invalid promo code' : ''}
                   onChange={(e) => setPromo(e.target.value)}
                   className='mx-2 border-2 border-white text-sm text-charcoal'
-                  ></input>
+                ></input>
                 <button className='border border-white px-10 font-italiana text-sm uppercase lg:text-lg'>
                   verify
                 </button>
               </form>
             </section>
-) : (
-            <div className='flex flex-col pl-5 pt-2 gap-2'>
-              <p className='text-white font-italiana lg:text-xl text-base'>
-                <span className='uppercase '>discount:</span> (promo code '{verifyPromo.promoCodeName}
+          ) : (
+            <div className='flex flex-col gap-2 pl-5 pt-2'>
+              <p className='font-italiana text-base text-white lg:text-xl'>
+                <span className='uppercase '>discount:</span> (promo code '
+                {verifyPromo.promoCodeName}
                 '): - ${(user.cart.subtotal * verifyPromo.promoRate).toFixed(2)}
               </p>
-              <p className='text-white font-italiana lg:text-3xl text-base '>
-                <span className='uppercase'>order total:</span>{' '}
-                ${(user.cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
+              <p className='font-italiana text-base text-white lg:text-3xl '>
+                <span className='uppercase'>order total:</span> $
+                {(user.cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
               </p>
             </div>
-          )
-          }
+          )}
         </div>
       </section>
 
@@ -351,76 +354,99 @@ export default function Recap() {
       <section className='border border-charcoal'>
         <div className='relative flex place-content-center place-items-center border-b border-charcoal font-italiana'>
           <h1 className='items-center py-3 text-center text-xl'>
-            SHIPPING INFO
+            {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
           </h1>
-          <div className='absolute right-3 flex'>
-            <button
-              className=' rounded-sm bg-charcoal lg:px-10 px-6 py-1  text-white'
-              onClick={handleManageShippingAddress}
-            >
-              MANAGE ADDRESSES
-            </button>
-          </div>
+          {!clientSecret && (
+            <div className='absolute right-3 flex'>
+              {!manageShippingAddress ? (
+                <button
+                  className=' rounded-sm bg-charcoal px-6 py-1 text-white  lg:px-10 '
+                  onClick={handleManageShippingAddress}
+                >
+                  MANAGE ADDRESSES
+                </button>
+              ) : (
+                <button
+                  onClick={() => setManageShippingAddress(false)}
+                  className='rounded-sm bg-charcoal px-6 py-1 text-sm text-white  lg:px-10'
+                >
+                  CANCEL
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
-        <div className='shipping-detail m-20 flex h-full flex-col items-center justify-center'>
-          <div className='flex h-full lg:w-4/6 w-full flex-col items-center'>
-            <h2 className='h-full lg:w-3/6 w-4/6 border-l border-r border-t border-charcoal  py-2 text-center font-italiana text-lg  uppercase'>
-              your order will be delivered to:{' '}
-            </h2>
-            <div className='flex h-full lg:w-4/6 w-full border border-charcoal font-marcellus lg:text-base text-sm'>
-              <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose '>
-                <div className='flex flex-col self-center'>
-                  <p className=''>full name</p>
-
-                  <p>email</p>
-                  <p>address 1</p>
-                  <p>address 2</p>
-                  <p>city</p>
-                  <p>state</p>
-                  <p>zip</p>
-                  {manageShippingAddress && (
-                    <ManageShippingAddress // ? need to pass along current address setter
-                      user={user}
-                      setManageShippingAddress={setManageShippingAddress}
-                      addresses={addresses}
-                      addressIndex={addressIndex}
-                      setAddressIndex={setAddressIndex}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className='form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose'>
-                <div className='flex flex-col self-center'>
-                  <p>
-                    {addresses[addressIndex].shipToAddress.firstName}{' '}
-                    {addresses[addressIndex].shipToAddress.lastName}
-                  </p>
-                  <p>{addresses[addressIndex].shipToAddress.email}</p>
-                  <p>{addresses[addressIndex].shipToAddress.address_1}</p>
-                  <p>
-                    {addresses[addressIndex].shipToAddress.address_2
-                      ? addresses[addressIndex].shipToAddress.address_2
-                      : '-'}
-                  </p>
-                  <p>{addresses[addressIndex].shipToAddress.city}</p>
-                  <p>{addresses[addressIndex].shipToAddress.state}</p>
-                  <p>{addresses[addressIndex].shipToAddress.zip}</p>
-                </div>
-              </div>
+        <div className='shipping-detail m-20 flex h-full flex-col items-center justify-center '>
+          {!clientSecret && (
+            <div className='flex h-full w-full flex-col items-center lg:w-4/6'>
+              <h2 className='xl:w-3/6 h-full w-5/6 border-l border-r border-t border-charcoal  py-2 text-center font-italiana text-lg  uppercase md:w-4/6 lg:w-5/6 2xl:w-6/12'>
+                {manageShippingAddress
+                  ? 'address book'
+                  : 'your order will be delivered to:'}{' '}
+              </h2>
             </div>
-          </div>
+          )}
+          {!clientSecret ? (
+            <div className='relative flex h-full w-full border border-charcoal bg-slate-300 font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6 max-w-[800px]'>
+              {!manageShippingAddress ? (
+                <>
+                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose'>
+                    <div className='flex flex-col self-center'>
+                      <p className=''>full name</p>
+
+                      <p>email</p>
+                      <p>address 1</p>
+                      <p>address 2</p>
+                      <p>city</p>
+                      <p>state</p>
+                      <p>zip</p>
+                    </div>
+                  </div>
+                  <div className='form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose'>
+                    <div className='flex flex-col self-center'>
+                      <p>
+                        {addresses[addressIndex].shipToAddress.firstName}{' '}
+                        {addresses[addressIndex].shipToAddress.lastName}
+                      </p>
+                      <p>{addresses[addressIndex].shipToAddress.email}</p>
+                      <p>{addresses[addressIndex].shipToAddress.address_1}</p>
+                      <p>
+                        {addresses[addressIndex].shipToAddress.address_2
+                          ? addresses[addressIndex].shipToAddress.address_2
+                          : '-'}
+                      </p>
+                      <p>{addresses[addressIndex].shipToAddress.city}</p>
+                      <p>{addresses[addressIndex].shipToAddress.state}</p>
+                      <p>{addresses[addressIndex].shipToAddress.zip}</p>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <ManageShippingAddress
+                  user={user}
+                  setManageShippingAddress={setManageShippingAddress}
+                  addresses={addresses}
+                  addressIndex={addressIndex}
+                  setAddressIndex={setAddressIndex}
+                  clientSecret={clientSecret}
+                />
+              )}{' '}
+            </div>
+          ) : (
+            ''
+          )}
 
           {/* STRIPE PAYMENT SECTION */}
           {!manageShippingAddress && (
-            <div className='flex lg:w-2/6  flex-col justify-end self-center pt-3'>
+            <div className='flex flex-col  justify-end self-center pt-3 lg:w-4/6'>
               {clientSecret ? (
                 <Elements stripe={stripePromise} options={options}>
                   <Checkout />
                 </Elements>
               ) : (
                 <button
-                  className='rounded-sm bg-charcoal lg:px-16 px-10  py-2 font-italiana text-lg uppercase text-white'
+                  className='w-full self-center rounded-sm bg-charcoal px-8 py-2 font-italiana text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6'
                   onClick={(e) => handleCheckout(e)}
                 >
                   confirm&proceed
@@ -429,11 +455,16 @@ export default function Recap() {
             </div>
           )}
           {clientSecret && (
-            <button className='bg-red-400' onClick={handleCancel}>
-              CANCEL
+            <button
+              className='rounded-sm border border-charcoal px-8 py-1 font-italiana text-base text-charcoal'
+              onClick={handleCancel}
+            >
+              cancel
             </button>
           )}
-          {isCheckoutCancel && <p>checkout cancelled</p>}
+          {isCheckoutCancel && (
+            <span className='mt-5 font-marcellus'>checkout cancelled</span>
+          )}
         </div>
       </section>
     </div>

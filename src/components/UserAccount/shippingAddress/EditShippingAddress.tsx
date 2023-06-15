@@ -29,7 +29,7 @@ export type EditShippingAddressProps = {
   user: TUser;
   currentShippingAddress: TShippingAddress | null;
   setIsFormEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  setAddressFormMode : React.Dispatch<React.SetStateAction<EditFormModes>>
+  setAddressFormMode: React.Dispatch<React.SetStateAction<EditFormModes>>;
   addressFormMode: EditFormModes;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
   addresses: TShippingAddress[];
@@ -44,11 +44,9 @@ export default function EditShippingAddress({
   setAddressFormMode,
   setAddressIndex,
   addresses,
-  addressIndex
+  addressIndex,
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
-
-
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
@@ -87,7 +85,7 @@ export default function EditShippingAddress({
     mode: 'onBlur',
   });
 
-  const handleEditOrAddNewForm = async(data: ShippingInfoFields) => {
+  const handleEditOrAddNewForm = async (data: ShippingInfoFields) => {
     const userFields = {
       isDefault: data.isDefault,
       userId: user._id!,
@@ -95,19 +93,14 @@ export default function EditShippingAddress({
     };
 
     if (addressFormMode === 'new') {
-
       await dispatch(addShippingAddress({ shippingData: userFields }));
 
-
-      if(userFields.isDefault) {
+      if (userFields.isDefault) {
         setAddressIndex(0);
-
       } else {
         setAddressIndex(addresses.length);
       }
     } else if (addressFormMode === 'edit') {
-   
-
       dispatch(
         editShippingAddress({
           userId: user._id!,
@@ -147,100 +140,132 @@ export default function EditShippingAddress({
 
       <>
         <form onSubmit={handleSubmit(handleEditOrAddNewForm)}>
-          <>
+          <div className='flex justify-center  py-3'>
             {addressFormMode === 'edit' ? (
               <h1>EDIT SHIPPING INFO</h1>
             ) : (
               <h1>ADD NEW SHIPPING ADDRESS</h1>
             )}
-          </>
-
-          <div className='first-name-field'>
-            <label htmlFor='first-name'>First name</label>
-            <input
-              id='first-name'
-              type='text'
-              {...register('shipToAddress.firstName')}
-            />
-          </div>
-          <div className='address-1-field'>
-            <label htmlFor='last-name'>Last name</label>
-            <input
-              id='last-name'
-              type='text'
-              {...register('shipToAddress.lastName')}
-            />
-          </div>
-          <div className='address-1-field'>
-            <label htmlFor='email'>Email</label>
-            <input
-              id='email'
-              type='text'
-              {...register('shipToAddress.email')}
-            />
-          </div>
-          <div className='address-1-field'>
-            <label htmlFor='address_1'>Address_1</label>
-            <input
-              id='address_1'
-              type='text'
-              {...register('shipToAddress.address_1')}
-            />
           </div>
 
-          <div className='address-2-field'>
-            <label htmlFor='address_2'>Address_2</label>
-            <input
-              id='address_2'
-              type='text'
-              {...register('shipToAddress.address_2')}
-            />
-            {errors.shipToAddress?.address_2 && (
-              <p>{errors.shipToAddress.address_2.message}</p>
-            )}
+          <div className='flex flex-col '>
+            <div className='self-center pt-8 flex flex-col gap-3  w-4/6'>
+              <div className='first-name-field flex flex-col'>
+                <label htmlFor='first-name'>first name</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='first-name'
+                  type='text'
+                  {...register('shipToAddress.firstName')}
+                />
+              </div>
+              <div className='address-1-field flex flex-col'>
+                <label htmlFor='last-name'>last name</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='last-name'
+                  type='text'
+                  {...register('shipToAddress.lastName')}
+                />
+              </div>
+              <div className='address-1-field flex flex-col'>
+                <label htmlFor='email'>email</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='email'
+                  type='text'
+                  {...register('shipToAddress.email')}
+                />
+              </div>
+              <div className='address-1-field flex flex-col'>
+                <label htmlFor='address_1'>address_1</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='address_1'
+                  type='text'
+                  {...register('shipToAddress.address_1')}
+                />
+              </div>
+
+              <div className='address-2-field flex flex-col'>
+                <label htmlFor='address_2'>address_2</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='address_2'
+                  type='text'
+                  {...register('shipToAddress.address_2')}
+                />
+                {errors.shipToAddress?.address_2 && (
+                  <p>{errors.shipToAddress.address_2.message}</p>
+                )}
+              </div>
+
+              <div className='city-field flex flex-col'>
+                <label htmlFor='city'>city</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='city'
+                  type='text'
+                  {...register('shipToAddress.city')}
+                />
+              </div>
+
+              <div className='state-field flex flex-col'>
+                <label htmlFor='state'>state</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='state'
+                  type='text'
+                  {...register('shipToAddress.state')}
+                />
+              </div>
+
+              <div className='zip-field flex flex-col'>
+                <label htmlFor='zip'>zip</label>
+                <input
+                  className='rounded-sm border border-charcoal p-1'
+                  id='zip'
+                  type='text'
+                  {...register('shipToAddress.zip')}
+                />
+              </div>
+
+              <div className='default-field text-sm flex text-end flex-col pb-3 w-full'>
+                <div className="flex self-end">
+
+                <label htmlFor='isDefault'>
+                  make this address the default:
+                </label>
+                <input
+                  type='checkbox'
+                  
+                  id='isDefault'
+                  defaultChecked={currentDefaults?.isDefault === true || false}
+                  {...register('isDefault')}
+                  />
+                  </div>
+              </div>
+            </div>
           </div>
 
-          <div className='city-field'>
-            <label htmlFor='city'>City</label>
-            <input id='city' type='text' {...register('shipToAddress.city')} />
+          <div className='btn-section flex justify-center gap-6 pb-5'>
+            <button
+              type='submit'
+              className='rounded-sm bg-charcoal lg:px-7 px-6 py-1 font-italiana text-white'
+            >
+              SAVE CHANGES
+            </button>
+            <button
+              type='button'
+              className='rounded-sm bg-charcoal lg:px-11  px-9 py-1 font-italiana text-white'
+              onClick={() => {
+                setIsFormEdit(false);
+                setAddressFormMode('edit');
+              }}
+            >
+              CANCEL
+            </button>
           </div>
-
-          <div className='state-field'>
-            <label htmlFor='state'>State</label>
-            <input
-              id='state'
-              type='text'
-              {...register('shipToAddress.state')}
-            />
-          </div>
-
-          <div className='zip-field'>
-            <label htmlFor='zip'>Zip</label>
-            <input id='zip' type='text' {...register('shipToAddress.zip')} />
-          </div>
-
-          <div className='default-field'>
-            <label htmlFor='isDefault'>Make this address the default:</label>
-            <input
-              type='checkbox'
-              id='isDefault'
-              defaultChecked={currentDefaults?.isDefault === true || false}
-              {...register('isDefault')}
-            />
-          </div>
-
-          <button type='submit' className='bg-green-800'>
-            SAVE CHANGES
-          </button>
-          <button
-            type='button'
-            className='bg-red-800'
-            onClick={() => {setIsFormEdit(false); setAddressFormMode('edit')}}
-          >
-            CANCEL
-          </button>
-
-          {/* {addressValidationFailed && <h2>INVALID ADDRESS - RE-ENTER</h2>} */}
         </form>
       </>
     </section>

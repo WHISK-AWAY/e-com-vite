@@ -92,21 +92,30 @@ export default function Checkout() {
 
 
   return (
-    <div>
+    <div className='flex flex-col '>
       <form id='payment-form' onSubmit={(e) => handlePaymentSubmit(e)}>
         {/* PAYMENT FORM */}
         <PaymentElement id='payment-element' options={paymentElementOptions} />
-        <button disabled={isLoading || !stripe || !elements} id='submit'>
-          <span id='button-text'>
-            {isLoading ? (
-              <div className='spinner' id='spinner'></div>
-            ) : (
-              'Pay now'
-            )}
-          </span>
-        </button>
-        {/* Show any error or success messages */}
-        {message && <div id='payment-message'>{message}</div>}
+        <div className=' flex   justify-center '>
+          <button
+            disabled={isLoading || !stripe || !elements}
+            id='submit'
+            className=' flex '
+          >
+            <span
+              id='button-text'
+              className='my-5 r rounded-sm bg-charcoal px-10 py-1 r font-italiana text-lg uppercase text-white'
+            >
+              {isLoading ? (
+                <div className='spinner' id='spinner'></div>
+              ) : (
+                'Pay now'
+              )}
+            </span>
+          </button>
+          {/* Show any error or success messages */}
+          {message && <div id='payment-message'>{message}</div>}
+        </div>
       </form>
     </div>
   );

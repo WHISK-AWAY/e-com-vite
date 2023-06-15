@@ -7,6 +7,9 @@ import { editShippingAddress } from '../../../redux/slices/userSlice';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import EditShippingAddress from './EditShippingAddress';
+import arrowLeft from '../../../assets/icons/arrowLeft.svg';
+import arrowRight from '../../../assets/icons/arrowRight.svg';
+import x from '../../../assets/icons/x.svg';
 
 export type ShippingInfoFields = {
   isDefault: boolean;
@@ -32,6 +35,7 @@ export type ManageShippingAddressProps = {
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
 
   addresses: TShippingAddress[];
+  clientSecret: string;
 };
 
 // TODO: render empty ('new') form on load if no addresses exist
@@ -42,6 +46,7 @@ export default function ManageShippingAddress({
   addressIndex,
   setAddressIndex,
   addresses,
+  clientSecret,
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
@@ -76,8 +81,8 @@ export default function ManageShippingAddress({
     setManageShippingAddress(false);
   }
 
-  const handleShippingAddressDelete = async() => {
-   await dispatch(
+  const handleShippingAddressDelete = async () => {
+    await dispatch(
       deleteShippingAddress({
         shippingAddressId: addresses[selectorIdx]._id,
         userId: user._id,
@@ -86,97 +91,126 @@ export default function ManageShippingAddress({
     setSelectorIdx((prev) => Math.max(prev - 1, 0));
   };
 
-
   return (
-    <div>
-      <h1>address book</h1>
-
-      {/* CURRENT SHIPPING ADDRESS */}
-      <section>
-        {isFormEdit ? (
-          <EditShippingAddress
-            user={user}
-            currentShippingAddress={addresses[selectorIdx!]}
-            setIsFormEdit={setIsFormEdit}
-            addressFormMode={addressFormMode}
-            setAddressFormMode={setAddressFormMode}
-            setAddressIndex={setAddressIndex}
-            addressIndex={addressIndex}
-            addresses={addresses}
-          />
-        ) : (
-          <>
-            <p>
-              first name: {addresses[selectorIdx!]?.shipToAddress.firstName}
-            </p>
-            <p>last name: {addresses[selectorIdx!]?.shipToAddress.lastName}</p>
-            <p>email: {addresses[selectorIdx!]?.shipToAddress.email}</p>
-            <p>address 1: {addresses[selectorIdx!]?.shipToAddress.address_1}</p>
-            <p>address 2: {addresses[selectorIdx!]?.shipToAddress.address_2}</p>
-            <p>city: {addresses[selectorIdx!]?.shipToAddress.city}</p>
-            <p>state: {addresses[selectorIdx!]?.shipToAddress.state}</p>
-            <p>zip: {addresses[selectorIdx!]?.shipToAddress.zip}</p>
-            <button onClick={setDefault} className='bg-blue-300'>
-              SET DEFAULT
-            </button>
-            <br />
-            <button
-              onClick={() => setIsFormEdit(true)}
-              className='bg-green-500'
-            >
-              EDIT
-            </button>
-          </>
-        )}
-        <br />
-        <button onClick={selectAddress} className='bg-fuchsia-500'>
-          USE THIS ADDRESS
-        </button>
-        <br />
-        <button
-          onClick={() => setManageShippingAddress(false)}
-          className='bg-red-400'
-        >
-          CANCEL
-        </button>
-        <br />
+    <>
+      {!isFormEdit && (
         <>
           <button
-            className='bg-gray-500'
+            className='absolute right-[0%] top-[4%] w-5 '
+            onClick={handleShippingAddressDelete}
+          >
+            <img src={x} className='h-4' />
+          </button>
+          <button
+            className='absolute -left-[10%] top-[40%] h-4 w-4'
             onClick={() => {
               if (selectorIdx! < addresses.length - 1)
                 setSelectorIdx((prev) => prev! + 1);
               else setSelectorIdx(0);
             }}
           >
-            NEXT
+            <img src={arrowLeft} className='h-5' />
           </button>
-          <br />
+
+          <button
+            className=''
+            onClick={() => {
+              if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
+              else setSelectorIdx(addresses.length - 1);
+            }}
+          >
+            <img
+              src={arrowRight}
+              className='absolute  -right-[10%] top-[40%] h-4 rotate-180'
+            />
+          </button>
         </>
-        <button
-          className='bg-gray-500'
-          onClick={() => {
-            if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
-            else setSelectorIdx(addresses.length - 1);
-          }}
-        >
-          PREVIOUS
-        </button>
-        <br />
-        <button
-          onClick={() => {
-            setIsFormEdit(true);
-            setAddressFormMode('new');
-          }}
-          className='bg-yellow-400'
-        >
-          ADD NEW
-        </button>
-        <br />
-        <button className='bg-rose-900' onClick={handleShippingAddressDelete}>
-          DELETE
-        </button>
-      </section>
-    </div>
+      )}
+
+      <div className='w-full'>
+        {/* CURRENT SHIPPING ADDRESS */}
+        <section className=' w-full'>
+          {isFormEdit ? (
+            <EditShippingAddress
+              user={user}
+              currentShippingAddress={addresses[selectorIdx!]}
+              setIsFormEdit={setIsFormEdit}
+              addressFormMode={addressFormMode}
+              setAddressFormMode={setAddressFormMode}
+              setAddressIndex={setAddressIndex}
+              addressIndex={addressIndex}
+              addresses={addresses}
+            />
+          ) : (
+            <div className='flex justify-center '>
+              <div className='flex w-2/6 flex-col items-center border-r  border-charcoal lg:w-1/5  '>
+                <div className='form-keys flex h-full  flex-col  py-9  text-start  leading-loose'>
+                  <p>full name</p>
+                  <p>last name</p>
+                  <p>email</p>
+                  <p>adderess 1</p>
+                  <p>address 2</p>
+                  <p>city</p>
+                  <p>state</p>
+                  <p>zip</p>
+                </div>
+              </div>
+
+              <div className='flex w-3/5 flex-col lg:w-4/5 '>
+                <div className='form-values flex w-3/5 flex-col self-center pt-9 text-start uppercase   leading-loose'>
+                  <p>{addresses[selectorIdx!]?.shipToAddress.firstName}</p>
+                  <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
+                  <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
+                  <p>{addresses[selectorIdx!]?.shipToAddress.address_1}</p>
+                  {addresses[selectorIdx].shipToAddress.address_2 ? (
+                    <p>{addresses[selectorIdx!]?.shipToAddress.address_2}</p>
+                  ) : (
+                    '-'
+                  )}
+
+                  <p> {addresses[selectorIdx!]?.shipToAddress.city}</p>
+                  <p>{addresses[selectorIdx!]?.shipToAddress.state}</p>
+                  <p> {addresses[selectorIdx!]?.shipToAddress.zip}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          {/* <label htmlFor="checkbox" > set as default</label>
+        <input name='checkbox' id='checkbox' type='checkbox' onChange={setDefault} className='border border-blue'>
+        
+      </input> */}
+        </section>
+
+        {!isFormEdit && (
+          <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-italiana text-base text-white '>
+            <div className='absolute top-5 flex lg:gap-8 gap-4 lg:w-11/12  justify-center'>
+              <button
+                onClick={() => setIsFormEdit(true)}
+                className='rounded-sm bg-charcoal lg:px-10 px-5 py-[.5px]'
+              >
+                EDIT
+              </button>
+
+              <button
+                onClick={selectAddress}
+                className='rounded-sm bg-charcoal lg:px-10 px-5'
+              >
+                USE THIS ADDRESS
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsFormEdit(true);
+                  setAddressFormMode('new');
+                }}
+                className='rounded-sm bg-charcoal lg:px-10 px-5'
+              >
+                ADD NEW
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }

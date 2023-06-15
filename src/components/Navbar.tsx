@@ -156,7 +156,7 @@ export default function Navbar() {
             <img src={bag} className=' lg:w-5 ' />
           </div>
         )}
-        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden}/>}
+        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
         {/* <NavLink to={`/user/${userId}/cart`}>
           <img src={bag} className=' lg:w-5 ' />
         </NavLink> */}
@@ -165,7 +165,12 @@ export default function Navbar() {
           {' '}
           <img src={heart3} className='lg:w-6' />
         </NavLink>
-        {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
+        {userId && (
+          <NavLink to={`/user/${userId}`}>
+            {' '}
+            <img src={user} className=' lg:w-5 ' />
+          </NavLink>
+        )}
 
         {!userId && (
           <NavLink to={`/sign-in`}>
