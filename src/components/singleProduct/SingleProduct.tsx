@@ -374,7 +374,7 @@ export default function SingleProduct() {
       <section
         id='review-container'
         ref={reviewSection}
-        className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 lg:w-10/12 lg:pt-10'
+        className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10'
       >
         <h2 className='self-start font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
@@ -396,9 +396,11 @@ export default function SingleProduct() {
             />
           ) : allReviews.reviews?.length < 1 ? (
             <>
-              <p>No reviews yet...be the first to leave one!</p>
+              <p className='mb-7'>
+                No reviews yet...be the first to leave one!
+              </p>
               <button
-                className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+                className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
                 onClick={() => setShowReviewForm((prev) => !prev)}
               >
                 write a review
@@ -408,7 +410,7 @@ export default function SingleProduct() {
             ''
           ) : (
             <button
-              className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+              className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
               onClick={() => setShowReviewForm((prev) => !prev)}
             >
               write a review

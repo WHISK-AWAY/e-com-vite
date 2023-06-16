@@ -37,7 +37,7 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
-  const [isCartHidden, setIsCartHidden] = useState(false);
+  const [isCartHidden, setIsCartHidden] = useState(true);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -156,24 +156,25 @@ export default function Navbar() {
             <img src={bag} className=' lg:w-5 ' />
           </div>
         )}
-        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden}/>}
+        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
         {/* <NavLink to={`/user/${userId}/cart`}>
           <img src={bag} className=' lg:w-5 ' />
         </NavLink> */}
 
         <NavLink to={`/user/${userId}/favorites`}>
-          {' '}
           <img src={heart3} className='lg:w-6' />
         </NavLink>
-        {userId && <NavLink to={`/user/${userId}`}>ACCOUNT</NavLink>}
 
-        {!userId && (
+        {userId ? (
+          <NavLink to={`/user/${userId}`}>
+            <img src={user} className=' lg:w-5 ' />
+          </NavLink>
+        ) : (
           <NavLink to={`/sign-in`}>
-            {' '}
             <img src={user} className=' lg:w-5 ' />
           </NavLink>
         )}
-        {userId && <button onClick={signOut}>SIGN OUT</button>}
+        {/*userId && <button onClick={signOut}>SIGN OUT</button>*/}
         {/* <img src={searchIcon} className=' w-6 ' /> */}
 
         {/* <form onSubmit={(e) => handleFormSubmit(e)}>
@@ -194,7 +195,10 @@ export default function Navbar() {
         /> */}
       </div>
       {userId && role === 'admin' && (
-        <NavLink to='/admin' className='text-red-500'>
+        <NavLink
+          to='/admin'
+          className='fixed bottom-[5%] left-[5%] font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
+        >
           ADMIN
         </NavLink>
       )}
