@@ -128,6 +128,11 @@ router.get('/search', async (req, res, next) => {
   }
 });
 
+/**
+ * Pull a given product by its ID
+ * Comes with related product suggestions
+ */
+
 router.get('/:productId', async (req, res, next) => {
   const RELATED_PRODUCTS_COUNT = 8;
 
