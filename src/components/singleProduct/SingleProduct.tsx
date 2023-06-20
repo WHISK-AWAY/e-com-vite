@@ -92,7 +92,7 @@ export default function SingleProduct() {
   };
 
   const handleClick = () => {
-    if (userId && productId) {
+    if ( productId) {
       dispatch(addToCart({ userId, productId, qty: count }));
     }
   };
