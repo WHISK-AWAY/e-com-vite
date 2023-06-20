@@ -24,6 +24,7 @@ import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
 import bag from '../../src/assets/icons/bag-blanc.svg';
 import Cart from './Cart';
+import Favorite from './Favorite';
 // import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
@@ -37,7 +38,8 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
-  const [isCartHidden, setIsCartHidden] = useState(false);
+  const [isCartHidden, setIsCartHidden] = useState(true);
+  const [isFavHidden, setIsFavHidden] = useState(true);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -151,20 +153,21 @@ export default function Navbar() {
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
-        {userId && (
+        { (
           <div onClick={() => setIsCartHidden((prev) => !prev)}>
             <img src={bag} className=' lg:w-5 ' />
           </div>
         )}
-        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
-        {/* <NavLink to={`/user/${userId}/cart`}>
-          <img src={bag} className=' lg:w-5 ' />
-        </NavLink> */}
 
-        <NavLink to={`/user/${userId}/favorites`}>
-          {' '}
-          <img src={heart3} className='lg:w-6' />
-        </NavLink>
+        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
+    
+        { (
+          <div onClick={() => setIsFavHidden((prev) => !prev)}>
+            <img src={heart3} className=' lg:w-5 ' />
+          </div>
+        )}
+
+        {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
         {userId && (
           <NavLink to={`/user/${userId}`}>
             {' '}
