@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import starFilled from '../../src/assets/icons/star-filled.svg';
 import starBlank from '../../src/assets/icons/star-blanc.svg';
+import starHalf from '../../src/assets/icons/star-half.svg';
 import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
@@ -35,7 +36,16 @@ export default function StarsBar({
               className='aspect-square h-2 lg:h-3 xl:h-4'
             />
           ))}
-        {Array(halfStars + emptyStars)
+        {Array(halfStars)
+          .fill(true)
+          .map((_, idx) => (
+            <img
+              key={idx}
+              src={starHalf}
+              className='aspect-square h-2 lg:h-3 xl:h-4'
+            />
+          ))}
+        {Array(emptyStars)
           .fill(true)
           .map((_, idx) => (
             <img
@@ -47,7 +57,7 @@ export default function StarsBar({
       </div>
       <h4
         className={
-          'absolute top-4 font-grotesque text-xs lg:text-sm xl:text-base' +
+          'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base' +
           (option === 'count' ? ' translate-x-[150%]' : ' translate-x-full')
         }
       >

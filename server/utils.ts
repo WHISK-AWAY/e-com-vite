@@ -68,7 +68,7 @@ export const zodReview = z.object({
       label: z.string(),
     })
     .array()
-    .min(3, 'minimum of 3 skin concerns')
+    .min(1, 'minimum of 1 skin concerns')
     .max(5, 'maximum of 5 skin concerns'),
   nickname: z.string().min(2).optional(),
   location: z.string().min(2).optional(),

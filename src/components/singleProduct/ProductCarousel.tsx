@@ -14,13 +14,12 @@ export default function ProductCarousel({
   num: number;
 }) {
   const navigate = useNavigate();
-  const [prodIdx, setProdIdx] = useState(0);
   const [prodCopy, setProdCopy] = useState<RenderProduct[]>([]);
   const [renderProduct, setRenderProduct] = useState<RenderProduct[]>([]);
 
   useEffect(() => {
     setProdCopy([...products]);
-  }, []);
+  }, [products]);
 
   useEffect(() => {
     setRenderProduct(prodCopy.slice(0, num));

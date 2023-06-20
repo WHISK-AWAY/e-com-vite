@@ -15,7 +15,6 @@ export default function Cart({
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
   const userId = useAppSelector(selectAuthUserId);
-  // console.log(' cart', userCart);
 
   useEffect(() => {
     dispatch(fetchUserCart(userId));
