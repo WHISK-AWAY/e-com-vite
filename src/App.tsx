@@ -25,10 +25,11 @@ import TagInventory from './components/Admin/tags/TagInventory';
 import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
 import PromoInventory from './components/Admin/promos/PromoInventory';
 import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='mx-auto min-h-screen w-[calc(100vw_-_20px)] text-charcoal'>
+    <div className='mx-auto min-h-screen  text-charcoal'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
@@ -42,7 +43,7 @@ function App() {
         <Route path='/product/:productId' element={<SingleProduct />} />
         <Route path='/user/:userId' element={<UserProfile />} />
         {/* <Route path='/user/:userId/cart' element={<Cart />} /> */}
-        <Route path='/user/:userId/favorites' element={<Favorite />} />
+        {/* <Route path='/user/:userId/favorites' element={<Favorite />} /> */}
         <Route path='/checkout' element={<Recap />} />
         <Route path='/checkout/success' element={<Success />} />
         <Route path='/checkout/failure' element={<Failure />} />
@@ -71,6 +72,7 @@ function App() {
         <Route path='/admin/promos/new' element={<CreateOrEditPromo />} />
         <Route path='/admin/promos/:promoId' element={<CreateOrEditPromo />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
