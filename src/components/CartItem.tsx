@@ -22,7 +22,6 @@ export default function CartItem(props: CartProps) {
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
   const cart = useAppSelector(selectCart);
-  // console.log('USERID', userId);
 
 
   const handleRemove = (productId: string, qty: number) => {
