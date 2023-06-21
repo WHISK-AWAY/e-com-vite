@@ -36,6 +36,7 @@ export type ManageShippingAddressProps = {
 
   addresses: TShippingAddress[];
   clientSecret: string;
+  setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
 };
 
 // TODO: render empty ('new') form on load if no addresses exist
@@ -47,15 +48,20 @@ export default function ManageShippingAddress({
   setAddressIndex,
   addresses,
   clientSecret,
+  setAddresses,
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
-  const [addressFormMode, setAddressFormMode] = useState<EditFormModes>('edit');
+  const [addressFormMode, setAddressFormMode] = useState<EditFormModes>('new');
   const [selectorIdx, setSelectorIdx] = useState<number>(0);
 
   useEffect(() => {
     if (!selectorIdx) setSelectorIdx(addressIndex);
   }, [addressIndex]);
+
+  useEffect(() => {
+    if (!addresses.length || !addresses) setIsFormEdit(true);
+  }, []);
 
   function setDefault() {
     let address = addresses[selectorIdx!];
@@ -67,7 +73,7 @@ export default function ManageShippingAddress({
     dispatch(
       editShippingAddress({
         userId: user._id,
-        shippingAddressId: address._id,
+        shippingAddressId: address._id!,
         shippingData,
       })
     );
@@ -84,7 +90,7 @@ export default function ManageShippingAddress({
   const handleShippingAddressDelete = async () => {
     await dispatch(
       deleteShippingAddress({
-        shippingAddressId: addresses[selectorIdx]._id,
+        shippingAddressId: addresses[selectorIdx]._id!,
         userId: user._id,
       })
     );
@@ -140,6 +146,7 @@ export default function ManageShippingAddress({
               setAddressIndex={setAddressIndex}
               addressIndex={addressIndex}
               addresses={addresses}
+              setAddresses={setAddresses}
             />
           ) : (
             <div className='flex justify-center '>
@@ -162,7 +169,7 @@ export default function ManageShippingAddress({
                   <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
                   <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
                   <p>{addresses[selectorIdx!]?.shipToAddress.address_1}</p>
-                  {addresses[selectorIdx].shipToAddress.address_2 ? (
+                  {addresses[selectorIdx]?.shipToAddress.address_2 ? (
                     <p>{addresses[selectorIdx!]?.shipToAddress.address_2}</p>
                   ) : (
                     '-'
@@ -183,30 +190,34 @@ export default function ManageShippingAddress({
 
         {!isFormEdit && (
           <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-italiana text-base text-white '>
-            <div className='absolute top-5 flex lg:gap-8 gap-4 lg:w-11/12  justify-center'>
+            <div className='absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-8'>
               <button
                 onClick={() => setIsFormEdit(true)}
-                className='rounded-sm bg-charcoal lg:px-10 px-5 py-[.5px]'
+                className='rounded-sm bg-charcoal px-5 py-[.5px] lg:px-10'
               >
                 EDIT
               </button>
 
-              <button
-                onClick={selectAddress}
-                className='rounded-sm bg-charcoal lg:px-10 px-5'
-              >
-                USE THIS ADDRESS
-              </button>
+           
+                  <button
+                    onClick={selectAddress}
+                    className='rounded-sm bg-charcoal px-5 lg:px-10'
+                    >
+                    USE THIS ADDRESS
+                  </button>
 
-              <button
-                onClick={() => {
-                  setIsFormEdit(true);
-                  setAddressFormMode('new');
-                }}
-                className='rounded-sm bg-charcoal lg:px-10 px-5'
-              >
-                ADD NEW
-              </button>
+                    {!isFormEdit && user._id && (
+                  <button
+                    onClick={() => {
+                      setIsFormEdit(true);
+                      setAddressFormMode('new');
+                    }}
+                    className='rounded-sm bg-charcoal px-5 lg:px-10'
+                  >
+                    ADD NEW
+                  </button>
+               
+              )}
             </div>
           </div>
         )}

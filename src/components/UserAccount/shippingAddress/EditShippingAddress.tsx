@@ -33,6 +33,7 @@ export type EditShippingAddressProps = {
   addressFormMode: EditFormModes;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
   addresses: TShippingAddress[];
+  setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>
   addressIndex: number;
 };
 
@@ -44,6 +45,7 @@ export default function EditShippingAddress({
   setAddressFormMode,
   setAddressIndex,
   addresses,
+  setAddresses,
   addressIndex,
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
@@ -91,23 +93,44 @@ export default function EditShippingAddress({
       userId: user._id!,
       shipToAddress: data.shipToAddress,
     };
-
-    if (addressFormMode === 'new') {
-      await dispatch(addShippingAddress({ shippingData: userFields }));
-
-      if (userFields.isDefault) {
-        setAddressIndex(0);
-      } else {
+    
+    if(user._id) {
+      if (addressFormMode === 'new') {
+        await dispatch(addShippingAddress({ shippingData: userFields }));
+        
+      } 
+    
+    if (userFields.isDefault) {
+      setAddressIndex(0);
+    } else {
         setAddressIndex(addresses.length);
       }
     } else if (addressFormMode === 'edit') {
       dispatch(
         editShippingAddress({
           userId: user._id!,
-          shippingAddressId: currentShippingAddress!._id,
+          shippingAddressId: currentShippingAddress!._id!,
           shippingData: userFields,
         })
       );
+    } else if (!user._id) {
+        const guestUserAddress = {
+          shipToAddress: {
+          firstName: data.shipToAddress.firstName,
+          lastName: data.shipToAddress.lastName,
+          email: data.shipToAddress.email,
+          address_1: data.shipToAddress.address_1,
+          address_2: data.shipToAddress.address_2,
+          city: data.shipToAddress.city,
+          state: data.shipToAddress.state,
+          zip: data.shipToAddress.zip
+        },
+        isDefault: true,
+      }
+      setAddresses([guestUserAddress])
+      console.log('addresses', guestUserAddress);
+      setAddressIndex(0);
+      
     }
 
     setIsFormEdit(false);
@@ -131,7 +154,12 @@ export default function EditShippingAddress({
   }
 
   useEffect(() => {
-    if (addressFormMode === 'new') newShippingAddress();
+    if (user._id) {
+      (addressFormMode === 'new') 
+      newShippingAddress();
+    } else {
+
+    }
   }, [addressFormMode]);
 
   return (
@@ -139,6 +167,7 @@ export default function EditShippingAddress({
       {/* EDIT SHIPPING INFO FORM */}
 
       <>
+      {defaultValues.shipToAddress === undefined }
         <form onSubmit={handleSubmit(handleEditOrAddNewForm)}>
           <div className='flex justify-center  py-3'>
             {addressFormMode === 'edit' ? (

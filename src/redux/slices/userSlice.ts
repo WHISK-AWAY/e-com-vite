@@ -40,8 +40,8 @@ export type TShippingAddress = {
     zip: string;
   };
   isDefault: boolean;
-  userId: string;
-  _id: string;
+  userId?: string;
+  _id?: string;
 };
 
 export type TUser = {
@@ -158,6 +158,7 @@ export const addShippingAddress = createAsyncThunk(
     { shippingData }: { shippingData: ShippingInfoFields & { userId: string } },
     thunkApi
   ) => {
+
     try {
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${shippingData.userId}/shipping/`,

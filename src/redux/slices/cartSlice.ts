@@ -209,7 +209,7 @@ export const addToCart = createAsyncThunk(
 export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async (
-    args: { userId: string; productId: string; qty: number },
+    args: { userId: string | null; productId: string; qty: number },
     thunkApi
   ) => {
     if (!args.userId || args.userId === null) {

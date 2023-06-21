@@ -83,9 +83,64 @@ export const fetchAllOrders = createAsyncThunk(
 );
 
 /**
- * * CREATE AN ORDER
+ * * CREATE GUEST ORDER
+ */
+export const createGuestOrder = createAsyncThunk(
+  'order/createGuestOrder',
+  async (order: Partial<TOrder>, thunkApi) => {
+    try {
+      const cart = localStorage.getItem('guestCart');
+      if (!cart) return;
+      const { data } = await axios.post(
+        VITE_API_URL + '/api/guest-order',
+        { order, cart },
+        {
+          withCredentials: true,
+        }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        thunkApi.rejectWithValue({
+          message: err.response?.data.message,
+          status: err.response?.status,
+        });
+      }
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
+/**
+ * *FETCH GUEST ORDER
  */
 
+export const fetchGuestOrder = createAsyncThunk(
+  'order/fetchGuestOrder',
+  async (orderId: string, thunkApi) => {
+    try {
+      const { data } = await axios.get(
+        VITE_API_URL + `/api/guest-order/${orderId}`,
+        
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        thunkApi.rejectWithValue({
+          message: err.response?.data.message,
+          status: err.response?.status,
+        });
+      }
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+/**
+ * * CREATE AN ORDER
+ */
 export const createOrder = createAsyncThunk(
   'order/createOrder',
   async ({ userId, order }: { userId: string; order: TOrder }, thunkApi) => {
@@ -237,6 +292,42 @@ const orderSlice = createSlice({
         }
       )
 
+      /**
+       * *FETCH GUEST ORDER
+       */
+
+      .addCase(fetchGuestOrder.pending, (state) => {
+        state.loading = true;
+
+      })
+      .addCase(fetchGuestOrder.fulfilled, (state, {payload} ) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = {...initialState.errors}
+      })
+      .addCase(fetchGuestOrder.rejected, (state, {payload}:PayloadAction<any>) => {
+        state.loading = false;
+        state.errors = payload;
+      })
+      /**
+       * *CREATE GUEST ORDER
+       */
+
+      .addCase(createGuestOrder.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(createGuestOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        createGuestOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
       /**
        * * UPDATE AN ORDER
        */
