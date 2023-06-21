@@ -15,7 +15,7 @@ import axios from 'axios';
 import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import Checkout from './Checkout';
 import { Elements } from '@stripe/react-stripe-js';
-import { TOrder, createOrder } from '../../redux/slices/orderSlice';
+import { TOrder, createGuestOrder, createOrder } from '../../redux/slices/orderSlice';
 import {
   fetchSinglePromo,
   selectPromo,
@@ -25,7 +25,7 @@ import { TShippingAddress } from '../../redux/slices/userSlice';
 import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShippingAddress';
 import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
 import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
-import { selectCart, removeFromCart } from '../../redux/slices/cartSlice';
+import { selectCart, removeFromCart, fetchUserCart } from '../../redux/slices/cartSlice';
 import x from '../../../src/assets/icons/x.svg';
 import Counter from '../Counter';
 
@@ -45,6 +45,7 @@ export default function Recap() {
   const [promo, setPromo] = useState<string>('');
   const [currentShippingAddress, setCurrentShippingAddress] =
     useState<TShippingAddress | null>(null);
+    const {cart} = useAppSelector(selectCart);
   // const [count, setCount] = useState(qty);
 
   const [isCheckoutCancel, setIsCheckoutCancel] = useState<boolean>(false);
@@ -65,17 +66,27 @@ export default function Recap() {
   }, [userId]);
 
   useEffect(() => {
+    dispatch(fetchUserCart(userId))
+  }, [])
+
+  useEffect(() => {
     // examine user addresses
     // if none, open the manage addresses view & have it render the new address form
     // otherwise, rearrange address array such that any default is at pos'n 0
     if (user) {
-      if (user.shippingAddresses?.length === 0) {
-        setManageShippingAddress(true); // TODO: make the manage form render the create new address form
-      } else {
+      if (user?.shippingAddresses?.length > 0) {
         orderAddressArray(); // this SHOULD get fired when we select a new default...
+      } else {
+        setManageShippingAddress(true); // TODO: make the manage form render the create new address form
       }
     }
   }, [user]);
+
+
+  useEffect(() => {
+    console.log('addr', addresses);
+  }, [addresses])
+
 
   useEffect(() => {
     if (isCheckoutCancel) {
@@ -105,10 +116,6 @@ export default function Recap() {
     setAddresses(addressList);
   }
 
-  useEffect(() => {
-    // populate addresses list if it's not already done
-    orderAddressArray();
-  }, [user]);
 
   // const currentShippingAddress = getCurrentAddress(); // ? should probably call this from a useEffect
   // ? should store this info in a state variable & pass setter to manager component
@@ -132,7 +139,7 @@ export default function Recap() {
 
     const userOrder = {} as Partial<TOrder>;
     userOrder.orderDetails = [];
-    for (let product of user.cart.products) {
+    for (let product of cart.products) {
       userOrder.orderDetails.push({
         productId: product._id,
         productName: product.product.productName,
@@ -182,6 +189,7 @@ export default function Recap() {
   // ? consider pulling Stripe shit into a separate component
   const handleCheckout = async (e: any) => {
     e.preventDefault();
+
     try {
       if (userId) {
         await dispatch(
@@ -195,6 +203,24 @@ export default function Recap() {
         setClientSecret(data.clientSecret);
 
         return data;
+
+      } else {
+
+
+        const order = orderDetails();
+        delete order.user!.userId;
+
+        await dispatch(createGuestOrder( order))
+        const { data } = await axios.post(
+          'http://localhost:3001/api/checkout/create-guest-payment-intent',
+          cart,
+          { withCredentials: true }
+        );
+        setClientSecret(data.clientSecret);
+
+        return data;
+
+
       }
     } catch (err) {
       console.log(err);
@@ -232,9 +258,9 @@ export default function Recap() {
    */
 
 
-  if (!user?.cart?.products) return <h1>Loading cart...</h1>;
-  if (!addresses || addresses.length === 0)
-    return <h1>Loading address book...</h1>;
+  // if (!user?.cart?.products) return <h1>Loading cart...</h1>;
+  // if (!addresses || addresses.length === 0)
+  //   return <h1>Loading address book...</h1>;
 
   return (
     <div className='recap-container m-10 max-w-[1440px] mx-auto'>
@@ -247,7 +273,7 @@ export default function Recap() {
 
         <div className='product-recap flex  w-full justify-between gap-10 border border-charcoal p-10'>
           <div className='flex w-3/5 flex-col '>
-            {user.cart.products.map((item) => {
+            {cart.products.map((item) => {
               return (
                 <div key={item._id} className='flex h-56'>
                   <img
@@ -257,7 +283,7 @@ export default function Recap() {
                       await dispatch(
                         removeFromCart({
                           productId: item.product._id.toString(),
-                          userId: user._id,
+                          userId,
                           qty: item.qty,
                         })
                       );
@@ -305,7 +331,7 @@ export default function Recap() {
 
         <div className='flex h-44 w-5/6 flex-col justify-center border border-charcoal bg-[#31333A]'>
           <h2 className='pl-5 font-italiana text-base uppercase tracking-wide text-white lg:text-xl'>
-            order subtotal: ${user.cart.subtotal}
+            order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
@@ -339,11 +365,11 @@ export default function Recap() {
               <p className='font-italiana text-base text-white lg:text-xl'>
                 <span className='uppercase '>discount:</span> (promo code '
                 {verifyPromo.promoCodeName}
-                '): - ${(user.cart.subtotal * verifyPromo.promoRate).toFixed(2)}
+                '): - ${(cart.subtotal * verifyPromo.promoRate).toFixed(2)}
               </p>
               <p className='font-italiana text-base text-white lg:text-3xl '>
                 <span className='uppercase'>order total:</span> $
-                {(user.cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
+                {(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
               </p>
             </div>
           )}
@@ -389,7 +415,7 @@ export default function Recap() {
           )}
           {!clientSecret ? (
             <div className='relative flex h-full w-full border border-charcoal bg-slate-300 font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6 max-w-[800px]'>
-              {!manageShippingAddress ? (
+              {!manageShippingAddress && addresses.length > 0 ? (
                 <>
                   <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose'>
                     <div className='flex flex-col self-center'>
@@ -427,6 +453,7 @@ export default function Recap() {
                   user={user}
                   setManageShippingAddress={setManageShippingAddress}
                   addresses={addresses}
+                  setAddresses={setAddresses}
                   addressIndex={addressIndex}
                   setAddressIndex={setAddressIndex}
                   clientSecret={clientSecret}
