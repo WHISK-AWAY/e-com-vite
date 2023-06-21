@@ -284,7 +284,7 @@ AllProductsProps) {
 
               {(userId &&
                 !userFavorites
-                  .map((fav) => fav._id)
+                  ?.map((fav) => fav._id)
                   .includes(product._id.toString())) ||
               !userId ? (
                 <div
