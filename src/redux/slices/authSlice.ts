@@ -3,6 +3,7 @@ import type { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
+import { ICart } from './cartSlice';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -66,6 +67,21 @@ export const requestLogin = createAsyncThunk(
         credentials,
         { withCredentials: true }
       );
+
+      const guestCart = window.localStorage.getItem('guestCart');
+      if (guestCart) {
+        const cart = JSON.parse(guestCart) as ICart;
+        for (let item of cart.products) {
+          await axios.post(
+            VITE_API_URL + `/api/user/${res.data.userId}/cart/add-item`,
+            { productId: item.product._id, qty: item.qty },
+            { withCredentials: true }
+          );
+        }
+
+        window.localStorage.removeItem('guestCart');
+        console.log('guest cart merged & cleared');
+      }
 
       return res.data;
     } catch (err: any) {
