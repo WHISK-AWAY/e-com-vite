@@ -15,7 +15,11 @@ import axios from 'axios';
 import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import Checkout from './Checkout';
 import { Elements } from '@stripe/react-stripe-js';
-import { TOrder, createGuestOrder, createOrder } from '../../redux/slices/orderSlice';
+import {
+  TOrder,
+  createGuestOrder,
+  createOrder,
+} from '../../redux/slices/orderSlice';
 import {
   fetchSinglePromo,
   selectPromo,
@@ -25,7 +29,11 @@ import { TShippingAddress } from '../../redux/slices/userSlice';
 import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShippingAddress';
 import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
 import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
-import { selectCart, removeFromCart, fetchUserCart } from '../../redux/slices/cartSlice';
+import {
+  selectCart,
+  removeFromCart,
+  fetchUserCart,
+} from '../../redux/slices/cartSlice';
 import x from '../../../src/assets/icons/x.svg';
 import Counter from '../Counter';
 
@@ -45,7 +53,7 @@ export default function Recap() {
   const [promo, setPromo] = useState<string>('');
   const [currentShippingAddress, setCurrentShippingAddress] =
     useState<TShippingAddress | null>(null);
-    const {cart} = useAppSelector(selectCart);
+  const { cart } = useAppSelector(selectCart);
   // const [count, setCount] = useState(qty);
 
   const [isCheckoutCancel, setIsCheckoutCancel] = useState<boolean>(false);
@@ -66,8 +74,8 @@ export default function Recap() {
   }, [userId]);
 
   useEffect(() => {
-    dispatch(fetchUserCart(userId))
-  }, [])
+    dispatch(fetchUserCart(userId));
+  }, []);
 
   useEffect(() => {
     // examine user addresses
@@ -81,12 +89,6 @@ export default function Recap() {
       }
     }
   }, [user]);
-
-
-  useEffect(() => {
-    console.log('addr', addresses);
-  }, [addresses])
-
 
   useEffect(() => {
     if (isCheckoutCancel) {
@@ -116,10 +118,6 @@ export default function Recap() {
     setAddresses(addressList);
   }
 
-
-  // const currentShippingAddress = getCurrentAddress(); // ? should probably call this from a useEffect
-  // ? should store this info in a state variable & pass setter to manager component
-
   /**
    * *ORDER CREATION WITH PENDING STATUS
    */
@@ -131,7 +129,6 @@ export default function Recap() {
   };
 
   const orderDetails = () => {
-    // ? can this be shifted off to utilities?
     /**
      * Construct object for use in order creation
      * Called by submit handler
@@ -169,6 +166,9 @@ export default function Recap() {
       },
     } as Pick<TOrder, 'user'>;
 
+    if (usr.user.shippingInfo.address_2 === '')
+      delete usr.user.shippingInfo.address_2;
+
     userOrder.orderStatus = 'pending';
 
     if (verifyPromo.promoCodeName) {
@@ -184,9 +184,6 @@ export default function Recap() {
     return userOrder;
   };
 
-  //address shit
-
-  // ? consider pulling Stripe shit into a separate component
   const handleCheckout = async (e: any) => {
     e.preventDefault();
 
@@ -203,14 +200,11 @@ export default function Recap() {
         setClientSecret(data.clientSecret);
 
         return data;
-
       } else {
-
-
         const order = orderDetails();
         delete order.user!.userId;
 
-        await dispatch(createGuestOrder( order))
+        await dispatch(createGuestOrder(order));
         const { data } = await axios.post(
           'http://localhost:3001/api/checkout/create-guest-payment-intent',
           cart,
@@ -219,8 +213,6 @@ export default function Recap() {
         setClientSecret(data.clientSecret);
 
         return data;
-
-
       }
     } catch (err) {
       console.log(err);
@@ -257,13 +249,12 @@ export default function Recap() {
    * ! EARLY RETURN GUARDS (no hooks below here, please!)
    */
 
-
   // if (!user?.cart?.products) return <h1>Loading cart...</h1>;
   // if (!addresses || addresses.length === 0)
   //   return <h1>Loading address book...</h1>;
 
   return (
-    <div className='recap-container m-10 max-w-[1440px] mx-auto'>
+    <div className='recap-container m-10 mx-auto max-w-[1440px]'>
       <section className='order-recap flex flex-col items-center'>
         {/* PRODUCTS RECAP */}
 
@@ -406,7 +397,7 @@ export default function Recap() {
         <div className='shipping-detail m-20 flex h-full flex-col items-center justify-center '>
           {!clientSecret && (
             <div className='flex h-full w-full flex-col items-center lg:w-4/6'>
-              <h2 className='xl:w-3/6 h-full w-5/6 border-l border-r border-t border-charcoal  py-2 text-center font-italiana text-lg  uppercase md:w-4/6 lg:w-5/6 2xl:w-6/12'>
+              <h2 className='h-full w-5/6 border-l border-r border-t border-charcoal py-2  text-center font-italiana text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-6/12'>
                 {manageShippingAddress
                   ? 'address book'
                   : 'your order will be delivered to:'}{' '}
@@ -414,7 +405,7 @@ export default function Recap() {
             </div>
           )}
           {!clientSecret ? (
-            <div className='relative flex h-full w-full border border-charcoal bg-slate-300 font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6 max-w-[800px]'>
+            <div className='relative flex h-full w-full max-w-[800px] border border-charcoal bg-slate-300 font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6'>
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
                   <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose'>
