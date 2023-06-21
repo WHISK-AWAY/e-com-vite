@@ -79,7 +79,7 @@ const orderSchema = new Schema<IOrder>(
       promoCodeRate: Number,
     },
     date: { type: Date, default: Date.now },
-    orderStatus: { type: String, requires: true },
+    orderStatus: { type: String, required: true, default: 'pending' },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
@@ -105,11 +105,11 @@ orderSchema.virtual('total').get(function () {
 orderSchema.post('findOneAndUpdate', async function (result) {
   const updatedFields = this.getUpdate() as UpdateQuery<any>;
 
-  if (!updatedFields) return;
+  if (!updatedFields || !result) return;
 
   if (updatedFields) {
     if (updatedFields['$set']?.orderStatus === 'confirmed') {
-      for (let product of result.orderDetails) {
+      for (let product of result?.orderDetails) {
         const updateSaleStats = await Statistics.findOneAndUpdate(
           { 'bestsellerRef.productId': product.productId },
           { $inc: { 'bestsellerRef.saleCount': product.qty } },

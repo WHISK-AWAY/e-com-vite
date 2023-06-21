@@ -4,7 +4,7 @@ import z from 'zod';
 import { zodOrder } from '../utils';
 import { TOrderQuery } from './orderRouter';
 import Product from '../database/Product';
-import Order from '../database/Order';
+import Order, { IOrder } from '../database/Order';
 import { IProduct, ImageData, Promo } from '../database';
 
 const zodCart = z.object({
@@ -22,13 +22,15 @@ type TGuestZodOrderInput = z.infer<typeof zodOrder>;
 
 router.get('/:orderId', async (req, res, next) => {
   try {
-    const {orderId} = req.params;
-    const order = await Order.findById(orderId)
+    const { orderId } = req.params;
+    const order = await Order.findById(orderId);
 
-    if(!order) return res.status(404).json({message: 'The order with the given ID does not exist'});
+    if (!order)
+      return res
+        .status(404)
+        .json({ message: 'The order with the given ID does not exist' });
 
-
-    res.status(200).json(order)
+    res.status(200).json(order);
   } catch (err) {
     next(err);
   }
@@ -37,11 +39,9 @@ router.get('/:orderId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const order = zodOrder.parse(req.body.order) as TGuestZodOrderInput;
-    console.log('req.b', req.body.cart)
     const cart = zodCart.parse(JSON.parse(req.body.cart));
     const prodId = cart.products.map((p) => p.product._id);
     const product = await Product.find({ _id: { $in: prodId } });
-
 
     const newOrder: TOrderQuery = {
       orderDetails: cart.products.map((p) => {
@@ -51,8 +51,9 @@ router.post('/', async (req, res, next) => {
         return {
           productId: p.product._id,
           imageURL:
-            prod.images.find((image: ImageData) => image.imageDesc === 'product-front')
-              ?.imageURL || prod.images[0].imageURL,
+            prod.images.find(
+              (image: ImageData) => image.imageDesc === 'product-front'
+            )?.imageURL || prod.images[0].imageURL,
           price: prod.price,
           productShortDesc: prod.productShortDesc,
           productName: prod.productName,
@@ -62,29 +63,59 @@ router.post('/', async (req, res, next) => {
 
       user: {
         shippingInfo: order.user.shippingInfo,
-
-      }
+      },
     };
-
 
     const guestPromoCode = order.promoCode;
 
-    if(guestPromoCode) {
+    if (guestPromoCode) {
       const promoLookup = await Promo.findOne({
         promoCodeName: guestPromoCode.promoCodeName,
       });
 
-      if(promoLookup) {
+      if (promoLookup) {
         newOrder.promoCode = {
           promoCodeName: promoLookup.promoCodeName,
-          promoCodeRate: promoLookup.promoRate
-        }
+          promoCodeRate: promoLookup.promoRate,
+        };
       }
     }
 
     const orderToCreate = await Order.create(newOrder);
 
     res.status(201).json(orderToCreate);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+
+    const foundOrder = (await Order.findOneAndUpdate(
+      {
+        _id: orderId,
+        orderStatus: 'pending',
+        'user.userId': { $exists: false },
+      },
+      { orderStatus: 'confirmed' },
+      { returnDocument: 'after' }
+    )) as IOrder | null;
+
+    if (!foundOrder) {
+      return res
+        .status(404)
+        .send({ message: 'Requested order could not be located.' });
+    }
+
+    for (let item of foundOrder?.orderDetails) {
+      await Product.findByIdAndUpdate(item.productId, {
+        $inc: { qty: item.qty * -1 },
+      });
+    }
+
+    return res.status(200).json(foundOrder);
   } catch (err) {
     next(err);
   }

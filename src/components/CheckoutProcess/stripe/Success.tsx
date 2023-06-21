@@ -6,6 +6,7 @@ import {
   fetchSingleOrder,
   resetOrderState,
   selectOrderState,
+  updateGuestOrder,
   updateOrder,
 } from '../../../redux/slices/orderSlice';
 import { useEffect } from 'react';
@@ -15,20 +16,30 @@ import { useSearchParams } from 'react-router-dom';
 // * 4242 4242 4242 4242
 export default function Success() {
   const dispatch = useAppDispatch();
-  const [params, setParams] = useSearchParams();
+  const [params, _] = useSearchParams();
   const userId = useAppSelector(selectAuthUserId);
   const { singleOrder } = useAppSelector(selectOrderState);
   const userOrder = useAppSelector(selectOrderState);
   const orderId = params.get('order');
   // const user = useAppSelector(selectSingleUser);
 
-  useEffect(() => {
-    if (userId && userOrder.singleOrder?._id)
-      dispatch(updateOrder({ userId, orderId: userOrder.singleOrder?._id }));
-  }, [userId, userOrder.singleOrder]);
+  // useEffect(() => {
+  //   if (userId && userOrder.singleOrder?._id)
+  //     dispatch(updateOrder({ userId, orderId: userOrder.singleOrder?._id }));
+  // }, [userId, userOrder.singleOrder]);
 
   useEffect(() => {
-    if (userId && orderId) dispatch(fetchSingleOrder({ userId, orderId }));
+    if (orderId) {
+      if (userId) {
+        dispatch(updateOrder({ userId, orderId })).then(() =>
+          dispatch(fetchSingleOrder({ userId, orderId }))
+        );
+      } else {
+        dispatch(updateGuestOrder({ orderId })).then(() =>
+          dispatch(fetchGuestOrder(orderId))
+        );
+      }
+    }
   }, [userId, orderId]);
 
   // function resetOrder() {
@@ -38,9 +49,13 @@ export default function Success() {
   // useEffect(() => {
   //   return resetOrder;
   // }, []);
-  useEffect(() => {
-    if(!userId && orderId) dispatch(fetchGuestOrder(orderId))
-  }, [orderId])
+  // useEffect(() => {
+  //   if (!userId && orderId) {
+  //     dispatch(fetchGuestOrder(orderId)).then(() => {
+  //       dispatch(updateGuestOrder({ orderId }));
+  //     });
+  //   }
+  // }, [orderId]);
 
   if (!singleOrder)
     return (
@@ -67,8 +82,8 @@ export default function Success() {
       {singleOrder.promoCode && (
         <>
           <p>
-            discount:
-            -{(
+            discount: -
+            {(
               singleOrder.subtotal! * singleOrder.promoCode?.promoCodeRate || 0
             ).toFixed(2)}
           </p>

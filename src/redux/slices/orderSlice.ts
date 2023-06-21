@@ -122,7 +122,7 @@ export const fetchGuestOrder = createAsyncThunk(
     try {
       const { data } = await axios.get(
         VITE_API_URL + `/api/guest-order/${orderId}`,
-        
+
         { withCredentials: true }
       );
 
@@ -201,6 +201,33 @@ export const updateOrder = createAsyncThunk(
     try {
       const { data } = await axios.put(
         VITE_API_URL + `/api/user/${userId}/order/${orderId}`,
+        {},
+        { withCredentials: true }
+      );
+
+      return data;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      }
+    }
+  }
+);
+
+/**
+ * * UPDATE GUEST ORDER
+ */
+
+export const updateGuestOrder = createAsyncThunk(
+  'order/updateGuestOrder',
+  async ({ orderId }: { orderId: string }, thunkApi) => {
+    window.localStorage.removeItem('guestCart');
+    try {
+      const { data } = await axios.put(
+        VITE_API_URL + `/api/guest-order/${orderId}`,
         {},
         { withCredentials: true }
       );
@@ -298,17 +325,19 @@ const orderSlice = createSlice({
 
       .addCase(fetchGuestOrder.pending, (state) => {
         state.loading = true;
-
       })
-      .addCase(fetchGuestOrder.fulfilled, (state, {payload} ) => {
+      .addCase(fetchGuestOrder.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.singleOrder = payload;
-        state.errors = {...initialState.errors}
+        state.errors = { ...initialState.errors };
       })
-      .addCase(fetchGuestOrder.rejected, (state, {payload}:PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = payload;
-      })
+      .addCase(
+        fetchGuestOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
       /**
        * *CREATE GUEST ORDER
        */
@@ -342,6 +371,26 @@ const orderSlice = createSlice({
       })
       .addCase(
         updateOrder.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      );
+
+    /**
+     * * UPDATE GUEST ORDER
+     */
+    builder
+      .addCase(updateGuestOrder.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateGuestOrder.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.singleOrder = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(
+        updateGuestOrder.rejected,
         (state, { payload }: PayloadAction<any>) => {
           state.loading = false;
           state.errors = payload;
