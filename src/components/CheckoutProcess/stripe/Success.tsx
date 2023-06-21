@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { selectAuthUserId } from '../../../redux/slices/authSlice';
+import { getUserId, selectAuthUserId } from '../../../redux/slices/authSlice';
 import {
   createOrder,
   fetchGuestOrder,
@@ -30,15 +30,17 @@ export default function Success() {
 
   useEffect(() => {
     if (orderId) {
-      if (userId) {
-        dispatch(updateOrder({ userId, orderId })).then(() =>
-          dispatch(fetchSingleOrder({ userId, orderId }))
-        );
-      } else {
-        dispatch(updateGuestOrder({ orderId })).then(() =>
-          dispatch(fetchGuestOrder(orderId))
-        );
-      }
+      dispatch(getUserId()).then(() => {
+        if (userId) {
+          dispatch(updateOrder({ userId, orderId })).then(() =>
+            dispatch(fetchSingleOrder({ userId, orderId }))
+          );
+        } else {
+          dispatch(updateGuestOrder({ orderId })).then(() =>
+            dispatch(fetchGuestOrder(orderId))
+          );
+        }
+      });
     }
   }, [userId, orderId]);
 

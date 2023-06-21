@@ -80,7 +80,6 @@ export const requestLogin = createAsyncThunk(
         }
 
         window.localStorage.removeItem('guestCart');
-        console.log('guest cart merged & cleared');
       }
 
       return res.data;
