@@ -1,13 +1,21 @@
 import { useEffect } from 'react';
-import { selectAuth, requestSignUp } from '../redux/slices/authSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { ZodType, z } from 'zod';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { ZodType, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import {
+  selectAuth,
+  requestSignUp,
+  requestLogin,
+} from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
 
 export default function SignUp() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const selectAuthUser = useAppSelector(selectAuth);
+
   const zodUser: ZodType<FormData> = z
     .object({
       firstName: z.string().min(1),
@@ -43,9 +51,6 @@ export default function SignUp() {
     password: string;
     confirmPassword: string;
   };
-
-  const dispatch = useAppDispatch();
-  const selectAuthUser = useAppSelector(selectAuth);
 
   const {
     register,
@@ -105,55 +110,57 @@ export default function SignUp() {
   }, [errors.confirmPassword]);
 
   const submitData = (data: FormData) => {
-    // e.preventDefault();
-    // console.log('works', data);
-    dispatch(requestSignUp(data));
+    dispatch(requestSignUp(data))
+      .then(() =>
+        dispatch(requestLogin({ email: data.email, password: data.password }))
+      )
+      .then(() => navigate('/shop-all'));
   };
 
   return (
-    <section className="sign-up-form-container">
+    <section className='sign-up-form-container'>
       <div>
         <h1>SIGN UP</h1>
-        <form className="sign-up-form" onSubmit={handleSubmit(submitData)}>
-          <div className="first-name-field">
-            <label htmlFor="first-name">first name</label>
-            <input type="text" {...register('firstName')}></input>
+        <form className='sign-up-form' onSubmit={handleSubmit(submitData)}>
+          <div className='first-name-field'>
+            <label htmlFor='first-name'>first name</label>
+            <input type='text' {...register('firstName')}></input>
             {errors.firstName && <p>{errors.firstName.message}</p>}
           </div>
-          <div className="last-name-field">
-            <label htmlFor="last-name">last name</label>
-            <input type="text" {...register('lastName')}></input>
+          <div className='last-name-field'>
+            <label htmlFor='last-name'>last name</label>
+            <input type='text' {...register('lastName')}></input>
             {errors.lastName && <p>{errors.lastName.message}</p>}
           </div>
-          <div className="email-field">
-            <label htmlFor="email">email</label>
+          <div className='email-field'>
+            <label htmlFor='email'>email</label>
             <input
-              type="email"
+              type='email'
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
             ></input>
             {errors.email && <p>{errors.email.message}</p>}
           </div>
-          <div className="password-field">
-            <label htmlFor="password">password</label>
-            <input type="password" {...register('password')}></input>
+          <div className='password-field'>
+            <label htmlFor='password'>password</label>
+            <input type='password' {...register('password')}></input>
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <div className="confirm-password-field">
-            <label htmlFor="confirm-password">confirm password</label>
-            <input type="password" {...register('confirmPassword')}></input>
+          <div className='confirm-password-field'>
+            <label htmlFor='confirm-password'>confirm password</label>
+            <input type='password' {...register('confirmPassword')}></input>
             {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
           </div>
-          <button type="submit">submit</button>
+          <button type='submit'>submit</button>
         </form>
         <p>
-          <Link to="/sign-in" className="text-green-400">
+          <Link to='/sign-in' className='text-green-400'>
             Sign In
           </Link>
         </p>
         <p>
-          <Link to="/" className="text-green-400">
+          <Link to='/' className='text-green-400'>
             Home
           </Link>
         </p>

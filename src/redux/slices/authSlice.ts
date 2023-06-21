@@ -43,7 +43,7 @@ export const requestSignUp = createAsyncThunk(
         userInfo,
         { withCredentials: true }
       );
-
+      console.log('signup thunk data received', data);
       return data;
     } catch (err: any) {
       if (err instanceof AxiosError)
@@ -228,10 +228,3 @@ export const authSlice = createSlice({
 export const selectAuth = (state: RootState) => state.auth;
 export const selectAuthUserId = (state: RootState) => state.auth.userId;
 export default authSlice.reducer;
-
-/**
- * ? how do we deal with guest carts...?
- *  can cart info be stored w/session?
- *  does session hold steady for a given non-logged-in user?
- *  can we automatically create a guest user when guest adds item to cart?
- */
