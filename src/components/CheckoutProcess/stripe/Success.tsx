@@ -44,21 +44,6 @@ export default function Success() {
     }
   }, [userId, orderId]);
 
-  // function resetOrder() {
-  //   dispatch(resetOrderState());
-  // }
-
-  // useEffect(() => {
-  //   return resetOrder;
-  // }, []);
-  // useEffect(() => {
-  //   if (!userId && orderId) {
-  //     dispatch(fetchGuestOrder(orderId)).then(() => {
-  //       dispatch(updateGuestOrder({ orderId }));
-  //     });
-  //   }
-  // }, [orderId]);
-
   if (!singleOrder)
     return (
       <div>
