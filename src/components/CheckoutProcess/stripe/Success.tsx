@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { selectAuthUserId } from '../../../redux/slices/authSlice';
 import {
   createOrder,
+  fetchGuestOrder,
   fetchSingleOrder,
   resetOrderState,
   selectOrderState,
@@ -37,6 +38,9 @@ export default function Success() {
   // useEffect(() => {
   //   return resetOrder;
   // }, []);
+  useEffect(() => {
+    if(!userId && orderId) dispatch(fetchGuestOrder(orderId))
+  }, [orderId])
 
   if (!singleOrder)
     return (
