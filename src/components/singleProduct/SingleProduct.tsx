@@ -45,6 +45,7 @@ import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
 import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
+import honey from '../../../src/assets/vid/honey_dipper.mp4';
 
 const bgImgs = [
   lemons,
@@ -62,7 +63,7 @@ const bgImgs = [
   agave2,
 ];
 
-const bgVids = [flowerShower, grapeLady, flowerCloseUp];
+const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
