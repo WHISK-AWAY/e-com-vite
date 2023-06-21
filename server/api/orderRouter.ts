@@ -44,11 +44,11 @@ type TzodOrderInput = z.infer<typeof zodOrder>;
 
 // ensure correct shape for Order.create() query
 // since promoCode exists already, have to re-write it in the way Order expects
-type TOrderQuery = Omit<TzodOrderInput, 'promoCode'> & {
+export type TOrderQuery = Omit<TzodOrderInput, 'promoCode'> & {
   orderDetails: {
-    productId: mongoose.Types.ObjectId;
+    productId: mongoose.Types.ObjectId | string;
     productName: string;
-    productIngredients: string;
+    productIngredients?: string;
     productShortDesc: string;
     imageURL: string;
     price: number;
@@ -182,21 +182,14 @@ router.post(
 
       // create new order
       const createdOrder = await Order.create(newOrderInput);
-
-      // purge user cart if order creation was successful
-      // if (createdOrder) {
-      //   user.cart.clearCart!({ restock: false });
-      // }
-
-      // const newOrder = await Order.findById(createdOrder._id);
-      // console.log('newOrder:', newOrder);
-
       res.status(201).json(createdOrder);
     } catch (err) {
       next(err);
     }
   }
 );
+
+
 
 // update order status
 router.put(
