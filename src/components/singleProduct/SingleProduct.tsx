@@ -43,6 +43,7 @@ import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
 
 // * test vid
 import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
+import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 
 const bgImgs = [
   lemons,
@@ -60,7 +61,7 @@ const bgImgs = [
   agave2,
 ];
 
-const bgVids = [flowerShower];
+const bgVids = [flowerShower, grapeLady];
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -375,7 +376,7 @@ export default function SingleProduct() {
               autoPlay={true}
               loop={true}
               muted={true}
-              src={flowerShower}
+              src={bgVid}
               className='aspect-[2/3] w-full object-cover'
             />
           ) : (
