@@ -15,7 +15,10 @@ export type FormData = {
 const zodLogin: ZodType<FormData> = z
   .object({
     email: z.string().email(),
-    password: z.string().min(8, {message: 'Password must be at least 8 characters long'}).max(20, {message: 'Password must be 20 characters at most'}),
+    password: z
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters long' })
+      .max(20, { message: 'Password must be 20 characters at most' }),
   })
   .strict();
 
@@ -94,10 +97,7 @@ export default function SignIn() {
           </div>
           <div className='password-field'>
             <label htmlFor='password'>password</label>
-            <input
-              type='password'
-              {...register('password')}
-            />
+            <input type='password' {...register('password')} />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
           <input type='submit' />
