@@ -69,6 +69,7 @@ export default function Cart({
                 </div>
                 <Link
                   to={'/checkout'}
+                  onClick={() => setIsCartHidden(true)}
                   className='rounded-sm bg-charcoal px-6  py-3 text-center  font-italiana text-base text-white lg:px-10 xl:px-14 xl:text-xl'
                 >
                   PROCEED TO CHECKOUT
@@ -77,6 +78,7 @@ export default function Cart({
 
                 <Link
                   to={'/shop-all'}
+                  onClick={() => setIsCartHidden(true)}
                   className='w-fit border border-charcoal px-6 font-italiana text-sm lg:py-1  xl:text-base '
                 >
                   continue shopping
