@@ -383,6 +383,7 @@ const orderSlice = createSlice({
     builder
       .addCase(updateGuestOrder.pending, (state) => {
         state.loading = true;
+        state.errors = initialState.errors;
       })
       .addCase(updateGuestOrder.fulfilled, (state, { payload }) => {
         state.loading = false;
