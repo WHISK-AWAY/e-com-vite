@@ -136,10 +136,13 @@ router.post(
       );
       if (!user) return res.status(404).json({ message: 'User not found' });
 
+      console.log('order user:', user);
+
+      if (!user.cart.products.length)
+        return res.status(409).json({ message: "User's cart is empty" });
+
       // re-cast user cart: TS doesn't know the shape of a "populated" cart
       const userCart = user.cart.products as unknown as TExpandedCartProduct[];
-      if (!userCart.length)
-        return res.status(409).json({ message: "User's cart is empty" });
 
       // build up object for new order creation
       const newOrderInput: TOrderQuery = {
@@ -188,8 +191,6 @@ router.post(
     }
   }
 );
-
-
 
 // update order status
 router.put(
