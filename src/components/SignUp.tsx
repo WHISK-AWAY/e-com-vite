@@ -38,7 +38,7 @@ export default function SignUp() {
       if (password !== confirmPassword) {
         ctx.addIssue({
           code: 'custom',
-          message: 'Password fields do  not match',
+          message: 'Password fields do not match',
           path: ['confirmPassword'],
         });
       }
