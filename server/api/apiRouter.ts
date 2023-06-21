@@ -10,6 +10,7 @@ import promoRouter from './promoRouter';
 import checkoutRouter from './checkoutRouter';
 import stripeRouter from './stripeRouter';
 import tagRouter from './tagRouter';
+import guestRouter from './guestRouter'
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.use('/promo', promoRouter);
 // router.use('/checkout', checkoutRouter);
 router.use('/checkout', stripeRouter);
 router.use('/tag', tagRouter);
+router.use('/guest-order', guestRouter)
 
 export default router;
