@@ -44,6 +44,7 @@ import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
 // * test vid
 import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
+import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 
 const bgImgs = [
   lemons,
@@ -61,7 +62,7 @@ const bgImgs = [
   agave2,
 ];
 
-const bgVids = [flowerShower, grapeLady];
+const bgVids = [flowerShower, grapeLady, flowerCloseUp];
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -131,13 +132,6 @@ export default function SingleProduct() {
       } else setUserHasReviewed(false);
     }
   }, [allReviews, userId]);
-
-  useEffect(() => {
-    // ! debugging
-    console.log(
-      userHasReviewed ? 'user has reviewed' : 'user has not reviewed'
-    );
-  }, [userHasReviewed]);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
