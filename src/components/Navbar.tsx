@@ -155,13 +155,13 @@ export default function Navbar() {
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
         {
           <div onClick={() => setIsCartHidden((prev) => !prev)}>
-            <img src={bag} className=' lg:w-5 ' />
+            <img src={bag} className='cursor-pointer lg:w-5' />
           </div>
         }
         {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
         {
           <div onClick={() => setIsFavHidden((prev) => !prev)}>
-            <img src={heart3} className=' lg:w-5 ' />
+            <img src={heart3} className='cursor-pointer lg:w-5' />
           </div>
         }
         {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
