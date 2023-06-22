@@ -83,7 +83,7 @@ export function fillInAddress({
       }
 
       case 'administrative_area_level_1': {
-        state.vaslue = component.short_name;
+        state.value = component.short_name;
         break;
       }
     }
