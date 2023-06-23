@@ -87,8 +87,6 @@ AllProductsProps) {
     ? 2
     : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
-  console.log('maxp', maxPages);
-
   useEffect(() => {
     // console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
     // console.log('path', pathname);
@@ -285,9 +283,10 @@ AllProductsProps) {
               />
 
               {(userId &&
-              !userFavorites
-                .map((fav) => fav._id)
-                .includes(product._id.toString())) || !userId ? (
+                !userFavorites
+                  ?.map((fav) => fav._id)
+                  .includes(product._id.toString())) ||
+              !userId ? (
                 <div
                   className=' absolute right-[6%] top-[5%]'
                   onClick={() => {

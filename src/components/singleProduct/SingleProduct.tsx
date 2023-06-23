@@ -34,6 +34,18 @@ import flaxSpoons from '../../../src/assets/bg-img/ingredient-bg/flax-spoons.jpg
 import olives from '../../../src/assets/bg-img/ingredient-bg/hand-olives.jpg';
 import honeyDrip from '../../../src/assets/bg-img/ingredient-bg/honey-drip.jpg';
 import slicedCitrus from '../../../src/assets/bg-img/ingredient-bg/sliced-citrus.jpg';
+import agave from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
+import raspberry from '../../../src/assets/bg-img/ingredient-bg/green-raspberry.jpg';
+import peonies from '../../../src/assets/bg-img/ingredient-bg/close-peonies.jpg';
+import honeycomb from '../../../src/assets/bg-img/ingredient-bg/honeycomb.jpg';
+import agaveAbstract from '../../../src/assets/bg-img/ingredient-bg/agave-abstract.jpg';
+import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
+
+// * test vid
+import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
+import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
+import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
+import honey from '../../../src/assets/vid/honey_dipper.mp4';
 
 const bgImgs = [
   lemons,
@@ -43,7 +55,15 @@ const bgImgs = [
   olives,
   honeyDrip,
   slicedCitrus,
+  agave,
+  raspberry,
+  peonies,
+  honeycomb,
+  agaveAbstract,
+  agave2,
 ];
+
+const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -60,6 +80,7 @@ export default function SingleProduct() {
   const [userHasReviewed, setUserHasReviewed] = useState(true);
   const [selectedImage, setSelectedImage] = useState('');
   const [bgImg, setBgImg] = useState('');
+  const [bgVid, setBgVid] = useState('');
 
   useEffect(() => {
     // * component initialization
@@ -71,7 +92,13 @@ export default function SingleProduct() {
       dispatch(fetchAllReviews(productId));
     }
 
-    setBgImg(bgImgs[Math.floor(Math.random() * bgImgs.length)]);
+    if (Math.random() < 0.5) {
+      setBgImg(bgImgs[Math.floor(Math.random() * bgImgs.length)]);
+      setBgVid('');
+    } else {
+      setBgVid(bgVids[Math.floor(Math.random() * bgVids.length)]);
+      setBgImg('');
+    }
   }, [productId]);
 
   useEffect(() => {
@@ -107,13 +134,6 @@ export default function SingleProduct() {
     }
   }, [allReviews, userId]);
 
-  useEffect(() => {
-    // ! debugging
-    console.log(
-      userHasReviewed ? 'user has reviewed' : 'user has not reviewed'
-    );
-  }, [userHasReviewed]);
-
   const qtyIncrementor = () => {
     let userQty: number = count;
     const totalQty: number = singleProduct!.qty!;
@@ -128,7 +148,7 @@ export default function SingleProduct() {
   };
 
   const handleClick = () => {
-    if ( productId) {
+    if (productId) {
       dispatch(addToCart({ userId, productId, qty: count }));
     }
   };
@@ -288,7 +308,7 @@ export default function SingleProduct() {
               <div className='price-counter flex flex-col items-center'>
                 <p className='price'>${singleProduct.price}</p>
 
-                <div className='qty-counter mb-14 mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
+                <div className='qty-counter mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
                   <div onClick={qtyDecrementor} className='cursor-pointer'>
                     <img src={minus} className='w-4 2xl:w-5' />
                   </div>
@@ -303,10 +323,16 @@ export default function SingleProduct() {
                     <img src={plus} className='w-4 2xl:w-5' />
                   </div>
                 </div>
+                {singleProduct.qty <= 10 && (
+                  <div className='font-grotesque text-xs text-red-800 lg:text-sm xl:text-lg 2xl:text-xl'>
+                    {singleProduct.qty === 0 ? 'out of stock' : 'limited stock'}
+                  </div>
+                )}
               </div>
               <button
                 onClick={handleClick}
-                className='w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
+                disabled={singleProduct.qty === 0}
+                className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
               >
                 add to cart
               </button>
@@ -340,7 +366,17 @@ export default function SingleProduct() {
       </section>
       <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
         <div className='bg-img basis-3/5 px-4'>
-          <img src={bgImg} className='aspect-[2/3] object-cover' />
+          {bgVid ? (
+            <video
+              autoPlay={true}
+              loop={true}
+              muted={true}
+              src={bgVid}
+              className='aspect-[2/3] w-full object-cover'
+            />
+          ) : (
+            <img src={bgImg} className='aspect-[2/3] object-cover' />
+          )}
         </div>
         <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
           <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
@@ -374,7 +410,7 @@ export default function SingleProduct() {
       <section
         id='review-container'
         ref={reviewSection}
-        className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 lg:w-10/12 lg:pt-10'
+        className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10'
       >
         <h2 className='self-start font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
@@ -396,9 +432,11 @@ export default function SingleProduct() {
             />
           ) : allReviews.reviews?.length < 1 ? (
             <>
-              <p>No reviews yet...be the first to leave one!</p>
+              <p className='mb-7'>
+                No reviews yet...be the first to leave one!
+              </p>
               <button
-                className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+                className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
                 onClick={() => setShowReviewForm((prev) => !prev)}
               >
                 write a review
@@ -408,7 +446,7 @@ export default function SingleProduct() {
             ''
           ) : (
             <button
-              className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:-translate-x-28 2xl:px-10 2xl:py-4 2xl:text-xl'
+              className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
               onClick={() => setShowReviewForm((prev) => !prev)}
             >
               write a review

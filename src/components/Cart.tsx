@@ -95,6 +95,7 @@ export default function Cart({
 
                 <Link
                   to={'/shop-all'}
+                  onClick={() => setIsCartHidden(true)}
                   className='w-fit border border-charcoal px-6 font-italiana text-sm lg:py-1  xl:text-base '
                 >
                   continue shopping

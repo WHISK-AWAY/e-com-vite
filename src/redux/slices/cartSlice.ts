@@ -147,46 +147,47 @@ export const addToCart = createAsyncThunk(
     args: { userId: string | null; productId: string; qty: number },
     thunkApi
   ) => {
-    if (!args.userId || args.userId === null) {
-      const guestProduct = await axios.get(
-        VITE_API_URL + `/api/product/${args.productId}`
-      );
-
-      const localGuestCart = localStorage.getItem('guestCart');
-
-      const prodDetails = {
-        product: guestProduct.data,
-        qty: args.qty,
-        price: guestProduct.data.price,
-        _id: args.productId,
-      };
-      let cart = { ...guestCart };
-      if (!localGuestCart || localGuestCart === null) {
-        cart.products.push(prodDetails);
-        cart.subtotal = prodDetails.qty * prodDetails.price;
-
-        localStorage.setItem('guestCart', JSON.stringify(cart));
-      } else {
-        cart = JSON.parse(localGuestCart);
-
-        const findProduct = cart.products.find(
-          (p) => p._id === guestProduct.data._id
+    try {
+      if (!args.userId || args.userId === null) {
+        const guestProduct = await axios.get(
+          VITE_API_URL + `/api/product/${args.productId}`
         );
 
-        if (findProduct) {
-          findProduct.qty += args.qty;
-          cart.subtotal += args.qty * findProduct.price;
+        const localGuestCart = localStorage.getItem('guestCart');
+
+        const prodDetails = {
+          product: guestProduct.data,
+          qty: args.qty,
+          price: guestProduct.data.price,
+          _id: args.productId,
+        };
+        let cart = { ...guestCart };
+        if (!localGuestCart || localGuestCart === null) {
+          cart.products.push(prodDetails);
+          cart.subtotal = prodDetails.qty * prodDetails.price;
+
           localStorage.setItem('guestCart', JSON.stringify(cart));
         } else {
-          cart.products.push(prodDetails);
-          cart.subtotal += args.qty * prodDetails.price;
-          localStorage.setItem('guestCart', JSON.stringify(cart));
+          cart = JSON.parse(localGuestCart);
+
+          const findProduct = cart.products.find(
+            (p) => p._id === guestProduct.data._id
+          );
+
+          if (findProduct) {
+            findProduct.qty += args.qty;
+            cart.subtotal += args.qty * findProduct.price;
+            localStorage.setItem('guestCart', JSON.stringify(cart));
+          } else {
+            cart.products.push(prodDetails);
+            cart.subtotal += args.qty * prodDetails.price;
+            localStorage.setItem('guestCart', JSON.stringify(cart));
+          }
         }
+
+        return cart;
       }
 
-      return cart;
-    }
-    try {
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${args.userId}/cart/add-item`,
         { productId: args.productId, qty: args.qty },
@@ -219,8 +220,8 @@ export const removeFromCart = createAsyncThunk(
 
       let cart = { ...guestCart };
       const localGuestCart = localStorage.getItem('guestCart');
-      if(localGuestCart) {
-        cart = JSON.parse(localGuestCart)
+      if (localGuestCart) {
+        cart = JSON.parse(localGuestCart);
       }
 
       const findProduct = cart.products.find(
@@ -242,7 +243,7 @@ export const removeFromCart = createAsyncThunk(
 
       return cart;
     }
-   
+
     try {
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${args.userId}/cart/remove-item`,

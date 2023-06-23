@@ -154,37 +154,29 @@ export default function Navbar() {
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
-        { (
+        {
           <div onClick={() => setIsCartHidden((prev) => !prev)}>
-            <img src={bag} className=' lg:w-5 ' />
+            <img src={bag} className='cursor-pointer lg:w-5' />
           </div>
-        )}
-
+        }
         {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
-    
-        { (
+        {
           <div onClick={() => setIsFavHidden((prev) => !prev)}>
-            <img src={heart3} className=' lg:w-5 ' />
+            <img src={heart3} className='cursor-pointer lg:w-5' />
           </div>
-        )}
-
+        }
         {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
-        {userId && (
+        {userId ? (
           <NavLink to={`/user/${userId}`}>
-            {' '}
             <img src={user} className=' lg:w-5 ' />
           </NavLink>
-        )}
-
-        {!userId && (
+        ) : (
           <NavLink to={`/sign-in`}>
-            {' '}
             <img src={user} className=' lg:w-5 ' />
           </NavLink>
         )}
         {userId && <button onClick={signOut}>SIGN OUT</button>}
         {/* <img src={searchIcon} className=' w-6 ' /> */}
-
         {/* <form onSubmit={(e) => handleFormSubmit(e)}>
           <input
             type='text'
@@ -203,7 +195,10 @@ export default function Navbar() {
         /> */}
       </div>
       {userId && role === 'admin' && (
-        <NavLink to='/admin' className='text-red-500'>
+        <NavLink
+          to='/admin'
+          className='fixed bottom-[5%] left-[5%] font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
+        >
           ADMIN
         </NavLink>
       )}

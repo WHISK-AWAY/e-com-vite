@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 
 import axios from 'axios';
-import { checkAddress } from '../../utilities/googleAddressValidation';
+import { validateAddress } from '../../utilities/googleAddressValidation';
 
 type ShippingProps = {
   user: TUser;
@@ -72,13 +72,7 @@ export default function ShippingInfo({ user }: ShippingProps) {
   const submitData = (addressData: ShippingInfoFields) => {
     console.log('inside submitData');
 
-    checkAddress({
-      addressLines: [addressData.address_1, addressData.address_2],
-      administrativeArea: addressData.state,
-      locality: addressData.city,
-      postalCode: addressData.zip,
-      regionCode: 'US',
-    }).then((validationInfo) => {
+    validateAddress(addressData).then((validationInfo) => {
       // if (validationInfo.result === 'confirmed') {
       if (true) {
         // * good shit
@@ -91,21 +85,21 @@ export default function ShippingInfo({ user }: ShippingProps) {
           })
         );
       } else {
-        // ! not good shit
-        setAddressValidationFailed(true);
-        console.log('address was not confirmed');
-        console.log('unconfirmed fields:', validationInfo.unconfirmedFields);
-        for (let field of validationInfo.unconfirmedFields as (
-          | 'address_1'
-          | 'address_2'
-          | 'city'
-          | 'state'
-          | 'zip'
-        )[]) {
-          // TODO: figure out how to deal with validation failures - IMO, user should be able to push through after double-checking their entry is correct
-          console.log('resetting ', field);
-          setValue(field, ''); // clears unvalidated fields -- may be better just to highlight...
-        }
+        // // ! not good shit
+        // setAddressValidationFailed(true);
+        // console.log('address was not confirmed');
+        // console.log('unconfirmed fields:', validationInfo.unconfirmedFields);
+        // for (let field of validationInfo.unconfirmedFields as (
+        //   | 'address_1'
+        //   | 'address_2'
+        //   | 'city'
+        //   | 'state'
+        //   | 'zip'
+        // )[]) {
+        //   // TODO: figure out how to deal with validation failures - IMO, user should be able to push through after double-checking their entry is correct
+        //   console.log('resetting ', field);
+        //   setValue(field, ''); // clears unvalidated fields -- may be better just to highlight...
+        // }
       }
     });
 

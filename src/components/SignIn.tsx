@@ -37,8 +37,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (selectAuthUser.userId) {
-      // ? redirect signed-in user to account page (likely to change later)
-      navigate(`/user/${selectAuthUser.userId}`);
+      navigate(`/shop-all`);
     }
 
     if (selectAuthUser.error.status === 403) {

@@ -3,6 +3,7 @@ import type { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
+import { ICart } from './cartSlice';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -42,7 +43,7 @@ export const requestSignUp = createAsyncThunk(
         userInfo,
         { withCredentials: true }
       );
-
+      console.log('signup thunk data received', data);
       return data;
     } catch (err: any) {
       if (err instanceof AxiosError)
@@ -66,6 +67,20 @@ export const requestLogin = createAsyncThunk(
         credentials,
         { withCredentials: true }
       );
+
+      const guestCart = window.localStorage.getItem('guestCart');
+      if (guestCart) {
+        const cart = JSON.parse(guestCart) as ICart;
+        for (let item of cart.products) {
+          await axios.post(
+            VITE_API_URL + `/api/user/${res.data.userId}/cart/add-item`,
+            { productId: item.product._id, qty: item.qty },
+            { withCredentials: true }
+          );
+        }
+
+        window.localStorage.removeItem('guestCart');
+      }
 
       return res.data;
     } catch (err: any) {
@@ -212,10 +227,3 @@ export const authSlice = createSlice({
 export const selectAuth = (state: RootState) => state.auth;
 export const selectAuthUserId = (state: RootState) => state.auth.userId;
 export default authSlice.reducer;
-
-/**
- * ? how do we deal with guest carts...?
- *  can cart info be stored w/session?
- *  does session hold steady for a given non-logged-in user?
- *  can we automatically create a guest user when guest adds item to cart?
- */

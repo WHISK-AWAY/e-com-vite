@@ -20,58 +20,57 @@ type AccountFormData = {
   firstName: string;
   lastName: string;
   email: string;
-  oldPassword: string;
-  newPassword: string;
-  confirmPassword: string;
+  // oldPassword: string;
+  // newPassword: string;
+  // confirmPassword: string;
 };
 
-const ZAccountData = z
-  .object({
-    firstName: z
-      .string()
-      .min(2, { message: 'should contain at least 2 characters' })
-      .optional(),
-    lastName: z
-      .string()
-      .min(2, { message: 'should contain at least 2 characters' })
-      .optional(),
-    email: z.string().email().optional(),
-    oldPassword: z.string().optional(),
-    newPassword: z.string().optional(),
-    confirmPassword: z.string().optional(),
-  })
-  .refine(
-    ({ oldPassword, newPassword }) => {
-      if (oldPassword === '') return true;
-      return newPassword !== oldPassword;
-    },
-    {
-      message:
-        'Must provide a new password different from the old one (dumbass)',
-      path: ['oldPassword'],
-    }
-  )
-  .refine(
-    ({ oldPassword, newPassword }) => {
-      if (oldPassword === '' && newPassword === '') return true;
-      if (newPassword) return !!oldPassword;
-      return true;
-    },
-    {
-      message: 'Must provide current password in order to set new password',
-      path: ['newPassword'],
-    }
-  )
-  .refine(
-    ({ newPassword, confirmPassword }) => {
-      if (newPassword === '' && confirmPassword === '') return true;
-      return newPassword === confirmPassword;
-    },
-    {
-      message: 'Passwords do not match',
-      path: ['confirmPassword'],
-    }
-  );
+const ZAccountData = z.object({
+  firstName: z
+    .string()
+    .min(2, { message: 'should contain at least 2 characters' })
+    .optional(),
+  lastName: z
+    .string()
+    .min(2, { message: 'should contain at least 2 characters' })
+    .optional(),
+  email: z.string().email().optional(),
+  // oldPassword: z.string().optional(),
+  // newPassword: z.string().optional(),
+  // confirmPassword: z.string().optional(),
+});
+// .refine(
+//   ({ oldPassword, newPassword }) => {
+//     if (oldPassword === '') return true;
+//     return newPassword !== oldPassword;
+//   },
+//   {
+//     message:
+//       'Must provide a new password different from the old one (dumbass)',
+//     path: ['oldPassword'],
+//   }
+// )
+// .refine(
+//   ({ oldPassword, newPassword }) => {
+//     if (oldPassword === '' && newPassword === '') return true;
+//     if (newPassword) return !!oldPassword;
+//     return true;
+//   },
+//   {
+//     message: 'Must provide current password in order to set new password',
+//     path: ['newPassword'],
+//   }
+// )
+// .refine(
+//   ({ newPassword, confirmPassword }) => {
+//     if (newPassword === '' && confirmPassword === '') return true;
+//     return newPassword === confirmPassword;
+//   },
+//   {
+//     message: 'Passwords do not match',
+//     path: ['confirmPassword'],
+//   }
+// );
 
 export default function EditAccountInfo({ user }: AccountProps) {
   const dispatch = useAppDispatch();
@@ -86,9 +85,9 @@ export default function EditAccountInfo({ user }: AccountProps) {
     firstName,
     lastName,
     email,
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    // oldPassword: '',
+    // newPassword: '',
+    // confirmPassword: '',
   };
   const {
     register,
@@ -125,17 +124,18 @@ export default function EditAccountInfo({ user }: AccountProps) {
         setValue('lastName', '');
       } else if (key === 'email') {
         setValue('email', '');
-      } else if (key === 'confirmPassword') {
-        setValue('confirmPassword', '');
-        setValue('newPassword', '');
+        // } else if (key === 'confirmPassword') {
+        //   setValue('confirmPassword', '');
+        //   setValue('newPassword', '');
+        // }
       }
     }
   }, [
     errors.firstName,
     errors.lastName,
     errors.email,
-    errors.confirmPassword,
-    errors.newPassword,
+    // errors.confirmPassword,
+    // errors.newPassword,
   ]);
 
   // * Disable save button until fields are edited
@@ -143,23 +143,23 @@ export default function EditAccountInfo({ user }: AccountProps) {
     setSaveDisabled(saveButtonShouldDisable(dirtyFields));
   }, [Object.keys(dirtyFields)]);
 
-  const passwordChecker = async (password: string) => {
-    try {
-      if (dirtyFields.oldPassword && !(await checkPassword(password))) {
-        reset({
-          oldPassword: '',
-        });
-        setError('oldPassword', {
-          type: 'custom',
-          message: 'Password is incorrect',
-        });
-      } else {
-        clearErrors('oldPassword');
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const passwordChecker = async (password: string) => {
+  //   try {
+  //     if (dirtyFields.oldPassword && !(await checkPassword(password))) {
+  //       reset({
+  //         oldPassword: '',
+  //       });
+  //       setError('oldPassword', {
+  //         type: 'custom',
+  //         message: 'Password is incorrect',
+  //       });
+  //     } else {
+  //       clearErrors('oldPassword');
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   function formSubmit(data: AccountFormData) {
     const dirtyValues = Object.keys(dirtyFields).reduce(
@@ -176,77 +176,102 @@ export default function EditAccountInfo({ user }: AccountProps) {
     );
   }
 
-  if (!user) return <h1>Loading...</h1>;
+  function cancelEdits() {
+    reset(defaultValues);
+  }
+
+  if (!user) return <h1>Loading user info...</h1>;
+
   return (
-    <div className="account-container">
-      <h1>ACCOUNT INFO</h1>
-      <div className="form-wrapper">
-        <form className="" onSubmit={handleSubmit(formSubmit)}>
-          <div className="input-pair">
-            <label htmlFor="first-name">First name:</label>
+    <section className='edit-account-container h-full w-full pt-3'>
+      <div className='form-wrapper h-full'>
+        <form
+          className='flex h-full flex-col justify-between'
+          onSubmit={handleSubmit(formSubmit)}
+        >
+          <div className='input-wrapper grid grid-flow-row grid-cols-3 items-center gap-x-4 gap-y-3 text-xl'>
+            <label className='text-right' htmlFor='first-name'>
+              first name
+            </label>
             <input
-              type="text"
-              id="first-name"
+              className='col-span-2 border border-charcoal px-2 py-1'
+              type='text'
+              id='first-name'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
             />
-          </div>
-
-          <div className="input-pair">
-            <label htmlFor="last-name">Last name:</label>
+            <label className='text-right' htmlFor='last-name'>
+              last name
+            </label>
             <input
-              type="text"
-              id="last-name"
+              className='col-span-2 border border-charcoal px-2 py-1'
+              type='text'
+              id='last-name'
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
             />
-          </div>
-
-          <div className="input-pair">
-            <label htmlFor="email">Email:</label>
+            <label className='text-right' htmlFor='email'>
+              email address
+            </label>
             <input
-              type="text"
-              id="email"
+              className='col-span-2 border border-charcoal px-2 py-1'
+              type='text'
+              id='email'
               placeholder={errors.email?.message || ''}
               {...register('email')}
             />
           </div>
-
-          <div className="input-pair">
-            <label htmlFor="old-password">Current Password:</label>
+          {/* 
+          <div className='input-pair'>
+            <label htmlFor='old-password'>current password</label>
             <input
-              type="password"
-              id="old-password"
+              type='password'
+              id='old-password'
               {...register('oldPassword', {
                 onBlur: (e) => passwordChecker(e.target.value),
               })}
             />
           </div>
 
-          <div className="input-pair">
-            <label htmlFor="new-password">New Password:</label>
+          <div className='input-pair'>
+            <label htmlFor='new-password'>New Password:</label>
             <input
-              type="password"
-              id="new-password"
+              type='password'
+              id='new-password'
               placeholder={errors.newPassword?.message || ''}
               {...register('newPassword')}
             />
           </div>
 
-          <div className="input-pair">
-            <label htmlFor="confirm-password">Confirm New Password:</label>
+          <div className='input-pair'>
+            <label htmlFor='confirm-password'>Confirm New Password:</label>
             <input
-              type="password"
-              id="confirm-password"
+              type='password'
+              id='confirm-password'
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
             />
-          </div>
-          <button type="submit" disabled={saveDisabled}>
-            SAVE
-          </button>
+          </div> */}
+          {!saveDisabled && (
+            <div className='button-wrapper flex gap-2 self-end'>
+              <button
+                className='self-end rounded-sm border border-charcoal bg-white px-4 py-2 font-italiana uppercase text-charcoal'
+                onClick={cancelEdits}
+                type='button'
+              >
+                cancel
+              </button>
+              <button
+                className='rounded-sm bg-charcoal px-4 py-2 font-italiana uppercase text-white'
+                type='submit'
+                disabled={saveDisabled}
+              >
+                save changes
+              </button>
+            </div>
+          )}
         </form>
       </div>
-    </div>
+    </section>
   );
 }

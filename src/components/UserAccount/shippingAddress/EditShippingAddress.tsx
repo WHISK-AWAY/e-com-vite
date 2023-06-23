@@ -1,3 +1,5 @@
+import { never, z } from 'zod';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '../../../redux/hooks';
 import {
@@ -6,10 +8,8 @@ import {
   addShippingAddress,
   editShippingAddress,
 } from '../../../redux/slices/userSlice';
+import { validateAddress } from '../../../utilities/googleAddressValidation';
 import { EditFormModes, ShippingInfoFields } from './ManageShippingAddress';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { useEffect } from 'react';
 
 const ZShippingData = z.object({
   isDefault: z.boolean(),
@@ -33,7 +33,7 @@ export type EditShippingAddressProps = {
   addressFormMode: EditFormModes;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
   addresses: TShippingAddress[];
-  setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>
+  setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
   addressIndex: number;
 };
 
@@ -87,53 +87,84 @@ export default function EditShippingAddress({
     mode: 'onBlur',
   });
 
-  const handleEditOrAddNewForm = async (data: ShippingInfoFields) => {
+  const submitNewAddress = async (data: ShippingInfoFields) => {
     const userFields = {
       isDefault: data.isDefault,
       userId: user._id!,
       shipToAddress: data.shipToAddress,
     };
-    
-    if(user._id) {
-      if (addressFormMode === 'new') {
-        await dispatch(addShippingAddress({ shippingData: userFields }));
-        
-      } 
-    
-    if (userFields.isDefault) {
-      setAddressIndex(0);
-    } else {
-        setAddressIndex(addresses.length);
-      }
-    } else if (addressFormMode === 'edit') {
-      dispatch(
-        editShippingAddress({
-          userId: user._id!,
-          shippingAddressId: currentShippingAddress!._id!,
-          shippingData: userFields,
-        })
-      );
-    } else if (!user._id) {
+
+    // Send address to Google Places API for validation
+    const addressCheckResult = await validateAddress(data.shipToAddress);
+
+    console.log('addressCheckResult', addressCheckResult);
+
+    // Result may be 'confirmed', 'replaced', 'unconfirmed', or 'rejected.'
+    // If confirmed, we're all good to go ahead with address creation.
+    // However, note that some address components may still be replaced (spelling, etc.).
+
+    if (addressCheckResult.result === 'confirmed') {
+      // replace form fields with validated API response
+      userFields.shipToAddress = {
+        ...userFields.shipToAddress,
+        ...addressCheckResult.address,
+      };
+
+      if (user._id) {
+        // If there's a user ID, we can save this new address to the database.
+        if (addressFormMode === 'new') {
+          await dispatch(addShippingAddress({ shippingData: userFields }));
+        } else if (addressFormMode === 'edit') {
+          dispatch(
+            editShippingAddress({
+              userId: user._id!,
+              shippingAddressId: currentShippingAddress!._id!,
+              shippingData: userFields,
+            })
+          );
+        }
+
+        // If we've chosen or created a new default, it will be moved to the top of the array.
+        if (userFields.isDefault) {
+          setAddressIndex(0);
+        } else {
+          setAddressIndex(addresses.length);
+        }
+        setIsFormEdit(false);
+      } else {
+        // No userId, therefore treat this address as that of a guest user
         const guestUserAddress = {
+          // Since we're on the 'address confirmed' path, we can be confident that .address exists
           shipToAddress: {
-          firstName: data.shipToAddress.firstName,
-          lastName: data.shipToAddress.lastName,
-          email: data.shipToAddress.email,
-          address_1: data.shipToAddress.address_1,
-          address_2: data.shipToAddress.address_2,
-          city: data.shipToAddress.city,
-          state: data.shipToAddress.state,
-          zip: data.shipToAddress.zip
-        },
-        isDefault: true,
+            firstName: data.shipToAddress.firstName,
+            lastName: data.shipToAddress.lastName,
+            email: data.shipToAddress.email,
+            address_1: addressCheckResult.address!.address_1,
+            address_2:
+              addressCheckResult.address?.address_2 ||
+              data.shipToAddress.address_2,
+            city: addressCheckResult.address!.city,
+            state: addressCheckResult.address!.state,
+            zip: addressCheckResult.address!.zip,
+          },
+          isDefault: true,
+        };
+        setAddresses([guestUserAddress]);
+        console.log('addresses', guestUserAddress);
+        setAddressIndex(0);
+        setIsFormEdit(false);
       }
-      setAddresses([guestUserAddress])
-      console.log('addresses', guestUserAddress);
-      setAddressIndex(0);
-      
+    } else if (addressCheckResult.result === 'unconfirmed') {
+      // Address validation indicates some portion of the input needs to be revised.
+    } else if (addressCheckResult.result === 'replaced') {
+      // Address validation succeeded after replacing certain elements.
+    } else if (addressCheckResult.result === 'rejected') {
+      // Address validation failed altogether - cannot proceed with given address.
+    } else {
+      throw new Error("This shouldn't be possible.");
     }
 
-    setIsFormEdit(false);
+    return;
   };
 
   function newShippingAddress() {
@@ -153,32 +184,32 @@ export default function EditShippingAddress({
     });
   }
 
-  useEffect(() => {
-    if (user._id) {
-      (addressFormMode === 'new') 
-      newShippingAddress();
-    } else {
-
-    }
-  }, [addressFormMode]);
+  // useEffect(() => {
+  //   if (user._id) {
+  //     addressFormMode === 'new';
+  //     newShippingAddress();
+  //   } else {
+  //   }
+  // }, [addressFormMode]);
 
   return (
     <section>
       {/* EDIT SHIPPING INFO FORM */}
 
       <>
-      {defaultValues.shipToAddress === undefined }
-        <form onSubmit={handleSubmit(handleEditOrAddNewForm)}>
+        {defaultValues.shipToAddress === undefined}
+        <form onSubmit={handleSubmit(submitNewAddress)}>
           <div className='flex justify-center  py-3'>
-            {addressFormMode === 'edit' ? (
-              <h1>EDIT SHIPPING INFO</h1>
-            ) : (
-              <h1>ADD NEW SHIPPING ADDRESS</h1>
-            )}
+            {user._id &&
+              (addressFormMode === 'edit' ? (
+                <h1>EDIT SHIPPING INFO</h1>
+              ) : (
+                <h1>ADD NEW SHIPPING ADDRESS</h1>
+              ))}
           </div>
 
           <div className='flex flex-col '>
-            <div className='self-center pt-8 flex flex-col gap-3  w-4/6'>
+            <div className='flex w-4/6 flex-col gap-3 self-center  pt-8'>
               <div className='first-name-field flex flex-col'>
                 <label htmlFor='first-name'>first name</label>
                 <input
@@ -207,7 +238,7 @@ export default function EditShippingAddress({
                 />
               </div>
               <div className='address-1-field flex flex-col'>
-                <label htmlFor='address_1'>address_1</label>
+                <label htmlFor='address_1'>address 1</label>
                 <input
                   className='rounded-sm border border-charcoal p-1'
                   id='address_1'
@@ -217,7 +248,7 @@ export default function EditShippingAddress({
               </div>
 
               <div className='address-2-field flex flex-col'>
-                <label htmlFor='address_2'>address_2</label>
+                <label htmlFor='address_2'>address 2</label>
                 <input
                   className='rounded-sm border border-charcoal p-1'
                   id='address_2'
@@ -259,20 +290,20 @@ export default function EditShippingAddress({
                 />
               </div>
 
-              <div className='default-field text-sm flex text-end flex-col pb-3 w-full'>
-                <div className="flex self-end">
-
-                <label htmlFor='isDefault'>
-                  make this address the default:
-                </label>
-                <input
-                  type='checkbox'
-                  
-                  id='isDefault'
-                  defaultChecked={currentDefaults?.isDefault === true || false}
-                  {...register('isDefault')}
+              <div className='default-field flex w-full flex-col pb-3 text-end text-sm'>
+                <div className='flex self-end'>
+                  <label htmlFor='isDefault'>
+                    make this address the default:
+                  </label>
+                  <input
+                    type='checkbox'
+                    id='isDefault'
+                    defaultChecked={
+                      currentDefaults?.isDefault === true || false
+                    }
+                    {...register('isDefault')}
                   />
-                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -280,20 +311,22 @@ export default function EditShippingAddress({
           <div className='btn-section flex justify-center gap-6 pb-5'>
             <button
               type='submit'
-              className='rounded-sm bg-charcoal lg:px-7 px-6 py-1 font-italiana text-white'
+              className='rounded-sm bg-charcoal px-6 py-1 font-italiana text-white lg:px-7'
             >
               SAVE CHANGES
             </button>
-            <button
-              type='button'
-              className='rounded-sm bg-charcoal lg:px-11  px-9 py-1 font-italiana text-white'
-              onClick={() => {
-                setIsFormEdit(false);
-                setAddressFormMode('edit');
-              }}
-            >
-              CANCEL
-            </button>
+            {addresses.length > 0 && (
+              <button
+                type='button'
+                className='rounded-sm bg-charcoal px-9  py-1 font-italiana text-white lg:px-11'
+                onClick={() => {
+                  setIsFormEdit(false);
+                  setAddressFormMode('edit');
+                }}
+              >
+                CANCEL
+              </button>
+            )}
           </div>
         </form>
       </>
