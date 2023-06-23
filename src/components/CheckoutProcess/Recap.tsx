@@ -249,7 +249,7 @@ export default function Recap() {
    * ! EARLY RETURN GUARDS (no hooks below here, please!)
    */
 
-  // if (!user?.cart?.products) return <h1>Loading cart...</h1>;
+  if (!cart?.products) return <h1>Loading cart...</h1>;
   // if (!addresses || addresses.length === 0)
   //   return <h1>Loading address book...</h1>;
 
@@ -382,13 +382,15 @@ export default function Recap() {
                 >
                   MANAGE ADDRESSES
                 </button>
-              ) : (
+              ) : addresses.length > 0 ? (
                 <button
                   onClick={() => setManageShippingAddress(false)}
                   className='rounded-sm bg-charcoal px-6 py-1 text-sm text-white  lg:px-10'
                 >
                   CANCEL
                 </button>
+              ) : (
+                <></>
               )}
             </div>
           )}
@@ -399,7 +401,9 @@ export default function Recap() {
             <div className='flex h-full w-full flex-col items-center lg:w-4/6'>
               <h2 className='h-full w-5/6 border-l border-r border-t border-charcoal py-2  text-center font-italiana text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-6/12'>
                 {manageShippingAddress
-                  ? 'address book'
+                  ? userId
+                    ? 'address book'
+                    : 'delivery address'
                   : 'your order will be delivered to:'}{' '}
               </h2>
             </div>
