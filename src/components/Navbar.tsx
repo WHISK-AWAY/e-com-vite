@@ -40,6 +40,7 @@ export default function Navbar() {
   const [searchNotFound, setSearchNotFound] = useState(false);
   const [isCartHidden, setIsCartHidden] = useState(true);
   const [isFavHidden, setIsFavHidden] = useState(true);
+  const [isSigninHidden, setIsSigninHidden] = useState(true);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
