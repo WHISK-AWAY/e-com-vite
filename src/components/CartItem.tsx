@@ -67,7 +67,7 @@ export default function CartItem(props: CartProps) {
             {productName}
           </h4>
           <div className='text-center font-grotesque lg:text-md xl:text-lg  text-sm mb-1'>${price}</div>
-          < div className='flex xl:w-24 lg:w-16 w-14 items-center self-center rounded-full border justify-around  border-charcoal'>
+          <div className='flex xl:w-24 lg:w-16 w-14 items-center self-center rounded-full border justify-around  border-charcoal'>
             <img
               src={minus}
               alt='minus-icon'
