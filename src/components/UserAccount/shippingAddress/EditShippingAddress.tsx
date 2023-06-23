@@ -1,4 +1,4 @@
-import { never, z } from 'zod';
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAppDispatch } from '../../../redux/hooks';
@@ -9,7 +9,12 @@ import {
   editShippingAddress,
 } from '../../../redux/slices/userSlice';
 import { validateAddress } from '../../../utilities/googleAddressValidation';
-import { EditFormModes, ShippingInfoFields } from './ManageShippingAddress';
+import {
+  EditFormModes,
+  ShippingInfoFields,
+  ShippingInfoString,
+} from './ManageShippingAddress';
+import { useEffect } from 'react';
 
 const ZShippingData = z.object({
   isDefault: z.boolean(),
@@ -46,7 +51,6 @@ export default function EditShippingAddress({
   setAddressIndex,
   addresses,
   setAddresses,
-  addressIndex,
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
 
@@ -80,6 +84,7 @@ export default function EditShippingAddress({
     register,
     reset,
     handleSubmit,
+    setError,
     formState: { errors, defaultValues: currentDefaults },
   } = useForm<ShippingInfoFields>({
     resolver: zodResolver(ZShippingData),
@@ -87,23 +92,28 @@ export default function EditShippingAddress({
     mode: 'onBlur',
   });
 
+  useEffect(() => {
+    console.log('Form errors:', errors);
+  }, [errors]);
+
   const submitNewAddress = async (data: ShippingInfoFields) => {
     const userFields = {
       isDefault: data.isDefault,
-      userId: user._id!,
+      userId: user._id,
       shipToAddress: data.shipToAddress,
     };
 
     // Send address to Google Places API for validation
     const addressCheckResult = await validateAddress(data.shipToAddress);
+    const { unconfirmedFields, replacedFields } = addressCheckResult;
 
     console.log('addressCheckResult', addressCheckResult);
 
     // Result may be 'confirmed', 'replaced', 'unconfirmed', or 'rejected.'
-    // If confirmed, we're all good to go ahead with address creation.
+    // If confirmed or replaced, we're all good to go ahead with address creation.
     // However, note that some address components may still be replaced (spelling, etc.).
 
-    if (addressCheckResult.result === 'confirmed') {
+    if (['confirmed', 'replaced'].includes(addressCheckResult.result)) {
       // replace form fields with validated API response
       userFields.shipToAddress = {
         ...userFields.shipToAddress,
@@ -150,47 +160,59 @@ export default function EditShippingAddress({
           isDefault: true,
         };
         setAddresses([guestUserAddress]);
-        console.log('addresses', guestUserAddress);
         setAddressIndex(0);
         setIsFormEdit(false);
       }
-    } else if (addressCheckResult.result === 'unconfirmed') {
-      // Address validation indicates some portion of the input needs to be revised.
-    } else if (addressCheckResult.result === 'replaced') {
-      // Address validation succeeded after replacing certain elements.
-    } else if (addressCheckResult.result === 'rejected') {
+    } else if (
+      ['unconfirmed', 'rejected'].includes(addressCheckResult.result)
+    ) {
       // Address validation failed altogether - cannot proceed with given address.
+      const validationDefaults = {
+        ...data,
+        shipToAddress: {
+          ...data.shipToAddress,
+          ...addressCheckResult.address,
+        },
+      };
+
+      for (let comp of [
+        ...(unconfirmedFields || []),
+        ...(replacedFields || []),
+      ]) {
+        if (comp === 'IGNORE') continue;
+        validationDefaults.shipToAddress![comp] = '';
+      }
+
+      reset(validationDefaults);
+
+      if (unconfirmedFields) {
+        for (let comp of unconfirmedFields) {
+          if (comp === 'IGNORE') continue;
+          const fieldName = ('shipToAddress.' + comp) as ShippingInfoString;
+          setError(fieldName, {
+            type: 'addressValidation',
+            message:
+              'Could not validate this entry. Please re-enter & resubmit.',
+          });
+        }
+      }
+
+      if (replacedFields) {
+        for (let comp of replacedFields) {
+          const fieldName = ('shipToAddress.' + comp) as ShippingInfoString;
+          setError(fieldName, {
+            type: 'addressValidation',
+            message:
+              'This entry was corrected during address validation. Resubmit to continue.',
+          });
+        }
+      }
     } else {
       throw new Error("This shouldn't be possible.");
     }
 
     return;
   };
-
-  function newShippingAddress() {
-    // ? this would probably make more sense as an object -- then we can pass the "new" or "default" object to reset() depending on form mode
-
-    reset({
-      shipToAddress: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        address_1: '',
-        address_2: '',
-        city: '',
-        state: '',
-        zip: '',
-      },
-    });
-  }
-
-  // useEffect(() => {
-  //   if (user._id) {
-  //     addressFormMode === 'new';
-  //     newShippingAddress();
-  //   } else {
-  //   }
-  // }, [addressFormMode]);
 
   return (
     <section>
@@ -217,6 +239,11 @@ export default function EditShippingAddress({
                   id='first-name'
                   type='text'
                   {...register('shipToAddress.firstName')}
+                  placeholder={
+                    errors.shipToAddress?.firstName
+                      ? errors.shipToAddress?.firstName?.message
+                      : ''
+                  }
                 />
               </div>
               <div className='address-1-field flex flex-col'>
@@ -226,6 +253,11 @@ export default function EditShippingAddress({
                   id='last-name'
                   type='text'
                   {...register('shipToAddress.lastName')}
+                  placeholder={
+                    errors.shipToAddress?.lastName
+                      ? errors.shipToAddress?.lastName?.message
+                      : ''
+                  }
                 />
               </div>
               <div className='address-1-field flex flex-col'>
@@ -235,6 +267,11 @@ export default function EditShippingAddress({
                   id='email'
                   type='text'
                   {...register('shipToAddress.email')}
+                  placeholder={
+                    errors.shipToAddress?.email
+                      ? errors.shipToAddress?.email?.message
+                      : ''
+                  }
                 />
               </div>
               <div className='address-1-field flex flex-col'>
@@ -244,6 +281,11 @@ export default function EditShippingAddress({
                   id='address_1'
                   type='text'
                   {...register('shipToAddress.address_1')}
+                  placeholder={
+                    errors.shipToAddress?.address_1
+                      ? errors.shipToAddress?.address_1?.message
+                      : ''
+                  }
                 />
               </div>
 
@@ -254,10 +296,12 @@ export default function EditShippingAddress({
                   id='address_2'
                   type='text'
                   {...register('shipToAddress.address_2')}
+                  placeholder={
+                    errors.shipToAddress?.address_2
+                      ? errors.shipToAddress?.address_2?.message
+                      : ''
+                  }
                 />
-                {errors.shipToAddress?.address_2 && (
-                  <p>{errors.shipToAddress.address_2.message}</p>
-                )}
               </div>
 
               <div className='city-field flex flex-col'>
@@ -267,6 +311,11 @@ export default function EditShippingAddress({
                   id='city'
                   type='text'
                   {...register('shipToAddress.city')}
+                  placeholder={
+                    errors.shipToAddress?.city
+                      ? errors.shipToAddress?.city?.message
+                      : ''
+                  }
                 />
               </div>
 
@@ -277,6 +326,11 @@ export default function EditShippingAddress({
                   id='state'
                   type='text'
                   {...register('shipToAddress.state')}
+                  placeholder={
+                    errors.shipToAddress?.state
+                      ? errors.shipToAddress?.state?.message
+                      : ''
+                  }
                 />
               </div>
 
@@ -287,6 +341,11 @@ export default function EditShippingAddress({
                   id='zip'
                   type='text'
                   {...register('shipToAddress.zip')}
+                  placeholder={
+                    errors.shipToAddress?.zip
+                      ? errors.shipToAddress?.zip?.message
+                      : ''
+                  }
                 />
               </div>
 

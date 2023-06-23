@@ -88,6 +88,7 @@ export async function validateAddress(
         };
       }
 
+      // * Semi-happy path: we have a complete address, but it needs some edits
       // Instantiate response object
       const validationResponse = {
         message: 'Result:',
@@ -119,16 +120,25 @@ export async function validateAddress(
 
       validationResponse.address = convertFromPlaces(address);
 
-      // * Semi-happy path: we have a complete address, but it needs some edits
       return validationResponse;
     } else {
       // * Unhappy path: verdict.addressComplete is falsy
 
       return {
         result: 'rejected',
-        unconfirmedFields: Array.from(unconfirmedComponentTypes).map(
-          (comp) => componentMap[comp]
-        ),
+        unconfirmedFields: Array.from(
+          new Set(
+            Array.from(unconfirmedComponentTypes)
+              .map((comp) => componentMap[comp])
+              .concat(
+                Array.from(
+                  address.missingComponentTypes.map(
+                    (comp) => componentMap[comp]
+                  )
+                )
+              )
+          )
+        ).filter((comp) => comp),
         replacedFields: Array.from(replacedComponentTypes).map(
           (comp) => componentMap[comp]
         ),

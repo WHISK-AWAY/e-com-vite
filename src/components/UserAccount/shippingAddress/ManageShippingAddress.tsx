@@ -25,6 +25,20 @@ export type ShippingInfoFields = {
   };
 };
 
+export type ShippingInfoString =
+  | 'isDefault'
+  | 'shipToAddress'
+  | 'root'
+  | `root.${string}`
+  | 'shipToAddress.firstName'
+  | 'shipToAddress.lastName'
+  | 'shipToAddress.email'
+  | 'shipToAddress.address_1'
+  | 'shipToAddress.address_2'
+  | 'shipToAddress.city'
+  | 'shipToAddress.state'
+  | 'shipToAddress.zip';
+
 export type EditFormModes = 'edit' | 'new';
 
 export type ManageShippingAddressProps = {
@@ -198,25 +212,23 @@ export default function ManageShippingAddress({
                 EDIT
               </button>
 
-           
-                  <button
-                    onClick={selectAddress}
-                    className='rounded-sm bg-charcoal px-5 lg:px-10'
-                    >
-                    USE THIS ADDRESS
-                  </button>
+              <button
+                onClick={selectAddress}
+                className='rounded-sm bg-charcoal px-5 lg:px-10'
+              >
+                USE THIS ADDRESS
+              </button>
 
-                    {!isFormEdit && user._id && (
-                  <button
-                    onClick={() => {
-                      setIsFormEdit(true);
-                      setAddressFormMode('new');
-                    }}
-                    className='rounded-sm bg-charcoal px-5 lg:px-10'
-                  >
-                    ADD NEW
-                  </button>
-               
+              {!isFormEdit && user._id && (
+                <button
+                  onClick={() => {
+                    setIsFormEdit(true);
+                    setAddressFormMode('new');
+                  }}
+                  className='rounded-sm bg-charcoal px-5 lg:px-10'
+                >
+                  ADD NEW
+                </button>
               )}
             </div>
           </div>
