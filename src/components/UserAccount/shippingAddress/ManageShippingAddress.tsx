@@ -3,9 +3,8 @@ import {
   TUser,
   deleteShippingAddress,
 } from '../../../redux/slices/userSlice';
-import { editShippingAddress } from '../../../redux/slices/userSlice';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { useAppDispatch } from '../../../redux/hooks';
 import EditShippingAddress from './EditShippingAddress';
 import arrowLeft from '../../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../../assets/icons/arrowRight.svg';
@@ -25,21 +24,30 @@ export type ShippingInfoFields = {
   };
 };
 
+export type ShippingInfoString =
+  | 'isDefault'
+  | 'shipToAddress'
+  | 'root'
+  | `root.${string}`
+  | 'shipToAddress.firstName'
+  | 'shipToAddress.lastName'
+  | 'shipToAddress.email'
+  | 'shipToAddress.address_1'
+  | 'shipToAddress.address_2'
+  | 'shipToAddress.city'
+  | 'shipToAddress.state'
+  | 'shipToAddress.zip';
+
 export type EditFormModes = 'edit' | 'new';
 
 export type ManageShippingAddressProps = {
-  // ? getting a little bulky - maybe we should define a Props type (e.g., ManageShippingAddressProps)?
   user: TUser;
-  setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
   addressIndex: number;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
-
   addresses: TShippingAddress[];
-  clientSecret: string;
   setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
+  setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-// TODO: render empty ('new') form on load if no addresses exist
 
 export default function ManageShippingAddress({
   user,
@@ -47,7 +55,6 @@ export default function ManageShippingAddress({
   addressIndex,
   setAddressIndex,
   addresses,
-  clientSecret,
   setAddresses,
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
@@ -63,24 +70,24 @@ export default function ManageShippingAddress({
     if (!addresses.length || !addresses) setIsFormEdit(true);
   }, []);
 
-  function setDefault() {
-    let address = addresses[selectorIdx!];
+  // function setDefault() {
+  //   let address = addresses[selectorIdx!];
 
-    let shippingData: Partial<ShippingInfoFields> = {
-      isDefault: true,
-    };
+  //   let shippingData: Partial<ShippingInfoFields> = {
+  //     isDefault: true,
+  //   };
 
-    dispatch(
-      editShippingAddress({
-        userId: user._id,
-        shippingAddressId: address._id!,
-        shippingData,
-      })
-    );
+  //   dispatch(
+  //     editShippingAddress({
+  //       userId: user._id,
+  //       shippingAddressId: address._id!,
+  //       shippingData,
+  //     })
+  //   );
 
-    setAddressIndex(0);
-    setManageShippingAddress(false);
-  }
+  //   setAddressIndex(0);
+  //   setManageShippingAddress(false);
+  // }
 
   function selectAddress() {
     setAddressIndex(selectorIdx);
@@ -101,35 +108,41 @@ export default function ManageShippingAddress({
     <>
       {!isFormEdit && (
         <>
-          <button
-            className='absolute right-[0%] top-[4%] w-5 '
-            onClick={handleShippingAddressDelete}
-          >
-            <img src={x} className='h-4' />
-          </button>
-          <button
-            className='absolute -left-[10%] top-[40%] h-4 w-4'
-            onClick={() => {
-              if (selectorIdx! < addresses.length - 1)
-                setSelectorIdx((prev) => prev! + 1);
-              else setSelectorIdx(0);
-            }}
-          >
-            <img src={arrowLeft} className='h-5' />
-          </button>
+          {user._id && (
+            <button
+              className='absolute right-[0%] top-[4%] w-5'
+              onClick={handleShippingAddressDelete}
+            >
+              <img src={x} className='h-4' />
+            </button>
+          )}
+          {selectorIdx > 0 && (
+            <button
+              className='absolute -left-[10%] top-[40%] h-4 w-4'
+              onClick={() => {
+                if (selectorIdx! < addresses.length - 1)
+                  setSelectorIdx((prev) => prev! + 1);
+                else setSelectorIdx(0);
+              }}
+            >
+              <img src={arrowLeft} className='h-5' />
+            </button>
+          )}
 
-          <button
-            className=''
-            onClick={() => {
-              if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
-              else setSelectorIdx(addresses.length - 1);
-            }}
-          >
-            <img
-              src={arrowRight}
-              className='absolute  -right-[10%] top-[40%] h-4 rotate-180'
-            />
-          </button>
+          {selectorIdx < addresses.length - 1 && (
+            <button
+              className=''
+              onClick={() => {
+                if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
+                else setSelectorIdx(addresses.length - 1);
+              }}
+            >
+              <img
+                src={arrowRight}
+                className='absolute  -right-[10%] top-[40%] h-4 rotate-180'
+              />
+            </button>
+          )}
         </>
       )}
 
@@ -198,25 +211,23 @@ export default function ManageShippingAddress({
                 EDIT
               </button>
 
-           
-                  <button
-                    onClick={selectAddress}
-                    className='rounded-sm bg-charcoal px-5 lg:px-10'
-                    >
-                    USE THIS ADDRESS
-                  </button>
+              <button
+                onClick={selectAddress}
+                className='rounded-sm bg-charcoal px-5 lg:px-10'
+              >
+                USE THIS ADDRESS
+              </button>
 
-                    {!isFormEdit && user._id && (
-                  <button
-                    onClick={() => {
-                      setIsFormEdit(true);
-                      setAddressFormMode('new');
-                    }}
-                    className='rounded-sm bg-charcoal px-5 lg:px-10'
-                  >
-                    ADD NEW
-                  </button>
-               
+              {!isFormEdit && user._id && (
+                <button
+                  onClick={() => {
+                    setIsFormEdit(true);
+                    setAddressFormMode('new');
+                  }}
+                  className='rounded-sm bg-charcoal px-5 lg:px-10'
+                >
+                  ADD NEW
+                </button>
               )}
             </div>
           </div>

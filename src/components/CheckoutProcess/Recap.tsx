@@ -2,15 +2,9 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
-  addShippingAddress,
-  editShippingAddress,
-  editUserAccountInfo,
   fetchSingleUser,
   selectSingleUser,
 } from '../../redux/slices/userSlice';
-import { useForm, useFormState } from 'react-hook-form';
-import { string, z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import Checkout from './Checkout';
@@ -36,8 +30,7 @@ import {
 } from '../../redux/slices/cartSlice';
 import x from '../../../src/assets/icons/x.svg';
 import Counter from '../Counter';
-
-// TODO: clear out unused deps
+import { orderAddressArray } from '../../utilities/helpers';
 
 // ! Decline card: 4000 0000 0000 9995
 // * Success card: 4242 4242 4242 4242
@@ -48,11 +41,7 @@ export default function Recap() {
   const { user } = useAppSelector(selectSingleUser);
   const verifyPromo = useAppSelector(selectPromo);
   const promoErrors = useAppSelector(selectPromoErrors);
-  const [addressValidationFailed, setAddressValidationFailed] = useState(false);
-  const [saveIsDisabled, setSaveIsDisabled] = useState(true);
   const [promo, setPromo] = useState<string>('');
-  const [currentShippingAddress, setCurrentShippingAddress] =
-    useState<TShippingAddress | null>(null);
   const { cart } = useAppSelector(selectCart);
   // const [count, setCount] = useState(qty);
 
@@ -83,9 +72,10 @@ export default function Recap() {
     // otherwise, rearrange address array such that any default is at pos'n 0
     if (user) {
       if (user?.shippingAddresses?.length > 0) {
-        orderAddressArray(); // this SHOULD get fired when we select a new default...
+        const addressArray = orderAddressArray(user);
+        if (addressArray?.length) setAddresses(addressArray); // this SHOULD get fired when we select a new default...
       } else {
-        setManageShippingAddress(true); // TODO: make the manage form render the create new address form
+        setManageShippingAddress(true);
       }
     }
   }, [user]);
@@ -101,22 +91,6 @@ export default function Recap() {
   useEffect(() => {
     if (promoErrors.status) setPromo('');
   }, [promoErrors.status]);
-
-  function orderAddressArray() {
-    let addressList: TShippingAddress[] = user.shippingAddresses;
-    if (addressList.length === 0) return;
-    let defaultAddress = user.shippingAddresses.find(
-      (address) => address.isDefault === true
-    );
-    if (defaultAddress)
-      addressList = [
-        defaultAddress,
-        ...user.shippingAddresses.filter(
-          (address) => address._id !== defaultAddress?._id
-        ),
-      ];
-    setAddresses(addressList);
-  }
 
   /**
    * *ORDER CREATION WITH PENDING STATUS
@@ -283,7 +257,7 @@ export default function Recap() {
                   />
                   <div className='w-32 lg:w-40'>
                     <img
-                      className=' aspect-[3/4] border border-black object-cover'
+                      className=' aspect-[3/4] border border-charcoal object-cover'
                       src={
                         item.product.images.find(
                           (image) => image.imageDesc === 'product-front'
@@ -390,7 +364,7 @@ export default function Recap() {
                   CANCEL
                 </button>
               ) : (
-                <></>
+                ''
               )}
             </div>
           )}
@@ -409,7 +383,7 @@ export default function Recap() {
             </div>
           )}
           {!clientSecret ? (
-            <div className='relative flex h-full w-full max-w-[800px] border border-charcoal bg-slate-300 font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6'>
+            <div className='relative flex h-full w-full max-w-[800px] border border-charcoal font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6'>
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
                   <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose'>
@@ -451,7 +425,6 @@ export default function Recap() {
                   setAddresses={setAddresses}
                   addressIndex={addressIndex}
                   setAddressIndex={setAddressIndex}
-                  clientSecret={clientSecret}
                 />
               )}{' '}
             </div>

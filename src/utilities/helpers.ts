@@ -1,5 +1,6 @@
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import axios, { AxiosError } from 'axios';
+import { TShippingAddress, TUser } from '../redux/slices/userSlice';
 
 export async function emailExists(email: string): Promise<boolean> {
   try {
@@ -79,4 +80,22 @@ export function saveButtonShouldDisable(
   } else {
     return true;
   }
+}
+
+export function orderAddressArray(user: TUser) {
+  // Given a user object, move the default shipping address to the beginning _
+  // of the array of addresses.
+  let addressList: TShippingAddress[] = user.shippingAddresses;
+  if (addressList.length === 0) return;
+  let defaultAddress = user.shippingAddresses.find(
+    (address) => address.isDefault === true
+  );
+  if (defaultAddress)
+    addressList = [
+      defaultAddress,
+      ...user.shippingAddresses.filter(
+        (address) => address._id !== defaultAddress?._id
+      ),
+    ];
+  return addressList;
 }

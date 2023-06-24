@@ -12,17 +12,10 @@ import { useAppDispatch } from '../../redux/hooks';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-type AccountProps = {
-  user: TUser;
-};
-
 type AccountFormData = {
   firstName: string;
   lastName: string;
   email: string;
-  // oldPassword: string;
-  // newPassword: string;
-  // confirmPassword: string;
 };
 
 const ZAccountData = z.object({
@@ -35,42 +28,11 @@ const ZAccountData = z.object({
     .min(2, { message: 'should contain at least 2 characters' })
     .optional(),
   email: z.string().email().optional(),
-  // oldPassword: z.string().optional(),
-  // newPassword: z.string().optional(),
-  // confirmPassword: z.string().optional(),
 });
-// .refine(
-//   ({ oldPassword, newPassword }) => {
-//     if (oldPassword === '') return true;
-//     return newPassword !== oldPassword;
-//   },
-//   {
-//     message:
-//       'Must provide a new password different from the old one (dumbass)',
-//     path: ['oldPassword'],
-//   }
-// )
-// .refine(
-//   ({ oldPassword, newPassword }) => {
-//     if (oldPassword === '' && newPassword === '') return true;
-//     if (newPassword) return !!oldPassword;
-//     return true;
-//   },
-//   {
-//     message: 'Must provide current password in order to set new password',
-//     path: ['newPassword'],
-//   }
-// )
-// .refine(
-//   ({ newPassword, confirmPassword }) => {
-//     if (newPassword === '' && confirmPassword === '') return true;
-//     return newPassword === confirmPassword;
-//   },
-//   {
-//     message: 'Passwords do not match',
-//     path: ['confirmPassword'],
-//   }
-// );
+
+type AccountProps = {
+  user: TUser;
+};
 
 export default function EditAccountInfo({ user }: AccountProps) {
   const dispatch = useAppDispatch();
@@ -109,14 +71,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
     reValidateMode: 'onBlur',
   });
 
-  // useEffect(() => {
-  //   if (dirtyFields.oldPassword) {
-  //     checkPassword(getValues('oldPassword')!);
-  //   }
-  // }, [dirtyFields.oldPassword]);
-
   useEffect(() => {
-    // console.log('errors', errors);
     for (let key in errors) {
       if (key === 'firstName') {
         setValue('firstName', '');
@@ -124,19 +79,9 @@ export default function EditAccountInfo({ user }: AccountProps) {
         setValue('lastName', '');
       } else if (key === 'email') {
         setValue('email', '');
-        // } else if (key === 'confirmPassword') {
-        //   setValue('confirmPassword', '');
-        //   setValue('newPassword', '');
-        // }
       }
     }
-  }, [
-    errors.firstName,
-    errors.lastName,
-    errors.email,
-    // errors.confirmPassword,
-    // errors.newPassword,
-  ]);
+  }, [errors.firstName, errors.lastName, errors.email]);
 
   // * Disable save button until fields are edited
   useEffect(() => {
@@ -189,7 +134,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
           className='flex h-full flex-col justify-between'
           onSubmit={handleSubmit(formSubmit)}
         >
-          <div className='input-wrapper grid grid-flow-row grid-cols-3 items-center gap-x-4 gap-y-3 text-xl'>
+          <div className='input-wrapper grid grid-flow-row grid-cols-3 items-center gap-x-4 gap-y-3'>
             <label className='text-right' htmlFor='first-name'>
               first name
             </label>
