@@ -30,6 +30,7 @@ import {
 } from '../../redux/slices/cartSlice';
 import x from '../../../src/assets/icons/x.svg';
 import Counter from '../Counter';
+import { orderAddressArray } from '../../utilities/helpers';
 
 // ! Decline card: 4000 0000 0000 9995
 // * Success card: 4242 4242 4242 4242
@@ -71,7 +72,8 @@ export default function Recap() {
     // otherwise, rearrange address array such that any default is at pos'n 0
     if (user) {
       if (user?.shippingAddresses?.length > 0) {
-        orderAddressArray(); // this SHOULD get fired when we select a new default...
+        const addressArray = orderAddressArray(user);
+        if (addressArray?.length) setAddresses(addressArray); // this SHOULD get fired when we select a new default...
       } else {
         setManageShippingAddress(true);
       }
@@ -89,22 +91,6 @@ export default function Recap() {
   useEffect(() => {
     if (promoErrors.status) setPromo('');
   }, [promoErrors.status]);
-
-  function orderAddressArray() {
-    let addressList: TShippingAddress[] = user.shippingAddresses;
-    if (addressList.length === 0) return;
-    let defaultAddress = user.shippingAddresses.find(
-      (address) => address.isDefault === true
-    );
-    if (defaultAddress)
-      addressList = [
-        defaultAddress,
-        ...user.shippingAddresses.filter(
-          (address) => address._id !== defaultAddress?._id
-        ),
-      ];
-    setAddresses(addressList);
-  }
 
   /**
    * *ORDER CREATION WITH PENDING STATUS
@@ -439,7 +425,6 @@ export default function Recap() {
                   setAddresses={setAddresses}
                   addressIndex={addressIndex}
                   setAddressIndex={setAddressIndex}
-                  clientSecret={clientSecret}
                 />
               )}{' '}
             </div>
