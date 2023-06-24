@@ -100,13 +100,15 @@ router.put(
       if (!updateUserInput || updateUserInput === undefined)
         return res.status(404).json({ message: 'Nothing to update' });
 
+      //! make sure to return same thing as fetch user
       const updatedUser = await User.findByIdAndUpdate(
         userId,
         updateUserInput,
         { new: true, projection: '-password' }
       )
         .populate({ path: 'cart.products.product', populate: { path: 'tags' } })
-        .populate({ path: 'favorites', populate: { path: 'tags' } });
+        .populate({ path: 'favorites', populate: { path: 'tags' } })
+        .populate('shippingAddresses');
       res.status(200).json(updatedUser);
     } catch (err) {
       next(err);
