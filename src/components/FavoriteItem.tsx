@@ -42,62 +42,61 @@ export default function FavoriteItem({
   };
 
   return (
-    <section className='flex flex-col'>
-      <div className='flex flex-col'>
-        <section className='flex flex-row-reverse p-5'>
-          <div className='prod-detail-section flex flex-col'>
-            <h2 className='lg:text-md top-10 mb-2 mt-5 text-center font-hubbali text-sm  uppercase lg:mx-1 lg:mt-10 xl:text-xl'>
+    <section className='w-9/10 flex flex-col items-center'>
+      <div className='flex w-full flex-row-reverse items-center justify-center'>
+        <section className='flex w-8/12 flex-row-reverse items-center self-center p-2'>
+          <div className='prod-detail-section flex w-full flex-col  '>
+            <h2 className='lg:text-base mb-3 md:mb-1 md:text-xs items-center px-5 md:px-1 text-center self-center font-hubbali text-sm uppercase lg:mx-1 xl:text-base 2xl:text-xl'>
               <Link to={`/product/${product._id}`}>{product.productName}</Link>
             </h2>
-            <div className='flex flex-col'>
-              <p className='text-center font-grotesque'>${product.price}</p>
 
-              <div className='flex w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16  xl:w-24 '>
+            <div className='flex flex-col items-center'>
+              <p className='lg:mb-1 text-center font-grotesque 2xl:text-lg md:text-sm'>
+                ${product.price}
+              </p>
+
+              <div className='flex h-full w-14 md:w-12 items-center justify-around self-center rounded-full border border-charcoal 2xl:py-1 lg:w-16  xl:w-24 xl:py-[3px]'>
                 <img
                   src={minus}
                   alt='minus-icon'
                   onClick={qtyDecrementer}
                   className='h-3 lg:h-3 xl:h-5'
                 />
-                <span className='lg:text-md font-grotesque  text-sm lg:px-2 xl:px-4 xl:text-lg'>
+                <span className='lg:text-md font-grotesque  lg:px-2 xl:px-4 xl:text-base 2xl:text-base md:text-xs'>
                   {count}
                 </span>
                 <img
                   src={plus}
                   alt='plus-icon'
                   onClick={qtyIncrementor}
-                  className='h-3 lg:h-3 xl:h-5'
+                  className='h-3 lg:h-3 xl:h-5 '
                 />
               </div>
             </div>
           </div>
-
-<div className='flex justify-center items-center'>
-
-          <img
-            className='aspect-[3/4] h-32  object-cover lg:h-48'
-            src={
-              product.images.find(
-                (image) => image.imageDesc === 'product-front'
-                )?.imageURL || product.images[0].imageURL
-              }
-              />
-              </div>
         </section>
-        <div className='ml-5 flex w-40 justify-center rounded-sm bg-charcoal text-white '>
-          <button
-            className='flex flex-col justify-end font-italiana uppercase '
-            onClick={() =>
-              handleAddToCart({
-                userId,
-                productId: product._id.toString(),
-                qty: count,
-              })
-            }
-          >
-            add to cart
-          </button>
-        </div>
+
+        <img
+          className='aspect-[3/4] h-32  object-cover lg:h-44'
+          src={
+            product.images.find((image) => image.imageDesc === 'product-front')
+              ?.imageURL || product.images[0].imageURL
+          }
+        />
+      </div>
+      <div className='flex w-[40%] lg:w-[60%] md:w-[100%] md:mt-2 mt-4 mb-9 2xl:mt-4 justify-center items-center rounded-sm bg-charcoal text-center text-white'>
+        <button
+          className=' flex items-center justify-center rounded-sm py-1 md:text-sm font-italiana uppercase 2xl:text-lg'
+          onClick={() =>
+            handleAddToCart({
+              userId,
+              productId: product._id.toString(),
+              qty: count,
+            })
+          }
+        >
+          add to cart
+        </button>
       </div>
     </section>
   );

@@ -29,12 +29,12 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='mx-auto min-h-screen  text-charcoal'>
+    <div className='mx-auto min-h-screen text-charcoal'>
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
+        {/* <Route path='/sign-in' element={<SignIn />} /> */}
+        {/* <Route path='/sign-up' element={<SignUp />} /> */}
         <Route path='/shop-all' element={<AllProducts />} />
         <Route
           path='/shop-all/bestsellers'

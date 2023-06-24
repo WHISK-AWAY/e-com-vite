@@ -39,7 +39,27 @@ import raspberry from '../../../src/assets/bg-img/ingredient-bg/green-raspberry.
 import peonies from '../../../src/assets/bg-img/ingredient-bg/close-peonies.jpg';
 import honeycomb from '../../../src/assets/bg-img/ingredient-bg/honeycomb.jpg';
 import agaveAbstract from '../../../src/assets/bg-img/ingredient-bg/agave-abstract.jpg';
+import aloeDew from '../../../src/assets/bg-img/ingredient-bg/aloe-dew.jpg';
+import aloeGel from '../../../src/assets/bg-img/ingredient-bg/aloe-gel.jpg';
+import closeFlower from '../../../src/assets/bg-img/ingredient-bg/close-flower.jpg';
+import closePeonies from '../../../src/assets/bg-img/ingredient-bg/close-peonies.jpg';
+import coffee from '../../../src/assets/bg-img/ingredient-bg/coffee.jpg';
 import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
+import daisies from '../../../src/assets/bg-img/ingredient-bg/daisies.jpg';
+import floatingFlowers from '../../../src/assets/bg-img/ingredient-bg/floating-flowers.jpg';
+import flowerSpike from '../../../src/assets/bg-img/ingredient-bg/flower-spike.jpg';
+import gingerPlate from '../../../src/assets/bg-img/ingredient-bg/ginger-plate.jpg';
+import greenRaspberry from '../../../src/assets/bg-img/ingredient-bg/green-raspberry.jpg';
+import handfulOfRaspberries from '../../../src/assets/bg-img/ingredient-bg/handful-of-raspberries.jpg';
+import iceFlowers from '../../../src/assets/bg-img/ingredient-bg/ice-cube-flowers.jpg';
+import littleWFlowers from '../../../src/assets/bg-img/ingredient-bg/little-purple-flowers.jpg';
+import littlePFlowers from '../../../src/assets/bg-img/ingredient-bg/little-purple-flowers.jpg';
+import pinkFlowerBunch from '../../../src/assets/bg-img/ingredient-bg/pink-flower-bunch.jpg';
+import poppies from '../../../src/assets/bg-img/ingredient-bg/poppies.jpg';
+import purpleFlowers from '../../../src/assets/bg-img/ingredient-bg/purple-flowers.jpg';
+import tomatoes from '../../../src/assets/bg-img/ingredient-bg/tomatoes.jpg';
+import turmeric from '../../../src/assets/bg-img/ingredient-bg/turmeric.jpg';
+import whiteFlowers from '../../../src/assets/bg-img/ingredient-bg/white-flowers.jpg';
 
 // * test vid
 import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
@@ -48,6 +68,22 @@ import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
 
 const bgImgs = [
+  tomatoes,
+  coffee,
+  turmeric,
+  whiteFlowers,
+  poppies,
+  purpleFlowers,
+  pinkFlowerBunch,
+  littlePFlowers,
+  littleWFlowers,
+  iceFlowers,
+  handfulOfRaspberries,
+  greenRaspberry,
+  gingerPlate,
+  flowerSpike,
+  floatingFlowers,
+  daisies,
   lemons,
   coconut,
   bee,
@@ -61,6 +97,10 @@ const bgImgs = [
   honeycomb,
   agaveAbstract,
   agave2,
+  aloeDew,
+  aloeGel,
+  closeFlower,
+  closePeonies,
 ];
 
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
