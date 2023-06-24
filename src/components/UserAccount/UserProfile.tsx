@@ -7,11 +7,10 @@ import {
 import { useParams } from 'react-router';
 import { getUserId } from '../../redux/slices/authSlice';
 import EditAccountInfo from './EditAccountInfo';
-import EditShippingInfo from './EditShippingInfo';
 import OrderHistory from './OrderHistory';
 
-import citrusSlice from '../../assets/bg-img/ingredient-bg/sliced-citrus.jpg';
 import EditPassword from './EditPassword';
+import UserAddressBook from './UserAddressBook';
 
 type views = 'account' | 'shipping' | 'order' | 'password';
 
@@ -35,10 +34,6 @@ export default function UserProfile() {
       if (userId) dispatch(fetchSingleUser(userId));
     }
   }, [authUserId, userId]);
-
-  // TODO: prop types for Shipping Info & Order History
-
-  // TODO: change password form
 
   if (!user) return <h1>Loading...</h1>;
   return (
@@ -81,23 +76,29 @@ export default function UserProfile() {
             order history
           </button>
         </div>
-        <div className='flex h-full flex-col'>
+        <div className='flex h-full w-full flex-col'>
           <div className='mx-auto w-11/12'>
             <h2 className='border border-b-0 border-charcoal text-center font-italiana uppercase'>
               {viewMap[view]}
             </h2>
           </div>
           <div
-            className={`user-profile-edit-section relative h-full shrink-0 grow-0 border border-charcoal bg-cover p-7`}
+            className={`user-profile-edit-section relative h-full w-full shrink-0 grow-0 overflow-auto border border-charcoal bg-cover p-7`}
           >
-            <div className='absolute left-0 top-0 -z-10 h-full w-full bg-[url("/src/assets/bg-img/ingredient-bg/sliced-citrus.jpg")] bg-cover opacity-20'></div>
             {view === 'account' && <EditAccountInfo user={user.user} />}
             {view === 'password' && <EditPassword user={user.user} />}
-            {view === 'shipping' && <EditShippingInfo user={user.user} />}
+            {view === 'shipping' && <UserAddressBook user={user.user} />}
             {view === 'order' && <OrderHistory />}
           </div>
         </div>
       </div>
     </section>
   );
+}
+
+{
+  /* 
+image background
+<div className='absolute left-0 top-0 -z-10 h-full w-full bg-[url("/src/assets/bg-img/ingredient-bg/sliced-citrus.jpg")] bg-cover opacity-20'></div>
+*/
 }
