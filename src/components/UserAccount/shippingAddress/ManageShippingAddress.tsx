@@ -41,15 +41,12 @@ export type ShippingInfoString =
 export type EditFormModes = 'edit' | 'new';
 
 export type ManageShippingAddressProps = {
-  // ? getting a little bulky - maybe we should define a Props type (e.g., ManageShippingAddressProps)?
   user: TUser;
-  setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
   addressIndex: number;
   setAddressIndex: React.Dispatch<React.SetStateAction<number>>;
-
   addresses: TShippingAddress[];
-  clientSecret: string;
   setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
+  setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function ManageShippingAddress({
