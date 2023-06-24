@@ -25,6 +25,8 @@ import searchIcon from '../../src/assets/icons/search.svg';
 import bag from '../../src/assets/icons/bag-blanc.svg';
 import Cart from './Cart';
 import Favorite from './Favorite';
+import SignIn from './SignIn';
+import SignWrapper from './SignWrapper';
 // import { ReactSVG } from 'react-svg';
 
 export default function Navbar() {
@@ -40,7 +42,7 @@ export default function Navbar() {
   const [searchNotFound, setSearchNotFound] = useState(false);
   const [isCartHidden, setIsCartHidden] = useState(true);
   const [isFavHidden, setIsFavHidden] = useState(true);
-  const [isSigninHidden, setIsSigninHidden] = useState(true);
+  const [isSignFormHidden, setIsSignFormHidden] = useState(true);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -166,14 +168,20 @@ export default function Navbar() {
           </div>
         }
         {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
+
         {userId ? (
           <NavLink to={`/user/${userId}`}>
             <img src={user} className=' lg:w-5 ' />
           </NavLink>
         ) : (
-          <NavLink to={`/sign-in`}>
-            <img src={user} className=' lg:w-5 ' />
-          </NavLink>
+          <>
+            <div onClick={() => setIsSignFormHidden((prev) => !prev)}>
+              <img src={user} className=' lg:w-5' />
+            </div>
+            {!isSignFormHidden && (
+              <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
+            )}
+          </>
         )}
         {userId && <button onClick={signOut}>SIGN OUT</button>}
         {/* <img src={searchIcon} className=' w-6 ' /> */}
