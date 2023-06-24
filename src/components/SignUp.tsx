@@ -10,8 +10,17 @@ import {
   requestLogin,
 } from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
+import { TMode } from './SignWrapper';
 
-export default function SignUp() {
+export default function SignUp({
+  // setIsSignupHidden,
+  mode,
+  setMode,
+}: {
+  // setIsSignupHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  mode: TMode;
+  setMode: React.Dispatch<React.SetStateAction<TMode>>;
+}) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const selectAuthUser = useAppSelector(selectAuth);
