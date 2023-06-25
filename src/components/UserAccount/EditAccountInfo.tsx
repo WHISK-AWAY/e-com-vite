@@ -128,95 +128,68 @@ export default function EditAccountInfo({ user }: AccountProps) {
   if (!user) return <h1>Loading user info...</h1>;
 
   return (
-    <section className='edit-account-container h-full w-full pt-3'>
-      <div className='form-wrapper h-full'>
-        <form
-          className='flex h-full flex-col justify-between'
-          onSubmit={handleSubmit(formSubmit)}
-        >
-          <div className='input-wrapper grid grid-flow-row grid-cols-3 items-center gap-x-4 gap-y-3'>
-            <label className='text-right' htmlFor='first-name'>
+    <section className='edit-account-container grid h-fit w-[50vw]'>
+      <form
+        className='flex h-full flex-col justify-between'
+        onSubmit={handleSubmit(formSubmit)}
+      >
+        <div className='input-wrapper grid grid-cols-[2fr_5fr] place-items-stretch gap-x-[1px] bg-charcoal'>
+          <div className='label-column grid h-full grid-cols-1 grid-rows-3 place-items-start items-center gap-5 bg-white py-[15%] pl-[20%] lg:pl-[22%] xl:gap-y-6 xl:pl-[25%]'>
+            <label className='' htmlFor='first-name'>
               first name
             </label>
+            <label className='' htmlFor='last-name'>
+              last name
+            </label>
+            <label className='' htmlFor='email'>
+              email
+            </label>
+          </div>
+          <div className='input-column grid h-full grid-cols-1 grid-rows-3 place-items-start items-center gap-5 bg-white p-[6%] xl:gap-y-6'>
             <input
-              className='col-span-2 border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-2 py-1'
               type='text'
               id='first-name'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
             />
-            <label className='text-right' htmlFor='last-name'>
-              last name
-            </label>
+
             <input
-              className='col-span-2 border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-2 py-1'
               type='text'
               id='last-name'
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
             />
-            <label className='text-right' htmlFor='email'>
-              email address
-            </label>
+
             <input
-              className='col-span-2 border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-2 py-1'
               type='text'
               id='email'
               placeholder={errors.email?.message || ''}
               {...register('email')}
             />
           </div>
-          {/* 
-          <div className='input-pair'>
-            <label htmlFor='old-password'>current password</label>
-            <input
-              type='password'
-              id='old-password'
-              {...register('oldPassword', {
-                onBlur: (e) => passwordChecker(e.target.value),
-              })}
-            />
-          </div>
+        </div>
 
-          <div className='input-pair'>
-            <label htmlFor='new-password'>New Password:</label>
-            <input
-              type='password'
-              id='new-password'
-              placeholder={errors.newPassword?.message || ''}
-              {...register('newPassword')}
-            />
-          </div>
-
-          <div className='input-pair'>
-            <label htmlFor='confirm-password'>Confirm New Password:</label>
-            <input
-              type='password'
-              id='confirm-password'
-              placeholder={errors.confirmPassword?.message || ''}
-              {...register('confirmPassword')}
-            />
-          </div> */}
-          {!saveDisabled && (
-            <div className='button-wrapper flex gap-2 self-end'>
-              <button
-                className='self-end rounded-sm border border-charcoal bg-white px-4 py-2 font-italiana uppercase text-charcoal'
-                onClick={cancelEdits}
-                type='button'
-              >
-                cancel
-              </button>
-              <button
-                className='rounded-sm bg-charcoal px-4 py-2 font-italiana uppercase text-white'
-                type='submit'
-                disabled={saveDisabled}
-              >
-                save changes
-              </button>
-            </div>
-          )}
-        </form>
-      </div>
+        <div className='button-wrapper absolute -bottom-[30%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%]'>
+          <button
+            className='self-end rounded-sm border border-charcoal bg-white px-[4%] py-[1.5%] font-italiana uppercase text-charcoal disabled:border-charcoal/30 disabled:text-charcoal/30'
+            onClick={cancelEdits}
+            type='button'
+            disabled={saveDisabled}
+          >
+            cancel
+          </button>
+          <button
+            className='rounded-sm bg-charcoal px-[4%] py-[1.5%] font-italiana uppercase text-white disabled:bg-charcoal/30'
+            type='submit'
+            disabled={saveDisabled}
+          >
+            save changes
+          </button>
+        </div>
+      </form>
     </section>
   );
 }

@@ -12,6 +12,8 @@ import OrderHistory from './OrderHistory';
 import EditPassword from './EditPassword';
 import UserAddressBook from './UserAddressBook';
 
+import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
+
 type views = 'account' | 'shipping' | 'order' | 'password';
 
 const viewMap = {
@@ -37,68 +39,82 @@ export default function UserProfile() {
 
   if (!user) return <h1>Loading...</h1>;
   return (
-    <section className='user-profile-container mx-auto flex min-h-[calc(100dvh_-_64px)] w-11/12 max-w-[1440px] flex-col items-center gap-2 font-marcellus'>
-      <h1 className='self-start font-italiana text-[2.5rem] uppercase'>
-        hello, {user.user.firstName}
-      </h1>
-      <div className='user-settings-wrapper flex h-[370px] w-full items-start justify-center gap-6 text-xl'>
-        <div className='user-profile-menu-section mt-10 flex shrink-0 grow-0 basis-[32.5%] flex-col items-end gap-6'>
-          <button
-            className={
-              '' + view === 'account' ? ' uppercase underline' : ' lowercase'
-            }
-            onClick={() => setView('account')}
-          >
-            account info
-          </button>
-          <button
-            className={
-              '' + view === 'password' ? ' uppercase underline' : ' lowercase'
-            }
-            onClick={() => setView('password')}
-          >
-            update password
-          </button>
-          <button
-            className={
-              '' + view === 'shipping' ? ' uppercase underline' : ' lowercase'
-            }
-            onClick={() => setView('shipping')}
-          >
-            address book
-          </button>
-          <button
-            className={
-              '' + view === 'order' ? ' uppercase underline' : ' lowercase'
-            }
-            onClick={() => setView('order')}
-          >
-            order history
-          </button>
+    <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-marcellus'>
+      <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] w-full items-start justify-center pb-5 text-base lg:text-lg xl:text-xl 2xl:text-[1.75rem]'>
+        <div
+          className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[3%] pb-12 lg:pb-16 xl:pb-20 2xl:pb-24`}
+        >
+          <h1 className='font-italiana text-[2.5rem] uppercase lg:text-[3.25rem] xl:text-[4rem] 2xl:text-[4.75rem]'>
+            <span className='absolute bottom-2 right-1 text-white xl:bottom-4'>
+              hello
+            </span>
+            <span className='absolute -right-1 bottom-2 translate-x-[100%] xl:bottom-4'>
+              {user.user.firstName}
+            </span>
+          </h1>
+          <video
+            className='absolute right-0 -z-10 h-screen w-full -translate-y-[64px] object-cover'
+            src={flowerBg}
+            autoPlay={true}
+            loop={true}
+            muted={true}
+          />
+          <div className='menu-items-wrapper flex h-full w-full flex-col items-center justify-start gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
+            <div className='flex flex-col items-center'>
+              <button
+                className={
+                  '' + view === 'account' ? ' uppercase' : ' lowercase'
+                }
+                onClick={() => setView('account')}
+              >
+                account info
+              </button>
+              {view === 'account' && (
+                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+              )}
+            </div>
+            <div className='flex flex-col items-center'>
+              <button
+                className={
+                  '' + view === 'shipping' ? ' uppercase' : ' lowercase'
+                }
+                onClick={() => setView('shipping')}
+              >
+                address book
+              </button>
+              {view === 'shipping' && (
+                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+              )}
+            </div>
+            <div className='flex flex-col items-center'>
+              <button
+                className={'' + view === 'order' ? ' uppercase' : ' lowercase'}
+                onClick={() => setView('order')}
+              >
+                order history
+              </button>
+              {view === 'order' && (
+                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+              )}
+            </div>
+          </div>
         </div>
-        <div className='flex h-full w-full flex-col'>
-          <div className='mx-auto w-11/12'>
-            <h2 className='border border-b-0 border-charcoal text-center font-italiana uppercase'>
+        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center overflow-hidden pb-5 pl-3 pr-7'>
+          <div className='flex h-full w-fit -translate-y-[10%] flex-col items-center justify-center'>
+            <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-italiana uppercase lg:text-xl xl:text-2xl 2xl:text-3xl'>
               {viewMap[view]}
             </h2>
-          </div>
-          <div
-            className={`user-profile-edit-section relative h-full w-full shrink-0 grow-0 overflow-auto border border-charcoal bg-cover p-7`}
-          >
-            {view === 'account' && <EditAccountInfo user={user.user} />}
-            {view === 'password' && <EditPassword user={user.user} />}
-            {view === 'shipping' && <UserAddressBook user={user.user} />}
-            {view === 'order' && <OrderHistory />}
+            <div
+              className={`user-profile-edit-section relative h-fit max-h-[calc(100%_-_58px)] w-fit shrink-0 grow-0 border border-charcoal`}
+            >
+              {view === 'account' && <EditAccountInfo user={user.user} />}
+              {view === 'password' && <EditPassword user={user.user} />}
+              {view === 'shipping' && <UserAddressBook user={user.user} />}
+              {view === 'order' && <OrderHistory />}
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
-
-{
-  /* 
-image background
-<div className='absolute left-0 top-0 -z-10 h-full w-full bg-[url("/src/assets/bg-img/ingredient-bg/sliced-citrus.jpg")] bg-cover opacity-20'></div>
-*/
 }
