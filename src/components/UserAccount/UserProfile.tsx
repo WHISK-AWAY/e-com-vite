@@ -40,15 +40,15 @@ export default function UserProfile() {
   if (!user) return <h1>Loading...</h1>;
   return (
     <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-marcellus'>
-      <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] w-full items-start justify-center pb-5 text-base lg:text-lg xl:text-xl 2xl:text-[1.75rem]'>
+      <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] w-full items-start justify-center pb-12 text-base lg:pb-16 lg:text-lg xl:pb-20 xl:text-xl 2xl:pb-24 2xl:text-[1.75rem]'>
         <div
-          className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[3%] pb-12 lg:pb-16 xl:pb-20 2xl:pb-24`}
+          className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[3%] `}
         >
           <h1 className='font-italiana text-[2.5rem] uppercase lg:text-[3.25rem] xl:text-[4rem] 2xl:text-[4.75rem]'>
-            <span className='absolute bottom-2 right-1 text-white xl:bottom-4'>
+            <span className='absolute bottom-0 right-1 translate-y-[150%] text-white xl:-bottom-3'>
               hello
             </span>
-            <span className='absolute -right-1 bottom-2 translate-x-[100%] xl:bottom-4'>
+            <span className='absolute -right-1 bottom-0 translate-x-[100%] translate-y-[150%] xl:-bottom-3'>
               {user.user.firstName}
             </span>
           </h1>
@@ -59,7 +59,7 @@ export default function UserProfile() {
             loop={true}
             muted={true}
           />
-          <div className='menu-items-wrapper flex h-full w-full flex-col items-center justify-start gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
+          <div className='menu-items-container flex h-full w-full flex-col items-center justify-start gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
             <div className='flex flex-col items-center'>
               <button
                 className={
@@ -99,18 +99,20 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center overflow-hidden pb-5 pl-3 pr-7'>
-          <div className='flex h-full w-fit -translate-y-[10%] flex-col items-center justify-center'>
+        <div className='user-settings-main shrink-1 flex grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 '>
+          <div className='flex h-fit w-fit flex-col items-center justify-start pb-12 lg:pb-16 xl:pb-20 2xl:pb-24'>
             <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-italiana uppercase lg:text-xl xl:text-2xl 2xl:text-3xl'>
               {viewMap[view]}
             </h2>
             <div
-              className={`user-profile-edit-section relative h-fit max-h-[calc(100%_-_58px)] w-fit shrink-0 grow-0 border border-charcoal`}
+              className={`user-profile-edit-section shrink-1 relative h-full w-fit grow-0 border border-charcoal p-4`}
             >
-              {view === 'account' && <EditAccountInfo user={user.user} />}
-              {view === 'password' && <EditPassword user={user.user} />}
-              {view === 'shipping' && <UserAddressBook user={user.user} />}
-              {view === 'order' && <OrderHistory />}
+              <div className='h-fit max-h-[calc(100vh_-_182px)] w-full overflow-auto scroll-smooth lg:max-h-[calc(100vh_-_205px)] xl:max-h-[calc(100vh_-_225px)] 2xl:max-h-[calc(100vh_-_250px)]'>
+                {view === 'account' && <EditAccountInfo user={user.user} />}
+                {view === 'password' && <EditPassword user={user.user} />}
+                {view === 'shipping' && <UserAddressBook user={user.user} />}
+                {view === 'order' && <OrderHistory />}
+              </div>
             </div>
           </div>
         </div>

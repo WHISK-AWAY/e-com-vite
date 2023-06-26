@@ -18,7 +18,7 @@ export default function OrderHistory() {
   if (!allOrders?.length) return <h1>No orders found.</h1>;
 
   return (
-    <div className='history-container text-sm'>
+    <div className='history-container max-h-full w-[50vw] font-marcellus text-xs lg:text-sm xl:text-xl'>
       {!detailOrder ? (
         <OrderHistorySummary
           allOrders={allOrders}
