@@ -40,7 +40,7 @@ export default function UserProfile() {
   if (!user) return <h1>Loading...</h1>;
   return (
     <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-marcellus'>
-      <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] w-full items-start justify-center pb-12 text-base lg:pb-16 lg:text-lg xl:pb-20 xl:text-xl 2xl:pb-24 2xl:text-[1.75rem]'>
+      <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] min-h-[390px] w-full items-start justify-center pb-12 text-base lg:min-h-[450px] lg:pb-16 lg:text-lg xl:min-h-[500px] xl:pb-20 xl:text-xl 2xl:min-h-[600px] 2xl:pb-24 2xl:text-[1.75rem]'>
         <div
           className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[3%] `}
         >
@@ -53,7 +53,7 @@ export default function UserProfile() {
             </span>
           </h1>
           <video
-            className='absolute right-0 -z-10 h-screen w-full -translate-y-[64px] object-cover'
+            className='absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
             src={flowerBg}
             autoPlay={true}
             loop={true}
@@ -99,15 +99,15 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-        <div className='user-settings-main shrink-1 flex grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 '>
-          <div className='flex h-fit w-fit flex-col items-center justify-start pb-12 lg:pb-16 xl:pb-20 2xl:pb-24'>
+        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 '>
+          <div className='relative flex h-fit max-h-[calc(100vh_-_112px)] w-fit flex-col items-center justify-start lg:max-h-[calc(100vh_-_130px)] xl:max-h-[calc(100vh_-_140px)] 2xl:max-h-[calc(100vh_-_160px)]'>
             <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-italiana uppercase lg:text-xl xl:text-2xl 2xl:text-3xl'>
               {viewMap[view]}
             </h2>
             <div
-              className={`user-profile-edit-section shrink-1 relative h-full w-fit grow-0 border border-charcoal`}
+              className={`user-profile-edit-section shrink-1 h-fit w-fit grow-0 overflow-auto border border-charcoal`}
             >
-              <div className='h-fit max-h-[calc(100vh_-_182px)] w-full overflow-auto scroll-smooth lg:max-h-[calc(100vh_-_205px)] xl:max-h-[calc(100vh_-_225px)] 2xl:max-h-[calc(100vh_-_250px)]'>
+              <div className='h-fit w-full'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}
                 {view === 'password' && <EditPassword user={user.user} />}
                 {view === 'shipping' && <UserAddressBook user={user.user} />}
@@ -119,4 +119,11 @@ export default function UserProfile() {
       </div>
     </section>
   );
+}
+
+{
+  /*
+  from the wrapper around the rendered subcomponents:
+   max-h-[calc(100vh_-_182px)] lg:max-h-[calc(100vh_-_205px)] xl:max-h-[calc(100vh_-_225px)] 2xl:max-h-[calc(100vh_-_250px)]
+*/
 }

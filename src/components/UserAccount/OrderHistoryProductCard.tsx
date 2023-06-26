@@ -16,7 +16,7 @@ export default function OrderHistoryProductCard({
     <div className='order-history-product-card flex w-full justify-center gap-5'>
       <div className='image-container basis-1/5'>
         <img
-          className='aspect-[3/4] w-full border border-charcoal'
+          className='aspect-[3/4] w-full border border-charcoal object-cover'
           src={product.imageURL}
           alt='product image'
         />

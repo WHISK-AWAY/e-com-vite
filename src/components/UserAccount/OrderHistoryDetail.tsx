@@ -1,6 +1,7 @@
 import { TOrder } from '../../redux/slices/orderSlice';
 import OrderHistoryProductCard from './OrderHistoryProductCard';
 import x from '../../assets/icons/x.svg';
+import { useEffect, useRef } from 'react';
 
 export type OrderHistoryDetailProps = {
   order: TOrder;
@@ -11,8 +12,10 @@ export default function OrderHistoryDetail({
   order,
   setDetailOrder,
 }: OrderHistoryDetailProps) {
+  const address = order.user.shippingInfo;
+
   return (
-    <div className='order-detail-wrapper relative h-full w-full font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
+    <div className='order-detail-wrapper relative h-full w-full pb-10 font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
       <img
         className='absolute right-0 top-0 cursor-pointer'
         onClick={() => setDetailOrder(null)}
@@ -20,9 +23,9 @@ export default function OrderHistoryDetail({
         alt='return to summary'
       />
       <h2 className='text-center uppercase'>order no. {order._id}</h2>
-      <h3 className='text-center text-[0.5rem] italic'>
+      <aside className='text-center text-[0.5rem] italic lg:text-xs xl:text-sm'>
         placed {new Date(order.date).toLocaleDateString()}
-      </h3>
+      </aside>
       <div className='product-listing flex flex-col items-center gap-2 p-4'>
         {order.orderDetails.map((product) => (
           <OrderHistoryProductCard key={product.productId} product={product} />
@@ -39,9 +42,37 @@ export default function OrderHistoryDetail({
           {/* the math here is intentionally backwards to prevent negative sign */}
           (${(order.subtotal! - order.total!).toFixed(2)})
         </div>
-        <div className='text-sm font-semibold'>Order Total:</div>
-        <div className='place-self-end border-t border-charcoal text-sm font-semibold'>
+        <div className='font-semibold'>Order Total:</div>
+        <div className='place-self-end border-t border-charcoal font-semibold '>
           ${order.total?.toFixed(2)}
+        </div>
+      </div>
+      <div className='shipping-info mt-6'>
+        <h3 className='font-semibold uppercase'>delivery address</h3>
+        <div className='address-wrapper grid w-full grid-cols-[2fr,_3fr] border border-charcoal xl:grid-cols-[1fr,_3fr]'>
+          <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[25%]'>
+            <p className=''>full name</p>
+            <p className=''>email</p>
+            <p className=''>address 1</p>
+            <p className=''>address 2</p>
+            <p className=''>city</p>
+            <p className=''>state</p>
+            <p className=''>zip</p>
+          </div>
+          <div className='address-component-column grid h-full grid-cols-1 place-items-start items-center gap-2 bg-white py-5 pl-[10%]'>
+            <p className='uppercase'>
+              {address.firstName} {address.lastName}
+            </p>
+
+            <p className='uppercase'>{address.email}</p>
+            <p className='uppercase'>{address.address_1}</p>
+            <p className='uppercase'>
+              {address.address_2 ? address.address_2 : '-'}
+            </p>
+            <p className='uppercase'>{address.city}</p>
+            <p className='uppercase'>{address.state}</p>
+            <p className='uppercase'>{address.zip}</p>
+          </div>
         </div>
       </div>
     </div>
