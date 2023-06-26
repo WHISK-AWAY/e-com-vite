@@ -17,18 +17,21 @@
 ### Open
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
-- [ ] Search function
+- [ ] Bring back (render) search function
+  - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
 - [ ] Checkout-section address book does not render all addresses
+- [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
+- [ ] Sign-in: 'Found 2 elements with non-unique id #email'
 - [ ] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
 - [ ] Product catalog
   - [ ] Add more items
-  - [ ] Tags/categories
+  - [ ] Assign correct tags/categories
 - [ ] User Account Section
-  - [ ] Layout: Address book
+  - [x] Layout: Address book
   - [ ] New / edit address (maybe)
-  - [ ] Layout: Order history/details
-  - [ ] Responsive styling throughout
+  - [x] Layout: Order history/details
+  - [x] Responsive styling throughout
 - [ ] User feedback
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
