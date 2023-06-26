@@ -127,77 +127,72 @@ export default function SignIn({
   };
 
   return (
-   <>
-        <video
-          src={signin}
-          className='h-full object-cover'
-          loop={true}
-          autoPlay={true}
-        />
-        
-        <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana'>
-          <h1 className='pb-[8%] pt-[30%] lg:text-xl xl:text-2xl 2xl:text-2xl'>
-            {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
-            SIGN IN
-          </h1>
-          <form
-            className='sign-in-form flex w-full flex-col'
-            onSubmit={handleSubmit(submitData)}
-          >
-            <div className='email-field flex flex-col py-[4%] uppercase xl:text-xl 2xl:text-xl'>
-              <label htmlFor='email' className='pl-4 lg:pb-1'>
-                email
-              </label>
-              <input
-                className='rounded-sm border border-charcoal/50 bg-white/40 p-2 font-federo text-xs text-charcoal placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14'
-                type='email'
-                id='email'
-                placeholder={errors.email?.message || ''}
-                {...register('email', {
-                  onBlur: (e) => emailFetcher(e.target.value),
-                })}
-                />
-              {/* {errors.email && <p>{errors.email.message}</p>} */}
-            </div>
-            <div className='password-field flex flex-col uppercase xl:text-xl 2xl:text-xl'>
-              <label htmlFor='password' className='pl-4 lg:pb-1'>
-                password
-              </label>
-              <input
-                className='flex rounded-sm border border-charcoal/50 bg-white/40 p-2 placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
-                type='password'
-                id='password'
-                placeholder={errors.password?.message || ''}
-                {...register('password')}
-              />
-              {/* {errors.password && (
+    <>
+      <video
+        src={signin}
+        className='h-full object-cover'
+        loop={true}
+        autoPlay={true}
+      />
+
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana'>
+        <h1 className='pb-[8%] pt-[30%] lg:text-xl xl:text-2xl 2xl:text-2xl'>
+          {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
+          SIGN IN
+        </h1>
+        <form
+          className='sign-in-form flex w-full flex-col'
+          onSubmit={handleSubmit(submitData)}
+        >
+          <div className='email-field flex flex-col py-[4%] uppercase xl:text-xl 2xl:text-xl'>
+            <label htmlFor='email' className='pl-4 lg:pb-1'>
+              email
+            </label>
+            <input
+              className='rounded-sm border border-charcoal/50 bg-white/40 p-2 font-federo text-xs text-charcoal placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14'
+              type='email'
+              id='email'
+              placeholder={errors.email?.message || ''}
+              {...register('email', {
+                onBlur: (e) => emailFetcher(e.target.value),
+              })}
+            />
+            {/* {errors.email && <p>{errors.email.message}</p>} */}
+          </div>
+          <div className='password-field flex flex-col uppercase xl:text-xl 2xl:text-xl'>
+            <label htmlFor='password' className='pl-4 lg:pb-1'>
+              password
+            </label>
+            <input
+              className='flex rounded-sm border border-charcoal/50 bg-white/40 p-2 placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
+              type='password'
+              id='password'
+              placeholder={errors.password?.message || ''}
+              {...register('password')}
+            />
+            {/* {errors.password && (
                 <p className='flex items-center pt-1 lg:text-base md:text-xs lowercase '>
                   {errors.password.message}
                 </p>
               )} */}
-            </div>
-            <button
-              className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-3 font-italiana text-2xl uppercase tracking-wide text-white md:text-base 2xl:py-4 '
-              type='submit'
-              >
-              sign in
-            </button>
-          </form>
-          <p className='text-center text-base md:text-xs'>
-            new here? create an account{' '}
-            <Link
-              to='/sign-up'
-              className='text-base text-white underline md:text-xs'
-              >
-              instead
-            </Link>
-            <div onClick={async() =>  setMode('sign-up')}>
-              instead
-             
-            </div>
-          </p>
-        </div>
-      
-              </>
+          </div>
+          <button
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-3 font-italiana text-2xl uppercase tracking-wide text-white md:text-base 2xl:py-4 '
+            type='submit'
+          >
+            sign in
+          </button>
+        </form>
+        <p className='text-center text-base md:text-xs'>
+          new here? create an account {' '}
+          <span
+            onClick={async () => setMode('sign-up')}
+            className='text-base text-white underline md:text-xs'
+          >
+            instead
+          </span>
+        </p>
+      </div>
+    </>
   );
 }
