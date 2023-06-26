@@ -128,12 +128,12 @@ export default function EditAccountInfo({ user }: AccountProps) {
   if (!user) return <h1>Loading user info...</h1>;
 
   return (
-    <section className='edit-account-container grid h-fit w-[50vw]'>
+    <section className='edit-account-container h-fit w-[50vw]'>
       <form
         className='flex h-full flex-col justify-between'
         onSubmit={handleSubmit(formSubmit)}
       >
-        <div className='input-wrapper grid grid-cols-[2fr_5fr] place-items-stretch gap-x-[1px] bg-charcoal'>
+        <div className='input-wrapper grid grid-cols-[2fr_5fr] place-items-stretch gap-x-[0.5px] bg-charcoal'>
           <div className='label-column grid h-full grid-cols-1 grid-rows-3 place-items-start items-center gap-5 bg-white py-[15%] pl-[20%] lg:pl-[22%] xl:gap-y-6 xl:pl-[25%]'>
             <label className='' htmlFor='first-name'>
               first name
