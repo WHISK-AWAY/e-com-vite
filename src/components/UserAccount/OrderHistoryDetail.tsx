@@ -1,7 +1,6 @@
 import { TOrder } from '../../redux/slices/orderSlice';
 import OrderHistoryProductCard from './OrderHistoryProductCard';
 import x from '../../assets/icons/x.svg';
-import { useEffect, useRef } from 'react';
 
 export type OrderHistoryDetailProps = {
   order: TOrder;
