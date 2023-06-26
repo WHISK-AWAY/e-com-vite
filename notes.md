@@ -7,6 +7,9 @@
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
 - [ ] Search function
 - [ ] Verified purchase logic isn't working
+- [ ] Product catalog
+  - [ ] Add more items
+  - [ ] Tags/categories
 - [ ] User Account Section
   - [ ] Layout: Address book
   - [ ] New / edit address (maybe)
