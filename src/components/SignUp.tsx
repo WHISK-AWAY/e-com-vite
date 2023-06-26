@@ -11,15 +11,18 @@ import {
 } from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
 import { TMode } from './SignWrapper';
+import signup from '../assets/bg-vids/sign-up.mp4';
+import SignIn from './SignIn';
 
 export default function SignUp({
-  // setIsSignupHidden,
+  setIsSignFormHidden,
   mode,
   setMode,
 }: {
   // setIsSignupHidden: React.Dispatch<React.SetStateAction<boolean>>;
   mode: TMode;
   setMode: React.Dispatch<React.SetStateAction<TMode>>;
+  setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -27,10 +30,17 @@ export default function SignUp({
 
   const zodUser: ZodType<FormData> = z
     .object({
-      firstName: z.string().min(1),
-      lastName: z.string().min(1),
-      email: z.string().email(),
-      password: z.string().min(8).max(20),
+      firstName: z
+        .string()
+        .min(1, { message: 'should have at least 1 character' }),
+      lastName: z
+        .string()
+        .min(2, { message: 'should have at least 2 characters' }),
+      email: z.string().email({ message: 'should be a valid email ' }),
+      password: z
+        .string()
+        .min(8, { message: 'should contain at least 8 characters' })
+        .max(20, { message: 'should contain at most 20 characters' }),
       address: z
         .object({
           address_1: z.string(),
@@ -40,14 +50,17 @@ export default function SignUp({
           zip: z.string(),
         })
         .optional(),
-      confirmPassword: z.string().min(8).max(20),
+      confirmPassword: z
+        .string()
+        .min(8, { message: 'should contain at least 8 characters' })
+        .max(20, { message: 'should contain at most 8 characters' }),
     })
     .strict()
     .superRefine(({ confirmPassword, password }, ctx) => {
       if (password !== confirmPassword) {
         ctx.addIssue({
           code: 'custom',
-          message: 'Password fields do not match',
+          message: 'password fields do not match',
           path: ['confirmPassword'],
         });
       }
@@ -86,9 +99,12 @@ export default function SignUp({
         reset({
           email: '',
         });
-        setError('email', { type: 'custom', message: 'Email already exists' });
+        setError('email', { type: 'custom', message: 'email already exists' }),
+          {
+            keepErrors: true,
+          };
       } else {
-        clearErrors('email');
+        // clearErrors('email');
       }
     } catch (err) {
       console.log(err);
@@ -127,53 +143,101 @@ export default function SignUp({
   };
 
   return (
-    <section className='sign-up-form-container'>
-      <div>
-        <h1>SIGN UP</h1>
-        <form className='sign-up-form' onSubmit={handleSubmit(submitData)}>
-          <div className='first-name-field'>
-            <label htmlFor='first-name'>first name</label>
-            <input type='text' {...register('firstName')}></input>
-            {errors.firstName && <p>{errors.firstName.message}</p>}
+    <>
+      <video
+        src={signup}
+        className='h-full object-cover'
+        loop={true}
+        autoPlay={true}
+      />
+
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white'>
+        <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl'>
+          SIGN UP
+        </h1>
+        <form
+          className='sign-up-form flex w-full flex-col'
+          onSubmit={handleSubmit(submitData)}
+        >
+          <div className='first-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
+            <label htmlFor='first-name' className='pl-4 lg:pb-1'>
+              first name
+            </label>
+            <input
+              type='text'
+              placeholder={errors.firstName?.message || ''}
+              {...register('firstName')}
+              className='rounded-sm border border-white bg-white/50 p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-11 lg:text-base xl:h-11 2xl:h-12'
+            ></input>
+            {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
-          <div className='last-name-field'>
-            <label htmlFor='last-name'>last name</label>
-            <input type='text' {...register('lastName')}></input>
-            {errors.lastName && <p>{errors.lastName.message}</p>}
+          <div className='last-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg  2xl:text-lg'>
+            <label htmlFor='last-name' className='pl-4 lg:pb-1'>
+              last name
+            </label>
+            <input
+              type='text'
+              placeholder={errors.lastName?.message || ''}
+              {...register('lastName')}
+              className='rounded-sm border border-white bg-white/50 p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+            ></input>
+            {/* {errors.lastName && <p>{errors.lastName.message}</p>} */}
           </div>
-          <div className='email-field'>
-            <label htmlFor='email'>email</label>
+          <div className='email-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
+            <label htmlFor='email' className='pl-4 lg:pb-1'>
+              email
+            </label>
             <input
               type='email'
+              placeholder={errors.email?.message || ''}
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
+              className='rounded-sm border border-white bg-white/50 p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
             ></input>
-            {errors.email && <p>{errors.email.message}</p>}
+            {/* {errors.email && <p>{errors.email.message}</p>} */}
           </div>
-          <div className='password-field'>
-            <label htmlFor='password'>password</label>
-            <input type='password' {...register('password')}></input>
-            {errors.password && <p>{errors.password.message}</p>}
+          <div className='password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
+            <label htmlFor='password' className='pl-4 lg:pb-1'>
+              password
+            </label>
+            <input
+              type='password'
+              placeholder={errors.password?.message || ''}
+              {...register('password')}
+              className='rounded-sm border border-white bg-white/50 p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+            ></input>
+            {/* {errors.password && <p>{errors.password.message}</p>} */}
           </div>
-          <div className='confirm-password-field'>
-            <label htmlFor='confirm-password'>confirm password</label>
-            <input type='password' {...register('confirmPassword')}></input>
-            {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+          <div className='confirm-password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
+            <label htmlFor='confirm-password' className='pl-4 lg:pb-1'>
+              confirm password
+            </label>
+            <input
+              type='password'
+              placeholder={errors.confirmPassword?.message || ''}
+              {...register('confirmPassword')}
+              className='rounded-sm border border-white bg-white/50 p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+            ></input>
+            {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
-          <button type='submit'>submit</button>
+          <button
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 2xl:py-3 2xl:text-2xl'
+            type='submit'
+          >
+            sign up
+          </button>
         </form>
-        <p>
-          <Link to='/sign-in' className='text-green-400'>
-            Sign In
-          </Link>
-        </p>
-        <p>
-          <Link to='/' className='text-green-400'>
-            Home
-          </Link>
+        <p className='text-center text-base md:text-xs'>
+          already have an account? sign in{' '}
+          <span
+            onClick={() => setMode('sign-in')}
+            className='text-base text-[#958585] underline md:text-xs'
+          >
+            here
+          </span>
         </p>
       </div>
-    </section>
+    </>
   );
 }
