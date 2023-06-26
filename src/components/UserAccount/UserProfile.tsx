@@ -107,7 +107,7 @@ export default function UserProfile() {
             <div
               className={`user-profile-edit-section shrink-1 h-fit w-fit grow-0 overflow-auto border border-charcoal`}
             >
-              <div className='h-fit w-full'>
+              <div className='h-fit w-full min-w-[40vw]'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}
                 {view === 'password' && <EditPassword user={user.user} />}
                 {view === 'shipping' && <UserAddressBook user={user.user} />}
