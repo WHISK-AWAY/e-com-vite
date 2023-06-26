@@ -20,6 +20,7 @@
 - [ ] Search function
 - [ ] Verified purchase logic isn't working
 - [ ] Checkout-section address book does not render all addresses
+- [ ] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
 - [ ] Product catalog
   - [ ] Add more items
   - [ ] Tags/categories
