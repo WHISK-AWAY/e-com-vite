@@ -105,7 +105,7 @@ export default function UserProfile() {
               {viewMap[view]}
             </h2>
             <div
-              className={`user-profile-edit-section shrink-1 relative h-full w-fit grow-0 border border-charcoal p-4`}
+              className={`user-profile-edit-section shrink-1 relative h-full w-fit grow-0 border border-charcoal`}
             >
               <div className='h-fit max-h-[calc(100vh_-_182px)] w-full overflow-auto scroll-smooth lg:max-h-[calc(100vh_-_205px)] xl:max-h-[calc(100vh_-_225px)] 2xl:max-h-[calc(100vh_-_250px)]'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}

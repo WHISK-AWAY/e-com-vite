@@ -21,7 +21,7 @@ export default function OrderHistorySummary({
   setDetailOrder,
 }: OrderHistorySummaryProps) {
   return (
-    <div className='grid-wrapper group-[header] grid grid-cols-6 place-items-stretch justify-around text-center'>
+    <div className='grid-wrapper grid grid-cols-6 place-items-stretch justify-around text-center'>
       {columnHeaders.map((col) => (
         <div key={col} className='mb-1 border-b border-charcoal font-semibold'>
           {col}

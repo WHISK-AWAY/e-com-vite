@@ -12,26 +12,37 @@ export default function OrderHistoryDetail({
   setDetailOrder,
 }: OrderHistoryDetailProps) {
   return (
-    <div className='order-detail-wrapper relative h-full w-full bg-slate-200'>
+    <div className='order-detail-wrapper relative h-full w-full font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
       <img
         className='absolute right-0 top-0 cursor-pointer'
         onClick={() => setDetailOrder(null)}
         src={x}
         alt='return to summary'
       />
-      <h2 className='font-marcellus text-base uppercase'>order {order._id}</h2>
-      <h3 className='text-sm'>
+      <h2 className='text-center uppercase'>order no. {order._id}</h2>
+      <h3 className='text-center text-[0.5rem] italic'>
         placed {new Date(order.date).toLocaleDateString()}
       </h3>
-      <div className='product-listing flex flex-col items-center gap-2'>
+      <div className='product-listing flex flex-col items-center gap-2 p-4'>
         {order.orderDetails.map((product) => (
           <OrderHistoryProductCard key={product.productId} product={product} />
         ))}
       </div>
-      <div className='total-info'>
-        <p>Subtotal: ${order.subtotal?.toFixed(2)}</p>
-        <p>Discount: ${(order.total! - order.subtotal!).toFixed(2)}</p>
-        <p>Order Total: ${order.total?.toFixed(2)}</p>
+      <div className='total-info grid w-fit grid-cols-2 gap-x-2'>
+        <div>Subtotal:</div>
+        <div className='place-self-end pr-1'>
+          {' '}
+          ${order.subtotal?.toFixed(2)}
+        </div>
+        <div>Discount:</div>
+        <div className='place-self-end'>
+          {/* the math here is intentionally backwards to prevent negative sign */}
+          (${(order.subtotal! - order.total!).toFixed(2)})
+        </div>
+        <div className='text-sm font-semibold'>Order Total:</div>
+        <div className='place-self-end border-t border-charcoal text-sm font-semibold'>
+          ${order.total?.toFixed(2)}
+        </div>
       </div>
     </div>
   );
