@@ -17,9 +17,13 @@
 ### Open
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
+  - [ ] Need to trim inputs
+- [ ] Find a home for sign-out button
+- [ ] Logo should point to home page
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
+- [ ] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [ ] Checkout-section address book does not render all addresses
 - [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
 - [ ] Sign-in: 'Found 2 elements with non-unique id #email'
