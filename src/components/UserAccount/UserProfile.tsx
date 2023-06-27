@@ -45,10 +45,10 @@ export default function UserProfile() {
           className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[3%] `}
         >
           <h1 className='font-italiana text-[2.5rem] uppercase lg:text-[3.25rem] xl:text-[4rem] 2xl:text-[4.75rem]'>
-            <span className='absolute bottom-0 right-1 translate-y-[150%] text-white xl:-bottom-3'>
+            <span className='absolute bottom-0 right-1 translate-y-[150%] tracking-wider text-white xl:-bottom-3'>
               hello
             </span>
-            <span className='absolute -right-1 bottom-0 translate-x-[100%] translate-y-[150%] xl:-bottom-3'>
+            <span className='absolute -right-1 bottom-0 translate-x-[100%] translate-y-[150%] tracking-wider xl:-bottom-3'>
               {user.user.firstName}
             </span>
           </h1>
@@ -99,8 +99,8 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 '>
-          <div className='relative flex h-fit max-h-[calc(100vh_-_112px)] w-fit flex-col items-center justify-start lg:max-h-[calc(100vh_-_130px)] xl:max-h-[calc(100vh_-_140px)] 2xl:max-h-[calc(100vh_-_160px)]'>
+        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7'>
+          <div className='relative flex h-fit max-h-[calc(100vh_-_112px)] w-fit flex-col items-center justify-start pt-[4%] lg:max-h-[calc(100vh_-_130px)] xl:max-h-[calc(100vh_-_140px)] 2xl:max-h-[calc(100vh_-_160px)]'>
             <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-italiana uppercase lg:text-xl xl:text-2xl 2xl:text-3xl'>
               {viewMap[view]}
             </h2>
