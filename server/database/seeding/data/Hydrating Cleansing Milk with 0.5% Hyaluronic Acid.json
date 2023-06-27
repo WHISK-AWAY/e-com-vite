@@ -1,0 +1,20 @@
+{
+  "productName": "Hydrating Cleansing Milk with 0.5% Hyaluronic Acid + Chamomile Extract",
+  "productShortDesc": "Enriched with hydrating active ingredients, this cleansing milk eliminates impurities without drying out the skin. 96% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Hyaluronic Acid:\nResulting from the fermentation of wheat, this molecule is known for its highly moisturizing properties. It can hold up to a thousand times its weight in water. The production of hyaluronic acid by the body tends to decrease with age, which leads to the appearance of early fine lines on the surface of the skin. Daily application of hyaluronic acid therefore makes it possible to compensate for this deficit, to reduce the appearance of fine lines and to make the skin more supple and more toned.\nChamomile extract:\nDistinctive for its refreshing scent, chamomile is also known for its anti-inflammatory, calming and softening properties.\nCoconul oil:\nRich in fatty acids and vitamins, coconut oil is known for its nourishing properties. It protects, nourishes and softens dry skin.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/dc638d2ea6/lab_3003_page_produit.jpg",
+    "https://media.typology.com/storyblok/1600x1600/4d4f081e39/hydratation_carousel-produit-lait-texture.jpg",
+    "https://media.typology.com/storyblok/1600x1600/4400aef97d/hydratation_carousel-produit-lait_dos.jpg",
+    "https://media.typology.com/storyblok/1600x1600/8d26ae83ca/lab_3003_page_produit5.jpg",
+    "https://media.typology.com/video-storyblok/x/b4654404e6/16_lait-nettoyant-ok.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-back",
+    "product-dimensions",
+    "video-usage"
+  ],
+  "categories": []
+}
