@@ -174,6 +174,10 @@ export default function SingleProduct() {
     }
   }, [allReviews, userId]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0});
+  }, [])
+
   const qtyIncrementor = () => {
     let userQty: number = count;
     const totalQty: number = singleProduct!.qty!;
@@ -281,7 +285,9 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-10 2xl:max-w-[1420px]'>
+    <main
+      className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'
+    >
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
@@ -321,7 +327,7 @@ export default function SingleProduct() {
 
         <section className='product-details flex basis-3/5 flex-col items-center px-8'>
           <div className='product-desc mb-9 flex flex-col items-center text-justify'>
-            <h1 className='product-name pb-9 font-federo text-[1rem] uppercase xl:text-[1.5rem]'>
+            <h1 className='product-name pb-9 font-federo text-[1rem] text-center uppercase xl:text-[1.5rem]'>
               {singleProduct.productName}
             </h1>
             <div
