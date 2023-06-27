@@ -49,6 +49,8 @@ export default function SignIn({
     };
   }, []);
 
+
+
   // useEffect(() => {
   //   if (selectAuthUser.userId) {
   //     navigate(`/shop-all`);
@@ -111,15 +113,15 @@ export default function SignIn({
   const submitData = async (data: FormData) => {
     dispatch(requestLogin(data))
       .then((meta) => {
-        console.log('m', meta)
+        // console.log('mta', meta)
         const payload = meta?.payload as AuthState;
-        if (payload?.error?.status === 401) {
+        if (payload?.status === 401) {
           reset({
             password: '',
           });
           setError('password', {
             type: 'custom',
-            message: 'dumb fuck',
+            message: 'incorrect password',
           });
         }
       })
@@ -149,9 +151,10 @@ export default function SignIn({
               email
             </label>
             <input
-              className='input-ring-charcoal focus-no-ring rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14'
+              className='input-ring-charcoal focus-no-ring rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14'
               type='email'
-              id='email'
+              id='user-email'
+              autoComplete='email'
               placeholder={errors.email?.message || ''}
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
@@ -164,9 +167,10 @@ export default function SignIn({
               password
             </label>
             <input
-              className='focus-no-ring input-ring-charcoal flex rounded-sm p-2 text-xs  placeholder:text-xs autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
+              className='focus-no-ring input-ring-charcoal flex rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
               type='password'
               id='password'
+              autoComplete='current-password'
               placeholder={errors.password?.message || ''}
               {...register('password')}
             />
