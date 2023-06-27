@@ -128,7 +128,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
   if (!user) return <h1>Error accessing user info.</h1>;
 
   return (
-    <section className='edit-account-container h-fit w-full min-w-[40vw]'>
+    <section className='edit-account-container h-fit w-full min-w-[40vw] text-sm lg:text-base xl:text-lg 2xl:text-xl'>
       <form
         className='flex h-full w-full flex-col justify-between'
         onSubmit={handleSubmit(formSubmit)}
@@ -147,7 +147,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
           </div>
           <div className='input-column grow-1 flex h-48 shrink-0 basis-[65%] flex-col items-center justify-around bg-white p-5 lg:basis-[70%]'>
             <input
-              className='w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1'
               type='text'
               id='first-name'
               placeholder={errors.firstName?.message || ''}
@@ -155,7 +155,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1'
               type='text'
               id='last-name'
               placeholder={errors.lastName?.message || ''}
@@ -163,7 +163,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1'
               type='text'
               id='email'
               placeholder={errors.email?.message || ''}

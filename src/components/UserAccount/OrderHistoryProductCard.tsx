@@ -22,7 +22,7 @@ export default function OrderHistoryProductCard({
         />
       </div>
       <div className='info-container flex basis-4/5 flex-col items-center justify-center gap-4'>
-        <h4 className='font-semibold'>{product.productName}</h4>
+        <h4 className='font-semiboldd uppercase'>{product.productName}</h4>
         <div>
           {`$${product.price.toFixed(2)}/ea x ${product.qty}: `}
           <span className='font-semibold'>

@@ -15,11 +15,11 @@ export default function OrderHistoryDetail({
   const address = order.user.shippingInfo;
   const topElement = useRef<HTMLHeadingElement | null>(null); // h2
 
-  useEffect(() => {
-    if (topElement) {
-      topElement.current?.scrollIntoView(false);
-    }
-  });
+  // useEffect(() => {
+  //   if (topElement) {
+  //     topElement.current?.scrollIntoView(false);
+  //   }
+  // });
 
   return (
     <div className='order-detail-wrapper relative h-full w-full pb-10 font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
@@ -35,12 +35,12 @@ export default function OrderHistoryDetail({
       <aside className='text-center text-[0.5rem] italic lg:text-xs xl:text-sm'>
         placed {new Date(order.date).toLocaleDateString()}
       </aside>
-      <div className='product-listing flex flex-col items-center gap-2 p-4'>
+      <div className='product-listing mb-6 flex flex-col items-center gap-2 p-4'>
         {order.orderDetails.map((product) => (
           <OrderHistoryProductCard key={product.productId} product={product} />
         ))}
       </div>
-      <div className='total-info grid w-fit grid-cols-2 gap-x-2'>
+      <div className='total-info mx-auto grid w-fit grid-cols-2 gap-x-2'>
         <div>Subtotal:</div>
         <div className='place-self-end pr-1'>
           {' '}
@@ -52,12 +52,14 @@ export default function OrderHistoryDetail({
           (${(order.subtotal! - order.total!).toFixed(2)})
         </div>
         <div className='font-semibold'>Order Total:</div>
-        <div className='place-self-end border-t border-charcoal font-semibold '>
+        <div className='mb-6 place-self-end border-t border-charcoal font-semibold'>
           ${order.total?.toFixed(2)}
         </div>
       </div>
-      <div className='shipping-info mt-6'>
-        <h3 className='font-semibold uppercase'>delivery address</h3>
+      <div className='shipping-info mx-auto mt-6 flex w-4/5 flex-col items-center'>
+        <h3 className='w-3/5 border border-b-0 border-charcoal py-1 text-center font-italiana text-2xl uppercase'>
+          delivery address
+        </h3>
         <div className='address-wrapper grid w-full grid-cols-[2fr,_3fr] border border-charcoal xl:grid-cols-[1fr,_3fr]'>
           <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[25%]'>
             <p className=''>full name</p>
