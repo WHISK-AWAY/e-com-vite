@@ -60,7 +60,7 @@ export default function Favorite({
 
   return (
     <section className='user-favorites-container fixed right-0 top-0 z-10 flex h-screen w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'>
-      <div className='  self-end flex h-full     flex-col bg-white '>
+      <div className='  flex h-full flex-col     self-end bg-white '>
         <div className='flex h-full  flex-col items-center justify-start lg:gap-4'>
           <div className='header w-full border-b border-charcoal pt-5'>
             <h1 className='flex justify-center pb-3 font-italiana text-base lg:text-2xl'>
@@ -80,7 +80,7 @@ export default function Favorite({
           <div className='favorite-product-info m-10 h-full w-10/12 overflow-hidden border border-charcoal p-5 py-8 pl-8 md:pl-4 md:pr-3 lg:p-10'>
             <div className='flex  h-full flex-col items-center  justify-between overflow-hidden'>
               {userFavorite?.length && userId ? (
-                <div className='flex flex-col overflow-auto'>
+                <div className='flex flex-col overflow-auto no-scrollbar'>
                   {userFavorite.map((product, productId) => {
                     return (
                       <div key={product._id} className='relative '>
@@ -112,6 +112,7 @@ export default function Favorite({
               <div className='flex w-11/12 flex-col items-center self-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
                 <Link
                   to={'/shop-all'}
+                  onClick={() => setIsFavHidden(true)}
                   className='w-fit self-center border border-charcoal px-6 py-1 font-italiana text-sm md:px-4 md:text-sm lg:py-1 xl:text-base'
                 >
                   continue shopping
