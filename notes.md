@@ -18,6 +18,20 @@
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
+- [ ] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
+- [ ] **User Account Section**
+  - [ ] Order history too close to top
+  - [ ] Account info form too wide
+  - [ ] Address book arrows when address book length === 1???
+  - [ ] Move arrows outside of box
+  - [ ] Play with 'tracking-widest' on name @ bottom of screen
+  - [x] Layout: Address book
+  - [ ] New / edit address (maybe)
+  - [x] Layout: Order history/details
+  - [x] Responsive styling throughout
+- [ ] Product catalog <-- prioritize!
+  - [ ] Add more items (10-15 more -- around 50 total)
+  - [ ] Assign correct tags/categories
 - [ ] Order creation: promo code name failing @ route
   - [x] Order still gets created (?)
   - [ ] Need to clear order state as cleanup
@@ -36,19 +50,7 @@
 - [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
 - [ ] Sign-in: 'Found 2 elements with non-unique id #email'
 - [ ] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
-- [ ] Product catalog
-  - [ ] Add more items
-  - [ ] Assign correct tags/categories
-- [ ] User Account Section
-  - [ ] Order history too close to top
-  - [ ] Account info form too big
-  - [ ] Address book arrows when address book length === 1???
-  - [ ] Move arrows outside of box
-  - [ ] Play with 'tracking-widest' on name @ bottom of screen
-  - [x] Layout: Address book
-  - [ ] New / edit address (maybe)
-  - [x] Layout: Order history/details
-  - [x] Responsive styling throughout
+  - Or instead just hide them altogether
 - [ ] User feedback
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
