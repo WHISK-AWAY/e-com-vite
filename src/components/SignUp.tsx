@@ -167,7 +167,7 @@ export default function SignUp({
               type='text'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
-              className='input-ring-white focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-11 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-11 lg:text-base xl:h-11 2xl:h-12'
             ></input>
             {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
@@ -179,7 +179,7 @@ export default function SignUp({
               type='text'
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
-              className='input-ring-white rounded-sm p-2 font-federo focus-ring-white text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
             ></input>
             {/* {errors.lastName && <p>{errors.lastName.message}</p>} */}
           </div>
@@ -189,11 +189,12 @@ export default function SignUp({
             </label>
             <input
               type='email'
+              autoComplete='email'
               placeholder={errors.email?.message || ''}
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
-              className='input-ring-white focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
             ></input>
             {/* {errors.email && <p>{errors.email.message}</p>} */}
           </div>
@@ -205,7 +206,7 @@ export default function SignUp({
               type='password'
               placeholder={errors.password?.message || ''}
               {...register('password')}
-              className='input-ring-white rounded-sm focus-ring-white p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
             ></input>
             {/* {errors.password && <p>{errors.password.message}</p>} */}
           </div>
@@ -217,7 +218,7 @@ export default function SignUp({
               type='password'
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
-              className='input-ring-white rounded-sm focus-ring-white p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
             ></input>
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
@@ -232,7 +233,7 @@ export default function SignUp({
           already have an account? sign in{' '}
           <span
             onClick={() => setMode('sign-in')}
-            className='text-base text-[#958585] cursor-pointer underline md:text-xs'
+            className='cursor-pointer text-base text-[#958585] underline md:text-xs'
           >
             here
           </span>
