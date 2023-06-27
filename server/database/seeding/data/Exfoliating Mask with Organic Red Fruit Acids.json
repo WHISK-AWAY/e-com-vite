@@ -1,0 +1,31 @@
+{
+  "productName": "Exfoliating Mask with Organic Red Fruit Acids",
+  "productShortDesc": "A double-action, chemical and mechanical exfoliator that visibly renews skin and unclogs pores for a radiant complexion. Active ingredients: blackberry, blackcurrant and raspberry acids - PHA - cranberry powder. This mask is ideal for all skin typologies, especially for dull skin, and skin that's prone to surface irregularities like roughness, blackheads, and dilated pores.\nIts melting formula reveals a fresh complexion and refined skin texture. 99% naturally derived. Certified organic. Vegan. Made in France.",
+  "productIngredients": "Blackberry, blackcurrant, and raspberry acids:\nThese fruit-derived acids are natural exfoliators that are rich in skin-healthy enzymes and vitamin C. They swiftly remove dead cells on the skin's surface for an immediate radiance boost, smoother skin, and refined skin texture.\nPHA:\nPoly hydroxy (PHA) acid is a chemical exfoliant that offers a gentler exfoliating power than AHAs like glycolic acid. It also promotes a natural, long-lasting hydration boost.\nCranberry powder:\nCranberry powder's micro grains offer a gentle surface exfoliation while nourishing the skin with polyphenols and complexion-enhancing antioxidants.",
+  "images": [
+    "masque-exfoliant__main__7cada7044c2d426c9ed0f19207c6887a.jpg",
+    "masque-exfoliant__hover__f34481802f56407ca7f81b4efb3a2c46.jpg",
+    "masque-exfoliant__additional__201dd6dffc6b4c6883db36fe333bd2a1.jpg",
+    "masque-exfoliant__additional__217126a295da42f992ff038be2ca3131.jpg",
+    "masque-exfoliant__additional__ebb8258e363248468369794d6295fea3.jpg",
+    "masque-exfoliant__additional__d2a4d2b113a74df6a06a301444e5b1b2.jpg",
+    "masque-exfoliant__additional__c1d50e2bfe624152a64e51e024c1c3da.jpg",
+    "masque-exfoliant__additional__d7145b658ae3451385a7fe80f0a98c3b.jpg",
+    "masque-exfoliant__additional__b22fe4d1a8b847cda172631e32dc953c.jpg",
+    "masque-exfoliant__additional__94e14a701d2549b7849708d7d996aa04.jpg"
+  ],
+  "imageURL": [
+    "https://media.typology.com/storyblok/ea0b0cafb8/masque-exfoliant__main__7cada7044c2d426c9ed0f19207c6887a.jpg",
+    "https://media.typology.com/storyblok/00ec657243/masque-exfoliant__additional__217126a295da42f992ff038be2ca3131.jpg",
+    "https://media.typology.com/storyblok/bc661ecc56/masque-exfoliant__additional__ebb8258e363248468369794d6295fea3.jpg",
+    "https://media.typology.com/storyblok/e0386ff590/masque-exfoliant__additional__d2a4d2b113a74df6a06a301444e5b1b2.jpg",
+    "https://media.typology.com/storyblok/7a8e225d8c/masque-exfoliant__additional__c1d50e2bfe624152a64e51e024c1c3da.jpg"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-alt",
+    "product-texture",
+    "product-close"
+  ]
+}
