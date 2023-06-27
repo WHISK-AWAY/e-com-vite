@@ -204,6 +204,7 @@ export default function SignUp({
             </label>
             <input
               type='password'
+              autoComplete='new-password'
               placeholder={errors.password?.message || ''}
               {...register('password')}
               className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
@@ -216,6 +217,7 @@ export default function SignUp({
             </label>
             <input
               type='password'
+              autoComplete='new-password'
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
               className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
@@ -223,7 +225,7 @@ export default function SignUp({
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base xl:text-xl lg:py-3 2xl:py-3 2xl:text-2xl'
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 xl:text-xl 2xl:py-3 2xl:text-2xl'
             type='submit'
           >
             sign up
