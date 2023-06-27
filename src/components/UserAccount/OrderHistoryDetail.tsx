@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { TOrder } from '../../redux/slices/orderSlice';
 import OrderHistoryProductCard from './OrderHistoryProductCard';
 import x from '../../assets/icons/x.svg';
@@ -12,6 +13,13 @@ export default function OrderHistoryDetail({
   setDetailOrder,
 }: OrderHistoryDetailProps) {
   const address = order.user.shippingInfo;
+  const topElement = useRef<HTMLHeadingElement | null>(null); // h2
+
+  useEffect(() => {
+    if (topElement) {
+      topElement.current?.scrollIntoView(false);
+    }
+  });
 
   return (
     <div className='order-detail-wrapper relative h-full w-full pb-10 font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
@@ -21,7 +29,9 @@ export default function OrderHistoryDetail({
         src={x}
         alt='return to summary'
       />
-      <h2 className='text-center uppercase'>order no. {order._id}</h2>
+      <h2 ref={topElement} className='text-center uppercase'>
+        order no. {order._id}
+      </h2>
       <aside className='text-center text-[0.5rem] italic lg:text-xs xl:text-sm'>
         placed {new Date(order.date).toLocaleDateString()}
       </aside>
