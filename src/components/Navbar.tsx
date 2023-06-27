@@ -18,7 +18,8 @@ import {
 import type { TSearch } from '../redux/slices/allProductSlice';
 import { Product } from '../../server/database';
 import Search from './Search';
-import heart3 from '../../src/assets/icons/heart-blanc.svg';
+import heartBlanc from '../../src/assets/icons/heart-blanc.svg';
+import heartFilled from '../../src/assets/icons/heart-filled.svg';
 
 import user from '../../src/assets/icons/fuser.svg';
 import searchIcon from '../../src/assets/icons/search.svg';
@@ -33,9 +34,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId, error: authError } = useAppSelector(selectAuth);
-  const {
-    user: { role },
-  } = useAppSelector(selectSingleUser);
+  const singleUserState = useAppSelector(selectSingleUser);
   const auth = useAppSelector(selectAuth);
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
@@ -49,6 +48,8 @@ export default function Navbar() {
     tags: [],
   });
 
+
+  console.log('user', singleUserState.user.favorites)
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
@@ -151,11 +152,11 @@ export default function Navbar() {
         <NavLink to={''}>NEW IN</NavLink>
       </div>
 
-    <Link to={'/'}>
-      <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <p className='font-chonburi text-2xl lg:text-3xl '>ASTORIA</p>
-      </div>
-    </Link>
+      <Link to={'/'}>
+        <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
+          <p className='font-chonburi text-2xl lg:text-3xl '>ASTORIA</p>
+        </div>
+      </Link>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
         {
@@ -166,7 +167,12 @@ export default function Navbar() {
         {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
         {
           <div onClick={() => setIsFavHidden((prev) => !prev)}>
-            <img src={heart3} className='cursor-pointer lg:w-5' />
+            {
+            singleUserState.user?.favorites?.length >= 1 ? (
+              <img src={heartFilled} className='cursor-pointer lg:w-5' />
+            ) : (
+              <img src={heartBlanc} className='cursor-pointer lg:w-5' />
+            )}
           </div>
         }
         {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
@@ -204,7 +210,7 @@ export default function Navbar() {
           searchNotFound={searchNotFound}
         /> */}
       </div>
-      {userId && role === 'admin' && (
+      {userId && singleUserState.user.role === 'admin' && (
         <NavLink
           to='/admin'
           className='fixed bottom-[5%] left-[5%] z-50 font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
