@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { TOrder, fetchAllOrders } from '../../redux/slices/orderSlice';
 import OrderHistorySummary from './OrderHistorySummary';
 import OrderHistoryDetail from './OrderHistoryDetail';
+import { getUserId } from '../../redux/slices/authSlice';
 
 export default function OrderHistory() {
   const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ export default function OrderHistory() {
 
   useEffect(() => {
     if (userId) dispatch(fetchAllOrders(userId));
+    else dispatch(getUserId());
   }, [userId]);
 
   // if (orderState.loading) return <h1>Loading orders history...</h1>;
