@@ -125,29 +125,29 @@ export default function EditAccountInfo({ user }: AccountProps) {
     reset(defaultValues);
   }
 
-  if (!user) return <h1>Loading user info...</h1>;
+  if (!user) return <h1>Error accessing user info.</h1>;
 
   return (
-    <section className='edit-account-container h-fit w-[50vw]'>
+    <section className='edit-account-container h-fit w-full min-w-[40vw]'>
       <form
-        className='flex h-full flex-col justify-between'
+        className='flex h-full w-full flex-col justify-between'
         onSubmit={handleSubmit(formSubmit)}
       >
-        <div className='input-wrapper grid grid-cols-[2fr_5fr] place-items-stretch gap-x-[0.5px] bg-charcoal'>
-          <div className='label-column grid h-full grid-cols-1 grid-rows-3 place-items-start items-center gap-5 bg-white py-[15%] pl-[20%] lg:pl-[22%] xl:gap-y-6 xl:pl-[25%]'>
-            <label className='' htmlFor='first-name'>
+        <div className='input-wrapper flex h-fit items-center'>
+          <div className='label-column shrink-1 flex h-48 grow-0 basis-[35%] flex-col items-center justify-around border-r border-charcoal bg-white p-5 lg:basis-[30%]'>
+            <label className='w-full' htmlFor='first-name'>
               first name
             </label>
-            <label className='' htmlFor='last-name'>
+            <label className='w-full' htmlFor='last-name'>
               last name
             </label>
-            <label className='' htmlFor='email'>
+            <label className='w-full' htmlFor='email'>
               email
             </label>
           </div>
-          <div className='input-column grid h-full grid-cols-1 grid-rows-3 place-items-start items-center gap-5 bg-white p-[6%] xl:gap-y-6'>
+          <div className='input-column grow-1 flex h-48 shrink-0 basis-[65%] flex-col items-center justify-around bg-white p-5 lg:basis-[70%]'>
             <input
-              className='w-full border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-3 py-1'
               type='text'
               id='first-name'
               placeholder={errors.firstName?.message || ''}
@@ -155,7 +155,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='w-full border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-3 py-1'
               type='text'
               id='last-name'
               placeholder={errors.lastName?.message || ''}
@@ -163,7 +163,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='w-full border border-charcoal px-2 py-1'
+              className='w-full border border-charcoal px-3 py-1'
               type='text'
               id='email'
               placeholder={errors.email?.message || ''}
