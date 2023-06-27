@@ -37,17 +37,17 @@
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
 - [x] Find a home for sign-out button
-- [ ] Scroll to top of products section when clicking next page button
+- [x] Scroll to top of products section when clicking next page button
 - [x] Logo should point to home page
-- [ ] Cart checkout button should close cart (check favorites also)
-- [ ] Product images should point to single product page
+- [x] Cart checkout button should close cart (check favorites also)
+- [x] Product images should point to single product page
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
 - [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [ ] Checkout-section address book does not render all addresses
 - [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
-- [ ] Sign-in: 'Found 2 elements with non-unique id #email'
+- [x] Sign-in: 'Found 2 elements with non-unique id #email'
 - [ ] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
 - [ ] Product catalog
   - [ ] Add more items
