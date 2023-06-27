@@ -38,7 +38,7 @@
   - [ ] Guest order should only try to create when no user id
 - [x] Find a home for sign-out button
 - [ ] Scroll to top of products section when clicking next page button
-- [ ] Logo should point to home page
+- [x] Logo should point to home page
 - [ ] Cart checkout button should close cart (check favorites also)
 - [ ] Product images should point to single product page
 - [ ] Bring back (render) search function
