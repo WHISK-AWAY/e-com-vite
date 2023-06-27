@@ -15,11 +15,11 @@ export default function OrderHistoryDetail({
   const address = order.user.shippingInfo;
   const topElement = useRef<HTMLHeadingElement | null>(null); // h2
 
-  // useEffect(() => {
-  //   if (topElement) {
-  //     topElement.current?.scrollIntoView(false);
-  //   }
-  // });
+  useEffect(() => {
+    if (topElement) {
+      topElement.current?.scrollIntoView(false);
+    }
+  });
 
   return (
     <div className='order-detail-wrapper relative h-full w-full pb-10 font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
