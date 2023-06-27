@@ -223,7 +223,7 @@ export default function SignUp({
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 2xl:py-3 2xl:text-2xl'
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base xl:text-xl lg:py-3 2xl:py-3 2xl:text-2xl'
             type='submit'
           >
             sign up
