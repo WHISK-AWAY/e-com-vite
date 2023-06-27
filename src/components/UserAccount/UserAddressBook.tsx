@@ -112,7 +112,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                   <p className='uppercase'>{currentAddress.zip}</p>
                 </div>
               </div>
-              <div className='absolute -bottom-[20%] right-1/2 flex translate-x-[50%] justify-center gap-6 text-base 2xl:-bottom-[22%] 2xl:text-xl'>
+              <div className='absolute -bottom-[15%] right-1/2 flex translate-x-[50%] justify-center gap-6 text-base 2xl:-bottom-[22%] 2xl:text-xl'>
                 {/* disabling edit & new until ready to work on it... */}
                 {addresses.length && (
                   <>
