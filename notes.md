@@ -18,24 +18,7 @@
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
-- [ ] User Account Section
-  - [x] Order History Details
-    - [x] No scrollbars
-    - [x] Uppercase product names
-    - [x] Shipping address - do the same header box
-  - [x] No scrollbar on order history
-  - [x] Larger text on box header
-    - [x] Maybe smaller on labels
-  - [x] Narrow the inner menu wrapper, especially @ larger sizes
-  - [x] Order history too close to top
-  - [x] Account info form too wide
-  - [x] ~~Address book arrows when address book length === 1???~~
-  - [x] Move arrows outside of box
-  - [x] Play with 'tracking-widest' on name @ bottom of screen
-  - [x] Layout: Address book
-  - [ ] New / edit address (maybe)
-  - [x] Layout: Order history/details
-  - [x] Responsive styling throughout
+- [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- prioritize!
   - [ ] Add more items (10-15 more -- around 50 total)
   - [ ] Assign correct tags/categories
@@ -69,5 +52,22 @@
 - [x] Logo should point to home page
 - [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [x] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
+- [x] User Account Section
+  - [x] Order History Details
+    - [x] No scrollbars
+    - [x] Uppercase product names
+    - [x] Shipping address - do the same header box
+  - [x] No scrollbar on order history
+  - [x] Larger text on box header
+    - [x] Maybe smaller on labels
+  - [x] Narrow the inner menu wrapper, especially @ larger sizes
+  - [x] Order history too close to top
+  - [x] Account info form too wide
+  - [x] ~~Address book arrows when address book length === 1???~~
+  - [x] Move arrows outside of box
+  - [x] Play with 'tracking-widest' on name @ bottom of screen
+  - [x] Layout: Address book
+  - [x] Layout: Order history/details
+  - [x] Responsive styling throughout
 
 ## Other Notes
