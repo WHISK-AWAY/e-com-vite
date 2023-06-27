@@ -18,12 +18,12 @@
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
-- [ ] Order creation: promo code name failing @ route
+- [x] Order creation: promo code name failing @ route
   - [x] Order still gets created (?)
   - [ ] Need to clear order state as cleanup
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
-- [ ] Find a home for sign-out button
+- [x] Find a home for sign-out button
 - [ ] Scroll to top of products section when clicking next page button
 - [ ] Logo should point to home page
 - [ ] Cart checkout button should close cart (check favorites also)
@@ -31,7 +31,7 @@
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
-- [ ] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
+- [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [ ] Checkout-section address book does not render all addresses
 - [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
 - [ ] Sign-in: 'Found 2 elements with non-unique id #email'
