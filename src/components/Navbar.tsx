@@ -1,4 +1,4 @@
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import {
   getUserId,
   requestLogout,
@@ -152,7 +152,9 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <p className='font-chonburi text-2xl lg:text-3xl '>ASTORIA</p>
+        <Link to='/' className='font-chonburi text-2xl lg:text-3xl '>
+          ASTORIA
+        </Link>
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
