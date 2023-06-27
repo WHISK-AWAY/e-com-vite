@@ -19,12 +19,12 @@
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
 - [ ] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
-- [ ] **User Account Section**
-  - [ ] Order history too close to top
-  - [ ] Account info form too wide
-  - [ ] Address book arrows when address book length === 1???
-  - [ ] Move arrows outside of box
-  - [ ] Play with 'tracking-widest' on name @ bottom of screen
+- [ ] User Account Section
+  - [x] Order history too close to top
+  - [x] Account info form too wide
+  - [x] ~~Address book arrows when address book length === 1???~~
+  - [x] Move arrows outside of box
+  - [x] Play with 'tracking-widest' on name @ bottom of screen
   - [x] Layout: Address book
   - [ ] New / edit address (maybe)
   - [x] Layout: Order history/details
