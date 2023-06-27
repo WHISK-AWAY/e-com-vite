@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   TProduct,
@@ -60,6 +60,9 @@ AllProductsProps) {
     key: sortKey,
     direction: sortDir,
   });
+
+  const topElement = useRef<HTMLHeadingElement | null>(null);
+
   const [bestsellers, setBestsellers] = useState(false);
 
   const [filter, setFilter] = useState('all');
@@ -83,6 +86,11 @@ AllProductsProps) {
   const [isSearchHidden, setIsSearchHidden] = useState(true);
   const [randomProd, setRandomProd] = useState<TProduct>();
 
+
+  useEffect(() => {
+    if (topElement) topElement.current?.scrollIntoView(true);
+  }, [] );
+
   const maxPages = bestsellers
     ? 2
     : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
@@ -92,6 +100,7 @@ AllProductsProps) {
     // console.log('path', pathname);
     dispatch(fetchAllTags());
   }, []);
+
 
   useEffect(() => {
     dispatch(getUserId());
@@ -124,12 +133,14 @@ AllProductsProps) {
     const nextPage = curPage + 1;
     if (nextPage > maxPages) return;
     setParams({ page: String(nextPage) });
+    topElement.current?.scrollIntoView({behavior: 'smooth'})
   };
 
   const pageDecrementor = () => {
     const prevPage = curPage - 1;
     if (prevPage < 1) return;
     setParams({ page: String(prevPage) });
+     topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleAddOrRemoveFromFavorites = ({
@@ -190,11 +201,11 @@ AllProductsProps) {
   const tagList = tagState.tags;
 
   return (
-    <section className='all-product-container mx-auto flex max-w-screen-2xl flex-col items-center p-10 '>
+    <section className='all-product-container mx-auto flex max-w-screen-2xl  flex-col  items-center p-10 '>
       {/* {filter === 'all' && <h1>{filter} products</h1>} */}
-      <section className='header-section relative flex basis-1/2'>
+      <section className='header-section relative  flex basis-1/2'>
         <section className=' relative flex w-1/2'>
-          <h1 className='absolute right-0 top-10 font-italiana text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl'>
+          <h1 className='absolute right-0 top-10 font-italiana text-6xl uppercase tracking-wide md:top-6 lg:text-8xl 2xl:top-20 2xl:text-9xl'>
             {filter && filter === 'all' ? (
               <>
                 <span className='absolute -translate-x-full  text-white'>
@@ -211,12 +222,12 @@ AllProductsProps) {
         </section>
 
         <section className='random-product flex basis-1/2 flex-col items-center'>
-          <div className='mt-32 flex  pb-10 pl-9 font-hubbali text-sm lg:mt-40 lg:pl-12 xl:mt-44 2xl:mt-56 2xl:pl-16 2xl:text-lg'>
+          <div className='mt-32 flex pb-10 pl-9 font-hubbali text-xs md:mt-24  md:pb-5 lg:mt-40 lg:pl-12 lg:text-base xl:mt-44 2xl:mt-56 2xl:pl-16 2xl:text-lg'>
             Discover our most popular formulations for face, body, hands, and
             hair. All our products are vegan, cruelty-free, and made in France
             with only the ingredients essential to their function.
           </div>
-          <div className=' flex  w-4/5 flex-col justify-center'>
+          <div className=' flex w-3/5 flex-col justify-center lg:w-4/5'>
             <img
               src={
                 randomProd!.images.find(
@@ -225,7 +236,7 @@ AllProductsProps) {
               }
             />
             <Link to={'/product/' + randomProd._id}>
-              <p className='text-md pb-3 pt-7 text-center font-hubbali text-sm uppercase lg:text-lg xl:text-2xl'>
+              <p className='text-md pb-3  pt-7 text-center font-hubbali text-sm uppercase md:pt-5 md:text-xs lg:text-lg xl:text-2xl'>
                 {randomProd!.productName}
               </p>
             </Link>
@@ -235,14 +246,17 @@ AllProductsProps) {
           </div>
         </section>
       </section>
-      <div className='sub-header pt-32 font-marcellus text-3xl uppercase tracking-wide'>
+      <div
+        ref={topElement}
+        className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
+      >
         {filter && filter === 'all' ? (
           <p>{filter} products</p>
         ) : (
           <p>all {filter}</p>
         )}
       </div>
-      <section className='filter-section flex flex-col  self-end pb-10 pt-20'>
+      <section className='filter-section flex flex-col self-end pb-10 pt-20'>
         <div className='flex gap-6  self-end '>
           <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
 
@@ -264,7 +278,7 @@ AllProductsProps) {
           />
         )}
       </section>
-      <div className='grid grid-cols-3 gap-16 lg:gap-36'>
+      <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
           <li
@@ -272,15 +286,17 @@ AllProductsProps) {
             key={product._id.toString()}
           >
             <div className='relative'>
-              <img
-                src={
-                  product.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || product.images[0].imageURL
-                }
-                alt='cat'
-                className='aspect-[3/4] w-full object-cover'
-              />
+              <Link to={'/product/' + product._id}>
+                <img
+                  src={
+                    product.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || product.images[0].imageURL
+                  }
+                  alt='cat'
+                  className='aspect-[3/4] w-full object-cover'
+                />
+              </Link>
 
               {(userId &&
                 !userFavorites
