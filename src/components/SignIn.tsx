@@ -136,7 +136,7 @@ export default function SignIn({
       />
 
       <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana'>
-        <h1 className='pb-[8%] pt-[30%] lg:text-xl xl:text-2xl 2xl:text-2xl text-xl'>
+        <h1 className='pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl'>
           {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
           SIGN IN
         </h1>
@@ -149,7 +149,7 @@ export default function SignIn({
               email
             </label>
             <input
-              className='rounded-sm input-ring-charcoal focus-no-ring p-2 font-federo text-xs text-charcoal placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14'
+              className='input-ring-charcoal focus-no-ring rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14'
               type='email'
               id='email'
               placeholder={errors.email?.message || ''}
@@ -164,7 +164,7 @@ export default function SignIn({
               password
             </label>
             <input
-              className='flex rounded-sm  focus-no-ring input-ring-charcoal text-xs  p-2 placeholder:text-xs md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
+              className='focus-no-ring input-ring-charcoal flex rounded-sm p-2 text-xs  placeholder:text-xs autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
               type='password'
               id='password'
               placeholder={errors.password?.message || ''}
@@ -177,17 +177,17 @@ export default function SignIn({
               )} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana lg:text-xl text-2xl uppercase tracking-wide lg:py-3 text-white md:text-base 2xl:py-4 '
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 '
             type='submit'
           >
             sign in
           </button>
         </form>
         <p className='text-center text-xs xl:text-base'>
-          new here? create an account {' '}
+          new here? create an account{' '}
           <span
             onClick={async () => setMode('sign-up')}
-            className=' text-white underline text-xs cursor-pointer xl:text-base'
+            className=' cursor-pointer text-xs text-white underline xl:text-base'
           >
             instead
           </span>
