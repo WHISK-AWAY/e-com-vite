@@ -37,10 +37,9 @@ export default function Cart({
             <h1 className='flex justify-center pb-3 font-italiana text-base lg:text-2xl'>
               {userCart.cart.products?.length
                 ? 'YOUR CART' +
-                 ` (${
-                userCart.cart.products.reduce((total, product) => {
-                  return total + product.qty;
-                }, 0)})`
+                  ` (${userCart.cart.products.reduce((total, product) => {
+                    return total + product.qty;
+                  }, 0)})`
                 : 'YOUR CART'}
             </h1>
 
@@ -55,7 +54,7 @@ export default function Cart({
           <div className='h-full w-full overflow-hidden p-6  lg:p-10'>
             <div className='flex h-full w-full flex-col justify-between overflow-hidden border  border-charcoal p-5 lg:p-10 '>
               {userCart.cart.products?.length ? (
-                <div className='flex h-full flex-col gap-6 overflow-auto no-scrollbar'>
+                <div className='no-scrollbar flex h-full flex-col gap-6 overflow-auto no-scrollbar'>
                   {userCart.cart.products.map(({ product, qty }) => {
                     return (
                       <CartItem
@@ -83,6 +82,7 @@ export default function Cart({
                 {userCart.cart.products?.length ? (
                   <Link
                     to={'/checkout'}
+                    onClick={() => setIsCartHidden(true)}
                     className='rounded-sm bg-charcoal px-6  py-3 text-center  font-italiana text-base text-white lg:px-10 xl:px-14 xl:text-xl'
                   >
                     PROCEED TO CHECKOUT
