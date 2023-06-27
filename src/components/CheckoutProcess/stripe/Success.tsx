@@ -111,15 +111,15 @@ export default function Success() {
       </div>
 
       <div className='details-shipping section flex h-full w-[55%] flex-col gap-5 self-center pt-5  lg:max-h-96  lg:flex-row lg:justify-between 2xl:w-[40%]'>
-        <div className='order details flex  w-[50%] flex-col overflow-hidden md:w-full'>
+        <div className='order details flex min-h-96 w-[50%] flex-col overflow-hidden md:w-full'>
           <h2 className='order-details w-[70%] self-center border-x border-t border-charcoal py-[2%] text-center font-italiana text-lg uppercase '>
             order details
           </h2>
 
-          <div className='flex w-full  flex-col  overflow-auto border border-charcoal p-[5%]'>
+          <div className='flex w-full flex-col h-full overflow-auto  border border-charcoal p-[5%]'>
             {singleOrder.orderDetails.map((item) => (
               <div
-                className='order-detail-item flex h-full w-full  justify-between self-center'
+                className='order-detail-item flex h-full items-center w-[80%] xl:w-[90%] justify-between self-center'
                 key={item.productId}
               >
                 <div className='flex w-full flex-row-reverse items-center justify-between gap-4'>
