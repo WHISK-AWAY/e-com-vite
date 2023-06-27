@@ -66,7 +66,7 @@
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
   - [ ] Add to favorites animation?
-  - [ ] Favorites indicator (maybe just a filled heart on nav?)
+  - [x] Favorites indicator (maybe just a filled heart on nav?)
 
 ### Resolved
 
