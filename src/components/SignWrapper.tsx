@@ -14,7 +14,7 @@ export default function SignWrapper({setIsSignFormHidden} :
 
   return (
     <section className='form-container fixed right-0 top-0 z-40 flex h-[100vh] w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'>
-      <div className='relative flex h-full w-[35vw] flex-col self-end bg-white 2xl:max-w-[20vw]  '>
+      <div className='relative flex h-full w-[35vw] flex-col self-end bg-white 2xl:max-w-[23vw]  '>
         <div
           onClick={() => setIsSignFormHidden(true)}
           className='absolute  right-5 top-5 z-50 h-10 w-3'
