@@ -40,6 +40,11 @@
   - [ ] Add more items
   - [ ] Assign correct tags/categories
 - [ ] User Account Section
+  - [ ] Order history too close to top
+  - [ ] Account info form too big
+  - [ ] Address book arrows when address book length === 1???
+  - [ ] Move arrows outside of box
+  - [ ] Play with 'tracking-widest' on name @ bottom of screen
   - [x] Layout: Address book
   - [ ] New / edit address (maybe)
   - [x] Layout: Order history/details
