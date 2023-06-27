@@ -229,21 +229,21 @@ export default function SingleProduct() {
     return score / allReviews.reviews.length || 0;
   };
 
-  const qualityAndValueAvg = () => {
-    let quality = 0;
-    let value = 0;
+  // const qualityAndValueAvg = () => {
+  //   let quality = 0;
+  //   let value = 0;
 
-    if (!allReviews.reviews.length) return { quality: 0, value: 0 };
-    for (let review of allReviews.reviews) {
-      value += review.rating.value;
-      quality += review.rating.quality;
-    }
+  //   if (!allReviews.reviews.length) return { quality: 0, value: 0 };
+  //   for (let review of allReviews.reviews) {
+  //     value += review.rating.value;
+  //     quality += review.rating.quality;
+  //   }
 
-    return {
-      quality: Math.floor(quality / allReviews.reviews.length).toFixed(),
-      value: (value / allReviews.reviews.length).toFixed(),
-    };
-  };
+  //   return {
+  //     quality: Math.floor(quality / allReviews.reviews.length).toFixed(),
+  //     value: (value / allReviews.reviews.length).toFixed(),
+  //   };
+  // };
   /**
    * * WRITE A REVIEW
    */

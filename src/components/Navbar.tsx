@@ -205,7 +205,7 @@ export default function Navbar() {
       {userId && role === 'admin' && (
         <NavLink
           to='/admin'
-          className='fixed bottom-[5%] left-[5%] font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
+          className='fixed bottom-[5%] left-[5%] z-50 font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
         >
           ADMIN
         </NavLink>

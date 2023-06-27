@@ -15,20 +15,24 @@ export default function OrderHistory() {
   }, [userId]);
 
   // if (orderState.loading) return <h1>Loading orders history...</h1>;
-  if (!allOrders?.length) return <h1>No orders found.</h1>;
-
   return (
-    <div className='history-container text-sm'>
-      {!detailOrder ? (
-        <OrderHistorySummary
-          allOrders={allOrders}
-          setDetailOrder={setDetailOrder}
-        />
+    <div className='history-container max-h-full w-[50vw] p-4 font-marcellus text-xs lg:text-sm xl:text-xl'>
+      {allOrders?.length > 0 ? (
+        !detailOrder ? (
+          <OrderHistorySummary
+            allOrders={allOrders}
+            setDetailOrder={setDetailOrder}
+          />
+        ) : (
+          <OrderHistoryDetail
+            order={detailOrder}
+            setDetailOrder={setDetailOrder}
+          />
+        )
       ) : (
-        <OrderHistoryDetail
-          order={detailOrder}
-          setDetailOrder={setDetailOrder}
-        />
+        <h1 className='text-center text-lg lg:text-xl xl:text-2xl 2xl:text-3xl'>
+          No orders found.
+        </h1>
       )}
     </div>
   );

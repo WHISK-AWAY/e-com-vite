@@ -28,17 +28,19 @@ export type TProduct = {
   }[];
 };
 
+export type ShipToAddress = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address_1: string;
+  address_2?: string;
+  city: string;
+  state: string;
+  zip: string;
+};
+
 export type TShippingAddress = {
-  shipToAddress: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    address_1: string;
-    address_2?: string;
-    city: string;
-    state: string;
-    zip: string;
-  };
+  shipToAddress: ShipToAddress;
   isDefault: boolean;
   userId?: string;
   _id?: string;
@@ -158,7 +160,6 @@ export const addShippingAddress = createAsyncThunk(
     { shippingData }: { shippingData: ShippingInfoFields & { userId: string } },
     thunkApi
   ) => {
-
     try {
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${shippingData.userId}/shipping/`,
@@ -422,12 +423,9 @@ const userSlice = createSlice({
       .addCase(addShippingAddress.fulfilled, (state, { payload }) => {
         return { ...state, loading: false, user: payload };
       })
-      .addCase(
-        addShippingAddress.rejected,
-        (state, action: PayloadAction<any>) => {
-          return { ...initialState, errors: action.payload };
-        }
-      )
+      .addCase(addShippingAddress.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, errors: action.payload };
+      })
 
       /**
        * * EDIT USER SHIPPING ADDRESS
