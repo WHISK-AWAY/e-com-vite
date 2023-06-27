@@ -1,7 +1,7 @@
 import fs from 'fs';
 import type { ImageData, ImageDesc } from '../dbTypes';
 
-const WORKING_DIR = '../../../../src/assets/fuck me/';
+const WORKING_DIR = '../../../database/seeding/data/';
 console.log('WORKING_DIR', fs.realpathSync(WORKING_DIR));
 const OUTPUT_DIR = './';
 console.log('OUTPUT_DIR', fs.realpathSync(OUTPUT_DIR));
@@ -15,6 +15,7 @@ type FileMetadataInput = {
   images: string[];
   imageURL: string[];
   imageDesc: ImageDesc[];
+  categories?: string[];
 };
 
 export type FileMetadataOutput = Omit<

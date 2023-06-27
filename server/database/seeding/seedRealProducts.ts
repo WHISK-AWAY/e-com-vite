@@ -26,6 +26,10 @@ export async function seedRealProducts() {
     let tagIDs = randomTags(tags, 3);
     if (!product.productIngredients) console.log('NO INGREDIENTS:', product);
 
+    if (!product.images || product.images.length === 0) {
+      throw new Error('something to do with images');
+    }
+
     let newProduct: IProduct = {
       productName: product.productName,
       productShortDesc: product.productShortDesc,
@@ -41,7 +45,6 @@ export async function seedRealProducts() {
   }
 
   return await Product.insertMany(productsToCreate);
-  console.log('real prod seeding complete');
 }
 
 // seedRealProducts();
