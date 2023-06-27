@@ -57,12 +57,12 @@ export default function Success() {
     );
 
   return (
-    <div className='order-confirmation flex flex-col py-3'>
+    <div className='order-confirmation flex flex-col pb-[7%] pt-[3%]'>
       <div className='flex w-[100vw] flex-col items-center justify-center self-center '>
-        <h1 className='flex w-[45%] justify-center  rounded-sm border-x border-t border-charcoal py-1 font-italiana text-lg tracking-wide'>
+        <h1 className='flex w-[45%]  justify-center  rounded-sm border-x border-t border-charcoal py-[1%] font-italiana text-lg tracking-wide 2xl:py-[.5%] '>
           ORDER CONFIRMATION
         </h1>
-        <div className='flex h-[40vh] w-[75%] flex-col items-center justify-between border border-charcoal'>
+        <div className='flex h-[35vh] w-[70%] flex-col items-center justify-between border border-charcoal xl:w-[55%]'>
           <div className='flex h-[85%] flex-col items-center'>
             <p className='py-[1%] font-hubbali'>
               sit back and relax, your order is on its way
@@ -75,73 +75,83 @@ export default function Success() {
             </div>
           </div>
 
-          <p className=' pb-2 font-marcellus text-sm uppercase'>
+          <p className=' pb-2 font-marcellus text-sm uppercase '>
             order confirmation #{userOrder.singleOrder?._id}
           </p>
         </div>
       </div>
-
-      <div className='total-container flex  h-[20%] w-[35%] justify-center self-center border-x border-b  border-charcoal '>
+      <div className='total-container mb-4  flex h-[20%] w-[35%] justify-center self-center border-x  border-b border-charcoal py-1'>
         <div className='flex flex-col items-start py-1 font-marcellus text-sm uppercase'>
-          <p className=''>
-            order subtotal <span className='pl-3'>${singleOrder.subtotal}</span>{' '}
-          </p>
-          {singleOrder.promoCode && (
+          {singleOrder.promoCode ? (
             <>
-              <p>
-                discount: -
-                {(
-                  singleOrder.subtotal! *
-                    singleOrder.promoCode?.promoCodeRate || 0
-                ).toFixed(2)}
+              <p className=''>
+                order subtotal{' '}
+                <span className='pl-3'>${singleOrder.subtotal}</span>{' '}
               </p>
-              <h2>
-                Order Total:{' '}
-                {(
-                  singleOrder.total! *
-                  (1 - singleOrder.promoCode?.promoCodeRate)
-                ).toFixed(2)}
-              </h2>
+              <p>
+                discount
+                <span className='pl-3'>
+                  -${(singleOrder.subtotal! - singleOrder.total!).toFixed(2)}
+                </span>
+              </p>
+              <h2 >Order Total <span className='pl-3'>${singleOrder.total?.toFixed(2)}</span></h2>
+            </>
+          ) : (
+            <>
+              <p className=''>
+                order subtotal{' '}
+                <span className='pl-3'>${singleOrder.subtotal}</span>{' '}
+              </p>
+              <p>
+                total <span className='pl-3'>${singleOrder.total}</span>{' '}
+              </p>
             </>
           )}
-          <p>
-            total <span className='pl-3'>${singleOrder.total}</span>{' '}
-          </p>
         </div>
-      </div>g
+      </div>
 
-      <div className='details-shipping section flex w-[65%] flex-col justify-center gap-5 self-center pt-5  lg:flex-row'>
-        <div className='order details flex flex-col'>
-          <h2 className='order-details w-[70%] self-center border-x border-t border-charcoal py-[2%] text-center font-italiana text-l uppercase'>
+      <div className='details-shipping section flex h-full w-[55%] flex-col gap-5 self-center pt-5  lg:max-h-96  lg:flex-row lg:justify-between 2xl:w-[40%]'>
+        <div className='order details flex  w-[50%] flex-col overflow-hidden md:w-full'>
+          <h2 className='order-details w-[70%] self-center border-x border-t border-charcoal py-[2%] text-center font-italiana text-lg uppercase '>
             order details
           </h2>
 
-          <div className='flex flex-col  border border-charcoal p-[5%] bg-blue-200'>
+          <div className='flex w-full  flex-col  overflow-auto border border-charcoal p-[5%]'>
             {singleOrder.orderDetails.map((item) => (
-              <div className='order-detail-item items-start self-center' key={item.productId} >
-                <div className='flex  gap-4'>
-                  <img src={item.imageURL} className='h-20 aspect-[3/4] ' />
-
-                  <div className='flex flex-col items-center text-center self-center '>
-                    <p className='font-marcellus text-xs uppercase'>
+              <div
+                className='order-detail-item flex h-full w-full  justify-between self-center'
+                key={item.productId}
+              >
+                <div className='flex w-full flex-row-reverse items-center justify-between gap-4'>
+                  <div className='flex w-full flex-col items-center text-center '>
+                    <p className='px-[6%] font-marcellus text-xs uppercase'>
                       {' '}
                       {item.productName}
                     </p>
                     <p className='font-grotesque'>{item.qty}</p>
                     <p className='font-grotesque'>${item.price}</p>
                   </div>
+                  <img
+                    src={item.imageURL}
+                    className='my-1  aspect-[3/4] h-20 object-cover lg:my-6 lg:h-28'
+                  />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className='shipping flex flex-col'>
-          <h2 className='w-[80%] font-italiana self-center border-x border-t border-charcoal py-[2%] text-center text-lg uppercase'>
+        <div className='shipping flex  w-[50%] flex-col md:w-full'>
+          <h2 className='w-[70%] self-center border-x border-t border-charcoal py-[2%] text-center font-italiana text-lg uppercase '>
             shipping address
           </h2>
-          <div className='flex w-full flex-col items-center border border-charcoal px-5 py-[4%] uppercase font-marcellus text-xs leading-6'>
-            <p>{singleOrder.user?.shippingInfo?.firstName}</p>
+
+          <div className='flex h-full w-full flex-col items-center justify-center self-center border border-charcoal p-[5%] font-marcellus text-sm uppercase leading-9'>
+            <p>
+              {singleOrder.user?.shippingInfo?.firstName}{' '}
+              {singleOrder.user?.shippingInfo?.lastName}
+            </p>
+            <p></p>
             <p>{singleOrder.user?.shippingInfo?.email}</p>
             <p>{singleOrder.user?.shippingInfo?.address_1}</p>
             <p>
