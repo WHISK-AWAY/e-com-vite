@@ -3,14 +3,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
-import {
-  checkPassword,
-  saveButtonShouldDisable,
-} from '../../utilities/helpers';
-import { editUserAccountInfo, TEditUser } from '../../redux/slices/userSlice';
+import { saveButtonShouldDisable } from '../../utilities/helpers';
+import { editUserAccountInfo } from '../../redux/slices/userSlice';
 import { useAppDispatch } from '../../redux/hooks';
-
-const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 type AccountFormData = {
   firstName: string;
@@ -54,15 +49,11 @@ export default function EditAccountInfo({ user }: AccountProps) {
   const {
     register,
     reset,
-    resetField,
     handleSubmit,
-    setError,
-    clearErrors,
-    trigger,
     getValues,
     setValue,
 
-    formState: { errors, touchedFields, dirtyFields },
+    formState: { errors, dirtyFields },
   } = useForm<AccountFormData>({
     resolver: zodResolver(ZAccountData),
     defaultValues,
@@ -88,25 +79,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
     setSaveDisabled(saveButtonShouldDisable(dirtyFields));
   }, [Object.keys(dirtyFields)]);
 
-  // const passwordChecker = async (password: string) => {
-  //   try {
-  //     if (dirtyFields.oldPassword && !(await checkPassword(password))) {
-  //       reset({
-  //         oldPassword: '',
-  //       });
-  //       setError('oldPassword', {
-  //         type: 'custom',
-  //         message: 'Password is incorrect',
-  //       });
-  //     } else {
-  //       clearErrors('oldPassword');
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  function formSubmit(data: AccountFormData) {
+  function formSubmit(_: AccountFormData) {
     const dirtyValues = Object.keys(dirtyFields).reduce(
       (accum: any, key: any) => {
         if (key === 'newPassword')
