@@ -4,6 +4,37 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.focus-no-ring {
+   @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal
+}
+
+.input-ring-charcoal {
+  @apply  border-charcoal/50 bg-white/40 border
+}
+
+.input-ring-white {
+  @apply border border-white bg-white/50
+}
+
+.focus-ring-white {
+  @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white
+}
+
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

@@ -55,7 +55,7 @@ export default function Cart({
           <div className='h-full w-full overflow-hidden p-6  lg:p-10'>
             <div className='flex h-full w-full flex-col justify-between overflow-hidden border  border-charcoal p-5 lg:p-10 '>
               {userCart.cart.products?.length ? (
-                <div className='flex h-full flex-col gap-6 overflow-auto'>
+                <div className='flex h-full flex-col gap-6 overflow-auto no-scrollbar'>
                   {userCart.cart.products.map(({ product, qty }) => {
                     return (
                       <CartItem

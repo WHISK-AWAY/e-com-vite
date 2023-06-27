@@ -147,7 +147,7 @@ export default function Recap() {
 
     if (verifyPromo.promoCodeName) {
       userOrder.promoCode = {
-        promoCodeName: promo,
+        promoCodeName: verifyPromo.promoCodeName,
         promoCodeRate: verifyPromo.promoRate,
       };
     }

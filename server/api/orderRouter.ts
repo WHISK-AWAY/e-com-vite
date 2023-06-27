@@ -136,7 +136,7 @@ router.post(
       );
       if (!user) return res.status(404).json({ message: 'User not found' });
 
-      console.log('order user:', user);
+      // console.log('order user:', user);
 
       if (!user.cart.products.length)
         return res.status(409).json({ message: "User's cart is empty" });
@@ -185,6 +185,7 @@ router.post(
 
       // create new order
       const createdOrder = await Order.create(newOrderInput);
+
       res.status(201).json(createdOrder);
     } catch (err) {
       next(err);
@@ -223,7 +224,7 @@ router.put(
       }
 
       const orderLookup = await Order.findByIdAndUpdate(
-        orderId,
+        orderId.toString(),
         {
           orderStatus: 'confirmed',
         },
