@@ -18,8 +18,15 @@
 
 - [ ] Why does the places API fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
-- [ ] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
 - [ ] User Account Section
+  - [x] Order History Details
+    - [x] No scrollbars
+    - [x] Uppercase product names
+    - [x] Shipping address - do the same header box
+  - [x] No scrollbar on order history
+  - [x] Larger text on box header
+    - [x] Maybe smaller on labels
+  - [x] Narrow the inner menu wrapper, especially @ larger sizes
   - [x] Order history too close to top
   - [x] Account info form too wide
   - [x] ~~Address book arrows when address book length === 1???~~
@@ -32,20 +39,20 @@
 - [ ] Product catalog <-- prioritize!
   - [ ] Add more items (10-15 more -- around 50 total)
   - [ ] Assign correct tags/categories
-- [x] Order creation: promo code name failing @ route
+- [ ] Order creation:
+  - [x] promo code name failing @ route
   - [x] Order still gets created (?)
   - [ ] Need to clear order state as cleanup
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
-- [x] Find a home for sign-out button
+- [ ] Where should sign-out button live / what should it look like?
+- [ ] Review score bubbles acting awkward
 - [ ] Scroll to top of products section when clicking next page button
-- [ ] Logo should point to home page
 - [ ] Cart checkout button should close cart (check favorites also)
 - [ ] Product images should point to single product page
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
-- [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [ ] Checkout-section address book does not render all addresses
 - [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
 - [ ] Sign-in: 'Found 2 elements with non-unique id #email'
@@ -58,5 +65,9 @@
   - [ ] Favorites indicator (maybe just a filled heart on nav?)
 
 ### Resolved
+
+- [x] Logo should point to home page
+- [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
+- [x] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
 
 ## Other Notes
