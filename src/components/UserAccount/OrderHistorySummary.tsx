@@ -1,6 +1,5 @@
 import React from 'react';
 import { TOrder } from '../../redux/slices/orderSlice';
-import x from '../../assets/icons/x.svg';
 
 export type OrderHistorySummaryProps = {
   allOrders: TOrder[];
