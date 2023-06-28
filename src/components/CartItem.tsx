@@ -46,7 +46,7 @@ export default function CartItem(props: CartProps) {
 
   return (
     <div className='cart-item-container w-9/10'>
-      <div className=' flex items-center justify-center '>
+      <div className=' flex items-center w-full justify-center '>
         <img
           className='aspect-[3/4] h-32 w-4/12 object-cover lg:h-48'
           src={
