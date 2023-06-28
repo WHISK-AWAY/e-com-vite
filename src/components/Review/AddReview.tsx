@@ -143,7 +143,7 @@ export default function AddReview({
 
   const labelClasses = ' bg-white lg:text-base xl:text-lg 2xl:text-xl';
   const inputClasses =
-    ' px-2 border lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-7 xl:h-9 2xl:h-14';
+    'focus:border-charcoal focus:rounded-[3px] focus-no-ring input-ring-charcoal px-2 border lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-7 xl:h-9 2xl:h-14';
 
   // className={'' + inputClasses}
 
@@ -223,13 +223,17 @@ export default function AddReview({
                       control={control}
                       name='skinConcernOptions'
                       rules={{ required: true, min: 3, max: 5 }}
-                      render={({
-                        field: { onChange, onBlur, value, name, ref },
-                        formState,
-                      }) => (
+                      render={({ field: { onChange, onBlur }, formState }) => (
                         <Select
                           unstyled={false}
-                          className='text-xs lg:text-base 2xl:h-16'
+                          className='h-fit text-xs lg:text-base 2xl:h-16'
+                          theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                              ...theme.colors,
+                              primary: '#4a4a4a',
+                            },
+                          })}
                           styles={{
                             control: (baseStyles, state) => ({
                               ...baseStyles,
@@ -240,24 +244,21 @@ export default function AddReview({
                                 borderColor: '#4a4a4a',
                               },
                               borderRadius: state.isFocused ? '3px' : 'none',
-                              ':target-within': { borderColor: '#4a4a4a' },
-                              ':active': { borderColor: '#4a4a4a' },
-                              // fontSize: '0.5rem @media(min-width: 1024px) {}',
                               backgroundColor: errors.skinConcernOptions
                                 ? 'rgb(254,226,226)'
                                 : 'white',
                               fontFamily: 'Marcellus, sans-serif',
                               minHeight: '100%',
                             }),
-                            menu: (baseStyles, state) => ({
+                            menu: (baseStyles, _) => ({
                               ...baseStyles,
                               borderRadius: 'none',
                               backgroundColor: 'white',
-                              color: 'charcoal',
+                              color: '#4a4a4a',
                               // fontSize: '0.5rem',
                               fontFamily: 'Marcellus, sans-serif',
                             }),
-                            dropdownIndicator: (baseStyles, state) => ({
+                            dropdownIndicator: (baseStyles, _) => ({
                               ...baseStyles,
                               color: '#4a4a4a',
                             }),
@@ -293,11 +294,11 @@ export default function AddReview({
                   </label>
                   <textarea
                     id='content'
-                    className={`${inputClasses} row-span-3 h-20 xl:h-36 2xl:h-[10rem] ${
-                      errors.content ? ' border-red-400 bg-red-100' : ''
-                    }`}
                     placeholder={errors.content?.message || ''}
                     {...register('content')}
+                    className={`focus-no-ring input-ring-charcoal row-span-3 h-36 border border-charcoal px-2 focus:rounded-[3px] focus:border-charcoal lg:text-base xl:text-lg 2xl:text-xl ${
+                      errors.content ? ' border-red-400 bg-red-100' : ''
+                    }`}
                   ></textarea>
                   <label
                     htmlFor='quality-rating'
@@ -316,32 +317,35 @@ export default function AddReview({
                         <input
                           type='radio'
                           id='quality-rating-1'
-                          className='text-red-500'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.quality')}
                           value={1}
                         />
                         <input
                           type='radio'
                           id='quality-rating-2'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.quality')}
                           value={2}
                         />
                         <input
                           type='radio'
                           id='quality-rating-3'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.quality')}
                           value={3}
                         />
                         <input
                           type='radio'
                           id='quality-rating-4'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.quality')}
                           value={4}
                         />
                         <input
                           type='radio'
-                          checked={true}
                           id='quality-rating-5'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.quality')}
                           value={5}
                         />
@@ -361,30 +365,34 @@ export default function AddReview({
                         <input
                           type='radio'
                           id='value-rating-1'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.value')}
                           value={1}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.value')}
                           id='value-rating-2'
                           value={2}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.value')}
                           id='value-rating-3'
                           value={3}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.value')}
                           id='value-rating-4'
                           value={4}
                         />
                         <input
                           type='radio'
-                          checked={true}
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.value')}
                           id='value-rating-5'
                           value={5}
@@ -404,31 +412,35 @@ export default function AddReview({
                       >
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.overall')}
                           id='overall-rating-1'
                           value={1}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.overall')}
                           id='overall-rating-2'
                           value={2}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.overall')}
                           id='overall-rating-3'
                           value={3}
                         />
                         <input
                           type='radio'
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.overall')}
                           id='overall-rating-4'
                           value={4}
                         />
                         <input
                           type='radio'
-                          checked={true}
+                          className='text-charcoal focus:bg-charcoal focus:ring-0'
                           {...register('rating.overall')}
                           id='overall-rating-5'
                           value={5}
