@@ -20,7 +20,7 @@
   - [ ] Need to trim inputs
 - [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- prioritize!
-  - [ ] Add more items (10-15 more -- around 50 total)
+  - [ ] Add more items (around 50 total -- now @ 43)
   - [ ] Assign correct tags/categories
 - [ ] Order creation:
   - [x] promo code name failing @ route
@@ -29,8 +29,11 @@
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
 - [ ] Where should sign-out button live / what should it look like?
-- [ ] Review score bubbles acting awkward
-- [ ] Scroll to top of products section when clicking next page button
+- [ ] Review form
+  - [x] Review score bubbles acting awkward
+  - [x] review textarea shrinks to single line height @ XL break point (1280)
+    - ~~Possibly caused by input classes variable?~~
+- [x] Scroll to top of products section when clicking next page button
 - [ ] Cart checkout button should close cart (check favorites also)
 - [ ] Product images should point to single product page
 - [ ] Bring back (render) search function
