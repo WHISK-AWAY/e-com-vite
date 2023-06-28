@@ -34,6 +34,10 @@
   @apply placeholder:text-xs
 }
 
+.address-autofill {
+  @apply autofill:border-charcoal autofill:bg-white
+}
+
 @layer utilities {
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
