@@ -56,26 +56,14 @@ export default function EditShippingAddress({
 
   const defaultValues: ShippingInfoFields = {
     shipToAddress: {
-      firstName:
-        currentShippingAddress?.shipToAddress.firstName || user.firstName || '',
-      lastName:
-        currentShippingAddress?.shipToAddress.lastName || user.lastName || '',
-      email: currentShippingAddress?.shipToAddress.email || user.email || '',
-      address_1:
-        currentShippingAddress?.shipToAddress.address_1 ||
-        user.address?.address_1 ||
-        '',
-      address_2:
-        currentShippingAddress?.shipToAddress.address_2 ||
-        user.address?.address_2 ||
-        '',
-      city:
-        currentShippingAddress?.shipToAddress.city || user.address?.city || '',
-      state:
-        currentShippingAddress?.shipToAddress.state ||
-        user.address?.state ||
-        '',
-      zip: currentShippingAddress?.shipToAddress.zip || user.address?.zip || '',
+      firstName: currentShippingAddress?.shipToAddress.firstName || '',
+      lastName: currentShippingAddress?.shipToAddress.lastName || '',
+      email: currentShippingAddress?.shipToAddress.email || '',
+      address_1: currentShippingAddress?.shipToAddress.address_1 || '',
+      address_2: currentShippingAddress?.shipToAddress.address_2 || '',
+      city: currentShippingAddress?.shipToAddress.city || '',
+      state: currentShippingAddress?.shipToAddress.state || '',
+      zip: currentShippingAddress?.shipToAddress.zip || '',
     },
     isDefault: currentShippingAddress?.isDefault || false,
   };
@@ -92,9 +80,26 @@ export default function EditShippingAddress({
     mode: 'onBlur',
   });
 
+  // useEffect(() => {
+  //   console.log('Form errors:', errors);
+  // }, [errors]);
+  const newAddress: ShippingInfoFields = {
+    isDefault: true,
+    shipToAddress: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      address_1: '',
+      address_2: '',
+      city: '',
+      state: '',
+      zip: '',
+    },
+  };
+
   useEffect(() => {
-    console.log('Form errors:', errors);
-  }, [errors]);
+    if (addressFormMode === 'new') reset(newAddress);
+  }, [addressFormMode]);
 
   const submitNewAddress = async (data: ShippingInfoFields) => {
     const userFields = {
@@ -107,7 +112,7 @@ export default function EditShippingAddress({
     const addressCheckResult = await validateAddress(data.shipToAddress);
     const { unconfirmedFields, replacedFields } = addressCheckResult;
 
-    console.log('addressCheckResult', addressCheckResult);
+    // console.log('addressCheckResult', addressCheckResult);
 
     // Result may be 'confirmed', 'replaced', 'unconfirmed', or 'rejected.'
     // If confirmed or replaced, we're all good to go ahead with address creation.
@@ -219,7 +224,7 @@ export default function EditShippingAddress({
       {/* EDIT SHIPPING INFO FORM */}
 
       <>
-        {defaultValues.shipToAddress === undefined}
+        {/* {defaultValues.shipToAddress === undefined} */}
         <form onSubmit={handleSubmit(submitNewAddress)}>
           <div className='flex justify-center  py-3'>
             {user._id &&
@@ -235,7 +240,7 @@ export default function EditShippingAddress({
               <div className='first-name-field flex flex-col'>
                 <label htmlFor='first-name'>first name</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border  border-charcoal p-1'
                   id='first-name'
                   type='text'
                   {...register('shipToAddress.firstName')}
@@ -249,7 +254,7 @@ export default function EditShippingAddress({
               <div className='address-1-field flex flex-col'>
                 <label htmlFor='last-name'>last name</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='last-name'
                   type='text'
                   {...register('shipToAddress.lastName')}
@@ -263,7 +268,7 @@ export default function EditShippingAddress({
               <div className='address-1-field flex flex-col'>
                 <label htmlFor='email'>email</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='email'
                   type='text'
                   {...register('shipToAddress.email')}
@@ -277,7 +282,7 @@ export default function EditShippingAddress({
               <div className='address-1-field flex flex-col'>
                 <label htmlFor='address_1'>address 1</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='address_1'
                   type='text'
                   {...register('shipToAddress.address_1')}
@@ -292,7 +297,7 @@ export default function EditShippingAddress({
               <div className='address-2-field flex flex-col'>
                 <label htmlFor='address_2'>address 2</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='address_2'
                   type='text'
                   {...register('shipToAddress.address_2')}
@@ -307,7 +312,7 @@ export default function EditShippingAddress({
               <div className='city-field flex flex-col'>
                 <label htmlFor='city'>city</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='city'
                   type='text'
                   {...register('shipToAddress.city')}
@@ -322,7 +327,7 @@ export default function EditShippingAddress({
               <div className='state-field flex flex-col'>
                 <label htmlFor='state'>state</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='state'
                   type='text'
                   {...register('shipToAddress.state')}
@@ -337,7 +342,7 @@ export default function EditShippingAddress({
               <div className='zip-field flex flex-col'>
                 <label htmlFor='zip'>zip</label>
                 <input
-                  className='rounded-sm border border-charcoal p-1'
+                  className='address-no-focus rounded-sm border border-charcoal p-1'
                   id='zip'
                   type='text'
                   {...register('shipToAddress.zip')}
@@ -355,6 +360,7 @@ export default function EditShippingAddress({
                     make this address the default:
                   </label>
                   <input
+                    className='address-no-focus  input focus:ring-0 border-charcoal bg-white text-charcoal'
                     type='checkbox'
                     id='isDefault'
                     defaultChecked={
