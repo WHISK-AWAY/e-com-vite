@@ -205,7 +205,7 @@ export default function ManageShippingAddress({
           <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-italiana text-base text-white '>
             <div className='absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-8'>
               <button
-                onClick={() => setIsFormEdit(true)}
+                onClick={() => {setIsFormEdit(true); setAddressFormMode('edit')}}
                 className='rounded-sm bg-charcoal px-5 py-[.5px] lg:px-10'
               >
                 EDIT
