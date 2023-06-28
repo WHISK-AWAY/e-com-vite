@@ -30,7 +30,9 @@
   @apply focus:ring-0 border-charcoal bg-white text-charcoal
 }
 
-
+.text-placeholder {
+  @apply placeholder:text-xs
+}
 
 @layer utilities {
   /* Chrome, Safari and Opera */
