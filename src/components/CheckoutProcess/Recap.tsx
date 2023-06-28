@@ -300,14 +300,14 @@ export default function Recap() {
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
-            <section className='promo-section flex md:items-center  pt-6 text-white md:justify-center self-start lg:pl-10'>
+            <section className='promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10'>
               <form
-                className='mx-5 flex  flex-nowrap md:items-center h-10'
+                className='mx-5 flex  h-10 flex-nowrap md:items-center'
                 onSubmit={(e) => handlePromoSubmit(e)}
               >
                 <label
                   htmlFor='promo-code'
-                  className='border border-white px-2  h-full py-2 font-italiana text-sm lg:px-16 lg:text-base'
+                  className='h-full border border-white  px-2 py-2 font-italiana text-sm lg:px-16 lg:text-base'
                 >
                   enter your promo code:
                 </label>
@@ -318,9 +318,9 @@ export default function Recap() {
                   value={promo}
                   placeholder={promoErrors.status ? 'invalid promo code' : ''}
                   onChange={(e) => setPromo(e.target.value)}
-                  className='address-no-focus focus:border-charcoal/50 mx-2 border-2  border-white text-sm text-charcoal'
+                  className='address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50'
                 ></input>
-                <button className='border border-white px-10 h-full  font-italiana text-sm uppercase lg:text-lg'>
+                <button className='h-full border border-white px-10  font-italiana text-sm uppercase lg:text-lg'>
                   verify
                 </button>
               </form>
