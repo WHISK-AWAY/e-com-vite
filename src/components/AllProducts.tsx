@@ -201,7 +201,7 @@ AllProductsProps) {
   const tagList = tagState.tags;
 
   return (
-    <section className='all-product-container mx-auto flex max-w-screen-2xl  flex-col  items-center p-10 '>
+    <section className='all-product-container mx-auto flex max-w-screen-2xl  flex-col  items-center px-10 pt-5'>
       {/* {filter === 'all' && <h1>{filter} products</h1>} */}
       <section className='header-section relative  flex basis-1/2'>
         <section className=' relative flex w-1/2'>
