@@ -1,17 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import { useNavigate } from 'react-router-dom';
-import {
-  fetchUserCart,
-  selectCart,
-  addToCart,
-  removeFromCart,
-} from '../redux/slices/cartSlice';
-import { useState, useEffect } from 'react';
+import { addToCart, removeFromCart } from '../redux/slices/cartSlice';
+import { useState } from 'react';
 import type { TProduct } from '../redux/slices/cartSlice';
 import x from '../../src/assets/icons/x.svg';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
-import { Link } from 'react-router-dom';
 
 export type CartProps = {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,10 +17,9 @@ export type CartProps = {
 export default function CartItem(props: CartProps) {
   const navigate = useNavigate();
   const { product, userId, qty, setIsHidden } = props;
-  const { productName, productShortDesc, price, images, _id } = product;
+  const { price, images, _id } = product;
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
-  const cart = useAppSelector(selectCart);
 
   const handleRemove = (productId: string, qty: number) => {
     dispatch(removeFromCart({ userId: userId!, productId, qty }));

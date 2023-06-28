@@ -4,8 +4,8 @@ import {
   removeFromFavorites,
 } from '../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useEffect, useState } from 'react';
-import { getUserId, selectAuth } from '../redux/slices/authSlice';
+import { useEffect } from 'react';
+import { selectAuth } from '../redux/slices/authSlice';
 import { addToCart } from '../redux/slices/cartSlice';
 import FavoriteItem from './FavoriteItem';
 import x from '../../src/assets/icons/x.svg';

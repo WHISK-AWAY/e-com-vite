@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TProduct, removeFromFavorites } from '../redux/slices/userSlice';
-import { Link } from 'react-router-dom';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
 import x from '../../src/assets/icons/x.svg';

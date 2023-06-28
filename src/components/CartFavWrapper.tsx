@@ -1,6 +1,5 @@
 import Cart from './Cart';
 import Favorite from './Favorite';
-import { useState } from 'react';
 import { TCFMode } from './Navbar';
 
 export default function CartFavWrapper({
