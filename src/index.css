@@ -22,6 +22,10 @@
   @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white
 }
 
+.address-no-focus {
+  @apply focus:border-charcoal   focus:ring-1 focus:ring-current
+}
+
 
 @layer utilities {
   /* Chrome, Safari and Opera */
