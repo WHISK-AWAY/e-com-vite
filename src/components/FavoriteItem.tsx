@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TProduct, removeFromFavorites } from '../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
 import plus from '../../src/assets/icons/circlePlus.svg';
@@ -9,6 +10,7 @@ import { useAppDispatch } from '../redux/hooks';
 export type TFavoriteItemProp = {
   product: TProduct;
   userId: string;
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
   handleAddToCart: ({
     userId,
     productId,
@@ -24,9 +26,11 @@ export default function FavoriteItem({
   product,
   userId,
   handleAddToCart,
+  setIsHidden,
 }: TFavoriteItemProp) {
-  const [count, setCount] = useState<number>(1);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [count, setCount] = useState<number>(1);
 
   const totalQty = product.qty;
   const userQty = count;
@@ -51,12 +55,19 @@ export default function FavoriteItem({
     dispatch(removeFromFavorites({ userId, productId }));
   };
 
+  function goToProduct() {
+    if (!product) return;
+    navigate(`/product/${product._id}`);
+    setIsHidden(true);
+  }
+
   return (
     <section className='fav-item-container w-9/10 relative flex h-full flex-col items-center gap-4'>
       <article className='product-card flex h-fit w-full items-center justify-center gap-4 pt-3'>
         <div className='image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center'>
           <img
-            className='aspect-[3/4] object-cover'
+            className='aspect-[3/4] cursor-pointer object-cover'
+            onClick={goToProduct}
             src={
               product.images.find(
                 (image) => image.imageDesc === 'product-front'
@@ -66,8 +77,11 @@ export default function FavoriteItem({
         </div>
         <div className='prod-detail flex h-full basis-2/3 flex-col items-center justify-center gap-1'>
           <div className='upper-wrapper flex w-full flex-col items-center'>
-            <h2 className='items-center self-center text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'>
-              <Link to={`/product/${product._id}`}>{product.productName}</Link>
+            <h2
+              onClick={goToProduct}
+              className='cursor-pointer items-center self-center text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'
+            >
+              {product.productName}
             </h2>
 
             <p className='text-center font-grotesque text-sm 2xl:text-lg'>

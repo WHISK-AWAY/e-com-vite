@@ -8,10 +8,7 @@ export default function CartFavWrapper({
   setIsCartFavWrapperHidden,
 }: {
   mode: TCFMode;
-  setIsCartHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsFavHidden: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCartFavWrapperHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  isCartFavWrapperHidden: boolean;
 }) {
   return (
     <section
@@ -23,9 +20,9 @@ export default function CartFavWrapper({
         className='flex h-full max-w-[40vw] flex-col self-end bg-white'
       >
         {mode === 'cart' ? (
-          <Cart setIsCartHidden={setIsCartFavWrapperHidden} />
+          <Cart setIsHidden={setIsCartFavWrapperHidden} />
         ) : (
-          <Favorite setIsFavHidden={setIsCartFavWrapperHidden} />
+          <Favorite setIsHidden={setIsCartFavWrapperHidden} />
         )}
       </div>
     </section>

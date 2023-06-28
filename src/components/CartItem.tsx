@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useNavigate } from 'react-router-dom';
 import {
   fetchUserCart,
   selectCart,
@@ -13,13 +14,15 @@ import minus from '../../src/assets/icons/circleMinus.svg';
 import { Link } from 'react-router-dom';
 
 export type CartProps = {
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
   product: TProduct;
   userId: string;
   qty: number;
 };
 
 export default function CartItem(props: CartProps) {
-  const { product, userId, qty } = props;
+  const navigate = useNavigate();
+  const { product, userId, qty, setIsHidden } = props;
   const { productName, productShortDesc, price, images, _id } = product;
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
@@ -45,11 +48,18 @@ export default function CartItem(props: CartProps) {
     dispatch(addToCart({ userId: userId!, productId: product._id, qty: 1 }));
   };
 
+  function goToProduct() {
+    if (!product) return;
+    navigate(`/product/${product._id}`);
+    setIsHidden(true);
+  }
+
   return (
     <div className='cart-item-container w-9/10 relative flex h-fit items-center justify-center gap-2 pt-3 lg:gap-4'>
       <div className='image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center'>
         <img
-          className='aspect-[3/4] object-cover'
+          className='aspect-[3/4] cursor-pointer object-cover'
+          onClick={goToProduct}
           src={
             images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || images[0].imageURL
@@ -64,8 +74,11 @@ export default function CartItem(props: CartProps) {
           className='absolute right-0 top-0 h-2 w-3 cursor-pointer lg:h-3 lg:w-3'
         />
         <div className='upper-wrapper flex w-full flex-col items-center'>
-          <h2 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'>
-            <Link to={`/product/${product._id}`}>{product.productName}</Link>
+          <h2
+            onClick={goToProduct}
+            className='cursor-pointer text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'
+          >
+            {product.productName}
           </h2>
           <div className='lg:text-md text-center font-grotesque text-sm xl:text-base'>
             ${price}

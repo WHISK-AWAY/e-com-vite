@@ -65,7 +65,6 @@ export default function Navbar() {
     dispatch(searchProducts());
   }, []);
 
-
   // useEffect(() => {
   //   console.log(isCartFavWrapperHidden);
   // }, [isCartFavWrapperHidden]);
@@ -179,11 +178,8 @@ export default function Navbar() {
             />
             {!isCartFavWrapperHidden && mode === 'cart' && (
               <CartFavWrapper
-                isCartFavWrapperHidden={isCartFavWrapperHidden}
                 setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
                 mode={mode}
-                setIsFavHidden={setIsFavHidden}
-                setIsCartHidden={setIsCartHidden}
               />
             )}
           </div>
@@ -193,23 +189,23 @@ export default function Navbar() {
           <div>
             {!isCartFavWrapperHidden && mode === 'fav' && (
               <CartFavWrapper
-                isCartFavWrapperHidden={isCartFavWrapperHidden}
                 setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
                 mode={mode}
-                setIsCartHidden={setIsCartHidden}
-                setIsFavHidden={setIsFavHidden}
               />
             )}
-            
-              <img
-                src={singleUserState.user?.favorites?.length >= 1 ? heartFilled : heartBlanc}
-                className='cursor-pointer lg:w-5'
-                onClick={async () => {
-                  await setMode('fav');
-                  setIsCartFavWrapperHidden(false);
-                }}
-              />
-            
+
+            <img
+              src={
+                singleUserState.user?.favorites?.length >= 1
+                  ? heartFilled
+                  : heartBlanc
+              }
+              className='cursor-pointer lg:w-5'
+              onClick={async () => {
+                await setMode('fav');
+                setIsCartFavWrapperHidden(false);
+              }}
+            />
           </div>
         }
         {/* {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />} */}

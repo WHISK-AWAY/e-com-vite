@@ -7,9 +7,9 @@ import x from '../../src/assets/icons/x.svg';
 import { selectAuthUserId } from '../redux/slices/authSlice';
 
 export default function Cart({
-  setIsCartHidden,
+  setIsHidden,
 }: {
-  setIsCartHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
@@ -41,8 +41,8 @@ export default function Cart({
         <img
           src={x}
           alt='x-icon'
-          className='absolute right-0 top-6 h-3 w-10 lg:h-5'
-          onClick={() => setIsCartHidden(true)}
+          className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
+          onClick={() => setIsHidden(true)}
         />
       </div>
 
@@ -56,6 +56,7 @@ export default function Cart({
                   qty={qty}
                   userId={userId!}
                   key={product._id}
+                  setIsHidden={setIsHidden}
                 />
               );
             })}
@@ -76,7 +77,7 @@ export default function Cart({
           {userCart.cart.products?.length ? (
             <Link
               to={'/checkout'}
-              onClick={() => setIsCartHidden(true)}
+              onClick={() => setIsHidden(true)}
               className='rounded-sm bg-charcoal px-6 py-3 text-center font-italiana text-xs text-white lg:px-10 lg:text-sm xl:px-14 xl:text-lg 2xl:text-xl'
             >
               PROCEED TO CHECKOUT
@@ -89,7 +90,7 @@ export default function Cart({
 
           <Link
             to={'/shop-all'}
-            onClick={() => setIsCartHidden(true)}
+            onClick={() => setIsHidden(true)}
             className='w-fit border border-charcoal px-6 font-italiana text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg'
           >
             continue shopping
