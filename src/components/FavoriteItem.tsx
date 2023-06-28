@@ -79,7 +79,7 @@ export default function FavoriteItem({
               src={minus}
               alt='minus-icon'
               onClick={qtyDecrementer}
-              className='h-3 lg:h-3 xl:h-5'
+              className='h-3 cursor-pointer lg:h-3 xl:h-5'
             />
             <span className='lg:text-md font-grotesque text-xs lg:px-2 xl:px-4 xl:text-base 2xl:text-base'>
               {count}
@@ -88,31 +88,29 @@ export default function FavoriteItem({
               src={plus}
               alt='plus-icon'
               onClick={qtyIncrementor}
-              className='h-3 lg:h-3 xl:h-5 '
+              className='h-3 cursor-pointer lg:h-3 xl:h-5'
             />
           </div>
         </div>
       </article>
 
       {/*button*/}
-      <div className='flex w-[65%] items-center justify-center rounded-sm bg-charcoal text-center text-white lg:w-[60%]'>
-        <button
-          className=' flex items-center justify-center rounded-sm py-1 font-italiana text-sm uppercase lg:py-2 2xl:text-lg'
-          onClick={() =>
-            handleAddToCart({
-              userId,
-              productId: product._id.toString(),
-              qty: count,
-            })
-          }
-        >
-          add to cart
-        </button>
-      </div>
+      <button
+        className=' flex w-[65%] items-center justify-center rounded-sm bg-charcoal py-1 text-center font-italiana text-sm uppercase text-white lg:w-[60%] lg:py-2 2xl:text-lg'
+        onClick={() =>
+          handleAddToCart({
+            userId,
+            productId: product._id.toString(),
+            qty: count,
+          })
+        }
+      >
+        add to cart
+      </button>
       <img
         src={x}
         alt='x-icon'
-        className='absolute right-0 top-0  h-2 w-3 lg:h-3 lg:w-3'
+        className='absolute right-0 top-0 h-2  w-3 cursor-pointer lg:h-3 lg:w-3'
         onClick={() => handleRemove({ userId, productId: product._id })}
       />
     </section>

@@ -77,7 +77,7 @@ export default function Cart({
             <Link
               to={'/checkout'}
               onClick={() => setIsCartHidden(true)}
-              className='rounded-sm bg-charcoal px-6  py-3 text-center  font-italiana text-xs text-white lg:px-10 lg:text-sm xl:px-14 xl:text-lg 2xl:text-xl'
+              className='rounded-sm bg-charcoal px-6 py-3 text-center font-italiana text-xs text-white lg:px-10 lg:text-sm xl:px-14 xl:text-lg 2xl:text-xl'
             >
               PROCEED TO CHECKOUT
             </Link>
