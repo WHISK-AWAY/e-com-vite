@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { TProduct } from '../redux/slices/userSlice';
+import { TProduct, removeFromFavorites } from '../redux/slices/userSlice';
 import { Link } from 'react-router-dom';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
+import x from '../../src/assets/icons/x.svg';
 import { useAppDispatch } from '../redux/hooks';
-import { removeFromCart } from '../redux/slices/cartSlice';
 
 export type TFavoriteItemProp = {
   product: TProduct;
@@ -41,52 +41,63 @@ export default function FavoriteItem({
     else setCount(userQty + 1);
   };
 
+  const handleRemove = ({
+    userId,
+    productId,
+  }: {
+    userId: string;
+    productId: string;
+  }) => {
+    dispatch(removeFromFavorites({ userId, productId }));
+  };
+
   return (
-    <section className='w-9/10 flex flex-col items-center'>
-      <div className='flex w-full flex-row-reverse items-center justify-center'>
-        <section className='flex w-8/12 bg-blue-300 flex-row-reverse items-center self-center p-2'>
-          <div className='prod-detail-section flex w-full flex-col  '>
-            <h2 className='mb-3 items-center self-center px-5 text-center font-hubbali text-sm uppercase md:mb-1 md:px-1 md:text-xs lg:mx-1 lg:text-base xl:text-base 2xl:text-xl'>
+    <section className='fav-item-container w-9/10 relative flex h-full flex-col items-center gap-4'>
+      <article className='product-card flex h-fit w-full items-center justify-center gap-4 pt-3'>
+        <div className='image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center'>
+          <img
+            className='aspect-[3/4] object-cover'
+            src={
+              product.images.find(
+                (image) => image.imageDesc === 'product-front'
+              )?.imageURL || product.images[0].imageURL
+            }
+          />
+        </div>
+        <div className='prod-detail flex h-full basis-2/3 flex-col items-center justify-center gap-1'>
+          <div className='upper-wrapper flex w-full flex-col items-center'>
+            <h2 className='items-center self-center text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'>
               <Link to={`/product/${product._id}`}>{product.productName}</Link>
             </h2>
 
-            <div className='flex flex-col items-center'>
-              <p className='text-center font-grotesque md:text-sm lg:mb-1 2xl:text-lg'>
-                ${product.price}
-              </p>
-
-              <div className='flex h-full w-14 items-center justify-around self-center rounded-full border border-charcoal md:w-12 lg:w-16 xl:w-24  xl:py-[3px] 2xl:py-1'>
-                <img
-                  src={minus}
-                  alt='minus-icon'
-                  onClick={qtyDecrementer}
-                  className='h-3 lg:h-3 xl:h-5'
-                />
-                <span className='lg:text-md font-grotesque  md:text-xs lg:px-2 xl:px-4 xl:text-base 2xl:text-base'>
-                  {count}
-                </span>
-                <img
-                  src={plus}
-                  alt='plus-icon'
-                  onClick={qtyIncrementor}
-                  className='h-3 lg:h-3 xl:h-5 '
-                />
-              </div>
-            </div>
+            <p className='text-center font-grotesque text-sm 2xl:text-lg'>
+              ${product.price}
+            </p>
           </div>
-        </section>
+          <div className='qty-controller flex w-12 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24 xl:py-[3px] 2xl:py-1'>
+            <img
+              src={minus}
+              alt='minus-icon'
+              onClick={qtyDecrementer}
+              className='h-3 lg:h-3 xl:h-5'
+            />
+            <span className='lg:text-md font-grotesque text-xs lg:px-2 xl:px-4 xl:text-base 2xl:text-base'>
+              {count}
+            </span>
+            <img
+              src={plus}
+              alt='plus-icon'
+              onClick={qtyIncrementor}
+              className='h-3 lg:h-3 xl:h-5 '
+            />
+          </div>
+        </div>
+      </article>
 
-        <img
-          className='aspect-[3/4] h-32 w-4/12 object-cover lg:h-44'
-          src={
-            product.images.find((image) => image.imageDesc === 'product-front')
-              ?.imageURL || product.images[0].imageURL
-          }
-        />
-      </div>
-      <div className='mb-9 mt-4 flex w-[40%] items-center justify-center rounded-sm bg-charcoal text-center text-white md:mt-2 md:w-[65%] lg:w-[60%] 2xl:mb-11 2xl:mt-6'>
+      {/*button*/}
+      <div className='flex w-[65%] items-center justify-center rounded-sm bg-charcoal text-center text-white lg:w-[60%]'>
         <button
-          className=' flex items-center justify-center rounded-sm py-1 font-italiana uppercase md:text-sm 2xl:text-lg lg:py-2'
+          className=' flex items-center justify-center rounded-sm py-1 font-italiana text-sm uppercase lg:py-2 2xl:text-lg'
           onClick={() =>
             handleAddToCart({
               userId,
@@ -98,6 +109,12 @@ export default function FavoriteItem({
           add to cart
         </button>
       </div>
+      <img
+        src={x}
+        alt='x-icon'
+        className='absolute right-0 top-0  h-2 w-3 lg:h-3 lg:w-3'
+        onClick={() => handleRemove({ userId, productId: product._id })}
+      />
     </section>
   );
 }
