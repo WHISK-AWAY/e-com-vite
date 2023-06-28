@@ -33,13 +33,12 @@ export default {
         charcoal: '#4A4A4A',
       },
       screens: {
-        'xs': '375px',
-        '2xl' : '1440px',
-
-      }
+        xs: '375px',
+        '2xl': '1440px',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 
 // font-family: 'Chonburi', cursive;
