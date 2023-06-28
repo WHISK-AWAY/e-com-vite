@@ -28,7 +28,10 @@ import Cart from './Cart';
 import Favorite from './Favorite';
 import SignIn from './SignIn';
 import SignWrapper from './SignWrapper';
+import CartFavWrapper from './CartFavWrapper';
 // import { ReactSVG } from 'react-svg';
+
+export type TCFMode = 'cart' | 'fav';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -42,14 +45,15 @@ export default function Navbar() {
   const [isCartHidden, setIsCartHidden] = useState(true);
   const [isFavHidden, setIsFavHidden] = useState(true);
   const [isSignFormHidden, setIsSignFormHidden] = useState(true);
+  const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
+  const [mode, setMode] = useState<TCFMode>('cart');
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
     tags: [],
   });
 
-
-  console.log('user', singleUserState.user.favorites)
+  // console.log('user', singleUserState.user.favorites)
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
@@ -61,6 +65,10 @@ export default function Navbar() {
     dispatch(searchProducts());
   }, []);
 
+
+  // useEffect(() => {
+  //   console.log(isCartFavWrapperHidden);
+  // }, [isCartFavWrapperHidden]);
   function signOut() {
     dispatch(requestLogout());
     dispatch(resetUserState());
@@ -158,24 +166,53 @@ export default function Navbar() {
         </div>
       </Link>
 
-      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
+      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5'>
         {
-          <div onClick={() => setIsCartHidden((prev) => !prev)}>
-            <img src={bag} className='cursor-pointer lg:w-5' />
-          </div>
-        }
-        {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />}
-        {
-          <div onClick={() => setIsFavHidden((prev) => !prev)}>
-            {
-            singleUserState.user?.favorites?.length >= 1 ? (
-              <img src={heartFilled} className='cursor-pointer lg:w-5' />
-            ) : (
-              <img src={heartBlanc} className='cursor-pointer lg:w-5' />
+          <div>
+            <img
+              src={bag}
+              className='cursor-pointer lg:w-5'
+              onClick={async () => {
+                await setMode('cart');
+                setIsCartFavWrapperHidden(false);
+              }}
+            />
+            {!isCartFavWrapperHidden && mode === 'cart' && (
+              <CartFavWrapper
+                isCartFavWrapperHidden={isCartFavWrapperHidden}
+                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                mode={mode}
+                setIsFavHidden={setIsFavHidden}
+                setIsCartHidden={setIsCartHidden}
+              />
             )}
           </div>
         }
-        {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />}
+        {/* {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />} */}
+        {
+          <div>
+            {!isCartFavWrapperHidden && mode === 'fav' && (
+              <CartFavWrapper
+                isCartFavWrapperHidden={isCartFavWrapperHidden}
+                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                mode={mode}
+                setIsCartHidden={setIsCartHidden}
+                setIsFavHidden={setIsFavHidden}
+              />
+            )}
+            
+              <img
+                src={singleUserState.user?.favorites?.length >= 1 ? heartFilled : heartBlanc}
+                className='cursor-pointer lg:w-5'
+                onClick={async () => {
+                  await setMode('fav');
+                  setIsCartFavWrapperHidden(false);
+                }}
+              />
+            
+          </div>
+        }
+        {/* {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />} */}
 
         {userId ? (
           <NavLink to={`/user/${userId}`}>
