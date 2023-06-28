@@ -64,19 +64,19 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
 
   return (
     <>
-      <div className='flex h-full w-[50vw] flex-col items-center justify-start text-xs lg:text-sm xl:text-base 2xl:text-lg'>
+      <div className='flex h-[50vh] max-h-[400px] max-w-[50vw] flex-col items-center justify-start text-xs lg:text-sm xl:text-base 2xl:text-lg'>
         {currentAddress ? (
           showAddressManager ? (
             <div>maybe someday this will be an address book manager...</div>
           ) : (
             <>
-              <div className='relative mx-auto grid h-full w-full grid-cols-[2fr,_4fr] place-items-stretch xl:grid-cols-[2fr,_5fr]'>
+              <div className='mx-auto grid h-full w-full grid-cols-[2fr,_4fr] place-items-stretch xl:grid-cols-[2fr,_5fr]'>
                 {/* <img src={arrowLeft} alt='left arrow' /> */}
                 {addressIdx > 0 && (
                   <img
                     src={arrow}
                     onClick={() => setAddressIdx((prev) => (prev -= 1))}
-                    className='absolute left-2 top-1/2 w-4 translate-y-[-50%] cursor-pointer 2xl:w-6'
+                    className='absolute left-0 top-1/2 w-4 translate-x-[-200%] translate-y-[-50%] cursor-pointer 2xl:w-6'
                     alt='left arrow'
                   />
                 )}
@@ -84,7 +84,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                   <img
                     src={arrow}
                     onClick={() => setAddressIdx((prev) => (prev += 1))}
-                    className='absolute right-2 top-1/2 w-4 translate-y-[-50%] rotate-180 cursor-pointer 2xl:w-6'
+                    className='absolute right-0 top-1/2 w-4 translate-x-[200%] translate-y-[-50%] rotate-180 cursor-pointer 2xl:w-6'
                     alt='right arrow'
                   />
                 )}
@@ -112,7 +112,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                   <p className='uppercase'>{currentAddress.zip}</p>
                 </div>
               </div>
-              <div className='absolute -bottom-[20%] right-1/2 flex translate-x-[50%] justify-center gap-6 text-base 2xl:-bottom-[22%] 2xl:text-xl'>
+              <div className='absolute -bottom-[15%] right-1/2 flex translate-x-[50%] justify-center gap-6 text-base 2xl:-bottom-[22%] 2xl:text-xl'>
                 {/* disabling edit & new until ready to work on it... */}
                 {addresses.length && (
                   <>

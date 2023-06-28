@@ -1,0 +1,20 @@
+{
+  "productName": "Firming Toner with 0.1% Retinol + Damask Rose Extract",
+  "productShortDesc": "Concentrated in retinol, this toner diminishes the appearance of wrinkles for firmer, smoother, and plumper skin. 99% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Retinol:\nRetinol (or vitamin A) is considered one of the most effective compounds to compensate for the degradation of the skin's support fibres. It stimulates the production of collagen and elastin for smoother, more elastic skin. In addition, retinol is known for its antioxidant properties that prevent premature aging of skin cells. It also has an action on the production of melanin in the skin, allowing to reduce the appearance of brown spots that can appear with age.\nDamask Rose Extract:\nConsidered an ancient variety of rose, Damask Rose is native to the Orient. Allied to mature skins by its regenerating action and its antioxidant properties, it helps to limit the premature ageing of cells and brings brightness and luminosity to the complexion. Its calming action reduces the irritating effect of retinol.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/beefdf879a/tone-1006_page-produit.jpg",
+    "https://media.typology.com/storyblok/1600x1600/c3092546fe/better_aging_carousel-produit_tonic.jpg",
+    "https://media.typology.com/storyblok/1600x1600/31c8e709a2/better_aging_carousel-produit_dos.jpg",
+    "https://media.typology.com/storyblok/1600x1600/1f9121777e/better_aging_carousel-ingredient.jpg",
+    "https://media.typology.com/video-storyblok/x/fdc8074c02/18_toniques.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-back",
+    "product-alt",
+    "video-usage"
+  ],
+  "categories": []
+}
