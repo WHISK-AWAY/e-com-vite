@@ -1,0 +1,24 @@
+{
+  "productName": "Antioxidant Moisturizer with Carotenoids + Organic Lavender Extract",
+  "productShortDesc": "Moisturizes and protects the skin daily from cellular oxidation. Prevents premature signs of skin aging. Antioxidant ingredients: Carotenoid-rich algae (astaxanthin), kale, ginseng, and lavender extracts. 99% naturally derived. Certified organic.",
+  "productIngredients": "Carotenoids:\nAstaxanthin is a molecule of the carotenoid family, extracted from a microalgae which gives it its red color. It reduces oxidative stress and promotes skin elasticity.\nLavender extract:\nObtained by distilling lavender flowers, this essential oil is known for its soothing properties.\nKale extract:\nThis byproduct of distilled kale leaves is known to limit the impact of environmental stress on the skin.\nGinseng extract:\nExtracted from ginseng roots, this active ingredient helps prevent free-radical damage, which can accelerate the skin's aging process.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/3200x3200/398956607d/packshot_3d-creme.jpg",
+    "https://media.typology.com/storyblok/1200x1500/4f869d465d/hover-creme-antiox.jpg",
+    "https://media.typology.com/storyblok/3287x3287/f57123c827/antioxydant_carroussel_produit_.jpg",
+    "https://media.typology.com/storyblok/3287x3287/46a56931c9/antioxydant_creme-texture.jpg",
+    "https://media.typology.com/storyblok/3287x3287/6d3067fd79/antioxydant_carroussel_produit_.jpg",
+    "https://media.typology.com/storyblok/3287x3287/4da0f92ff9/antioxydant_masque_pack-dos.jpg",
+    "https://media.typology.com/video-storyblok/x/4bdd35887c/application-antioxydant-creme.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-close",
+    "product-usage",
+    "product-texture",
+    "product-alt",
+    "product-packaging-back",
+    "video-usage"
+  ],
+  "categories": []
+}
