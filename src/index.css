@@ -26,6 +26,11 @@
   @apply focus:border-charcoal   focus:ring-1 focus:ring-current
 }
 
+.checkbox-focus {
+  @apply focus:ring-0 border-charcoal bg-white text-charcoal
+}
+
+
 
 @layer utilities {
   /* Chrome, Safari and Opera */
@@ -39,7 +44,7 @@
   }
 
 
-/* input:-webkit-autofill {
+ /* input:-webkit-autofill {
   border: 3px solid white;
   outline-color: white;
   background: rgba(128, 35, 35, 0.515);
@@ -48,12 +53,30 @@
 }
 input:autofill {
   border: 3px  solid white;
-  background: rgba(128, 35, 35, 0.515);
+  background: rgba(128, 35, 35, 0.515); 
+
+}  */
+/* .address-fill {
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid charcoal;
+  -webkit-text-fill-color: #4a4a4a;
+  transition: background-color 5000s ease-in-out 0s;
+  color: white;
+}
 
 } */
 
-  input:-webkit-autofill,
-input:-webkit-autofill:hover,
+
+input:-webkit-autofill,
+/* input:-webkit-autofill:hover, */
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,
