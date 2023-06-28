@@ -20,12 +20,12 @@ export default function CartFavWrapper({
 
   return (
     <section
-      onClick={() => setIsCartFavWrapperHidden(true)}
-      className='cart-container fixed right-0 top-0 z-10 flex  h-screen w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'
+
+      className='cart-container fixed right-0 top-0 flex z-20 h-screen w-[100vw] flex-col overflow-hidden bg-[#35403F]/50'
     >
       <div
         // onClick={() => setIsCartFavWrapperHidden(true)}
-        className='flex h-full max-w-[40vw]  flex-col self-end  bg-white 2xl:max-w-[40vw] '
+        className='flex h-full max-w-[40vw] flex-col self-end  bg-white 2xl:max-w-[40vw] '
       >
         {mode === 'cart' ? (
           <Cart setIsCartHidden={setIsCartFavWrapperHidden} />
