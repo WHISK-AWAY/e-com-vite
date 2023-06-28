@@ -32,7 +32,7 @@
   - [ ] Need to trim inputs
 - [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- _prioritize!_
-  - [ ] Add more items (around 50 total -- now @ 43)
+  - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
 - [ ] Order creation:
   - [x] promo code name failing @ route
@@ -45,20 +45,17 @@
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
 - [ ] Checkout-section address book does not render all addresses
-- [ ] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
-- [ ] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
-  - Or instead just hide them altogether
 - [ ] User feedback
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
   - [ ] Add to favorites animation?
   - [x] Favorites indicator (maybe just a filled heart on nav?)
+- [ ] Checkbox styling (new ship address) `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
 
 ### Resolved
 
 - [x] Logo should point to home page
 - [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
-- [x] Try the checkbox thing `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
 - [x] User Account Section
   - [x] Order History Details
     - [x] No scrollbars
@@ -80,5 +77,8 @@
 - [x] Cart checkout button should close cart (check favorites also)
 - [x] Product images should point to single product page
 - [x] Sign-in: 'Found 2 elements with non-unique id #email'
+- [x] Consider scrollbar styling for internal scrollbars (https://github.com/adoxography/tailwind-scrollbar)
+  - Or instead just hide them altogether <----
+- [x] `Warning: validateDOMNesting(...): <div> cannot appear as a descendant of <p>.` (SignIn.tsx @ 38)
 
 ## Other Notes
