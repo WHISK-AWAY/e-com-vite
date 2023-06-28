@@ -46,6 +46,7 @@
 - [x] Logo should point to home page
 - [x] Cart checkout button should close cart (check favorites also)
 - [x] Product images should point to single product page
+- [ ] When user has only 1 address on file, attempting to delete it leads to nowhere
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
