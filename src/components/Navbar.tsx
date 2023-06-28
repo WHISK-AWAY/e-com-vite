@@ -69,11 +69,11 @@ export default function Navbar() {
   // useEffect(() => {
   //   console.log(isCartFavWrapperHidden);
   // }, [isCartFavWrapperHidden]);
-  function signOut() {
-    dispatch(requestLogout());
-    dispatch(resetUserState());
-    navigate('/');
-  }
+  // function signOut() {
+  //   dispatch(requestLogout());
+  //   dispatch(resetUserState());
+  //   navigate('/');
+  // }
 
   // * this part doesn't really work all that well, but the navigates should
   // * at least be in the ball park of what we want
@@ -228,7 +228,7 @@ export default function Navbar() {
             )}
           </>
         )}
-        {userId && <button onClick={signOut}>SIGN OUT</button>}
+
         {/* <img src={searchIcon} className=' w-6 ' /> */}
         {/* <form onSubmit={(e) => handleFormSubmit(e)}>
           <input
