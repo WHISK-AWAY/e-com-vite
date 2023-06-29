@@ -1,17 +1,7 @@
 {
   "productName": "7-Ingredient Cleansing Oil",
   "productShortDesc": "Remove makeup and impurities with our bestselling cleansing oil. This minimalist formulation is fragrance free and suitable for even the most sensitive skin typologies. Dermatologically tested. 99% naturally derived. Vegan. Made in France.",
-
   "productIngredients": "\n Sweet almond oil:\nnourishes and improves the elasticity of the skin. It also has soothing properties to calm skin and reduce tightness.\n Sunflower seed oil:\nrich in antioxidants this oil protects the skin against free radicals while nourishing and cleansing the skin.\nCaprylic/Capric triglyceride:\nderived from coconut, this ingredient facilitates makeup removal and leaves skin feeling soft.\n Polyglyceryl-4 Oleate:\nan emulsifier derived from coconut that allows the product to rinse off easily.\n Isopropyl isostearate:\nderived from rapeseed, this ingredient facilitates the removal of makeup particles.\n Vitamin E:\nan antioxidant to preserve the oils in this formula and prevent them from turning rancid over time.\n Sunflower seed hybrid oil:\nused as a solvent, this seed oil nourishes the skin and facilitates makeup removal.",
-
-  "images": [
-    "huile-demaquillante-a-7-ingredients__main__f36121279887463d801212c3fb0ad4fe.jpg",
-    "huile-demaquillante-a-7-ingredients__additional__243b950b663d4c1c8cff761be4cc2f58.jpg",
-    "huile-demaquillante-a-7-ingredients__additional__d24d2996ab2e4b32b76b93604ab17774.jpg",
-    "huile-demaquillante-a-7-ingredients__additional__b45d27efbbc34180abef313517afc6a9.jpg",
-    "huile-demaquillante-a-7-ingredients__additional__194e02bd53104de7bf5add302ad1c511.jpg",
-    "huile-demaquillante-a-7-ingredients__additional__36ff1ebe19fe488c94e2f740420e404f.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/d5acc8f11e/huile-demaquillante-a-7-ingredients__main__f36121279887463d801212c3fb0ad4fe.jpg",
     "https://media.typology.com/storyblok/f33d7491d9/huile-demaquillante-a-7-ingredients__additional__b45d27efbbc34180abef313517afc6a9.jpg",
@@ -23,5 +13,6 @@
     "product-back",
     "product-dimensions",
     "video-usage"
-  ]
+  ],
+  "categories": ["cleansers", "oils", "face"]
 }

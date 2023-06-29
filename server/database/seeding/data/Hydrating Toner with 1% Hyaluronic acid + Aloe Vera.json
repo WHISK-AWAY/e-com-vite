@@ -7,5 +7,6 @@
     "https://media.typology.com/storyblok/1490x1570/329b9184dc/tone-1004_image-full_web1.jpg",
     "https://media.typology.com/storyblok/1600x1600/514d8c3f51/tone_1004_web_back.jpg"
   ],
-  "imageDesc": ["product-front", "product-alt", "product-back"]
+  "imageDesc": ["product-front", "product-alt", "product-back"],
+  "categories": ["face", "toners", "moisturizers"]
 }

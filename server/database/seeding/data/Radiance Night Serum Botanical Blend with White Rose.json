@@ -2,16 +2,6 @@
   "productName": "Radiance Night Serum Botanical Blend with White Rose",
   "productShortDesc": "A white-rose, rosehip, and geranium rose overnight oil that increases radiance and helps regenerate skin while you sleep. 100% naturally derived. Vegan. Made in France.",
   "productIngredients": "White Rose Native Cells:\nThis formula contains approximately 375,000 white rose native cells which promote the oxygenation of skin cells and fight the overproduction of free radicals. They work to even the complexion, revive radiance, and reduce the appearance of hyperpigmentation. Native cells are whole plant cells made up of natural elements, rich in nutrients like essential amino acids, vitamins and minerals.\nJojoba botanical oil:\nRich in fatty acids, jojoba oil is added for its nourishing and sebo-regulating properties. It works to protect the skin's barrier while creating a visibly more supple and plump complexion.\nRosehip botanical oil:\nRosehip oil helps fight hyperpigmentation and the first signs of aging thanks to its high content of powerful antioxidants such as beta-carotene. It also contains essential fatty acids to aid skin regeneration.\nHemisqualane:\nDerived from sugarcane, hemisqualane is a nourishing, natural emollient that gives the serum its light, non-greasy texture.",
-  "images": [
-    "serum-nuit-botanique-eclat__main__8ee4bc24b4464b2d8f31a0402e74da9f.jpg",
-    "plantes_1001_web.jpg",
-    "plantes-1001_image-full_web2.jpg",
-    "plantes-1001_image-full_web1.jpg",
-    "serum-nuit-botanique-eclat__additional__2f0801f0d01a49e49d3470f7b7b450d8.jpg",
-    "serum-nuit-botanique-eclat__additional__137f17f5013c4ee1a94a6943339950cd.jpg",
-    "serum-nuit-botanique-eclat__additional__a5f099a312e14e789cad46a1c7f83092.jpg",
-    "serum-nuit-botanique-eclat__additional__4a438016e02c4f1791df98c4beaf7033.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/1600x1600/55d9dcf99c/plantes_1001_web.jpg",
     "https://media.typology.com/storyblok/1490x1570/ac2e169c99/plantes-1001_image-full_web2.jpg",
@@ -23,5 +13,6 @@
     "product-close",
     "product-alt",
     "product-dimensions"
-  ]
+  ],
+  "categories": ["face", "night", "serums"]
 }
