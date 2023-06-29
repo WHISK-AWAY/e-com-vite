@@ -199,15 +199,11 @@ AllProductsProps) {
   const tagList = tagState.tags;
 
   return (
-    <section className='all-product-container mx-auto flex max-w-screen-2xl  flex-col  items-center px-10 pt-5'>
+    <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
       {/* {filter === 'all' && <h1>{filter} products</h1>} */}
-      <section className='header-section relative  flex basis-1/2'>
+      <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
-          <BestsellersHeader
-            allProdsBg={allProdsBg}
-            filter={filter}
-            randomProd={randomProd}
-          />
+          <BestsellersHeader />
         ) : (
           <AllProductsHeader
             allProdsBg={allProdsBg}
@@ -216,38 +212,43 @@ AllProductsProps) {
           />
         )}
       </section>
-      <div
-        ref={topElement}
-        className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
-      >
-        {filter && filter === 'all' ? (
-          <p>{filter} products</p>
-        ) : (
-          <p>all {filter}</p>
-        )}
-      </div>
-      <section className='filter-section flex flex-col self-end pb-10 pt-20'>
-        <div className='flex gap-6  self-end '>
-          <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
-
-          <img
-            src={filterI}
-            className='flex w-6 flex-row'
-            onClick={() => setIsSearchHidden((prev) => !prev)}
-          />
+      {!bestsellers && (
+        <div
+          ref={topElement}
+          className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
+        >
+          {filter && filter === 'all' ? (
+            <p>{filter} products</p>
+          ) : (
+            <p>all {filter}</p>
+          )}
         </div>
-        {!isSearchHidden && (
-          <SortFilterAllProds
-            setSort={setSort}
-            sort={sort}
-            filter={filter}
-            setFilter={setFilter}
-            allProducts={allProducts}
-            sortKey={sortKey}
-            sortDir={sortDir}
-          />
-        )}
-      </section>
+      )}
+
+      {!bestsellers && (
+        <section className='filter-section flex flex-col self-end pb-10 pt-20'>
+          <div className='flex gap-6  self-end '>
+            <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
+
+            <img
+              src={filterI}
+              className='flex w-6 flex-row'
+              onClick={() => setIsSearchHidden((prev) => !prev)}
+            />
+          </div>
+          {!isSearchHidden && (
+            <SortFilterAllProds
+              setSort={setSort}
+              sort={sort}
+              filter={filter}
+              setFilter={setFilter}
+              allProducts={allProducts}
+              sortKey={sortKey}
+              sortDir={sortDir}
+            />
+          )}
+        </section>
+      )}
       <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => (
@@ -310,39 +311,41 @@ AllProductsProps) {
           </li>
         ))}
       </div>
-      <div className='flex w-full justify-center pt-20 tracking-widest'>
-        <div className='flex items-center font-grotesque text-xl '>
-          <img
-            src={arrowLeft}
-            alt='left-arrow'
-            className='h-4 cursor-pointer pr-8'
-            onClick={pageDecrementor}
-          />
-          {pageFlipper().firstPage}
-          {pageNum! !== 1 && pageNum! !== maxPages && (
+      {maxPages > 1 && (
+        <div className='flex w-full justify-center pt-20 tracking-widest'>
+          <div className='flex items-center font-grotesque text-xl '>
+            <img
+              src={arrowLeft}
+              alt='left-arrow'
+              className='h-4 cursor-pointer pr-8'
+              onClick={pageDecrementor}
+            />
+            {pageFlipper().firstPage}
+            {pageNum! !== 1 && pageNum! !== maxPages && (
+              <img
+                src={dots}
+                alt='three-dots'
+                className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
+              />
+            )}
+            {pageNum! !== 1 && pageNum! !== maxPages && (
+              <p>{pageFlipper().currentPage}</p>
+            )}
             <img
               src={dots}
               alt='three-dots'
               className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
             />
-          )}
-          {pageNum! !== 1 && pageNum! !== maxPages && (
-            <p>{pageFlipper().currentPage}</p>
-          )}
-          <img
-            src={dots}
-            alt='three-dots'
-            className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
-          />
-          {pageFlipper().lastPage}
-          <img
-            src={arrowRight}
-            alt='right-arrow'
-            className='h-4 rotate-180 cursor-pointer pr-8'
-            onClick={pageIncrementor}
-          />
+            {pageFlipper().lastPage}
+            <img
+              src={arrowRight}
+              alt='right-arrow'
+              className='h-4 rotate-180 cursor-pointer pr-8'
+              onClick={pageIncrementor}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
