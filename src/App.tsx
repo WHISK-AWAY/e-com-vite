@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -28,9 +28,10 @@ import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 import Footer from './components/Footer';
 
 function App() {
+  const cartElement = useRef<HTMLImageElement>(null);
   return (
     <div className='mx-auto min-h-screen text-charcoal'>
-      <Navbar />
+      <Navbar cartElement={cartElement} />
       <Routes>
         <Route path='/' element={<Homepage />} />
         {/* <Route path='/sign-in' element={<SignIn />} /> */}
@@ -40,7 +41,10 @@ function App() {
           path='/shop-all/bestsellers'
           element={<AllProducts sortKey='saleCount' />}
         />
-        <Route path='/product/:productId' element={<SingleProduct />} />
+        <Route
+          path='/product/:productId'
+          element={<SingleProduct cartElement={cartElement} />}
+        />
         <Route path='/user/:userId' element={<UserProfile />} />
         {/* <Route path='/user/:userId/cart' element={<Cart />} /> */}
         {/* <Route path='/user/:userId/favorites' element={<Favorite />} /> */}

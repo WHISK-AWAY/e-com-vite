@@ -5,7 +5,7 @@ import {
   selectAuth,
 } from '../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   fetchSingleUser,
   resetUserState,
@@ -33,7 +33,11 @@ import CartFavWrapper from './CartFavWrapper';
 
 export type TCFMode = 'cart' | 'fav';
 
-export default function Navbar() {
+export default function Navbar({
+  cartElement,
+}: {
+  cartElement: React.RefObject<HTMLImageElement>;
+}) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId, error: authError } = useAppSelector(selectAuth);
@@ -169,6 +173,7 @@ export default function Navbar() {
         {
           <div>
             <img
+              ref={cartElement}
               src={bag}
               className='cursor-pointer lg:w-5'
               onClick={async () => {

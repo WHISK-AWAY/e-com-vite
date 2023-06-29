@@ -1,5 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
+import { gsap } from 'gsap';
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+gsap.registerPlugin(MotionPathPlugin);
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchSingleProduct,
@@ -105,8 +108,13 @@ const bgImgs = [
 
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
-export default function SingleProduct() {
+export default function SingleProduct({
+  cartElement,
+}: {
+  cartElement: React.RefObject<HTMLImageElement>;
+}) {
   const reviewSection = useRef<HTMLDivElement>(null);
+  const productImage = useRef<HTMLImageElement>(null);
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
@@ -121,6 +129,13 @@ export default function SingleProduct() {
   const [selectedImage, setSelectedImage] = useState('');
   const [bgImg, setBgImg] = useState('');
   const [bgVid, setBgVid] = useState('');
+
+  useEffect(() => {
+    //! testing/debugging
+    console.dir(cartElement.current);
+    console.log('x:', cartElement.current?.x);
+    console.log('y:', cartElement.current?.y);
+  }, [cartElement]);
 
   useEffect(() => {
     // * component initialization
@@ -175,8 +190,8 @@ export default function SingleProduct() {
   }, [allReviews, userId]);
 
   useEffect(() => {
-    window.scrollTo({ top: 0});
-  }, [])
+    window.scrollTo({ top: 0 });
+  }, []);
 
   const qtyIncrementor = () => {
     let userQty: number = count;
@@ -192,6 +207,24 @@ export default function SingleProduct() {
   };
 
   const handleClick = () => {
+    if (productId && cartElement.current && productImage.current) {
+      productImage.current.classList.toggle('opacity-0');
+      const delta = MotionPathPlugin.getRelativePosition(
+        productImage.current,
+        cartElement.current,
+        [0.5, 0.5],
+        [0.5, 0.5]
+      );
+      gsap
+        .to(productImage.current, {
+          x: '+=' + delta.x,
+          y: '+=' + delta.y,
+          opacity: 1,
+          scale: 0.02,
+          yoyo: true,
+        })
+        .then((t) => t.revert());
+    }
     if (productId) {
       dispatch(addToCart({ userId, productId, qty: count }));
     }
@@ -285,9 +318,7 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main
-      className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'
-    >
+    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
@@ -310,11 +341,17 @@ export default function SingleProduct() {
                 />
               </div>
             )}
-            <div className='w-[230px] lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
+            <div className='relative w-[230px] lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               <img
                 src={selectedImage}
                 alt='product image'
                 className='aspect-[3/4] border  border-charcoal  object-cover'
+              />
+              <img
+                src={selectedImage}
+                ref={productImage}
+                alt='product image'
+                className='absolute right-0 top-0 aspect-[3/4] border border-charcoal object-cover opacity-0'
               />
             </div>
             <ImageCarousel
@@ -327,7 +364,7 @@ export default function SingleProduct() {
 
         <section className='product-details flex basis-3/5 flex-col items-center px-8'>
           <div className='product-desc mb-9 flex flex-col items-center text-justify'>
-            <h1 className='product-name pb-9 font-federo text-[1rem] text-center uppercase xl:text-[1.5rem]'>
+            <h1 className='product-name pb-9 text-center font-federo text-[1rem] uppercase xl:text-[1.5rem]'>
               {singleProduct.productName}
             </h1>
             <div
