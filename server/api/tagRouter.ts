@@ -9,12 +9,21 @@ const zodTag = z.object({
 
 const router = Router();
 
-router.get('/', async (_, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const tags: ITag[] = await Tag.find({}).populate('products');
-    res
-      .status(200)
-      .json(tags.filter((tag) => tag.products && tag.products.length > 0));
+    const returnAll = req.query['return-all'];
+
+    let tags: ITag[] = await Tag.find({}).populate({
+      path: 'products',
+      select: '_id',
+    });
+
+    // Unless *all* tags are explicitly requested, filter out any unused tags before returning.
+    if (returnAll !== 'true') {
+      tags = tags.filter((tag) => tag.products && tag.products.length > 0);
+    }
+
+    res.status(200).json(tags);
   } catch (err) {
     next(err);
   }
