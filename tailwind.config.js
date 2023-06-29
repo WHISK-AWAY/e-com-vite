@@ -24,7 +24,7 @@ export default {
       'caslon-text': ['Libre Caslon Text', 'serif'],
       raleway: ['Raleway', 'sans-serif'],
       yantramanav: ['Yantramanav', 'sans-serif'],
-      'roboto-mono': ['Roboto Mono', 'monospace']
+      'roboto-mono': ['Roboto Mono', 'monospace'],
     },
     fontWeight: {
       thin: 100,
