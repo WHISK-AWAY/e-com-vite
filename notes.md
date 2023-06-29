@@ -30,6 +30,8 @@
 
 - [ ] Why does the _places API_ fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
+- [ ] Backup font families
+  - [ ] Look into preloading
 - [x] Need to remove empty categories from filter
 - [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
 - [ ] Add new / edit address functionality to user account section (maybe)
