@@ -18,9 +18,16 @@ export default {
       yeseva: ['Yeseva One', 'cursive'],
       federo: ['Federo', 'sans-serif'],
       gayathri: ['Gayathri', 'sans-serif'],
-      archivo:['Archivo Black', 'sans-serif']
+      archivo: ['Archivo Black', 'sans-serif'],
+      jamalhari: ['Jomolhari', 'serif'],
+      'caslon-display': ['Libre Caslon Display', 'serif'],
+      'caslon-text': ['Libre Caslon Text', 'serif'],
+      raleway: ['Raleway', 'sans - serif'],
+      yantramanav: ['Yantramanav', 'sans-serif'],
     },
     fontWeight: {
+      thin: 100,
+      xtralight: 200,
       light: 300,
       regular: 400,
       medium: 500,
