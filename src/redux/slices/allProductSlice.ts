@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 import { RootState } from '../store';
-import { TSort } from '../../components/AllProducts';
+import { TSort } from '../../components/AllProducts/AllProducts';
 import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 

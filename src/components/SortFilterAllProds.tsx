@@ -1,5 +1,5 @@
 import { selectTagState } from '../redux/slices/tagSlice';
-import { SortDir, SortKey, TSort } from './AllProducts';
+import { SortDir, SortKey, TSort } from './AllProducts/AllProducts';
 import { useAppSelector } from '../redux/hooks';
 import { TProduct } from '../redux/slices/allProductSlice';
 
@@ -9,7 +9,8 @@ export default function SortFilterAllProds({
   filter,
   setFilter,
   allProducts,
-  sortKey, sortDir
+  sortKey,
+  sortDir,
 }: {
   sort: TSort;
   setSort: React.Dispatch<React.SetStateAction<TSort>>;
@@ -17,10 +18,10 @@ export default function SortFilterAllProds({
   setFilter: React.Dispatch<React.SetStateAction<string>>;
   sortKey: SortKey;
   sortDir: SortDir;
-  allProducts:  {
+  allProducts: {
     products: TProduct[];
     count: number | null;
-}
+  };
 }) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
