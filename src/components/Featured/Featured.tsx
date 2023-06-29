@@ -11,13 +11,13 @@ const tintImageURL =
 export default function Featured() {
   return (
     <main className='featured no-scrollbar min-h-screen overflow-x-hidden'>
-      <header className='relative mb-[9vw] flex flex-col items-center justify-start'>
+      <header className='relative mb-[9vw] flex h-full flex-col items-center justify-start'>
         <h1 className='right-1/2 whitespace-nowrap font-archivo text-[16.75vw] font-xxbold uppercase leading-none tracking-widest text-charcoal/90'>
           lip tints
         </h1>
         <video
           src={roseLady}
-          className='w-11/12'
+          className='h-screen w-11/12 object-cover object-center'
           muted={true}
           autoPlay={true}
           loop={true}
@@ -84,7 +84,7 @@ export default function Featured() {
           </Link>
         </div>
       </section>
-      <section className='bottom-section relative flex min-h-screen w-full flex-col items-center border border-teal-500 bg-white px-8 pb-12 pt-4 text-white'>
+      <section className='bottom-section relative flex min-h-screen w-full flex-col items-center bg-white px-8 pb-12 pt-4 text-white'>
         <h2 className='absolute right-1/2 top-0 w-full translate-x-[51%] translate-y-[-50%] whitespace-nowrap text-center font-archivo text-[12vw] uppercase tracking-[1.5rem]'>
           made with
         </h2>
