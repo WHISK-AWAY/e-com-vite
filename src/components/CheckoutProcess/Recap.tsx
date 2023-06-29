@@ -228,22 +228,22 @@ export default function Recap() {
   //   return <h1>Loading address book...</h1>;
 
   return (
-    <div className='recap-container m-10 mx-auto max-w-[1440px]'>
+    <div className='recap-container m-[5%] mx-auto flex h-full w-[80%] flex-col'>
       <section className='order-recap flex flex-col items-center'>
         {/* PRODUCTS RECAP */}
 
-        <div className='header-section w-5/6 border-l border-r border-t border-charcoal py-2 text-center font-italiana text-xl'>
+        <div className='header-section w-[80%] border-l border-r border-t border-charcoal py-2 text-center font-italiana text-xl'>
           <h1>ORDER CONFIRMATION</h1>
         </div>
 
         <div className='product-recap flex  w-full justify-between gap-10 border border-charcoal p-10'>
-          <div className='flex w-3/5 flex-col '>
+          <div className='flex w-3/5 flex-col'>
             {cart.products.map((item) => {
               return (
                 <div key={item._id} className='flex h-56'>
                   <img
                     src={x}
-                    className='h-4 w-5 pr-3 pt-1'
+                    className='h-3 w-5 pr-3'
                     onClick={async () => {
                       await dispatch(
                         removeFromCart({
@@ -255,9 +255,9 @@ export default function Recap() {
                       dispatch(fetchSingleUser(userId?.toString()!));
                     }}
                   />
-                  <div className='w-32 lg:w-40'>
+                  <div className='w-28 lg:w-40'>
                     <img
-                      className=' aspect-[3/4] border border-charcoal object-cover'
+                      className=' aspect-[3/4]  object-cover'
                       src={
                         item.product.images.find(
                           (image) => image.imageDesc === 'product-front'
@@ -265,7 +265,7 @@ export default function Recap() {
                       }
                     />
                   </div>
-                  <div className='flex w-3/5 flex-col items-center justify-center'>
+                  <div className='flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]'>
                     <p className='pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl'>
                       {item.product.productName}
                     </p>
@@ -294,20 +294,20 @@ export default function Recap() {
           </div>
         </div>
 
-        <div className='flex h-44 w-5/6 flex-col justify-center border border-charcoal bg-[#31333A]'>
+        <div className='flex h-40 w-[85%] flex-col justify-center  bg-[#31333A]'>
           <h2 className='pl-5 font-italiana text-base uppercase tracking-wide text-white lg:text-xl'>
             order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
-            <section className='promo-section flex items-center  pl-6  pt-6 text-white lg:pl-20 '>
+            <section className='promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10'>
               <form
-                className='flex flex-nowrap'
+                className='mx-5 flex  h-10 flex-nowrap md:items-center'
                 onSubmit={(e) => handlePromoSubmit(e)}
               >
                 <label
                   htmlFor='promo-code'
-                  className='border border-white px-5  py-1 font-italiana text-sm lg:px-16 lg:text-base'
+                  className='h-full border border-white  px-2 py-2 font-italiana text-sm lg:px-16 lg:text-base'
                 >
                   enter your promo code:
                 </label>
@@ -318,9 +318,9 @@ export default function Recap() {
                   value={promo}
                   placeholder={promoErrors.status ? 'invalid promo code' : ''}
                   onChange={(e) => setPromo(e.target.value)}
-                  className='mx-2 border-2 border-white text-sm text-charcoal'
+                  className='address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50'
                 ></input>
-                <button className='border border-white px-10 font-italiana text-sm uppercase lg:text-lg'>
+                <button className='h-full border border-white px-10  font-italiana text-sm uppercase lg:text-lg'>
                   verify
                 </button>
               </form>
@@ -342,8 +342,8 @@ export default function Recap() {
       </section>
 
       {/* PLAIN TEXT USER ADDRESS */}
-      <section className='border border-charcoal'>
-        <div className='relative flex place-content-center place-items-center border-b border-charcoal font-italiana'>
+      <section className='flex w-[100%] flex-col  border border-charcoal'>
+        <div className='relative flex place-content-center place-items-center border-b  border-charcoal font-italiana'>
           <h1 className='items-center py-3 text-center text-xl'>
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
           </h1>
@@ -351,7 +351,7 @@ export default function Recap() {
             <div className='absolute right-3 flex'>
               {!manageShippingAddress ? (
                 <button
-                  className=' rounded-sm bg-charcoal px-6 py-1 text-white  lg:px-10 '
+                  className=' rounded-sm bg-charcoal px-4 py-1 text-white  lg:px-10 '
                   onClick={handleManageShippingAddress}
                 >
                   MANAGE ADDRESSES
@@ -370,10 +370,10 @@ export default function Recap() {
           )}
         </div>
 
-        <div className='shipping-detail m-20 flex h-full flex-col items-center justify-center '>
+        <div className='shipping-detail m-20 flex h-full w-[80%] flex-col items-center justify-center self-center'>
           {!clientSecret && (
-            <div className='flex h-full w-full flex-col items-center lg:w-4/6'>
-              <h2 className='h-full w-5/6 border-l border-r border-t border-charcoal py-2  text-center font-italiana text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-6/12'>
+            <div className='flex h-full w-[100%] flex-col items-center lg:w-[60%] xl:w-[110%] 2xl:w-[80%]'>
+              <h2 className='h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-italiana text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12'>
                 {manageShippingAddress
                   ? userId
                     ? 'address book'
@@ -383,10 +383,10 @@ export default function Recap() {
             </div>
           )}
           {!clientSecret ? (
-            <div className='relative flex h-full w-full max-w-[800px] border border-charcoal font-marcellus text-sm md:w-5/6 lg:w-4/6 lg:text-base xl:w-3/6 2xl:w-3/6'>
+            <div className='relative flex h-full  w-full max-w-[800px] border border-charcoal font-marcellus text-sm md:w-5/6  lg:w-4/6 lg:text-base xl:w-4/6 2xl:w-3/6'>
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
-                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal  py-9  leading-loose'>
+                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose'>
                     <div className='flex flex-col self-center'>
                       <p className=''>full name</p>
 

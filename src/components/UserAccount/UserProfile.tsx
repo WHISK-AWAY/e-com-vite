@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchSingleUser,
+  resetUserState,
   selectSingleUser,
 } from '../../redux/slices/userSlice';
 import { useParams } from 'react-router';
-import { getUserId } from '../../redux/slices/authSlice';
+import { getUserId, requestLogout } from '../../redux/slices/authSlice';
 import EditAccountInfo from './EditAccountInfo';
 import OrderHistory from './OrderHistory';
-
+import { useNavigate } from 'react-router';
 import EditPassword from './EditPassword';
 import UserAddressBook from './UserAddressBook';
-
 import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
 
 type views = 'account' | 'shipping' | 'order' | 'password';
@@ -25,6 +25,7 @@ const viewMap = {
 
 export default function UserProfile() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [view, setView] = useState<views>('account');
   const { userId } = useParams();
   const authUserId = useAppSelector((state) => state.auth.userId);
@@ -36,6 +37,12 @@ export default function UserProfile() {
       if (userId) dispatch(fetchSingleUser(userId));
     }
   }, [authUserId, userId]);
+
+  function signOut() {
+    dispatch(requestLogout());
+    dispatch(resetUserState());
+    navigate('/');
+  }
 
   if (!user) return <h1>Loading...</h1>;
   return (
@@ -59,44 +66,50 @@ export default function UserProfile() {
             loop={true}
             muted={true}
           />
-          <div className='menu-items-container flex h-full w-full flex-col items-center justify-start gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
-            <div className='flex flex-col items-center'>
-              <button
-                className={
-                  '' + view === 'account' ? ' uppercase' : ' lowercase'
-                }
-                onClick={() => setView('account')}
-              >
-                account info
-              </button>
-              {view === 'account' && (
-                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
-              )}
+          <div className='menu-items-container flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
+            <div>
+              <div className='flex flex-col items-center'>
+                <button
+                  className={
+                    '' + view === 'account' ? ' uppercase' : ' lowercase'
+                  }
+                  onClick={() => setView('account')}
+                >
+                  account info
+                </button>
+                {view === 'account' && (
+                  <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+                )}
+              </div>
+              <div className='flex flex-col items-center'>
+                <button
+                  className={
+                    '' + view === 'shipping' ? ' uppercase' : ' lowercase'
+                  }
+                  onClick={() => setView('shipping')}
+                >
+                  address book
+                </button>
+                {view === 'shipping' && (
+                  <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+                )}
+              </div>
+              <div className='flex flex-col items-center'>
+                <button
+                  className={
+                    '' + view === 'order' ? ' uppercase' : ' lowercase'
+                  }
+                  onClick={() => setView('order')}
+                >
+                  order history
+                </button>
+                {view === 'order' && (
+                  <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+                )}
+              </div>
             </div>
-            <div className='flex flex-col items-center'>
-              <button
-                className={
-                  '' + view === 'shipping' ? ' uppercase' : ' lowercase'
-                }
-                onClick={() => setView('shipping')}
-              >
-                address book
-              </button>
-              {view === 'shipping' && (
-                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
-              )}
-            </div>
-            <div className='flex flex-col items-center'>
-              <button
-                className={'' + view === 'order' ? ' uppercase' : ' lowercase'}
-                onClick={() => setView('order')}
-              >
-                order history
-              </button>
-              {view === 'order' && (
-                <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
-              )}
-            </div>
+
+            <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
         </div>
         <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7'>
