@@ -69,6 +69,7 @@ import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
+import { toLineHeight } from 'chart.js/helpers';
 
 const bgImgs = [
   tomatoes,
@@ -215,15 +216,34 @@ export default function SingleProduct({
         [0.5, 0.5],
         [0.5, 0.5]
       );
-      gsap
-        .to(productImage.current, {
-          x: '+=' + delta.x,
-          y: '+=' + delta.y,
-          opacity: 1,
-          scale: 0.02,
-          yoyo: true,
-        })
-        .then((t) => t.revert());
+
+      const tl = gsap.timeline();
+      tl.to(productImage.current, {
+        opacity: 1,
+        duration: 0,
+      });
+      tl.to(productImage.current, {
+        x: '+=' + delta.x,
+        y: '+=' + delta.y,
+        scale: 0.02,
+        ease: 'power2.inOut',
+        duration: 0.75,
+        rotate: 720,
+      });
+      tl.to(productImage.current, {
+        opacity: 0,
+        duration: 0.25,
+      }).then((tl) => tl.revert());
+
+      // gsap
+      //   .to(productImage.current, {
+      //     x: '+=' + delta.x,
+      //     y: '+=' + delta.y,
+      //     opacity: 1,
+      //     scale: 0.02,
+      //     ease: 'power3.out',
+      //   })
+      //   .then((t) => t.revert());
     }
     if (productId) {
       dispatch(addToCart({ userId, productId, qty: count }));
