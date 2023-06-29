@@ -15,7 +15,7 @@ type FileMetadataInput = {
   images: string[];
   imageURL: string[];
   imageDesc: ImageDesc[];
-  categories?: string[];
+  categories: string[];
 };
 
 export type FileMetadataOutput = Omit<
@@ -39,6 +39,7 @@ export function combineProductInfo() {
       productIngredients,
       imageURL,
       imageDesc,
+      categories,
     } = JSON.parse(
       fs.readFileSync(WORKING_DIR + file, { encoding: 'utf8' })
     ) as FileMetadataInput;
@@ -46,6 +47,7 @@ export function combineProductInfo() {
       productName,
       productShortDesc,
       productIngredients,
+      categories,
       images: imageURL.map((image, idx) => {
         return {
           imageURL: image,
