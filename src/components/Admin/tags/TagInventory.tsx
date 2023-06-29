@@ -1,24 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { fetchAllTags } from '../../../redux/slices/tagSlice';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import {
   deleteSingleTag,
-  sort, adminFetchAllTags, selectAdminTag
+  sort,
+  adminFetchAllTags,
+  selectAdminTag,
 } from '../../../redux/slices/admin/adminTagSlice';
-
-
 
 export default function TagInventory() {
   const dispatch = useAppDispatch();
   const allTags = useAppSelector(selectAdminTag);
-  const { tagId } = useParams();
   const [column, setColumn] = useState('tagName');
   const [sortDir, setSortDir] = useState('desc');
 
   useEffect(() => {
-    dispatch(adminFetchAllTags()).then(() => dispatch(sort({ column, sortDir })));
+    dispatch(adminFetchAllTags()).then(() =>
+      dispatch(sort({ column, sortDir }))
+    );
   }, []);
 
   useEffect(() => {
@@ -61,9 +60,10 @@ export default function TagInventory() {
                     <button className='pr-2'>EDIT</button>
                   </Link>
                   <button
-                    onClick={async () => {
-                      await dispatch(deleteSingleTag(tag._id));
-                      dispatch(fetchAllTags());
+                    onClick={() => {
+                      dispatch(deleteSingleTag(tag._id))
+                        .then(() => dispatch(adminFetchAllTags()))
+                        .then(() => dispatch(sort({ column, sortDir })));
                     }}
                   >
                     DELETE

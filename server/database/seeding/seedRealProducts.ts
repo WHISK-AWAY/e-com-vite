@@ -1,7 +1,7 @@
 import type { FileMetadataOutput } from './combineProductInfo';
 import { Product, Tag, ITag } from '../index';
 import type { IProduct } from '../dbTypes';
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 
 function randomTags(tagArray: ITag[], count: number) {
   let res: mongoose.Types.ObjectId[] = [];
@@ -23,7 +23,7 @@ export async function seedRealProducts() {
   const tags: ITag[] = await Tag.find();
 
   for (let product of productMetadata) {
-    let tagIDs = randomTags(tags, 3);
+    // let tagIDs = randomTags(tags, 3);
     if (!product.productIngredients) console.log('NO INGREDIENTS:', product);
 
     if (!product.images || product.images.length === 0) {
@@ -38,7 +38,13 @@ export async function seedRealProducts() {
       qty: Math.floor(Math.random() * (50 - 1) + 1),
       saleCount: 0,
       images: product.images,
-      tags: tagIDs,
+      tags: product.categories
+        .map(
+          (cat) =>
+            tags.find((tag) => tag.tagName.toLowerCase() === cat.toLowerCase())
+              ?._id
+        )
+        .filter((cat) => cat !== undefined) as mongoose.Types.ObjectId[],
     };
 
     productsToCreate.push(newProduct);

@@ -2,19 +2,12 @@
   "productName": "Anti-Mark Serum",
   "productShortDesc": "Improve the appearance of superficial, healed, and shallow scars with the resurfacing and depigmenting effect PHA and the regenerating power of centella asiatica. Suitable for post-acne scarring. The fading of post acne scars will be visible after six to eight weeks of use. A 15ml bottle corresponds to four to six weeks of average use. 98% naturally derived. Vegan. Made in France.",
   "productIngredients": "Centella asiatica:\nThis polyhydroxy acid, also called gluconolactone, provides an exfoliating benefit. It promotes the elimination of dead cells, and reduces the number of inflamed scars caused by acne. The skin is left smoother and more even. It is also recognized for its moisturizing properties, capturing and retaining water in the epidermis, thus reducing skin dryness.\nLicorice extract:\nKnown to help reshape scarred skin. Centella asiatica improves the density of the dermis, reduces skin inflammation and soothes the skin. Rich in glabridin, a molecule known to reduce melanin production, this active ingredient derived from licorice reduces the hyperpigmentation of post-acne scarring.",
-  "images": [
-    "lab_1019_15ml.jpg",
-    "marques-pack-ingredients.jpeg",
-    "anti-marques_lab-1019_carousel-produit3-1.jpeg",
-    "lab_1019_page_produit2.jpg",
-    "lab_1019_page_produit3.jpg",
-    "lab_1019_page_produit6.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/1600x1600/34551c9273/lab_1019_15ml.jpg",
     "https://media.typology.com/storyblok/1600x1600/532dc8684e/marques-pack-ingredients.jpeg",
     "https://media.typology.com/storyblok/1280x1280/beb98bc49e/anti-marques_lab-1019_carousel-produit3-1.jpeg",
     "https://media.typology.com/video-storyblok/x/ae10daa868/12_serum-pha.mp4"
   ],
-  "imageDesc": ["product-front", "product-alt", "product-alt", "video-usage"]
+  "imageDesc": ["product-front", "product-alt", "product-alt", "video-usage"],
+  "categories": ["serums", "face", "acne"]
 }

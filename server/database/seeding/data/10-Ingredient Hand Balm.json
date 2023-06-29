@@ -1,0 +1,12 @@
+{
+  "productName": "10-Ingredient Hand Balm",
+  "productShortDesc": "A rich, fragrance-free balm to bring moisture and comfort to dry hands and nails. Dermatologically tested and suitable for sensitive skin. 99% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Purified water:\nserves as a natural solvent for mixing the other ingredients. Purified to remove all traces of bacteria.\nHyaluronic acid:\nderived from fermented wheat, this molecule is known for its highly moisturizing properties. It can retain up to a thousand times its weight in water, perfect for instant hydration that lasts throughout the day. As we age, our bodies produce significantly less hyaluronic acid, causing dryness that leads to the appearance of the fine lines on the skin’s surface. Applying deeply hydrating hyaluronic acid daily restores moisture to the skin, reduces the appearance of fine lines and creates a complexion that’s noticeably more supple, plump, and toned.\nOrganic coconut oil:\nrich in saturated fatty acids, this oil nourishes and prevents dehydration of the skin. It leaves the complexion feeling soft and smooth.\nSunflower oil:\nabundant in antioxidants, it nourishes the skin while protecting it against free radicals.\nVitamin E:\nalso known as tocopherol, vitamin E is an antioxidant that keeps the oils in the formula from turning rancid.\nCoconut cetearyl alcohol:\ncoconut-derived alcohol that thickens the hand balm formula and gives it its luxuriously creamy texture.\nCetyl coconut phosphate:\ncoconut-derived emulsifier that allows the purified water and organic coconut oil to stably mix.\nSodium hydroxide:\nto avoid any risk of irritation, a cosmetic product needs to have a pH that’s similar to the skin. Sodium hydroxide lowers the hand balm’s acidity to make it suitable for skin.\nPotassium Sorbate & Sodium Benzoate:\nthese gentle preservatives are added to prevent bacteria growth in the balm, eliminating the risk of infection.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/8bff9b2d4c/baume-mains-a-10-ingredients__main__61cc99f2bd05479389e940daac712b1a.jpg",
+    "https://media.typology.com/storyblok/d23db6e922/baume-mains-a-10-ingredients__additional__f9fb502dfa4144b48e6b6406d438d5e7.jpg",
+    "https://media.typology.com/storyblok/5f9668b91a/baume-mains-a-10-ingredients__additional__a5aa4a84c7ce4d4fb184a14cd78e081b.jpeg"
+  ],
+  "imageDesc": ["product-front", "product-dimensions", "product-alt"],
+  "categories": ["moisturizers"]
+}

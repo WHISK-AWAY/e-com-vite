@@ -1,0 +1,18 @@
+{
+  "productName": "Even-Complexion Gel Cleanser with 6% Niacinamide + Sage Hydrolate",
+  "productShortDesc": "Reduce redness associated with breakouts and even-out your complexion while cleansing skin of impurities. Active ingredients: Niacinamide - Sage hydrolate 91% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Niacinamide (6%):\nNiacinamide helps restore the skin's barrier function to keep it protected. It reduces marks and redness left by blemishes, unifies the complexion and smoothes the skin texture. Its soothing properties help reduce inflammation and reduce redness associated with breakouts. Thanks to its anti-inflammatory properties, niacinamide also helps prevent the appearance of new blemishes.\nSage Hydrosol:\nRefines skin texture and fights against breakouts. Sage hydrosol has rebalancing properties that regulate sebum production. An antioxidant, it also limits the impact of free radicals on skin cells, to help combat premature aging of the skin.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/528a7d1f47/lab_3005_page_produit.jpg",
+    "https://media.typology.com/storyblok/1600x1600/7549535063/anti-marques_lab-3005_carousel-produit.jpg",
+    "https://media.typology.com/storyblok/1600x1600/37fcfd81d7/lab_3005_page_produit5.jpg",
+    "https://media.typology.com/video-storyblok/x/27ad40831c/15_gels-nettoyants.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-dimensions",
+    "video-usage"
+  ],
+  "categories": ["cleansers", "face", "acne"]
+}

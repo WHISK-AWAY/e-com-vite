@@ -2,13 +2,6 @@
   "productName": "Repairing Lip Mask 1% Ceramides + Hyaluronic Acid",
   "productShortDesc": "Combines the replenishing benefits of ceramides with hydrating hyaluronic acid to repair chapped lips. Within 15 minutes, lips are supple and comforted. 98% naturally derived. Vegan. Made in France.",
   "productIngredients": "Ceramides (1%):\nThese lipids are naturally present between the cells of the stratum corneum. Ceramides act as intercellular cement, reinforcing the cutaneous barrier and limiting dehydration. They help protect and nourish lips.\nHyaluronic acid:\nAble to retain up to 1000 times its weight in water, this macromolecule instantly hydrates lips and protects them from dehydration. It helps soften and smooth the look of fine lines.\nMango Butter:\nRich in essential fatty acids, this butter melts onto skin and forms a protective barrier that helps repair chapping and damage. The Lip Mask has an enveloping balm-gel texture that helps repair and soothe chapped lips.",
-  "images": [
-    "lab_7003_packshot_web_1600x1600.png",
-    "avant-apres_lip_care_2.jpg",
-    "masque_carroussel_produit_texturee.jpg",
-    "masque_carroussel_produit_back.jpg",
-    "lab_7003_page-produit2-copie.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/1600x1600/9c178ddf1a/lab_7003_packshot_web_1600x1600.png",
     "https://media.typology.com/storyblok/2099x2100/99d8e0b504/avant-apres_lip_care_2.jpg",
@@ -22,5 +15,6 @@
     "product-close",
     "product-back",
     "video-usage"
-  ]
+  ],
+  "categories": ["masks", "lip care", "moisturizers"]
 }

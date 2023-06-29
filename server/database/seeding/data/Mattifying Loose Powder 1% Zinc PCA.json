@@ -19,5 +19,6 @@
     "product-back",
     "product-close",
     "video-usage"
-  ]
+  ],
+  "categories": ["face"]
 }

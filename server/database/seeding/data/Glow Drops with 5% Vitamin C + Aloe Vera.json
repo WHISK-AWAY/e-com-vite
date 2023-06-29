@@ -20,5 +20,5 @@
     "product-close",
     "video-usage"
   ],
-  "categories": []
+  "categories": ["face", "tint"]
 }

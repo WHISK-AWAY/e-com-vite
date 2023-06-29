@@ -4,17 +4,17 @@ import {
   removeFromFavorites,
 } from '../redux/slices/userSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useEffect, useState } from 'react';
-import { getUserId, selectAuth } from '../redux/slices/authSlice';
+import { useEffect } from 'react';
+import { selectAuth } from '../redux/slices/authSlice';
 import { addToCart } from '../redux/slices/cartSlice';
 import FavoriteItem from './FavoriteItem';
 import x from '../../src/assets/icons/x.svg';
 import { Link } from 'react-router-dom';
 
 export default function Favorite({
-  setIsFavHidden,
+  setIsHidden,
 }: {
-  setIsFavHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useAppDispatch();
   const userFavorite = useAppSelector(selectSingleUserFavorites);
@@ -66,37 +66,26 @@ export default function Favorite({
         </h1>
 
         <img
-          className='absolute right-0 top-6 h-3 w-10 lg:h-5'
+          className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
           src={x}
           alt='x-icon'
-          onClick={() => setIsFavHidden(true)}
+          onClick={() => setIsHidden(true)}
         />
       </div>
 
-
-
-      <div className='favorite-product-info bg-pink-100 m-10 h-full w-10/12 overflow-hidden border border-charcoal p-5 py-8 pl-8 md:pl-4 md:pr-3 lg:p-10'>
-        <div className='flex  h-full flex-col items-center  justify-between overflow-hidden'>
+      <div className='favorite-product-info m-10 h-full w-10/12 overflow-hidden border border-charcoal p-3 lg:p-10'>
+        <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
           {userFavorite?.length && userId ? (
-            <div className='no-scrollbar flex flex-col overflow-auto'>
-              {userFavorite.map((product, productId) => {
+            <div className='no-scrollbar flex flex-col gap-6 overflow-auto'>
+              {userFavorite.map((product) => {
                 return (
-                  <div key={product._id} className='relative '>
+                  <div key={product._id} className='relative'>
                     <FavoriteItem
                       product={product}
                       handleAddToCart={handleAddToCart}
                       userId={userId}
+                      setIsHidden={setIsHidden}
                     />
-                    <div className='  items-center'>
-                      <img
-                        src={x}
-                        alt='x-icon'
-                        className='absolute right-0 top-0  h-2 w-3 lg:h-3 lg:w-3'
-                        onClick={() =>
-                          handleRemove({ userId, productId: product._id })
-                        }
-                      />
-                    </div>
                   </div>
                 );
               })}
@@ -107,11 +96,11 @@ export default function Favorite({
             </div>
           )}
 
-          <div className='flex w-11/12 flex-col items-center self-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
+          <div className='flex w-11/12 flex-col items-center justify-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
             <Link
               to={'/shop-all'}
-              onClick={() => setIsFavHidden(true)}
-              className='w-fit self-center border border-charcoal px-6 py-1 font-italiana text-sm md:px-4 md:text-sm lg:py-1 xl:text-base'
+              onClick={() => setIsHidden(true)}
+              className='w-fit border border-charcoal px-6 font-italiana text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg'
             >
               continue shopping
             </Link>

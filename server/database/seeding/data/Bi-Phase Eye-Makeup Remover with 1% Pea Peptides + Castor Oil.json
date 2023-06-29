@@ -1,0 +1,20 @@
+{
+  "productName": "Bi-Phase Eye-Makeup Remover with 1% Pea Peptides + Castor Oil",
+  "productShortDesc": "This natural formula effectively removes even waterproof eye makeup. It is enriched with castor oil and peptides to strengthen lashes, and chamomile hydrolate to soothe the eye area. 99% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Pea peptides:\nPea peptides are long chains of amino acids rich in lysine, and are known for their volumizing properties. They stimulate, strengthen and thicken lashes.\nChamomile extract:\nChamomile’s abundant flavonoids—natural antioxidant molecules—give it calming properties for soothing the delicate skin around the eyes.\nCastor oil:\nThis plant oil has nourishing and strengthening properties and promotes lash growth.\nSweet almond oil:\nPlant oil rich in fatty acids that nourishes lashes and calms the skin.\nRice bran oil:\nLight, non-greasy plant oil. Helps to remove makeup while also moisturising and soothing the skin around the eyes.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1120x1120/eceec712d3/lab_3006_rvb.png",
+    "https://media.typology.com/storyblok/43d7bccf76/huile-vegetale-d-argan-bio__hover__87541e6fe9e84a3a8d8d0c019d5c4501.jpg",
+    "https://media.typology.com/storyblok/1644x1644/2e3308de90/bi_phase_carroussel_produit-application.jpg",
+    "https://media.typology.com/storyblok/2630x2630/ae0465da3b/bi_phase_carroussel_produit_ingredient.jpg",
+    "https://media.typology.com/video-storyblok/x/ad98b74c33/application_bi-phase-copie-2.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-usage",
+    "product-alt",
+    "video-usage"
+  ],
+  "categories": ["cleansers", "face", "eye care"]
+}

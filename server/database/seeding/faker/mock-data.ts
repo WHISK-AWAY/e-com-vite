@@ -136,11 +136,20 @@ export const generateProduct = (count: number): IProduct[] => {
 /**
  * * TAG
  */
-
+// go back & add:
+// masks
+// night
+// toners
+// tint
 export const tagList = [
   { tagName: 'moisturizers' },
+  { tagName: 'body' },
+  { tagName: 'face' },
   { tagName: 'oils' },
+  { tagName: 'tint' },
   { tagName: 'spf' },
+  { tagName: 'masks' },
+  { tagName: 'night' },
   { tagName: 'eye care' },
   { tagName: 'acne' },
   { tagName: 'cleansers' },
@@ -149,6 +158,7 @@ export const tagList = [
   { tagName: 'serums' },
   { tagName: 'lip care' },
   { tagName: 'creams' },
+  { tagName: 'toners' },
 ];
 
 export const generateTag = (count: number): ITag[] => {

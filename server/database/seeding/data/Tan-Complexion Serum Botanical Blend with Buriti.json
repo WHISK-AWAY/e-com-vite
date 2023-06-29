@@ -2,12 +2,6 @@
   "productName": "Tan-Complexion Serum Botanical Blend with Buriti",
   "productShortDesc": "Composed of six plant extracts and rich in beta-carotene, this serum revives complexion's radiance with an immediate subtle tan. This treatment is not a self-tanner. It delivers an instant subtle sun-kissed effect. 100% naturally derived. Certified organic. Vegan. Made in France.",
   "productIngredients": "Native jasmine cells:\nActing at the level of the cutaneous structure, jasmine native cells help the skin resist external aggressions by strengthening its hydrolipidic film to help skin regain its natural radiance.\nBuriti Oil:\nAn ally of dry skin, buriti oil contains fatty acids that help nourish and moisturize. Rich in carotenoids, it stimulates the production of melanin in the skin, and also has antioxidant properties.\nJojoba Oil:\nRich in fatty acids, jojoba oil has nourishing and repairing properties. It helps protect the skin's barrier while making it more supple and plump.",
-  "images": [
-    "plantes-1006_web.jpg",
-    "auto_bronzant_carousel-produit-buriti-ingredient.jpg",
-    "auto_bronzant_carousel-produit-buriti.jpg",
-    "auto_bronzant_carousel-produit-buriti-back.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/1600x1600/f422cc5626/plantes-1006_web.jpg",
     "https://media.typology.com/storyblok/1280x1280/0169801f6c/auto_bronzant_carousel-produit-buriti-ingredient.jpg",
@@ -21,5 +15,6 @@
     "product-front",
     "product-back",
     "video-usage"
-  ]
+  ],
+  "categories": ["face", "tint", "serums"]
 }

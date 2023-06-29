@@ -1,0 +1,18 @@
+{
+  "productName": "9-Ingredient Soothing Face Serum",
+  "productShortDesc": "This minimalist, frangrance-free serum moisturizes and soothes skin while reducing redness. Its light and non-greasy texture is adapted to all skin typologies, even the most sensitive. Tested under dermatological control. 99% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Beta-Glucan:\nthis natural polysaccharide reduces skin sensitivity by stimulating the self-defense capabilities of the skin barrier and accelerating the skin's repair process. It also is a powerful hydrator.\nPlant glycerin:\nNaturally derived from rapeseed and sunflower, glycerin holds moisture in the surface layers of the skin.\nPurified water:\nThis serves as a natural solvent to mix together the other ingredients. It’s been purified to remove all traces of bacteria.\nCaprylic/Carpic Triglyceride:\nemollient agent, helps maintain skin hydration while forming a protective film to prevent dehydration.\nPentylene Glycol:\nhumectant agent derived from sugar cane, helps stabilize the formula and moisturize the skin.\nGlycine Soy Extract:\nplant emollient from the soy beans, provides nourishing properties.\nSuccinoglycan:\nobtained from the fermentation of bacteria, this ingredient helps suspension of particles and thus helps to stabilize emulsions.\nO-cymen-5-ol:\nA preservative added to prevent bacteria growth, eliminating the risk of infection.\nCitric acid:\nto avoid any risk of irritation or burns, a cosmetic product must have a pH close to that of the skin. Citric acid allows to decrease the pH of the serum.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/9e06c2cb20/ten_4001_15ml.jpg",
+    "https://media.typology.com/storyblok/1200x1500/79ab91e885/serum-ten_nav-desktop.jpg",
+    "https://media.typology.com/storyblok/1600x1600/20377e9b8e/ten-4001_page-produit5.jpg",
+    "https://media.typology.com/video-storyblok/x/942104fa80/serum_blanc.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-back",
+    "product-usage"
+  ],
+  "categories": ["face", "serums", "moisturizers"]
+}

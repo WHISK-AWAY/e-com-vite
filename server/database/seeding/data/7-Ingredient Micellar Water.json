@@ -1,0 +1,13 @@
+{
+  "productName": "7-Ingredient Micellar Water",
+  "productShortDesc": "This minimalist, fragrance-free formulation is adapted to all skin typologies, even the most sensitive. Dermatologically tested. 96% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Purified water:\nThis serves as a natural solvent to mix together the other ingredients. It’s been purified to remove all traces of bacteria.\nGlycerin:\nderived from rapeseed and sunflower, it moisturizes the superficial layers of the skin.\nPoloxamer 184:\na surfactant that removes makeup particles from the face.\nPentylene glycol:\nderived from cane sugar, it stabilises the formula and moisturizes the skin.\nCitric acid:\nderived from corn, regulates the pH of the micellar water so as not to irritate the epidermis.\nSodium hydroxide:\nto avoid any risk of irritation or burns, a cosmetic product must have a pH close to that of the skin. This soda makes the micellar water less acidic and therefore better tolerated by the skin.\nCetrimonium bromide:\na preservative that blocks the proliferation of bacteria in the water, thus preventing the risk of skin infections.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/52c724a5d5/ten-2001_200ml.jpg",
+    "https://media.typology.com/storyblok/da2eb0117a/eau-micellaire-a-7-ingredients__additional__5722d068b73542c3a7f76f3ccfbfd42e.jpg",
+    "https://media.typology.com/storyblok/1600x1600/af6d0af55e/ten_2001_back.jpg",
+    "https://media.typology.com/video-storyblok/fc1395354e/eau-micellaire-a-7-ingredients__content_2cols_image__517ed71c2a184241954d4c56c7eb3ce3.mp4"
+  ],
+  "imageDesc": ["product-front", "product-alt", "product-back", "video-usage"],
+  "categories": ["cleansers", "face"]
+}

@@ -47,10 +47,25 @@ export default function Inventory() {
           </tr>
           <tr>
             <th>PRODUCT ID</th>
-            <th onClick={() => handleSort('productName')}>PRODUCT NAME</th>
-            <th onClick={() => handleSort('qty')}>QTY</th>
-            <th onClick={() => handleSort('price')}>PRICE</th>
-            <th onClick={() => handleSort('saleCount')}>SALE COUNT</th>
+            <th
+              className='cursor-pointer'
+              onClick={() => handleSort('productName')}
+            >
+              PRODUCT NAME
+            </th>
+            <th>TAGS</th>
+            <th className='cursor-pointer' onClick={() => handleSort('qty')}>
+              QTY
+            </th>
+            <th className='cursor-pointer' onClick={() => handleSort('price')}>
+              PRICE
+            </th>
+            <th
+              className='cursor-pointer'
+              onClick={() => handleSort('saleCount')}
+            >
+              SALE COUNT
+            </th>
           </tr>
         </thead>
         <tbody className='pr-10'>
@@ -61,6 +76,14 @@ export default function Inventory() {
                 <Link to={`/product/${product._id}`}>
                   <td className='pr-10 text-blue-700'>{product.productName}</td>
                 </Link>
+                <td className='pr-10'>
+                  {product.tags.length > 0
+                    ? product.tags
+                        .map((tag) => tag.tagName.toLowerCase())
+                        .sort((a, b) => (a > b ? 1 : -1))
+                        .join(',')
+                    : ''}
+                </td>
                 <td className='pr-10'>{product.qty}</td>
                 <td className='pr-10'>{product.price}</td>
                 <td className='pr-10'>{product.saleCount}</td>

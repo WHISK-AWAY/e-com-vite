@@ -2,15 +2,6 @@
   "productName": "Radiance Mask with Yellow Clay + Organic Turmeric",
   "productShortDesc": "Concentrated in active antioxidants to restore radiance to the complexion. After 10 minutes, skin texture is refined and the complexion is more luminous. Active ingredients: Turmeric extract, yellow clay, mango butter, lemon verbena water. 98% naturally derived. Certified organic.",
   "productIngredients": "Turmeric extract:\nTurmeric has been cultivated since ancient times in India, and its name comes from the Sankrit, \"kunkuma\", \"that which gives color.\" It is traditionally used in Ayurvedic medicine for its antioxidant properties. Curcumin, a majority compound in turmeric roots, helps neutralize excess pro-oxidant free radicals.\nYellow Clay:\nA natural mineral known for its purifying and revitalizing properties. It helps absorb excess sebum and brightens the complexion.\nMango Butter:\nRich in essential fatty acids and vitamins, mango butter protects the skin from drying out and external aggressions.\nLemon verbena water:\nLemon verbena hydrosol restores radiance to the complexion.",
-  "images": [
-    "packshot-3d-masque.jpg",
-    "antioxydant_masque_texture.jpg",
-    "antioxydant_masque_application-16-12-46.jpg",
-    "antioxydant_avant-apres.jpg",
-    "antioxydant_masque_ingredient-pack.jpg",
-    "masque-antioxydant-ingredients-en.jpg",
-    "antioxydant_masque_pack-dos.jpg"
-  ],
   "imageURL": [
     "https://media.typology.com/storyblok/3200x3200/b365237508/packshot-3d-masque.jpg",
     "https://media.typology.com/storyblok/3287x3287/a7ee03200b/antioxydant_masque_texture.jpg",
@@ -28,5 +19,6 @@
     "product-alt",
     "product-packaging-back",
     "video-usage"
-  ]
+  ],
+  "categories": ["face", "masks", "tint"]
 }
