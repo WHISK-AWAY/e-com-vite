@@ -52,7 +52,7 @@ export default function Featured() {
               autoPlay={true}
               loop={true}
             ></video>
-            <div className='new-in absolute right-1/2 top-0 translate-x-[50%] translate-y-[-30%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase text-[rgb(83,1,2)] mix-blend-plus-lighter'>
+            <div className='new-in absolute right-1/2 top-0 translate-x-[50%] translate-y-[-30%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase text-white/20'>
               <p>new in</p>
               <p>new in</p>
               <p>new in</p>
