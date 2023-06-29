@@ -25,7 +25,7 @@ const viewMap = {
 
 export default function UserProfile() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [view, setView] = useState<views>('account');
   const { userId } = useParams();
   const authUserId = useAppSelector((state) => state.auth.userId);
@@ -38,14 +38,12 @@ export default function UserProfile() {
     }
   }, [authUserId, userId]);
 
-    function signOut() {
-      dispatch(requestLogout());
-      dispatch(resetUserState());
-      navigate('/');
-    }
-        // {
-        //   userId && <button onClick={signOut}>SIGN OUT</button>;
-        // }
+  function signOut() {
+    dispatch(requestLogout());
+    dispatch(resetUserState());
+    navigate('/');
+  }
+
   if (!user) return <h1>Loading...</h1>;
   return (
     <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-marcellus'>
@@ -110,7 +108,6 @@ export default function UserProfile() {
                 )}
               </div>
             </div>
-
 
             <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
