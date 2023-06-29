@@ -18,6 +18,7 @@ export default {
       yeseva: ['Yeseva One', 'cursive'],
       federo: ['Federo', 'sans-serif'],
       gayathri: ['Gayathri', 'sans-serif'],
+      archivo:['Archivo Black', 'sans-serif']
     },
     fontWeight: {
       light: 300,
