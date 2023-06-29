@@ -150,7 +150,7 @@ export default function Navbar() {
 
   return (
     <nav className='navbar-container flex h-16 items-center justify-between px-6 lg:px-10'>
-      <div className='shop-links shrink-1 flex h-full grow-0  basis-1/2   items-center justify-start gap-5 font-hubbali  text-sm lg:gap-7 lg:text-lg'>
+      <div className='shop-links shrink-1 flex h-full grow-0  basis-1/2   items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5  lg:text-lg 2xl:gap-6'>
         <NavLink to={'/shop-all'}>SHOP</NavLink>
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
@@ -161,17 +161,20 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <Link to='/' className='font-chonburi text-2xl lg:text-3xl '>
+        <Link to='/' className='font-chonburi text-2xl lg:text-3xl xl:text-4xl'>
           ASTORIA
         </Link>
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5'>
+       
         {
+
+         
           <div>
             <img
               src={bag}
-              className='cursor-pointer lg:w-5'
+              className='cursor-pointer  h-4'
               onClick={async () => {
                 await setMode('cart');
                 setIsCartFavWrapperHidden(false);
@@ -188,7 +191,6 @@ export default function Navbar() {
             )}
           </div>
         }
-        {/* {!isCartHidden && <Cart setIsCartHidden={setIsCartHidden} />} */}
         {
           <div>
             {!isCartFavWrapperHidden && mode === 'fav' && (
@@ -203,7 +205,8 @@ export default function Navbar() {
             
               <img
                 src={singleUserState.user?.favorites?.length >= 1 ? heartFilled : heartBlanc}
-                className='cursor-pointer lg:w-5'
+                // style={{strokeWidth: '2'}}
+                className='cursor-pointer stroke-[6px] h-4'
                 onClick={async () => {
                   await setMode('fav');
                   setIsCartFavWrapperHidden(false);
@@ -212,11 +215,10 @@ export default function Navbar() {
             
           </div>
         }
-        {/* {!isFavHidden && <Favorite setIsFavHidden={setIsFavHidden} />} */}
 
         {userId ? (
           <NavLink to={`/user/${userId}`}>
-            <img src={user} className=' lg:w-5 ' />
+            <img src={user} className='  h-4' />
           </NavLink>
         ) : (
           <>
@@ -225,9 +227,10 @@ export default function Navbar() {
             </div>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
-            )}
+              )}
           </>
         )}
+        
 
         {/* <img src={searchIcon} className=' w-6 ' /> */}
         {/* <form onSubmit={(e) => handleFormSubmit(e)}>
