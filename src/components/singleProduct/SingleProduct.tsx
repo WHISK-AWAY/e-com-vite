@@ -60,6 +60,9 @@ import purpleFlowers from '../../../src/assets/bg-img/ingredient-bg/purple-flowe
 import tomatoes from '../../../src/assets/bg-img/ingredient-bg/tomatoes.jpg';
 import turmeric from '../../../src/assets/bg-img/ingredient-bg/turmeric.jpg';
 import whiteFlowers from '../../../src/assets/bg-img/ingredient-bg/white-flowers.jpg';
+import coconuts from '../../../src/assets/bg-img/ingredient-bg/coconuts.jpg';
+import papaya from '../../../src/assets/bg-img/ingredient-bg/papaya.jpg';
+import smallFlowers from '../../../src/assets/bg-img/ingredient-bg/small-flowers.jpg';
 
 // * test vid
 import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
@@ -68,6 +71,8 @@ import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
 
 const bgImgs = [
+  smallFlowers,
+  coconuts,
   tomatoes,
   coffee,
   turmeric,
