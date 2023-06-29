@@ -22,8 +22,9 @@ export default {
       jamalhari: ['Jomolhari', 'serif'],
       'caslon-display': ['Libre Caslon Display', 'serif'],
       'caslon-text': ['Libre Caslon Text', 'serif'],
-      raleway: ['Raleway', 'sans - serif'],
+      raleway: ['Raleway', 'sans-serif'],
       yantramanav: ['Yantramanav', 'sans-serif'],
+      'roboto-mono': ['Roboto Mono', 'monospace']
     },
     fontWeight: {
       thin: 100,
