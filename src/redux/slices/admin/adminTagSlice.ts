@@ -31,6 +31,7 @@ export const adminFetchAllTags = createAsyncThunk(
     try {
       const { data } = await axios.get(VITE_API_URL + '/api/tag', {
         withCredentials: true,
+        params: { 'return-all': true },
       });
 
       return data;
@@ -45,7 +46,6 @@ export const adminFetchAllTags = createAsyncThunk(
     }
   }
 );
-
 
 export const createSingleTag = createAsyncThunk(
   'singleTag/createSingleTag',
@@ -136,29 +136,29 @@ const adminTagSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
+      /**
+       * * FETCH ALL TAGS
+       */
 
-    /**
-     * * FETCH ALL TAGS
-     */
-
-    .addCase(adminFetchAllTags.pending, (state) => {
+      .addCase(adminFetchAllTags.pending, (state) => {
         state.loading = true;
       })
       .addCase(adminFetchAllTags.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.tags = payload;
-        state.errors = {...initialState.errors}
+        state.errors = { ...initialState.errors };
       })
-      .addCase(adminFetchAllTags.rejected, (state, { payload }: PayloadAction<any>) => {
-        state.loading = false;
-        state.errors = payload;
-      })
+      .addCase(
+        adminFetchAllTags.rejected,
+        (state, { payload }: PayloadAction<any>) => {
+          state.loading = false;
+          state.errors = payload;
+        }
+      )
 
-
-
-    /**
-     * *CREATE NEW TAG
-     */
+      /**
+       * *CREATE NEW TAG
+       */
       .addCase(createSingleTag.pending, (state) => {
         state.loading = true;
       })
@@ -174,8 +174,6 @@ const adminTagSlice = createSlice({
           state.errors = payload;
         }
       )
-
-
 
       /**
        * *EDIT TAG
@@ -220,7 +218,7 @@ const adminTagSlice = createSlice({
 });
 
 export default adminTagSlice.reducer;
-export const {sort} = adminTagSlice.actions;
+export const { sort } = adminTagSlice.actions;
 export const selectAdminTag = (state: RootState) => state.adminTag;
 export const selectAdminSingleTag = (state: RootState) =>
   state.adminTag.singleTag;
