@@ -30,6 +30,8 @@
 
 - [ ] Why does the _places API_ fail when address_2 === 'Apt C5'?
   - [ ] Need to trim inputs
+- [x] Need to remove empty categories from filter
+- [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
 - [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- _prioritize!_
   - [x] Add more items (around 50 total -- now @ 52)
