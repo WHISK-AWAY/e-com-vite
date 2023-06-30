@@ -1,9 +1,11 @@
 import fs from 'fs';
 import type { ImageData, ImageDesc } from '../dbTypes';
 
-const WORKING_DIR = '../../../database/seeding/data/';
+// const WORKING_DIR = '../../../database/seeding/data/';
+const WORKING_DIR = './database/seeding/data/';
 console.log('WORKING_DIR', fs.realpathSync(WORKING_DIR));
-const OUTPUT_DIR = './';
+// const OUTPUT_DIR = './';
+const OUTPUT_DIR = './database/seeding/';
 console.log('OUTPUT_DIR', fs.realpathSync(OUTPUT_DIR));
 const OUTPUT_FILENAME = '_combinedProductInfo.json';
 // console.log('OUTPUT_FILENAME', fs.realpathSync(OUTPUT_FILENAME));
