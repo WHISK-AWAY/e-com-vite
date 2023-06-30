@@ -6,7 +6,9 @@
   "scripts": {
     "server": "nodemon ./dist/index.js",
     "compiler": "npx tsc -w",
-    "seed": "node ./dist/database/seeding/seed.js"
+    "seed": "node ./dist/database/seeding/seed.js",
+    "prep_products": "node ./dist/database/seeding/combineProductInfo.js",
+    "dl_images": "node ./dist/database/seeding/imageDownloader.js"
   },
   "keywords": [],
   "author": "",
