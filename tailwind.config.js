@@ -40,6 +40,7 @@ export default {
     extend: {
       colors: {
         charcoal: '#4A4A4A',
+       'light-brick': '#DA8E61'
       },
       screens: {
         xs: '375px',
