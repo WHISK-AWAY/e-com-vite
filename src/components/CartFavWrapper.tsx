@@ -12,7 +12,7 @@ export default function CartFavWrapper({
   return (
     <section
       // onClick={() => setIsCartFavWrapperHidden(true)}
-      className='cart-container fixed right-0 top-0 z-10 flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50'
+      className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50'
     >
       <div
         // onClick={() => setIsCartFavWrapperHidden(true)}
