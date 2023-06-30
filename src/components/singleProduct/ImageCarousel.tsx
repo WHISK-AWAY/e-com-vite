@@ -19,15 +19,13 @@ export default function ImageCarousel({
   const [renderImage, setRenderImage] = useState<ImageData[]>();
 
   useEffect(() => {
-    let clearId = setInterval(autoIncrementImage, 1000 * 10);
+    let clearId = setInterval(() => autoIncrementImage(), 1000 * 10);
 
     return clearInterval(clearId);
   }, []);
 
   useEffect(() => {
-    setProdImagesCopy([
-      ...product.images.filter((image) => image.imageDesc !== 'video-usage')!, // not yet ready for videos -- currently, they just break :(
-    ]);
+    setProdImagesCopy([...product.images]);
   }, [product]);
 
   useEffect(() => {
@@ -69,6 +67,7 @@ export default function ImageCarousel({
         <img src={arrowLeft} alt='previous image' className='h-3 xl:h-5' />
       </button>
       {renderImage.map((image) => {
+        let extension = image.imageURL.split('.').at(-1);
         return (
           <div
             key={image.imageURL}
@@ -77,11 +76,21 @@ export default function ImageCarousel({
             }}
             className='image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
           >
-            <img
-              className='aspect-[3/4] border border-charcoal object-cover'
-              src={image.imageURL}
-              alt={image.imageDesc}
-            />
+            {['gif', 'mp4'].includes(image.imageURL.split('.').at(-1)!) ? (
+              <video
+                muted={true}
+                autoPlay={true}
+                loop={true}
+                src={image.imageURL}
+                className='aspect-[3/4] border border-charcoal object-cover'
+              />
+            ) : (
+              <img
+                className='aspect-[3/4] border border-charcoal object-cover'
+                src={image.imageURL}
+                alt={image.imageDesc}
+              />
+            )}
           </div>
         );
       })}

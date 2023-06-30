@@ -253,65 +253,78 @@ AllProductsProps) {
       )}
       <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
-        {allProducts.products.map((product) => (
-          <li
-            className='flex list-none flex-col justify-between'
-            key={product._id.toString()}
-          >
-            <div className='relative'>
-              <Link to={'/product/' + product._id}>
-                <img
-                  src={
-                    product.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || product.images[0].imageURL
-                  }
-                  alt='cat'
-                  className='aspect-[3/4] w-full object-cover'
-                />
-              </Link>
+        {allProducts.products.map((product) => {
+          let imageURL =
+            product.images.find((image) => image.imageDesc === 'product-front')
+              ?.imageURL || product.images[0].imageURL;
+          let hoverURL = product.images.find(
+            (image) => image.imageDesc === 'gif-product'
+          )?.imageURL;
+          return (
+            <li
+              className='relative flex list-none flex-col justify-between'
+              key={product._id.toString()}
+            >
+              <div className={`aspect-[3/4] w-full ${hoverURL ? 'group' : ''}`}>
+                <Link to={'/product/' + product._id} className=''>
+                  <img
+                    src={imageURL}
+                    alt='product image'
+                    className='aspect-[3/4] w-full object-cover group-hover:invisible'
+                  />
+                  {hoverURL && (
+                    <video
+                      src={hoverURL}
+                      muted={true}
+                      autoPlay={true}
+                      loop={true}
+                      className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
+                    />
+                  )}
+                </Link>
 
-              {(userId &&
-                !userFavorites
-                  ?.map((fav) => fav._id)
-                  .includes(product._id.toString())) ||
-              !userId ? (
-                <div
-                  className=' absolute right-[6%] top-[5%]'
-                  onClick={() => {
-                    handleAddOrRemoveFromFavorites({
-                      userId: userId!,
-                      productId: product._id.toString(),
-                    });
-                  }}
-                >
-                  <img src={heartBlanc} alt='heart-blanc' className='' />
-                </div>
-              ) : (
-                <div
-                  className='absolute right-[6%] top-[5%]'
-                  onClick={() => {
-                    handleAddOrRemoveFromFavorites({
-                      userId: userId!,
-                      productId: product._id.toString(),
-                    });
-                  }}
-                >
-                  <img src={heartFilled} alt='heart-filled' className='' />
-                </div>
-              )}
-            </div>
+                {(userId &&
+                  !userFavorites
+                    ?.map((fav) => fav._id)
+                    .includes(product._id.toString())) ||
+                !userId ? (
+                  <div
+                    className='absolute right-[6%] top-[5%] cursor-pointer'
+                    onClick={() => {
+                      handleAddOrRemoveFromFavorites({
+                        userId: userId!,
+                        productId: product._id.toString(),
+                      });
+                    }}
+                  >
+                    <img src={heartBlanc} alt='heart-blanc' className='' />
+                  </div>
+                ) : (
+                  <div
+                    className='absolute right-[6%] top-[5%] cursor-pointer'
+                    onClick={() => {
+                      handleAddOrRemoveFromFavorites({
+                        userId: userId!,
+                        productId: product._id.toString(),
+                      });
+                    }}
+                  >
+                    <img src={heartFilled} alt='heart-filled' className='' />
+                  </div>
+                )}
+              </div>
 
-            <p className='place-items-stretch pt-10 text-center font-hubbali  lg:text-xl'>
-              <Link to={'/product/' + product._id}>
-                {product.productName.toUpperCase()}
-              </Link>
-            </p>
-            <p className='pt-3 text-center font-grotesque lg:text-xl'>
-              ${product.price}
-            </p>
-          </li>
-        ))}
+              <p className='place-items-stretch pt-10 text-center font-hubbali  lg:text-xl'>
+                <Link to={'/product/' + product._id}>
+                  {product.productName.toUpperCase()}
+                </Link>
+              </p>
+              <p className='pt-3 text-center font-grotesque lg:text-xl'>
+                ${product.price}
+              </p>
+            </li>
+          );
+        })}
       </div>
       {maxPages > 1 && (
         <div className='flex w-full justify-center pt-20 tracking-widest'>
