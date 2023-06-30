@@ -9,7 +9,8 @@
     "https://media.typology.com/storyblok/2958x2958/6c58c948ed/packshot_dos.jpg",
     "https://media.typology.com/storyblok/2465x2465/eb9cf5b93d/focus_texture-creme10.jpg",
     "https://media.typology.com/storyblok/3123x3123/4fd7025300/focus_pipette.jpg",
-    "https://media.typology.com/video-storyblok/x/31d6ccc2e5/application_ok.mp4"
+    "https://media.typology.com/video-storyblok/x/31d6ccc2e5/application_ok.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/1c9abed52c/glow_drops_hover.gif"
   ],
   "imageDesc": [
     "product-front",
@@ -18,7 +19,8 @@
     "product-back",
     "product-close",
     "product-close",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["face", "tint"]
 }
