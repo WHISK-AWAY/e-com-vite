@@ -28,7 +28,11 @@
 
 ### Open
 
-- [ ] Why does the _places API_ fail when address_2 === 'Apt C5'?
+- [ ] New shipping address form
+  - [ ] Form deletes first character typed after validation failure
+  - [ ] Take another look @ responsiveness
+  - [ ] Why does the places API fail when address_2 === 'Apt C5'?
+  - [ ] Address 1 is splitting & being input to address 2
   - [ ] Need to trim inputs
 - [ ] Backup font families
   - [ ] Look into preloading
