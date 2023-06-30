@@ -86,7 +86,7 @@ export default function Featured() {
         </div>
       </section>
       <section className='bottom-section relative flex min-h-screen w-full flex-col items-center bg-white px-8 pb-12 pt-4 text-white'>
-        <h2 className='absolute right-1/2 top-0 w-full translate-x-[51%] translate-y-[-50%] whitespace-nowrap text-center font-archivo text-[12vw] uppercase tracking-[1.5rem]'>
+        <h2 className='absolute right-1/2 top-0 w-full translate-x-[51%] translate-y-[-52%] whitespace-nowrap text-center font-archivo text-[12vw] uppercase tracking-[1.5rem]'>
           made with
         </h2>
         <img
