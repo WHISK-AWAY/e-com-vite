@@ -33,6 +33,16 @@ const PRODS_PER_PAGE = 9;
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
 
+
+  export const randomProduct = (allProducts: {
+    products: TProduct[];
+    count: number | null;
+}) => {
+    let randomIdx = Math.floor(Math.random() * allProducts.products.length);
+    return allProducts.products[randomIdx];
+  };
+
+
 export type TSort = {
   key: SortKey;
   direction: SortDir;
@@ -163,13 +173,9 @@ AllProductsProps) {
   };
 
   useEffect(() => {
-    setRandomProd(randomProduct());
+    setRandomProd(randomProduct(allProducts));
   }, [allProducts]);
 
-  const randomProduct = () => {
-    let randomIdx = Math.floor(Math.random() * allProducts.products.length);
-    return allProducts.products[randomIdx];
-  };
 
   type TPageFlipper = {
     firstPage: number;
