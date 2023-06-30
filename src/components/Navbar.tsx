@@ -160,7 +160,7 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <Link to='/' className='font-chonburi text-2xl lg:text-3xl xl:text-4xl'>
+        <Link to='/' className='font-chonburi text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
           ASTORIA
         </Link>
       </div>
