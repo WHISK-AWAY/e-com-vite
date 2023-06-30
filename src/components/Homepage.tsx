@@ -227,9 +227,9 @@ export default function Homepage() {
               <p className='-translate-y-[110%] font-raleway text-[6vw] font-xbold uppercase leading-none tracking-widest text-white/40'>
                 to
               </p>
-              {/* <p className='right-1/2 -translate-y-[70%] translate-x-[3%] whitespace-nowrap font-raleway text-[11vw] font-xbold uppercase leading-none tracking-[3.5rem] text-white'>
+              <p className='right-1/2 -translate-y-[70%] translate-x-[3%] whitespace-nowrap font-raleway text-[11vw] font-xbold uppercase leading-none tracking-[3.5rem] text-white'>
                 something
-              </p> */}
+              </p>
               <p className='-translate-y-[65%] font-raleway text-[15vw] font-xxbold uppercase leading-none text-white'>
                 special
               </p>
@@ -256,7 +256,7 @@ export default function Homepage() {
 
       <div className='flex w-[90%]   -translate-y-[6%] flex-row-reverse '>
         <div className='flex  flex-row-reverse '>
-          <img src={ladyMask} alt='' className='aspect-[4/6]  w-[50%]' />
+          <img src={ladyMask} alt='' className='aspect-[4/6] h-screen ' />
 
           <div className=' relative flex w-[35%]  flex-col justify-between'>
             <p className=' font-yantramanav text-[6vw] font-semibold uppercase'>
@@ -296,8 +296,8 @@ export default function Homepage() {
       </div>
 
       <div className='relative flex  flex-col items-center justify-center pt-[25%]'>
-        <div className='absolute right-0 top-0  flex w-[60%] -translate-x-[25%] translate-y-[30%] items-center justify-between gap-[10%] '>
-          <p className='w-full text-center font-aurora text-[2vw] text-[#262626]'>
+        <div className='absolute right-0 top-0  flex w-[50%] -translate-x-[40%] translate-y-[55%] items-center justify-between gap-[10%] '>
+          <p className='w-full text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -305,7 +305,7 @@ export default function Homepage() {
 
           <Link to={'/product/' + randomProd!._id} className='flex w-full '>
             <img
-              className='aspect-[8/9] w-full object-cover '
+              className='aspect-[8/9] w-[90%] object-cover '
               src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
@@ -319,9 +319,9 @@ export default function Homepage() {
           <img
             src={ladyFacewash}
             alt=''
-            className='aspect-[4/6] w-[60%] self-center'
+            className='aspect-[4/6] h-screen self-center'
           />
-          <p className='w-[30%] self-end -translate-y-[600%] text-center font-aurora text-[2vw] text-[#262626]'>
+          <p className='w-[25%] -translate-x-[50%] self-end -translate-y-[300%] text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -329,6 +329,12 @@ export default function Homepage() {
         </div>
       </div>
 
+
+<div className='flex flex-col'>
+  <div>
+    <img src="" alt="ripe papaya cut in half" />
+  </div>
+</div>
       {/* <div className='pb-96'></div> */}
     </div>
   );
