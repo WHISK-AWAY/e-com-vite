@@ -28,6 +28,8 @@
 
 ### Open
 
+- [ ] Guest favorites:
+  - [ ] Invite to sign up || implement guest favorites || remove hearts
 - [ ] New shipping address form
   - [ ] Form deletes first character typed after validation failure
   - [ ] Take another look @ responsiveness
