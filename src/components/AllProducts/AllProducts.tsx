@@ -33,15 +33,13 @@ const PRODS_PER_PAGE = 9;
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
 
-
-  export const randomProduct = (allProducts: {
-    products: TProduct[];
-    count: number | null;
+export const randomProduct = (allProducts: {
+  products: TProduct[];
+  count: number | null;
 }) => {
-    let randomIdx = Math.floor(Math.random() * allProducts.products.length);
-    return allProducts.products[randomIdx];
-  };
-
+  let randomIdx = Math.floor(Math.random() * allProducts.products.length);
+  return allProducts.products[randomIdx];
+};
 
 export type TSort = {
   key: SortKey;
@@ -176,7 +174,6 @@ AllProductsProps) {
     setRandomProd(randomProduct(allProducts));
   }, [allProducts]);
 
-
   type TPageFlipper = {
     firstPage: number;
     currentPage: number;
@@ -202,7 +199,6 @@ AllProductsProps) {
   // if(!userFavorites) return <p>no favs</p>
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
-  const tagList = tagState.tags;
 
   return (
     <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
