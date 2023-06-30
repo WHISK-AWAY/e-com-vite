@@ -294,7 +294,7 @@ export default function SingleProduct() {
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
-          <div className='relative flex flex-col items-center justify-between gap-3'>
+          <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
             {itemIsFavorited ? (
               <div
                 onClick={handleFavoriteRemove}
@@ -317,7 +317,7 @@ export default function SingleProduct() {
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
                   src={selectedImage}
-                  className='aspect-[3/4] object-cover'
+                  className='absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
                   muted={true}
                   autoPlay={true}
                   loop={true}
@@ -326,7 +326,7 @@ export default function SingleProduct() {
                 <img
                   src={selectedImage}
                   alt='product image'
-                  className='aspect-[3/4] object-cover'
+                  className='aspect-[3/4] w-full object-cover'
                 />
               )}
             </div>
