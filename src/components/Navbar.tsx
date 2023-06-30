@@ -1,35 +1,20 @@
-import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
-import {
-  getUserId,
-  requestLogout,
-  selectAuth,
-} from '../redux/slices/authSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useEffect, useState } from 'react';
-import {
-  fetchSingleUser,
-  resetUserState,
-  selectSingleUser,
-} from '../redux/slices/userSlice';
+import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { getUserId, selectAuth } from '../redux/slices/authSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { fetchSingleUser, selectSingleUser } from '../redux/slices/userSlice';
 import {
   searchProducts,
   selectSearchProducts,
 } from '../redux/slices/allProductSlice';
 import type { TSearch } from '../redux/slices/allProductSlice';
-import { Product } from '../../server/database';
-import Search from './Search';
 import heartBlanc from '../../src/assets/icons/heart-blanc.svg';
 import heartFilled from '../../src/assets/icons/heart-filled.svg';
 
 import user from '../../src/assets/icons/fuser.svg';
-import searchIcon from '../../src/assets/icons/search.svg';
 import bag from '../../src/assets/icons/bag-blanc.svg';
-import Cart from './Cart';
-import Favorite from './Favorite';
-import SignIn from './SignIn';
 import SignWrapper from './SignWrapper';
 import CartFavWrapper from './CartFavWrapper';
-// import { ReactSVG } from 'react-svg';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -155,7 +140,7 @@ export default function Navbar() {
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
         </NavLink>
-        <NavLink to={''}>FEATURED</NavLink>
+        <NavLink to={'/featured'}>FEATURED</NavLink>
         <NavLink to={''}>NEW IN</NavLink>
       </div>
 
@@ -166,14 +151,11 @@ export default function Navbar() {
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5'>
-       
         {
-
-         
           <div>
             <img
               src={bag}
-              className='cursor-pointer  h-4'
+              className='h-4  cursor-pointer'
               onClick={async () => {
                 await setMode('cart');
                 setIsCartFavWrapperHidden(false);
@@ -195,17 +177,20 @@ export default function Navbar() {
                 mode={mode}
               />
             )}
-            
-              <img
-                src={singleUserState.user?.favorites?.length >= 1 ? heartFilled : heartBlanc}
-                // style={{strokeWidth: '2'}}
-                className='cursor-pointer stroke-[6px] h-4'
-                onClick={async () => {
-                  await setMode('fav');
-                  setIsCartFavWrapperHidden(false);
-                }}
-              />
-            
+
+            <img
+              src={
+                singleUserState.user?.favorites?.length >= 1
+                  ? heartFilled
+                  : heartBlanc
+              }
+              // style={{strokeWidth: '2'}}
+              className='h-4 cursor-pointer stroke-[6px]'
+              onClick={async () => {
+                await setMode('fav');
+                setIsCartFavWrapperHidden(false);
+              }}
+            />
           </div>
         }
 
@@ -220,10 +205,9 @@ export default function Navbar() {
             </div>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
-              )}
+            )}
           </>
         )}
-        
 
         {/* <img src={searchIcon} className=' w-6 ' /> */}
         {/* <form onSubmit={(e) => handleFormSubmit(e)}>
