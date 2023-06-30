@@ -6,7 +6,8 @@ import redBlobs from '../../assets/vid/new in/red-blobs.mp4';
 import redLady from '../../assets/vid/new in/lady-in-red.mp4';
 import roseBg from '../../assets/bg-img/new in/rose.jpg';
 const tintImageURL =
-  'https://media.typology.com/storyblok/1872x1872/2b69157428/teinte_packshot-collection_web_15ml.jpg';
+  'https://media.typology.com/storyblok/3327x3327/309b6fd67b/05_lip_oil_gamme_carrousel.jpg';
+// 'https://media.typology.com/storyblok/1872x1872/2b69157428/teinte_packshot-collection_web_15ml.jpg';
 
 export default function Featured() {
   return (
@@ -17,14 +18,14 @@ export default function Featured() {
         </h1>
         <video
           src={roseLady}
-          className='h-screen w-11/12 object-cover object-center'
+          className='relative z-20 h-screen w-11/12 object-cover object-center'
           muted={true}
           autoPlay={true}
           loop={true}
         />
         <img
           src={tintImageURL}
-          className=' absolute bottom-0 right-1/2 z-10 aspect-[3/4] w-1/4 translate-x-[50%] translate-y-[95%] object-cover'
+          className=' absolute bottom-0 right-1/2 z-10 aspect-[3/4] w-1/4 translate-x-[50%] translate-y-[90%] object-cover'
           alt='lineup of tinted lip products'
         />
       </header>
@@ -34,10 +35,10 @@ export default function Featured() {
           className='middle-section-bg absolute right-0 top-0 z-0 h-full w-full object-cover object-top'
           alt='abstract background'
         />
-        <div className='middle-section-columns relative flex w-full basis-3/4 gap-6 pt-[18vw]'>
+        <div className='middle-section-columns relative z-10 flex w-full basis-3/4 gap-6 pt-[18vw]'>
           <div className='mid-left relative min-h-[70vh] basis-1/2'>
             <video
-              className='aspect-[1/2] w-full object-cover object-top'
+              className='aspect-[1/2] w-full rounded-sm object-cover object-top'
               src={redBlobs}
               muted={true}
               autoPlay={true}
@@ -52,7 +53,7 @@ export default function Featured() {
               autoPlay={true}
               loop={true}
             ></video>
-            <div className='new-in absolute right-1/2 top-0 translate-x-[50%] translate-y-[-30%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase text-white/20'>
+            <div className='new-in absolute right-1/2 top-0 translate-x-[50%] translate-y-[-50%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase leading-none text-white/20'>
               <p>new in</p>
               <p>new in</p>
               <p>new in</p>
