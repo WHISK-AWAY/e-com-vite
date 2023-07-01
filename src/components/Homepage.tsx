@@ -162,11 +162,11 @@ export default function Homepage() {
             </span>
           </p>
 
-          <div className='  w-[80%]  pt-[2%]'>
+          <div className='w-[80%] h-3/4 pt-[2%]'>
             <img
               src={beachLady}
               alt='lady with a big white hat is laying on the beach'
-              className='aspect-[4/3] w-full object-cover'
+              className='aspect-auto w-full h-3/4 object-cover'
             />
           </div>
 
@@ -304,7 +304,7 @@ export default function Homepage() {
       </div>
 
       <div className='relative flex  flex-col items-center justify-center pt-[25%]'>
-        <div className='absolute right-0 top-0  flex w-[50%] -translate-x-[40%] translate-y-[55%] items-center justify-between gap-[10%] '>
+        <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
           <p className='w-full text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
@@ -313,7 +313,7 @@ export default function Homepage() {
 
           <Link to={'/product/' + randomProd!._id} className='flex w-full '>
             <img
-              className='aspect-[8/9] w-[90%] object-cover '
+              className='aspect-[7/9] w-[90%] object-cover '
               src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
@@ -342,7 +342,7 @@ export default function Homepage() {
           <img
             src={papaya}
             alt='ripe papaya cut in half'
-            className='grow-1 aspect-[2/3] w-full shrink-0  object-cover'
+            className='grow-1 aspect-[2/3] w-full shrink-0  object-cover '
           />
           <div className='relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap '>
             <p className='relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]'>
@@ -355,12 +355,12 @@ export default function Homepage() {
         </div>
 
         <div className=' relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] '>
-          <p className='absolute left-1 top-[16vw] whitespace-nowrap font-raleway text-[1.5vw] font-light 2xl:top-[270px]'>
+          <p className='absolute left-1 top-[16vw] whitespace-nowrap font-raleway text-[1.5vw] font-light 2xl:top-[270px] '>
             only best ingredients for best results
           </p>
           <Link
             to={'/product/' + randomProd!._id}
-            className='flex w-full flex-col min-[2500px]:pb-[300px]'
+            className='flex w-full flex-col min-[2500px]:pb-[300px]  h-3/4 md:pt-[7%] lg:pt-[28%] xl:pt-[20%] 2xl:pt-[70%]'
           >
             <img
               className='aspect-[3/5]   max-h-[450px] object-cover  pl-[8%]'
@@ -384,7 +384,7 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='flex h-[500px] w-[80%] justify-center gap-9 self-center pb-[4%]'>
+      <div className='flex h-full w-[80%] justify-center gap-9 self-center pb-[4%]'>
         <img
           src={coconutHand}
           alt='hand is reaching for a coconut cut in half'
