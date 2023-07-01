@@ -65,7 +65,7 @@ export default function Homepage() {
       </div>
 
       <div className='flex flex-col py-[7%]'>
-        <p className='self-center px-[11%] text-center font-aurora text-charcoal text-[1.5vw]'>
+        <p className='self-center px-[11%] text-center font-aurora text-[1.5vw] text-charcoal'>
           our philosophy is not to add anything to our products to make them
           stand out; instead we pare them back and distill each formula down to
           the most-essential, natural active ingredients.
@@ -114,7 +114,7 @@ export default function Homepage() {
 
       <div className='flex  w-full flex-col items-center '>
         <div className='relative flex  w-full flex-col items-center bg-[#383838]'>
-          <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick '>
+          <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
           <p className='absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
@@ -166,7 +166,7 @@ export default function Homepage() {
             <img
               src={beachLady}
               alt='lady with a big white hat is laying on the beach'
-              className='aspect-auto w-full h-3/4 object-cover'
+              className='aspect-auto h-3/4 w-full object-cover'
             />
           </div>
 
@@ -191,7 +191,10 @@ export default function Homepage() {
             </div>
             <div className='product-section  absolute right-0 top-2 w-[50%] translate-x-[5%]'>
               {' '}
-              <Link to={'/product/' + randomProd!._id} className=' flex flex-col items-center '>
+              <Link
+                to={'/product/' + randomProd!._id}
+                className=' flex flex-col items-center '
+              >
                 <img
                   className='aspect-[5/6] w-[50%] object-cover pt-[2%]'
                   src={
@@ -200,7 +203,7 @@ export default function Homepage() {
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
                 />
-                <p className='pt-2 font-hubbali text-[1.2vw] w-fit text-center self-center flex-wrap uppercase text-white'>
+                <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
                   {randomProd.productName}
                 </p>
               </Link>
@@ -262,7 +265,7 @@ export default function Homepage() {
         <div className='flex w-full flex-row-reverse justify-center '>
           <img
             src={ladyMask}
-            alt=''
+            alt='woman applying mask to her face'
             className='h-screen  w-[3/5] object-cover '
           />
 
@@ -277,10 +280,10 @@ export default function Homepage() {
             </p>
             <Link
               to={'/product/' + randomProd!._id}
-              className='flex w-[70%]  flex-col items-center self-end'
+              className='flex w-[70%] flex-col  items-center self-end pr-[15%]'
             >
               <img
-                className='aspect-[1/2] w-fit object-cover md:h-[250px] lg:h-[350px] xl:h-[350px] 2xl:h-[550px] min-[1736px]:h-[800px]'
+                className='aspect-[1/2] w-fit object-cover md:h-[290px] lg:h-[400px] xl:h-[450px] 2xl:h-[650px] min-[1600px]:h-[800px]'
                 src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -295,7 +298,7 @@ export default function Homepage() {
             <Link
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className=' mr-8  w-[60%] self-end border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]'
+              className=' mr-[12%]  w-[60%] self-end border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]'
             >
               shop body
             </Link>
@@ -305,7 +308,7 @@ export default function Homepage() {
 
       <div className='relative flex  flex-col items-center justify-center pt-[25%]'>
         <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
-          <p className='w-full text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -313,7 +316,7 @@ export default function Homepage() {
 
           <Link to={'/product/' + randomProd!._id} className='flex w-full '>
             <img
-              className='aspect-[7/9] w-[90%] object-cover '
+              className='aspect-[7/9] w-full object-cover '
               src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
@@ -323,13 +326,13 @@ export default function Homepage() {
           </Link>
         </div>
 
-        <div className='flex w-full  flex-col '>
+        <div className='flex w-full flex-col '>
           <img
             src={ladyFacewash}
             alt=''
             className='aspect-[4/6] h-screen self-center'
           />
-          <p className='w-[25%] -translate-x-[50%] -translate-y-[300%] self-end text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -355,28 +358,28 @@ export default function Homepage() {
         </div>
 
         <div className=' relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] '>
-          <p className='absolute left-1 top-[16vw] whitespace-nowrap font-raleway text-[1.5vw] font-light 2xl:top-[270px] '>
+          <p className='absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] '>
             only best ingredients for best results
           </p>
           <Link
             to={'/product/' + randomProd!._id}
-            className='flex w-full flex-col min-[2500px]:pb-[300px]  h-3/4 md:pt-[7%] lg:pt-[28%] xl:pt-[20%] 2xl:pt-[70%]'
+            className='flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px]'
           >
             <img
-              className='aspect-[3/5]   max-h-[450px] object-cover  pl-[8%]'
+              className='aspect-[3/5] object-cover pl-[8%] min-[2500px]:max-h-[750px]'
               src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
                 )?.imageURL || randomProd!.images[0].imageURL
               }
             />
-            <p className='pt-2 text-center font-hubbali text-[1.2vw] uppercase text-charcoal'>
+            <p className='pt-[4%] text-center font-hubbali text-[1vw] uppercase text-charcoal'>
               {randomProd.productName}
             </p>
           </Link>
         </div>
       </div>
-      <div className='flex w-[80%] items-center justify-center self-center pb-[6%] pt-[5%] leading-loose'>
+      <div className='flex w-[70%] items-center justify-center self-center pb-[6%] pt-[5%] leading-loose'>
         <p className='text-center font-aurora text-[1.4vw]'>
           heavy moisturizers are ideal for cold climates or during winter when
           the air is dryer but they can be too cloying during the heat of summer
@@ -384,27 +387,26 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='flex w-[80%] h-full justify-center self-center pb-[4%]'>
-        <div className='flex h-[40dvh] 2xl:h-[50dvh] gap-10'>
-
-        <img
-          src={coconutHand}
-          alt='hand is reaching for a coconut cut in half'
-          className='aspect-[1/2] w-[30%] object-cover'
+      <div className='flex h-full w-[80%] justify-center self-center pb-[4%]'>
+        <div className='flex h-[40dvh] gap-9 2xl:h-[50dvh]'>
+          <img
+            src={coconutHand}
+            alt='hand is reaching for a coconut cut in half'
+            className='aspect-[1/2] w-[30%] object-cover'
           />
-        <img
-          src={melon}
-          alt='melon cut in half'
-          className='aspect-[1/2] w-[30%] object-cover'
-        />
-        <video
-          src={legBrush}
-          muted={true}
-          loop={true}
-          autoPlay={true}
-          className='aspect-[1/2] w-[30%] items-center justify-center object-cover'
+          <img
+            src={melon}
+            alt='melon cut in half'
+            className='aspect-[1/2] w-[30%] object-cover'
           />
-          </div>
+          <video
+            src={legBrush}
+            muted={true}
+            loop={true}
+            autoPlay={true}
+            className='aspect-[1/2] w-[30%] items-center justify-center object-cover'
+          />
+        </div>
       </div>
       {/* <div className='pb-96'></div> */}
     </div>
