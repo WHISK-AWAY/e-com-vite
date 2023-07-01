@@ -44,8 +44,8 @@ export default function ProductCarousel({
         <img src={arrowLeft} alt='' className='h-3 xl:h-5' />
       </button>
       {renderProduct.map((prod) => {
-        const gifURL = prod.images.find(
-          (image) => image.imageDesc === 'gif-product'
+        const gifURL = prod.images.find((image) =>
+          ['gif-product', 'video-product'].includes(image.imageDesc)
         )?.imageURL;
         return (
           <div

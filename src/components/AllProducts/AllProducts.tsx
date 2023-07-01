@@ -101,8 +101,6 @@ AllProductsProps) {
     : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
   useEffect(() => {
-    // console.log('loc', window.location.pathname); //TODO: read url & conditionally render some shit (and/or not) based on whether or not we're in bestsellers route
-    // console.log('path', pathname);
     dispatch(fetchAllTags());
   }, []);
 
@@ -257,8 +255,8 @@ AllProductsProps) {
           let imageURL =
             product.images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || product.images[0].imageURL;
-          let hoverURL = product.images.find(
-            (image) => image.imageDesc === 'gif-product'
+          let hoverURL = product.images.find((image) =>
+            ['gif-product', 'video-product'].includes(image.imageDesc)
           )?.imageURL;
           return (
             <li

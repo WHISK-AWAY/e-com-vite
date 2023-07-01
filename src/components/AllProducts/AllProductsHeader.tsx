@@ -28,8 +28,9 @@ export default function AllProductsHeader({
           ?.imageURL || randomProd.images[0].imageURL
       );
       setRandomProdGif(
-        randomProd.images.find((image) => image.imageDesc === 'gif-product')
-          ?.imageURL
+        randomProd.images.find((image) =>
+          ['gif-product', 'video-product'].includes(image.imageDesc)
+        )?.imageURL
       );
     }
 

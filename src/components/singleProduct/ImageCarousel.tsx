@@ -76,7 +76,7 @@ export default function ImageCarousel({
             }}
             className='image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
           >
-            {['gif', 'mp4'].includes(image.imageURL.split('.').at(-1)!) ? (
+            {['gif', 'mp4'].includes(extension!) ? (
               <video
                 muted={true}
                 autoPlay={true}
