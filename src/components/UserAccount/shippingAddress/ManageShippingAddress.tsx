@@ -162,13 +162,13 @@ export default function ManageShippingAddress({
               setAddresses={setAddresses}
             />
           ) : (
-            <div className='flex justify-center w-full '>
-              <div className='flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] 2xl:items-center lg:items-center xl:w-2/6 2xl:w-[30%]'>
+            <div className='flex w-full justify-center '>
+              <div className='flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center'>
                 <div className='form-keys flex h-full  flex-col  py-9  text-start  leading-loose'>
                   <p>full name</p>
                   <p>last name</p>
                   <p>email</p>
-                  <p>adderess 1</p>
+                  <p>address 1</p>
                   <p>address 2</p>
                   <p>city</p>
                   <p>state</p>
@@ -176,8 +176,8 @@ export default function ManageShippingAddress({
                 </div>
               </div>
 
-              <div className='flex w-5/6 flex-col lg:w-[70%] pr-20'>
-                <div className='form-values flex w-3/5 flex-col self-center pt-9 text-start uppercase   leading-loose'>
+              <div className='flex w-5/6 flex-col items-start'>
+                <div className='form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose'>
                   <p>{addresses[selectorIdx!]?.shipToAddress.firstName}</p>
                   <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
                   <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
@@ -205,7 +205,10 @@ export default function ManageShippingAddress({
           <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-italiana text-sm text-white '>
             <div className='absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-6'>
               <button
-                onClick={() => {setIsFormEdit(true); setAddressFormMode('edit')}}
+                onClick={() => {
+                  setIsFormEdit(true);
+                  setAddressFormMode('edit');
+                }}
                 className='rounded-sm bg-charcoal px-5 py-1  lg:px-8  lg:py-2 xl:px-10'
               >
                 EDIT
@@ -213,7 +216,7 @@ export default function ManageShippingAddress({
 
               <button
                 onClick={selectAddress}
-                className='rounded-sm bg-charcoal py-1 px-5 lg:px-4 lg:py-2 xl:px-6'
+                className='rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-6'
               >
                 USE THIS ADDRESS
               </button>
@@ -224,7 +227,7 @@ export default function ManageShippingAddress({
                     setIsFormEdit(true);
                     setAddressFormMode('new');
                   }}
-                  className='rounded-sm bg-charcoal py-1 px-5 lg:px-4 lg:py-2 xl:px-8'
+                  className='rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-8'
                 >
                   ADD NEW
                 </button>
