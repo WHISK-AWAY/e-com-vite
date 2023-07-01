@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import Inventory from './products/Inventory';
 import CreateOrEditProduct from './products/CreateOrEditProduct';
 
-
 export default function AdminDashboard() {
   const navigate = useNavigate();
 
@@ -18,51 +17,40 @@ export default function AdminDashboard() {
   }, [user]);
 
   return (
-    <section className='admin-dashboard'>
-      <h1>ADMIN DASHBOARD</h1>
-      <br />
-      <section className='inventory-section'>
-        <Link to={'/admin/inventory'} className='text-blue-300'>
+    <section className='admin-dashboard mx-auto flex min-h-[calc(100vh_-_64px)] w-4/5 flex-col gap-2 pt-20 font-grotesque text-[2vw]'>
+      <h1 className='inline whitespace-nowrap border-b border-red-500 text-[4rem] font-semibold tracking-[1rem] text-charcoal after:-mr-[1rem]'>
+        ADMIN DASHBOARD
+      </h1>
+      <div className='links-section flex flex-col items-start'>
+        <Link to={'/admin/inventory'} className='w-fit hover:text-red-500'>
           INVENTORY
         </Link>
-        <br />
-        <Link to={'/admin/product/new'} className='text-blue-600'>
+        <Link to={'/admin/product/new'} className='hover:text-red-500'>
           CREATE NEW PRODUCT
         </Link>
         {/* <Link to={'/admin/product/:productId'}>EDIT PRODUCT</Link> */}
-      </section>
-      <section className='tag-section'>
-        <Link to={'/admin/tags'} className='text-blue-300'>
-          <h1>TAGS</h1>
-          <Link to={'/admin/tags/new'} className='text-blue-600'>
-            CREATE NEW TAG
-          </Link>
+        <Link to={'/admin/tags'} className='hover:text-red-500'>
+          TAGS
         </Link>
-      </section>
-      <section className='promo-section'>
-        <Link to={'/admin/promos'} className='text-blue-300'>
+        <Link to={'/admin/tags/new'} className='hover:text-red-500'>
+          CREATE NEW TAG
+        </Link>
+        <Link to={'/admin/promos'} className='hover:text-red-500'>
           PROMOS
         </Link>
-        <br />
-        <Link to={'/admin/promos/new'} className='text-blue-600'>
+        <Link to={'/admin/promos/new'} className='hover:text-red-500'>
           CREATE NEW PROMO
         </Link>
-      </section>
-      <section className='user-section'>
-        <Link to='/admin/users'>
-          <h1>USERS</h1>
+        <Link to='/admin/users' className='hover:text-red-500'>
+          USERS
         </Link>
-      </section>
-      <section className='review-section'>
-        <Link to='/admin/reviews'>
-          <h2>REVIEWS</h2>
+        <Link to='/admin/reviews' className='hover:text-red-500'>
+          REVIEWS
         </Link>
-      </section>
-      <section className='reporting-section'>
-        <Link to='/admin/reports'>
-          <h2>REPORTS</h2>
+        <Link to='/admin/reports' className='hover:text-red-500'>
+          REPORTS
         </Link>
-      </section>
+      </div>
     </section>
   );
 }
