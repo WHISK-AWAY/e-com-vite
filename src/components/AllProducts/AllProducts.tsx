@@ -57,9 +57,9 @@ export default function AllProducts({
   sortDir = 'asc',
 }: // filterKey = 'all',
 AllProductsProps) {
+  const dispatch = useAppDispatch();
   if (sortKey === 'saleCount') sortDir = 'desc';
 
-  const dispatch = useAppDispatch();
   const [params, setParams] = useSearchParams();
   const [pageNum, setPageNum] = useState<number | undefined>();
   const [sort, setSort] = useState<TSort>({
@@ -101,6 +101,7 @@ AllProductsProps) {
     : Math.ceil(allProducts.count! / PRODS_PER_PAGE);
 
   useEffect(() => {
+    // make sure we have all tags upon page load in order to populate filter selector
     dispatch(fetchAllTags());
   }, []);
 
@@ -113,7 +114,9 @@ AllProductsProps) {
   }, [sortKey]);
 
   useEffect(() => {
-    if (!curPage) setParams({ page: '1' });
+    if (!curPage) {
+      setParams({ page: '1' });
+    }
     // else if (curPage > maxPages) setParams({ page: maxPages.toString() });
     else setPageNum(Number(params.get('page')));
   }, [curPage]);
@@ -130,7 +133,10 @@ AllProductsProps) {
   }, [pageNum, sort, filter]);
 
   useEffect(() => {
-    setParams({ page: '1' });
+    if (filter) {
+      setParams({ page: '1' });
+      console.log('setting page to 1');
+    }
   }, [filter]);
 
   const pageIncrementor = () => {
@@ -194,13 +200,11 @@ AllProductsProps) {
   // pageFlipper();
 
   if (!allProducts.products.length) return <p>...Loading</p>;
-  // if(!userFavorites) return <p>no favs</p>
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
     <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
-      {/* {filter === 'all' && <h1>{filter} products</h1>} */}
       <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
           <BestsellersHeader />
@@ -362,52 +366,3 @@ AllProductsProps) {
     </section>
   );
 }
-
-// {
-//   pageNum! >= 1 && (
-//     <img
-//       src={arrowLeft}
-//       alt='left-arrow'
-//       className='h-5 cursor-pointer pr-5'
-//       onClick={pageDecrementor}
-//     />
-//   );
-// }
-// {
-//   /* {pageFlipper().firstPage} */
-// }
-// {
-//   pageFlipper().nextPage > 1 && pageFlipper().nextPage < maxPages && (
-//     <>
-//       <span>
-//         {' '}
-//         {pageFlipper().firstPage}, {pageFlipper().currentPage}
-//       </span>
-//     </>
-//   );
-// }
-// {
-//   pageFlipper().currentPage <= maxPages && (
-//     <>
-//       <img
-//         src={dots}
-//         alt='three-dots'
-//         className='flex w-8 translate-y-[20%] cursor-pointer'
-//       />
-//       <p className=''>{pageFlipper().lastPage}</p>
-//     </>
-//   );
-// }
-// {
-//   /* {pageNum === maxPages ? pageFlipper().firstPage : pageFlipper().lastPage} */
-// }
-// {
-//   pageNum! <= maxPages && (
-//     <img
-//       src={arrowRight}
-//       alt='right-arrow'
-//       className='h-5 rotate-180 cursor-pointer pr-5'
-//       onClick={pageIncrementor}
-//     />
-//   );
-// }
