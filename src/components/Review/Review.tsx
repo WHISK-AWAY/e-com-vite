@@ -95,34 +95,38 @@ export default function Review({ review, last = false }: ReviewProps) {
               : '')}
         </div>
         <div className='review-buttons flex self-end'>
-          <div className='vote-section flex justify-end gap-2'>
-            <h3>helpful?</h3>
-            <button
-              onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
-            >
-              <img
-                src={review.userVote === 'upvote' ? thumbFilled : thumb}
-                className='w-5'
-                alt='thumbs up'
-                title={`${review.upvote} ${
-                  review.upvote === 1 ? 'person has' : 'people have'
-                } found this helpful`}
-              />
-            </button>
-            <br />
-            <button
-              onClick={() => dispatch(downvoteReview({ productId, reviewId }))}
-            >
-              <img
-                src={review.userVote === 'downvote' ? thumbFilled : thumb}
-                className='w-5 rotate-180'
-                alt='thumbs down'
-                title={`${review.downvote} ${
-                  review.downvote === 1 ? 'person has' : 'people have'
-                } found this unhelpful`}
-              />
-            </button>
-          </div>
+          {userId && (
+            <div className='vote-section flex justify-end gap-2'>
+              <h3>helpful?</h3>
+              <button
+                onClick={() => dispatch(upvoteReview({ productId, reviewId }))}
+              >
+                <img
+                  src={review.userVote === 'upvote' ? thumbFilled : thumb}
+                  className='w-5'
+                  alt='thumbs up'
+                  title={`${review.upvote} ${
+                    review.upvote === 1 ? 'person has' : 'people have'
+                  } found this helpful`}
+                />
+              </button>
+              <br />
+              <button
+                onClick={() =>
+                  dispatch(downvoteReview({ productId, reviewId }))
+                }
+              >
+                <img
+                  src={review.userVote === 'downvote' ? thumbFilled : thumb}
+                  className='w-5 rotate-180'
+                  alt='thumbs down'
+                  title={`${review.downvote} ${
+                    review.downvote === 1 ? 'person has' : 'people have'
+                  } found this unhelpful`}
+                />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>
