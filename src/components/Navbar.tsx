@@ -140,12 +140,15 @@ export default function Navbar() {
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
         </NavLink>
-        <NavLink to={'/featured'}>FEATURED</NavLink>
-        <NavLink to={''}>NEW IN</NavLink>
+        {/* <NavLink to={'/featured'}>FEATURED</NavLink> */}
+        <NavLink to={'/new-in'}>NEW IN</NavLink>
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <Link to='/' className='font-chonburi text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl'>
+        <Link
+          to='/'
+          className='font-chonburi text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl'
+        >
           ASTORIA
         </Link>
       </div>

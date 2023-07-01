@@ -20,6 +20,7 @@ import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
 import PromoInventory from './components/Admin/promos/PromoInventory';
 import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 import Featured from './components/Featured/Featured';
+import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           element={<AllProducts sortKey='saleCount' />}
         />
         <Route path='/featured' element={<Featured />} />
+        <Route path='/new-in' element={<NewIn />} />
         <Route path='/product/:productId' element={<SingleProduct />} />
         <Route path='/user/:userId' element={<UserProfile />} />
         <Route path='/checkout' element={<Recap />} />
