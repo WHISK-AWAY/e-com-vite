@@ -19,14 +19,14 @@ import { useEffect } from 'react';
 const ZShippingData = z.object({
   isDefault: z.boolean(),
   shipToAddress: z.object({
-    firstName: z.string().min(2),
-    lastName: z.string().min(2),
-    email: z.string().email(),
-    address_1: z.string().min(5),
-    address_2: z.string().optional(),
-    city: z.string().min(1),
-    state: z.string().min(2),
-    zip: z.string().min(5),
+    firstName: z.string().trim().min(2),
+    lastName: z.string().trim().min(2),
+    email: z.string().trim().email(),
+    address_1: z.string().trim().min(5),
+    address_2: z.string().trim().optional(),
+    city: z.string().trim().min(1),
+    state: z.string().trim().min(2),
+    zip: z.string().trim().min(5),
   }),
 });
 
@@ -102,6 +102,14 @@ export default function EditShippingAddress({
   }, [addressFormMode]);
 
   const submitNewAddress = async (data: ShippingInfoFields) => {
+    // const shipToAddress = {} as ShipToAddress;
+
+    // // Trim form inputs before sending for validation.
+    // for (let prop of Object.keys(data.shipToAddress)) {
+    //   shipToAddress[prop as keyof ShipToAddress] =
+    //     data.shipToAddress[prop as keyof ShipToAddress].trim();
+    // }
+
     const userFields = {
       isDefault: data.isDefault,
       userId: user._id,
