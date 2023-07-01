@@ -12,6 +12,10 @@ import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
 import grapefrutButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
 import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
 import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
+import papaya from '../assets/bg-img/homepage/papaya.jpg';
+import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
+import melon from '../assets/bg-img/homepage/melon.jpg';
+import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 export default function Homepage() {
   const allProducts = useAppSelector(selectAllProducts);
@@ -167,7 +171,7 @@ export default function Homepage() {
           </div>
 
           <div className=' relative flex h-full  w-[65%]  justify-center gap-7  '>
-            <div className='text-container flex w-[110%] flex-col'>
+            <div className='text-container flex w-full flex-col'>
               <div className='absolute  left-0 top-0 h-[70%] w-[25%] -translate-y-[15%] translate-x-[35%] rounded-full bg-black/20'>
                 <p className=' absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[80%] text-start font-aurora text-[1.4vw] leading-relaxed text-white'>
                   heavy moisturizers are ideal for cold climates or during
@@ -179,7 +183,7 @@ export default function Homepage() {
             <div className='video-section flex  h-full  max-h-screen w-full -translate-x-[50%] -translate-y-[15%] justify-center'>
               <video
                 src={bwSeizure}
-                autoPlay={false}
+                autoPlay={true}
                 muted={true}
                 loop={true}
                 className='aspect-[1/2] w-[70%]   '
@@ -188,14 +192,14 @@ export default function Homepage() {
             <div className='product-section  absolute right-0 top-0 w-[60%] translate-x-[60%]'>
               {' '}
               <Link to={'/product/' + randomProd!._id} className=' '>
-                {/* <img
+                 <img
                   className='aspect-[4/6] w-[40%] object-cover pt-[2%]'
                   src={
                     randomProd!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
-                /> */}
+                /> 
                 <p className='pt-2 font-hubbali text-[1.2vw]  uppercase text-white'>
                   {randomProd.productName}
                 </p>
@@ -203,7 +207,7 @@ export default function Homepage() {
             </div>
           </div>
 
-          <div className='text-1[vw] w-[45%] pb-[7%] text-center font-aurora leading-loose text-white '>
+          <div className='w-[45%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white '>
             <p>
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -211,33 +215,33 @@ export default function Homepage() {
             </p>
           </div>
 
-          <div className='mb-[20%] flex w-full flex-col items-center'>
+          <div className='mb-[5%] flex w-full flex-col items-center'>
             <img
               src={grapefrutButt}
               alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
               className='z-10 aspect-square w-[30%] object-cover'
             />
-            <div className=' text-center '>
-              <p className='-translate-y-[40%] pl-7 font-raleway text-[11vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+            <div className=' h-full text-center'>
+              <p className='-translate-y-[40%] pl-7 font-roboto text-[16vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
                 treat
               </p>
-              <p className='-translate-y-[50%] font-caslon-display text-[11vw] uppercase leading-none tracking-[.4rem] text-white'>
+              <p className='-translate-y-[70%] font-playfair text-[16vw] font-light uppercase leading-none  text-white'>
                 your skin
               </p>
-              <p className='-translate-y-[110%] font-raleway text-[6vw] font-xbold uppercase leading-none tracking-widest text-white/40'>
+              <p className='-translate-y-[390%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
                 to
               </p>
-              <p className='right-1/2 -translate-y-[70%] translate-x-[3%] whitespace-nowrap font-raleway text-[11vw] font-xbold uppercase leading-none tracking-[3.5rem] text-white'>
+              <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[16vw] font-xbold uppercase leading-none  text-white'>
                 something
               </p>
-              <p className='-translate-y-[65%] font-raleway text-[15vw] font-xxbold uppercase leading-none text-white'>
+              <p className='-translate-y-[105%] font-roboto text-[16vw] font-bold uppercase leading-none text-white'>
                 special
               </p>
             </div>
             <Link
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className='relative border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
+              className='relative border border-white bg-transparent px-[6vw] -translate-y-[250%] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
             >
               shop body
             </Link>
@@ -254,32 +258,36 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='flex w-[90%]   -translate-y-[6%] flex-row-reverse '>
-        <div className='flex  flex-row-reverse '>
-          <img src={ladyMask} alt='' className='aspect-[4/6] h-screen ' />
+      <div className='flex w-[90%] max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center '>
+        <div className='flex w-full flex-row-reverse justify-center '>
+          <img
+            src={ladyMask}
+            alt=''
+            className='h-screen  w-[3/5] object-cover '
+          />
 
-          <div className=' relative flex w-[35%]  flex-col justify-between'>
-            <p className=' font-yantramanav text-[6vw] font-semibold uppercase'>
-              <span className='absolute right-0 top-0  translate-x-[10%] translate-y-[90%] tracking-[2rem] text-[#262626]'>
+          <div className=' relative flex w-2/5  flex-col justify-end gap-10'>
+            <p className=' font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]'>
+              <span className='absolute -right-4 top-0 translate-y-[60%]  tracking-[2.9rem] text-[#262626] 2xl:translate-y-0'>
                 hyd
               </span>
-              <span className='absolute right-0 top-0 translate-x-[105%] translate-y-[90%] tracking-[1rem]  text-white'>
+              <span className='absolute right-0 top-0 translate-x-[102%] translate-y-[60%] tracking-[1rem] text-white  2xl:translate-y-0'>
                 ration
               </span>
             </p>
             <Link
               to={'/product/' + randomProd!._id}
-              className='flex w-full translate-y-[20%] flex-col items-center'
+              className='flex w-[70%]  flex-col items-center self-end'
             >
               <img
-                className='aspect-[1/2] w-[50%] object-cover '
+                className='aspect-[1/2] w-fit object-cover md:h-[250px] lg:h-[350px] xl:h-[350px] 2xl:h-[550px] min-[1736px]:h-[800px]'
                 src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd!.images[0].imageURL
                 }
               />
-              <p className='text-charcol w-[90%] pt-2 text-center font-hubbali  text-[1.5vw] uppercase'>
+              <p className='w-[90%] pt-2 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal'>
                 {randomProd.productName}
               </p>
             </Link>
@@ -287,7 +295,7 @@ export default function Homepage() {
             <Link
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className=' w-[60%] -translate-y-[80%] self-center border border-charcoal bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light'
+              className=' w-[60%]  self-end mr-8 text-[#262626] border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light'
             >
               shop body
             </Link>
@@ -321,7 +329,7 @@ export default function Homepage() {
             alt=''
             className='aspect-[4/6] h-screen self-center'
           />
-          <p className='w-[25%] -translate-x-[50%] self-end -translate-y-[300%] text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='w-[25%] -translate-x-[50%] -translate-y-[300%] self-end text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -329,12 +337,72 @@ export default function Homepage() {
         </div>
       </div>
 
+      <div className='flex w-[90%] max-w-[1440px] self-center '>
+        <div className='flex h-screen  w-[65%] border '>
+          <img
+            src={papaya}
+            alt='ripe papaya cut in half'
+            className='grow-1 aspect-[2/3] w-full shrink-0  object-cover'
+          />
+          <div className='relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap '>
+            <p className='relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]'>
+              <span className='absolute left-0 top-0 -translate-x-[100%] text-white'>
+                we u
+              </span>
+              <span className='absolute left-0 top-0  text-[#262626]'>se</span>
+            </p>
+          </div>
+        </div>
 
-<div className='flex flex-col'>
-  <div>
-    <img src="" alt="ripe papaya cut in half" />
-  </div>
-</div>
+        <div className=' relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] '>
+          <p className='absolute left-1 top-[16vw] whitespace-nowrap font-raleway text-[1.5vw] font-light 2xl:top-[270px]'>
+            only best ingredients for best results
+          </p>
+          <Link
+            to={'/product/' + randomProd!._id}
+            className='flex w-full flex-col min-[2500px]:pb-[300px]'
+          >
+            <img
+              className='aspect-[3/5]   max-h-[450px] object-cover  pl-[8%]'
+              src={
+                randomProd!.images.find(
+                  (image) => image.imageDesc === 'product-front'
+                )?.imageURL || randomProd!.images[0].imageURL
+              }
+            />
+            <p className='pt-2 text-center font-hubbali text-[1.2vw] uppercase text-charcoal'>
+              {randomProd.productName}
+            </p>
+          </Link>
+        </div>
+      </div>
+      <div className='flex w-[80%] items-center justify-center self-center pb-[6%] pt-[5%] leading-loose'>
+        <p className='text-center font-aurora text-[1.4vw]'>
+          heavy moisturizers are ideal for cold climates or during winter when
+          the air is dryer but they can be too cloying during the heat of summer
+          and don't provide adequate{' '}
+        </p>
+      </div>
+
+      <div className='flex h-[500px] w-[80%] justify-center gap-9 self-center pb-[4%]'>
+        <img
+          src={coconutHand}
+          alt='hand is reaching for a coconut cut in half'
+          className='aspect-[1/2] w-[30%] object-cover'
+        />
+        <img
+          src={melon}
+          alt='melon cut in half'
+          className='aspect-[1/2] w-[30%] object-cover'
+        />
+        <video
+          src={legBrush}
+          muted={true}
+          loop={true}
+          autoPlay={true}
+          className='aspect-[1/2] w-[30%] items-center justify-center object-cover'
+        />
+      </div>
       {/* <div className='pb-96'></div> */}
     </div>
   );
