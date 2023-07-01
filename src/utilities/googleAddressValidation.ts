@@ -38,9 +38,6 @@ export async function validateAddress(
     const { verdict, address }: { verdict: Verdict; address: Address } =
       data.result;
 
-    console.log('verdict:', verdict);
-    console.log('address:', address);
-
     const replacedComponents = address.addressComponents
       .filter((comp) => comp.replaced || comp.spellCorrected)
       .reduce((obj, comp) => {
@@ -56,7 +53,7 @@ export async function validateAddress(
       .filter((comp) => {
         return (
           !replacedComponentTypes.has(comp.componentType) &&
-          componentMap[comp.componentType] !== 'IGNORE' &&
+          !['IGNORE', 'address_2'].includes(componentMap[comp.componentType]) &&
           ['UNCONFIRMED_BUT_PLAUSIBLE', 'UNCONFIRMED_AND_SUSPICIOUS'].includes(
             comp.confirmationLevel
           )
@@ -70,7 +67,6 @@ export async function validateAddress(
     const unconfirmedComponentTypes = new Set(
       Object.keys(unconfirmedComponents) as PlacesComponent[]
     );
-    console.log('unconfirmedComponentTypes', unconfirmedComponentTypes);
 
     // Set up some booleans to make future conditionals more readable
     const hasReplacements = replacedComponentTypes.size > 0;
