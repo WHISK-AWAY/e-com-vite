@@ -20,7 +20,6 @@ export default function Checkout() {
 
   useEffect(() => {
     if (!stripe) {
-      console.log('thing');
       return;
     }
 
@@ -28,7 +27,6 @@ export default function Checkout() {
       'payment_intent_client_secret'
     );
     if (!clientSecret) {
-      console.log('any');
       return;
     }
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
@@ -63,7 +61,6 @@ export default function Checkout() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        
         receipt_email: 'stacylukavsky@gmail.com',
         // Make sure to change this to your payment completion page
         return_url: `http://localhost:5173/checkout/success?order=${order.singleOrder?._id}`,
@@ -82,15 +79,6 @@ export default function Checkout() {
     layout: 'tabs',
   };
 
-
-
-
-
-
-
-
-
-
   return (
     <div className='flex flex-col '>
       <form id='payment-form' onSubmit={(e) => handlePaymentSubmit(e)}>
@@ -104,7 +92,7 @@ export default function Checkout() {
           >
             <span
               id='button-text'
-              className='my-5 r rounded-sm bg-charcoal px-10 py-1 r font-italiana text-lg uppercase text-white'
+              className='my-5 rounded-sm bg-charcoal px-10 py-1 font-italiana text-lg uppercase text-white'
             >
               {isLoading ? (
                 <div className='spinner' id='spinner'></div>
