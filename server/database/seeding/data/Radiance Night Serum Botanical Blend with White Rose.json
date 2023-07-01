@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/1600x1600/55d9dcf99c/plantes_1001_web.jpg",
     "https://media.typology.com/storyblok/1490x1570/ac2e169c99/plantes-1001_image-full_web2.jpg",
     "https://media.typology.com/storyblok/1490x1570/f8ae081704/plantes-1001_image-full_web1.jpg",
-    "https://media.typology.com/storyblok/fab597b5b2/serum-nuit-botanique-eclat__additional__4a438016e02c4f1791df98c4beaf7033.jpg"
+    "https://media.typology.com/storyblok/fab597b5b2/serum-nuit-botanique-eclat__additional__4a438016e02c4f1791df98c4beaf7033.jpg",
+    "https://media.typology.com/video-storyblok/4b2049e885/serum-nuit-botanique-eclat__hover__1c3ecfc740e34d4cba229376b2b63193.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-alt",
-    "product-dimensions"
+    "product-dimensions",
+    "video-product"
   ],
   "categories": ["face", "night", "serums"]
 }

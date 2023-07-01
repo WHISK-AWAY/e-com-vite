@@ -1,0 +1,22 @@
+{
+  "productName": "SPF 50 Face Sunscreen with Hyaluronic Acid + Aloe Vera",
+  "productShortDesc": "This invisible-finish sunscreen ​provides broad spectrum UVA and UVB protection and helps prevent photoaging. Light, fluid texture. Does not leave a white cast. Enriched with hyaluronic acid and aloe vera, and formulated with mineral and organic filters. 82% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Hyaluronic acid:\nFrom fermented wheat, hyaluronic acid is known for its highly moisturizing properties. This molecule can in fact retain up to a thousand times its weight in water. The low molecular weight hyaluronic acid present in this cream deeply moisturizes the epidermis and gives the skin a more smooth and plump appearance.\nAloe vera:\nAloe vera gel is an excellent moisturizer, it compensates for water loss from the skin while providing it with the essential vitamins and trace elements necessary for its repair.\nLimonium extract:\nThis powerful antioxidant protects skin against UV-generated free radicals and prevents photoaging.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/782bfffce1/rayons_1003_packshot_web.jpg",
+    "https://media.typology.com/storyblok/3743x3743/b46de33f5e/spf_produit_carrousel_face_texture.jpg",
+    "https://media.typology.com/storyblok/4159x4159/30b07e60bf/spf_application_face_produit_carrousel.jpg",
+    "https://media.typology.com/storyblok/3327x3327/af396e4d0e/spf_produit_carrousel_back.jpg",
+    "https://media.typology.com/storyblok/4159x4159/b711fe80d9/spf_produit_carrousel_texture.jpg",
+    "https://media.typology.com/video-storyblok/x/ac0dcc3e0a/22_creme-solaire.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-usage",
+    "product-packaging-back",
+    "product-texture",
+    "video-usage"
+  ],
+  "categories": ["spf", "face"]
+}

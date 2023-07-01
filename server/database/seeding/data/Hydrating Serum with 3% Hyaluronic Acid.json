@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/51f68fee7b/acide-hyaluronique__main__d7b7284456904c359d19d43915a9c593.jpg",
     "https://media.typology.com/storyblok/c198ea9ef9/acide-hyaluronique__additional__58d3b7689ee6402b969f0b61fa5d1973.jpg",
     "https://media.typology.com/storyblok/401fcec1cc/acide-hyaluronique__additional__e7e555befada442797f31504d6c56697.jpg",
-    "https://media.typology.com/storyblok/1600x1600/059f9bd65b/lab_1001_page_produit6.jpg"
+    "https://media.typology.com/storyblok/1600x1600/059f9bd65b/lab_1001_page_produit6.jpg",
+    "https://media.typology.com/video-storyblok/a667454edc/acide-hyaluronique__hover__bdada3f6bf924001adf43a993fbb79bf.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-dimensions",
     "product-close",
-    "product-back"
+    "product-back",
+    "video-product"
   ],
   "categories": ["face", "serums", "moisturizers"]
 }

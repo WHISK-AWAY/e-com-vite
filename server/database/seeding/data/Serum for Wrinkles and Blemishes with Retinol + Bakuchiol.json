@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1644x1644/2615869d58/better_aging_carroussel_produit_texture_retinol.jpg",
     "https://media.typology.com/storyblok/2958x2958/7774f91fd0/04_better_aging_carroussel_produit_back_retinol.jpg",
     "https://media.typology.com/storyblok/1972x1972/a472eec4db/better_aging_carroussel_produit_application_retinol.jpg",
-    "https://media.typology.com/video-storyblok/x/7ca8703992/application_laurence_retinol_bakuchiol.mp4"
+    "https://media.typology.com/video-storyblok/x/7ca8703992/application_laurence_retinol_bakuchiol.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/3c5059f363/retinol_hover.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-back",
     "product-alt",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["serums", "face"]
 }

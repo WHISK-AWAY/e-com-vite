@@ -1,0 +1,24 @@
+{
+  "productName": "SPF 30 Face Sunscreen for Dry Skin with Aloe Vera",
+  "productShortDesc": "Lightweight texture, no white cast, shine-free, non-sticky finish. Helps prevent photoaging through mineral and organic filters which offer broad-spectrum UVA and UVB protection. Enriched with hyaluronic acid and aloe vera, recommended for dry skin.",
+  "productIngredients": "Aloe vera:\nAloe vera gel is an excellent moisturizer. It compensates for water loss from the skin while providing it with the essential vitamins and trace elements necessary for its repair.\nHyaluronic acid:\nFrom fermented wheat, hyaluronic acid is known for its highly moisturizing properties. This molecule can in fact retain up to a thousand times its weight in water. The low molecular weight hyaluronic acid present in this cream deeply moisturizes the epidermis and gives the skin a more smooth and plump appearance.\nKaranja oil:\nDue to its high content of flavonoids, karanja oil is known for its antioxidant properties. It helps protect from the sun by preventing the skin’s photoaging.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/6a101288ba/rayons_1001_page-produit_texte.jpg",
+    "https://media.typology.com/storyblok/3743x3743/9f319674c1/spf_produit_carrousel_face_texture.jpg",
+    "https://media.typology.com/storyblok/4159x4159/6a7ed7fef6/spf_application_face_produit_carrousel.jpg",
+    "https://media.typology.com/storyblok/4159x4159/148c9a0510/spf_produit_carrousel_dos_face_30.jpg",
+    "https://media.typology.com/storyblok/1600x1600/8cc57acee3/rayons_1001_page-produit_texte5.jpg",
+    "https://media.typology.com/storyblok/3743x3743/ae97c20f44/ingredient_aloe_vera_50ml_spf_produit_carrousel.jpg",
+    "https://media.typology.com/video-storyblok/x/ac0dcc3e0a/22_creme-solaire.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-usage",
+    "product-back",
+    "product-dimensions",
+    "product-alt",
+    "video-usage"
+  ],
+  "categories": ["face", "spf"]
+}

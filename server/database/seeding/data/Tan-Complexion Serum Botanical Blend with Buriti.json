@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1280x1280/0169801f6c/auto_bronzant_carousel-produit-buriti-ingredient.jpg",
     "https://media.typology.com/storyblok/1600x1600/ae5043b388/auto_bronzant_carousel-produit-buriti.jpg",
     "https://media.typology.com/storyblok/1600x1600/27dac2ceb5/auto_bronzant_carousel-produit-buriti-back.jpg",
-    "https://media.typology.com/video-storyblok/x/dfdebd93eb/typology_buriti_video_application.mp4"
+    "https://media.typology.com/video-storyblok/x/dfdebd93eb/typology_buriti_video_application.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/00671af76a/assemblage_buritti_hover.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-front",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["face", "tint", "serums"]
 }

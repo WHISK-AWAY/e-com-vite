@@ -9,7 +9,8 @@
     "https://media.typology.com/storyblok/3287x3287/8425dba778/mascara_carroussel_produit-ingredient.jpg",
     "https://media.typology.com/storyblok/2301x2301/2f2d8a1722/mascara_carroussel_produit-texture_ingredient.jpg",
     "https://media.typology.com/storyblok/2518x2518/75872a5b5b/mascara_carroussel_produit-applicateur.jpg",
-    "https://media.typology.com/video-storyblok/x/a4578b1ffe/application_mascara.mp4"
+    "https://media.typology.com/video-storyblok/x/a4578b1ffe/application_mascara.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/2ba58c17dc/mascara_hover-bottle.gif"
   ],
   "imageDesc": [
     "product-front",
@@ -18,7 +19,8 @@
     "product-alt",
     "product-alt",
     "product-close",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["eye care"]
 }

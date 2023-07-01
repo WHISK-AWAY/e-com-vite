@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/2099x2100/99d8e0b504/avant-apres_lip_care_2.jpg",
     "https://media.typology.com/storyblok/1972x1972/65a785cca6/masque_carroussel_produit_texturee.jpg",
     "https://media.typology.com/storyblok/3287x3287/bb6119c931/masque_carroussel_produit_back.jpg",
-    "https://media.typology.com/video-storyblok/x/46b8dcb610/application_mask_4.mp4"
+    "https://media.typology.com/video-storyblok/x/46b8dcb610/application_mask_4.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/0bdde29de1/mask_hover.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-close",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["masks", "lip care", "moisturizers"]
 }

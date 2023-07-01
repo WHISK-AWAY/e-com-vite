@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/818ba9da81/serum-nuit-botanique-tenseur__main__ebaf27e5f6c347a7ae6dda7e0b6b5937.jpg",
     "https://media.typology.com/storyblok/1490x1570/e42d86144b/plantes-1003_image-full_web1.jpg",
     "https://media.typology.com/storyblok/1490x1570/40637a3ee9/plantes-1003_image-full_web2.jpg",
-    "https://media.typology.com/storyblok/d048694d02/serum-nuit-botanique-tenseur__additional__22d5a153c2ba44a6a41b2a624ca254c9.jpg"
+    "https://media.typology.com/storyblok/d048694d02/serum-nuit-botanique-tenseur__additional__22d5a153c2ba44a6a41b2a624ca254c9.jpg",
+    "https://media.typology.com/video-storyblok/668e5f6218/serum-nuit-botanique-tenseur__hover__9060343de1404b1f9199f51667536b2c.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-alt",
-    "product-dimensions"
+    "product-dimensions",
+    "video-product"
   ],
   "categories": ["serums", "face"]
 }

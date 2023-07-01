@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/24259c13ef/creme-visage-acide-hyaluronique__additional__b9cb7f2de2784c60bcf7821821d3ac68.jpg",
     "https://media.typology.com/storyblok/0401796e65/creme-visage-acide-hyaluronique__additional__19f097045dc440bcb34aa6dc2c81ad5c.jpg",
     "https://media.typology.com/storyblok/18dc5eecd8/creme-visage-acide-hyaluronique__content_2cols_image__505d578844824de9a518b66aa21b3ba2.jpg",
-    "https://media.typology.com/video-storyblok/801d5e0b30/creme-visage-acide-hyaluronique__content_2cols_image__a146eee19a184237b5495cf13a61cf9a.mp4"
+    "https://media.typology.com/video-storyblok/801d5e0b30/creme-visage-acide-hyaluronique__content_2cols_image__a146eee19a184237b5495cf13a61cf9a.mp4",
+    "https://media.typology.com/video-storyblok/852fe3aaa9/creme-visage-acide-hyaluronique__hover__021a71702c1a4849a40b897c2a61e691.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-dimensions",
     "product-alt",
-    "video-usage"
+    "video-usage",
+    "video-product"
   ],
   "categories": ["face", "moisturizers"]
 }

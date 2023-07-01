@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/2099x2100/a4c6ab7d25/avant-apres_lip_care_2.jpg",
     "https://media.typology.com/storyblok/2630x2630/85de13c415/peeling_carroussel_produit_applicateur.jpg",
     "https://media.typology.com/storyblok/1972x1972/5502fcdc5e/peeling_carroussel_produit_back.jpg",
-    "https://media.typology.com/video-storyblok/x/2dd024760e/application_peeling.mp4"
+    "https://media.typology.com/video-storyblok/x/2dd024760e/application_peeling.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/1bd8baddff/peeling_hover.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-close",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["lip care", "exfoliators"]
 }

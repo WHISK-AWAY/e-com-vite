@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/d5acc8f11e/huile-demaquillante-a-7-ingredients__main__f36121279887463d801212c3fb0ad4fe.jpg",
     "https://media.typology.com/storyblok/f33d7491d9/huile-demaquillante-a-7-ingredients__additional__b45d27efbbc34180abef313517afc6a9.jpg",
     "https://media.typology.com/storyblok/13e160499e/huile-demaquillante-a-7-ingredients__additional__194e02bd53104de7bf5add302ad1c511.jpg",
-    "https://media.typology.com/video-storyblok/x/4be2f1aab7/19_huile-demaquillante-ok.mp4"
+    "https://media.typology.com/video-storyblok/x/4be2f1aab7/19_huile-demaquillante-ok.mp4",
+    "https://media.typology.com/video-storyblok/370b0313e1/huile-demaquillante-a-7-ingredients__hover__40b0ed1dd6ac47da868c8829e6f4dfb8.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-back",
     "product-dimensions",
-    "video-usage"
+    "video-usage",
+    "video-product"
   ],
   "categories": ["cleansers", "oils", "face"]
 }

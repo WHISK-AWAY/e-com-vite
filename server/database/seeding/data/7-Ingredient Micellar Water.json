@@ -6,8 +6,15 @@
     "https://media.typology.com/storyblok/1600x1600/52c724a5d5/ten-2001_200ml.jpg",
     "https://media.typology.com/storyblok/da2eb0117a/eau-micellaire-a-7-ingredients__additional__5722d068b73542c3a7f76f3ccfbfd42e.jpg",
     "https://media.typology.com/storyblok/1600x1600/af6d0af55e/ten_2001_back.jpg",
-    "https://media.typology.com/video-storyblok/fc1395354e/eau-micellaire-a-7-ingredients__content_2cols_image__517ed71c2a184241954d4c56c7eb3ce3.mp4"
+    "https://media.typology.com/video-storyblok/fc1395354e/eau-micellaire-a-7-ingredients__content_2cols_image__517ed71c2a184241954d4c56c7eb3ce3.mp4",
+    "https://media.typology.com/video-storyblok/abe3843db2/eau-micellaire-a-7-ingredients__hover__393ceba76bfa4a6abcafc8cbebcc482d.mp4"
   ],
-  "imageDesc": ["product-front", "product-alt", "product-back", "video-usage"],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-back",
+    "video-usage",
+    "video-product"
+  ],
   "categories": ["cleansers", "face"]
 }

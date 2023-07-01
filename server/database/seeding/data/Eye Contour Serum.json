@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1490x1570/9800b80eba/lab-1014_image-full_web1.jpg",
     "https://media.typology.com/storyblok/3050a3246b/serum-q10__additional__7170bfcafbb744ed9147c586bfbb2ea8.jpg",
     "https://media.typology.com/storyblok/1600x1600/3d067888e0/lab_1014_page_produit4.jpg",
-    "https://media.typology.com/video-storyblok/0eff5542fb/serum-q10__content_2cols_image__b0e459588ee04617a291ea6e5cfc00ba.mp4"
+    "https://media.typology.com/video-storyblok/0eff5542fb/serum-q10__content_2cols_image__b0e459588ee04617a291ea6e5cfc00ba.mp4",
+    "https://media.typology.com/video-storyblok/55f4fa45c0/serum-q10__hover__92744fbd2c064840a7e4603638bee86e.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-dimensions",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "video-product"
   ],
   "categories": ["eye care", "serums"]
 }
