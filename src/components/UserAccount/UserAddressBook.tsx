@@ -35,12 +35,6 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
   }, [user]);
 
   useEffect(() => {
-    //! debug logs
-    console.log('addressIdx:', addressIdx);
-    console.log('addresses length:', addresses.length);
-  });
-
-  useEffect(() => {
     if (addresses && addresses.length > 0) {
       setCurrentAddress(addresses[addressIdx].shipToAddress);
     } else {
