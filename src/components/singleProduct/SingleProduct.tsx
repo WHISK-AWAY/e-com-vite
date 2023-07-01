@@ -264,7 +264,6 @@ export default function SingleProduct() {
 
   const parseIngredients = () => {
     const text = singleProduct.productIngredients.split('\n');
-    // console.log( 'etxt', text)
     let arr = [];
     for (let i = 0; i < text.length; i++) {
       arr.push(text[i].trim().split(':'));
@@ -529,40 +528,4 @@ export default function SingleProduct() {
       </section>
     </main>
   );
-}
-
-{
-  /*{thisUser.role === 'admin' && (
-        <>
-          <Link to={`/admin/product/${productId}`} className='pr-2'>
-            EDIT
-          </Link>
-
-          <button
-            onClick={async () => {
-              await dispatch(adminDeleteSingleProduct(productId!));
-              navigate('/shop-all');
-            }}
-          >
-            DELETE
-          </button>
-        </>
-          )}*/
-}
-
-{
-  /*{singleProduct.relatedProducts.map((prod) => (
-          <article className='related-product-card' key={prod._id.toString()}>
-            <h3>
-              <Link to={`/product/${prod._id}`}>{prod.productName}</Link>
-            </h3>
-            <img
-              src={
-                prod.images.find((image) => image.imageDesc === 'product-front')
-                  ?.imageURL || prod.images[0].imageURL
-              }
-              alt='single product view'
-            />
-          </article>
-            ))}*/
 }
