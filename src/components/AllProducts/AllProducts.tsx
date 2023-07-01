@@ -268,11 +268,11 @@ AllProductsProps) {
               key={product._id.toString()}
             >
               <div className={`aspect-[3/4] w-full ${hoverURL ? 'group' : ''}`}>
-                <Link to={'/product/' + product._id} className=''>
+                <Link to={'/product/' + product._id} className='h-full w-full'>
                   <img
                     src={imageURL}
                     alt='product image'
-                    className='aspect-[3/4] w-full object-cover group-hover:invisible'
+                    className='h-full w-full object-cover group-hover:invisible'
                   />
                   {hoverURL && (
                     <video
