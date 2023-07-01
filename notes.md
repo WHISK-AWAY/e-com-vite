@@ -13,8 +13,8 @@
   - 2xl: 1440 x 1024
 
 -Top 10 most common(jan 2022 - jan 2023):
-1 1920 x 1080 (8.83%)
-2 360 x 800 (7.43%)
+1 1920 x 1080 (8.83%) - 16/9
+2 360 x 800 (7.43%) - 9/4ish
 3 1366 x 768 (6.09%)
 4 1280 x 720 (6.07%)
 5 1536 x 864 (4.02%)
@@ -31,14 +31,18 @@
 - [ ] Guest favorites:
   - [ ] Invite to sign up || implement guest favorites || remove hearts
 - [ ] New shipping address form
-  - [ ] Form deletes first character typed after validation failure
+  - [ ] Form deletes first character typed after validation failure (can't recreate...)
   - [ ] Take another look @ responsiveness
-  - [ ] Why does the places API fail when address_2 === 'Apt C5'?
-  - [ ] Address 1 is splitting & being input to address 2
-  - [ ] Need to trim inputs
+  - [x] Why does the places API fail when address_2 === 'Apt C5'?
+  - [x] Address 1 is splitting & being input to address 2
+  - [x] Need to trim inputs
 - [ ] Backup font families
   - [ ] Look into preloading
-- [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
+- [ ] All products view
+  - [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
+  - [ ] Change filter key to use query params so that history works properly
+- [ ] Sign-up view
+  - [ ] Form field doesn't clear on invalid entry (therefore error message does not show)
 - [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- _prioritize!_
   - [x] Add more items (around 50 total -- now @ 52)
