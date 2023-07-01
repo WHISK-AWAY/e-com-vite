@@ -1,14 +1,15 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import axios from 'axios';
+
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
   fetchSingleUser,
   selectSingleUser,
 } from '../../redux/slices/userSlice';
-import axios from 'axios';
-import { StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import Checkout from './Checkout';
-import { Elements } from '@stripe/react-stripe-js';
 import {
   TOrder,
   createGuestOrder,
@@ -21,33 +22,33 @@ import {
 } from '../../redux/slices/promoCodeSlice';
 import { TShippingAddress } from '../../redux/slices/userSlice';
 import ManageShippingAddress from '../UserAccount/shippingAddress/ManageShippingAddress';
-import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
-import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 import {
   selectCart,
   removeFromCart,
   fetchUserCart,
 } from '../../redux/slices/cartSlice';
-import x from '../../../src/assets/icons/x.svg';
-import Counter from '../Counter';
 import { orderAddressArray } from '../../utilities/helpers';
+import Counter from '../Counter';
 
-// ! Decline card: 4000 0000 0000 9995
-// * Success card: 4242 4242 4242 4242
+import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
+import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
+import x from '../../../src/assets/icons/x.svg';
+const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
 export default function Recap() {
   const dispatch = useAppDispatch();
+
   const userId = useAppSelector(selectAuthUserId);
   const { user } = useAppSelector(selectSingleUser);
   const verifyPromo = useAppSelector(selectPromo);
   const promoErrors = useAppSelector(selectPromoErrors);
-  const [promo, setPromo] = useState<string>('');
   const { cart } = useAppSelector(selectCart);
-  // const [count, setCount] = useState(qty);
 
+  const [promo, setPromo] = useState<string>('');
   const [isCheckoutCancel, setIsCheckoutCancel] = useState<boolean>(false);
-  const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY; // ? shift up to imports section so we're not reading it on every render
-  const stripePromise = loadStripe(VITE_STRIPE_PUBLIC_KEY); // ? hopefully can move all the Stripe stuff to its own home (utilities or similar)
+
+  const [stripePromise, setStripePromise] =
+    useState<Promise<Stripe | null> | null>(null);
 
   // conditional component rendering controllers
   const [clientSecret, setClientSecret] = useState<string>('');
@@ -64,6 +65,8 @@ export default function Recap() {
 
   useEffect(() => {
     dispatch(fetchUserCart(userId));
+
+    setStripePromise(loadStripe(VITE_STRIPE_PUBLIC_KEY)); // ? hopefully can move all the Stripe stuff to its own home (utilities or similar)
   }, []);
 
   useEffect(() => {
@@ -224,6 +227,7 @@ export default function Recap() {
    */
 
   if (!cart?.products) return <h1>Loading cart...</h1>;
+  if (!stripePromise) return <h1>Loading stripe...</h1>;
   // if (!addresses || addresses.length === 0)
   //   return <h1>Loading address book...</h1>;
 
