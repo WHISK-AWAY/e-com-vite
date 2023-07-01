@@ -65,7 +65,7 @@ export default function Homepage() {
       </div>
 
       <div className='flex flex-col py-[7%]'>
-        <p className='self-center px-[11%] text-center font-aurora text-lg text-charcoal xl:text-2xl 2xl:text-5xl'>
+        <p className='self-center px-[11%] text-center font-aurora text-charcoal text-[1.5vw]'>
           our philosophy is not to add anything to our products to make them
           stand out; instead we pare them back and distill each formula down to
           the most-essential, natural active ingredients.
@@ -162,7 +162,7 @@ export default function Homepage() {
             </span>
           </p>
 
-          <div className='w-[80%] h-3/4 pt-[2%]'>
+          <div className='w-[80%] pt-[2%]'>
             <img
               src={beachLady}
               alt='lady with a big white hat is laying on the beach'
@@ -384,12 +384,14 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='flex h-full w-[80%] justify-center gap-9 self-center pb-[4%]'>
+      <div className='flex w-[80%] h-full justify-center self-center pb-[4%]'>
+        <div className='flex h-[40dvh] 2xl:h-[50dvh] gap-10'>
+
         <img
           src={coconutHand}
           alt='hand is reaching for a coconut cut in half'
           className='aspect-[1/2] w-[30%] object-cover'
-        />
+          />
         <img
           src={melon}
           alt='melon cut in half'
@@ -401,7 +403,8 @@ export default function Homepage() {
           loop={true}
           autoPlay={true}
           className='aspect-[1/2] w-[30%] items-center justify-center object-cover'
-        />
+          />
+          </div>
       </div>
       {/* <div className='pb-96'></div> */}
     </div>
