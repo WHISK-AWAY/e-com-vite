@@ -85,6 +85,7 @@ const bgImgs = [
   iceFlowers,
   handfulOfRaspberries,
   greenRaspberry,
+  papaya,
   gingerPlate,
   flowerSpike,
   floatingFlowers,
