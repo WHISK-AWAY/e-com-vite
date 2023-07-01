@@ -72,6 +72,7 @@ AllProductsProps) {
   const [bestsellers, setBestsellers] = useState(false);
 
   const [filter, setFilter] = useState('all');
+  const [prevFilter, setPrevFilter] = useState('all');
 
   let { state } = useLocation();
 
@@ -133,9 +134,9 @@ AllProductsProps) {
   }, [pageNum, sort, filter]);
 
   useEffect(() => {
-    if (filter) {
+    if (filter !== prevFilter) {
       setParams({ page: '1' });
-      console.log('setting page to 1');
+      setPrevFilter(filter); // attempts to prevent resetting page # when reloading page
     }
   }, [filter]);
 
