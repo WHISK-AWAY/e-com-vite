@@ -1,23 +1,40 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { TProduct, selectAllProducts } from '../redux/slices/allProductSlice';
+import {
+  ProductState,
+  TProduct,
+  fetchAllProducts,
+  selectAllProducts,
+} from '../redux/slices/allProductSlice';
 import { randomProduct } from './AllProducts/AllProducts';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
 import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
-import rainbowLady from  '../assets/bg-img/homepage/rainbow-lady.jpg'
+import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import { useEffect, useState } from 'react';
 
 export default function Homepage() {
-    const allProducts = useAppSelector(selectAllProducts);
-    const [randomProd, setRandomProd] = useState<TProduct>();
-    
-    useEffect(() => {
-      setRandomProd(randomProduct(allProducts))
-    }, [allProducts])
+  const dispatch = useAppDispatch();
 
-    // console.log('AP', allProducts)
-    if(!randomProd )return <p>...loading</p>
+  const allProducts = useAppSelector(selectAllProducts);
+  const [randomProd, setRandomProd] = useState<TProduct>();
+
+  useEffect(() => {
+    if (!allProducts.products.length) {
+      dispatch(
+        fetchAllProducts({
+          page: 1,
+          sort: { direction: 'asc', key: 'productName' },
+          filter: 'all',
+        })
+      );
+    } else {
+      setRandomProd(randomProduct(allProducts));
+    }
+  }, [allProducts]);
+
+  // console.log('AP', allProducts)
+  if (!randomProd) return <p>...loading</p>;
   return (
     <div className='relative flex h-full w-screen flex-col justify-center  '>
       <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
@@ -100,7 +117,7 @@ export default function Homepage() {
               ${randomProd!.price}
             </p> */}
           </div>
-          <p className='absolute top-[70%] right-[20%] w-[40vw] font-aurora leading-loose text-[#262625]'>
+          <p className='absolute right-[20%] top-[70%] w-[40vw] font-aurora leading-loose text-[#262625]'>
             during the summer months, it's essential to keep your skin
             moisturized and hydrated wherever possible. however, it's important
             to switch high-intensity heavy creams in favor of lighter
