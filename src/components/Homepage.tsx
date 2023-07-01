@@ -37,7 +37,7 @@ export default function Homepage() {
   if (!randomProd) return <p>...loading</p>;
   return (
     <div className='relative flex h-full w-screen flex-col justify-center  '>
-      <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
+      <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center self-center px-5 lg:px-10'>
         <video
           src={handLotion}
           loop={true}
