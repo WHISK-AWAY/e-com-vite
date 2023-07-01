@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1600x1600/1b8d2b8d09/03_better_aging_carousel-ingredient.jpg",
     "https://media.typology.com/storyblok/1972x1972/a88c07703e/04_carroussel_produit_assemblage_botanique_texture.jpg",
     "https://media.typology.com/storyblok/3287x3287/7efb7bc83c/05_carroussel_produit_assemblage_botanique_back.jpg",
-    "https://media.typology.com/video-storyblok/x/96a63bff6d/02_assemblage_botanique_1-1.mp4"
+    "https://media.typology.com/video-storyblok/x/96a63bff6d/02_assemblage_botanique_1-1.mp4",
+    "https://media.typology.com/video-storyblok/48f9d1333b/serum-nuit-botanique-purifiant__hover__e484483f9d1d45ce9b819c04925dc2dd.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-close",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "video-product"
   ],
   "categories": ["serums", "face", "night", "oils"]
 }

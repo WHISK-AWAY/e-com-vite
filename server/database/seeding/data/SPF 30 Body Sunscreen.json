@@ -1,0 +1,20 @@
+{
+  "productName": "SPF 30 Body Sunscreen",
+  "productShortDesc": "Provides broad spectrum UVA/UVB protection and helps prevent photoaging. Light, fluid texture. Does not leave white cast. Formulated with mineral and organic filters. 82% naturally derived. Vegan. Made in France.",
+  "productIngredients": "Mineral filter:\nProtects the skin from UV rays by forming a physical protective barrier on the skin's surface that reflects solar radiation. The mineral filter used in this cream is TITANIUM DIOXIDE without nanoparticles. It stays on the surface of the skin and offers overall UVA and UVB protection. It also has mattifying properties.\nDISODIUM PHENYL DIBENZIMIDAZOLE TETRASULFONATE:\nprovides protection against UVA radiation.\nETHYLHEXYL TRIAZONE:\nprotects against UVB radiation.\nDIETHYLAMINO HYDROXYBENZOYL HEXYL BENZOATE:\nprovides UVA protection and neutralizes free radicals generated during sun exposure.\nBIS-ETHYLHEXYLOXYPHENOL METHOXYPHENYL TRIAZINE:\noffers broad spectrum UVA and UVB protection.",
+  "imageURL": [
+    "https://media.typology.com/storyblok/1600x1600/28fc789624/rayons-2001_packshot_web.jpg",
+    "https://media.typology.com/storyblok/4159x4159/3f768b50a5/spf_produit_carrousel_body_texture.jpg",
+    "https://media.typology.com/storyblok/4159x4159/3b832d7f6c/corps_application_spf_produit_carrousel.jpg",
+    "https://media.typology.com/storyblok/3743x3743/3b6d9f7bb8/dos_100ml_spf_produit_carrousel.jpg",
+    "https://media.typology.com/video-storyblok/x/c621be0247/application_spf_body.mp4"
+  ],
+  "imageDesc": [
+    "product-front",
+    "product-texture",
+    "product-usage",
+    "product-back",
+    "video-usage"
+  ],
+  "categories": ["spf", "body"]
+}

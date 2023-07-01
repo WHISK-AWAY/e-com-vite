@@ -7,14 +7,17 @@
     "https://media.typology.com/storyblok/2258x2258/00c5c8f118/3_vitamine_c_ingredient.jpg",
     "https://media.typology.com/storyblok/1600x1600/c1dfb0e790/4_pipette_vit_c_texture.jpg",
     "https://media.typology.com/storyblok/1280x1280/1e0b3dcb52/05_dos_eclat_vit_c.jpg",
-    "https://media.typology.com/video-storyblok/9668abe394/serum-a-la-vitamine-c__content_2cols_image__923c3c2e1d8e4254b98c040aa80ba4bc.mp4"
+    "https://media.typology.com/video-storyblok/9668abe394/serum-a-la-vitamine-c__content_2cols_image__923c3c2e1d8e4254b98c040aa80ba4bc.mp4",
+    "https://media.typology.com/video-storyblok/4a248e05fb/serum-a-la-vitamine-c__hover__6062798af0a64080a78fabb6cef5ceba.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-close",
     "product-back",
-    "video-usage"
+    "video-usage",
+    "gif-product",
+    "video-product"
   ],
   "categories": ["face", "serums"]
 }

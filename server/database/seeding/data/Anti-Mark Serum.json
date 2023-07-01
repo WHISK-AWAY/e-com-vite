@@ -6,8 +6,15 @@
     "https://media.typology.com/storyblok/1600x1600/34551c9273/lab_1019_15ml.jpg",
     "https://media.typology.com/storyblok/1600x1600/532dc8684e/marques-pack-ingredients.jpeg",
     "https://media.typology.com/storyblok/1280x1280/beb98bc49e/anti-marques_lab-1019_carousel-produit3-1.jpeg",
-    "https://media.typology.com/video-storyblok/x/ae10daa868/12_serum-pha.mp4"
+    "https://media.typology.com/video-storyblok/x/ae10daa868/12_serum-pha.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/9d292ecc51/anti-marques_hover3.gif"
   ],
-  "imageDesc": ["product-front", "product-alt", "product-alt", "video-usage"],
+  "imageDesc": [
+    "product-front",
+    "product-alt",
+    "product-alt",
+    "video-usage",
+    "gif-product"
+  ],
   "categories": ["serums", "face", "acne"]
 }

@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1600x1600/4d4f081e39/hydratation_carousel-produit-lait-texture.jpg",
     "https://media.typology.com/storyblok/1600x1600/4400aef97d/hydratation_carousel-produit-lait_dos.jpg",
     "https://media.typology.com/storyblok/1600x1600/8d26ae83ca/lab_3003_page_produit5.jpg",
-    "https://media.typology.com/video-storyblok/x/b4654404e6/16_lait-nettoyant-ok.mp4"
+    "https://media.typology.com/video-storyblok/x/b4654404e6/16_lait-nettoyant-ok.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/174aa5eb1f/hydratation_hover-bottle.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-texture",
     "product-back",
     "product-dimensions",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["face", "cleansers", "moisturizers"]
 }

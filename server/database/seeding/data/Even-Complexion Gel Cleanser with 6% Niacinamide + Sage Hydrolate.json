@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/1600x1600/528a7d1f47/lab_3005_page_produit.jpg",
     "https://media.typology.com/storyblok/1600x1600/7549535063/anti-marques_lab-3005_carousel-produit.jpg",
     "https://media.typology.com/storyblok/1600x1600/37fcfd81d7/lab_3005_page_produit5.jpg",
-    "https://media.typology.com/video-storyblok/x/27ad40831c/15_gels-nettoyants.mp4"
+    "https://media.typology.com/video-storyblok/x/27ad40831c/15_gels-nettoyants.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/1eb19a7997/anti-marques_hover4.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-dimensions",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["cleansers", "face", "acne"]
 }

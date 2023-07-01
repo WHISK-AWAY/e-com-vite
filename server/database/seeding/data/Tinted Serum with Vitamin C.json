@@ -12,7 +12,8 @@
     "https://media.typology.com/storyblok/716032accd/serum-teinte__carousel_images__c1bf94ae7e984f1aa563d4661088d938.jpg",
     "https://media.typology.com/storyblok/cd0390c124/serum-teinte__carousel_images__298abe364cee443d8c4b168dffdad817.jpg",
     "https://media.typology.com/storyblok/82e8344d0e/serum-teinte__carousel_images__9781bd9c88a4413282eda4b73da7f238.jpg",
-    "https://media.typology.com/video-storyblok/x/23edac9f3a/800x900_tintedserum_v2.mp4"
+    "https://media.typology.com/video-storyblok/x/23edac9f3a/800x900_tintedserum_v2.mp4",
+    "https://media.typology.com/video-storyblok/8dfaee27a4/serum-teinte__hover__8b836384f196471d9ee322c70b7750fe.gif"
   ],
   "imageDesc": [
     "product-front",
@@ -24,7 +25,8 @@
     "product-alt",
     "product-alt",
     "product-alt",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["tint", "serums", "face"]
 }

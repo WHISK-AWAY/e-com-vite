@@ -1,7 +1,9 @@
 import type { FileMetadataOutput } from './combineProductInfo';
 import { Product, Tag, ITag } from '../index';
-import type { IProduct } from '../dbTypes';
-import mongoose, { ObjectId } from 'mongoose';
+import type { IProduct, ImageData } from '../dbTypes';
+import mongoose from 'mongoose';
+import productMetadata from './_combinedProductInfo.json';
+import { output_dir } from './imageDownloader';
 
 function randomTags(tagArray: ITag[], count: number) {
   let res: mongoose.Types.ObjectId[] = [];
@@ -16,14 +18,13 @@ function randomTags(tagArray: ITag[], count: number) {
 }
 
 export async function seedRealProducts() {
-  const productMetadata: FileMetadataOutput[] = require('./_combinedProductInfo.json');
+  // const productMetadata: FileMetadataOutput[] = require('./_combinedProductInfo.json'); //! replaced w/import statement...can delete this if things turn out OK
 
   const productsToCreate: IProduct[] = [];
 
   const tags: ITag[] = await Tag.find();
 
   for (let product of productMetadata) {
-    // let tagIDs = randomTags(tags, 3);
     if (!product.productIngredients) console.log('NO INGREDIENTS:', product);
 
     if (!product.images || product.images.length === 0) {
@@ -37,7 +38,7 @@ export async function seedRealProducts() {
       price: Math.floor(Math.random() * (60 - 30) + 30),
       qty: Math.floor(Math.random() * (50 - 1) + 1),
       saleCount: 0,
-      images: product.images,
+      images: product.images as ImageData[],
       tags: product.categories
         .map(
           (cat) =>
@@ -47,10 +48,19 @@ export async function seedRealProducts() {
         .filter((cat) => cat !== undefined) as mongoose.Types.ObjectId[],
     };
 
+    // convert hosted URL to public assets folder reference
+    for (let img of newProduct.images) {
+      let filename = img.imageURL.split('/').at(-1);
+      let fileExtension = filename
+        ?.split('.')
+        .at(-1) as keyof typeof output_dir;
+      if (!fileExtension) continue;
+
+      img.imageURL = `/assets/${output_dir[fileExtension]}/${filename}`;
+    }
+
     productsToCreate.push(newProduct);
   }
 
   return await Product.insertMany(productsToCreate);
 }
-
-// seedRealProducts();

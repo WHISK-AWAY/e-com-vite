@@ -7,14 +7,16 @@
     "https://media.typology.com/storyblok/1600x1600/c3092546fe/better_aging_carousel-produit_tonic.jpg",
     "https://media.typology.com/storyblok/1600x1600/31c8e709a2/better_aging_carousel-produit_dos.jpg",
     "https://media.typology.com/storyblok/1600x1600/1f9121777e/better_aging_carousel-ingredient.jpg",
-    "https://media.typology.com/video-storyblok/x/fdc8074c02/18_toniques.mp4"
+    "https://media.typology.com/video-storyblok/x/fdc8074c02/18_toniques.mp4",
+    "https://media.typology.com/video-storyblok/1200x1500/8f3e90e51d/better_aging_hover-bottle.gif"
   ],
   "imageDesc": [
     "product-front",
     "product-close",
     "product-back",
     "product-alt",
-    "video-usage"
+    "video-usage",
+    "gif-product"
   ],
   "categories": ["toners", "face"]
 }

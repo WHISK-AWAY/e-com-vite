@@ -58,7 +58,9 @@ export type ImageDesc =
   | 'product-texture'
   | 'product-dimensions'
   | 'product-usage'
-  | 'video-usage';
+  | 'video-usage'
+  | 'gif-product'
+  | 'video-product';
 
 export interface IProduct {
   _id?: Types.ObjectId;

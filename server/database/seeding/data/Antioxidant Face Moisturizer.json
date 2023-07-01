@@ -6,13 +6,15 @@
     "https://media.typology.com/storyblok/38a77d48da/creme-hydratante-visage-vitamine-c-eau-de-citron__main__a726733af1b7471e963c393313ec4ad2.jpg",
     "https://media.typology.com/storyblok/dfee7e0b09/creme-hydratante-visage-vitamine-c-eau-de-citron__additional__dd2e4a02fdf541a1a085860a7a709e5d.jpg",
     "https://media.typology.com/storyblok/96462a9784/creme-hydratante-visage-vitamine-c-eau-de-citron__additional__5bd4792a34a2406f9a2cee6d8f208e8a.jpg",
-    "https://media.typology.com/video-storyblok/6b1bebd760/creme-hydratante-visage-vitamine-c-eau-de-citron__content_2cols_image__3ebf7d9d6e18491289b4fe01bb6b029c.mp4"
+    "https://media.typology.com/video-storyblok/6b1bebd760/creme-hydratante-visage-vitamine-c-eau-de-citron__content_2cols_image__3ebf7d9d6e18491289b4fe01bb6b029c.mp4",
+    "https://media.typology.com/video-storyblok/7f51255739/creme-hydratante-visage-vitamine-c-eau-de-citron__hover__317b3615f0de45e4b420c22b1a06cbc1.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
     "product-dimensions",
-    "video-usage"
+    "video-usage",
+    "video-product"
   ],
   "categories": ["face", "moisturizers"]
 }

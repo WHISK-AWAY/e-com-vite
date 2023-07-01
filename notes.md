@@ -28,27 +28,29 @@
 
 ### Open
 
-- [ ] Why does the _places API_ fail when address_2 === 'Apt C5'?
+- [ ] Guest favorites:
+  - [ ] Invite to sign up || implement guest favorites || remove hearts
+- [ ] New shipping address form
+  - [ ] Form deletes first character typed after validation failure
+  - [ ] Take another look @ responsiveness
+  - [ ] Why does the places API fail when address_2 === 'Apt C5'?
+  - [ ] Address 1 is splitting & being input to address 2
   - [ ] Need to trim inputs
 - [ ] Backup font families
   - [ ] Look into preloading
-- [x] Need to remove empty categories from filter
 - [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
 - [ ] Add new / edit address functionality to user account section (maybe)
 - [ ] Product catalog <-- _prioritize!_
   - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
+  - [x] Store & serve assets (i.e., get rid of hosted URLs)
 - [ ] Order creation:
   - [x] promo code name failing @ route
   - [x] Order still gets created (?)
   - [ ] Need to clear order state as cleanup
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
-- [x] Find a home for sign-out button
-- [x] Scroll to top of products section when clicking next page button
-- [x] Logo should point to home page
 - [ ] Cart checkout button should close cart (check favorites also)
-- [x] Product images should point to single product page
 - [ ] When user has only 1 address on file, attempting to delete it leads to nowhere
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
@@ -63,6 +65,11 @@
 
 ### Resolved
 
+- [x] Need to remove empty categories from filter
+- [x] Product images should point to single product page
+- [x] Find a home for sign-out button
+- [x] Scroll to top of products section when clicking next page button
+- [x] Logo should point to home page
 - [x] Logo should point to home page
 - [x] Sign-in/sign-up: need cursor-pointer on alternate link ('sign up instead,' etc.)
 - [x] User Account Section

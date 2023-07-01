@@ -8,8 +8,7 @@
     "https://media.typology.com/storyblok/3287x3287/f57123c827/antioxydant_carroussel_produit_.jpg",
     "https://media.typology.com/storyblok/3287x3287/46a56931c9/antioxydant_creme-texture.jpg",
     "https://media.typology.com/storyblok/3287x3287/6d3067fd79/antioxydant_carroussel_produit_.jpg",
-    "https://media.typology.com/storyblok/3287x3287/4da0f92ff9/antioxydant_masque_pack-dos.jpg",
-    "https://media.typology.com/video-storyblok/x/1c5202dcbb/application-antioxydant-creme.mp4"
+    "https://media.typology.com/storyblok/3287x3287/4da0f92ff9/antioxydant_masque_pack-dos.jpg"
   ],
   "imageDesc": [
     "product-front",
@@ -17,8 +16,7 @@
     "product-texture",
     "product-close",
     "product-alt",
-    "product-packaging-back",
-    "video-usage"
+    "product-packaging-back"
   ],
   "categories": ["moisturizers", "face"]
 }

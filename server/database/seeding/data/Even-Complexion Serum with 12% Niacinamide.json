@@ -9,15 +9,18 @@
     "https://media.typology.com/storyblok/c03b7323f9/serum-a-la-niacinamide__additional__755723f43b9141c8ab17db0546c11162.jpg",
     "https://media.typology.com/storyblok/2a359bea50/serum-a-la-niacinamide__additional__adee7d1142c64c40bcb4ceab0643adc0.jpg",
     "https://media.typology.com/storyblok/042ff14ad7/serum-a-la-niacinamide__carousel_images__4c890774e9c342818c114805a8c69e63.png",
-    "https://media.typology.com/storyblok/ded0b7066a/serum-a-la-niacinamide__carousel_images__5341139e897848768cc6618cf5ddc91f.png"
+    "https://media.typology.com/storyblok/ded0b7066a/serum-a-la-niacinamide__carousel_images__5341139e897848768cc6618cf5ddc91f.png",
+    "https://media.typology.com/video-storyblok/f136bd0ef5/serum-a-la-niacinamide__hover__4ea4d390c1584af0a4fd592a4e1fd74c.mp4"
   ],
   "imageDesc": [
     "product-front",
     "product-alt",
+    "product-alt",
     "product-dimensions",
     "product-back",
     "product-usage",
-    "product-usage"
+    "product-usage",
+    "video-product"
   ],
   "categories": ["serums", "face", "acne"]
 }
