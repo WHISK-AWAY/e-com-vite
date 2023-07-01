@@ -25,6 +25,9 @@ export default {
       raleway: ['Raleway', 'sans-serif'],
       yantramanav: ['Yantramanav', 'sans-serif'],
       'roboto-mono': ['Roboto Mono', 'monospace'],
+      roboto: ['Roboto', 'sans-serif'],
+      playfair: ['Playfair Display', 'serif'],
+      abril: ['Abril Fatface', 'cursive']
     },
     fontWeight: {
       thin: 100,
