@@ -1,22 +1,18 @@
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getUserId, selectAuthUserId } from '../../../redux/slices/authSlice';
 import {
-  createOrder,
   fetchGuestOrder,
   fetchSingleOrder,
-  resetOrderState,
   selectOrderState,
   updateGuestOrder,
   updateOrder,
 } from '../../../redux/slices/orderSlice';
 import { useEffect } from 'react';
-import { selectSingleUser } from '../../../redux/slices/userSlice';
 import { useSearchParams } from 'react-router-dom';
 import towel from '../../../assets/bg-img/order-confirmation/towel.jpg';
 import hands from '../../../assets/bg-img/order-confirmation/hands.jpg';
 import ladyBack from '../../../assets/bg-img/order-confirmation/lady-back.jpg';
 
-// * 4242 4242 4242 4242
 export default function Success() {
   const dispatch = useAppDispatch();
   const [params, _] = useSearchParams();
@@ -30,8 +26,6 @@ export default function Success() {
   //   if (userId && userOrder.singleOrder?._id)
   //     dispatch(updateOrder({ userId, orderId: userOrder.singleOrder?._id }));
   // }, [userId, userOrder.singleOrder]);
-
-  console.log('SINGLE LIKE YOU', singleOrder);
 
   useEffect(() => {
     if (orderId) {
@@ -94,7 +88,10 @@ export default function Success() {
                   -${(singleOrder.subtotal! - singleOrder.total!).toFixed(2)}
                 </span>
               </p>
-              <h2 >Order Total <span className='pl-3'>${singleOrder.total?.toFixed(2)}</span></h2>
+              <h2>
+                Order Total{' '}
+                <span className='pl-3'>${singleOrder.total?.toFixed(2)}</span>
+              </h2>
             </>
           ) : (
             <>
@@ -111,15 +108,15 @@ export default function Success() {
       </div>
 
       <div className='details-shipping section flex h-full w-[55%] flex-col gap-5 self-center pt-5  lg:max-h-96  lg:flex-row lg:justify-between 2xl:w-[40%]'>
-        <div className='order details flex min-h-96 w-[50%] flex-col overflow-hidden md:w-full'>
+        <div className='order details min-h-96 flex w-[50%] flex-col overflow-hidden md:w-full'>
           <h2 className='order-details w-[70%] self-center border-x border-t border-charcoal py-[2%] text-center font-italiana text-lg uppercase '>
             order details
           </h2>
 
-          <div className='flex w-full flex-col h-full overflow-auto  border border-charcoal p-[5%]'>
+          <div className='flex h-full w-full flex-col overflow-auto  border border-charcoal p-[5%]'>
             {singleOrder.orderDetails.map((item) => (
               <div
-                className='order-detail-item flex h-full items-center w-[80%] xl:w-[90%] justify-between self-center'
+                className='order-detail-item flex h-full w-[80%] items-center justify-between self-center xl:w-[90%]'
                 key={item.productId}
               >
                 <div className='flex w-full flex-row-reverse items-center justify-between gap-4'>
