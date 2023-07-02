@@ -40,6 +40,8 @@
   - [ ] Look into preloading
 - [ ] Provide a way back to the 'shop all' page from within whatever other views use the AllProducts component
 - [ ] Add new / edit address functionality to user account section (maybe)
+-User Profile
+-[] consider allowing user to delete the profile if they choose so
 - [ ] Product catalog <-- _prioritize!_
   - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
