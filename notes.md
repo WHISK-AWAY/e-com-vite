@@ -34,6 +34,7 @@
   - [ ] Form deletes first character typed after validation failure
   - [ ] Take another look @ responsiveness
   - [ ] Why does the places API fail when address_2 === 'Apt C5'?
+  - [ ] Consider uppercasing user first and last name on shipping address if not done yet?
   - [ ] Address 1 is splitting & being input to address 2
   - [ ] Need to trim inputs
 - [ ] Backup font families
