@@ -186,10 +186,10 @@ export default function Homepage() {
                 autoPlay={true}
                 muted={true}
                 loop={true}
-                className='aspect-[4/6] w-[70%]   '
+                className='aspect-[4/6] w-[70%]'
               />
             </div>
-            <div className='product-section  absolute right-0 top-2 w-[50%] translate-x-[5%]'>
+            <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%]'>
               {' '}
               <Link
                 to={'/product/' + randomProd!._id}
@@ -210,7 +210,7 @@ export default function Homepage() {
             </div>
           </div>
 
-          <div className='w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white '>
+          <div className='w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white'>
             <p>
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -387,7 +387,7 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='flex h-full w-[80%] justify-center self-center pb-[4%]'>
+      <div className='flex h-full w-[80%] justify-center self-center pb-[6%]'>
         <div className='flex h-[40dvh] gap-9 2xl:h-[50dvh]'>
           <img
             src={coconutHand}
