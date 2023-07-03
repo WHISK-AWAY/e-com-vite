@@ -48,7 +48,7 @@
   - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
   - [x] Store & serve assets (i.e., get rid of hosted URLs)
-- [ ] Order creation:
+- [ ] Order creation: **pb working**
   - [x] promo code name failing @ route
   - [x] Order still gets created (?)
   - [ ] Need to clear order state as cleanup
@@ -64,7 +64,7 @@
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
-- [ ] Checkout **pb working**
+- [ ] Checkout
   - [x] Checkout-section address book does not render all addresses
   - [x] When user has only 1 address on file, attempting to delete it leads to nowhere
   - [ ] 2 elements with non-unique id '#email' (where??)
