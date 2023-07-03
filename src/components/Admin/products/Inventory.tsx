@@ -40,11 +40,9 @@ export default function Inventory() {
 
   return (
     <section className='products-section'>
+      <h1>PRODUCTS</h1>
       <table>
         <thead>
-          <tr>
-            <th>PRODUCTS</th>
-          </tr>
           <tr>
             <th>PRODUCT ID</th>
             <th
@@ -66,6 +64,7 @@ export default function Inventory() {
             >
               SALE COUNT
             </th>
+            <th>ACTION</th>
           </tr>
         </thead>
         <tbody className='pr-10'>
@@ -73,9 +72,14 @@ export default function Inventory() {
             return (
               <tr key={product._id}>
                 <td className='pr-10'>{product._id}</td>
-                <Link to={`/product/${product._id}`}>
-                  <td className='pr-10 text-blue-700'>{product.productName}</td>
-                </Link>
+                <td>
+                  <Link
+                    className='pr-10 text-blue-700'
+                    to={`/product/${product._id}`}
+                  >
+                    {product.productName}
+                  </Link>
+                </td>
                 <td className='pr-10'>
                   {product.tags.length > 0
                     ? product.tags
@@ -87,18 +91,20 @@ export default function Inventory() {
                 <td className='pr-10'>{product.qty}</td>
                 <td className='pr-10'>{product.price}</td>
                 <td className='pr-10'>{product.saleCount}</td>
-                <Link to={`/admin/product/${product._id}`} className='pr-2'>
-                  EDIT
-                </Link>
+                <td>
+                  <Link to={`/admin/product/${product._id}`} className='pr-2'>
+                    EDIT
+                  </Link>
 
-                <button
-                  onClick={async () => {
-                    await dispatch(adminDeleteSingleProduct(product._id));
-                    await dispatch(adminFetchAllProducts());
-                  }}
-                >
-                  DELETE
-                </button>
+                  <button
+                    onClick={async () => {
+                      await dispatch(adminDeleteSingleProduct(product._id));
+                      await dispatch(adminFetchAllProducts());
+                    }}
+                  >
+                    DELETE
+                  </button>
+                </td>
               </tr>
             );
           })}
