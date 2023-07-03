@@ -12,8 +12,6 @@ import {
   selectAdminPromos,
   selectAdminSinglePromo,
 } from '../../../redux/slices/admin/adminPromoSlice';
-import { fetchSinglePromo } from '../../../redux/slices/promoCodeSlice';
-// import { Link } from 'react-router-dom';
 
 export type TFormMode = 'edit' | 'new';
 export type TCreatePromo = {
@@ -45,10 +43,6 @@ export default function CreateOrEditPromo() {
     promoCodeName: promo.promoCodeName || '',
     promoRate: promo.promoRate || null,
   };
-
-  console.log('SP', promo);
-  console.log('SIDP', promoId);
-  console.log('formMode', formMode)
 
   const {
     register,
