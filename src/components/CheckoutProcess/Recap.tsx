@@ -78,6 +78,7 @@ export default function Recap() {
         const addressArray = orderAddressArray(user);
         if (addressArray?.length) setAddresses(addressArray); // this SHOULD get fired when we select a new default...
       } else {
+        setAddresses([]);
         setManageShippingAddress(true);
       }
     }

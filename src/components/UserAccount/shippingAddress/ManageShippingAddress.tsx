@@ -68,7 +68,7 @@ export default function ManageShippingAddress({
 
   useEffect(() => {
     if (!addresses || !addresses.length) setIsFormEdit(true);
-  }, []);
+  }, [addresses]);
 
   function selectAddress() {
     setAddressIndex(selectorIdx);

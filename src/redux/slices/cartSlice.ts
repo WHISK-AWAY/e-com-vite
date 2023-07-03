@@ -34,7 +34,7 @@ export type CartState = {
   errors: { message: string | null; status: number | null };
 };
 
-const guestCart: ICart = {
+const initialGuestCart: ICart = {
   products: [],
   subtotal: 0,
 };
@@ -113,7 +113,7 @@ export const fetchUserCart = createAsyncThunk(
       let guestUserCart: ICart | null | string =
         localStorage.getItem('guestCart');
       if (guestUserCart === null) {
-        guestUserCart = { ...guestCart };
+        guestUserCart = { ...initialGuestCart };
       } else {
         guestUserCart = JSON.parse(guestUserCart);
       }
@@ -149,20 +149,24 @@ export const addToCart = createAsyncThunk(
   ) => {
     try {
       if (!args.userId || args.userId === null) {
-        const guestProduct = await axios.get(
+        const { data } = await axios.get(
           VITE_API_URL + `/api/product/${args.productId}`
         );
+
+        const guestProduct = data as TProduct;
 
         const localGuestCart = localStorage.getItem('guestCart');
 
         const prodDetails = {
-          product: guestProduct.data,
+          product: guestProduct,
           qty: args.qty,
-          price: guestProduct.data.price,
+          price: guestProduct.price,
           _id: args.productId,
         };
-        let cart = { ...guestCart };
-        if (!localGuestCart || localGuestCart === null) {
+
+        let cart = { ...initialGuestCart };
+
+        if (!localGuestCart) {
           cart.products.push(prodDetails);
           cart.subtotal = prodDetails.qty * prodDetails.price;
 
@@ -171,7 +175,7 @@ export const addToCart = createAsyncThunk(
           cart = JSON.parse(localGuestCart);
 
           const findProduct = cart.products.find(
-            (p) => p._id === guestProduct.data._id
+            (p) => p._id === guestProduct._id
           );
 
           if (findProduct) {
@@ -218,7 +222,7 @@ export const removeFromCart = createAsyncThunk(
         VITE_API_URL + `/api/product/${args.productId}`
       );
 
-      let cart = { ...guestCart };
+      let cart = { ...initialGuestCart };
       const localGuestCart = localStorage.getItem('guestCart');
       if (localGuestCart) {
         cart = JSON.parse(localGuestCart);

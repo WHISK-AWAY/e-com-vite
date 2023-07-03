@@ -86,7 +86,7 @@ export function orderAddressArray(user: TUser) {
   // Given a user object, move the default shipping address to the beginning _
   // of the array of addresses.
   let addressList: TShippingAddress[] = user.shippingAddresses;
-  if (addressList.length === 0) return;
+  if (!addressList || addressList.length === 0) return [];
   let defaultAddress = user.shippingAddresses.find(
     (address) => address.isDefault === true
   );
