@@ -22,7 +22,6 @@ const zodUpdatePromo = zodPromo
     { message: 'Must provide either promo name or promo rate' }
   );
 
-
 // list all promo codes
 router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
   try {
@@ -36,37 +35,42 @@ router.get('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
   }
 });
 
+router.get(
+  '/:promoId',
+  checkAuthenticated,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const { promoId } = req.params;
+      const promoLookup = await Promo.findById(promoId);
+      if (!promoLookup)
+        return res
+          .status(404)
+          .json({ message: 'No promo code with the given ID found...' });
 
-router.get('/:promoId', checkAuthenticated, requireAdmin, async (req, res, next) => {
+      res.status(200).json(promoLookup);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.get('/check-promo/:promoName', async (req, res, next) => {
   try {
-    const {promoId} = req.params;
-    const promoLookup = await Promo.findById(promoId);
-    if (!promoLookup)
-      return res.status(404).json({ message: 'No promo code with the given ID found...' });
+    const { promoName } = req.params;
+    const promoLookup = await Promo.findOne({ promoCodeName: promoName });
+
+    if (!promoLookup) {
+      return res
+        .status(404)
+        .json({ message: 'Promo code with given name does not exist' });
+    }
 
     res.status(200).json(promoLookup);
   } catch (err) {
     next(err);
   }
 });
-
-
-router.get('/check-promo/:promoName', checkAuthenticated, async(req, res, next) => {
-  try{
-    const {promoName } = req.params;
-    const promoLookup = await Promo.findOne({promoCodeName: promoName});
-
-    if(!promoLookup) {
-      return res.status(404).json({message: 'Promo code with given name does not exist'})
-    }
-
-    
-    res.status(200).json(promoLookup)
-  }catch(err) {
-    next(err);
-  } 
-})
-
 
 // create promo code
 router.post('/', checkAuthenticated, requireAdmin, async (req, res, next) => {
