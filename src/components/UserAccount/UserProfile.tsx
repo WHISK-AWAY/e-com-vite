@@ -16,6 +16,9 @@ import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
 
 type views = 'account' | 'shipping' | 'order' | 'password';
 
+
+
+
 const viewMap = {
   account: 'account info',
   shipping: 'address book',
@@ -43,6 +46,9 @@ export default function UserProfile() {
     dispatch(resetUserState());
     navigate('/');
   }
+
+
+ 
 
   if (!user) return <h1>Loading...</h1>;
   return (
