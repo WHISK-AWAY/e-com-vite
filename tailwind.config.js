@@ -31,6 +31,7 @@ export default {
       lora: ['Lora', 'serif'],
       garamond: ['EB Garamond', 'serif'],
       bodoni: ['Bodoni Moda', 'serif'],
+      antonio: ['Antonio', 'sans-serif']
     },
     fontWeight: {
       thin: 100,
