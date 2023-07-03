@@ -50,7 +50,11 @@ export const fetchSinglePromo = createAsyncThunk(
 const promoSlice = createSlice({
   name: 'promoCode',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPromoState: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSinglePromo.pending, (state) => {
@@ -72,5 +76,6 @@ const promoSlice = createSlice({
 });
 
 export default promoSlice.reducer;
+export const { resetPromoState } = promoSlice.actions;
 export const selectPromo = (state: RootState) => state.promoCode.promoCode;
 export const selectPromoErrors = (state: RootState) => state.promoCode.errors;

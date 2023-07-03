@@ -3,6 +3,7 @@ import { getUserId, selectAuthUserId } from '../../../redux/slices/authSlice';
 import {
   fetchGuestOrder,
   fetchSingleOrder,
+  resetOrderState,
   selectOrderState,
   updateGuestOrder,
   updateOrder,
@@ -12,6 +13,7 @@ import { useSearchParams } from 'react-router-dom';
 import towel from '../../../assets/bg-img/order-confirmation/towel.jpg';
 import hands from '../../../assets/bg-img/order-confirmation/hands.jpg';
 import ladyBack from '../../../assets/bg-img/order-confirmation/lady-back.jpg';
+import { resetPromoState } from '../../../redux/slices/promoCodeSlice';
 
 export default function Success() {
   const dispatch = useAppDispatch();
@@ -20,26 +22,32 @@ export default function Success() {
   const { singleOrder } = useAppSelector(selectOrderState);
   const userOrder = useAppSelector(selectOrderState);
   const orderId = params.get('order');
-  // const user = useAppSelector(selectSingleUser);
-
-  // useEffect(() => {
-  //   if (userId && userOrder.singleOrder?._id)
-  //     dispatch(updateOrder({ userId, orderId: userOrder.singleOrder?._id }));
-  // }, [userId, userOrder.singleOrder]);
 
   useEffect(() => {
+    return () => {
+      dispatch(resetOrderState());
+      dispatch(resetPromoState());
+    };
+  }, []);
+
+  useEffect(() => {
+    // only act if order ID is provided
     if (orderId) {
-      dispatch(getUserId()).then(() => {
-        if (userId) {
-          dispatch(updateOrder({ userId, orderId })).then(() =>
-            dispatch(fetchSingleOrder({ userId, orderId }))
-          );
-        } else {
-          dispatch(updateGuestOrder({ orderId })).then(() =>
-            dispatch(fetchGuestOrder(orderId))
-          );
-        }
-      });
+      // No user ID if guest; but also be aware userId may take a moment to determine - first make sure we're not actually logged in
+      if (!userId) {
+        dispatch(getUserId()).then(({ meta }) => {
+          // Will reject if we're not a logged-in user
+          if (meta.requestStatus === 'rejected') {
+            dispatch(updateGuestOrder({ orderId })).then(() =>
+              dispatch(fetchGuestOrder(orderId))
+            );
+          }
+        });
+      } else {
+        dispatch(updateOrder({ userId, orderId })).then(() =>
+          dispatch(fetchSingleOrder({ userId, orderId }))
+        );
+      }
     }
   }, [userId, orderId]);
 
