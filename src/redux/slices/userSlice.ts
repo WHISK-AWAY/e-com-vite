@@ -237,7 +237,6 @@ export const deleteShippingAddress = createAsyncThunk(
         { withCredentials: true }
       );
 
-      console.log('data', data);
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
