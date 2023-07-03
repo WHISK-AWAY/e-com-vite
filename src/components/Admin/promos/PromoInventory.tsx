@@ -1,43 +1,42 @@
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { useEffect, useState } from 'react';
 import {
-  TPromo,
   TPromoField,
   adminDeleteSinglePromo,
   adminFetchAllPromos,
-  selectAdminPromos, sort
+  selectAdminPromos,
+  sort,
 } from '../../../redux/slices/admin/adminPromoSlice';
-import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 export default function PromoInventory() {
   const dispatch = useAppDispatch();
   const allPromos = useAppSelector(selectAdminPromos);
-  const {promoId} = useParams();
   const [column, setColumn] = useState<keyof TPromoField>('promoCodeName');
-  const [sortDir, setSortDir] = useState<string>('desc')
+  const [sortDir, setSortDir] = useState<string>('desc');
 
   useEffect(() => {
-    dispatch(adminFetchAllPromos()).then(() => dispatch(sort({column, sortDir})));
+    dispatch(adminFetchAllPromos()).then(() =>
+      dispatch(sort({ column, sortDir }))
+    );
   }, []);
 
-
   useEffect(() => {
-    dispatch(sort({column, sortDir}))
-  }, [column, sortDir])
+    dispatch(sort({ column, sortDir }));
+  }, [column, sortDir]);
 
   const handleSort = (col: keyof TPromoField) => {
-    if(col === column && sortDir === 'desc') {
+    if (col === column && sortDir === 'desc') {
       setSortDir('asc');
-    } else if(col === column && sortDir === 'asc') {
-      setSortDir('desc')
+    } else if (col === column && sortDir === 'asc') {
+      setSortDir('desc');
     } else {
       setColumn(col);
-      setSortDir('desc')
+      setSortDir('desc');
     }
-  }
+  };
 
-  if(!allPromos.promos.length) return  <p>...Loading</p>
+  if (!allPromos.promos.length) return <p>...Loading</p>;
   return (
     <section className='promo-inventory'>
       <table>
@@ -53,26 +52,29 @@ export default function PromoInventory() {
             <th onClick={() => handleSort('promoRate')} className='pr-10'>
               PROMO CODE RATE
             </th>
+            <th>ACTION</th>
           </tr>
         </thead>
         <tbody>
           {allPromos.promos.map((promo) => {
             return (
-              <tr>
+              <tr key={promo._id}>
                 <td className='pr-10'>{promo._id}</td>
                 <td className='pr-10'>{promo.promoCodeName}</td>
                 <td>{promo.promoRate}</td>
-                <Link to={`/admin/promos/${promo._id}`} className='pr-2'>
-                  EDIT
-                </Link>
-                <button
-                  onClick={async () => {
-                    await dispatch(adminDeleteSinglePromo(promo._id!));
-                    dispatch(adminFetchAllPromos());
-                  }}
-                >
-                  DELETE
-                </button>
+                <td>
+                  <Link to={`/admin/promos/${promo._id}`} className='pr-2'>
+                    EDIT
+                  </Link>
+                  <button
+                    onClick={async () => {
+                      await dispatch(adminDeleteSinglePromo(promo._id!));
+                      dispatch(adminFetchAllPromos());
+                    }}
+                  >
+                    DELETE
+                  </button>
+                </td>
               </tr>
             );
           })}
