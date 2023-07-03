@@ -30,6 +30,20 @@ const PRODS_PER_PAGE = 9;
  * sort by name or price (ascending & descending)
  */
 
+
+// function log(name:string, ...args:any[]): void {
+//   // Extract the current timestamp
+//   // const timestamp = new Date().toISOString();
+
+//   // Prepend the timestamp to the log message
+//   const message = `${name} ${args.join(' ')}`;
+
+//   // Output the custom log message
+//   console.log(message);
+// }
+
+
+
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
 
@@ -142,6 +156,8 @@ AllProductsProps) {
 
   const pageDecrementor = () => {
     const prevPage = curPage - 1;
+
+    // console.trace(prevPage)
     if (prevPage < 1) return;
     setParams({ page: String(prevPage) });
     topElement.current?.scrollIntoView({ behavior: 'smooth' });
@@ -287,7 +303,7 @@ AllProductsProps) {
                     .includes(product._id.toString())) ||
                 !userId ? (
                   <div
-                    className='absolute right-[6%] top-[5%] cursor-pointer'
+                    className='absolute right-[4%] top-[3%] cursor-pointer'
                     onClick={() => {
                       handleAddOrRemoveFromFavorites({
                         userId: userId!,
@@ -299,7 +315,7 @@ AllProductsProps) {
                   </div>
                 ) : (
                   <div
-                    className='absolute right-[6%] top-[5%] cursor-pointer'
+                    className='absolute right-[4%] top-[3%] cursor-pointer'
                     onClick={() => {
                       handleAddOrRemoveFromFavorites({
                         userId: userId!,
@@ -325,7 +341,7 @@ AllProductsProps) {
         })}
       </div>
       {maxPages > 1 && (
-        <div className='flex w-full justify-center pt-20 tracking-widest'>
+        <div className='flex w-full justify-center pt-20 pb-14 tracking-widest'>
           <div className='flex items-center font-grotesque text-xl '>
             <img
               src={arrowLeft}
