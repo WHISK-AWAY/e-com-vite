@@ -67,8 +67,14 @@ export default function ManageShippingAddress({
   }, [addressIndex]);
 
   useEffect(() => {
-    if (!addresses.length || !addresses) setIsFormEdit(true);
+    if (!addresses || !addresses.length) setIsFormEdit(true);
   }, []);
+
+  useEffect(() => {
+    //! debug
+    console.log('selectorIdx', selectorIdx);
+    console.log('addresses', addresses);
+  }, [selectorIdx]);
 
   // function setDefault() {
   //   let address = addresses[selectorIdx!];
@@ -116,25 +122,33 @@ export default function ManageShippingAddress({
               <img src={x} className='h-3' />
             </button>
           )}
+
+          {/* previous address button */}
           {selectorIdx > 0 && (
             <button
               className='absolute -left-[10%] top-[40%] h-4 w-4'
               onClick={() => {
-                if (selectorIdx! < addresses.length - 1)
-                  setSelectorIdx((prev) => prev! + 1);
-                else setSelectorIdx(0);
+                if (selectorIdx === 0) {
+                  setSelectorIdx(addresses.length - 1);
+                } else {
+                  setSelectorIdx(selectorIdx - 1);
+                }
               }}
             >
               <img src={arrowLeft} className='h-5' />
             </button>
           )}
 
+          {/* next address button */}
           {selectorIdx < addresses.length - 1 && (
             <button
               className=''
               onClick={() => {
-                if (selectorIdx! > 0) setSelectorIdx((prev) => prev! - 1);
-                else setSelectorIdx(addresses.length - 1);
+                if (selectorIdx < addresses.length - 1) {
+                  setSelectorIdx(selectorIdx + 1);
+                } else {
+                  setSelectorIdx(0);
+                }
               }}
             >
               <img
