@@ -28,7 +28,6 @@ const initialState: TagState = {
 export const adminFetchAllTags = createAsyncThunk(
   'tags/adminFetchAllTags',
   async (_, thunkApi) => {
-    console.log('called adminFetchAllTags');
     try {
       const { data } = await axios.get(VITE_API_URL + '/api/tag', {
         withCredentials: true,
