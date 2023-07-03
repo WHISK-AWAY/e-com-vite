@@ -58,16 +58,16 @@
   - [ ] Cart checkout button should close cart (check favorites also)
   - [ ] Figure out click-off
   - [ ] Guest cart -> user cart merge: may not have enough inventory -- do we want to do anything about that?
-  - [ ] Guest cart: remove item: shows 'nothing in cart' after, but nothing changes
+  - [x] Guest cart: remove item: shows 'nothing in cart' after, but nothing changes
   - [ ] Possible to add more than available inventory to guest cart
-    - [ ] Revert add qty to 1 after clicking add to cart button
+    - [x] Revert add qty to 1 after clicking add to cart button
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
 - [ ] Checkout
   - [x] Checkout-section address book does not render all addresses
   - [x] When user has only 1 address on file, attempting to delete it leads to nowhere
-  - [ ] 2 elements with non-unique id '#email' (where??)
+  - [ ] 2 elements with non-unique id '#email' (where?? i have seen this a couple times, but haven't been able to pin it down...)
 - [ ] User feedback
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
