@@ -70,31 +70,6 @@ export default function ManageShippingAddress({
     if (!addresses || !addresses.length) setIsFormEdit(true);
   }, []);
 
-  useEffect(() => {
-    //! debug
-    console.log('selectorIdx', selectorIdx);
-    console.log('addresses', addresses);
-  }, [selectorIdx]);
-
-  // function setDefault() {
-  //   let address = addresses[selectorIdx!];
-
-  //   let shippingData: Partial<ShippingInfoFields> = {
-  //     isDefault: true,
-  //   };
-
-  //   dispatch(
-  //     editShippingAddress({
-  //       userId: user._id,
-  //       shippingAddressId: address._id!,
-  //       shippingData,
-  //     })
-  //   );
-
-  //   setAddressIndex(0);
-  //   setManageShippingAddress(false);
-  // }
-
   function selectAddress() {
     setAddressIndex(selectorIdx);
     setManageShippingAddress(false);
@@ -209,10 +184,6 @@ export default function ManageShippingAddress({
               </div>
             </div>
           )}
-          {/* <label htmlFor="checkbox" > set as default</label>
-        <input name='checkbox' id='checkbox' type='checkbox' onChange={setDefault} className='border border-blue'>
-        
-      </input> */}
         </section>
 
         {!isFormEdit && (
