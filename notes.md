@@ -29,7 +29,7 @@
 ### Open
 
 - [ ] Guest favorites:
-  - [ ] Invite to sign up || implement guest favorites || remove hearts
+  - [ ] Invite to sign up
 - [ ] New shipping address form
   - [ ] Form deletes first character typed after validation failure (can't recreate...)
   - [ ] Take another look @ responsiveness
@@ -54,12 +54,20 @@
   - [ ] Need to clear order state as cleanup
   - [ ] Need to clear promo state as cleanup
   - [ ] Guest order should only try to create when no user id
-- [ ] Cart checkout button should close cart (check favorites also)
-- [ ] When user has only 1 address on file, attempting to delete it leads to nowhere
+- [ ] Cart/Favorites
+  - [ ] Cart checkout button should close cart (check favorites also)
+  - [ ] Figure out click-off
+  - [ ] Guest cart -> user cart merge: may not have enough inventory -- do we want to do anything about that?
+  - [ ] Guest cart: remove item: shows 'nothing in cart' after, but nothing changes
+  - [ ] Possible to add more than available inventory to guest cart
+    - [ ] Revert add qty to 1 after clicking add to cart button
 - [ ] Bring back (render) search function
   - [ ] Style search function/results
 - [ ] Verified purchase logic isn't working
-- [ ] Checkout-section address book does not render all addresses
+- [ ] Checkout **pb working**
+  - [x] Checkout-section address book does not render all addresses
+  - [x] When user has only 1 address on file, attempting to delete it leads to nowhere
+  - [ ] 2 elements with non-unique id '#email' (where??)
 - [ ] User feedback
   - [ ] Add to cart animation
   - [ ] Cart qty indicator
