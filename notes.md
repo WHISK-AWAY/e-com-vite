@@ -48,12 +48,12 @@
   - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
   - [x] Store & serve assets (i.e., get rid of hosted URLs)
-- [ ] Order creation: **pb working**
+- [x] Order creation:
   - [x] promo code name failing @ route
   - [x] Order still gets created (?)
-  - [ ] Need to clear order state as cleanup
-  - [ ] Need to clear promo state as cleanup
-  - [ ] Guest order should only try to create when no user id
+  - [x] Need to clear order state as cleanup
+  - [x] Need to clear promo state as cleanup
+  - [x] Guest order should only try to create when no user id
 - [ ] Cart/Favorites
   - [ ] Cart checkout button should close cart (check favorites also)
   - [ ] Figure out click-off
