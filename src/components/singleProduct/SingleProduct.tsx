@@ -199,7 +199,9 @@ export default function SingleProduct() {
 
   const handleClick = () => {
     if (productId) {
-      dispatch(addToCart({ userId, productId, qty: count }));
+      dispatch(addToCart({ userId, productId, qty: count })).then(() =>
+        setCount(1)
+      );
     }
   };
 
