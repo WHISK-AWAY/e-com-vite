@@ -37,28 +37,34 @@ export default function TagInventory() {
 
   return (
     <section>
+      <h1 className='text-lg font-semibold'>TAGS</h1>
       <table>
         <thead>
           <tr>
-            <th colSpan={2}>TAGS</th>
-          </tr>
-          <tr>
             <th>TAG ID</th>
-            <th onClick={() => handleSort('tagName')}>TAG NAME</th>
+            <th
+              className='cursor-pointer'
+              onClick={() => handleSort('tagName')}
+            >
+              TAG NAME
+            </th>
+            <th colSpan={2}>ACTION</th>
           </tr>
         </thead>
         <tbody>
           {allTags.tags.map((tag) => {
             return (
-              <tr>
+              <tr key={tag._id}>
                 <td key={tag._id} className='pr-10'>
                   {tag._id}
                 </td>
                 <td className='pr-10'>{tag.tagName}</td>
-                <>
-                  <Link to={`/admin/tags/${tag._id}`}>
-                    <button className='pr-2'>EDIT</button>
+                <td>
+                  <Link to={`/admin/tags/${tag._id}`} className='pr-2'>
+                    EDIT
                   </Link>
+                </td>
+                <td>
                   <button
                     onClick={() => {
                       dispatch(deleteSingleTag(tag._id))
@@ -68,7 +74,7 @@ export default function TagInventory() {
                   >
                     DELETE
                   </button>
-                </>
+                </td>
               </tr>
             );
           })}
