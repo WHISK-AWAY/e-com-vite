@@ -2,8 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hooks';
 import { selectSingleUser } from '../../redux/slices/userSlice';
 import { useEffect } from 'react';
-import Inventory from './products/Inventory';
-import CreateOrEditProduct from './products/CreateOrEditProduct';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
