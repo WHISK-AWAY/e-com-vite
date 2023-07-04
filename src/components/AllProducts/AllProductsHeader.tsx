@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../redux/slices/allProductSlice';
+import { CategoryHeaderInfo, getCategoryHeaderInfo } from './CategoryHeaders';
 
 export type AllProductsHeaderProps = {
   filter: string;
-  allProdsBg: string;
+  // allProdsBg: string;
   randomProd: TProduct;
 };
 
 export default function AllProductsHeader({
   filter,
-  allProdsBg,
+  // allProdsBg,
   randomProd,
 }: AllProductsHeaderProps) {
   const [randomProdImage, setRandomProdImage] = useState<string | undefined>(
@@ -19,6 +20,14 @@ export default function AllProductsHeader({
   const [randomProdGif, setRandomProdGif] = useState<string | undefined>(
     undefined
   );
+  const [categoryInfo, setCategoryInfo] = useState<CategoryHeaderInfo | null>(
+    null
+  );
+
+  useEffect(() => {
+    // pull category-specific header information
+    setCategoryInfo(getCategoryHeaderInfo(filter));
+  }, [filter]);
 
   useEffect(() => {
     // set up image URLs for random product finder
@@ -43,8 +52,13 @@ export default function AllProductsHeader({
   return (
     <>
       <section className=' relative flex w-1/2'>
-        <h1 className='absolute right-0 top-10 font-italiana text-6xl uppercase tracking-wide md:top-6 lg:text-8xl 2xl:top-20 2xl:text-9xl'>
-          {filter && filter === 'all' ? (
+        <h1
+          className='absolute right-0 top-6 font-italiana text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl'
+          dangerouslySetInnerHTML={{
+            __html: categoryInfo?.splitTitle || <span>problem</span>,
+          }}
+        >
+          {/* {filter && filter === 'all' ? (
             <>
               <span className='absolute -translate-x-full  text-white'>
                 all
@@ -53,10 +67,10 @@ export default function AllProductsHeader({
             </>
           ) : (
             filter
-          )}
+          )} */}
         </h1>
 
-        <img src={allProdsBg} />
+        <img src={categoryInfo?.image} />
       </section>
 
       <section className='random-product flex basis-1/2 flex-col items-center'>
