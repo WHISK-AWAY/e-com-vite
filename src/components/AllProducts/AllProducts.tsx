@@ -281,7 +281,6 @@ AllProductsProps) {
             product.images
               .slice(1)
               .find((image) => !image.imageDesc.includes('video'))?.imageURL;
-          console.log(hoverFallback);
           return (
             <li
               className='relative flex list-none flex-col justify-between'
