@@ -49,16 +49,6 @@
 - [ ] Add new / edit address functionality to user account section (maybe)
       -User Profile
       -[] consider allowing user to delete the profile if they choose so
-- [ ] Product catalog <-- _prioritize!_
-  - [x] Add more items (around 50 total -- now @ 52)
-  - [ ] Assign correct tags/categories
-  - [x] Store & serve assets (i.e., get rid of hosted URLs)
-- [x] Order creation:
-  - [x] promo code name failing @ route
-  - [x] Order still gets created (?)
-  - [x] Need to clear order state as cleanup
-  - [x] Need to clear promo state as cleanup
-  - [x] Guest order should only try to create when no user id
 - [ ] Cart/Favorites
   - [ ] Cart checkout button should close cart (check favorites also)
   - [ ] Figure out click-off
@@ -82,6 +72,16 @@
 
 ### Resolved
 
+- [x] Order creation:
+  - [x] promo code name failing @ route
+  - [x] Order still gets created (?)
+  - [x] Need to clear order state as cleanup
+  - [x] Need to clear promo state as cleanup
+  - [x] Guest order should only try to create when no user id
+- [x] Product catalog
+  - [x] Add more items (around 50 total -- now @ 52)
+  - [x] Assign correct tags/categories
+  - [x] Store & serve assets (i.e., get rid of hosted URLs)
 - [x] Need to remove empty categories from filter
 - [x] Product images should point to single product page
 - [x] Find a home for sign-out button
