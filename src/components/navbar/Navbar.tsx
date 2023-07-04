@@ -144,19 +144,22 @@ export default function Navbar() {
   return (
     <nav className='navbar-container flex h-16 items-center justify-between px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
-          <div className='  ' onMouseEnter={() => setIsMenuHidden(false)} onClick={() => setIsMenuHidden(false)}>
+          <div className='' onMouseEnter={() => setIsMenuHidden(false)} onClick={() => setIsMenuHidden(false)}>
             SHOP
             {/* <NavLink to={'/shop-all'} onClick={() => setIsMenuHidden(true)}>
               SHOP
             </NavLink> */}
           </div>
+          
+
             {!isMenuHidden && (
-            <DropDownMenu
+              <DropDownMenu
               setIsMenuHidden={setIsMenuHidden}
               isMenuHidden={isMenuHidden}
-            />
-            )}
+              />
+              )}
 
+    
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
         </NavLink>
