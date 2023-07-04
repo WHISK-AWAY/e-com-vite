@@ -3,7 +3,7 @@ import Homepage from './components/Homepage';
 import AllProducts from './components/AllProducts/AllProducts';
 import SingleProduct from './components/singleProduct/SingleProduct';
 import UserProfile from './components/UserAccount/UserProfile';
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Success from './components/CheckoutProcess/stripe/Success';
 import Failure from './components/CheckoutProcess/stripe/Failure';
 import Recap from './components/CheckoutProcess/Recap';

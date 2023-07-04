@@ -25,6 +25,13 @@ export default {
       raleway: ['Raleway', 'sans-serif'],
       yantramanav: ['Yantramanav', 'sans-serif'],
       'roboto-mono': ['Roboto Mono', 'monospace'],
+      roboto: ['Roboto', 'sans-serif'],
+      playfair: ['Playfair Display', 'serif'],
+      abril: ['Abril Fatface', 'cursive'],
+      lora: ['Lora', 'serif'],
+      garamond: ['EB Garamond', 'serif'],
+      bodoni: ['Bodoni Moda', 'serif'],
+      antonio: ['Antonio', 'sans-serif']
     },
     fontWeight: {
       thin: 100,
@@ -40,7 +47,7 @@ export default {
     extend: {
       colors: {
         charcoal: '#4A4A4A',
-       'light-brick': '#DA8E61'
+        'light-brick': '#DA8E61',
       },
       screens: {
         xs: '375px',

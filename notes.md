@@ -36,6 +36,7 @@
   - [x] Why does the places API fail when address_2 === 'Apt C5'?
   - [x] Address 1 is splitting & being input to address 2
   - [x] Need to trim inputs
+  - [ ] Consider uppercasing user first and last name on shipping address if not done yet?
 - [ ] Backup font families
   - [ ] Look into preloading
 - [ ] All products view
@@ -44,6 +45,8 @@
 - [ ] Sign-up view
   - [ ] Form field doesn't clear on invalid entry (therefore error message does not show)
 - [ ] Add new / edit address functionality to user account section (maybe)
+      -User Profile
+      -[] consider allowing user to delete the profile if they choose so
 - [ ] Product catalog <-- _prioritize!_
   - [x] Add more items (around 50 total -- now @ 52)
   - [ ] Assign correct tags/categories
