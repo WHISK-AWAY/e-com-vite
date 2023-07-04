@@ -26,9 +26,9 @@ import SortFilterAllProds from '../SortFilterAllProds';
 import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 
-
 const PRODS_PER_PAGE = 9;
-
+export const notify = () =>
+  toast('Please make an account to start adding favorites');
 /**
  * sort by name or price (ascending & descending)
  */
@@ -80,7 +80,6 @@ AllProductsProps) {
     key: sortKey,
     direction: sortDir,
   });
-
 
   const topElement = useRef<HTMLHeadingElement | null>(null);
 
@@ -215,19 +214,12 @@ AllProductsProps) {
     return pages;
   };
 
-  // pageFlipper();
-
-
-    const notify = () =>
-      toast('Please make an account to start adding favorites');
-
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
     <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
-
       <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
           <BestsellersHeader />
@@ -336,7 +328,8 @@ AllProductsProps) {
                       position='top-right'
                       toastOptions={{
                         className:
-                          'shadow-sm rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] ',
+                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] ',
+                        duration: 5000,
                       }}
                     />
                   </div>
