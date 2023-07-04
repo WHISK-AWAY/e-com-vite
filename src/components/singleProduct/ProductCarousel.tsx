@@ -47,6 +47,18 @@ export default function ProductCarousel({
         const gifURL = prod.images.find((image) =>
           ['gif-product', 'video-product'].includes(image.imageDesc)
         )?.imageURL;
+
+        let hoverFallback =
+          prod.images
+            .slice(1)
+            .find((image) => image.imageDesc === 'product-texture')?.imageURL ||
+          prod.images
+            .slice(1)
+            .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+          prod.images
+            .slice(1)
+            .find((image) => !image.imageDesc.includes('video'))?.imageURL;
+
         return (
           <div
             key={prod._id.toString()}
@@ -54,9 +66,7 @@ export default function ProductCarousel({
               window.scrollTo({ top: 0, behavior: 'smooth' });
               navigate('/product/' + prod._id);
             }}
-            className={`ymal-card relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px] ${
-              gifURL ? 'group' : ''
-            }`}
+            className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px]`}
           >
             <img
               className='aspect-[3/4] w-[100px] object-cover group-hover:invisible xl:w-[175px] 2xl:w-[200px]'
@@ -66,13 +76,18 @@ export default function ProductCarousel({
               }
               alt='product image'
             />
-            {gifURL && (
+            {gifURL ? (
               <video
-                className='invisible absolute right-0 top-0 aspect-[3/4] w-[100px] object-cover group-hover:visible xl:w-[175px] 2xl:w-[200px]'
+                className='invisible absolute top-0 aspect-[3/4] w-[100px] object-cover group-hover:visible xl:w-[175px] 2xl:w-[200px]'
                 src={gifURL}
                 muted={true}
                 autoPlay={true}
                 loop={true}
+              />
+            ) : (
+              <img
+                className='invisible absolute top-0 aspect-[3/4] w-[100px] object-cover group-hover:visible xl:w-[175px] 2xl:w-[200px]'
+                src={hoverFallback}
               />
             )}
             <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>

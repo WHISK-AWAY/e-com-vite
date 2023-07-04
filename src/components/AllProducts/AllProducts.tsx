@@ -26,21 +26,6 @@ import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 const PRODS_PER_PAGE = 9;
 
-/**
- * sort by name or price (ascending & descending)
- */
-
-// function log(name:string, ...args:any[]): void {
-//   // Extract the current timestamp
-//   // const timestamp = new Date().toISOString();
-
-//   // Prepend the timestamp to the log message
-//   const message = `${name} ${args.join(' ')}`;
-
-//   // Output the custom log message
-//   console.log(message);
-// }
-
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
 
@@ -161,7 +146,6 @@ AllProductsProps) {
   const pageDecrementor = () => {
     const prevPage = curPage - 1;
 
-    // console.trace(prevPage)
     if (prevPage < 1) return;
     setParams({ page: String(prevPage) });
     topElement.current?.scrollIntoView({ behavior: 'smooth' });
@@ -210,8 +194,6 @@ AllProductsProps) {
 
     return pages;
   };
-
-  // pageFlipper();
 
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
@@ -273,27 +255,54 @@ AllProductsProps) {
           let imageURL =
             product.images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || product.images[0].imageURL;
-          let hoverURL = product.images.find((image) =>
-            ['gif-product', 'video-product'].includes(image.imageDesc)
-          )?.imageURL;
+          let hoverURL =
+            product.images.find((image) =>
+              ['gif-product', 'video-product'].includes(image.imageDesc)
+            )?.imageURL || undefined;
+
+          // If we don't have a gif, fail over to rendering a second image.
+          // Choose a texture image if available; an alt if that doesn't work; and any non-video as a last resort.
+
+          let hoverFallback =
+            product.images
+              .slice(1)
+              .find((image) => image.imageDesc === 'product-texture')
+              ?.imageURL ||
+            product.images
+              .slice(1)
+              .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+            product.images
+              .slice(1)
+              .find((image) => !image.imageDesc.includes('video'))?.imageURL;
+          console.log(hoverFallback);
           return (
             <li
               className='relative flex list-none flex-col justify-between'
               key={product._id.toString()}
             >
-              <div className={`aspect-[3/4] w-full ${hoverURL ? 'group' : ''}`}>
+              <div
+                className={`aspect-[3/4] w-full ${
+                  hoverURL || hoverFallback ? 'group' : ''
+                }`}
+              >
                 <Link to={'/product/' + product._id} className='h-full w-full'>
                   <img
                     src={imageURL}
                     alt='product image'
                     className='h-full w-full object-cover group-hover:invisible'
                   />
-                  {hoverURL && (
+                  {hoverURL ? (
                     <video
                       src={hoverURL}
                       muted={true}
                       autoPlay={true}
                       loop={true}
+                      className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
+                    />
+                  ) : (
+                    <img
+                      src={hoverFallback}
+                      alt='alternate product image'
                       className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
                     />
                   )}
