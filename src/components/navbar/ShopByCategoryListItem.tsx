@@ -12,9 +12,9 @@ export default function ShopByCategoryListItem({
 
   console.log(tagList);
   return (
-     <div className='group absolute right-0 top-[37%] z-40 w-[100vw] flex flex-col'>
+     <div className='group absolute right-0 top-[30%] z-40 w-screen overflow-hidden flex flex-col'>
 
-    <section className='bg-white text-[2vw] flex flex-col gap-[1%] self-center w-full h-screen ml-10'>
+    <section className='bg-white text-[2vw] flex flex-col gap-[3%] self-center w-screen h-screen pl-10'>
       {tagList.map((tag) => {
         return (
           <ul key={tag._id}>
