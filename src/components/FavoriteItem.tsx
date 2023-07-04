@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TProduct, removeFromFavorites } from '../redux/slices/userSlice';
+import { UserProduct, removeFromFavorites } from '../redux/slices/userSlice';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
 import x from '../../src/assets/icons/x.svg';
 import { useAppDispatch } from '../redux/hooks';
+import { getMaxQty } from '../utilities/helpers';
 
 export type TFavoriteItemProp = {
-  product: TProduct;
+  product: UserProduct;
   userId: string;
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
   handleAddToCart: ({
@@ -29,19 +30,25 @@ export default function FavoriteItem({
 }: TFavoriteItemProp) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [count, setCount] = useState<number>(1);
+  const [count, setCount] = useState<number>(0);
+  const maxQty = useMemo(() => getMaxQty(product, userId), [product, userId]);
 
-  const totalQty = product.qty;
-  const userQty = count;
+  useEffect(() => {
+    // initialize counter
+    if (maxQty > 0) {
+      setCount(1);
+    } else setCount(0);
+  }, [product]);
 
-  const qtyDecrementer = () => {
-    if (userQty <= 1) setCount(1);
-    else setCount(userQty - 1);
+  const qtyDecrementor = () => {
+    if (count <= 1) return;
+    setCount((prev) => Math.min(prev - 1, maxQty));
   };
 
   const qtyIncrementor = () => {
-    if (userQty >= totalQty) return;
-    else setCount(userQty + 1);
+    if (count >= maxQty) {
+      setCount(maxQty);
+    } else setCount((prev) => prev + 1);
   };
 
   const handleRemove = ({
@@ -91,7 +98,7 @@ export default function FavoriteItem({
             <img
               src={minus}
               alt='minus-icon'
-              onClick={qtyDecrementer}
+              onClick={qtyDecrementor}
               className='h-3 cursor-pointer lg:h-3 xl:h-5'
             />
             <span className='lg:text-md font-grotesque text-xs lg:px-2 xl:px-4 xl:text-base 2xl:text-base'>
@@ -109,7 +116,8 @@ export default function FavoriteItem({
 
       {/*button*/}
       <button
-        className=' flex w-[65%] items-center justify-center rounded-sm bg-charcoal py-1 text-center font-italiana text-sm uppercase text-white lg:w-[60%] lg:py-2 2xl:text-lg'
+        className='flex w-[65%] items-center justify-center rounded-sm bg-charcoal py-1 text-center font-italiana text-sm uppercase text-white disabled:bg-charcoal/40 lg:w-[60%] lg:py-2 2xl:text-lg'
+        disabled={maxQty === 0}
         onClick={() =>
           handleAddToCart({
             userId,

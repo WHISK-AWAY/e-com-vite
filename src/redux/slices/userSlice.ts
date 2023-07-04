@@ -5,6 +5,7 @@ import { RootState } from '../store';
 import { TReduxError } from '../reduxTypes';
 import type { ShippingInfoFields } from '../../components/UserAccount/shippingAddress/ManageShippingAddress';
 import { ImageData } from '../../../server/database';
+import { TTag } from './allProductSlice';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
@@ -13,7 +14,7 @@ export interface userState {
   errors: TReduxError;
 }
 
-export type TProduct = {
+export type UserProduct = {
   _id: string;
   productName: string;
   productIngredients: string;
@@ -22,10 +23,7 @@ export type TProduct = {
   qty: number;
   images: ImageData[];
   saleCount: number;
-  tags: {
-    _id: string;
-    tagName: string;
-  }[];
+  tags: TTag[];
 };
 
 export type ShipToAddress = {
@@ -60,10 +58,10 @@ export type TUser = {
     state: string;
     zip: string;
   };
-  favorites: TProduct[];
+  favorites: UserProduct[];
   cart: {
     products: {
-      product: TProduct;
+      product: UserProduct;
       price: number;
       qty: number;
       _id: string;

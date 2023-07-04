@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TProduct } from '../userSlice';
+import { UserProduct } from '../userSlice';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import axios, { AxiosError } from 'axios';
 import { RootState } from '../../store';
@@ -7,8 +7,8 @@ import { zodProduct } from '../../../../server/utils';
 import z from 'zod';
 
 export interface ProductState {
-  allProducts: { products: TProduct[] };
-  singleProduct: TProduct | null;
+  allProducts: { products: UserProduct[] };
+  singleProduct: UserProduct | null;
   loading: boolean;
   errors: { status: number | null; message: string | null };
 }

@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchSingleProduct,
   selectSingleProduct,
 } from '../../redux/slices/allProductSlice';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
-import { ICart, addToCart } from '../../redux/slices/cartSlice';
+import { addToCart } from '../../redux/slices/cartSlice';
 import {
   addToFavorites,
   removeFromFavorites,
@@ -69,6 +69,7 @@ import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
+import { getMaxQty } from '../../utilities/helpers';
 
 const bgImgs = [
   smallFlowers,
@@ -120,6 +121,10 @@ export default function SingleProduct() {
   const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
 
+  const maxQty = useMemo(
+    () => getMaxQty(singleProduct, userId),
+    [singleProduct!, userId]
+  );
   const [count, setCount] = useState(0);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
@@ -151,7 +156,7 @@ export default function SingleProduct() {
   useEffect(() => {
     // Set counter to 1 if quantity is available.
     if (singleProduct?._id) {
-      setCount(Math.min(1, getMaxQty()));
+      setCount(Math.min(1, maxQty));
     } else {
       setCount(0);
     }
@@ -176,9 +181,8 @@ export default function SingleProduct() {
           (image) => image.imageDesc === 'product-front'
         )?.imageURL || singleProduct.images[0].imageURL
       );
-
-      if (count > getMaxQty()) {
-        setCount(getMaxQty());
+      if (count > maxQty) {
+        setCount(maxQty);
       }
     }
   }, [singleProduct]);
@@ -194,44 +198,15 @@ export default function SingleProduct() {
     }
   }, [allReviews, userId]);
 
-  // Calculate max available inventory --
-  // Must account for guest carts which do not decrement server-side inventory
-  function getMaxQty(): number {
-    const inventoryQty = singleProduct?.qty || 0;
-    let maxQty = inventoryQty;
-
-    if (!maxQty) {
-      return 0;
-    }
-
-    if (!userId) {
-      // If we don't have a user ID, we need to check for this item in the localstorage cart
-      const storedCart = window.localStorage.getItem('guestCart');
-      if (storedCart) {
-        const guestCart = JSON.parse(storedCart) as ICart;
-        const thisItemInCart = guestCart.products.find(
-          (item) => item._id === productId
-        );
-        if (thisItemInCart) {
-          maxQty = Math.max(0, maxQty - thisItemInCart.qty);
-        }
-      }
-    }
-
-    return maxQty;
-  }
-
   // Add-to-cart quantity counter
   const qtyIncrementor = () => {
-    let totalQty: number = getMaxQty();
-
-    if (totalQty <= 1) {
-      setCount(totalQty);
+    if (maxQty <= 1) {
+      setCount(maxQty);
       return;
     }
 
     // Limit add-to-cart qty to max available qty
-    if (count >= totalQty) setCount(totalQty);
+    if (count >= maxQty) setCount(maxQty);
     else setCount((prev) => prev + 1);
   };
 
@@ -415,15 +390,15 @@ export default function SingleProduct() {
                     <img src={plus} className='w-4 2xl:w-5' />
                   </div>
                 </div>
-                {getMaxQty() <= 10 && (
+                {maxQty <= 10 && (
                   <div className='font-grotesque text-xs text-red-800 lg:text-sm xl:text-lg 2xl:text-xl'>
-                    {getMaxQty() === 0 ? 'out of stock' : 'limited stock'}
+                    {maxQty === 0 ? 'out of stock' : 'limited stock'}
                   </div>
                 )}
               </div>
               <button
                 onClick={handleAddToCart}
-                disabled={getMaxQty() === 0}
+                disabled={maxQty === 0}
                 className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
               >
                 add to cart
@@ -495,7 +470,9 @@ export default function SingleProduct() {
         <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
           YOU MAY ALSO LIKE
         </h2>
-        <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+        {singleProduct.relatedProducts && (
+          <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+        )}
       </section>
 
       {/* REVIEWS */}

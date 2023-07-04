@@ -50,7 +50,7 @@ export default function Favorite({
     productId: string;
     qty: number;
   }) => {
-    if (userId)
+    if (userId && qty > 0)
       dispatch(addToCart({ userId, productId, qty })).then(() =>
         handleRemove({ userId, productId })
       );
