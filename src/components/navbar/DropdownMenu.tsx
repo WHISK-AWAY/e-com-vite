@@ -44,7 +44,9 @@ export default function DropdownMenu({
             onClick={() => setIsMenuHidden(true)}
             className=''
           >
-            <p className=' translate-x-[25%]'>shop all</p>
+            <p className=' translate-x-[25%]'>
+              shop all
+            </p>
           </NavLink>
           <div className=' relative flex w-full '>
             <h2 className=' h-full translate-x-[35%]  text-[7vw]'>
