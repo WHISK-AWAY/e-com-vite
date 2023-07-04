@@ -49,7 +49,7 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
-  filterKey?: string;
+  // filterKey?: string;
 };
 
 export default function AllProducts({
