@@ -17,6 +17,7 @@ export default function DropdownMenu({
   isMenuHidden: boolean;
 }) {
   const [isCategoryHidden, setIsCategoryHidden] = useState(true);
+  const [isFaceHidden, setIsFaceHidden] = useState(true)
 
 
     useEffect(() => {
@@ -84,16 +85,16 @@ export default function DropdownMenu({
                 src={shevronRight}
                 alt='right arrow'
                 className={
-                  !isCategoryHidden
-                    ? `  absolute right-1/2 top-0 z-[90]  h-full translate-x-[1200%] rotate-90`
-                    : `  absolute right-1/2 top-0 z-[90]  h-full -translate-x-[400%]`
+                  !isFaceHidden
+                    ? `  absolute right-1/2 top-0   h-full -translate-x-[400%] rotate-90`
+                    : `  absolute right-1/2 top-0   h-full -translate-x-[400%]`
                 }
-                onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
-                onClick={() => setIsCategoryHidden((prev) => !prev)}
+                onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
+                onClick={() => setIsFaceHidden((prev) => !prev)}
               />
             )}
           </div>
-          {!isMenuHidden && <FaceItem />}
+          {!isMenuHidden && <FaceItem setIsFaceHidden={setIsFaceHidden} />}
           <span className='translate-x-[30%]'>body</span>
           {/* <BodyItem /> */}
         </div>
