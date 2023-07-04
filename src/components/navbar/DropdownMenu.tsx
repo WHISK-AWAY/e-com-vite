@@ -29,29 +29,25 @@ export default function DropdownMenu({
     }, []);
 
   return (
-    <section className='menu-wrapper absolute right-0 top-3 z-30 flex  h-screen w-[100vw] flex-col  bg-white pt-[12%] font-antonio  font-thin uppercase text-[#262626] '>
-      <div className='flex h-full w-full flex-col overflow-hidden  pt-10 '>
+    <section className='menu-wrapper absolute right-0 top-0 z-30 flex  h-[150vw] w-[100vw] flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] min-[1600px]:pt-[7%] '>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 min-[1600px]:pt-[1.8vw]'>
         <img
           src={x}
           alt='x-icon'
-          className='absolute left-10 top-10 h-[2vw]'
+          className='absolute left-10 top-10 h-[2vw] min-[1600px]:left-[2.6vw] min-[1600px]:top-[2.6vw]  min-[1600px]:h-[1.6vw]'
           onClick={() => setIsMenuHidden(true)}
         />
 
-        <div className='flex flex-col gap-[5vw] text-[7vw]'>
+        <div className='flex flex-col leading-[1] text-[7vw] min-[1600px]:text-[7vw]'>
           <NavLink
             to={'/shop-all'}
             onClick={() => setIsMenuHidden(true)}
             className=''
           >
-            <p className=' translate-x-[25%]'>
-              shop all
-            </p>
+            <p className=' translate-x-[25%]'>shop all</p>
           </NavLink>
           <div className=' relative flex w-full '>
-            <h2 className=' h-full translate-x-[35%]  text-[7vw]'>
-              shop by category
-            </h2>
+            <h2 className=' h-full translate-x-[35%]'>shop by category</h2>
 
             {!isMenuHidden && (
               <img
@@ -59,8 +55,8 @@ export default function DropdownMenu({
                 alt='right arrow'
                 className={
                   !isCategoryHidden
-                    ? `  absolute right-1/2 top-0 z-[90]  h-full translate-x-[1200%] rotate-90`
-                    : `  absolute right-1/2 top-0 z-[90]  h-full translate-x-[1200%]`
+                    ? `  absolute right-1/2 top-4 z-[90] h-[3vw] translate-x-[1200%] rotate-90 xl:h-[45%] xl:translate-x-[1000%]  min-[1538px]:h-[2vw] min-[1538px]:translate-x-[400%]`
+                    : `  absolute right-1/2 top-4 z-[90]  h-[3vw] translate-x-[1200%] xl:h-[45%] xl:translate-x-[1000%] min-[1538px]:h-[2vw] min-[1538px]:translate-x-[400%]`
                 }
                 onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
                 onClick={() => setIsCategoryHidden((prev) => !prev)}
@@ -89,8 +85,8 @@ export default function DropdownMenu({
                 alt='right arrow'
                 className={
                   !isFaceHidden
-                    ? `  absolute right-1/2 top-0   h-full -translate-x-[400%] rotate-90`
-                    : `  absolute right-1/2 top-0   h-full -translate-x-[400%]`
+                    ? `  absolute right-1/2 top-0  h-full  -translate-x-[300%] rotate-90 xl:h-[120%] min-[1538px]:h-[2vw] min-[1538px]:-translate-x-[500%]`
+                    : `  absolute right-1/2 top-0  h-full  -translate-x-[300%] xl:h-[120%] min-[1538px]:h-[2vw] min-[1538px]:-translate-x-[500%] `
                 }
                 onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
                 onClick={() => setIsFaceHidden((prev) => !prev)}
@@ -112,8 +108,8 @@ export default function DropdownMenu({
                 alt='right arrow'
                 className={
                   !isBodyHidden
-                    ? `  absolute right-1/2 top-0   h-full -translate-x-[400%] rotate-90`
-                    : `  absolute right-1/2 top-0   h-full -translate-x-[400%]`
+                    ? `  absolute right-1/2 top-0  h-full  -translate-x-[300%] rotate-90 xl:h-[120%] min-[1538px]:h-[2vw] min-[1538px]:-translate-x-[500%]`
+                    : `  absolute right-1/2 top-0   h-full -translate-x-[300%] xl:h-[120%] min-[1538px]:h-[2vw] min-[1538px]:-translate-x-[500%]`
                 }
                 onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
                 onClick={() => setIsBodyHidden((prev) => !prev)}
