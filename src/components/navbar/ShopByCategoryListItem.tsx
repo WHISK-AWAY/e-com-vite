@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { selectTagState } from '../../redux/slices/tagSlice';
+import { Link } from 'react-router-dom';
 
 export default function ShopByCategoryListItem({
   setIsMenuHidden,
@@ -12,13 +13,20 @@ export default function ShopByCategoryListItem({
 
   console.log(tagList);
   return (
-     <div className='group absolute right-0 top-[30%] z-40 w-screen overflow-hidden flex flex-col'>
+     <div className='group absolute right-0 top-[35%] z-40 w-screen overflow-hidden flex flex-col'>
 
     <section className='bg-white text-[2vw] flex flex-col gap-[3%] self-center w-screen h-screen pl-10'>
       {tagList.map((tag) => {
+        const name = tag.tagName;
         return (
           <ul key={tag._id}>
-            <li className=''>{tag.tagName}</li>
+            <Link
+              to='/shop-all'
+              state={{ filterKey: name }}
+              className=''
+            >
+            <li className='' onClick={() => setIsMenuHidden((prev) => !prev)}>{name}</li>
+            </Link>
           </ul>
         );
       })}
