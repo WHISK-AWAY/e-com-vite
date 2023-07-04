@@ -2,9 +2,8 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
   createSingleTag,
   editSingleTag,
-
+  selectAdminTag,
 } from '../../../redux/slices/admin/adminTagSlice';
-import { selectTagState } from '../../../redux/slices/tagSlice';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
@@ -16,7 +15,9 @@ export type TCreateTag = {
 };
 
 const ZSingleTag = z.object({
-  tagName: z.string().min(3, {message: 'Tag must be at least 3 characters long'}),
+  tagName: z
+    .string()
+    .min(3, { message: 'Tag must be at least 3 characters long' }),
 });
 
 export type EditOrCreateFormModes = 'edit' | 'new';
@@ -24,34 +25,31 @@ export type EditOrCreateFormModes = 'edit' | 'new';
 export default function CreateOrEditTag() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const tag = useAppSelector(selectTagState);
+  const tag = useAppSelector(selectAdminTag);
   const { tagId } = useParams();
   const [formMode, setFormMode] = useState<EditOrCreateFormModes>('new');
 
   useEffect(() => {
-    if (tag.tags.length && formMode === 'edit')  
+    if (tag.tags.length && formMode === 'edit')
       reset({
         tagName: tag.tags.find((t) => t._id === tagId)?.tagName,
       });
-
   }, [tag, tagId, formMode]);
 
-
-
   useEffect(() => {
-    if(tagId) setFormMode('edit')
-  }, [tagId])
+    if (tagId) {
+      setFormMode('edit');
+    }
+  }, [tagId]);
 
   const defaultValues: TCreateTag = {
     tagName: '',
   };
 
-
   const {
     register,
     reset,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<TCreateTag>({
     resolver: zodResolver(ZSingleTag),
