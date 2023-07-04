@@ -17,7 +17,8 @@ export default function DropdownMenu({
   isMenuHidden: boolean;
 }) {
   const [isCategoryHidden, setIsCategoryHidden] = useState(true);
-  const [isFaceHidden, setIsFaceHidden] = useState(true)
+  const [isFaceHidden, setIsFaceHidden] = useState(true);
+  const [isBodyHidden, setIsBodyHidden] = useState(true)
 
 
     useEffect(() => {
@@ -29,7 +30,7 @@ export default function DropdownMenu({
 
   return (
     <section className='menu-wrapper absolute right-0 top-3 z-30 flex  h-screen w-[100vw] flex-col  bg-white pt-[12%] font-antonio  font-thin uppercase text-[#262626] '>
-      <div className='flex h-full w-full flex-col overflow-hidden bg-blue-100 pt-10 '>
+      <div className='flex h-full w-full flex-col overflow-hidden  pt-10 '>
         <img
           src={x}
           alt='x-icon'
@@ -37,7 +38,7 @@ export default function DropdownMenu({
           onClick={() => setIsMenuHidden(true)}
         />
 
-        <div className='flex flex-col gap-[5vw] border  border-green-700 text-[7vw]'>
+        <div className='flex flex-col gap-[5vw] text-[7vw]'>
           <NavLink
             to={'/shop-all'}
             onClick={() => setIsMenuHidden(true)}
@@ -94,9 +95,35 @@ export default function DropdownMenu({
               />
             )}
           </div>
-          {!isMenuHidden && <FaceItem setIsFaceHidden={setIsFaceHidden} />}
-          <span className='translate-x-[30%]'>body</span>
-          {/* <BodyItem /> */}
+          {!isMenuHidden && !isFaceHidden && (
+            <FaceItem
+              setIsMenuHidden={setIsMenuHidden}
+              setIsFaceHidden={setIsFaceHidden}
+            />
+          )}
+
+          <div className='relative flex w-full '>
+            <span className='h-full w-full translate-x-[30%]'>body</span>
+            {!isMenuHidden && (
+              <img
+                src={shevronRight}
+                alt='right arrow'
+                className={
+                  !isBodyHidden
+                    ? `  absolute right-1/2 top-0   h-full -translate-x-[400%] rotate-90`
+                    : `  absolute right-1/2 top-0   h-full -translate-x-[400%]`
+                }
+                onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
+                onClick={() => setIsBodyHidden((prev) => !prev)}
+              />
+            )}
+          </div>
+          {!isMenuHidden && !isBodyHidden && (
+            <BodyItem
+              setIsMenuHidden={setIsMenuHidden}
+              setIsBodyHidden={setIsBodyHidden}
+            />
+          )}
         </div>
       </div>
     </section>
