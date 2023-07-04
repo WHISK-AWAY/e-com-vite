@@ -20,12 +20,13 @@ export default function ShopByCategoryListItem({
         const name = tag.tagName;
         return (
           <ul key={tag._id}>
-            <Link
-              to='/shop-all'
-              state={{ filterKey: name }}
-              className=''
-            >
-            <li className='' onClick={() => setIsMenuHidden((prev) => !prev)}>{name}</li>
+            <Link to='/shop-all' state={{ filterKey: name }} className=''>
+              <li
+                className=' hover:underline hover:underline-offset-2'
+                onClick={() => setIsMenuHidden((prev) => !prev)}
+              >
+                {name}
+              </li>
             </Link>
           </ul>
         );

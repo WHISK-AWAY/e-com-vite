@@ -19,6 +19,7 @@ import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/fuser.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
+import dot from '../../assets/icons/dot.svg';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -167,12 +168,33 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        <Link
-          to='/'
-          className='z-50 font-chonburi text-2xl text-[#262626] lg:text-3xl xl:text-4xl'
-        >
-          ASTORIA
-        </Link>
+        {!isMenuHidden ? (
+          <Link
+            to='/'
+            className='relative z-50 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
+            onClick={() => setIsMenuHidden(true)}
+          >
+            <img
+              src={dot}
+              alt='dot-icon'
+              className='absolute right-0 top-0 h-[.6vw] translate-x-[150%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
+            />
+            <img
+              src={dot}
+              alt='dot-icon'
+              className='absolute right-1/2 top-0 h-[.6vw] -translate-x-[1100%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
+            />
+            ASTORIA
+          </Link>
+        ) : (
+          <Link
+            to='/'
+            className='z-50 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
+            onClick={() => setIsMenuHidden(true)}
+          >
+            ASTORIA
+          </Link>
+        )}
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
