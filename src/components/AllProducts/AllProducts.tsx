@@ -13,9 +13,9 @@ import {
 } from '../../redux/slices/userSlice';
 import { getUserId, selectAuthUserId } from '../../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
-import allProdsBg from '../../assets/bg-img/all-prods.jpg';
-import filterI from '../../../src/assets/icons/filter.svg';
-import heartBlanc from '../../../src/assets/icons/heart-blanc.svg';
+// import allProdsBg from '../../assets/bg-img/all-prods.jpg';
+import filterIcon from '../../../src/assets/icons/filter.svg';
+import heartEmpty from '../../../src/assets/icons/heart-blanc.svg';
 import heartFilled from '../../../src/assets/icons/heart-filled.svg';
 import arrowRight from '../../../src/assets/icons/arrowRight.svg';
 import arrowLeft from '../../../src/assets/icons/arrowLeft.svg';
@@ -30,7 +30,6 @@ const PRODS_PER_PAGE = 9;
  * sort by name or price (ascending & descending)
  */
 
-
 // function log(name:string, ...args:any[]): void {
 //   // Extract the current timestamp
 //   // const timestamp = new Date().toISOString();
@@ -41,8 +40,6 @@ const PRODS_PER_PAGE = 9;
 //   // Output the custom log message
 //   console.log(message);
 // }
-
-
 
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
@@ -227,7 +224,7 @@ AllProductsProps) {
           <BestsellersHeader />
         ) : (
           <AllProductsHeader
-            allProdsBg={allProdsBg}
+            // allProdsBg={allProdsBg}
             filter={filter}
             randomProd={randomProd}
           />
@@ -252,7 +249,7 @@ AllProductsProps) {
             <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
 
             <img
-              src={filterI}
+              src={filterIcon}
               className='flex w-6 flex-row'
               onClick={() => setIsSearchHidden((prev) => !prev)}
             />
@@ -316,7 +313,7 @@ AllProductsProps) {
                       });
                     }}
                   >
-                    <img src={heartBlanc} alt='heart-blanc' className='' />
+                    <img src={heartEmpty} alt='heart-blanc' className='' />
                   </div>
                 ) : (
                   <div
@@ -346,7 +343,7 @@ AllProductsProps) {
         })}
       </div>
       {maxPages > 1 && (
-        <div className='flex w-full justify-center pt-20 pb-14 tracking-widest'>
+        <div className='flex w-full justify-center pb-14 pt-20 tracking-widest'>
           <div className='flex items-center font-grotesque text-xl '>
             <img
               src={arrowLeft}
