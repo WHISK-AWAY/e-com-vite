@@ -39,8 +39,11 @@ export default function FaceItem({
             <Link to='/shop-all' state={{ filterKey: name }} className=''>
               <li
                 key={tag._id}
-                className=''
-                onClick={() => {setIsFaceHidden((prev) => !prev); setIsMenuHidden((prev) => !prev)}}
+                className='hover:underline hover:underline-offset-2'
+                onClick={() => {
+                  setIsFaceHidden((prev) => !prev);
+                  setIsMenuHidden((prev) => !prev);
+                }}
               >
                 {name}
               </li>
