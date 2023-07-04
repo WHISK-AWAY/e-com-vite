@@ -33,7 +33,7 @@ export default function BodyItem({
             <Link to='/shop-all' state={{ filterKey: name }} className=''>
               <li
                 key={tag._id}
-                className=''
+                className='hover:underline hover:underline-offset-2'
                 onClick={() => {
                   setIsBodyHidden((prev) => !prev);
                   setIsMenuHidden((prev) => !prev);
