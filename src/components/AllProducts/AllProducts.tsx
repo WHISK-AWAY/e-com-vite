@@ -1,11 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   TProduct,
   fetchAllProducts,
   selectAllProducts,
 } from '../../redux/slices/allProductSlice';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import {
   addToFavorites,
   removeFromFavorites,
@@ -24,6 +25,8 @@ import dots from '../../../src/assets/icons/threeDots.svg';
 import SortFilterAllProds from '../SortFilterAllProds';
 import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
+
+
 const PRODS_PER_PAGE = 9;
 
 /**
@@ -77,6 +80,7 @@ AllProductsProps) {
     key: sortKey,
     direction: sortDir,
   });
+
 
   const topElement = useRef<HTMLHeadingElement | null>(null);
 
@@ -213,12 +217,17 @@ AllProductsProps) {
 
   // pageFlipper();
 
+
+    const notify = () =>
+      toast('Please make an account to start adding favorites');
+
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
     <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
+
       <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
           <BestsellersHeader />
@@ -313,7 +322,23 @@ AllProductsProps) {
                       });
                     }}
                   >
-                    <img src={heartEmpty} alt='heart-blanc' className='' />
+                    {!userId ? (
+                      <img
+                        src={heartEmpty}
+                        alt='heart-blanc'
+                        className=''
+                        onClick={notify}
+                      />
+                    ) : (
+                      <img src={heartEmpty} alt='heart-blanc' className='' />
+                    )}
+                    <Toaster
+                      position='top-right'
+                      toastOptions={{
+                        className:
+                          'shadow-sm rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] ',
+                      }}
+                    />
                   </div>
                 ) : (
                   <div
@@ -330,7 +355,7 @@ AllProductsProps) {
                 )}
               </div>
 
-              <p className='place-items-stretch pt-10 text-center font-hubbali  lg:text-xl'>
+              <p className='place-items-stretch pt-10 text-center  font-hubbali  lg:text-xl'>
                 <Link to={'/product/' + product._id}>
                   {product.productName.toUpperCase()}
                 </Link>
