@@ -25,6 +25,7 @@ import heartFilled from '../../../src/assets/icons/heart-filled.svg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 // * background images
 import lemons from '../../../src/assets/bg-img/ingredient-bg/lemon-slice.jpg';
@@ -69,6 +70,7 @@ import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
+import { notify } from '../AllProducts/AllProducts';
 
 const bgImgs = [
   smallFlowers,
@@ -297,24 +299,44 @@ export default function SingleProduct() {
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
           <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
-            {itemIsFavorited ? (
-              <div
-                onClick={handleFavoriteRemove}
-                className='w-fit cursor-pointer'
-              >
-                <img
-                  src={heartFilled}
-                  className='absolute right-[6%] top-[5%] w-3 lg:w-4 2xl:w-6'
-                />
-              </div>
+            {userId ? (
+              itemIsFavorited ? (
+                <div
+                  onClick={handleFavoriteRemove}
+                  className='w-fit cursor-pointer'
+                >
+                  <img
+                    src={heartFilled}
+                    className='absolute right-[6%] top-[4%] w-3 lg:w-5 xl:w-6'
+                  />
+                </div>
+              ) : (
+                <div
+                  onClick={handleFavoriteAdd}
+                  className='w-fit cursor-pointer'
+                >
+                  <img
+                    src={heartBlanc}
+                    className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
+                  />
+                </div>
+              )
             ) : (
-              <div onClick={handleFavoriteAdd} className='w-fit cursor-pointer'>
-                <img
-                  src={heartBlanc}
-                  className='absolute right-[6%] top-[5%] w-3 lg:w-4 2xl:w-6'
-                />
-              </div>
+              <img
+                src={heartBlanc}
+                onClick={notify}
+                className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
+              />
             )}
+             <Toaster
+              position='top-right'
+              toastOptions={{
+                className:
+                  'border border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] ',
+                duration: 5000,
+              }}
+            /> 
+           
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
