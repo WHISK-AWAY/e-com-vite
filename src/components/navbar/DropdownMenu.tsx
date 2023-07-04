@@ -3,10 +3,9 @@ import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
 import { Link } from 'react-router-dom';
 import x from '../../assets/icons/x.svg';
-import shevronRight from '../../assets/icons/new.svg'
+import shevronRight from '../../assets/icons/new.svg';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
 
 <Link
   to='/shop-all'
@@ -22,30 +21,32 @@ export default function DropdownMenu({
 }: {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
-}) 
-{
-  const [isCategoryHidden, setIsCategoryHidden] = useState(true)
-
-
+}) {
+  const [isCategoryHidden, setIsCategoryHidden] = useState(true);
 
   return (
-    <div className='group absolute right-0 top-3 z-30'>
-      <section className='menu-wrapper flex h-screen  w-[100vw] flex-col justify-around overflow-hidden bg-white font-antonio text-[9vw] font-thin uppercase text-[#262626] '>
+    <section className='menu-wrapper absolute right-0 top-3 z-30 flex  h-screen w-[100vw] flex-col  bg-white pt-[12%] font-antonio  font-thin uppercase text-[#262626] '>
+      <div className=' flex h-screen w-full flex-col bg-blue-100 '>
         <img
           src={x}
           alt='x-icon'
-          className='absolute left-10 top-10 h-[5%]'
+          className='absolute left-10 top-10 h-[2vw]'
           onClick={() => setIsMenuHidden(true)}
         />
 
-
-        <ul className='flex flex-col gap-[10vw]'>
-          <NavLink to={'/shop-all'} onClick={() => setIsMenuHidden(true)}>
-            <li className='translate-x-[25%]'>shop all</li>
+        <div className='flex flex-col gap-[5vw] border border-green-700 text-[7vw]'>
+          <NavLink
+            to={'/shop-all'}
+            onClick={() => setIsMenuHidden(true)}
+            className=''
+          >
+            <p className='h-full translate-x-[25%]'>shop all</p>
           </NavLink>
 
-          <div className='flex'>
-            <li className='relative translate-x-[35%] '>shop by category</li>
+          <div className=' relative flex w-full '>
+            <h2 className=' h-full translate-x-[35%]  text-[7vw]'>
+              shop by category
+            </h2>
 
             {!isMenuHidden && (
               <img
@@ -53,8 +54,8 @@ export default function DropdownMenu({
                 alt='right arrow'
                 className={
                   !isCategoryHidden
-                    ? `  translate-y-[720%]} absolute right-1/2 top-0  h-[5%] translate-x-[1950%] translate-y-[650%] rotate-90`
-                    : `  translate-y-[720%]} absolute right-1/2  top-0 h-[5%] translate-x-[1950%] translate-y-[650%]`
+                    ? `  absolute right-1/2 top-0 z-[90]  h-full translate-x-[1200%] rotate-90`
+                    : `  absolute right-1/2 top-0 z-[90]  h-full translate-x-[1200%]`
                 }
                 onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
                 onClick={() => setIsCategoryHidden((prev) => !prev)}
@@ -62,17 +63,16 @@ export default function DropdownMenu({
             )}
           </div>
 
-
           {!isCategoryHidden && (
             <ShopByCategoryListItems setIsMenuHidden={setIsMenuHidden} />
           )}
-          <li className='translate-x-[30%]'>summer care</li>
-          <li className='translate-x-[30%]'>face</li>
+          <span className='translate-x-[30%]'>summer care</span>
+          <span className='translate-x-[30%]'>face</span>
           {/* <FaceItem /> */}
-          <li className='translate-x-[30%]'>body</li>
+          <span className='translate-x-[30%]'>body</span>
           {/* <BodyItem /> */}
-        </ul>
-      </section>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 }
