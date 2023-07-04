@@ -30,6 +30,8 @@
 
 - [ ] Guest favorites:
   - [ ] Invite to sign up
+- [ ] Sign-in
+  - [ ] 409 several times, then signed in upon refresh
 - [ ] New shipping address form
   - [ ] Form deletes first character typed after validation failure (can't recreate...)
   - [ ] Take another look @ responsiveness
