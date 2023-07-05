@@ -20,9 +20,10 @@ import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/user.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
 import dot from '../../assets/icons/dot.svg';
-import searchIcon from '../../assets/icons/search.svg'
+import searchIcon from '../../assets/icons/search.svg';
 
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
+import Search from '../Search';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -43,6 +44,7 @@ export default function Navbar() {
   const [isHover, setHover] = useState(false);
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const tagState = useAppSelector(selectTagState);
+  const [isSearchHidden, setIsSearchHidden] = useState(true);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -199,7 +201,7 @@ export default function Navbar() {
         ) : (
           <Link
             to='/'
-            className='z-50 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
+            className='z-[60] font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
             onClick={() => setIsMenuHidden(true)}
           >
             ASTORIA
@@ -208,12 +210,80 @@ export default function Navbar() {
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2 '>
-        <img src={searchIcon} className='h-3 lg:h-[18px] xl:h-[21px]' />  
+        <img
+          src={searchIcon}
+          className=' h-3 lg:h-[18px] xl:h-[21px]'
+          onClick={() => setIsSearchHidden((prev) => !prev)}
+        />
+        <form
+          onSubmit={(e) => handleFormSubmit(e)}
+          className={`${
+            !isSearchHidden
+              ? 'absolute right-0 top-0 z-20 h-[60vh] w-full border border-black bg-white'
+              : 'hidden'
+          }`}
+        >
+          <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 border border-red-300'>
+            <input
+              className='w-full text-[1.5vw] font-federo rounded-sm border border-charcoal placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
+              type='text'
+              id='search'
+              value={search}
+              placeholder='search...'
+              onChange={(e) => handleSearch(e)}
+            ></input>
+            <button className='bg-charcoal px-[10%] font-italiana text-[1.5vw] uppercase text-white '>
+              search
+            </button>
+          </div>
+        </form>
+
+        <Search
+          isSearchHidden={isSearchHidden}
+          setIsSearchHidden={setIsSearchHidden}
+          searchResults={searchResults}
+          setSearch={setSearch}
+          setSearchResults={setSearchResults}
+          searchNotFound={searchNotFound}
+        />
+
+        {(searchResults.products.length > 0 ||
+          searchResults.tags.length > 0) && (
+          <select onChange={(e) => console.log(e.target.dataset.type)}>
+            {searchResults.products.map((prod) => (
+              <option
+                key={prod.productId}
+                value={prod.productId}
+                onClick={() =>
+                  handleSelectSearchItem({
+                    type: 'product',
+                    id: prod.productId,
+                  })
+                }
+              >
+                {prod.productName}
+              </option>
+            ))}
+            {searchResults.tags.map((tag) => (
+              <option
+                onClick={() =>
+                  handleSelectSearchItem({ type: 'tag', name: tag.tagName })
+                }
+                key={tag.tagId}
+                value={tag.tagId}
+                data-type='tag'
+              >
+                {tag.tagName}
+              </option>
+            ))}
+          </select>
+        )}
+
         {
           <div>
             <img
               src={bag}
-              className='w-[14px] lg:w-[19px] xl:w-[23px] cursor-pointer'
+              className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
               onClick={async () => {
                 await setMode('cart');
                 setIsCartFavWrapperHidden(false);
@@ -243,7 +313,7 @@ export default function Navbar() {
                   : heartBlanc
               }
               // style={{strokeWidth: '2'}}
-              className='w-3 lg:w-[16px] xl:w-5 cursor-pointer '
+              className='w-3 cursor-pointer lg:w-[16px] xl:w-5 '
               onClick={async () => {
                 await setMode('fav');
                 setIsCartFavWrapperHidden(false);
@@ -254,36 +324,18 @@ export default function Navbar() {
 
         {userId ? (
           <NavLink to={`/user/${userId}`}>
-            <img src={user} className='xl:w-5 lg:w-4 w-3' />
+            <img src={user} className='w-3 lg:w-4 xl:w-5' />
           </NavLink>
         ) : (
           <>
             <div onClick={() => setIsSignFormHidden((prev) => !prev)}>
-              <img src={user} className='w-3 xl:w-5 lg:w-4' />
+              <img src={user} className='w-3 lg:w-4 xl:w-5' />
             </div>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
             )}
           </>
         )}
-
-       
-         {/* <form onSubmit={(e) => handleFormSubmit(e)} className='hidden'>
-          <input
-          type='text'
-          id='search'
-          value={search}
-          placeholder='search...'
-          onChange={(e) => handleSearch(e)}
-          ></input>
-          <button>search</button>
-        </form>   */}
-        {/* <Search
-          searchResults={searchResults}
-          setSearch={setSearch}
-          setSearchResults={setSearchResults}
-          searchNotFound={searchNotFound}
-        /> */}
       </div>
       {userId && singleUserState.user.role === 'admin' && (
         <NavLink
@@ -293,33 +345,6 @@ export default function Navbar() {
           ADMIN
         </NavLink>
       )}
-      {/* {(searchResults.products.length > 0 || searchResults.tags.length > 0) && (
-        <select onChange={(e) => console.log(e.target.dataset.type)}>
-          {searchResults.products.map((prod) => (
-            <option
-            key={prod.productId}
-            value={prod.productId}
-            onClick={() =>
-              handleSelectSearchItem({ type: 'product', id: prod.productId })
-              }
-            >
-              {prod.productName}
-            </option>
-            ))}
-          {searchResults.tags.map((tag) => (
-            <option
-            onClick={() =>
-              handleSelectSearchItem({ type: 'tag', name: tag.tagName })
-            }
-            key={tag.tagId}
-            value={tag.tagId}
-              data-type="tag"
-              >
-              {tag.tagName}
-              </option>
-              ))}
-        </select> */}
-      {/* )} */}
     </nav>
   );
 }
