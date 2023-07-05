@@ -106,17 +106,14 @@ const productSlice = createSlice({
         state.error.status = null;
       })
 
-      .addCase(
-        fetchAllProducts.rejected,
-        (state, action: PayloadAction<any>) => {
-          return { ...initialState, error: { status: action.payload.status } };
-        }
-      )
+      .addCase(fetchAllProducts.rejected, (_, action: PayloadAction<any>) => {
+        return { ...initialState, error: { status: action.payload.status } };
+      })
 
       /**
        * * SINGLE PRODUCT
        */
-      .addCase(fetchSingleProduct.pending, (state, action) => {
+      .addCase(fetchSingleProduct.pending, (state, _) => {
         state.loading = true;
       })
       .addCase(fetchSingleProduct.fulfilled, (state, { payload }) => {
@@ -166,7 +163,7 @@ export type TTag = {
 };
 
 export type TProduct = {
-  _id: Types.ObjectId;
+  _id: Types.ObjectId | string;
   productName: string;
   productIngredients: string;
   productShortDesc: string;
@@ -174,7 +171,7 @@ export type TProduct = {
   qty: number;
   images: ImageData[];
   tags: TTag[];
-  relatedProducts: Omit<TProduct, 'relatedProducts'>[];
+  relatedProducts?: Omit<TProduct, 'relatedProducts'>[];
 };
 
 type ProductItem = {

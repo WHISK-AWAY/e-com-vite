@@ -56,6 +56,7 @@ export type ImageDesc =
   | 'product-back'
   | 'product-packaging-back'
   | 'product-texture'
+  | 'product-alt'
   | 'product-dimensions'
   | 'product-usage'
   | 'video-usage'

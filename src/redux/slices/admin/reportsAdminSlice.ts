@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-import { TProduct } from '../userSlice';
+import { UserProduct } from '../userSlice';
 import { RootState } from '../../store';
 import { TOrder } from '../orderSlice';
 
@@ -10,7 +10,7 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
  * * TYPES
  */
 export type TReportState = {
-  allProducts: TProduct[];
+  allProducts: UserProduct[];
   allOrders: TOrder[];
   loading: boolean;
   errors: {
@@ -93,7 +93,7 @@ const reportSlice = createSlice({
      * * fetchReportProducts
      */
     builder
-      .addCase(fetchReportProducts.pending, (state, { payload }) => {
+      .addCase(fetchReportProducts.pending, (state, _) => {
         return { ...state, loading: true };
       })
       .addCase(fetchReportProducts.fulfilled, (state, { payload }) => {
@@ -115,7 +115,7 @@ const reportSlice = createSlice({
      * * fetchReportOrders
      */
     builder
-      .addCase(fetchReportOrders.pending, (state, { payload }) => {
+      .addCase(fetchReportOrders.pending, (state, _) => {
         return { ...state, loading: true };
       })
       .addCase(fetchReportOrders.fulfilled, (state, { payload }) => {

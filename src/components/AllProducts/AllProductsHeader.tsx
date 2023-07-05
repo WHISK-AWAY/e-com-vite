@@ -20,6 +20,7 @@ export default function AllProductsHeader({
   const [randomProdGif, setRandomProdGif] = useState<string | undefined>(
     undefined
   );
+  const [backupImage, setBackupImage] = useState<string | undefined>(undefined);
   const [categoryInfo, setCategoryInfo] = useState<CategoryHeaderInfo | null>(
     null
   );
@@ -39,7 +40,18 @@ export default function AllProductsHeader({
       setRandomProdGif(
         randomProd.images.find((image) =>
           ['gif-product', 'video-product'].includes(image.imageDesc)
-        )?.imageURL
+        )?.imageURL || undefined
+      );
+      setBackupImage(
+        randomProd.images
+          .slice(1)
+          .find((image) => image.imageDesc === 'product-texture')?.imageURL ||
+          randomProd.images
+            .slice(1)
+            .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+          randomProd.images
+            .slice(1)
+            .find((image) => !image.imageDesc.includes('video'))?.imageURL
       );
     }
 
@@ -81,20 +93,27 @@ export default function AllProductsHeader({
         </div>
         <div
           className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 ${
-            randomProdGif ? 'group' : ''
+            randomProdGif || backupImage ? 'group' : ''
           }`}
         >
           <Link to={'/product/' + randomProd._id}>
             <img
               src={randomProdImage}
+              alt='product image'
               className='aspect-square w-full object-cover group-hover:invisible'
             />
-            {randomProdGif && (
+            {randomProdGif ? (
               <video
                 src={randomProdGif}
                 muted={true}
                 autoPlay={true}
                 loop={true}
+                className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
+              />
+            ) : (
+              <img
+                src={backupImage}
+                alt='alternate product image'
                 className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
               />
             )}

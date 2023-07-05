@@ -1,6 +1,8 @@
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import axios, { AxiosError } from 'axios';
 import { TShippingAddress, TUser } from '../redux/slices/userSlice';
+import { TProduct } from '../redux/slices/allProductSlice';
+import { ICart } from '../redux/slices/cartSlice';
 
 export async function emailExists(email: string): Promise<boolean> {
   try {
@@ -98,4 +100,37 @@ export function orderAddressArray(user: TUser) {
       ),
     ];
   return addressList;
+}
+
+// Calculate max available inventory --
+// Must account for guest carts which do not decrement server-side inventory
+export function getMaxQty(
+  product: TProduct | null,
+  userId: string | null
+): number {
+  console.log('getting max qty');
+
+  if (!product) return 0;
+  const inventoryQty = product.qty || 0;
+  let maxQty = inventoryQty;
+
+  if (!maxQty) {
+    return 0;
+  }
+
+  if (!userId) {
+    // If we don't have a user ID, we need to check for this item in the localstorage cart
+    const storedCart = window.localStorage.getItem('guestCart');
+    if (storedCart) {
+      const guestCart = JSON.parse(storedCart) as ICart;
+      const thisItemInCart = guestCart.products.find(
+        (item) => item._id === product._id.toString()
+      );
+      if (thisItemInCart) {
+        maxQty = Math.max(0, maxQty - thisItemInCart.qty);
+      }
+    }
+  }
+
+  return maxQty;
 }

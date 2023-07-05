@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchSingleProduct,
@@ -71,6 +71,7 @@ import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
 import { notify } from '../AllProducts/AllProducts';
+import { getMaxQty } from '../../utilities/helpers';
 
 const bgImgs = [
   smallFlowers,
@@ -122,7 +123,11 @@ export default function SingleProduct() {
   const { user: thisUser } = useAppSelector(selectSingleUser);
   const { userId } = useAppSelector(selectAuth);
 
-  const [count, setCount] = useState(1);
+  const maxQty = useMemo(
+    () => getMaxQty(singleProduct, userId),
+    [singleProduct!, userId]
+  );
+  const [count, setCount] = useState(0);
   const [itemIsFavorited, setItemIsFavorited] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [userHasReviewed, setUserHasReviewed] = useState(true);
@@ -132,7 +137,6 @@ export default function SingleProduct() {
 
   useEffect(() => {
     // * component initialization
-    setCount(1);
 
     if (productId) {
       dispatch(getUserId());
@@ -147,10 +151,21 @@ export default function SingleProduct() {
       setBgVid(bgVids[Math.floor(Math.random() * bgVids.length)]);
       setBgImg('');
     }
+
+    window.scrollTo({ top: 0 });
   }, [productId]);
 
   useEffect(() => {
-    // * determine whether item is in user's favorites & fill/clear heart icon
+    // Set counter to 1 if quantity is available.
+    if (singleProduct?._id) {
+      setCount(Math.min(1, maxQty));
+    } else {
+      setCount(0);
+    }
+  }, [singleProduct]);
+
+  useEffect(() => {
+    // Determine whether item is in user's favorites & fill/clear heart icon
     if (thisUser._id) {
       const isFav = thisUser.favorites.some(({ _id: favId }) => {
         return favId.toString() === productId;
@@ -161,18 +176,21 @@ export default function SingleProduct() {
   }, [thisUser, productId]);
 
   useEffect(() => {
-    // * initialize image as first 'product-front' image in product images array
+    // Initialize image as first 'product-front' image in product images array
     if (singleProduct?._id) {
       setSelectedImage(
         singleProduct.images.find(
           (image) => image.imageDesc === 'product-front'
         )?.imageURL || singleProduct.images[0].imageURL
       );
+      if (count > maxQty) {
+        setCount(maxQty);
+      }
     }
   }, [singleProduct]);
 
   useEffect(() => {
-    // * determine whether user has left a review on this product already
+    // Determine whether user has left a review on this product already (prevents additional reviews)
     if (userId) {
       if (
         allReviews.reviews.map((review) => review.user._id).includes(userId)
@@ -182,31 +200,38 @@ export default function SingleProduct() {
     }
   }, [allReviews, userId]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
+  // Add-to-cart quantity counter
   const qtyIncrementor = () => {
-    let userQty: number = count;
-    const totalQty: number = singleProduct!.qty!;
-    if (userQty! >= totalQty) setCount(totalQty);
-    else setCount(count + 1);
+    if (maxQty <= 1) {
+      setCount(maxQty);
+      return;
+    }
+
+    // Limit add-to-cart qty to max available qty
+    if (count >= maxQty) setCount(maxQty);
+    else setCount((prev) => prev + 1);
   };
 
+  // Add-to-cart quantity counter
   const qtyDecrementor = () => {
-    let userQty: number = count;
-    if (userQty! <= 1) setCount(count);
-    else setCount(count - 1);
+    if (count <= 1) return;
+    setCount((prev) => prev - 1);
   };
 
-  const handleClick = () => {
+  // Add selected quantity to cart.
+  const handleAddToCart = () => {
+    if (count < 1) return;
+
+    setCount(1);
+
     if (productId) {
       dispatch(addToCart({ userId, productId, qty: count })).then(() =>
-        setCount(1)
+        dispatch(fetchSingleProduct(productId))
       );
     }
   };
 
+  // ! early return: await single product availability
   if (!singleProduct) return <p>...Loading</p>;
 
   const handleFavoriteAdd = () => {
@@ -243,28 +268,9 @@ export default function SingleProduct() {
     return score / allReviews.reviews.length || 0;
   };
 
-  // const qualityAndValueAvg = () => {
-  //   let quality = 0;
-  //   let value = 0;
-
-  //   if (!allReviews.reviews.length) return { quality: 0, value: 0 };
-  //   for (let review of allReviews.reviews) {
-  //     value += review.rating.value;
-  //     quality += review.rating.quality;
-  //   }
-
-  //   return {
-  //     quality: Math.floor(quality / allReviews.reviews.length).toFixed(),
-  //     value: (value / allReviews.reviews.length).toFixed(),
-  //   };
-  // };
   /**
    * * WRITE A REVIEW
    */
-
-  // const handleAddReview = () => {
-  //   setAddReview(true);
-  // };
 
   const parseIngredients = () => {
     const text = singleProduct.productIngredients.split('\n');
@@ -409,15 +415,15 @@ export default function SingleProduct() {
                     <img src={plus} className='w-4 2xl:w-5' />
                   </div>
                 </div>
-                {singleProduct.qty <= 10 && (
+                {maxQty <= 10 && (
                   <div className='font-grotesque text-xs text-red-800 lg:text-sm xl:text-lg 2xl:text-xl'>
-                    {singleProduct.qty === 0 ? 'out of stock' : 'limited stock'}
+                    {maxQty === 0 ? 'out of stock' : 'limited stock'}
                   </div>
                 )}
               </div>
               <button
-                onClick={handleClick}
-                disabled={singleProduct.qty === 0}
+                onClick={handleAddToCart}
+                disabled={maxQty === 0}
                 className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
               >
                 add to cart
@@ -489,7 +495,9 @@ export default function SingleProduct() {
         <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
           YOU MAY ALSO LIKE
         </h2>
-        <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+        {singleProduct.relatedProducts && (
+          <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+        )}
       </section>
 
       {/* REVIEWS */}

@@ -23,12 +23,23 @@ import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 export default function Homepage() {
+  const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
 
   useEffect(() => {
-    setRandomProd(randomProduct(allProducts));
-  }, [randomProd]);
+    if (!allProducts.products.length) {
+      dispatch(
+        fetchAllProducts({
+          filter: 'all',
+          page: 1,
+          sort: { direction: 'asc', key: 'productName' },
+        })
+      );
+    } else {
+      setRandomProd(randomProduct(allProducts));
+    }
+  }, [allProducts]);
 
   // console.log('AP', allProducts)
   if (!randomProd) return <p>...loading</p>;
@@ -39,12 +50,14 @@ export default function Homepage() {
           src={handLotion}
           loop={true}
           autoPlay={true}
+          muted={true}
           className='aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
         />
         <video
           src={rainLeaves}
           loop={true}
           autoPlay={true}
+          muted={true}
           className='aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
         />
 
