@@ -58,7 +58,7 @@ export default function DropdownMenu({
                   src={chevronRight}
                   alt='right arrow'
                   className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] min-[1538px]:h-[2vw] ${
-                    !isCategoryHidden ? 'translate-y-[-100%] rotate-90' : ''
+                    !isCategoryHidden ? 'rotate-90' : ''
                   }`}
                   // onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
                   onClick={() => setIsCategoryHidden((prev) => !prev)}
@@ -80,7 +80,7 @@ export default function DropdownMenu({
             </NavLink>
 
             <div className='relative flex'>
-              <h3 className='relative h-full'>
+              <h2 className='relative h-full'>
                 face
                 {!isMenuHidden && (
                   <img
@@ -93,16 +93,16 @@ export default function DropdownMenu({
                     onClick={() => setIsFaceHidden((prev) => !prev)}
                   />
                 )}
-              </h3>
-              <div className='temp-div' onClick={() => setIsFaceHidden(true)}>
-                {/* this div is just here so we can click off of the face menu until something better gets figured out */}
-                {!isFaceHidden && (
-                  <FaceItem
-                    setIsMenuHidden={setIsMenuHidden}
-                    setIsFaceHidden={setIsFaceHidden}
-                  />
-                )}
-              </div>
+              </h2>
+              {/* <div className='temp-div' onClick={() => setIsFaceHidden(true)}> */}
+              {/* this div is just here so we can click off of the face menu until something better gets figured out */}
+              {!isFaceHidden && (
+                <FaceItem
+                  setIsMenuHidden={setIsMenuHidden}
+                  setIsFaceHidden={setIsFaceHidden}
+                />
+              )}
+              {/* </div> */}
             </div>
 
             <div className='relative flex w-full '>

@@ -30,7 +30,7 @@ export default function ShopByCategoryListItem({
   return (
     <div
       ref={localParent}
-      className={`group absolute right-0 top-1/2 z-10 flex w-screen flex-col flex-wrap`}
+      className={`group absolute right-0 top-[65%] z-10 flex w-screen flex-col flex-wrap`}
       style={{ height: menuHeight }}
     >
       {menuHeight > 0 && (
