@@ -22,8 +22,6 @@ export default function ShopByCategoryListItem({
     );
   }, [window.innerHeight, localParent.current]);
 
-  useEffect(() => console.log('menuHeight', menuHeight), [menuHeight]);
-
   return (
     <div
       ref={localParent}
@@ -31,7 +29,7 @@ export default function ShopByCategoryListItem({
       style={{ height: menuHeight }}
     >
       {menuHeight > 0 && (
-        <section className='flex w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border border-black bg-white py-[2%] pl-12 text-[1.7vw] leading-tight 3xl:text-[1.7vw] 5xl:pl-[2.1vw] 5xl:text-xl'>
+        <section className='flex w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border border-black bg-white py-[2%] pl-12 text-[2vw] leading-tight'>
           {tagList.map((tag) => {
             const name = tag.tagName;
             return (
