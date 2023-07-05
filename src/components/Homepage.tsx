@@ -51,14 +51,14 @@ export default function Homepage() {
           loop={true}
           autoPlay={true}
           muted={true}
-          className='aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
+          className='-z-10 aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
         />
         <video
           src={rainLeaves}
           loop={true}
           autoPlay={true}
           muted={true}
-          className='aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
+          className='-z-10 aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
         />
 
         <div className=' absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference'>
