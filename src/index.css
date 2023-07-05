@@ -8,6 +8,14 @@
 @tailwind components;
 @tailwind utilities;
 
+textarea:focus, input:focus{
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
 
 
 .focus-no-ring {
