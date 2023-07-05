@@ -21,10 +21,8 @@ const faceitems = [
 ];
 
 export default function FaceItem({
-  setIsFaceHidden,
   setIsMenuHidden,
 }: {
-  setIsFaceHidden: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useAppDispatch();
@@ -38,13 +36,25 @@ export default function FaceItem({
     dispatch(fetchAllTags());
   }, []);
 
+  useEffect(() => {
+    setMenuHeight(
+      Math.round(
+        window.innerHeight -
+          (localParent.current?.getBoundingClientRect().top || 0)
+      )
+    );
+  }, []);
+
   const filteredTags = tagList.filter((tag) => faceitems.includes(tag.tagName));
 
   if (!filteredTags) return <p>...loading</p>;
   return (
     <section
       ref={localParent}
-      className='absolute right-0 top-[65%] z-10 flex h-screen w-screen flex-col flex-wrap border border-black bg-white py-[2%] pl-10 text-[2vw] min-[1536px]:text-[1.3vw]'
+      className='absolute right-0 top-[65%] z-10 flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] border border-black bg-white py-[2%] pl-10 text-[2vw] 3xl:text-[1.3vw]'
+      style={{
+        height: menuHeight,
+      }}
     >
       {filteredTags.map((tag) => {
         const name = tag.tagName;
@@ -52,9 +62,8 @@ export default function FaceItem({
           <Link
             to='/shop-all'
             state={{ filterKey: name }}
-            className='border border-blue-700 hover:underline hover:underline-offset-2'
+            className='hover:underline hover:underline-offset-2'
             onClick={() => {
-              setIsFaceHidden((prev) => !prev);
               setIsMenuHidden((prev) => !prev);
             }}
             key={tag._id}
