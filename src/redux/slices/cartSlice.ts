@@ -217,38 +217,38 @@ export const removeFromCart = createAsyncThunk(
     args: { userId: string | null; productId: string; qty: number },
     thunkApi
   ) => {
-    if (!args.userId || args.userId === null) {
-      const guestProduct = await axios.get(
-        VITE_API_URL + `/api/product/${args.productId}`
-      );
-
-      let cart = { ...initialGuestCart };
-      const localGuestCart = localStorage.getItem('guestCart');
-      if (localGuestCart) {
-        cart = JSON.parse(localGuestCart);
-      }
-
-      const findProduct = cart.products.find(
-        (p) => p._id === guestProduct.data._id
-      );
-
-      if (findProduct) {
-        if (findProduct.qty <= args.qty) {
-          cart.products = cart.products.filter(
-            (p) => p._id !== findProduct._id
-          );
-          cart.subtotal -= findProduct.qty * findProduct.price;
-        } else {
-          findProduct.qty -= args.qty;
-          cart.subtotal -= args.qty * findProduct.price;
-        }
-        localStorage.setItem('guestCart', JSON.stringify(cart));
-      }
-
-      return cart;
-    }
-
+    
     try {
+      if (!args.userId || args.userId === null) {
+        const guestProduct = await axios.get(
+          VITE_API_URL + `/api/product/${args.productId}`
+        );
+  
+        let cart = { ...initialGuestCart };
+        const localGuestCart = localStorage.getItem('guestCart');
+        if (localGuestCart) {
+          cart = JSON.parse(localGuestCart);
+        }
+  
+        const findProduct = cart.products.find(
+          (p) => p._id === guestProduct.data._id
+        );
+  
+        if (findProduct) {
+          if (findProduct.qty <= args.qty) {
+            cart.products = cart.products.filter(
+              (p) => p._id !== findProduct._id
+            );
+            cart.subtotal -= findProduct.qty * findProduct.price;
+          } else {
+            findProduct.qty -= args.qty;
+            cart.subtotal -= args.qty * findProduct.price;
+          }
+          localStorage.setItem('guestCart', JSON.stringify(cart));
+        }
+  
+        return cart;
+      }
       const { data } = await axios.post(
         VITE_API_URL + `/api/user/${args.userId}/cart/remove-item`,
         { productId: args.productId, qty: args.qty },
