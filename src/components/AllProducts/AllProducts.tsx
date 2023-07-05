@@ -27,6 +27,22 @@ import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 
 const PRODS_PER_PAGE = 9;
+export const notify = () =>
+  toast('Please make an account to start adding favorites');
+/**
+ * sort by name or price (ascending & descending)
+ */
+
+// function log(name:string, ...args:any[]): void {
+//   // Extract the current timestamp
+//   // const timestamp = new Date().toISOString();
+
+//   // Prepend the timestamp to the log message
+//   const message = `${name} ${args.join(' ')}`;
+
+//   // Output the custom log message
+//   console.log(message);
+// }
 
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
@@ -197,11 +213,6 @@ AllProductsProps) {
     return pages;
   };
 
-  // pageFlipper();
-
-  const notify = () =>
-    toast('Please make an account to start adding favorites');
-
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
@@ -332,17 +343,21 @@ AllProductsProps) {
                       <img
                         src={heartEmpty}
                         alt='heart-blanc'
-                        className=''
+                        className='h-3 lg:h-4 xl:w-5'
                         onClick={notify}
                       />
                     ) : (
-                      <img src={heartEmpty} alt='heart-blanc' className='' />
+                      <img src={heartEmpty} alt='heart-blanc' className='h-3 lg:h-4 xl:w-5' />
                     )}
                     <Toaster
                       position='top-right'
                       toastOptions={{
                         className:
-                          'shadow-sm rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] ',
+                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
+                        duration: 5000,
+                        style: {
+                          maxWidth: 700,
+                        },
                       }}
                     />
                   </div>
