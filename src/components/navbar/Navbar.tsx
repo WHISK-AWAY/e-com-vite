@@ -20,6 +20,7 @@ import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/fuser.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
 import dot from '../../assets/icons/dot.svg';
+import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -39,6 +40,7 @@ export default function Navbar() {
   const [mode, setMode] = useState<TCFMode>('cart');
   const [isHover, setHover] = useState(false);
   const [isMenuHidden, setIsMenuHidden] = useState(true);
+  const tagState = useAppSelector(selectTagState);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -56,6 +58,12 @@ export default function Navbar() {
     dispatch(getUserId());
     dispatch(searchProducts());
   }, []);
+
+  useEffect(() => {
+    if (!tagState.tags.length) {
+      dispatch(fetchAllTags());
+    }
+  }, [tagState]);
 
   // useEffect(() => {
   //   console.log(isCartFavWrapperHidden);
