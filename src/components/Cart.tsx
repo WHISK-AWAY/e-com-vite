@@ -30,7 +30,7 @@ export default function Cart({
     <div className='flex h-full w-full flex-col items-center justify-start lg:gap-4'>
       <div className='header w-full border-b border-charcoal pt-5'>
         <h1 className='flex justify-center pb-3 font-italiana text-base lg:text-2xl'>
-          {userCart.cart.products?.length
+          {userCart.cart?.products?.length
             ? 'YOUR CART' +
               ` (${userCart.cart.products.reduce((total, product) => {
                 return total + product.qty;
