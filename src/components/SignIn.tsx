@@ -49,8 +49,6 @@ export default function SignIn({
     };
   }, []);
 
-
-
   // useEffect(() => {
   //   if (selectAuthUser.userId) {
   //     navigate(`/shop-all`);
@@ -114,8 +112,10 @@ export default function SignIn({
     dispatch(requestLogin(data))
       .then((meta) => {
         // console.log('mta', meta)
-        const payload = meta?.payload as AuthState;
+        const payload = meta?.payload as { status: number; message: string };
+
         if (payload?.status === 401) {
+          console.log('incorrect password');
           reset({
             password: '',
           });
