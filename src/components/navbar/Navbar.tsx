@@ -17,9 +17,11 @@ import DropDownMenu from './DropdownMenu';
 
 import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
-import user from '../../assets/icons/fuser.svg';
+import user from '../../assets/icons/user.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
 import dot from '../../assets/icons/dot.svg';
+import searchIcon from '../../assets/icons/search.svg'
+
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -197,12 +199,13 @@ export default function Navbar() {
         )}
       </div>
 
-      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-5 '>
+      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2 '>
+        <img src={searchIcon} className='h-3 lg:h-[18px] xl:h-[21px]' />  
         {
           <div>
             <img
               src={bag}
-              className='h-4  cursor-pointer'
+              className='w-[14px] lg:w-[19px] xl:w-[23px] cursor-pointer'
               onClick={async () => {
                 await setMode('cart');
                 setIsCartFavWrapperHidden(false);
@@ -232,7 +235,7 @@ export default function Navbar() {
                   : heartBlanc
               }
               // style={{strokeWidth: '2'}}
-              className='h-4 cursor-pointer stroke-[6px]'
+              className='w-3 lg:w-[16px] xl:w-5 cursor-pointer '
               onClick={async () => {
                 await setMode('fav');
                 setIsCartFavWrapperHidden(false);
@@ -243,12 +246,12 @@ export default function Navbar() {
 
         {userId ? (
           <NavLink to={`/user/${userId}`}>
-            <img src={user} className='  h-4' />
+            <img src={user} className='xl:w-5 lg:w-4 w-3' />
           </NavLink>
         ) : (
           <>
             <div onClick={() => setIsSignFormHidden((prev) => !prev)}>
-              <img src={user} className=' lg:w-5' />
+              <img src={user} className='w-3 xl:w-5 lg:w-4' />
             </div>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
@@ -256,8 +259,8 @@ export default function Navbar() {
           </>
         )}
 
-        {/* <img src={searchIcon} className=' w-6 ' /> */}
-        {/* <form onSubmit={(e) => handleFormSubmit(e)}>
+       
+         {/* <form onSubmit={(e) => handleFormSubmit(e)} className='hidden'>
           <input
           type='text'
           id='search'
@@ -266,7 +269,7 @@ export default function Navbar() {
           onChange={(e) => handleSearch(e)}
           ></input>
           <button>search</button>
-        </form>  */}
+        </form>   */}
         {/* <Search
           searchResults={searchResults}
           setSearch={setSearch}
