@@ -1,8 +1,14 @@
-<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
 <mask id="mask0_175_678" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="21" height="21">
 <path d="M20.16 0.5H0V20.5H20.16V0.5Z" fill="white"/>
 </mask>
 <g mask="url(#mask0_175_678)">
 <path d="M10.0803 18.2848L2.13147 11.1419C-2.18852 6.85616 4.16188 -1.37241 10.0803 5.28473C15.9987 -1.37241 22.3202 6.88473 18.0291 11.1419L10.0803 18.2848Z" fill="#31333A" stroke="#31333A" stroke-linecap="round" stroke-linejoin="round"/>
 </g>
+</svg> -->
+
+
+
+<svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.3314 8.5474L10 16.5L17.6686 8.5474C18.5211 7.6633 19 6.46429 19 5.21405C19 2.61055 16.9648 0.5 14.4543 0.5C13.2487 0.5 12.0925 0.99666 11.24 1.88071L10 3.16667L8.76 1.88071C7.90749 0.99666 6.75128 0.5 5.54569 0.5C3.03517 0.5 1 2.61055 1 5.21405C1 6.46429 1.47892 7.6633 2.3314 8.5474Z" fill="#262626" stroke="#262626" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
