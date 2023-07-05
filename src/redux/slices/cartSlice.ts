@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import axios, { AxiosError } from 'axios';
+import axios, { Axios, AxiosError } from 'axios';
 import { ImageData } from '../../../server/database';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -38,72 +38,6 @@ const initialGuestCart: ICart = {
   products: [],
   subtotal: 0,
 };
-
-/**
- * * Cart Slice
- */
-
-const initialState: CartState = {
-  cart: {} as ICart,
-  loading: false,
-  errors: { message: null, status: null },
-};
-
-const cartSlice = createSlice({
-  name: 'cart',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    /**
-     * * FETCH USER CART
-     */
-
-    builder
-      .addCase(fetchUserCart.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchUserCart.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.cart = payload;
-        state.errors = { ...initialState.errors };
-      })
-      .addCase(fetchUserCart.rejected, (_, action: PayloadAction<any>) => {
-        return { ...initialState, errors: action.payload };
-      })
-
-      /**
-       * *ADD ITEM TO CART
-       */
-
-      .addCase(addToCart.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(addToCart.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.cart = payload;
-        state.errors = { ...initialState.errors };
-      })
-      .addCase(addToCart.rejected, (_, action: PayloadAction<any>) => {
-        return { ...initialState, errors: action.payload };
-      })
-
-      /**
-       * * REMOVE ITEM FROM CART
-       */
-
-      .addCase(removeFromCart.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(removeFromCart.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.cart = payload;
-        state.errors = { ...initialState.errors };
-      })
-      .addCase(removeFromCart.rejected, (_, action: PayloadAction<any>) => {
-        return { ...initialState, errors: action.payload };
-      });
-  },
-});
 
 // * FETCH USER CART
 export const fetchUserCart = createAsyncThunk(
@@ -217,23 +151,22 @@ export const removeFromCart = createAsyncThunk(
     args: { userId: string | null; productId: string; qty: number },
     thunkApi
   ) => {
-    
     try {
       if (!args.userId || args.userId === null) {
         const guestProduct = await axios.get(
           VITE_API_URL + `/api/product/${args.productId}`
         );
-  
+
         let cart = { ...initialGuestCart };
         const localGuestCart = localStorage.getItem('guestCart');
         if (localGuestCart) {
           cart = JSON.parse(localGuestCart);
         }
-  
+
         const findProduct = cart.products.find(
           (p) => p._id === guestProduct.data._id
         );
-  
+
         if (findProduct) {
           if (findProduct.qty <= args.qty) {
             cart.products = cart.products.filter(
@@ -246,7 +179,7 @@ export const removeFromCart = createAsyncThunk(
           }
           localStorage.setItem('guestCart', JSON.stringify(cart));
         }
-  
+
         return cart;
       }
       const { data } = await axios.post(
@@ -257,14 +190,85 @@ export const removeFromCart = createAsyncThunk(
 
       // console.log('data from reove cart item', data);
       return data.cart;
-    } catch (err: any) {
-      return thunkApi.rejectWithValue({
-        status: err.response.status,
-        message: err.response.message,
-      });
+    } catch (err) {
+      if (err instanceof AxiosError)
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      else console.error(err);
     }
   }
 );
+
+/**
+ * * Cart Slice
+ */
+
+const initialState: CartState = {
+  cart: {} as ICart,
+  loading: false,
+  errors: { message: null, status: null },
+};
+
+const cartSlice = createSlice({
+  name: 'cart',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    /**
+     * * FETCH USER CART
+     */
+
+    builder
+      .addCase(fetchUserCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(fetchUserCart.rejected, (_, action: PayloadAction<any>) => {
+        window.localStorage.removeItem('guestCart');
+        return { ...initialState, errors: action.payload };
+      })
+
+      /**
+       * *ADD ITEM TO CART
+       */
+
+      .addCase(addToCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addToCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(addToCart.rejected, (_, action: PayloadAction<any>) => {
+        window.localStorage.removeItem('guestCart');
+        return { ...initialState, errors: action.payload };
+      })
+
+      /**
+       * * REMOVE ITEM FROM CART
+       */
+
+      .addCase(removeFromCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeFromCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = payload;
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(removeFromCart.rejected, (_, action: PayloadAction<any>) => {
+        window.localStorage.removeItem('guestCart');
+        return { ...initialState, errors: action.payload };
+      });
+  },
+});
 
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
