@@ -104,7 +104,7 @@ const categorySplitTitles = {
   face: `<span class='${leftStyles}'>fa</span><span class='${rightStyles}'>ce</span>`,
   oils: `<span class='${leftStyles}'>oi</span><span class='${rightStyles}'>ls</span>`,
   'tinted care': `<span class='${leftStyles}'>tinted</span><span class='${rightStyles}'>care</span>`,
-  spf: `<span class='${leftStyles}'>sp</span><span class='${rightStyles}'>f</span>`,
+  spf: `<span class='${leftStyles}'>summer</span><span class='${rightStyles}'>care</span>`,
   masks: `<span class='${leftStyles}'>mas</span><span class='${rightStyles}'>ks</span>`,
   'nighttime skincare': `<span class='${leftStyles}'>night</span><span class='${rightStyles}'>time</span><span class='${baseStyles} ${twoLinerStyles} text-white'>skincare</span>`,
   'eye care': `<span class='${leftStyles}'>eye</span><span class='${rightStyles}'>care</span>`,
