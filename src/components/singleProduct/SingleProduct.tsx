@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState, useRef, useMemo } from 'react';
+import { useEffect, useState, useRef, useMemo, useLayoutEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   fetchSingleProduct,
   selectSingleProduct,
@@ -114,8 +116,13 @@ const bgImgs = [
 
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
+  const bgImgRef = useRef<HTMLImageElement>(null);
+  const bgVidRef = useRef<HTMLVideoElement>(null);
+  const youMayAlsoLikeRef = useRef<HTMLDivElement>(null);
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
@@ -199,6 +206,92 @@ export default function SingleProduct() {
       } else setUserHasReviewed(false);
     }
   }, [allReviews, userId]);
+
+  //motion ref trigger
+
+  // useEffect(() => {
+  //   let animation: gsap.core.Tween;
+
+  //   if (bgImgRef.current || bgVidRef.current) {
+  //     animation = gsap.to(bgVid ? bgVidRef.current : bgImgRef.current, {
+  //       scrollTrigger: {
+  //         trigger: bgVid ? bgVidRef.current : bgImgRef.current,
+  //         markers: true,
+  //         start: 'top 20%',
+  //         pin: true,
+  //         endTrigger: youMayAlsoLikeRef.current,
+  //         end: 'top bottom',
+  //         scrub: true,
+  //       },
+  //     });
+  //   }
+
+  //   // return () => {
+  //   //   if (animation) animation.revert();
+  //   // };
+  // }, [bgImgRef.current, bgVidRef.current]);
+
+  // useLayoutEffect(() => {
+
+  //   let ctx = gsap.context(() => {
+  //     gsap.to(bgVid ? bgVidRef.current : bgImgRef.current, {
+  //       scrollTrigger: {
+  //         trigger: bgVid ? bgVidRef.current : bgImgRef.current,
+  //         markers: true,
+  //         start: 'top 20%',
+  //         pin: true,
+  //         endTrigger: youMayAlsoLikeRef.current,
+  //         end: 'top bottom',
+  //         scrub: true,
+  //       },
+  //     });
+  //   })
+
+  //   return () => {
+  //     ctx.revert()
+  //   }
+  // }, [bgImgRef.current, bgVidRef.current])
+
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.to('img, video', {
+        scrollTrigger: {
+          trigger: 'img, video',
+          markers: true,
+          start: 'top 20%',
+          // pin: true,
+          endTrigger: youMayAlsoLikeRef.current,
+          end: 'top bottom',
+          scrub: true,
+        },
+      });
+    }, bgImgRef.current);
+
+    // return () => {
+    //   ctx.kill();
+    // };
+
+    // let st = ScrollTrigger.create({
+    //   trigger: bgVid ? bgVidRef.current : bgImgRef.current,
+    //         markers: true,
+    //         start: 'top 20%',
+    //         pin: true,
+    //         endTrigger: youMayAlsoLikeRef.current,
+    //         end: 'top bottom',
+    //         scrub: true,
+    // });
+
+    // return () => {
+    //   ScrollTrigger.killAll()
+    // }
+  }, [bgImgRef.current, bgVidRef.current]);
+
+
+// useEffect(() => {
+//   ScrollTrigger.refresh();
+// }, [ScrollTrigger.getAll()]);
+
+
 
   // Add-to-cart quantity counter
   const qtyIncrementor = () => {
@@ -457,17 +550,24 @@ export default function SingleProduct() {
         </section>
       </section>
       <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
-        <div className='bg-img basis-3/5 px-4'>
+        <div ref={bgImgRef} className='bg-img basis-3/5 px-4'>
           {bgVid ? (
             <video
+            
               autoPlay={true}
               loop={true}
               muted={true}
               src={bgVid}
               className='aspect-[2/3] w-full object-cover'
+             
             />
           ) : (
-            <img src={bgImg} className='aspect-[2/3] object-cover' />
+            <img
+           
+              src={bgImg}
+              className='aspect-[2/3] object-cover'
+            
+            />
           )}
         </div>
         <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
@@ -491,7 +591,10 @@ export default function SingleProduct() {
       </section>
 
       {/* // * PRODUCT SUGGESTIONS */}
-      <section className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'>
+      <section
+        ref={youMayAlsoLikeRef}
+        className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'
+      >
         <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
           YOU MAY ALSO LIKE
         </h2>
