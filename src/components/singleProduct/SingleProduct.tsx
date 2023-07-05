@@ -307,7 +307,7 @@ export default function SingleProduct() {
                 >
                   <img
                     src={heartFilled}
-                    className='absolute right-[6%] top-[4%] w-3 lg:w-5 xl:w-6'
+                    className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
                   />
                 </div>
               ) : (
@@ -328,15 +328,18 @@ export default function SingleProduct() {
                 className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
               />
             )}
-             <Toaster
+            <Toaster
               position='top-right'
               toastOptions={{
                 className:
-                  'border border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] ',
+                  'border border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
                 duration: 5000,
+                style: {
+                  maxWidth: 700,
+                },
               }}
-            /> 
-           
+            />
+
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
