@@ -328,8 +328,11 @@ AllProductsProps) {
                       position='top-right'
                       toastOptions={{
                         className:
-                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] ',
+                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
                         duration: 5000,
+                        style: {
+                          maxWidth: 700,
+                        },
                       }}
                     />
                   </div>
