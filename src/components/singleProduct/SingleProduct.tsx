@@ -307,7 +307,7 @@ export default function SingleProduct() {
                 >
                   <img
                     src={heartFilled}
-                    className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
+                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
                   />
                 </div>
               ) : (
@@ -317,7 +317,7 @@ export default function SingleProduct() {
                 >
                   <img
                     src={heartBlanc}
-                    className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
+                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
                   />
                 </div>
               )
@@ -325,7 +325,7 @@ export default function SingleProduct() {
               <img
                 src={heartBlanc}
                 onClick={notify}
-                className='absolute right-[5%] top-[4%] w-3 lg:w-5 xl:w-6'
+                className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
               />
             )}
             <Toaster
