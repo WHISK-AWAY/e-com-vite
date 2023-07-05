@@ -318,11 +318,11 @@ AllProductsProps) {
                       <img
                         src={heartEmpty}
                         alt='heart-blanc'
-                        className=''
+                        className='h-3 lg:h-4 xl:w-5'
                         onClick={notify}
                       />
                     ) : (
-                      <img src={heartEmpty} alt='heart-blanc' className='' />
+                      <img src={heartEmpty} alt='heart-blanc' className='h-3 lg:h-4 xl:w-5' />
                     )}
                     <Toaster
                       position='top-right'
