@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef, useMemo, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   fetchSingleProduct,
   selectSingleProduct,
@@ -114,12 +116,13 @@ const bgImgs = [
 
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
+  const bgImgRef = useRef<HTMLImageElement>(null);
+  const bgVidRef = useRef<HTMLVideoElement>(null);
+  const youMayAlsoLikeRef = useRef<HTMLDivElement>(null);
   const { productId } = useParams();
   const dispatch = useAppDispatch();
   const singleProduct = useAppSelector(selectSingleProduct);
@@ -524,7 +527,10 @@ export default function SingleProduct() {
       </section>
 
       {/* // * PRODUCT SUGGESTIONS */}
-      <section className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'>
+      <section
+        ref={youMayAlsoLikeRef}
+        className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'
+      >
         <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
           YOU MAY ALSO LIKE
         </h2>

@@ -151,7 +151,7 @@ export default function SignIn({
               email
             </label>
             <input
-              className='input-ring-charcoal focus:outline-transparent focus:box-shadow:none rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal  focus:outline-none md:h-9 lg:h-12 lg:text-base 2xl:h-14'
+              className='input-ring-charcoal rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14'
               type='email'
               id='user-email'
               autoComplete='email'
@@ -167,7 +167,7 @@ export default function SignIn({
               password
             </label>
             <input
-              className='focus-no-ring input-ring-charcoal flex rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
+              className='input-ring-charcoal flex rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-1 focus:outline-offset-0 focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
               type='password'
               id='password'
               autoComplete='current-password'

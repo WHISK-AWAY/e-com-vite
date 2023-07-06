@@ -167,7 +167,7 @@ export default function SignUp({
               type='text'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
-              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-11 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal focus:outline-none focus:outline-2  focus:outline-offset-0 appearance-none!important focus:outline-white md:h-9 lg:h-10 lg:text-base xl:h-11  2xl:h-12 '
             ></input>
             {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
