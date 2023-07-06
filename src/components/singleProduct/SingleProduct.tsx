@@ -139,7 +139,6 @@ export default function SingleProduct() {
   const [bgImg, setBgImg] = useState('');
   const [bgVid, setBgVid] = useState('');
 
-  const containerRef = useRef(null);
   const scrollerRef = useRef(null);
   const pinRef = useRef(null);
 
@@ -155,10 +154,9 @@ export default function SingleProduct() {
           pin: true,
           endTrigger: pinRef.current,
           end: 'bottom bottom',
-          markers: true,
         },
       });
-    }, containerRef);
+    });
 
     return () => ctx.revert();
   }, [scrollerRef.current, bgImg, bgVid, singleProduct]);
@@ -328,10 +326,7 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main
-      ref={containerRef}
-      className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'
-    >
+    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
@@ -487,26 +482,21 @@ export default function SingleProduct() {
           </div>
         </section>
       </section>
-      <section className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 border border-red-500 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
+      <section className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
         <div
           ref={scrollerRef}
           className='bg-img h-screen shrink-0 basis-3/5 px-4'
         >
           {bgVid ? (
             <video
+              src={bgVid}
               autoPlay={true}
               loop={true}
               muted={true}
-              src={bgVid}
-              className='aspect-[2/3] h-screen object-cover'
-              onLoad={() => ScrollTrigger.refresh()}
+              className='h-screen w-full object-cover'
             />
           ) : (
-            <img
-              src={bgImg}
-              className='aspect-[2/3] h-screen object-cover'
-              onLoad={() => ScrollTrigger.refresh()}
-            />
+            <img src={bgImg} className='h-screen w-full object-cover' />
           )}
         </div>
         <div
