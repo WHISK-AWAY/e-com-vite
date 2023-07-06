@@ -166,8 +166,11 @@ export default function SingleProduct() {
 
     if (productId) {
       dispatch(getUserId());
-      dispatch(fetchSingleProduct(productId));
+      dispatch(fetchSingleProduct(productId)).then(() =>
+        window.scrollTo({ top: 0 })
+      );
       dispatch(fetchAllReviews(productId));
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     if (Math.random() < 0.5) {
@@ -177,8 +180,6 @@ export default function SingleProduct() {
       setBgVid(bgVids[Math.floor(Math.random() * bgVids.length)]);
       setBgImg('');
     }
-
-    window.scrollTo({ top: 0 });
   }, [productId]);
 
   useEffect(() => {
