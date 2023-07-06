@@ -330,10 +330,10 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
-      <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
+    <main className='single-product-main relative z-auto mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
+      <section className='single-product-top-screen relative z-auto mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-        <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
+        <section className='image-section relative z-auto mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
           <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
             {userId ? (
               itemIsFavorited ? (
@@ -491,8 +491,8 @@ export default function SingleProduct() {
         className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'
       >
         <div
-          ref={scrollerRef}
           className='bg-img h-screen shrink-0 basis-3/5 px-4'
+          ref={scrollerRef}
         >
           {bgVid ? (
             <video
