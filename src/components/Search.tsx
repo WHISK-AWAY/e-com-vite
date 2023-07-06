@@ -1,7 +1,9 @@
 import { TSearch } from '../redux/slices/allProductSlice';
+import { useEffect, useMemo } from 'react';
+// import Fuse from 'fuse.js';
 import { Link, useNavigate } from 'react-router-dom';
+
 import x from '../assets/icons/x.svg';
-import { useEffect } from 'react';
 
 export default function Search({
   searchResults,
@@ -26,6 +28,20 @@ export default function Search({
   //     document.body.style.overflow = '';
   //   };
   // }, []);
+
+
+  // const fuse = useMemo(() => {
+  //   const options = {
+  //     includeScore: true,
+  //     keys: ['products', 'tags']
+  //   }
+
+  //   return new Fuse(searchResults, options)
+  // }, [searchResults])
+
+
+
+  // const result = fuse.search(searchResults)
 
   const handleProductNameSearch = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
