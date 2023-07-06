@@ -25,8 +25,8 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className='mx-auto min-h-screen text-charcoal'>
-      <Navbar />
+    <div className='mx-auto min-h-screen relative text-charcoal'>
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/shop-all' element={<AllProducts />} />
