@@ -1,6 +1,8 @@
 import Cart from './Cart';
 import Favorite from './Favorite';
-import { TCFMode } from './Navbar';
+import { TCFMode } from './navbar/Navbar';
+
+
 
 export default function CartFavWrapper({
   mode,
@@ -12,11 +14,11 @@ export default function CartFavWrapper({
   return (
     <section
       // onClick={() => setIsCartFavWrapperHidden(true)}
-      className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50'
+      className='cart-container fixed right-0 top-0 z-[99] backdrop-blur-md flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50'
     >
       <div
         // onClick={() => setIsCartFavWrapperHidden(true)}
-        className='flex h-full max-w-[40vw] flex-col self-end bg-white'
+        className='flex h-full max-w-[40vw] min-w-[35vw] 4xl:max-w-[10vw] flex-col self-end bg-white'
       >
         {mode === 'cart' ? (
           <Cart setIsHidden={setIsCartFavWrapperHidden} />
