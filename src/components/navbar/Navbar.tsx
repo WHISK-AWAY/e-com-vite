@@ -15,6 +15,8 @@ import SignWrapper from '../SignWrapper';
 import CartFavWrapper from '../CartFavWrapper';
 import DropDownMenu from './DropdownMenu';
 
+import Fuse from 'fuse.js';
+
 import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/user.svg';
@@ -36,8 +38,8 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
-  const [isCartHidden, setIsCartHidden] = useState(true);
-  const [isFavHidden, setIsFavHidden] = useState(true);
+  // const [isCartHidden, setIsCartHidden] = useState(true);
+  // const [isFavHidden, setIsFavHidden] = useState(true);
   const [isSignFormHidden, setIsSignFormHidden] = useState(true);
   const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
   const [mode, setMode] = useState<TCFMode>('cart');
@@ -97,10 +99,12 @@ export default function Navbar() {
   // * and linking to either the filtered shop-all page (for tags) or the
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
+
+  const SCORE_THRESHOLD = 0.6;
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     const searchTerm = e.target.value;
-    // console.log('searchTerm', searchTerm);
+    console.log('searchTerm', searchTerm);
 
     const productResults = catalogue.products.filter((prod) => {
       return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -109,7 +113,21 @@ export default function Navbar() {
       return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    setSearchResults({ products: productResults, tags: tagResults });
+    const options = {
+      includeScore: true,
+      // ignoreLocation: true,
+    
+      keys: ['productName', 'tagName'],
+    };
+
+    const fuse = new Fuse(catalogue.products, options);
+    // const result = fuse.search(searchTerm);
+
+    const searchResults = fuse.search(searchTerm).filter((result) => result.score! < SCORE_THRESHOLD).map((result) => result.item)
+    console.log('search results', searchResults);
+    // console.log('score', options)
+
+    setSearchResults({ products: searchResults, tags: [] });
   };
 
   useEffect(() => {
@@ -225,7 +243,7 @@ export default function Navbar() {
         >
           <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 border border-red-300'>
             <input
-              className='w-full text-[1.5vw] font-federo rounded-sm border border-charcoal placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
+              className='w-full rounded-sm border border-charcoal font-federo text-[1.5vw] placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
               type='text'
               id='search'
               value={search}
@@ -247,7 +265,7 @@ export default function Navbar() {
           searchNotFound={searchNotFound}
         />
 
-        {(searchResults.products.length > 0 ||
+         {/* {(searchResults.products.length > 0 ||
           searchResults.tags.length > 0) && (
           <select onChange={(e) => console.log(e.target.dataset.type)}>
             {searchResults.products.map((prod) => (
@@ -277,7 +295,7 @@ export default function Navbar() {
               </option>
             ))}
           </select>
-        )}
+        )}  */}
 
         {
           <div>
