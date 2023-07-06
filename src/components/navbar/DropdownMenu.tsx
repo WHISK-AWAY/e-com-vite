@@ -6,6 +6,9 @@ import chevronRight from '../../assets/icons/new.svg';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+const menuOptions = ['category', 'face', 'body'] as const;
+type MenuOption = (typeof menuOptions)[number] | null;
+
 export default function DropdownMenu({
   setIsMenuHidden,
   isMenuHidden,
@@ -13,9 +16,16 @@ export default function DropdownMenu({
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
 }) {
-  const [isCategoryHidden, setIsCategoryHidden] = useState(true);
-  const [isFaceHidden, setIsFaceHidden] = useState(true);
-  const [isBodyHidden, setIsBodyHidden] = useState(true);
+  const [menuMode, setMenuMode] = useState<MenuOption>(null);
+
+  // Switch menu from one group to another, or else close menu on second click
+  function toggleMenu(menu: MenuOption) {
+    if (menuMode === menu) {
+      setMenuMode(null);
+    } else {
+      setMenuMode(menu);
+    }
+  }
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -27,45 +37,44 @@ export default function DropdownMenu({
   useEffect(() => {
     // ! debug logs
     console.log('isMenuHidden', isMenuHidden);
-    console.log('isCategoryHidden', isCategoryHidden);
-    console.log('isFaceHidden', isFaceHidden);
-    console.log('isBodyHidden', isBodyHidden);
-  }, [isMenuHidden, isCategoryHidden, isFaceHidden, isBodyHidden]);
+    console.log('menuMode', menuMode);
+  }, [isMenuHidden, menuMode]);
 
   return (
-    <section className='menu-wrapper absolute right-0 top-0 z-30 flex  h-[150vw] w-[100vw] flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] min-[1600px]:pt-[7%] '>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 min-[1600px]:pt-[1.8vw]'>
+    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 3xl:pt-[1.8vw]'>
         <img
           src={x}
           alt='x-icon'
-          className='absolute left-10 top-10 h-[2vw] min-[1600px]:left-[2.6vw] min-[1600px]:top-[2.6vw]  min-[1600px]:h-[1.6vw]'
+          className='absolute left-10 top-10 h-[2vw] 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
           onClick={() => setIsMenuHidden(true)}
         />
 
-        <div className='flex flex-col text-[7vw] leading-[1] min-[1600px]:text-[7vw]'>
+        <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw]'>
           <NavLink
             to={'/shop-all'}
+            state={{ filterKey: 'all' }}
             onClick={() => setIsMenuHidden(true)}
-            className=''
+            className='ml-[25%] w-fit'
           >
-            <h2 className='pl-[25%]'>shop all</h2>
+            shop all
           </NavLink>
-          <div className='relative flex w-full'>
-            <h2 className='relative h-full pl-[15%]'>
+          <div className='relative flex w-full pl-[15%]'>
+            <h2 className='relative'>
               shop by category
               {!isMenuHidden && (
                 <img
                   src={chevronRight}
                   alt='right arrow'
-                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] min-[1538px]:h-[2vw] ${
-                    !isCategoryHidden ? 'translate-y-[-100%] rotate-90' : ''
+                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                    menuMode === 'category' ? 'rotate-90' : ''
                   }`}
                   // onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
-                  onClick={() => setIsCategoryHidden((prev) => !prev)}
+                  onClick={() => toggleMenu('category')}
                 />
               )}
             </h2>
-            {!isCategoryHidden && (
+            {menuMode === 'category' && (
               <ShopByCategoryListItem setIsMenuHidden={setIsMenuHidden} />
             )}
           </div>
@@ -76,33 +85,30 @@ export default function DropdownMenu({
               onClick={() => setIsMenuHidden(true)}
               className=''
             >
-              <h3 className='w-fit'>summer care</h3>
+              summer care
             </NavLink>
 
             <div className='relative flex'>
-              <h3 className='relative h-full'>
+              <h2 className='relative h-full'>
                 face
                 {!isMenuHidden && (
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] min-[1538px]:h-[2vw] ${
-                      !isFaceHidden ? 'rotate-90' : ''
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                      menuMode === 'face' ? 'rotate-90' : ''
                     }`}
                     // onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
-                    onClick={() => setIsFaceHidden((prev) => !prev)}
+                    onClick={() => toggleMenu('face')}
                   />
                 )}
-              </h3>
-              <div className='temp-div' onClick={() => setIsFaceHidden(true)}>
-                {/* this div is just here so we can click off of the face menu until something better gets figured out */}
-                {!isFaceHidden && (
-                  <FaceItem
-                    setIsMenuHidden={setIsMenuHidden}
-                    setIsFaceHidden={setIsFaceHidden}
-                  />
-                )}
-              </div>
+              </h2>
+              {/* <div className='temp-div' onClick={() => setIsFaceHidden(true)}> */}
+              {/* this div is just here so we can click off of the face menu until something better gets figured out */}
+              {menuMode === 'face' && (
+                <FaceItem setIsMenuHidden={setIsMenuHidden} />
+              )}
+              {/* </div> */}
             </div>
 
             <div className='relative flex w-full '>
@@ -112,22 +118,19 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] min-[1538px]:h-[2vw] ${
-                      !isBodyHidden ? 'rotate-90' : ''
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                      menuMode === 'body' ? 'rotate-90' : ''
                     }`}
-                    onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
-                    onClick={() => setIsBodyHidden((prev) => !prev)}
+                    // onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
+                    onClick={() => toggleMenu('body')}
                   />
                 )}
               </h3>
+              {menuMode === 'body' && (
+                <BodyItem setIsMenuHidden={setIsMenuHidden} />
+              )}
             </div>
           </div>
-          {!isMenuHidden && !isBodyHidden && (
-            <BodyItem
-              setIsMenuHidden={setIsMenuHidden}
-              setIsBodyHidden={setIsBodyHidden}
-            />
-          )}
         </div>
       </div>
     </section>

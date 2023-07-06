@@ -31,7 +31,7 @@ export default {
       lora: ['Lora', 'serif'],
       garamond: ['EB Garamond', 'serif'],
       bodoni: ['Bodoni Moda', 'serif'],
-      antonio: ['Antonio', 'sans-serif']
+      antonio: ['Antonio', 'sans-serif'],
     },
     fontWeight: {
       thin: 100,
@@ -51,11 +51,11 @@ export default {
       },
       screens: {
         xs: '375px',
-       '2xl': '1440px',
+        '2xl': '1440px',
         '3xl': '1536px',
         '4xl': '1920px',
         '5xl': '2560px',
-        '6xl': '3440px'
+        '6xl': '3440px',
       },
     },
   },

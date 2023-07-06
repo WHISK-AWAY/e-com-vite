@@ -14,11 +14,6 @@ export default function ShopByCategoryListItem({
   const tagList = tagState.tags;
 
   useEffect(() => {
-    console.log('menuHeight:', menuHeight);
-    console.log(localParent.current?.style);
-  }, [menuHeight]);
-
-  useEffect(() => {
     setMenuHeight(
       Math.round(
         window.innerHeight -
@@ -30,13 +25,11 @@ export default function ShopByCategoryListItem({
   return (
     <div
       ref={localParent}
-      className={`group absolute right-0 top-1/2 z-10 flex w-screen flex-col flex-wrap`}
+      className='group absolute left-0 top-[65%] z-10 flex w-screen flex-col flex-wrap'
       style={{ height: menuHeight }}
     >
       {menuHeight > 0 && (
-        <section
-          className={`flex w-screen flex-col flex-wrap justify-start self-center overflow-hidden border border-black bg-white py-[2%] pl-12 text-[2vw] leading-tight min-[1536px]:text-[1.4vw] min-[2536px]:pl-[2.1vw] min-[2536px]:text-xl`}
-        >
+        <section className='flex w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border border-black bg-white py-[2%] pl-12 text-[2vw] leading-tight'>
           {tagList.map((tag) => {
             const name = tag.tagName;
             return (

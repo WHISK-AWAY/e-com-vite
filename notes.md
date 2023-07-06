@@ -28,6 +28,10 @@
 
 ### Open
 
+- [ ] Notifications:
+  - [ ] Inform user if we purge their cart due to thunk rejection (affects guest only)
+- [ ] Single product:
+  - [ ] Reviews: should never see a reviewer with zero reviews (seeding issue)
 - [ ] Guest favorites:
   - [ ] Invite to sign up
 - [ ] Sign-in

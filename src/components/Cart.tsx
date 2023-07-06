@@ -26,6 +26,8 @@ export default function Cart({
     };
   }, []);
 
+  if (!userCart || !userCart.cart) return <h1>Loading...</h1>;
+
   return (
     <div className='flex h-full w-full flex-col items-center justify-start lg:gap-4'>
       <div className='header w-full border-b border-charcoal pt-5'>
