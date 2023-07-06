@@ -482,7 +482,10 @@ export default function SingleProduct() {
           </div>
         </section>
       </section>
-      <section className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
+      <section
+        ref={pinRef}
+        className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'
+      >
         <div
           ref={scrollerRef}
           className='bg-img h-screen shrink-0 basis-3/5 px-4'
@@ -499,10 +502,7 @@ export default function SingleProduct() {
             <img src={bgImg} className='h-screen w-full object-cover' />
           )}
         </div>
-        <div
-          ref={pinRef}
-          className='ingredients mt-4 flex h-full min-h-screen basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'
-        >
+        <div className='ingredients mt-4 flex h-full min-h-screen basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
           <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
             key ingredients
           </h3>
