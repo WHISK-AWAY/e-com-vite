@@ -302,7 +302,7 @@ AllProductsProps) {
               key={product._id.toString()}
             >
               <div
-                className={`aspect-[3/4] w-full ${
+                className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${
                   hoverURL || hoverFallback ? 'group' : ''
                 }`}
               >
@@ -320,7 +320,7 @@ AllProductsProps) {
                       muted={true}
                       autoPlay={true}
                       loop={true}
-                      className='lazyload invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
+                      className='lazyload invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                     />
                   ) : (
                     <img
