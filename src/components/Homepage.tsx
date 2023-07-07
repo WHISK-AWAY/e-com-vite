@@ -38,7 +38,6 @@ export default function Homepage() {
   const grapefruitButtRef = useRef(null);
   const specialRef = useRef(null);
   const treatRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef({});
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -59,7 +58,7 @@ export default function Homepage() {
   }, [allProducts]);
 
   useLayoutEffect(() => {
-    // if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
+    if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
@@ -119,7 +118,6 @@ export default function Homepage() {
 //     })
 //   }, [])
 
-  // console.log('AP', allProducts)
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
