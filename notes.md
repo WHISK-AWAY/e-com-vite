@@ -28,6 +28,8 @@
 
 ### Open
 
+- [ ] Z-problems
+  - [ ] new in versus shop menu
 - [ ] Notifications:
   - [ ] Inform user if we purge their cart due to thunk rejection (affects guest only)
 - [ ] "X" icon sizes are inconsistent (cart/fav versus signin/signup, look for others)
