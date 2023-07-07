@@ -330,10 +330,10 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main className='single-product-main relative z-auto mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
-      <section className='single-product-top-screen relative z-auto mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
+    <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
+      <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-        <section className='image-section relative z-auto mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
+        <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
           <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
             {userId ? (
               itemIsFavorited ? (
@@ -364,17 +364,20 @@ export default function SingleProduct() {
                 className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
               />
             )}
-            <Toaster
-              position='top-right'
-              toastOptions={{
-                className:
-                  'border border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
-                duration: 5000,
-                style: {
-                  maxWidth: 700,
-                },
-              }}
-            />
+            <div className='relative z-auto'>
+              <Toaster
+                position='top-right'
+                toastOptions={{
+                  className:
+                    'border bg-white border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
+                  duration: 5000,
+                  style: {
+                    maxWidth: 700,
+                    translate: '0 64px',
+                  },
+                }}
+              />
+            </div>
 
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
