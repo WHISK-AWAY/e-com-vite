@@ -6,6 +6,7 @@ import type { TProduct } from '../redux/slices/cartSlice';
 import x from '../../src/assets/icons/x.svg';
 import plus from '../../src/assets/icons/circlePlus.svg';
 import minus from '../../src/assets/icons/circleMinus.svg';
+import 'lazysizes';
 
 export type CartProps = {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,12 +52,13 @@ export default function CartItem(props: CartProps) {
     <div className='cart-item-container w-9/10 relative flex h-fit items-center justify-center gap-2 pt-3 lg:gap-4'>
       <div className='image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center'>
         <img
-          className='aspect-[3/4] cursor-pointer object-cover'
+          className='lazyload aspect-[3/4] cursor-pointer object-cover'
           onClick={goToProduct}
-          src={
+          data-src={
             images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || images[0].imageURL
           }
+          data-sizes='auto'
         />
       </div>
       <div className='flex h-full basis-2/3 flex-col items-center justify-center gap-1'>
