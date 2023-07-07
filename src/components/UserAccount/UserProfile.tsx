@@ -66,13 +66,14 @@ export default function UserProfile() {
             </span>
           </h1>
           <video
-            className='absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
-            src={flowerBg}
+            className='lazyload absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
+            data-src={flowerBg}
+            data-sizes='auto'
             autoPlay={true}
             loop={true}
             muted={true}
           />
-          <div className='menu-items-container flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[12%] font-hubbali text-lg lg:text-2xl xl:gap-[2%] xl:text-3xl 2xl:text-[2.5rem]'>
+          <div className='menu-items-container flex h-full w-full mt-[5%] flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[16%] pb-[5%] font-hubbali text-[1.7vw]'>
             <div>
               <div className='flex flex-col items-center'>
                 <button
@@ -84,7 +85,7 @@ export default function UserProfile() {
                   account info
                 </button>
                 {view === 'account' && (
-                  <div className='w-3/5 border-b border-charcoal pt-[3%]'></div>
+                  <div className='w-3/5 border-b border-charcoal pt-[1%]'></div>
                 )}
               </div>
               <div className='flex flex-col items-center'>
