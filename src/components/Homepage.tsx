@@ -123,7 +123,7 @@ export default function Homepage() {
           </h1>
         </div>
         <div className=' absolute right-1/2 top-[45%] flex -translate-y-[5%] translate-x-[55%] flex-col items-center justify-center leading-none'>
-          <h2 className='  items-center self-center font-raleway font-xtralight uppercase text-white md:text-4xl md:tracking-[3rem] lg:text-5xl lg:tracking-[5rem] xl:text-6xl xl:tracking-[5rem] 2xl:text-8xl 2xl:tracking-[7rem]'>
+          <h2 className='  items-center self-center font-raleway font-light uppercase text-white md:text-4xl md:tracking-[3rem] lg:text-5xl lg:tracking-[5rem] xl:text-6xl xl:tracking-[5rem] 2xl:text-8xl 2xl:tracking-[7rem]'>
             skincare
           </h2>
           <h3 className=' absolute top-[120%] translate-x-[80%] font-raleway font-thin text-white lg:text-lg xl:text-xl 2xl:text-3xl'>
@@ -313,7 +313,7 @@ export default function Homepage() {
               <p className='relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
                 your skin
               </p>
-              <p className='-translate-y-[390%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
+              <p className='-translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
                 to
               </p>
               <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
