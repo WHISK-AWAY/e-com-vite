@@ -7,7 +7,7 @@ import {
   fetchSingleProduct,
   selectSingleProduct,
 } from '../../redux/slices/allProductSlice';
-import { getUserId, selectAuth } from '../../redux/slices/authSlice';
+import { selectAuth } from '../../redux/slices/authSlice';
 import { addToCart } from '../../redux/slices/cartSlice';
 import {
   addToFavorites,
@@ -168,7 +168,7 @@ export default function SingleProduct() {
     // * component initialization
 
     if (productId) {
-      dispatch(getUserId());
+      // dispatch(getUserId());
       dispatch(fetchSingleProduct(productId)).then(() =>
         window.scrollTo({ top: 0 })
       );

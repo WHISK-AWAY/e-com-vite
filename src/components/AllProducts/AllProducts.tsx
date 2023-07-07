@@ -120,9 +120,9 @@ AllProductsProps) {
     dispatch(fetchAllTags());
   }, []);
 
-  useEffect(() => {
-    dispatch(getUserId());
-  }, [userId]);
+  // useEffect(() => {
+  //   dispatch(getUserId());
+  // }, [userId]);
 
   useEffect(() => {
     setSort({ key: sortKey, direction: sortDir });
@@ -347,7 +347,11 @@ AllProductsProps) {
                         onClick={notify}
                       />
                     ) : (
-                      <img src={heartEmpty} alt='heart-blanc' className='h-3 lg:h-4 xl:w-5' />
+                      <img
+                        src={heartEmpty}
+                        alt='heart-blanc'
+                        className='h-3 lg:h-4 xl:w-5'
+                      />
                     )}
                     <Toaster
                       position='top-right'

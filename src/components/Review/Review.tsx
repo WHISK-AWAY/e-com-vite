@@ -7,7 +7,7 @@ import {
   deleteReview,
 } from '../../redux/slices/reviewSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getUserId, selectAuth } from '../../redux/slices/authSlice';
+import { selectAuth } from '../../redux/slices/authSlice';
 import StarsBar from '../StarsBar';
 import thumb from '../../assets/icons/thumb.svg';
 import thumbFilled from '../../assets/icons/thumbFilled.svg';

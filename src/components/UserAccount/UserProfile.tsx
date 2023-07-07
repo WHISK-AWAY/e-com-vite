@@ -16,9 +16,6 @@ import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
 
 type views = 'account' | 'shipping' | 'order' | 'password';
 
-
-
-
 const viewMap = {
   account: 'account info',
   shipping: 'address book',
@@ -35,10 +32,10 @@ export default function UserProfile() {
   const user = useAppSelector(selectSingleUser);
 
   useEffect(() => {
-    if (!authUserId) dispatch(getUserId());
-    else {
-      if (userId) dispatch(fetchSingleUser(userId));
-    }
+    // if (!authUserId) dispatch(getUserId());
+    // else {
+    if (userId) dispatch(fetchSingleUser(userId));
+    // }
   }, [authUserId, userId]);
 
   function signOut() {
@@ -46,9 +43,6 @@ export default function UserProfile() {
     dispatch(resetUserState());
     navigate('/');
   }
-
-
- 
 
   if (!user) return <h1>Loading...</h1>;
   return (

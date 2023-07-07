@@ -21,7 +21,6 @@ import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/user.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
-import dot from '../../assets/icons/dot.svg';
 import searchIcon from '../../assets/icons/search.svg';
 
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
@@ -32,9 +31,8 @@ export type TCFMode = 'cart' | 'fav';
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userId, error: authError } = useAppSelector(selectAuth);
+  const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
-  const auth = useAppSelector(selectAuth);
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
@@ -53,7 +51,7 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    if (!userId && !authError) dispatch(getUserId());
+    // if (!userId && !authError) dispatch(getUserId());
 
     if (userId) dispatch(fetchSingleUser(userId));
   }, [userId]);
