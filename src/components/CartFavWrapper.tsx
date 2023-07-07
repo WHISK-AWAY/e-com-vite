@@ -4,7 +4,6 @@ import { TCFMode } from './navbar/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-
 export default function CartFavWrapper({
   mode,
   setIsCartFavWrapperHidden,
@@ -21,14 +20,13 @@ export default function CartFavWrapper({
   useEffect(() => {
     if (!wrapper) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ duration: 0.3 });
+      const tl = gsap.timeline();
 
       tl.from(blurBg.current, {
-  
         opacity: 0,
         duration: 0.3,
       });
-      const slider = tl.from(
+      tl.from(
         wrapper.current,
         {
           x: '+=100%',
@@ -47,7 +45,6 @@ export default function CartFavWrapper({
       );
 
       setReverseSlide(tl);
-    
     });
 
     return () => {
@@ -55,16 +52,12 @@ export default function CartFavWrapper({
     };
   }, [wrapper.current, blurBg.current]);
 
-
-  const closeSlider = (e:any) => {
-  
-    if(e.target.id === 'wrapper') 
-    reverseSlide?.reverse().then(() => {
-      
-      setIsCartFavWrapperHidden(true)
-    })
-
-  }
+  const closeSlider = (e: any) => {
+    if (e.target.id === 'wrapper')
+      reverseSlide?.reverse().then(() => {
+        setIsCartFavWrapperHidden(true);
+      });
+  };
 
   return (
     <section
