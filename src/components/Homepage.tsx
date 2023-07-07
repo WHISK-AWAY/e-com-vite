@@ -80,7 +80,7 @@ export default function Homepage() {
         y: 20,
         scrollTrigger: {
           markers: true,
-          scrub: true,
+          scrub: 1,
           trigger: treatRef.current,
           endTrigger: treatRef.current,
           start: 'top 70%',
