@@ -3,9 +3,8 @@ import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
 import x from '../../assets/icons/x.svg';
 import chevronRight from '../../assets/icons/new.svg';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { gsap } from 'gsap';
 
 import dot from '../../assets/icons/dot.svg';
 
