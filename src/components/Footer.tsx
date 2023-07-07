@@ -6,8 +6,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
 import { useEffect } from 'react';
-import { stableValueHash } from 'react-query/types/core/utils';
-
+import 'lazysizes'
 
 type FormData = {
   email: string
@@ -69,8 +68,9 @@ export default function Footer() {
           </div>
           <div className='w-full'>
             <img
-              src={footer}
-              className='aspect-[3/4] h-[300px] w-full border-r-[1.5px] border-white object-cover '
+              data-src={footer}
+              data-sizes='auto'
+              className='lazyload aspect-[3/4] h-[300px] w-full border-r-[1.5px] border-white object-cover '
             />
           </div>
         </div>
@@ -78,7 +78,10 @@ export default function Footer() {
 
       <div className='flex w-full flex-col'>
         <div className=' w-full'>
-          <form className=' flex w-full bg-[#4c4c4c] ' onSubmit={handleSubmit(handleSubscribe)}>
+          <form
+            className=' flex w-full bg-[#4c4c4c] '
+            onSubmit={handleSubmit(handleSubscribe)}
+          >
             <label
               htmlFor='newsletter'
               className='border-b border-white font-italiana uppercase text-white md:p-3  md:text-sm xl:px-6 2xl:px-5 2xl:py-3 2xl:text-2xl'
@@ -88,7 +91,6 @@ export default function Footer() {
             <input
               type='text'
               id='email'
-              
               {...register('email')}
               placeholder={errors.email?.message || 'email...'}
               className='w-full border-x-[1.5px] border-b-[1.5px] border-white bg-[#c3c3c3] px-4 font-italiana text-charcoal placeholder:text-charcoal md:px-2 md:placeholder:text-xs lg:placeholder:text-sm'
