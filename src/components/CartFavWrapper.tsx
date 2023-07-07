@@ -3,7 +3,7 @@ import Favorite from './Favorite';
 import { TCFMode } from './navbar/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { set } from 'mongoose';
+
 
 export default function CartFavWrapper({
   mode,
@@ -23,13 +23,8 @@ export default function CartFavWrapper({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ duration: 0.3 });
 
-      // tl.to(blurBg, {
-      //   opacity: 0,
-      //   duration: 4,
-      //   x: '-=100%'
-      // })
       tl.from(blurBg.current, {
-        // backdropFilter: 'none',
+  
         opacity: 0,
         duration: 0.3,
       });
@@ -51,21 +46,8 @@ export default function CartFavWrapper({
         '<'
       );
 
-      // slider.onComplete(() => {
-      //   tl.remove(slider);
-      //   tl.to(wrapper.current, {
-      //     x: '+=100%',
-      //     duration: 1,
-      //     ease: 'elastic.out',
-      //   });
-      // });
       setReverseSlide(tl);
-      //  const reverse = () => {
-      //   tl.reverse().then(() => {
-      //     setIsCartFavWrapperHidden(true);
-      //   })
-      //  }
-      // setReverseSlide(reverse)
+    
     });
 
     return () => {
