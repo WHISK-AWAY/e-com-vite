@@ -57,7 +57,7 @@ export default function DropdownMenu({
           <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
         </Link>
       </div>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 3xl:pt-[1.8vw] '>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7'>
         <img
           src={x}
           alt='x-icon'
@@ -65,7 +65,7 @@ export default function DropdownMenu({
           onClick={() => setIsMenuHidden(true)}
         />
 
-        <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw]'>
+        <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw] 5xl:text-[6vw]'>
           <NavLink
             to={'/shop-all'}
             state={{ filterKey: 'all' }}

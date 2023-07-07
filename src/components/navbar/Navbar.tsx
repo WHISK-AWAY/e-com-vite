@@ -38,8 +38,6 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
-  // const [isCartHidden, setIsCartHidden] = useState(true);
-  // const [isFavHidden, setIsFavHidden] = useState(true);
   const [isSignFormHidden, setIsSignFormHidden] = useState(true);
   const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
   const [mode, setMode] = useState<TCFMode>('cart');
@@ -54,7 +52,6 @@ export default function Navbar() {
     tags: [],
   });
 
-  // console.log('user', singleUserState.user.favorites)
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
@@ -71,15 +68,6 @@ export default function Navbar() {
       dispatch(fetchAllTags());
     }
   }, [tagState]);
-
-  // useEffect(() => {
-  //   console.log(isCartFavWrapperHidden);
-  // }, [isCartFavWrapperHidden]);
-  // function signOut() {
-  //   dispatch(requestLogout());
-  //   dispatch(resetUserState());
-  //   navigate('/');
-  // }
 
   // * this part doesn't really work all that well, but the navigates should
   // * at least be in the ball park of what we want
@@ -101,11 +89,16 @@ export default function Navbar() {
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
 
+  //fuse fuzzy product search
+
+  /**
+   * ! look into category/ search, have a discussion
+   */
   const SCORE_THRESHOLD = 0.6;
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     const searchTerm = e.target.value;
-    console.log('searchTerm', searchTerm);
+    // console.log('searchTerm', searchTerm);
 
     const productResults = catalogue.products.filter((prod) => {
       return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -122,14 +115,12 @@ export default function Navbar() {
     };
 
     const fuse = new Fuse(catalogue.products, options);
-    // const result = fuse.search(searchTerm);
 
     const searchResults = fuse
       .search(searchTerm)
       .filter((result) => result.score! < SCORE_THRESHOLD)
       .map((result) => result.item);
     console.log('search results', searchResults);
-    // console.log('score', options)
 
     setSearchResults({ products: searchResults, tags: [] });
   };
@@ -182,9 +173,6 @@ export default function Navbar() {
           onClick={() => setIsMenuHidden(false)}
         >
           SHOP
-          {/* <NavLink to={'/shop-all'} onClick={() => setIsMenuHidden(true)}>
-              SHOP
-            </NavLink> */}
         </div>
 
         {!isMenuHidden && (
@@ -197,7 +185,6 @@ export default function Navbar() {
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
         </NavLink>
-        {/* <NavLink to={'/featured'}>FEATURED</NavLink> */}
         <NavLink to={'/new-in'}>NEW IN</NavLink>
       </div>
 
