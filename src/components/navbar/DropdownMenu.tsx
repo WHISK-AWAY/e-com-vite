@@ -4,8 +4,10 @@ import BodyItem from './BodyItem';
 import x from '../../assets/icons/x.svg';
 import chevronRight from '../../assets/icons/new.svg';
 import { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { gsap } from 'gsap';
+
+import dot from '../../assets/icons/dot.svg';
 
 const menuOptions = ['category', 'face', 'body'] as const;
 type MenuOption = (typeof menuOptions)[number] | null;
@@ -18,7 +20,6 @@ export default function DropdownMenu({
   isMenuHidden: boolean;
 }) {
   const [menuMode, setMenuMode] = useState<MenuOption>(null);
-
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
@@ -43,12 +44,20 @@ export default function DropdownMenu({
     console.log('menuMode', menuMode);
   }, [isMenuHidden, menuMode]);
 
-
-
-
   return (
-    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] 5xl:pt-[4%]'>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7  '>
+    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
+      <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
+        <Link
+          to='/'
+          className='flex items-center gap-1 font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          onClick={() => setIsMenuHidden(true)}
+        >
+          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+          ASTORIA
+          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+        </Link>
+      </div>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7'>
         <img
           src={x}
           alt='x-icon'
@@ -58,7 +67,6 @@ export default function DropdownMenu({
 
         <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw] 5xl:text-[6vw]'>
           <NavLink
-          
             to={'/shop-all'}
             state={{ filterKey: 'all' }}
             onClick={() => setIsMenuHidden(true)}

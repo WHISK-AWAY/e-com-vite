@@ -54,31 +54,28 @@ export default function SignWrapper({
     };
   }, []);
 
-
-
-    const closeSlider = (e: any) => {
-      if (e.target.id === 'wrapper')
-        reverseSlide?.reverse().then(() => {
-          setIsSignFormHidden(true);
-        });
-    };
-
+  const closeSlider = (e: any) => {
+    if (e.target.id === 'wrapper')
+      reverseSlide?.reverse().then(() => {
+        setIsSignFormHidden(true);
+      });
+  };
 
   return (
     <section
       ref={blurBg}
       onClick={closeSlider}
       id='wrapper'
-      className='wrapper form-container fixed right-0 top-0 z-40 flex h-[100vh] w-[100vw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur'
+      className='wrapper form-container fixed right-0 top-0 flex h-[100vh] w-[100vw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur'
     >
       <div
         ref={wrapperRef}
         className='relative flex h-full w-[35vw] flex-col self-end bg-white 2xl:max-w-[23vw]  '
       >
         <div
-          onClick={() =>
-            {reverseSlide?.reverse().then(() => setIsSignFormHidden(true))}
-          }
+          onClick={() => {
+            reverseSlide?.reverse().then(() => setIsSignFormHidden(true));
+          }}
           className='absolute  right-5 top-5 z-50 h-10 w-3'
         >
           {mode === 'sign-in' ? (

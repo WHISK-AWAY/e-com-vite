@@ -45,13 +45,12 @@ export default function Navbar() {
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const tagState = useAppSelector(selectTagState);
   const [isSearchHidden, setIsSearchHidden] = useState(true);
-  const test = useRef(null)
+  const test = useRef(null);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
     tags: [],
   });
-
 
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
@@ -90,8 +89,6 @@ export default function Navbar() {
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
 
-
-
   //fuse fuzzy product search
 
   /**
@@ -118,7 +115,6 @@ export default function Navbar() {
     };
 
     const fuse = new Fuse(catalogue.products, options);
-  
 
     const searchResults = fuse
       .search(searchTerm)
@@ -168,10 +164,8 @@ export default function Navbar() {
     });
   };
 
-
-
   return (
-    <nav className='navbar-container sticky top-0 z-[31] flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-20 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -195,33 +189,13 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        {!isMenuHidden ? (
-          <Link
-            to='/'
-            className='relative z-40 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
-            onClick={() => setIsMenuHidden(true)}
-          >
-            <img
-              src={dot}
-              alt='dot-icon'
-              className='absolute right-0 top-0 h-[.5vw] translate-x-[150%] translate-y-[360%]  min-[1600px]:h-[.3vw]  min-[1600px]:translate-y-[390%]'
-            />
-            <img
-              src={dot}
-              alt='dot-icon'
-              className='absolute right-1/2 top-0 h-[.5vw] -translate-x-[1300%] translate-y-[380%] min-[1600px]:h-[.3vw]  min-[1600px]:-translate-x-[1400%]  min-[1600px]:translate-y-[390%]'
-            />
-            ASTORIA
-          </Link>
-        ) : (
-          <Link
-            to='/'
-            className='z-[60] font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
-            onClick={() => setIsMenuHidden(true)}
-          >
-            ASTORIA
-          </Link>
-        )}
+        <Link
+          to='/'
+          className='font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          onClick={() => setIsMenuHidden(true)}
+        >
+          ASTORIA
+        </Link>
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
