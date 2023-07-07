@@ -23,9 +23,36 @@ import Featured from './components/Featured/Featured';
 import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
 
+
+import LocomotiveScroll from 'locomotive-scroll';
+import { useEffect, useRef } from 'react';
+
 function App() {
+
+  // const scrollRef = useRef({})
+
+  // useEffect(() => {
+  //     const doc = document.querySelector('.data-scroll-container');
+
+  //     if (!doc) return;
+  //     const scroll = new LocomotiveScroll({
+  //       el: doc,
+  //       smooth: true,
+  //       // offsetHeight: '100',
+  //       direction: 'vertical',
+  //       multiplier: 1,
+  //       resetNativeScroll: true,
+  //     });
+  //   }, []);
+
+
   return (
-    <div className='mx-auto min-h-screen text-charcoal'>
+    <div
+    // ref={scrollRef}
+      // data-scroll-container
+      id='data-scroll-container'
+      className='data-scroll-container mx-auto min-h-screen text-charcoal'
+    >
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
