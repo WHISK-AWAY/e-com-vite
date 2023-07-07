@@ -47,7 +47,7 @@ export default function Navbar() {
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const tagState = useAppSelector(selectTagState);
   const [isSearchHidden, setIsSearchHidden] = useState(true);
-  const test = useRef(null)
+  const test = useRef(null);
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -173,10 +173,8 @@ export default function Navbar() {
     });
   };
 
-
-
   return (
-    <nav className='navbar-container z-[31] sticky bg-white top-0 flex h-16 items-center justify-between px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-[31] flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -204,33 +202,13 @@ export default function Navbar() {
       </div>
 
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
-        {!isMenuHidden ? (
-          <Link
-            to='/'
-            className='relative z-40 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
-            onClick={() => setIsMenuHidden(true)}
-          >
-            <img
-              src={dot}
-              alt='dot-icon'
-              className='absolute right-0 top-0 h-[.6vw] translate-x-[150%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
-            />
-            <img
-              src={dot}
-              alt='dot-icon'
-              className='absolute right-1/2 top-0 h-[.6vw] -translate-x-[1100%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
-            />
-            ASTORIA
-          </Link>
-        ) : (
-          <Link
-            to='/'
-            className='z-[60] font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
-            onClick={() => setIsMenuHidden(true)}
-          >
-            ASTORIA
-          </Link>
-        )}
+        <Link
+          to='/'
+          className='font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          onClick={() => setIsMenuHidden(true)}
+        >
+          ASTORIA
+        </Link>
       </div>
 
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
@@ -304,7 +282,7 @@ export default function Navbar() {
         )}  */}
 
         {
-          <div >
+          <div>
             <img
               src={bag}
               className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
