@@ -8,8 +8,10 @@ import { selectAuthUserId } from '../redux/slices/authSlice';
 
 export default function Cart({
   setIsHidden,
+  reverseSlide,
 }: {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  reverseSlide: gsap.core.Timeline | null;
 }) {
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
@@ -26,7 +28,7 @@ export default function Cart({
     };
   }, []);
 
-  if (!userCart || !userCart.cart) return <h1>Loading...</h1>;
+  if (!userCart || !userCart.cart || !reverseSlide) return <h1>Loading...</h1>;
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-start lg:gap-4'>
@@ -44,7 +46,7 @@ export default function Cart({
           src={x}
           alt='x-icon'
           className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
-          onClick={() => setIsHidden(true)}
+          onClick={() => {reverseSlide.reverse().then(() => setIsHidden(true))}}
         />
       </div>
 

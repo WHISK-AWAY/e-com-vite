@@ -7,7 +7,9 @@ import {
   selectAllProducts,
 } from '../redux/slices/allProductSlice';
 import { randomProduct } from './AllProducts/AllProducts';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
 import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
@@ -22,10 +24,20 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Homepage() {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
+  const grapefruitButtRef = useRef(null);
+  const specialRef = useRef(null);
+  const treatRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   useEffect(() => {
     if (!allProducts.products.length) {
@@ -41,10 +53,54 @@ export default function Homepage() {
     }
   }, [allProducts]);
 
+  useLayoutEffect(() => {
+    // if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({});
+      tl.to(grapefruitButtRef.current, {
+        scrollTrigger: {
+          trigger: grapefruitButtRef.current,
+          onEnter: () => {
+            console.log('entering');
+          },
+          pin: true,
+          start: 'top top',
+          endTrigger: treatRef.current,
+          end: 'bottom 45%',
+          scrub: 1,
+        },
+      });
+
+      tl.from('p', {
+        duration: 4,
+        opacity: 0,
+        // delay: 0.5,
+        ease: 'power4.out',
+        y: 20,
+        scrollTrigger: {
+          markers: true,
+          scrub: 1,
+          trigger: treatRef.current,
+          endTrigger: treatRef.current,
+          start: 'top 70%',
+          end: 'bottom center',
+        },
+      });
+    }, treatRef);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [grapefruitButtRef.current, specialRef.current, treatRef.current]);
+
   // console.log('AP', allProducts)
   if (!randomProd) return <p>...loading</p>;
   return (
-    <div className='relative flex h-full w-screen flex-col justify-center overflow-hidden '>
+    <div
+      className='relative flex h-full w-screen flex-col justify-center overflow-hidden '
+      onLoad={() => ScrollTrigger.refresh()}
+    >
       <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
         <video
           src={handLotion}
@@ -236,33 +292,44 @@ export default function Homepage() {
             </p>
           </div>
 
-          <div className='mb-[5%] flex w-full flex-col items-center'>
-            <img
-              src={grapefrutButt}
-              alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
-              className='z-10 aspect-square w-[30%] object-cover'
-            />
-            <div className=' h-full text-center'>
-              <p className='-translate-y-[40%] pl-7 font-roboto text-[16vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+          <div className='z-10 mb-[5%] flex  w-full flex-col items-center border border-red-500'>
+            <div
+              ref={treatRef}
+              className=' flex h-full flex-col self-center text-center'
+            >
+              <div
+                ref={grapefruitButtRef}
+                className='z-10 h-fit w-[30%] self-center border'
+              >
+                <img
+                  src={grapefrutButt}
+                  alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
+                  className=' aspect-square object-cover'
+                />
+              </div>
+              <p className='relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
                 treat
               </p>
-              <p className='-translate-y-[60%] font-bodoni text-[16vw] font-thin uppercase leading-none  text-white'>
+              <p className='relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
                 your skin
               </p>
               <p className='-translate-y-[390%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
                 to
               </p>
-              <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[16vw] font-xbold uppercase leading-none  text-white'>
+              <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
                 something
               </p>
-              <p className='-translate-y-[105%] font-roboto text-[16vw] font-bold uppercase leading-none text-white'>
+              <p
+                ref={specialRef}
+                className='-translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
+              >
                 special
               </p>
             </div>
             <Link
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className='relative -translate-y-[250%] border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
+              className='relative z-20 -translate-y-[250%] border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
             >
               shop body
             </Link>
