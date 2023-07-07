@@ -3,8 +3,9 @@ import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
 import x from '../../assets/icons/x.svg';
 import chevronRight from '../../assets/icons/new.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 const menuOptions = ['category', 'face', 'body'] as const;
 type MenuOption = (typeof menuOptions)[number] | null;
@@ -18,6 +19,7 @@ export default function DropdownMenu({
 }) {
   const [menuMode, setMenuMode] = useState<MenuOption>(null);
 
+
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
     if (menuMode === menu) {
@@ -27,6 +29,7 @@ export default function DropdownMenu({
     }
   }
 
+  //overflow scroll controll, prevents scroll down
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -40,9 +43,12 @@ export default function DropdownMenu({
     console.log('menuMode', menuMode);
   }, [isMenuHidden, menuMode]);
 
+
+
+
   return (
     <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 3xl:pt-[1.8vw]'>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 3xl:pt-[1.8vw] '>
         <img
           src={x}
           alt='x-icon'
@@ -52,10 +58,11 @@ export default function DropdownMenu({
 
         <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw]'>
           <NavLink
+          
             to={'/shop-all'}
             state={{ filterKey: 'all' }}
             onClick={() => setIsMenuHidden(true)}
-            className='ml-[25%] w-fit'
+            className='box ml-[25%] w-fit'
           >
             shop all
           </NavLink>
@@ -66,10 +73,10 @@ export default function DropdownMenu({
                 <img
                   src={chevronRight}
                   alt='right arrow'
-                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
                     menuMode === 'category' ? 'rotate-90' : ''
                   }`}
-                  // onMouseEnter={() => setIsCategoryHidden((prev) => !prev)}
+                  // onMouseEnter={() => toggleMenu('category')}
                   onClick={() => toggleMenu('category')}
                 />
               )}
@@ -95,7 +102,7 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
                       menuMode === 'face' ? 'rotate-90' : ''
                     }`}
                     // onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
@@ -118,7 +125,7 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[200%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[220%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
                       menuMode === 'body' ? 'rotate-90' : ''
                     }`}
                     // onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
