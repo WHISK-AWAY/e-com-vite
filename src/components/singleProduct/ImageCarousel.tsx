@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { ImageData } from '../../../server/database';
+import 'lazysizes';
 
 export type ImageCarouselProps = {
   product: TProduct;
@@ -81,13 +82,15 @@ export default function ImageCarousel({
                 muted={true}
                 autoPlay={true}
                 loop={true}
-                src={image.imageURL}
-                className='aspect-[3/4] border border-charcoal object-cover'
+                data-src={image.imageURL}
+                data-sizes='auto'
+                className='lazyload aspect-[3/4] border border-charcoal object-cover'
               />
             ) : (
               <img
-                className='aspect-[3/4] border border-charcoal object-cover'
-                src={image.imageURL}
+                className='lazyload aspect-[3/4] border border-charcoal object-cover'
+                data-src={image.imageURL}
+                data-sizes='auto'
                 alt={image.imageDesc}
               />
             )}
