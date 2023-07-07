@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate, Link } from 'react-router-dom';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -47,6 +47,7 @@ export default function Navbar() {
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const tagState = useAppSelector(selectTagState);
   const [isSearchHidden, setIsSearchHidden] = useState(true);
+  const test = useRef(null)
 
   const [searchResults, setSearchResults] = useState<TSearch>({
     products: [],
@@ -168,6 +169,8 @@ export default function Navbar() {
       tags: [],
     });
   };
+
+
 
   return (
     <nav className='navbar-container flex h-16 items-center justify-between px-6 lg:px-10'>
@@ -298,7 +301,7 @@ export default function Navbar() {
         )}  */}
 
         {
-          <div>
+          <div >
             <img
               src={bag}
               className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
