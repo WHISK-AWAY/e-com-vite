@@ -47,8 +47,8 @@ export default function DropdownMenu({
 
 
   return (
-    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7 3xl:pt-[1.8vw] '>
+    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col  bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] 5xl:pt-[4%]'>
+      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7  '>
         <img
           src={x}
           alt='x-icon'
@@ -56,7 +56,7 @@ export default function DropdownMenu({
           onClick={() => setIsMenuHidden(true)}
         />
 
-        <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw]'>
+        <div className='flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw] 5xl:text-[6vw]'>
           <NavLink
           
             to={'/shop-all'}
