@@ -46,13 +46,17 @@ export default function SearchContainer({
         duration: 0.3,
         ease: 'power4.inOut',
       });
-      tl.from(formRef.current, {
-        y: '-=100%',
-        duration: 0.8,
-        ease: 'power4.inOut',
-      });
+      tl.from(
+        formRef.current,
+        {
+          y: '-=100%',
+          duration: 0.8,
+          ease: 'power4.inOut',
+        },
+        '<'
+      );
       tl.from(logoRef.current, {
-        duration: 0.5,
+        duration: 0.4,
         ease: 'power4.inOut',
         opacity: 0,
       });

@@ -31,15 +31,7 @@ export default function CartFavWrapper({
         {
           x: '+=100%',
           duration: 0.8,
-          ease: 'power4.out',
-          onComplete: (self) => {
-            tl.remove(self);
-            tl.to(wrapper.current, {
-              x: '+=100%',
-              duration: 1,
-              ease: 'elastic.out',
-            });
-          },
+          ease: 'power4.inOut',
         },
         '<'
       );
@@ -54,9 +46,12 @@ export default function CartFavWrapper({
 
   const closeSlider = (e: any) => {
     if (e.target.id === 'wrapper')
-      reverseSlide?.reverse().then(() => {
-        setIsCartFavWrapperHidden(true);
-      });
+      reverseSlide
+        ?.duration(0.6)
+        .reverse()
+        .then(() => {
+          setIsCartFavWrapperHidden(true);
+        });
   };
 
   return (
