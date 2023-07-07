@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
+import 'lazysizes'
 
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
@@ -262,12 +263,13 @@ export default function Recap() {
                   />
                   <div className='w-28 lg:w-40'>
                     <img
-                      className=' aspect-[3/4]  object-cover'
-                      src={
+                      className='lazyload aspect-[3/4]  object-cover'
+                      data-src={
                         item.product.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || item.product.images[0].imageURL
                       }
+                      data-sizes='auto'
                     />
                   </div>
                   <div className='flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]'>
@@ -290,11 +292,16 @@ export default function Recap() {
           </div>
 
           <div className='bg-img-container relative flex w-2/5 flex-col '>
-            <img src={oceanBg} alt='ocean waves and rocks' />
             <img
-              src={sandLady}
+              data-src={oceanBg}
+              data-sizes='auto'
+              alt='ocean waves and rocks'
+              className='lazyload'
+            />
+            <img
+              data-src={sandLady}
               alt='lady rubbing sand on her lips'
-              className='absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]'
+              className='lazyload absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]'
             />
           </div>
         </div>

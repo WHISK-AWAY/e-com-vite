@@ -92,11 +92,14 @@ export default function AllProductsHeader({
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 ${
+          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5  ${
             randomProdGif || backupImage ? 'group' : ''
           }`}
         >
-          <Link to={`/product/${randomProd._id}`}>
+          <Link
+            to={`/product/${randomProd._id}`}
+            className='transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out'
+          >
             <img
               src={randomProdImage}
               alt='product image'

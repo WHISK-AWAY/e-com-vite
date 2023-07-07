@@ -10,6 +10,7 @@ import signin from '../assets/bg-vids/sign-in.mp4';
 import x from '../assets/icons/x.svg';
 import SignUp from './SignUp';
 import { TMode } from './SignWrapper';
+import 'lazysizes';
 
 export type FormData = {
   email: string;
@@ -131,8 +132,9 @@ export default function SignIn({
   return (
     <>
       <video
-        src={signin}
-        className='h-full object-cover'
+        data-src={signin}
+        data-sizes='auto'
+        className='lazyload h-full object-cover'
         loop={true}
         autoPlay={true}
       />

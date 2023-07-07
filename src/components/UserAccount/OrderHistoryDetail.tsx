@@ -3,6 +3,7 @@ import { TOrder } from '../../redux/slices/orderSlice';
 import OrderHistoryProductCard from './OrderHistoryProductCard';
 import x from '../../assets/icons/x.svg';
 
+
 export type OrderHistoryDetailProps = {
   order: TOrder;
   setDetailOrder: React.Dispatch<React.SetStateAction<TOrder | null>>;

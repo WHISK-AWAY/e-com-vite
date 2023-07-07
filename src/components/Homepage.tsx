@@ -10,6 +10,7 @@ import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
 import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
@@ -24,6 +25,10 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
+// import LocomotiveScroll from 'locomotive-scroll';
+
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Homepage() {
@@ -33,7 +38,6 @@ export default function Homepage() {
   const grapefruitButtRef = useRef(null);
   const specialRef = useRef(null);
   const treatRef = useRef<HTMLDivElement>(null);
-  const topRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -54,16 +58,16 @@ export default function Homepage() {
   }, [allProducts]);
 
   useLayoutEffect(() => {
-    // if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
+    if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
       tl.to(grapefruitButtRef.current, {
         scrollTrigger: {
           trigger: grapefruitButtRef.current,
-          onEnter: () => {
-            console.log('entering');
-          },
+          // onEnter: () => {
+          //   console.log('entering');
+          // },
           pin: true,
           start: 'top top',
           endTrigger: treatRef.current,
@@ -94,27 +98,50 @@ export default function Homepage() {
     };
   }, [grapefruitButtRef.current, specialRef.current, treatRef.current]);
 
-  // console.log('AP', allProducts)
+
+
+  //smooth scroll attempt
+
+  // const elem = document.getElementById('data-scroll-container')
+
+//   useEffect(() => {
+// const doc = document.querySelector('.data-scroll-container');
+
+// if(!doc) return 
+//     const scroll = new LocomotiveScroll({
+//       el:  doc,
+//       smooth: true,
+//       // offsetHeight: '100',
+//       direction: 'vertical',
+//       multiplier: 1,
+//       resetNativeScroll: true,
+//     })
+//   }, [])
+
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
-      className='relative flex h-full w-screen flex-col justify-center overflow-hidden '
+      // data-scroll-container
+      // id='data-scroll-container'
+      className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
       onLoad={() => ScrollTrigger.refresh()}
     >
       <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
         <video
-          src={handLotion}
+          data-src={handLotion}
+          data-sizes='auto'
           loop={true}
           autoPlay={true}
           muted={true}
-          className='-z-10 aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
+          className='lazyload -z-10 aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
         />
         <video
-          src={rainLeaves}
+          data-src={rainLeaves}
+          data-sizes='auto'
           loop={true}
           autoPlay={true}
           muted={true}
-          className='-z-10 aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
+          className='lazyload -z-10 aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
         />
 
         <div className=' absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference'>
@@ -148,9 +175,10 @@ export default function Homepage() {
 
       <div className='rainbow-lady relative mb-[25%]  flex h-full  w-screen items-start'>
         <img
-          src={rainbowLady}
+          data-src={rainbowLady}
+          data-sizes='auto'
           alt='red haired ladys profile with reflection of a rainbow on her face'
-          className='w-[60%] -translate-x-[15%]  '
+          className='lazyload w-[60%] -translate-x-[15%]  '
         />
         <div className=''>
           <p className='absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'>
@@ -168,12 +196,13 @@ export default function Homepage() {
           <div className=' flex w-[90%] flex-col items-center justify-center'>
             <Link to={'/product/' + randomProd!._id}>
               <img
-                className='pt-[55%] '
-                src={
+                className='lazyload pt-[55%] '
+                data-src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd!.images[0].imageURL
                 }
+                data-sizes='auto'
               />
             </Link>
           </div>
@@ -202,12 +231,13 @@ export default function Homepage() {
                 className='flex justify-center'
               >
                 <img
-                  className='aspect-[4/6]  w-[80%] object-cover '
-                  src={
+                  className='lazyload aspect-[4/6]  w-[80%] object-cover '
+                  data-src={
                     randomProd!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
+                  data-sizes='auto'
                 />
               </Link>
             </div>
@@ -218,12 +248,13 @@ export default function Homepage() {
                 className='flex justify-center'
               >
                 <img
-                  className='aspect-[4/6] w-[80%] object-cover'
-                  src={
+                  className='lazyload aspect-[4/6] w-[80%] object-cover'
+                  data-src={
                     randomProd!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
+                  data-sizes='auto'
                 />
               </Link>
             </div>
@@ -238,9 +269,10 @@ export default function Homepage() {
 
           <div className='w-[80%] pt-[2%]'>
             <img
-              src={beachLady}
+              data-src={beachLady}
+              data-sizes='auto'
               alt='lady with a big white hat is laying on the beach'
-              className='aspect-auto h-3/4 w-full object-cover'
+              className='lazyload aspect-auto h-3/4 w-full object-cover'
             />
           </div>
 
@@ -256,11 +288,12 @@ export default function Homepage() {
             </div>
             <div className='video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center'>
               <video
-                src={bwSeizure}
+                data-src={bwSeizure}
+                data-sizes='auto'
                 autoPlay={true}
                 muted={true}
                 loop={true}
-                className='aspect-[4/6] w-[70%]'
+                className='lazyload aspect-[4/6] w-[70%]'
               />
             </div>
             <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%]'>
@@ -270,12 +303,13 @@ export default function Homepage() {
                 className=' flex flex-col items-center '
               >
                 <img
-                  className='aspect-[5/6] w-[50%] object-cover pt-[2%]'
-                  src={
+                  className='lazyload aspect-[5/6] w-[50%] object-cover pt-[2%]'
+                  data-src={
                     randomProd!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
+                  data-sizes='auto'
                 />
                 <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
                   {randomProd.productName}
@@ -302,9 +336,10 @@ export default function Homepage() {
                 className='z-10 h-fit w-[30%] self-center border'
               >
                 <img
-                  src={grapefrutButt}
+                  data-src={grapefrutButt}
+                  data-sizes='auto'
                   alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
-                  className=' aspect-square object-cover'
+                  className='lazyload aspect-square object-cover'
                 />
               </div>
               <p className='relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
@@ -349,9 +384,10 @@ export default function Homepage() {
       <div className='flex w-[90%] max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center '>
         <div className='flex w-full flex-row-reverse justify-center '>
           <img
-            src={ladyMask}
+            data-src={ladyMask}
+            data-sizes='auto'
             alt='woman applying mask to her face'
-            className='h-screen  w-[3/5] object-cover '
+            className='lazyload h-screen  w-[3/5] object-cover '
           />
 
           <div className=' relative flex w-2/5  flex-col justify-end gap-10'>
@@ -368,12 +404,13 @@ export default function Homepage() {
               className='flex w-[70%] flex-col  items-center self-end pr-[15%]'
             >
               <img
-                className='aspect-[1/2] w-fit object-cover md:h-[290px] lg:h-[400px] xl:h-[450px] 2xl:h-[650px] min-[1600px]:h-[800px]'
-                src={
+                className='lazyload aspect-[1/2] w-fit object-cover md:h-[290px] lg:h-[400px] xl:h-[450px] 2xl:h-[650px] min-[1600px]:h-[800px]'
+                data-src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd!.images[0].imageURL
                 }
+                data-sizes='auto'
               />
               <p className='w-[90%] pt-2 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal'>
                 {randomProd.productName}
@@ -401,21 +438,23 @@ export default function Homepage() {
 
           <Link to={'/product/' + randomProd!._id} className='flex w-full '>
             <img
-              className='aspect-[7/9] w-full object-cover '
-              src={
+              className='lazyload aspect-[7/9] w-full object-cover '
+              data-src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
                 )?.imageURL || randomProd!.images[0].imageURL
               }
+              data-sizes='auto'
             />
           </Link>
         </div>
 
         <div className='flex w-full flex-col '>
           <img
-            src={ladyFacewash}
-            alt=''
-            className='aspect-[4/6] h-screen self-center'
+            data-src={ladyFacewash}
+            data-sizes='auto'
+            alt='lady washing her face in the bathroom with white towel on her head'
+            className='lazyload aspect-[4/6] h-screen self-center'
           />
           <p className='w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
             heavy moisturizers are ideal for cold climates or during winter when
@@ -428,9 +467,10 @@ export default function Homepage() {
       <div className='flex w-[90%] max-w-[1440px] self-center '>
         <div className='flex h-screen  w-[65%] border '>
           <img
-            src={papaya}
+            data-src={papaya}
+            data-sizes='auto'
             alt='ripe papaya cut in half'
-            className='grow-1 aspect-[2/3] w-full shrink-0  object-cover '
+            className='lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover '
           />
           <div className='relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap '>
             <p className='relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]'>
@@ -451,12 +491,13 @@ export default function Homepage() {
             className='flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px]'
           >
             <img
-              className='aspect-[3/5] object-cover pl-[8%] min-[2500px]:max-h-[750px]'
-              src={
+              className='lazyload aspect-[3/5] object-cover pl-[8%] min-[2500px]:max-h-[750px]'
+              data-src={
                 randomProd!.images.find(
                   (image) => image.imageDesc === 'product-front'
                 )?.imageURL || randomProd!.images[0].imageURL
               }
+              data-sizes='auto'
             />
             <p className='pt-[4%] text-center font-hubbali text-[1vw] uppercase text-charcoal'>
               {randomProd.productName}
@@ -475,21 +516,24 @@ export default function Homepage() {
       <div className='flex h-full w-[80%] justify-center self-center pb-[6%]'>
         <div className='flex h-[40dvh] gap-9 2xl:h-[50dvh]'>
           <img
-            src={coconutHand}
+            data-src={coconutHand}
+            data-sizes='auto'
             alt='hand is reaching for a coconut cut in half'
-            className='aspect-[1/2] w-[30%] object-cover'
+            className='lazyload aspect-[1/2] w-[30%] object-cover'
           />
           <img
-            src={melon}
+            data-src={melon}
+            data-sizes='auto'
             alt='melon cut in half'
-            className='aspect-[1/2] w-[30%] object-cover'
+            className='lazyload aspect-[1/2] w-[30%] object-cover'
           />
           <video
-            src={legBrush}
+            data-src={legBrush}
+            data-sizes='auto'
             muted={true}
             loop={true}
             autoPlay={true}
-            className='aspect-[1/2] w-[30%] items-center justify-center object-cover'
+            className='lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover'
           />
         </div>
       </div>

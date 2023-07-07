@@ -26,6 +26,9 @@ import SortFilterAllProds from '../SortFilterAllProds';
 import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+
 const PRODS_PER_PAGE = 9;
 export const notify = () =>
   toast('Please make an account to start adding favorites');
@@ -118,6 +121,7 @@ AllProductsProps) {
   useEffect(() => {
     // make sure we have all tags upon page load in order to populate filter selector
     dispatch(fetchAllTags());
+
   }, []);
 
   // useEffect(() => {
@@ -298,23 +302,25 @@ AllProductsProps) {
               key={product._id.toString()}
             >
               <div
-                className={`aspect-[3/4] w-full ${
+                className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${
                   hoverURL || hoverFallback ? 'group' : ''
                 }`}
               >
                 <Link to={'/product/' + product._id} className='h-full w-full'>
                   <img
-                    src={imageURL}
+                    data-src={imageURL}
+                    data-sizes='auto'
                     alt='product image'
-                    className='h-full w-full object-cover group-hover:invisible'
+                    className='lazyload h-full w-full object-cover group-hover:invisible'
                   />
                   {hoverURL ? (
                     <video
-                      src={hoverURL}
+                      data-src={hoverURL}
+                      data-sizes='auto'
                       muted={true}
                       autoPlay={true}
                       loop={true}
-                      className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
+                      className='lazyload invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                     />
                   ) : (
                     <img

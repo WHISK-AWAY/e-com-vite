@@ -117,6 +117,8 @@ const bgImgs = [
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 gsap.registerPlugin(ScrollTrigger);
+import 'lazysizes';
+
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -345,7 +347,7 @@ export default function SingleProduct() {
                 >
                   <img
                     src={heartFilled}
-                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
+                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
                   />
                 </div>
               ) : (
@@ -355,7 +357,7 @@ export default function SingleProduct() {
                 >
                   <img
                     src={heartBlanc}
-                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
+                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
                   />
                 </div>
               )
@@ -384,17 +386,19 @@ export default function SingleProduct() {
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
-                  src={selectedImage}
-                  className='absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
+                  data-src={selectedImage}
+                  data-sizes='auto'
+                  className='lazyload absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
                   muted={true}
                   autoPlay={true}
                   loop={true}
                 />
               ) : (
                 <img
-                  src={selectedImage}
+                  data-src={selectedImage}
+                  data-sizes='auto'
                   alt='product image'
-                  className='aspect-[3/4] w-full object-cover'
+                  className='lazyload aspect-[3/4] w-full object-cover'
                 />
               )}
             </div>

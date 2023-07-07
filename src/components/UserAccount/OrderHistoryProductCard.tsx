@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import 'lazysizes'
 
 export type OrderHistoryProductCardProps = {
   product: {
@@ -19,8 +20,9 @@ export default function OrderHistoryProductCard({
       <div className='image-container basis-1/5'>
         <Link to={`/product/${product.productId}`}>
           <img
-            className='aspect-[3/4] w-full border border-charcoal object-cover'
-            src={product.imageURL}
+            className='lazyload aspect-[3/4] w-full border border-charcoal object-cover'
+            data-src={product.imageURL}
+            data-sizes='auto'
             alt='product image'
           />
         </Link>
