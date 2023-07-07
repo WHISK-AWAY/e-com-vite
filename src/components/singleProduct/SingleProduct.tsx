@@ -1,5 +1,5 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState, useRef, useMemo, useLayoutEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -142,13 +142,38 @@ export default function SingleProduct() {
   const [bgImg, setBgImg] = useState('');
   const [bgVid, setBgVid] = useState('');
 
+  const scrollerRef = useRef(null);
+  const pinRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (!scrollerRef) return;
+
+    const ctx = gsap.context((_) => {
+      const scroller = scrollerRef.current;
+
+      gsap.to(scroller, {
+        scrollTrigger: {
+          trigger: scroller,
+          pin: true,
+          endTrigger: pinRef.current,
+          end: 'bottom bottom',
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, [scrollerRef.current, bgImg, bgVid, singleProduct]);
+
   useEffect(() => {
     // * component initialization
 
     if (productId) {
       dispatch(getUserId());
-      dispatch(fetchSingleProduct(productId));
+      dispatch(fetchSingleProduct(productId)).then(() =>
+        window.scrollTo({ top: 0 })
+      );
       dispatch(fetchAllReviews(productId));
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     if (Math.random() < 0.5) {
@@ -206,8 +231,6 @@ export default function SingleProduct() {
       } else setUserHasReviewed(false);
     }
   }, [allReviews, userId]);
-
-
 
   // Add-to-cart quantity counter
   const qtyIncrementor = () => {
@@ -344,18 +367,21 @@ export default function SingleProduct() {
                 onClick={notify}
                 className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
               />
-              )}
-            <Toaster
-              position='top-right'
-              toastOptions={{
-                className:
-                'border border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
-                duration: 5000,
-                style: {
-                  maxWidth: 700,
-                },
-              }}
+            )}
+            <div className='relative z-auto'>
+              <Toaster
+                position='top-right'
+                toastOptions={{
+                  className:
+                    'border bg-white border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
+                  duration: 5000,
+                  style: {
+                    maxWidth: 700,
+                    translate: '0 64px',
+                  },
+                }}
               />
+            </div>
 
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
@@ -467,29 +493,27 @@ export default function SingleProduct() {
           </div>
         </section>
       </section>
-      <section className='ingredients-container mb-20 flex w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'>
-      
-
-        <div  className='bg-img basis-3/5 px-4'>
+      <section
+        ref={pinRef}
+        className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'
+      >
+        <div
+          className='bg-img h-screen shrink-0 basis-3/5 px-4'
+          ref={scrollerRef}
+        >
           {bgVid ? (
             <video
-            autoPlay={true}
-            loop={true}
-            muted={true}
-            src={bgVid}
-            className='aspect-[2/3] w-full object-cover'
-              ref={bgVidRef}
-              />
-              ) : (
-                <img
-                ref={bgImgRef}
-                src={bgImg}
-                className='aspect-[2/3] object-cover'
-                />
-                )}
+              src={bgVid}
+              autoPlay={true}
+              loop={true}
+              muted={true}
+              className='h-screen w-full object-cover'
+            />
+          ) : (
+            <img src={bgImg} className='h-screen w-full object-cover' />
+          )}
         </div>
-              
-        <div className='ingredients mt-4 flex basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
+        <div className='ingredients mt-4 flex h-full min-h-screen basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
           <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
             key ingredients
           </h3>

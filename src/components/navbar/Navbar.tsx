@@ -117,14 +117,17 @@ export default function Navbar() {
     const options = {
       includeScore: true,
       // ignoreLocation: true,
-    
+
       keys: ['productName', 'tagName'],
     };
 
     const fuse = new Fuse(catalogue.products, options);
     // const result = fuse.search(searchTerm);
 
-    const searchResults = fuse.search(searchTerm).filter((result) => result.score! < SCORE_THRESHOLD).map((result) => result.item)
+    const searchResults = fuse
+      .search(searchTerm)
+      .filter((result) => result.score! < SCORE_THRESHOLD)
+      .map((result) => result.item);
     console.log('search results', searchResults);
     // console.log('score', options)
 
@@ -173,7 +176,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className='navbar-container z-50 sticky bg-white top-0 flex h-16 items-center justify-between px-6 lg:px-10'>
+    <nav className='navbar-container z-[31] sticky bg-white top-0 flex h-16 items-center justify-between px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -204,7 +207,7 @@ export default function Navbar() {
         {!isMenuHidden ? (
           <Link
             to='/'
-            className='relative z-50 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
+            className='relative z-40 font-chonburi text-[2.5vw] text-[#262626]  min-[1600px]:text-[1.6vw]'
             onClick={() => setIsMenuHidden(true)}
           >
             <img
@@ -230,7 +233,7 @@ export default function Navbar() {
         )}
       </div>
 
-      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2 '>
+      <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
         <img
           src={searchIcon}
           className=' h-3 lg:h-[18px] xl:h-[21px]'
@@ -268,7 +271,7 @@ export default function Navbar() {
           searchNotFound={searchNotFound}
         />
 
-         {/* {(searchResults.products.length > 0 ||
+        {/* {(searchResults.products.length > 0 ||
           searchResults.tags.length > 0) && (
           <select onChange={(e) => console.log(e.target.dataset.type)}>
             {searchResults.products.map((prod) => (

@@ -30,6 +30,7 @@
 
 - [ ] Notifications:
   - [ ] Inform user if we purge their cart due to thunk rejection (affects guest only)
+- [ ] "X" icon sizes are inconsistent (cart/fav versus signin/signup, look for others)
 - [ ] Single product:
   - [ ] Reviews: should never see a reviewer with zero reviews (seeding issue)
 - [ ] Guest favorites:

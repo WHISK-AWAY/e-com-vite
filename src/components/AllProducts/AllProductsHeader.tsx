@@ -82,7 +82,7 @@ export default function AllProductsHeader({
           )} */}
         </h1>
 
-        <img src={categoryInfo?.image} className='-z-10'/>
+        <img src={categoryInfo?.image} className='-z-10' />
       </section>
 
       <section className='random-product flex basis-1/2 flex-col items-center'>
@@ -92,11 +92,11 @@ export default function AllProductsHeader({
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative -z-10 flex w-3/5 flex-col justify-center lg:w-4/5 ${
+          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 ${
             randomProdGif || backupImage ? 'group' : ''
           }`}
         >
-          <Link to={'/product/' + randomProd._id}>
+          <Link to={`/product/${randomProd._id}`}>
             <img
               src={randomProdImage}
               alt='product image'
