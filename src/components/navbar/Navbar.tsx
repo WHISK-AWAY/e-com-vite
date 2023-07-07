@@ -176,8 +176,8 @@ export default function Navbar() {
 
 
   return (
-    <nav className='navbar-container relative z-[31] flex h-16 items-center justify-between px-6 lg:px-10'>
-      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
+    <nav className='navbar-container z-[31] sticky bg-white top-0 flex h-16 items-center justify-between px-6 lg:px-10'>
+      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
           onMouseEnter={() => setIsMenuHidden(false)}
@@ -243,11 +243,11 @@ export default function Navbar() {
           onSubmit={(e) => handleFormSubmit(e)}
           className={`${
             !isSearchHidden
-              ? 'absolute right-0 top-0 z-20 h-[60vh] w-full border border-black bg-white'
+              ? 'absolute right-0 top-0 z-20 h-[60vh] w-full  bg-white'
               : 'hidden'
           }`}
         >
-          <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 border border-red-300'>
+          <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 '>
             <input
               className='w-full rounded-sm border border-charcoal font-federo text-[1.5vw] placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
               type='text'

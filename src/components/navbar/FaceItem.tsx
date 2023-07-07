@@ -51,7 +51,7 @@ export default function FaceItem({
   return (
     <section
       ref={localParent}
-      className='absolute right-0 top-[65%] z-10 flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] border border-black bg-white py-[2%] pl-10 text-[2vw]'
+      className='absolute right-0 top-[65%] z-10 flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-white py-[2%] pl-10 text-[2vw]'
       style={{
         height: menuHeight,
       }}
@@ -62,7 +62,7 @@ export default function FaceItem({
           <Link
             to='/shop-all'
             state={{ filterKey: name }}
-            className='hover:underline hover:underline-offset-2'
+            className='hover:underline hover:underline-offset-2 odd:text-[3vw]'
             onClick={() => {
               setIsMenuHidden((prev) => !prev);
             }}

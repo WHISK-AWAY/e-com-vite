@@ -36,7 +36,7 @@ export default function BodyItem({
       style={{
         height: menuHeight,
       }}
-      className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] border border-black bg-white py-[2%] pl-10 text-[2vw] '
+      className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-white py-[2%] pl-10 text-[2vw] '
     >
       {filteredTags.map((tag) => {
         const name = tag.tagName;
@@ -46,7 +46,7 @@ export default function BodyItem({
             to='/shop-all'
             onClick={() => setIsMenuHidden(true)}
             state={{ filterKey: name }}
-            className='hover:underline hover:underline-offset-2'
+            className='hover:underline hover:underline-offset-2 odd:text-[3vw]'
             key={tag._id}
           >
             {name}
