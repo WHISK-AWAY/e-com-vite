@@ -117,6 +117,8 @@ const bgImgs = [
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 gsap.registerPlugin(ScrollTrigger);
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -332,8 +334,6 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-   
-
     <main className='single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
@@ -342,27 +342,27 @@ export default function SingleProduct() {
             {userId ? (
               itemIsFavorited ? (
                 <div
-                onClick={handleFavoriteRemove}
-                className='w-fit cursor-pointer'
+                  onClick={handleFavoriteRemove}
+                  className='w-fit cursor-pointer'
                 >
                   <img
                     src={heartFilled}
-                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
-                    />
+                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                  />
                 </div>
               ) : (
                 <div
-                onClick={handleFavoriteAdd}
-                className='w-fit cursor-pointer'
+                  onClick={handleFavoriteAdd}
+                  className='w-fit cursor-pointer'
                 >
                   <img
                     src={heartBlanc}
-                    className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
-                    />
+                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                  />
                 </div>
               )
-              ) : (
-                <img
+            ) : (
+              <img
                 src={heartBlanc}
                 onClick={notify}
                 className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
@@ -386,25 +386,27 @@ export default function SingleProduct() {
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
-                src={selectedImage}
-                className='absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
-                muted={true}
-                autoPlay={true}
-                loop={true}
+                  data-src={selectedImage}
+                  data-sizes='auto'
+                  className='lazyload absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
+                  muted={true}
+                  autoPlay={true}
+                  loop={true}
                 />
-                ) : (
-                  <img
-                  src={selectedImage}
+              ) : (
+                <img
+                  data-src={selectedImage}
+                  data-sizes='auto'
                   alt='product image'
-                  className='aspect-[3/4] w-full object-cover'
-                  />
-                  )}
+                  className='lazyload aspect-[3/4] w-full object-cover'
+                />
+              )}
             </div>
             <ImageCarousel
               num={3}
               product={singleProduct}
               setSelectedImage={setSelectedImage}
-              />
+            />
           </div>
         </section>
 
@@ -418,12 +420,12 @@ export default function SingleProduct() {
               onClick={() =>
                 reviewSection.current?.scrollIntoView({ behavior: 'smooth' })
               }
-              >
+            >
               <StarsBar
                 score={overallReviewScore()}
                 option='count'
                 reviewCount={allReviews.reviews.length}
-                />
+              />
             </div>
             <p className='product-long-desc font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl'>
               {singleProduct.productShortDesc} Retinol stimulates the synthesis
@@ -448,7 +450,7 @@ export default function SingleProduct() {
                   <div
                     onClick={qtyIncrementor}
                     className='incrementor cursor-pointer'
-                    >
+                  >
                     <img src={plus} className='w-4 2xl:w-5' />
                   </div>
                 </div>
@@ -462,7 +464,7 @@ export default function SingleProduct() {
                 onClick={handleAddToCart}
                 disabled={maxQty === 0}
                 className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
-                >
+              >
                 add to cart
               </button>
             </div>
@@ -520,8 +522,8 @@ export default function SingleProduct() {
           {parseIngredients().map((el, idx) => {
             return (
               <p
-              key={idx}
-              className='font-grotesque text-base xl:text-xl 2xl:text-2xl'
+                key={idx}
+                className='font-grotesque text-base xl:text-xl 2xl:text-2xl'
               >
                 <span className='font-grotesque font-xbold uppercase'>
                   {el.split(':')[0]}:
@@ -537,13 +539,13 @@ export default function SingleProduct() {
       <section
         ref={youMayAlsoLikeRef}
         className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'
-        >
+      >
         <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
           YOU MAY ALSO LIKE
         </h2>
         {singleProduct.relatedProducts && (
           <ProductCarousel products={singleProduct.relatedProducts} num={4} />
-          )}
+        )}
       </section>
 
       {/* REVIEWS */}
@@ -551,7 +553,7 @@ export default function SingleProduct() {
         id='review-container'
         ref={reviewSection}
         className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10'
-        >
+      >
         <h2 className='self-start font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
           REVIEWS
         </h2>
@@ -561,24 +563,24 @@ export default function SingleProduct() {
               <StarsBar
                 score={overallReviewScore()}
                 reviewCount={allReviews.reviews.length}
-                />
+              />
             </div>
           )}
           {showReviewForm ? (
             <AddReview
-            product={singleProduct}
-            productId={productId!}
-            setShowReviewForm={setShowReviewForm}
+              product={singleProduct}
+              productId={productId!}
+              setShowReviewForm={setShowReviewForm}
             />
-            ) : allReviews.reviews?.length < 1 ? (
-              <>
+          ) : allReviews.reviews?.length < 1 ? (
+            <>
               <p className='mb-7'>
                 No reviews yet...be the first to leave one!
               </p>
               <button
                 className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
                 onClick={() => setShowReviewForm((prev) => !prev)}
-                >
+              >
                 write a review
               </button>
             </>
@@ -588,7 +590,7 @@ export default function SingleProduct() {
             <button
               className='self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
               onClick={() => setShowReviewForm((prev) => !prev)}
-              >
+            >
               write a review
             </button>
           )}
@@ -597,17 +599,16 @@ export default function SingleProduct() {
               <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8'>
                 {allReviews.reviews.map((review, idx) => (
                   <Review
-                  review={review}
-                  key={review._id}
-                  last={allReviews.reviews.length - 1 === idx}
+                    review={review}
+                    key={review._id}
+                    last={allReviews.reviews.length - 1 === idx}
                   />
-                  ))}
+                ))}
               </div>
             </div>
           )}
         </div>
       </section>
     </main>
-        
   );
 }
