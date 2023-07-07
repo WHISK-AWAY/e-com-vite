@@ -38,8 +38,6 @@ export default function Navbar() {
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
-  // const [isCartHidden, setIsCartHidden] = useState(true);
-  // const [isFavHidden, setIsFavHidden] = useState(true);
   const [isSignFormHidden, setIsSignFormHidden] = useState(true);
   const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
   const [mode, setMode] = useState<TCFMode>('cart');
@@ -54,7 +52,7 @@ export default function Navbar() {
     tags: [],
   });
 
-  // console.log('user', singleUserState.user.favorites)
+
   useEffect(() => {
     if (!userId && !authError) dispatch(getUserId());
 
@@ -71,15 +69,6 @@ export default function Navbar() {
       dispatch(fetchAllTags());
     }
   }, [tagState]);
-
-  // useEffect(() => {
-  //   console.log(isCartFavWrapperHidden);
-  // }, [isCartFavWrapperHidden]);
-  // function signOut() {
-  //   dispatch(requestLogout());
-  //   dispatch(resetUserState());
-  //   navigate('/');
-  // }
 
   // * this part doesn't really work all that well, but the navigates should
   // * at least be in the ball park of what we want
@@ -101,11 +90,18 @@ export default function Navbar() {
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
 
+
+
+  //fuse fuzzy product search
+
+  /**
+   * ! look into category/ search, have a discussion
+   */
   const SCORE_THRESHOLD = 0.6;
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     const searchTerm = e.target.value;
-    console.log('searchTerm', searchTerm);
+    // console.log('searchTerm', searchTerm);
 
     const productResults = catalogue.products.filter((prod) => {
       return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -122,14 +118,13 @@ export default function Navbar() {
     };
 
     const fuse = new Fuse(catalogue.products, options);
-    // const result = fuse.search(searchTerm);
+  
 
     const searchResults = fuse
       .search(searchTerm)
       .filter((result) => result.score! < SCORE_THRESHOLD)
       .map((result) => result.item);
     console.log('search results', searchResults);
-    // console.log('score', options)
 
     setSearchResults({ products: searchResults, tags: [] });
   };
@@ -176,7 +171,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className='navbar-container z-[31] sticky bg-white top-0 flex h-16 items-center justify-between px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-[31] flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -184,9 +179,6 @@ export default function Navbar() {
           onClick={() => setIsMenuHidden(false)}
         >
           SHOP
-          {/* <NavLink to={'/shop-all'} onClick={() => setIsMenuHidden(true)}>
-              SHOP
-            </NavLink> */}
         </div>
 
         {!isMenuHidden && (
@@ -199,7 +191,6 @@ export default function Navbar() {
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
         </NavLink>
-        {/* <NavLink to={'/featured'}>FEATURED</NavLink> */}
         <NavLink to={'/new-in'}>NEW IN</NavLink>
       </div>
 
@@ -213,12 +204,12 @@ export default function Navbar() {
             <img
               src={dot}
               alt='dot-icon'
-              className='absolute right-0 top-0 h-[.6vw] translate-x-[150%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
+              className='absolute right-0 top-0 h-[.5vw] translate-x-[150%] translate-y-[360%]  min-[1600px]:h-[.3vw]  min-[1600px]:translate-y-[390%]'
             />
             <img
               src={dot}
               alt='dot-icon'
-              className='absolute right-1/2 top-0 h-[.6vw] -translate-x-[1100%] translate-y-[290%]  min-[1600px]:h-[.4vw]  min-[1600px]:translate-y-[240%]'
+              className='absolute right-1/2 top-0 h-[.5vw] -translate-x-[1300%] translate-y-[380%] min-[1600px]:h-[.3vw]  min-[1600px]:-translate-x-[1400%]  min-[1600px]:translate-y-[390%]'
             />
             ASTORIA
           </Link>
@@ -304,7 +295,7 @@ export default function Navbar() {
         )}  */}
 
         {
-          <div >
+          <div>
             <img
               src={bag}
               className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
