@@ -118,7 +118,7 @@ const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 gsap.registerPlugin(ScrollTrigger);
 import 'lazysizes';
-import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
