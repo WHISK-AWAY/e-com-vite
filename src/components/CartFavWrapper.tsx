@@ -73,18 +73,28 @@ export default function CartFavWrapper({
     };
   }, [wrapper.current, blurBg.current]);
 
-  useEffect(() => {});
+
+  const closeSlider = (e:any) => {
+  
+    if(e.target.id === 'wrapper') 
+    reverseSlide?.reverse().then(() => {
+      
+      setIsCartFavWrapperHidden(true)
+    })
+
+  }
 
   return (
     <section
       ref={blurBg}
-      // onClick={() => setIsCartFavWrapperHidden(true)}
+      id='wrapper'
+      onClick={closeSlider}
       className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50 backdrop-blur-md'
     >
       <div
         ref={wrapper}
         // onClick={() => setIsCartFavWrapperHidden(true)}
-        className='flex h-full min-w-[35vw] max-w-[40vw] flex-col self-end bg-white 4xl:max-w-[10vw]'
+        className='flex h-full  min-w-[35vw] max-w-[40vw] flex-col self-end bg-white 4xl:max-w-[10vw]'
       >
         {mode === 'cart' ? (
           <Cart
