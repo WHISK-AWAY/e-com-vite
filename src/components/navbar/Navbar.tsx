@@ -174,7 +174,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className='navbar-container sticky top-0 z-[31] flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-20 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
