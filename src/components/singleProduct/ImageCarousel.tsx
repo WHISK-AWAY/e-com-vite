@@ -66,7 +66,11 @@ export default function ImageCarousel({
         onClick={decrementor}
         className='absolute -left-7 shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20'
       >
-        <img src={arrowLeft} alt='previous image' className='h-3 xl:h-5' />
+        <img
+          src={arrowLeft}
+          alt='previous image'
+          className='h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5'
+        />
       </button>
       {renderImage.map((image) => {
         let extension = image.imageURL.split('.').at(-1);
@@ -105,7 +109,7 @@ export default function ImageCarousel({
         <img
           src={arrowRight}
           alt='next image'
-          className='h-3 rotate-180 xl:h-5'
+          className='h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in active:scale-50 xl:h-5'
         />
       </button>
     </div>

@@ -454,12 +454,27 @@ export default function SingleProduct() {
                   </div>
                 )}
               </div>
+              {/* <button
+                onClick={handleAddToCart}
+                disabled={maxQty === 0}
+                className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg  uppercase text-white outline outline-slate-800 hover:outline-offset-4 hover:invert disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
+              >
+                add to cart
+              </button> */}
+
               <button
                 onClick={handleAddToCart}
                 disabled={maxQty === 0}
-                className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg uppercase text-white disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
+                className='group relative mt-[6%] w-4/5 overflow-hidden rounded-sm  bg-charcoal py-[2%] font-italiana  text-[2vw] font-medium uppercase text-white disabled:bg-charcoal/40'
               >
-                add to cart
+                <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000 group-hover:w-full'></span>
+                <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500 group-hover:w-full'></span>
+                <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000 group-hover:h-full'></span>
+                <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000 group-hover:h-full'></span>
+                <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-white opacity-0 delay-500 duration-700 group-hover:opacity-100'></span>
+                <span className='ease relative transition-colors delay-200 duration-1000 group-hover:text-charcoal'>
+                  add to cart
+                </span>
               </button>
             </div>
           </div>
