@@ -121,6 +121,8 @@ export default function Homepage() {
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
+      data-scroll-section
+      data-scroll-speed='1'
       // data-scroll-container
       // id='data-scroll-container'
       className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
