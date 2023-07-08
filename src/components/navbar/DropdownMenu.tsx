@@ -80,17 +80,22 @@ export default function DropdownMenu({
                 <img
                   src={chevronRight}
                   alt='right arrow'
-                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
-                    menuMode === 'category' ? 'rotate-90' : ''
+                  className={`ease absolute right-0 top-1/2 h-[3vw] transform translate-x-[290%] translate-y-[-50%] cursor-pointer transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                    menuMode === 'category'
+                      ? 'ease rotate-90 transition-all transform duration-300'
+                      : ''
                   }`}
-                  // onMouseEnter={() => toggleMenu('category')}
+                  onMouseEnter={() => toggleMenu('category')}
                   onClick={() => toggleMenu('category')}
                 />
               )}
             </h2>
+    
+
             {menuMode === 'category' && (
               <ShopByCategoryListItem setIsMenuHidden={setIsMenuHidden} />
-            )}
+              )}
+             
           </div>
           <div className='named-cat-wrapper pl-[30vw]'>
             <NavLink
