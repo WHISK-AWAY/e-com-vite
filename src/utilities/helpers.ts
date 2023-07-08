@@ -108,8 +108,6 @@ export function getMaxQty(
   product: TProduct | null,
   userId: string | null
 ): number {
-  console.log('getting max qty');
-
   if (!product) return 0;
   const inventoryQty = product.qty || 0;
   let maxQty = inventoryQty;

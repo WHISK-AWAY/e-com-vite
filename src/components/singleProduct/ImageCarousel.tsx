@@ -38,7 +38,8 @@ export default function ImageCarousel({
   }, [prodImagesCopy, num]);
 
   useEffect(() => {
-    if (renderImage) setSelectedImage(renderImage![0].imageURL);
+    if (!renderImage) return;
+    setSelectedImage(renderImage[0].imageURL);
   }, [renderImage]);
 
   function autoIncrementImage() {

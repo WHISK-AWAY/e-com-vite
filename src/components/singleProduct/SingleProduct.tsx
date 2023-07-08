@@ -119,11 +119,8 @@ const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 gsap.registerPlugin(ScrollTrigger);
 import 'lazysizes';
 
-
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
-  const bgImgRef = useRef<HTMLImageElement>(null);
-  const bgVidRef = useRef<HTMLVideoElement>(null);
   const youMayAlsoLikeRef = useRef<HTMLDivElement>(null);
   const { productId } = useParams();
   const dispatch = useAppDispatch();
@@ -169,14 +166,12 @@ export default function SingleProduct() {
   useEffect(() => {
     // * component initialization
 
-    if (productId) {
-      // dispatch(getUserId());
-      dispatch(fetchSingleProduct(productId)).then(() =>
-        window.scrollTo({ top: 0 })
-      );
-      dispatch(fetchAllReviews(productId));
-      // window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (!productId) return;
+
+    dispatch(fetchSingleProduct(productId)).then(() =>
+      window.scrollTo({ top: 0 })
+    );
+    dispatch(fetchAllReviews(productId));
 
     if (Math.random() < 0.5) {
       setBgImg(bgImgs[Math.floor(Math.random() * bgImgs.length)]);
@@ -211,15 +206,14 @@ export default function SingleProduct() {
 
   useEffect(() => {
     // Initialize image as first 'product-front' image in product images array
-    if (singleProduct?._id) {
-      setSelectedImage(
-        singleProduct.images.find(
-          (image) => image.imageDesc === 'product-front'
-        )?.imageURL || singleProduct.images[0].imageURL
-      );
-      if (count > maxQty) {
-        setCount(maxQty);
-      }
+    if (!singleProduct?._id) return;
+    setSelectedImage(
+      singleProduct.images.find((image) => image.imageDesc === 'product-front')
+        ?.imageURL || singleProduct?.images[0].imageURL
+    );
+
+    if (count > maxQty) {
+      setCount(maxQty);
     }
   }, [singleProduct]);
 
@@ -386,19 +380,19 @@ export default function SingleProduct() {
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
-                  data-src={selectedImage}
-                  data-sizes='auto'
-                  className='lazyload absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
+                  src={selectedImage}
+                  // data-sizes='auto'
+                  className='absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
                   muted={true}
                   autoPlay={true}
                   loop={true}
                 />
               ) : (
                 <img
-                  data-src={selectedImage}
-                  data-sizes='auto'
+                  src={selectedImage}
+                  // data-sizes='auto'
                   alt='product image'
-                  className='lazyload aspect-[3/4] w-full object-cover'
+                  className='aspect-[3/4] w-full object-cover'
                 />
               )}
             </div>
