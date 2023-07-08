@@ -8,10 +8,10 @@ import { selectAuthUserId } from '../redux/slices/authSlice';
 
 export default function Cart({
   setIsHidden,
-  reverseSlide,
+  closeSlider,
 }: {
   setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  reverseSlide: gsap.core.Timeline | null;
+  closeSlider: () => void;
 }) {
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
@@ -28,7 +28,7 @@ export default function Cart({
     };
   }, []);
 
-  if (!userCart || !userCart.cart || !reverseSlide) return <h1>Loading...</h1>;
+  if (!userCart || !userCart.cart) return <h1>Loading...</h1>;
 
   return (
     <div className='flex h-full w-full flex-col items-center justify-start lg:gap-4'>
@@ -46,7 +46,7 @@ export default function Cart({
           src={x}
           alt='x-icon'
           className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
-          onClick={() => {reverseSlide.reverse().then(() => setIsHidden(true))}}
+          onClick={closeSlider}
         />
       </div>
 
@@ -81,7 +81,7 @@ export default function Cart({
           {userCart.cart.products?.length ? (
             <Link
               to={'/checkout'}
-              onClick={() => setIsHidden(true)}
+              onClick={closeSlider}
               className='rounded-sm bg-charcoal px-6 py-3 text-center font-italiana text-xs text-white lg:px-10 lg:text-sm xl:px-14 xl:text-lg 2xl:text-xl'
             >
               PROCEED TO CHECKOUT
@@ -92,13 +92,12 @@ export default function Cart({
 
           {/* <Recap userCart={userCart}/> */}
 
-          <Link
-            to={'/shop-all'}
-            onClick={() => setIsHidden(true)}
+          <button
+            onClick={closeSlider}
             className='w-fit border border-charcoal px-6 font-italiana text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg'
           >
             continue shopping
-          </Link>
+          </button>
         </div>
       </div>
     </div>

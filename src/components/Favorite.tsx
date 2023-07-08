@@ -11,11 +11,7 @@ import FavoriteItem from './FavoriteItem';
 import x from '../../src/assets/icons/x.svg';
 import { Link } from 'react-router-dom';
 
-export default function Favorite({
-  setIsHidden,
-}: {
-  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
   const dispatch = useAppDispatch();
   const userFavorite = useAppSelector(selectSingleUserFavorites);
   const { userId } = useAppSelector(selectAuth);
@@ -69,7 +65,7 @@ export default function Favorite({
           className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
           src={x}
           alt='x-icon'
-          onClick={() => setIsHidden(true)}
+          onClick={closeSlider}
         />
       </div>
 
@@ -84,7 +80,7 @@ export default function Favorite({
                       product={product}
                       handleAddToCart={handleAddToCart}
                       userId={userId}
-                      setIsHidden={setIsHidden}
+                      closeSlider={closeSlider}
                     />
                   </div>
                 );
@@ -97,13 +93,12 @@ export default function Favorite({
           )}
 
           <div className='flex w-11/12 flex-col items-center justify-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
-            <Link
-              to={'/shop-all'}
-              onClick={() => setIsHidden(true)}
+            <button
+              onClick={closeSlider}
               className='w-fit border border-charcoal px-6 font-italiana text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg'
             >
               continue shopping
-            </Link>
+            </button>
           </div>
         </div>
       </div>

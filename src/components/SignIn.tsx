@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../redux/hooks';
-import { AuthState, requestLogin, selectAuth } from '../redux/slices/authSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../redux/hooks';
+import { requestLogin } from '../redux/slices/authSlice';
 import { z, ZodType } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { emailExists } from '../utilities/helpers';
 import signin from '../assets/bg-vids/sign-in.mp4';
-import x from '../assets/icons/x.svg';
-import SignUp from './SignUp';
 import { TMode } from './SignWrapper';
 import 'lazysizes';
 
@@ -29,19 +26,13 @@ const zodLogin: ZodType<FormData> = z
   })
   .strict();
 
-export default function SignIn({
-  // setIsSigninHidden,
-  mode,
-  setMode,
-}: {
-  // setIsSigninHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  mode: TMode;
+export type SignInProps = {
   setMode: React.Dispatch<React.SetStateAction<TMode>>;
-}) {
+  closeSlider: () => void;
+};
+
+export default function SignIn({ setMode, closeSlider }: SignInProps) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const selectAuthUser = useAppSelector(selectAuth);
-  const [isSignupHidden, setIsSignupHidden] = useState(true);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -50,26 +41,6 @@ export default function SignIn({
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (selectAuthUser.userId) {
-  //     navigate(`/shop-all`);
-  //   }
-
-  //   if (
-  //     selectAuthUser.error.status === 403) {
-
-  //     reset({
-  //       password: '',
-  //     });
-  //     setError('password', {
-  //       type: 'custom',
-  //       message: 'incorrect password',
-  //     });
-  //   } else {
-  //     clearErrors('password');
-  //   }
-  // }, [selectAuthUser]);
-
   const {
     register,
     handleSubmit,
@@ -77,7 +48,7 @@ export default function SignIn({
     setError,
     clearErrors,
     setValue,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(zodLogin),
     defaultValues: { email: '', password: '' },
@@ -112,7 +83,6 @@ export default function SignIn({
   const submitData = async (data: FormData) => {
     dispatch(requestLogin(data))
       .then((meta) => {
-        // console.log('mta', meta)
         const payload = meta?.payload as { status: number; message: string };
 
         if (payload?.status === 401) {
@@ -124,6 +94,8 @@ export default function SignIn({
             type: 'custom',
             message: 'incorrect password',
           });
+        } else {
+          closeSlider();
         }
       })
       .catch((err) => console.log(err));

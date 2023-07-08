@@ -164,7 +164,7 @@ export default function Navbar() {
   // };
 
   return (
-    <nav className='navbar-container sticky top-0 z-20 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -200,7 +200,7 @@ export default function Navbar() {
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
         <img
           src={searchIcon}
-          className=' h-3 lg:h-[18px] xl:h-[21px]'
+          className='h-3 cursor-pointer lg:h-[18px] xl:h-[21px]'
           onClick={() => setIsSearchHidden((prev) => !prev)}
         />
         {!isSearchHidden && (
@@ -256,9 +256,9 @@ export default function Navbar() {
           </NavLink>
         ) : (
           <>
-            <div onClick={() => setIsSignFormHidden((prev) => !prev)}>
+            <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
               <img src={user} className='w-3 lg:w-4 xl:w-5' />
-            </div>
+            </button>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
             )}

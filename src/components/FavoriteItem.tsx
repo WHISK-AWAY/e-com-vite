@@ -11,7 +11,6 @@ import 'lazysizes';
 export type TFavoriteItemProp = {
   product: UserProduct;
   userId: string;
-  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
   handleAddToCart: ({
     userId,
     productId,
@@ -21,13 +20,14 @@ export type TFavoriteItemProp = {
     productId: string;
     qty: number;
   }) => void;
+  closeSlider: () => void;
 };
 
 export default function FavoriteItem({
   product,
   userId,
   handleAddToCart,
-  setIsHidden,
+  closeSlider,
 }: TFavoriteItemProp) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -64,8 +64,10 @@ export default function FavoriteItem({
 
   function goToProduct() {
     if (!product) return;
+    closeSlider();
     navigate(`/product/${product._id}`);
-    setIsHidden(true);
+
+    // setIsHidden(true);
   }
 
   return (

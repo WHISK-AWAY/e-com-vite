@@ -44,21 +44,28 @@ export default function CartFavWrapper({
     };
   }, [wrapper.current, blurBg.current]);
 
-  const closeSlider = (e: any) => {
-    if (e.target.id === 'wrapper')
-      reverseSlide
-        ?.duration(0.6)
-        .reverse()
-        .then(() => {
-          setIsCartFavWrapperHidden(true);
-        });
+  function clickOff(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const target = e.target as HTMLDivElement;
+
+    if (target.id === 'wrapper') {
+      closeSlider();
+    }
+  }
+
+  const closeSlider = () => {
+    reverseSlide
+      ?.duration(reverseSlide.duration() / 2)
+      .reverse()
+      .then(() => {
+        setIsCartFavWrapperHidden(true);
+      });
   };
 
   return (
     <section
       ref={blurBg}
       id='wrapper'
-      onClick={closeSlider}
+      onClick={clickOff}
       className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50 backdrop-blur-md'
     >
       <div
@@ -69,10 +76,10 @@ export default function CartFavWrapper({
         {mode === 'cart' ? (
           <Cart
             setIsHidden={setIsCartFavWrapperHidden}
-            reverseSlide={reverseSlide}
+            closeSlider={closeSlider}
           />
         ) : (
-          <Favorite setIsHidden={setIsCartFavWrapperHidden} />
+          <Favorite closeSlider={closeSlider} />
         )}
       </div>
     </section>

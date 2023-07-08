@@ -100,7 +100,7 @@ export default function SearchContainer({
   function closeSlider() {
     if (anim) {
       anim
-        .duration(0.8) // double-speed the reversal
+        .duration(anim.duration() / 2) // double-speed the reversal
         .reverse()
         .then(() => {
           setIsSearchHidden(true);
