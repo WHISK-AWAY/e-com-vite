@@ -27,8 +27,6 @@ import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
-
-
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Homepage() {
@@ -38,6 +36,7 @@ export default function Homepage() {
   const grapefruitButtRef = useRef(null);
   const specialRef = useRef(null);
   const treatRef = useRef<HTMLDivElement>(null);
+  const shopBodyRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -58,7 +57,13 @@ export default function Homepage() {
   }, [allProducts]);
 
   useLayoutEffect(() => {
-    if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
+    if (
+      !grapefruitButtRef.current ||
+      !treatRef.current ||
+      !specialRef.current ||
+      !shopBodyRef.current
+    )
+      return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
@@ -69,10 +74,9 @@ export default function Homepage() {
           //   console.log('entering');
           // },
           pin: true,
-          start: 'top top',
+          start: 'top 64px',
           endTrigger: treatRef.current,
           end: 'bottom 45%',
-          scrub: 1,
         },
       });
 
@@ -83,40 +87,61 @@ export default function Homepage() {
         ease: 'power4.out',
         y: 20,
         scrollTrigger: {
-          markers: true,
           scrub: 1,
           trigger: treatRef.current,
-          endTrigger: treatRef.current,
           start: 'top 70%',
           end: 'bottom center',
         },
       });
+
+      function toggleClasses() {
+        const classList = [
+          'bg-white',
+          'bg-charcoal',
+          'text-black',
+          'border-black',
+        ];
+
+        classList.forEach((cls) => shopBodyRef.current?.classList.toggle(cls));
+      }
+
+      // gsap.to(shopBodyRef.current, {
+      //   scrollTrigger: {
+      //     trigger: shopBodyRef.current,
+      //     start: 'top 60%',
+      //     scrub: true,
+      //   },
+      //   scale: '105'
+      // });
     }, treatRef);
 
     return () => {
       ctx.revert();
     };
-  }, [grapefruitButtRef.current, specialRef.current, treatRef.current]);
-
-
+  }, [
+    grapefruitButtRef.current,
+    shopBodyRef.current,
+    specialRef.current,
+    treatRef.current,
+  ]);
 
   //smooth scroll attempt
 
   // const elem = document.getElementById('data-scroll-container')
 
-//   useEffect(() => {
-// const doc = document.querySelector('.data-scroll-container');
+  //   useEffect(() => {
+  // const doc = document.querySelector('.data-scroll-container');
 
-// if(!doc) return 
-//     const scroll = new LocomotiveScroll({
-//       el:  doc,
-//       smooth: true,
-//       // offsetHeight: '100',
-//       direction: 'vertical',
-//       multiplier: 1,
-//       resetNativeScroll: true,
-//     })
-//   }, [])
+  // if(!doc) return
+  //     const scroll = new LocomotiveScroll({
+  //       el:  doc,
+  //       smooth: true,
+  //       // offsetHeight: '100',
+  //       direction: 'vertical',
+  //       multiplier: 1,
+  //       resetNativeScroll: true,
+  //     })
+  //   }, [])
 
   if (!randomProd) return <p>...loading</p>;
   return (
@@ -326,7 +351,7 @@ export default function Homepage() {
             </p>
           </div>
 
-          <div className='z-10 mb-[5%] flex  w-full flex-col items-center border border-red-500'>
+          <div className='z-10 mb-[5%] flex  w-full flex-col items-center'>
             <div
               ref={treatRef}
               className=' flex h-full flex-col self-center text-center'
@@ -363,6 +388,7 @@ export default function Homepage() {
             </div>
             <Link
               to='/shop-all'
+              ref={shopBodyRef}
               state={{ filterKey: 'body' }}
               className='relative z-20 -translate-y-[250%] border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
             >
