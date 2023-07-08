@@ -9,15 +9,19 @@ import minus from '../../src/assets/icons/circleMinus.svg';
 import 'lazysizes';
 
 export type CartProps = {
-  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  closeSlider: () => void;
   product: TProduct;
   userId: string;
   qty: number;
 };
 
-export default function CartItem(props: CartProps) {
+export default function CartItem({
+  product,
+  userId,
+  qty,
+  closeSlider,
+}: CartProps) {
   const navigate = useNavigate();
-  const { product, userId, qty, setIsHidden } = props;
   const { price, images, _id } = product;
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(qty);
@@ -44,8 +48,8 @@ export default function CartItem(props: CartProps) {
 
   function goToProduct() {
     if (!product) return;
+    closeSlider();
     navigate(`/product/${product._id}`);
-    setIsHidden(true);
   }
 
   return (

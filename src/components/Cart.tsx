@@ -60,7 +60,7 @@ export default function Cart({
                   qty={qty}
                   userId={userId!}
                   key={product._id}
-                  setIsHidden={setIsHidden}
+                  closeSlider={closeSlider}
                 />
               );
             })}
