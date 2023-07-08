@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { selectTagState, fetchAllTags } from '../../redux/slices/tagSlice';
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { selectTagState } from '../../redux/slices/tagSlice';
+import { useAppSelector } from '../../redux/hooks';
 
 const faceitems = [
   'moisturizers',
@@ -25,16 +25,16 @@ export default function FaceItem({
 }: {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const dispatch = useAppDispatch();
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
 
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
 
-  useEffect(() => {
-    dispatch(fetchAllTags());
-  }, []);
+  // ! removed this for performance -- navbar should already be bringing in tags, making this redundant
+  // useEffect(() => {
+  //   dispatch(fetchAllTags());
+  // }, []);
 
   useEffect(() => {
     setMenuHeight(
@@ -62,7 +62,7 @@ export default function FaceItem({
           <Link
             to='/shop-all'
             state={{ filterKey: name }}
-            className='hover:underline hover:underline-offset-2 odd:text-[3vw]'
+            className='odd:text-[3vw] hover:underline hover:underline-offset-2'
             onClick={() => {
               setIsMenuHidden((prev) => !prev);
             }}

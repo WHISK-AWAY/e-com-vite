@@ -4,7 +4,6 @@ import { TCFMode } from './navbar/Navbar';
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-
 export default function CartFavWrapper({
   mode,
   setIsCartFavWrapperHidden,
@@ -21,33 +20,23 @@ export default function CartFavWrapper({
   useEffect(() => {
     if (!wrapper) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ duration: 0.3 });
+      const tl = gsap.timeline();
 
       tl.from(blurBg.current, {
-  
         opacity: 0,
         duration: 0.3,
       });
-      const slider = tl.from(
+      tl.from(
         wrapper.current,
         {
           x: '+=100%',
           duration: 0.8,
-          ease: 'power4.out',
-          onComplete: (self) => {
-            tl.remove(self);
-            tl.to(wrapper.current, {
-              x: '+=100%',
-              duration: 1,
-              ease: 'elastic.out',
-            });
-          },
+          ease: 'power4.inOut',
         },
         '<'
       );
 
       setReverseSlide(tl);
-    
     });
 
     return () => {
@@ -55,22 +44,28 @@ export default function CartFavWrapper({
     };
   }, [wrapper.current, blurBg.current]);
 
+  function clickOff(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const target = e.target as HTMLDivElement;
 
-  const closeSlider = (e:any) => {
-  
-    if(e.target.id === 'wrapper') 
-    reverseSlide?.reverse().then(() => {
-      
-      setIsCartFavWrapperHidden(true)
-    })
-
+    if (target.id === 'wrapper') {
+      closeSlider();
+    }
   }
+
+  const closeSlider = () => {
+    reverseSlide
+      ?.duration(reverseSlide.duration() / 2)
+      .reverse()
+      .then(() => {
+        setIsCartFavWrapperHidden(true);
+      });
+  };
 
   return (
     <section
       ref={blurBg}
       id='wrapper'
-      onClick={closeSlider}
+      onClick={clickOff}
       className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50 backdrop-blur-md'
     >
       <div
@@ -79,12 +74,9 @@ export default function CartFavWrapper({
         className='flex h-full  min-w-[35vw] max-w-[40vw] flex-col self-end bg-white 4xl:max-w-[10vw]'
       >
         {mode === 'cart' ? (
-          <Cart
-            setIsHidden={setIsCartFavWrapperHidden}
-            reverseSlide={reverseSlide}
-          />
+          <Cart closeSlider={closeSlider} />
         ) : (
-          <Favorite setIsHidden={setIsCartFavWrapperHidden} />
+          <Favorite closeSlider={closeSlider} />
         )}
       </div>
     </section>

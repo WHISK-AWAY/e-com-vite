@@ -13,7 +13,7 @@ export default function OrderHistory() {
 
   useEffect(() => {
     if (userId) dispatch(fetchAllOrders(userId));
-    else dispatch(getUserId());
+    // else dispatch(getUserId());
   }, [userId]);
 
   // if (orderState.loading) return <h1>Loading orders history...</h1>;

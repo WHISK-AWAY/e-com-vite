@@ -21,20 +21,19 @@ import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import user from '../../assets/icons/user.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
-import dot from '../../assets/icons/dot.svg';
 import searchIcon from '../../assets/icons/search.svg';
 
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
-import Search from '../Search';
+import Search from './Search';
+import SearchContainer from './SearchContainer';
 
 export type TCFMode = 'cart' | 'fav';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { userId, error: authError } = useAppSelector(selectAuth);
+  const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
-  const auth = useAppSelector(selectAuth);
   const catalogue = useAppSelector(selectSearchProducts);
   const [search, setSearch] = useState('');
   const [searchNotFound, setSearchNotFound] = useState(false);
@@ -53,7 +52,7 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    if (!userId && !authError) dispatch(getUserId());
+    // if (!userId && !authError) dispatch(getUserId());
 
     if (userId) dispatch(fetchSingleUser(userId));
   }, [userId]);
@@ -71,17 +70,17 @@ export default function Navbar() {
 
   // * this part doesn't really work all that well, but the navigates should
   // * at least be in the ball park of what we want
-  function handleSelectSearchItem(args: {
-    type: 'tag' | 'product';
-    name?: string;
-    id?: string;
-  }) {
-    if (args.type === 'tag') {
-      navigate('/shop-all?page=1', { state: { filterKey: args.name } });
-    } else {
-      navigate('/product/' + args.id);
-    }
-  }
+  // function handleSelectSearchItem(args: {
+  //   type: 'tag' | 'product';
+  //   name?: string;
+  //   id?: string;
+  // }) {
+  //   if (args.type === 'tag') {
+  //     navigate('/shop-all?page=1', { state: { filterKey: args.name } });
+  //   } else {
+  //     navigate('/product/' + args.id);
+  //   }
+  // }
 
   // * on-change search handler more or less works -- not sure yet how exactly
   // * to render the results...needs to be a pop-up with the results listed below
@@ -89,83 +88,83 @@ export default function Navbar() {
   // * single-product page (for products); or if the user wants to see all
   // * results, we should make a separate page for that...
 
-  //fuse fuzzy product search
+  // //fuse fuzzy product search
 
-  /**
-   * ! look into category/ search, have a discussion
-   */
-  const SCORE_THRESHOLD = 0.6;
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    const searchTerm = e.target.value;
-    // console.log('searchTerm', searchTerm);
+  // /**
+  //  * ! look into category/ search, have a discussion
+  //  */
+  // const SCORE_THRESHOLD = 0.6;
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearch(e.target.value);
+  //   const searchTerm = e.target.value;
+  //   // console.log('searchTerm', searchTerm);
 
-    const productResults = catalogue.products.filter((prod) => {
-      return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    const tagResults = catalogue.tags.filter((tag) => {
-      return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+  //   const productResults = catalogue.products.filter((prod) => {
+  //     return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
+  //   });
+  //   const tagResults = catalogue.tags.filter((tag) => {
+  //     return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
+  //   });
 
-    const options = {
-      includeScore: true,
-      // ignoreLocation: true,
+  //   const options = {
+  //     includeScore: true,
+  //     // ignoreLocation: true,
 
-      keys: ['productName', 'tagName'],
-    };
+  //     keys: ['productName', 'tagName'],
+  //   };
 
-    const fuse = new Fuse(catalogue.products, options);
+  //   const fuse = new Fuse(catalogue.products, options);
 
-    const searchResults = fuse
-      .search(searchTerm)
-      .filter((result) => result.score! < SCORE_THRESHOLD)
-      .map((result) => result.item);
-    console.log('search results', searchResults);
+  //   const searchResults = fuse
+  //     .search(searchTerm)
+  //     .filter((result) => result.score! < SCORE_THRESHOLD)
+  //     .map((result) => result.item);
+  //   console.log('search results', searchResults);
 
-    setSearchResults({ products: searchResults, tags: [] });
-  };
+  //   setSearchResults({ products: searchResults, tags: [] });
+  // };
 
-  useEffect(() => {
-    if (search === '') {
-      setSearchNotFound(false);
-      if (searchResults.products.length || searchResults.tags.length) {
-        setSearchResults({
-          products: [],
-          tags: [],
-        });
-      }
-    } else {
-      if (!searchResults.products.length && !searchResults.tags.length) {
-        setSearchNotFound(true);
-      } else {
-        setSearchNotFound(false);
-      }
-    }
-  }, [search, searchResults]);
+  // useEffect(() => {
+  //   if (search === '') {
+  //     setSearchNotFound(false);
+  //     if (searchResults.products.length || searchResults.tags.length) {
+  //       setSearchResults({
+  //         products: [],
+  //         tags: [],
+  //       });
+  //     }
+  //   } else {
+  //     if (!searchResults.products.length && !searchResults.tags.length) {
+  //       setSearchNotFound(true);
+  //     } else {
+  //       setSearchNotFound(false);
+  //     }
+  //   }
+  // }, [search, searchResults]);
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchResults.products.length + searchResults.tags.length > 1) return;
-    setSearch('');
+  // const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   if (searchResults.products.length + searchResults.tags.length > 1) return;
+  //   setSearch('');
 
-    if (searchResults.tags.length === 1) {
-      navigate(`/shop-all?page=1`, {
-        state: { filterKey: searchResults.tags[0].tagName },
-      });
-    }
+  //   if (searchResults.tags.length === 1) {
+  //     navigate(`/shop-all?page=1`, {
+  //       state: { filterKey: searchResults.tags[0].tagName },
+  //     });
+  //   }
 
-    if (searchResults.products.length === 1) {
-      navigate(`/product/${searchResults.products[0].productId}`, {});
-    }
+  //   if (searchResults.products.length === 1) {
+  //     navigate(`/product/${searchResults.products[0].productId}`, {});
+  //   }
 
-    setSearchResults({
-      products: [],
-      tags: [],
-    });
-  };
+  //   setSearchResults({
+  //     products: [],
+  //     tags: [],
+  //   });
+  // };
 
   return (
-    <nav className='navbar-container sticky top-0 z-20 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+    <nav className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
@@ -201,72 +200,12 @@ export default function Navbar() {
       <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
         <img
           src={searchIcon}
-          className=' h-3 lg:h-[18px] xl:h-[21px]'
+          className='h-3 cursor-pointer lg:h-[18px] xl:h-[21px]'
           onClick={() => setIsSearchHidden((prev) => !prev)}
         />
-        <form
-          onSubmit={(e) => handleFormSubmit(e)}
-          className={`${
-            !isSearchHidden
-              ? 'absolute right-0 top-0 z-20 h-[60vh] w-full  bg-white'
-              : 'hidden'
-          }`}
-        >
-          <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 '>
-            <input
-              className='w-full rounded-sm border border-charcoal font-federo text-[1.5vw] placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
-              type='text'
-              id='search'
-              value={search}
-              placeholder='search...'
-              onChange={(e) => handleSearch(e)}
-            ></input>
-            <button className='bg-charcoal px-[10%] font-italiana text-[1.5vw] uppercase text-white '>
-              search
-            </button>
-          </div>
-        </form>
-
-        <Search
-          isSearchHidden={isSearchHidden}
-          setIsSearchHidden={setIsSearchHidden}
-          searchResults={searchResults}
-          setSearch={setSearch}
-          setSearchResults={setSearchResults}
-          searchNotFound={searchNotFound}
-        />
-
-        {/* {(searchResults.products.length > 0 ||
-          searchResults.tags.length > 0) && (
-          <select onChange={(e) => console.log(e.target.dataset.type)}>
-            {searchResults.products.map((prod) => (
-              <option
-                key={prod.productId}
-                value={prod.productId}
-                onClick={() =>
-                  handleSelectSearchItem({
-                    type: 'product',
-                    id: prod.productId,
-                  })
-                }
-              >
-                {prod.productName}
-              </option>
-            ))}
-            {searchResults.tags.map((tag) => (
-              <option
-                onClick={() =>
-                  handleSelectSearchItem({ type: 'tag', name: tag.tagName })
-                }
-                key={tag.tagId}
-                value={tag.tagId}
-                data-type='tag'
-              >
-                {tag.tagName}
-              </option>
-            ))}
-          </select>
-        )}  */}
+        {!isSearchHidden && (
+          <SearchContainer setIsSearchHidden={setIsSearchHidden} />
+        )}
 
         {
           <div>
@@ -317,9 +256,9 @@ export default function Navbar() {
           </NavLink>
         ) : (
           <>
-            <div onClick={() => setIsSignFormHidden((prev) => !prev)}>
+            <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
               <img src={user} className='w-3 lg:w-4 xl:w-5' />
-            </div>
+            </button>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
             )}

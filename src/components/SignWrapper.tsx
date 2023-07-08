@@ -34,14 +34,6 @@ export default function SignWrapper({
           x: '+=100%',
           duration: 0.8,
           ease: 'power4.out',
-          onComplete: (self) => {
-            tl.remove(self);
-            tl.to(wrapperRef.current, {
-              x: '+=100%',
-              duration: 1,
-              ease: 'elastic.out',
-            });
-          },
         },
         '<'
       );
@@ -54,9 +46,19 @@ export default function SignWrapper({
     };
   }, []);
 
-  const closeSlider = (e: any) => {
-    if (e.target.id === 'wrapper')
-      reverseSlide?.reverse().then(() => {
+  function clickOff(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+    const target = e.target as HTMLDivElement;
+
+    if (target.id === 'wrapper') {
+      closeSlider();
+    }
+  }
+
+  const closeSlider = () => {
+    reverseSlide
+      ?.duration(reverseSlide.duration() / 2)
+      .reverse()
+      .then(() => {
         setIsSignFormHidden(true);
       });
   };
@@ -64,7 +66,7 @@ export default function SignWrapper({
   return (
     <section
       ref={blurBg}
-      onClick={closeSlider}
+      onClick={clickOff}
       id='wrapper'
       className='wrapper form-container fixed right-0 top-0 flex h-[100vh] w-[100vw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur'
     >
@@ -73,9 +75,7 @@ export default function SignWrapper({
         className='relative flex h-full w-[35vw] flex-col self-end bg-white 2xl:max-w-[23vw]  '
       >
         <div
-          onClick={() => {
-            reverseSlide?.reverse().then(() => setIsSignFormHidden(true));
-          }}
+          onClick={closeSlider}
           className='absolute  right-5 top-5 z-50 h-10 w-3'
         >
           {mode === 'sign-in' ? (
@@ -85,7 +85,7 @@ export default function SignWrapper({
           )}
         </div>
         {mode === 'sign-in' ? (
-          <SignIn mode={mode} setMode={setMode} />
+          <SignIn setMode={setMode} closeSlider={closeSlider} />
         ) : (
           <SignUp
             mode={mode}

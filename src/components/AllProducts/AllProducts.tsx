@@ -127,9 +127,9 @@ AllProductsProps) {
 
   }, []);
 
-  useEffect(() => {
-    dispatch(getUserId());
-  }, [userId]);
+  // useEffect(() => {
+  //   dispatch(getUserId());
+  // }, [userId]);
 
   useEffect(() => {
     setSort({ key: sortKey, direction: sortDir });
