@@ -53,7 +53,6 @@ export type SortDir = 'asc' | 'desc';
 export const randomProduct = (allProducts: {
   products: TProduct[];
   count: number | null;
-  
 }) => {
   let randomIdx = Math.floor(Math.random() * allProducts.products.length);
   return allProducts.products[randomIdx];
@@ -67,14 +66,13 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
- 
+
   // filterKey?: string;
 };
 
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
-
 }: // filterKey = 'all',
 AllProductsProps) {
   const dispatch = useAppDispatch();
@@ -124,7 +122,6 @@ AllProductsProps) {
   useEffect(() => {
     // make sure we have all tags upon page load in order to populate filter selector
     dispatch(fetchAllTags());
-
   }, []);
 
   // useEffect(() => {
@@ -277,6 +274,7 @@ AllProductsProps) {
           )}
         </section>
       )}
+        
       <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => {
@@ -365,17 +363,6 @@ AllProductsProps) {
                         className='h-3 lg:h-4 xl:w-5'
                       />
                     )}
-                    <Toaster
-                      position='top-right'
-                      toastOptions={{
-                        className:
-                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
-                        duration: 5000,
-                        style: {
-                          maxWidth: 700,
-                        },
-                      }}
-                    />
                   </div>
                 ) : (
                   <div
