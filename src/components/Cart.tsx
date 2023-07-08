@@ -6,13 +6,11 @@ import CartItem from './CartItem';
 import x from '../../src/assets/icons/x.svg';
 import { selectAuthUserId } from '../redux/slices/authSlice';
 
-export default function Cart({
-  setIsHidden,
-  closeSlider,
-}: {
-  setIsHidden: React.Dispatch<React.SetStateAction<boolean>>;
+export type CartProps = {
   closeSlider: () => void;
-}) {
+};
+
+export default function Cart({ closeSlider }: CartProps) {
   const dispatch = useAppDispatch();
   const userCart = useAppSelector(selectCart);
   const userId = useAppSelector(selectAuthUserId);
