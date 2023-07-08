@@ -26,6 +26,7 @@ import searchIcon from '../../assets/icons/search.svg';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 import Search from './Search';
 import SearchContainer from './SearchContainer';
+import { Toaster } from 'react-hot-toast';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -165,6 +166,21 @@ export default function Navbar() {
 
   return (
     <nav className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+      <Toaster
+        position='top-right'
+        containerStyle={{ position: 'absolute', right: 0 }}
+        toastOptions={{
+          className:
+            'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
+          duration: 5000,
+          style: {
+            maxWidth: 700,
+            position: 'sticky',
+            top: '10',
+            zIndex: '50',
+          },
+        }}
+      />
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center   justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
         <div
           className=''
