@@ -74,10 +74,7 @@ export default function CartFavWrapper({
         className='flex h-full  min-w-[35vw] max-w-[40vw] flex-col self-end bg-white 4xl:max-w-[10vw]'
       >
         {mode === 'cart' ? (
-          <Cart
-            setIsHidden={setIsCartFavWrapperHidden}
-            closeSlider={closeSlider}
-          />
+          <Cart closeSlider={closeSlider} />
         ) : (
           <Favorite closeSlider={closeSlider} />
         )}
