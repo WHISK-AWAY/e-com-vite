@@ -366,18 +366,6 @@ export default function SingleProduct() {
               />
             )}
             <div className='relative z-auto'>
-              <Toaster
-                position='top-right'
-                toastOptions={{
-                  className:
-                    'border bg-white border-charcoal/60 shadow-none rounded-sm font-raleway text-center uppercase  text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem] ',
-                  duration: 5000,
-                  style: {
-                    maxWidth: 700,
-                    translate: '0 64px',
-                  },
-                }}
-              />
             </div>
 
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
