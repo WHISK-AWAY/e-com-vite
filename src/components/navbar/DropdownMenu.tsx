@@ -80,7 +80,7 @@ export default function DropdownMenu({
                 <img
                   src={chevronRight}
                   alt='right arrow'
-                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                  className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
                     menuMode === 'category' ? 'rotate-90' : ''
                   }`}
                   // onMouseEnter={() => toggleMenu('category')}
@@ -109,7 +109,7 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
                       menuMode === 'face' ? 'rotate-90' : ''
                     }`}
                     // onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
@@ -132,7 +132,7 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[220%] translate-y-[-50%] xl:h-[45%] 3xl:h-[2vw] ${
+                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[220%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
                       menuMode === 'body' ? 'rotate-90' : ''
                     }`}
                     // onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
