@@ -53,6 +53,7 @@ export type SortDir = 'asc' | 'desc';
 export const randomProduct = (allProducts: {
   products: TProduct[];
   count: number | null;
+  
 }) => {
   let randomIdx = Math.floor(Math.random() * allProducts.products.length);
   return allProducts.products[randomIdx];
@@ -66,12 +67,14 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
+ 
   // filterKey?: string;
 };
 
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
+
 }: // filterKey = 'all',
 AllProductsProps) {
   const dispatch = useAppDispatch();
@@ -222,7 +225,10 @@ AllProductsProps) {
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
-    <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
+    <section
+      data-scroll-section
+      className=' all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
+    >
       <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
           <BestsellersHeader />
