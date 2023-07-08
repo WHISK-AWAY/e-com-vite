@@ -1,9 +1,10 @@
 import { TProduct } from '../../redux/slices/allProductSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { useNavigate } from 'react-router';
 import 'lazysizes';
+import { gsap } from 'gsap';
 
 type RenderProduct = Omit<TProduct, 'relatedProducts'>;
 
@@ -17,6 +18,8 @@ export default function ProductCarousel({
   const navigate = useNavigate();
   const [prodCopy, setProdCopy] = useState<RenderProduct[]>([]);
   const [renderProduct, setRenderProduct] = useState<RenderProduct[]>([]);
+  // const rightArrowRef = useRef(null);
+  // const leftArrowRef = useRef(null);
 
   useEffect(() => {
     setProdCopy([...products]);
@@ -35,14 +38,21 @@ export default function ProductCarousel({
   const incrementor = () => {
     setProdCopy((prev) => [...prev.slice(1), prev[0]]);
   };
-  // decrementor()
+
+
+
   return (
     <div className='relative flex w-3/4 items-start justify-center gap-10 2xl:w-4/5'>
       <button
         onClick={decrementor}
         className='absolute -left-24 top-[75px] shrink-0 grow-0 self-center xl:-left-32 xl:top-[125px] 2xl:-left-40'
       >
-        <img src={arrowLeft} alt='' className='h-3 xl:h-5' />
+        <img
+          src={arrowLeft}
+          // ref={leftArrowRef}
+          alt='left-arrow-icon'
+          className='h-3 transform transition-all duration-150 hover:scale-150 group hover:ease-in-out active:scale-50 xl:h-5 active:bg-red-800 active:ease-in active:duration-700 active:'
+        />
       </button>
       {renderProduct.map((prod) => {
         const gifURL = prod.images.find((image) =>
@@ -64,13 +74,13 @@ export default function ProductCarousel({
           <div
             key={prod._id.toString()}
             onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              // window.scrollTo({ top: 0, behavior: 'smooth' });
               navigate('/product/' + prod._id);
             }}
             className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
           >
             <img
-              className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:invisible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+              className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:invisible  group-hover:scale-105 group-active:ease-in-out xl:w-[175px] 2xl:w-[200px] group-active:duration-[10000] active:translate-y-[600%]'
               data-src={
                 prod.images.find((image) => image.imageDesc === 'product-front')
                   ?.imageURL || prod.images[0].imageURL
@@ -102,9 +112,14 @@ export default function ProductCarousel({
       })}
       <button
         onClick={incrementor}
-        className='absolute -right-24 top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40'
+        className='absolute -right-24 top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40 '
       >
-        <img src={arrowRight} alt='' className='h-3 rotate-180 xl:h-5' />
+        <img
+          // ref={rightArrowRef}
+          src={arrowRight}
+          alt='right-arrow-icon'
+          className='h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in-out active:scale-50 xl:h-5'
+        />
       </button>
     </div>
   );

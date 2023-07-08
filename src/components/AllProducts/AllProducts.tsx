@@ -66,6 +66,7 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
+
   // filterKey?: string;
 };
 
@@ -121,7 +122,6 @@ AllProductsProps) {
   useEffect(() => {
     // make sure we have all tags upon page load in order to populate filter selector
     dispatch(fetchAllTags());
-
   }, []);
 
   // useEffect(() => {
@@ -222,7 +222,10 @@ AllProductsProps) {
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
-    <section className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'>
+    <section
+      data-scroll-section
+      className=' all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
+    >
       <section className='header-section relative flex w-full justify-center'>
         {bestsellers ? (
           <BestsellersHeader />
@@ -271,6 +274,7 @@ AllProductsProps) {
           )}
         </section>
       )}
+        
       <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => {
@@ -359,17 +363,6 @@ AllProductsProps) {
                         className='h-3 lg:h-4 xl:w-5'
                       />
                     )}
-                    <Toaster
-                      position='top-right'
-                      toastOptions={{
-                        className:
-                          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
-                        duration: 5000,
-                        style: {
-                          maxWidth: 700,
-                        },
-                      }}
-                    />
                   </div>
                 ) : (
                   <div
