@@ -365,8 +365,7 @@ export default function SingleProduct() {
                 className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
               />
             )}
-            <div className='relative z-auto'>
-            </div>
+            <div className='relative z-auto'></div>
 
             <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
@@ -396,7 +395,7 @@ export default function SingleProduct() {
         </section>
 
         <section className='product-details flex basis-3/5 flex-col items-center px-8'>
-          <div className='product-desc mb-9 flex flex-col items-center text-justify'>
+          <div className='product-desc mb-5 flex flex-col items-center text-justify lg:mb-9'>
             <h1 className='product-name pb-9 text-center font-federo text-[1rem] uppercase xl:text-[1.5rem]'>
               {singleProduct.productName}
             </h1>
@@ -424,11 +423,14 @@ export default function SingleProduct() {
               <div className='price-counter flex flex-col items-center'>
                 <p className='price'>${singleProduct.price}</p>
 
-                <div className='qty-counter mt-4 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
+                <div className='qty-counter mt-3 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
                   <div onClick={qtyDecrementor} className='cursor-pointer'>
-                    <img src={minus} className='w-4 2xl:w-5' />
+                    <img
+                      src={minus}
+                      className='w-4 duration-100 ease-in-out active:scale-125 2xl:w-5'
+                    />
                   </div>
-                  <div className='count translate-y-[-7%] px-4 text-center'>
+                  <div className='count translate-y-[-7%] px-1 text-center lg:px-[.5vw]'>
                     {count}
                   </div>
 
@@ -436,7 +438,10 @@ export default function SingleProduct() {
                     onClick={qtyIncrementor}
                     className='incrementor cursor-pointer'
                   >
-                    <img src={plus} className='w-4 2xl:w-5' />
+                    <img
+                      src={plus}
+                      className='w-4 duration-100 ease-in-out active:scale-125 2xl:w-5 '
+                    />
                   </div>
                 </div>
                 {maxQty <= 10 && (
@@ -456,14 +461,15 @@ export default function SingleProduct() {
               <button
                 onClick={handleAddToCart}
                 disabled={maxQty === 0}
-                className='group relative mt-[6%] w-4/5 overflow-hidden rounded-sm  bg-charcoal py-[2%] font-italiana  text-[2vw] font-medium uppercase text-white disabled:bg-charcoal/40'
+                className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-italiana text-[2vw] font-medium uppercase  text-white transition-all  active:w-3/5 active:scale-105 active:duration-100 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
               >
-                <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000 group-hover:w-full'></span>
-                <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500 group-hover:w-full'></span>
-                <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000 group-hover:h-full'></span>
-                <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000 group-hover:h-full'></span>
+                <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full '></span>
+                <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full'></span>
+                <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-100 transition-all  delay-200 duration-1000  group-hover:h-full'></span>
+                <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000  group-hover:h-full'></span>
                 <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-white opacity-0 delay-500 duration-700 group-hover:opacity-100'></span>
-                <span className='ease relative transition-colors delay-200 duration-1000 group-hover:text-charcoal'>
+
+                <span className='ease relative transition-colors delay-200 duration-1000  group-hover:text-charcoal'>
                   add to cart
                 </span>
               </button>
