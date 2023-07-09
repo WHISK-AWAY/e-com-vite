@@ -35,9 +35,16 @@ export default function Homepage() {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
+  const [randomProd01, setRandomProd01] = useState<TProduct>();
+  const [randomProd02, setRandomProd02] = useState<TProduct>();
+  const [randomProd03, setRandomProd03] = useState<TProduct>();
+  const [randomProd04, setRandomProd04] = useState<TProduct>();
+  const [randomProd05, setRandomProd05] = useState<TProduct>();
+  const [randomProd06, setRandomProd06] = useState<TProduct>();
   const grapefruitButtRef = useRef(null);
   const specialRef = useRef(null);
   const treatRef = useRef<HTMLDivElement>(null);
+  // const shopBodyButtonRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -54,6 +61,12 @@ export default function Homepage() {
       );
     } else {
       setRandomProd(randomProduct(allProducts));
+      setRandomProd01(randomProduct(allProducts));
+      setRandomProd02(randomProduct(allProducts));
+      setRandomProd03(randomProduct(allProducts));
+      setRandomProd04(randomProduct(allProducts));
+      setRandomProd05(randomProduct(allProducts));
+      setRandomProd06(randomProduct(allProducts));
     }
   }, [allProducts]);
 
@@ -91,6 +104,14 @@ export default function Homepage() {
           end: 'bottom center',
         },
       });
+      // tl.from(shopBodyButtonRef.current, {
+      //   duration: 0.4,
+      //   start: 'bottom bottom',
+      //   onEnter:() => gsap.to(shopBodyButtonRef.current, {
+      //     backgroundColor: 'white',
+      //     duration: 5,
+      //   })
+      // })
     }, treatRef);
 
     return () => {
@@ -161,10 +182,14 @@ export default function Homepage() {
         </div>
         <Link
           to='/shop-all'
-          className='absolute bottom-0 right-[5%] -translate-y-[60%] rounded-sm border border-white px-[4%]  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg'
+          className='group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white px-[4%]  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg'
         >
-          shop now
+          <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full'></span>
+          <span className='relative  group-hover:text-emerald-900'>
+            shop now
+          </span>
         </Link>
+
       </div>
 
       <div className='flex flex-col py-[7%]'>
@@ -198,7 +223,7 @@ export default function Homepage() {
           <div className=' flex w-[90%] flex-col items-center justify-center'>
             <Link to={'/product/' + randomProd!._id}>
               <img
-                className='lazyload pt-[55%] '
+                className='lazyload transform pt-[55%] transition  duration-300 hover:scale-105'
                 data-src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -229,15 +254,15 @@ export default function Homepage() {
           <div className='flex w-[45%] justify-center self-center  pt-[10%]'>
             <div className='flex  justify-center'>
               <Link
-                to={'/product/' + randomProd!._id}
+                to={'/product/' + randomProd01!._id}
                 className='flex justify-center'
               >
                 <img
-                  className='lazyload aspect-[4/6]  w-[80%] object-cover '
+                  className='lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
-                    randomProd!.images.find(
+                    randomProd01!.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd!.images[0].imageURL
+                    )?.imageURL || randomProd01!.images[0].imageURL
                   }
                   data-sizes='auto'
                 />
@@ -246,15 +271,15 @@ export default function Homepage() {
 
             <div className='flex justify-center'>
               <Link
-                to={'/product/' + randomProd!._id}
-                className='flex justify-center'
+                to={'/product/' + randomProd02!._id}
+                className='flex transform justify-center transition  duration-300 hover:scale-105'
               >
                 <img
-                  className='lazyload aspect-[4/6] w-[80%] object-cover'
+                  className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
-                    randomProd!.images.find(
+                    randomProd02!.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd!.images[0].imageURL
+                    )?.imageURL || randomProd02!.images[0].imageURL
                   }
                   data-sizes='auto'
                 />
@@ -301,20 +326,20 @@ export default function Homepage() {
             <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%]'>
               {' '}
               <Link
-                to={'/product/' + randomProd!._id}
-                className=' flex flex-col items-center '
+                to={'/product/' + randomProd03!._id}
+                className=' flex  flex-col items-center'
               >
                 <img
-                  className='lazyload aspect-[5/6] w-[50%] object-cover pt-[2%]'
+                  className='lazyload aspect-[5/6] w-[50%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
                   data-src={
-                    randomProd!.images.find(
+                    randomProd03!.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd!.images[0].imageURL
+                    )?.imageURL || randomProd03!.images[0].imageURL
                   }
                   data-sizes='auto'
                 />
                 <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
-                  {randomProd.productName}
+                  {randomProd03?.productName}
                 </p>
               </Link>
             </div>
@@ -364,11 +389,15 @@ export default function Homepage() {
               </p>
             </div>
             <Link
+              // ref={shopBodyButtonRef}
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className='relative z-20 -translate-y-[250%] border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white'
+              className='group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white '
             >
-              shop body
+              <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full '></span>
+              <span className='relative group-hover:text-charcoal'>
+                shop body
+              </span>
             </Link>
           </div>
         </div>
@@ -402,29 +431,32 @@ export default function Homepage() {
               </span>
             </p>
             <Link
-              to={'/product/' + randomProd!._id}
+              to={'/product/' + randomProd04!._id}
               className='flex w-[70%] flex-col  items-center self-end pr-[15%]'
             >
               <img
-                className='lazyload aspect-[1/2] w-fit object-cover md:h-[290px] lg:h-[400px] xl:h-[450px] 2xl:h-[650px] min-[1600px]:h-[800px]'
+                className='lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
                 data-src={
-                  randomProd!.images.find(
+                  randomProd04!.images.find(
                     (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd!.images[0].imageURL
+                  )?.imageURL || randomProd04!.images[0].imageURL
                 }
                 data-sizes='auto'
               />
-              <p className='w-[90%] pt-2 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal'>
-                {randomProd.productName}
+              <p className='w-[90%] pt-4 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal'>
+                {randomProd04?.productName}
               </p>
             </Link>
 
             <Link
               to='/shop-all'
               state={{ filterKey: 'body' }}
-              className=' mr-[12%]  w-[60%] self-end border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]'
+              className='group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]'
             >
-              shop body
+              <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full '></span>
+              <span className='relative group-hover:text-white'>
+                shop masks
+              </span>
             </Link>
           </div>
         </div>
@@ -438,13 +470,13 @@ export default function Homepage() {
             summer and don't provide adequate
           </p>
 
-          <Link to={'/product/' + randomProd!._id} className='flex w-full '>
+          <Link to={'/product/' + randomProd06!._id} className='flex w-full '>
             <img
-              className='lazyload aspect-[7/9] w-full object-cover '
+              className='lazyload aspect-[7/9] w-full transform object-cover transition  duration-300 hover:scale-110'
               data-src={
-                randomProd!.images.find(
+                randomProd06!.images.find(
                   (image) => image.imageDesc === 'product-front'
-                )?.imageURL || randomProd!.images[0].imageURL
+                )?.imageURL || randomProd06!.images[0].imageURL
               }
               data-sizes='auto'
             />
@@ -489,20 +521,20 @@ export default function Homepage() {
             only best ingredients for best results
           </p>
           <Link
-            to={'/product/' + randomProd!._id}
-            className='flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px]'
+            to={'/product/' + randomProd05!._id}
+            className='flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px] '
           >
             <img
-              className='lazyload aspect-[3/5] object-cover pl-[8%] min-[2500px]:max-h-[750px]'
+              className='lazyload aspect-[3/5] transform object-cover pl-[8%] transition duration-300  hover:scale-105 min-[2500px]:max-h-[750px]'
               data-src={
-                randomProd!.images.find(
+                randomProd05!.images.find(
                   (image) => image.imageDesc === 'product-front'
-                )?.imageURL || randomProd!.images[0].imageURL
+                )?.imageURL || randomProd05!.images[0].imageURL
               }
               data-sizes='auto'
             />
             <p className='pt-[4%] text-center font-hubbali text-[1vw] uppercase text-charcoal'>
-              {randomProd.productName}
+              {randomProd05?.productName}
             </p>
           </Link>
         </div>
