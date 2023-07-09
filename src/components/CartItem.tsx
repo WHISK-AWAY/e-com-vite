@@ -88,7 +88,7 @@ export default function CartItem({
             src={minus}
             alt='minus-icon'
             onClick={handleDecrement}
-            className='h-3 cursor-pointer lg:h-3 xl:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5'
           />
           <span className='lg:text-md font-grotesque  text-sm lg:px-2 xl:px-4 xl:text-lg'>
             {count}
@@ -97,7 +97,7 @@ export default function CartItem({
             src={plus}
             alt='plus-icon'
             onClick={handleIncrement}
-            className='h-3 cursor-pointer lg:h-3 xl:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5'
           />
         </div>
       </div>
