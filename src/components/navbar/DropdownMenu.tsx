@@ -3,13 +3,13 @@ import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
 import x from '../../assets/icons/x.svg';
 import chevronRight from '../../assets/icons/new.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { gsap } from 'gsap';
 import dot from '../../assets/icons/dot.svg';
 
 const menuOptions = ['category', 'face', 'body'] as const;
-type MenuOption = (typeof menuOptions)[number] | null;
+export type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
   setIsMenuHidden,
@@ -19,14 +19,35 @@ export default function DropdownMenu({
   isMenuHidden: boolean;
 }) {
   const [menuMode, setMenuMode] = useState<MenuOption>(null);
+  // const catRef = useRef(null);
+  const [isCatMenu, setIsCatMenu] = useState(false);
+  const [isFaceMenu, setIsFaceMenu] = useState(false);
+  const [isBodyMenu, setIsBodyMenu] = useState(false);
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
     if (menuMode === menu) {
       setMenuMode(null);
-    } else {
-      setMenuMode(menu);
+   
+    }else {
+      setMenuMode(menu)
+      setIsCatMenu(true)
+      setIsBodyMenu(true)
+      setIsFaceMenu(true)
     }
+    // } else if (menuMode === 'face') {
+    //   setMenuMode('face');
+    //   setIsFaceMenu(true);
+
+    // } else if(menuMode === 'body') {
+      
+    //   setMenuMode('body');
+    //   setIsBodyMenu(true);
+    
+    // } else {
+    //   setMenuMode('category');
+    //   setIsCatMenu(true);
+    // }
   }
 
   //overflow scroll controll, prevents scroll down
@@ -42,6 +63,10 @@ export default function DropdownMenu({
     console.log('isMenuHidden', isMenuHidden);
     console.log('menuMode', menuMode);
   }, [isMenuHidden, menuMode]);
+
+  // const shevron = document.querySelector('.shevron')
+
+  // console.log('shev', shevron);
 
   return (
     <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
@@ -80,9 +105,9 @@ export default function DropdownMenu({
                 <img
                   src={chevronRight}
                   alt='right arrow'
-                  className={`ease absolute right-0 top-1/2 h-[3vw] transform translate-x-[290%] translate-y-[-50%] cursor-pointer transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                  className={`shevron ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
                     menuMode === 'category'
-                      ? 'ease rotate-90 transition-all transform duration-300'
+                      ? 'ease rotate-90 transform transition-all duration-300'
                       : ''
                   }`}
                   onMouseEnter={() => toggleMenu('category')}
@@ -90,12 +115,14 @@ export default function DropdownMenu({
                 />
               )}
             </h2>
-    
 
             {menuMode === 'category' && (
-              <ShopByCategoryListItem setIsMenuHidden={setIsMenuHidden} />
-              )}
-             
+              <ShopByCategoryListItem
+                setIsMenuHidden={setIsMenuHidden}
+                menuMode={menuMode}
+                setMenuMode={setMenuMode}
+              />
+            )}
           </div>
           <div className='named-cat-wrapper pl-[30vw]'>
             <NavLink
@@ -114,18 +141,30 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
-                      menuMode === 'face' ? 'rotate-90' : ''
+                    className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                      menuMode === 'face'
+                        ? 'ease rotate-90 transform transition-all duration-300'
+                        : ''
                     }`}
-                    // onMouseEnter={() => setIsFaceHidden((prev) => !prev)}
-                    onClick={() => toggleMenu('face')}
+                    onMouseEnter={() => {
+                      toggleMenu('face');
+                      setIsFaceMenu(true);
+                    }}
+                    onClick={() => {
+                      toggleMenu('face');
+                      setIsFaceMenu(true);
+                    }}
                   />
                 )}
               </h2>
               {/* <div className='temp-div' onClick={() => setIsFaceHidden(true)}> */}
               {/* this div is just here so we can click off of the face menu until something better gets figured out */}
               {menuMode === 'face' && (
-                <FaceItem setIsMenuHidden={setIsMenuHidden} />
+                <FaceItem
+                  setIsMenuHidden={setIsMenuHidden}
+                  menuMode={menuMode}
+                  setMenuMode={setMenuMode}
+                />
               )}
               {/* </div> */}
             </div>
@@ -137,16 +176,22 @@ export default function DropdownMenu({
                   <img
                     src={chevronRight}
                     alt='right arrow'
-                    className={`absolute right-0 top-1/2 h-[3vw] translate-x-[220%] translate-y-[-50%] cursor-pointer xl:h-[45%] 3xl:h-[2vw] ${
-                      menuMode === 'body' ? 'rotate-90' : ''
+                    className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[220%] translate-y-[-50%]  transform cursor-pointer transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                      menuMode === 'body'
+                        ? 'ease rotate-90 transform transition-all duration-300'
+                        : ''
                     }`}
-                    // onMouseEnter={() => setIsBodyHidden((prev) => !prev)}
+                    onMouseEnter={() => toggleMenu('body')}
                     onClick={() => toggleMenu('body')}
                   />
                 )}
               </h3>
               {menuMode === 'body' && (
-                <BodyItem setIsMenuHidden={setIsMenuHidden} />
+                <BodyItem
+                  setIsMenuHidden={setIsMenuHidden}
+                  menuMode={menuMode}
+                  setMenuMode={setMenuMode}
+                />
               )}
             </div>
           </div>
