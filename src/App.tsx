@@ -53,7 +53,7 @@ function App() {
       >
        
         <Navbar  />
-        <Routes>
+        <Routes location={location} key={location.pathname}>
           <Route path='/' element={<Homepage />} />
           <Route path='/shop-all' element={<AllProducts />} />
           <Route
