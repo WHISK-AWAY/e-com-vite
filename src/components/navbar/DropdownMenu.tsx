@@ -120,7 +120,7 @@ export default function DropdownMenu({
       <img
         src={x}
         alt='x-icon'
-        className='absolute left-10 top-10 h-[2vw] 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
+        className='absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
         onClick={closeMenu}
       />
 

@@ -195,7 +195,7 @@ export default function SearchContainer({
           <img
             src={x}
             alt='x-icon'
-            className='absolute left-[5%] top-8 h-[2vw]'
+            className='absolute left-[5%] top-8 h-[2vw] cursor-pointer'
             onClick={closeSlider}
           />
           <Link
