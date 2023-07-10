@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  ProductState,
   TProduct,
   fetchAllProducts,
   selectAllProducts,
@@ -24,8 +23,6 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-
-// import LocomotiveScroll from 'locomotive-scroll';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,9 +67,6 @@ export default function Homepage() {
       tl.to(grapefruitButtRef.current, {
         scrollTrigger: {
           trigger: grapefruitButtRef.current,
-          // onEnter: () => {
-          //   console.log('entering');
-          // },
           pin: true,
           start: 'top 64px',
           endTrigger: treatRef.current,
@@ -83,7 +77,6 @@ export default function Homepage() {
       tl.from('p', {
         duration: 4,
         opacity: 0,
-        // delay: 0.5,
         ease: 'power4.out',
         y: 20,
         scrollTrigger: {
@@ -93,26 +86,6 @@ export default function Homepage() {
           end: 'bottom center',
         },
       });
-
-      function toggleClasses() {
-        const classList = [
-          'bg-white',
-          'bg-charcoal',
-          'text-black',
-          'border-black',
-        ];
-
-        classList.forEach((cls) => shopBodyRef.current?.classList.toggle(cls));
-      }
-
-      // gsap.to(shopBodyRef.current, {
-      //   scrollTrigger: {
-      //     trigger: shopBodyRef.current,
-      //     start: 'top 60%',
-      //     scrub: true,
-      //   },
-      //   scale: '105'
-      // });
     }, treatRef);
 
     return () => {
@@ -125,31 +98,9 @@ export default function Homepage() {
     treatRef.current,
   ]);
 
-  //smooth scroll attempt
-
-  // const elem = document.getElementById('data-scroll-container')
-
-  //   useEffect(() => {
-  // const doc = document.querySelector('.data-scroll-container');
-
-  // if(!doc) return
-  //     const scroll = new LocomotiveScroll({
-  //       el:  doc,
-  //       smooth: true,
-  //       // offsetHeight: '100',
-  //       direction: 'vertical',
-  //       multiplier: 1,
-  //       resetNativeScroll: true,
-  //     })
-  //   }, [])
-
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
-      data-scroll-section
-      data-scroll-speed='1'
-      // data-scroll-container
-      // id='data-scroll-container'
       className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
       onLoad={() => ScrollTrigger.refresh()}
     >
