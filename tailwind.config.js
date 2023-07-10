@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+
+const plugin = require('tailwindcss/plugin');
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -59,7 +62,27 @@ export default {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  variants: {
+    extend: {
+      backgroundColor: ['active', 'hover'],
+      borderColor: ['active'],
+      textColor: ['active']
+    },
+  },
+  modules: {
+    appearance: ['responsive', 'active'],
+    backgroundAttachment: ['responsive'],
+    backgroundColors: ['responsive', 'hover', 'active'],
+    backgroundPosition: ['responsive'],
+    backgroundRepeat: ['responsive'],
+    // ...
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    plugin(function ({ addVariant }) {
+      addVariant('current', '&.active');
+    }),
+  ],
 };
 
 // font-family: 'Chonburi', cursive;
