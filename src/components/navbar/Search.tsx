@@ -95,7 +95,11 @@ export default function Search({
           <div className='flex gap-10'>
             {searchResults.products.map((result) => {
               return (
-                <Link to={`/product/${result.productId}`} onClick={closeSlider}>
+                <Link
+                  to={`/product/${result.productId}`}
+                  onClick={closeSlider}
+                  key={result.productId}
+                >
                   <div
                     className='flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start '
                     onClick={(e) =>
