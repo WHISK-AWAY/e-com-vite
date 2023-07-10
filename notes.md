@@ -29,7 +29,7 @@
 ### Open
 
 - [ ] Z-problems
-  - [ ] new in versus shop menu
+  - [x] new in versus shop menu
 - [ ] Notifications:
   - [ ] Inform user if we purge their cart due to thunk rejection (affects guest only)
 - [ ] "X" icon sizes are inconsistent (cart/fav versus signin/signup, look for others)
@@ -37,8 +37,8 @@
   - [ ] Reviews: should never see a reviewer with zero reviews (seeding issue)
 - [ ] Guest favorites:
   - [ ] Invite to sign up
-- [ ] Sign-in
-  - [ ] 409 several times, then signed in upon refresh
+- [x] Sign-in
+  - [x] 409 several times, then signed in upon refresh (caused by having old/nonexistent product IDs in guest cart)
 - [ ] New shipping address form
   - [ ] Form deletes first character typed after validation failure (can't recreate...)
   - [ ] Take another look @ responsiveness
@@ -57,14 +57,14 @@
       -User Profile
       -[] consider allowing user to delete the profile if they choose so
 - [ ] Cart/Favorites
-  - [ ] Cart checkout button should close cart (check favorites also)
-  - [ ] Figure out click-off
+  - [x] Cart checkout button should close cart (check favorites also)
+  - [x] Figure out click-off
   - [ ] Guest cart -> user cart merge: may not have enough inventory -- do we want to do anything about that?
   - [x] Guest cart: remove item: shows 'nothing in cart' after, but nothing changes
   - [ ] Possible to add more than available inventory to guest cart
     - [x] Revert add qty to 1 after clicking add to cart button
-- [ ] Bring back (render) search function
-  - [ ] Style search function/results
+- [x] Bring back (render) search function
+  - [x] Style search function/results
 - [ ] Verified purchase logic isn't working
 - [ ] Checkout
   - [x] Checkout-section address book does not render all addresses
@@ -75,7 +75,7 @@
   - [ ] Cart qty indicator
   - [ ] Add to favorites animation?
   - [x] Favorites indicator (maybe just a filled heart on nav?)
-- [ ] Checkbox styling (new ship address) `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
+- [x] Checkbox styling (new ship address) `<input type="checkbox" className="focus:ring-0 focus:ring-offset-0" />`
 
 ### Resolved
 
