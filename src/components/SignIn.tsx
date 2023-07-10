@@ -8,6 +8,7 @@ import { emailExists } from '../utilities/helpers';
 import signin from '../assets/bg-vids/sign-in.mp4';
 import { TMode } from './SignWrapper';
 import 'lazysizes';
+import { mergeGuestCart } from '../redux/slices/cartSlice';
 
 export type FormData = {
   email: string;
@@ -82,20 +83,28 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
 
   const submitData = async (data: FormData) => {
     dispatch(requestLogin(data))
-      .then((meta) => {
-        const payload = meta?.payload as { status: number; message: string };
-
-        if (payload?.status === 401) {
-          console.log('incorrect password');
-          reset({
-            password: '',
-          });
-          setError('password', {
-            type: 'custom',
-            message: 'incorrect password',
-          });
+      .then((res) => {
+        if (res.type === 'auth/requestLogin/rejected') {
+          const payload = res.payload as { status: number; message: string };
+          if (payload.status === 401) {
+            console.log('incorrect password');
+            reset({
+              password: '',
+            });
+            setError('password', {
+              type: 'custom',
+              message: 'incorrect password',
+            });
+          }
         } else {
-          closeSlider();
+          const payload = res.payload as {
+            error: { data: string | null; status: number | null };
+            firstName: string;
+            userId: string;
+          };
+          dispatch(mergeGuestCart({ userId: payload.userId })).then(() => {
+            closeSlider();
+          });
         }
       })
       .catch((err) => console.log(err));
