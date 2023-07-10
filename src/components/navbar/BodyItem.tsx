@@ -7,20 +7,21 @@ import { gsap } from 'gsap';
 
 const bodyitems = ['moisturizers', 'creams', 'spf'] as const;
 
-export default function BodyItem({
-  setIsMenuHidden,
-  menuMode, setMenuMode
-}: {
-  setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  menuMode: 'body';
+export type BodyItemProps = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
-}) {
+  closeOuterMenu: () => void;
+};
+
+export default function BodyItem({
+  setMenuMode,
+  closeOuterMenu,
+}: BodyItemProps) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
 
   const [menuHeight, setMenuHeight] = useState(0);
   const localParent = useRef<HTMLDivElement>(null);
-   const [bodyState, setBodyState] = useState<gsap.core.Timeline | null>(null);
+  const [bodyState, setBodyState] = useState<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     if (localParent.current) {
@@ -37,62 +38,39 @@ export default function BodyItem({
     bodyitems.includes(tag.tagName as (typeof bodyitems)[number])
   );
 
+  useLayoutEffect(() => {
+    if (!localParent.current) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({});
 
+      tl.fromTo(
+        localParent.current,
+        { height: 0 },
+        {
+          height: menuHeight,
+          duration: 1.5,
+          ease: 'power4',
+          onReverseComplete: () => setMenuMode('none'),
+        }
+      );
 
+      setBodyState(tl);
+    });
 
+    return () => {
+      ctx.revert();
+    };
+  }, [localParent.current, menuHeight]);
 
-
-    useLayoutEffect(() => {
-      if (!localParent.current) return;
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({});
-
-        tl.set(localParent.current, {
-          height: 0,
-        });
-
-        tl.to(localParent.current, {
-          opacity: 1,
-          duration: 0.2,
-          onReverseComplete: () => {
-            setMenuMode(null);
-          },
-        });
-        tl.to(
-          localParent.current,
-          {
-            height: menuHeight,
-            // delay: .1,
-            duration: 1.5,
-            ease: 'power4',
-          },
-
-          '<'
-        );
-
-        setBodyState(tl);
-
-        localParent?.current?.addEventListener('mouseleave', () => {
-          tl?.duration(0.9).reverse();
-        });
-      });
-
-      return () => {
-        ctx.revert();
-      };
-    }, [localParent.current, menuHeight, menuMode]);
-
-
-
-
+  function closeLocalMenu() {
+    return bodyState?.duration(0.9).reverse();
+  }
 
   return (
     <section
       ref={localParent}
-      // style={{
-      //   height: menuHeight,
-      // }}
-      className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] text-white py-[2%] pl-10 text-[2vw] '
+      onMouseLeave={closeLocalMenu}
+      className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] py-[2%] pl-10 text-[2vw] text-white '
     >
       {filteredTags.map((tag) => {
         const name = tag.tagName;
@@ -100,7 +78,7 @@ export default function BodyItem({
         return (
           <Link
             to='/shop-all'
-            onClick={() => setIsMenuHidden(true)}
+            onClick={() => closeLocalMenu()?.then(() => closeOuterMenu())}
             state={{ filterKey: name }}
             className='odd:text-[3vw] hover:underline hover:underline-offset-2'
             key={tag._id}
