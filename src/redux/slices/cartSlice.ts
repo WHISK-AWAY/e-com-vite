@@ -201,6 +201,49 @@ export const removeFromCart = createAsyncThunk(
   }
 );
 
+export type MergeGuestCartParams = {
+  userId: string;
+};
+export const mergeGuestCart = createAsyncThunk(
+  'cart/mergeGuestCart',
+  async ({ userId }: MergeGuestCartParams, thunkApi) => {
+    try {
+      const guestCart = window.localStorage.getItem('guestCart');
+
+      if (guestCart) {
+        const cart = JSON.parse(guestCart) as ICart;
+        for (let item of cart.products) {
+          await axios.post(
+            VITE_API_URL + `/api/user/${userId}/cart/add-item`,
+            { productId: item.product._id, qty: item.qty },
+            { withCredentials: true }
+          );
+        }
+
+        // window.localStorage.removeItem('guestCart');
+      }
+
+      const { data } = await axios.get(
+        VITE_API_URL + `/api/user/${userId}/cart`,
+        { withCredentials: true }
+      );
+
+      return data.cart;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        // window.localStorage.removeItem('guestCart');
+
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      } else console.error(err);
+    } finally {
+      window.localStorage.removeItem('guestCart');
+    }
+  }
+);
+
 /**
  * * Cart Slice
  */
