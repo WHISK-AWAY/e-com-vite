@@ -16,7 +16,27 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+.target {
+  font-kerning: none;
+}
 
+.navbar {
+ 
+  background-color: #ffffff;
+  /* transition: background-color 7000ms linear; */
+  transition-delay: 200ms
+  
+}
+
+.navbar-scrolled {
+  
+  background-color: #26262667;
+  transition: background-color 400ms linear;
+  transition-delay: 10ms;
+  /* opacity: '20', */
+  color: #ffffff
+  
+}
 
 .focus-no-ring {
    @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal
