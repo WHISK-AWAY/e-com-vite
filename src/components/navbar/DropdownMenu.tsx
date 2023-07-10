@@ -37,9 +37,9 @@ export default function DropdownMenu({
         overflow: 'hidden',
         ease: 'power3',
         height: 0,
-        stagger: 0.15,
+        stagger: 0.05,
         opacity: 0,
-      }).to('.text-reveal>img', { duration: 0.1, opacity: 1 });
+      }).to('.text-reveal>img', { duration: 0.05, opacity: 1 });
 
       menuAnimation.current = tl;
     }, menuWrapper.current);
@@ -77,12 +77,14 @@ export default function DropdownMenu({
     if (!menuAnimation.current) {
       setIsMenuHidden(true);
     } else {
-      return menuAnimation.current
-        .duration(menuAnimation.current.duration() / 2)
-        .reverse()
-        .then(() => {
-          setIsMenuHidden(true);
-        });
+      return (
+        menuAnimation.current
+          // .duration(menuAnimation.current.duration() / 2)
+          .reverse()
+          .then(() => {
+            setIsMenuHidden(true);
+          })
+      );
     }
   }
 
