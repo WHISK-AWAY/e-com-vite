@@ -153,7 +153,6 @@ export default function SearchContainer({
       .search(searchTerm)
       .filter((result) => result.score! < SCORE_THRESHOLD)
       .map((result) => result.item);
-    console.log('search results', searchResults);
 
     setSearchResults({ products: searchResults, tags: [] });
   };
