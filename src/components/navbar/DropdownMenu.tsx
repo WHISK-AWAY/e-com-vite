@@ -3,12 +3,16 @@ import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
 import x from '../../assets/icons/x.svg';
 import chevronRight from '../../assets/icons/new.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+
+import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// gsap.registerPlugin(ScrollTrigger);
 
 import dot from '../../assets/icons/dot.svg';
 
-const menuOptions = ['category', 'face', 'body'] as const;
+const menuOptions = ['category', 'face', 'body', 'none'] as const;
 type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
@@ -18,12 +22,33 @@ export default function DropdownMenu({
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
 }) {
-  const [menuMode, setMenuMode] = useState<MenuOption>(null);
+  const [menuMode, setMenuMode] = useState<MenuOption>('none');
+  const menuWrapper = useRef(null);
+
+  useLayoutEffect(() => {
+    // Animate overall menu text reveal
+    if (!menuWrapper?.current) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+      tl.from('.text-reveal', {
+        duration: 0.4,
+        overflow: 'hidden',
+        ease: 'power3',
+        height: 0,
+        stagger: 0.15,
+      });
+    }, menuWrapper.current);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [menuWrapper]);
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
     if (menuMode === menu) {
-      setMenuMode(null);
+      setMenuMode('none');
     } else {
       setMenuMode(menu);
     }
@@ -43,8 +68,13 @@ export default function DropdownMenu({
     console.log('menuMode', menuMode);
   }, [isMenuHidden, menuMode]);
 
+  const textRevealClasses = 'text-reveal inline-block h-fit overflow-visible';
+
   return (
-    <section className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '>
+    <section
+      ref={menuWrapper}
+      className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '
+    >
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
         <Link
           to='/'
@@ -56,7 +86,7 @@ export default function DropdownMenu({
           <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
         </Link>
       </div>
-      <div className='flex min-h-full w-full flex-col overflow-hidden pt-7'>
+      <div className='flex min-h-full w-full flex-col pt-7'>
         <img
           src={x}
           alt='x-icon'
@@ -71,11 +101,14 @@ export default function DropdownMenu({
             onClick={() => setIsMenuHidden(true)}
             className='box ml-[25%] w-fit'
           >
-            shop all
+            <span className={textRevealClasses}>shop all</span>
           </NavLink>
           <div className='relative flex w-full pl-[15%]'>
-            <h2 className='relative'>
-              shop by category
+            <h2
+              className='relative cursor-pointer'
+              onClick={() => toggleMenu('category')}
+            >
+              <span className={textRevealClasses}>shop by category</span>
               {!isMenuHidden && (
                 <img
                   src={chevronRight}
@@ -84,7 +117,6 @@ export default function DropdownMenu({
                     menuMode === 'category' ? 'rotate-90' : ''
                   }`}
                   // onMouseEnter={() => toggleMenu('category')}
-                  onClick={() => toggleMenu('category')}
                 />
               )}
             </h2>
@@ -99,12 +131,12 @@ export default function DropdownMenu({
               onClick={() => setIsMenuHidden(true)}
               className=''
             >
-              summer care
+              <span className={textRevealClasses}>summer care</span>
             </NavLink>
 
             <div className='relative flex'>
               <h2 className='relative h-full'>
-                face
+                <span className={textRevealClasses}>face</span>
                 {!isMenuHidden && (
                   <img
                     src={chevronRight}
@@ -127,7 +159,7 @@ export default function DropdownMenu({
 
             <div className='relative flex w-full '>
               <h3 className='relative h-full w-fit'>
-                body
+                <span className={textRevealClasses}>body</span>
                 {!isMenuHidden && (
                   <img
                     src={chevronRight}
