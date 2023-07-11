@@ -10,6 +10,8 @@ export default function Review({ review }: { review: IReviewState }) {
   const productId = review.product._id;
   const reviewId = review._id;
 
+  console.log('review:', review);
+
   return (
     <section className='review-details'>
       <div className='review-wrapper'>
@@ -35,9 +37,10 @@ export default function Review({ review }: { review: IReviewState }) {
           <br />
           {review.location ? review.location : ''}
           <br />
-          skin concerns: {review.user.skinConcernOptions?.label}
+          skin concerns:{' '}
+          {review.user.skinConcernOptions.map((opt) => opt.label).join(', ')}
           <br />
-          {review.verifiedPurchase ? review.verifiedPurchase : ''}
+          {review.verifiedPurchase ? <p>Verified purchase</p> : ''}
           <br />
           {review.user.voteCount > 1 ? (
             <p>votes: {review.user.voteCount}</p>
