@@ -170,10 +170,8 @@ router.post('/', checkAuthenticated, async (req, res, next) => {
     });
     if (orderProducts.has(productId)) {
       parsedBody.verifiedPurchase = true;
-      console.log('this is a verified purchase');
     } else {
       parsedBody.verifiedPurchase = false;
-      console.log('this is not a verified purchase');
     }
 
     const newReview = await Review.create(parsedBody);
