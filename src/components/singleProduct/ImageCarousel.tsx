@@ -19,11 +19,20 @@ export default function ImageCarousel({
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();
   const [renderImage, setRenderImage] = useState<ImageData[]>();
 
-  useEffect(() => {
-    let clearId = setInterval(() => autoIncrementImage(), 1000 * 10);
+  // * This works now, but commenting it out until we can discuss how _
+  // * exactly it should behave.
+  // useEffect(() => {
+  //   let clearId = setInterval(() => autoIncrementImage(), 1000 * 10);
 
-    return clearInterval(clearId);
-  }, []);
+  //   return () => clearInterval(clearId);
+
+  // }, []);
+
+  // function autoIncrementImage() {
+  //   console.log('autoincrement running');
+  //   incrementor();
+  //   setSelectedImage(prodImagesCopy![0].imageURL);
+  // }
 
   useEffect(() => {
     setProdImagesCopy([...product.images]);
@@ -42,12 +51,6 @@ export default function ImageCarousel({
     setSelectedImage(renderImage[0].imageURL);
   }, [renderImage]);
 
-  function autoIncrementImage() {
-    console.log('autoincrement running'); // but doesn't work yet
-    incrementor();
-    setSelectedImage(prodImagesCopy![0].imageURL);
-  }
-
   const decrementor = () => {
     setProdImagesCopy((prev) => [
       ...prev!.slice(prev!.length - 1),
@@ -55,6 +58,7 @@ export default function ImageCarousel({
     ]);
   };
   const incrementor = () => {
+    console.log('prodImagesCopy:', prodImagesCopy);
     setProdImagesCopy((prev) => [...prev!.slice(1), prev![0]]);
   };
 
