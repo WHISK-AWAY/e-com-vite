@@ -39,10 +39,12 @@ const reviewSchema = new Schema<IReview>({
     quality: { type: Number, required: true },
     value: { type: Number, required: true },
   },
-  skinConcernOptions: [{
-    value: {type: String, required: true},
-    label: {type: String, required: true}
-  }],
+  skinConcernOptions: [
+    {
+      value: { type: String, required: true },
+      label: { type: String, required: true },
+    },
+  ],
   user: { type: String, ref: 'User' },
   nickname: { type: String, default: 'Anonymous' },
   location: String,
@@ -52,20 +54,20 @@ const reviewSchema = new Schema<IReview>({
 });
 
 // determine whether this review is a verified purchase
-reviewSchema.pre('save', async function (next) {
-  if (!this.isNew) return next();
+// reviewSchema.pre('save', async function (next) {
+//   if (!this.isNew) return next();
 
-  const order = await Order.findOne({
-    'user.userId': this.user,
-    'orderDetails.productId': { $eq: this.product },
-    orderStatus: { $eq: 'confirmed' },
-  }).exec();
+//   const order = await Order.findOne({
+//     'user.userId': this.user,
+//     'orderDetails.productId': { $eq: this.product },
+//     orderStatus: { $eq: 'confirmed' },
+//   }).exec();
 
-  if (order) this.verifiedPurchase = true;
-  // console.log('order', order);
+//   if (order) this.verifiedPurchase = true;
+//   // console.log('order', order);
 
-  next();
-});
+//   next();
+// });
 
 // increment reviewer's review count
 reviewSchema.pre('save', async function (next) {

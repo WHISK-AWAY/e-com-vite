@@ -7,6 +7,8 @@ import {
   UserVote,
   User,
   IReview,
+  Order,
+  IOrder,
 } from '../database/index';
 import { z } from 'zod';
 import mongoose from 'mongoose';
@@ -132,8 +134,11 @@ async function addUserVotesToReviews(
 
 router.post('/', checkAuthenticated, async (req, res, next) => {
   try {
-    const parsedBody: TZodReview & { product?: string; user?: string } =
-      zodCreateReview.parse(req.body);
+    const parsedBody: TZodReview & {
+      product?: string;
+      user?: string;
+      verifiedPurchase?: boolean;
+    } = zodCreateReview.parse(req.body);
 
     const { productId } = req.params;
     const validProductId = zodProductId.parse(productId);
@@ -152,6 +157,24 @@ router.post('/', checkAuthenticated, async (req, res, next) => {
 
     if (checkExistingReview.length >= 1)
       return res.status(409).send('Cannot create duplicate review');
+
+    // Check for product in user's order history
+    const orderHistory = (await Order.find({
+      'user.userId': req.userId,
+    })) as IOrder[];
+    const orderProducts = new Set<string>();
+    orderHistory.forEach((order) => {
+      order.orderDetails.forEach((detailLine) => {
+        orderProducts.add(detailLine.productId.toString());
+      });
+    });
+    if (orderProducts.has(productId)) {
+      parsedBody.verifiedPurchase = true;
+      console.log('this is a verified purchase');
+    } else {
+      parsedBody.verifiedPurchase = false;
+      console.log('this is not a verified purchase');
+    }
 
     const newReview = await Review.create(parsedBody);
     const allReviews = await Review.find({ product: productId })

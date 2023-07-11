@@ -11,7 +11,6 @@ import { selectAuth } from '../../redux/slices/authSlice';
 import StarsBar from '../StarsBar';
 import thumb from '../../assets/icons/thumb.svg';
 import thumbFilled from '../../assets/icons/thumbFilled.svg';
-import { useEffect } from 'react';
 import ScoreBar from '../ScoreBar';
 
 dayjs.extend(relativeTime);
@@ -83,6 +82,13 @@ export default function Review({ review, last = false }: ReviewProps) {
               <p>VALUE</p>
               <ScoreBar score={review.rating.value} />
             </div>
+            {review.verifiedPurchase && (
+              <div className='value-score flex flex-col items-start'>
+                <p className='self-end font-semibold italic'>
+                  *verified purchase
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <h3 className='review-title font-federo text-lg uppercase lg:text-[1.5rem] xl:text-[1.75rem] 2xl:text-[2rem]'>
