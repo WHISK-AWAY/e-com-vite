@@ -28,6 +28,7 @@ import { useLocation } from 'react-router-dom';
 import LocomotiveScroll from 'locomotive-scroll';
 import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import { useEffect, useRef } from 'react';
+import Preloader from './components/Preloader';
 
 function App() {
 
@@ -51,7 +52,7 @@ function App() {
         // id='data-scroll-container'
         className='data-scroll-container mx-auto min-h-screen text-charcoal'
       >
-       
+       <Preloader/>
         <Navbar  />
         <Routes location={location} key={location.pathname}>
           <Route path='/' element={<Homepage />} />
