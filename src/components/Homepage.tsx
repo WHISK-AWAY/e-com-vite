@@ -24,6 +24,7 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+import Preloader from './Preloader';
 
 // import LocomotiveScroll from 'locomotive-scroll';
 
@@ -83,7 +84,7 @@ export default function Homepage() {
           // },
           pin: true,
           start: 'top top',
-          endTrigger: treatRef.current,
+          // endTrigger: treatRef.current,
           end: 'bottom 45%',
           scrub: 1,
         },
@@ -107,7 +108,7 @@ export default function Homepage() {
       // tl.from(shopBodyButtonRef.current, {
       //   duration: 0.4,
       //   start: 'bottom bottom',
-      //   onEnter:() => gsap.to(shopBodyButtonRef.current, {
+      //   onEnter:() => gsap.to(shopBodyButtonRef.current, {√
       //     backgroundColor: 'white',
       //     duration: 5,
       //   })
@@ -115,6 +116,7 @@ export default function Homepage() {
     }, treatRef);
 
     return () => {
+      ScrollTrigger.refresh()
       ctx.revert();
     };
   }, [grapefruitButtRef.current, specialRef.current, treatRef.current]);
@@ -139,6 +141,8 @@ export default function Homepage() {
 //     })
 //   }, [])
 
+
+
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
@@ -146,9 +150,10 @@ export default function Homepage() {
       data-scroll-speed='1'
       // data-scroll-container
       // id='data-scroll-container'
-      className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
+      className=' relative flex  w-screen flex-col justify-center h-full overflow-hidden '
       onLoad={() => ScrollTrigger.refresh()}
     >
+     <Preloader/>
       <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
         <video
           data-src={handLotion}
