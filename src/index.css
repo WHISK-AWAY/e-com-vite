@@ -82,6 +82,10 @@ textarea:focus, input:focus{
   }
 
 
+  .inset-clip {
+    clip-path: inset(0 0 0 0 )
+  }
+
  /* input:-webkit-autofill {
   border: 3px solid white;
   outline-color: white;
