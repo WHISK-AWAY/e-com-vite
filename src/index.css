@@ -8,12 +8,13 @@
 @tailwind components;
 @tailwind utilities;
 
-textarea:focus, input:focus{
-    outline: none;
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 .target {
@@ -21,53 +22,49 @@ textarea:focus, input:focus{
 }
 
 .navbar {
- 
   background-color: #ffffff;
   /* transition: background-color 7000ms linear; */
-  transition-delay: 200ms
-  
+  transition-delay: 200ms;
 }
 
 .navbar-scrolled {
-  
   background-color: #26262667;
   transition: background-color 400ms linear;
   transition-delay: 10ms;
   /* opacity: '20', */
-  color: #ffffff
-  
+  color: #ffffff;
 }
 
 .focus-no-ring {
-   @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal
+  @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal;
 }
 
 .input-ring-charcoal {
-  @apply  border-charcoal/50 bg-white/40 border
+  @apply border border-charcoal/50 bg-white/40;
 }
 
 .input-ring-white {
-  @apply border border-white bg-white/50
+  @apply border border-white bg-white/50;
 }
 
 .focus-ring-white {
-  @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white
+  @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white;
 }
 
 .address-no-focus {
-  @apply focus:border-charcoal   focus:ring-1 focus:ring-current
+  @apply focus:border-charcoal   focus:ring-1 focus:ring-current;
 }
 
 .checkbox-focus {
-  @apply focus:ring-0 border-charcoal bg-white text-charcoal
+  @apply border-charcoal bg-white text-charcoal focus:ring-0;
 }
 
 .text-placeholder {
-  @apply placeholder:text-xs
+  @apply placeholder:text-xs;
 }
 
 .address-autofill {
-  @apply autofill:border-charcoal autofill:bg-white
+  @apply autofill:border-charcoal autofill:bg-white;
 }
 
 @layer utilities {
@@ -98,7 +95,7 @@ input:autofill {
   background: rgba(128, 35, 35, 0.515); 
 
 }  */
-/* .address-fill {
+  /* .address-fill {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -116,8 +113,7 @@ select:-webkit-autofill:focus {
 
 } */
 
-
-input:-webkit-autofill,
+  input:-webkit-autofill,
 /* input:-webkit-autofill:hover, */
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
@@ -126,17 +122,11 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: 1px solid white;
-  -webkit-text-fill-color: #4a4a4a;
-  transition: background-color 5000s ease-in-out 0s;
-  color: white;
-}
-
-
-
-
-
-
+    border: 1px solid white;
+    -webkit-text-fill-color: #4a4a4a;
+    transition: background-color 5000s ease-in-out 0s;
+    color: white;
+  }
 }
 
 /* :root {

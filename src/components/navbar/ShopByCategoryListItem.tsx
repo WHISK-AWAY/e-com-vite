@@ -3,17 +3,17 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectTagState } from '../../redux/slices/tagSlice';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
-import { MenuOption } from './DropdownMenu';
+import type { MenuOption } from './DropdownMenu';
+
+export type ShopByCategoryListItem = {
+  setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
+  closeOuterMenu: () => void;
+};
 
 export default function ShopByCategoryListItem({
-  setIsMenuHidden,
-  menuMode,
   setMenuMode,
-}: {
-  setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  menuMode: 'category';
-  setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
-}) {
+  closeOuterMenu,
+}: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
   const [catState, setCatState] = useState<gsap.core.Timeline | null>(null);
@@ -35,45 +35,46 @@ export default function ShopByCategoryListItem({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
-      // tl.set(localParent.current, {
-      //   opacity: 0,
-      // });
-
-      tl.to(localParent.current, {
+      tl.set(localParent.current, {
         opacity: 1,
-        duration: 0.2,
-        onReverseComplete: () => {
-          setMenuMode(null);
-        },
+        // duration: 0.2,
       });
       tl.to(
         localParent.current,
         {
+          onReverseComplete: () => {
+            setMenuMode('none');
+          },
           height: menuHeight,
           // delay: .1,
           duration: 1.5,
           ease: 'power4',
         },
-
         '<'
       );
 
       setCatState(tl);
 
-      localParent?.current?.addEventListener('mouseleave', () => {
-        tl?.duration(0.9).reverse();
-      });
+      // moved this stuff to the onMouseLeave of the localParent div element
+      // localParent?.current?.addEventListener('mouseleave', () => {
+      //   tl?.duration(0.9).reverse();
+      // });
     });
 
     return () => {
       ctx.revert();
     };
-  }, [localParent.current, menuHeight, menuMode]);
+  }, [localParent.current, menuHeight]);
+
+  function closeLocalMenu() {
+    return catState?.duration(0.9).reverse();
+  }
 
   return (
     <div
       ref={localParent}
-      className=' group absolute left-0 top-[65%] z-10 flex h-0 w-screen flex-col flex-wrap   '
+      onMouseLeave={closeLocalMenu}
+      className='group absolute left-0 top-[65%] z-10 flex h-0 w-screen flex-col flex-wrap'
     >
       {menuHeight > 0 && (
         <section
@@ -86,7 +87,11 @@ export default function ShopByCategoryListItem({
               <Link
                 key={tag._id}
                 to='/shop-all'
-                onClick={() => setIsMenuHidden((prev) => !prev)}
+                onClick={() => {
+                  closeLocalMenu()?.then(() => {
+                    closeOuterMenu();
+                  });
+                }}
                 state={{ filterKey: name }}
                 className='odd:text-[3vw] hover:underline hover:underline-offset-2'
               >

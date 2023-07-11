@@ -31,23 +31,16 @@ import { useEffect, useRef } from 'react';
 import Preloader from './components/Preloader';
 
 function App() {
-
-  const containerRef = useRef(null)
-  let location = useLocation();
-
-
-
-
   return (
     <LocomotiveScrollProvider
       options={{
         smooth: true,
       }}
       watch={[<AllProducts />, location]}
-      containerRef={containerRef}
+      // containerRef={containerRef}
     >
       <div
-        ref={containerRef}
+        // ref={containerRef}
         data-scroll-container
         // id='data-scroll-container'
         className='data-scroll-container mx-auto min-h-screen text-charcoal'

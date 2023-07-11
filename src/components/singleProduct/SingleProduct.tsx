@@ -27,7 +27,6 @@ import heartFilled from '../../../src/assets/icons/heart-filled.svg';
 import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 // * background images
 import lemons from '../../../src/assets/bg-img/ingredient-bg/lemon-slice.jpg';
@@ -145,7 +144,7 @@ export default function SingleProduct() {
   const pinRef = useRef(null);
 
   useLayoutEffect(() => {
-    if (!scrollerRef) return;
+    if (!scrollerRef || !pinRef) return;
 
     const ctx = gsap.context((_) => {
       const scroller = scrollerRef.current;
@@ -154,6 +153,7 @@ export default function SingleProduct() {
         scrollTrigger: {
           trigger: scroller,
           pin: true,
+          pinSpacing: false,
           endTrigger: pinRef.current,
           end: 'bottom bottom',
         },
@@ -161,7 +161,7 @@ export default function SingleProduct() {
     });
 
     return () => ctx.revert();
-  }, [scrollerRef.current, bgImg, bgVid, singleProduct]);
+  }, [scrollerRef.current, bgImg, bgVid, singleProduct, pinRef.current]);
 
   useEffect(() => {
     // * component initialization
@@ -328,10 +328,7 @@ export default function SingleProduct() {
    * * MAIN RENDER
    */
   return (
-    <main
-      data-scroll-section
-      className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'
-    >
+    <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
       <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>

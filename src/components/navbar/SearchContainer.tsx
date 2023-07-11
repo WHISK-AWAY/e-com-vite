@@ -153,7 +153,6 @@ export default function SearchContainer({
       .search(searchTerm)
       .filter((result) => result.score! < SCORE_THRESHOLD)
       .map((result) => result.item);
-    console.log('search results', searchResults);
 
     setSearchResults({ products: searchResults, tags: [] });
   };
@@ -195,7 +194,7 @@ export default function SearchContainer({
           <img
             src={x}
             alt='x-icon'
-            className='absolute left-[5%] top-8 h-[2vw]'
+            className='absolute left-[5%] top-8 h-[2vw] cursor-pointer'
             onClick={closeSlider}
           />
           <Link

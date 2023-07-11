@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
-  ProductState,
   TProduct,
   fetchAllProducts,
   selectAllProducts,
@@ -10,6 +9,7 @@ import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
@@ -17,7 +17,7 @@ import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
-import grapefrutButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
+import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
 import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
 import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
 import papaya from '../assets/bg-img/homepage/papaya.jpg';
@@ -25,12 +25,6 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 import Preloader from './Preloader';
-
-// import LocomotiveScroll from 'locomotive-scroll';
-
-
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -45,6 +39,7 @@ export default function Homepage() {
   const grapefruitButtRef = useRef(null);
   const specialRef = useRef(null);
   const treatRef = useRef<HTMLDivElement>(null);
+  const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
 
   useEffect(() => {
@@ -72,35 +67,34 @@ export default function Homepage() {
   }, [allProducts]);
 
   useLayoutEffect(() => {
-    if(!grapefruitButtRef.current || !treatRef.current || !specialRef.current ) return
+    if (
+      !grapefruitButtRef.current ||
+      !treatRef.current ||
+      !specialRef.current ||
+      !shopBodyRef.current
+    )
+      return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
-      tl.to(grapefruitButtRef.current, {
+      // const tl = gsap.timeline({});
+      gsap.to(grapefruitButtRef.current, {
         scrollTrigger: {
           trigger: grapefruitButtRef.current,
-          // onEnter: () => {
-          //   console.log('entering');
-          // },
           pin: true,
-          start: 'top top',
-          // endTrigger: treatRef.current,
-          end: 'bottom 45%',
-          scrub: 1,
+          start: 'top 64px',
+          endTrigger: treatRef.current,
+          end: 'bottom 62%',
         },
       });
 
-      tl.from('p', {
+      gsap.from('.anim-text', {
         duration: 4,
         opacity: 0,
-        // delay: 0.5,
         ease: 'power4.out',
         y: 20,
         scrollTrigger: {
-          markers: true,
           scrub: 1,
           trigger: treatRef.current,
-          endTrigger: treatRef.current,
           start: 'top 70%',
           end: 'bottom center',
         },
@@ -113,44 +107,20 @@ export default function Homepage() {
       //     duration: 5,
       //   })
       // })
-    }, treatRef);
+    }, treatRef.current);
 
     return () => {
       ScrollTrigger.refresh()
       ctx.revert();
     };
-  }, [grapefruitButtRef.current, specialRef.current, treatRef.current]);
-
-
-
-  //smooth scroll attempt
-
-  // const elem = document.getElementById('data-scroll-container')
-
-//   useEffect(() => {
-// const doc = document.querySelector('.data-scroll-container');
-
-// if(!doc) return 
-//     const scroll = new LocomotiveScroll({
-//       el:  doc,
-//       smooth: true,
-//       // offsetHeight: '100',
-//       direction: 'vertical',
-//       multiplier: 1,
-//       resetNativeScroll: true,
-//     })
-//   }, [])
+  });
 
 
 
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
-      data-scroll-section
-      data-scroll-speed='1'
-      // data-scroll-container
-      // id='data-scroll-container'
-      className=' relative flex  w-screen flex-col justify-center h-full overflow-hidden '
+      className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
       onLoad={() => ScrollTrigger.refresh()}
     >
      <Preloader/>
@@ -194,7 +164,6 @@ export default function Homepage() {
             shop now
           </span>
         </Link>
-
       </div>
 
       <div className='flex flex-col py-[7%]'>
@@ -358,7 +327,7 @@ export default function Homepage() {
             </p>
           </div>
 
-          <div className='z-10 mb-[5%] flex  w-full flex-col items-center border border-red-500'>
+          <div className='z-10 mb-[5%] flex  w-full flex-col items-center'>
             <div
               ref={treatRef}
               className=' flex h-full flex-col self-center text-center'
@@ -368,27 +337,27 @@ export default function Homepage() {
                 className='z-10 h-fit w-[30%] self-center border'
               >
                 <img
-                  data-src={grapefrutButt}
+                  data-src={grapefruitButt}
                   data-sizes='auto'
-                  alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
+                  alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
                   className='lazyload aspect-square object-cover'
                 />
               </div>
-              <p className='relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+              <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
                 treat
               </p>
-              <p className='relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
+              <p className='anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
                 your skin
               </p>
-              <p className='-translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
+              <p className='anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
                 to
               </p>
-              <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
+              <p className='anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
                 something
               </p>
               <p
                 ref={specialRef}
-                className='-translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
+                className='anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
               >
                 special
               </p>
@@ -396,6 +365,7 @@ export default function Homepage() {
             <Link
               // ref={shopBodyButtonRef}
               to='/shop-all'
+              ref={shopBodyRef}
               state={{ filterKey: 'body' }}
               className='group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white '
             >

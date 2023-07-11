@@ -257,7 +257,7 @@ AllProductsProps) {
 
             <img
               src={filterIcon}
-              className='flex w-6 flex-row'
+              className='flex w-6 cursor-pointer flex-row'
               onClick={() => setIsSearchHidden((prev) => !prev)}
             />
           </div>
@@ -274,7 +274,7 @@ AllProductsProps) {
           )}
         </section>
       )}
-        
+
       <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
         {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
         {allProducts.products.map((product) => {

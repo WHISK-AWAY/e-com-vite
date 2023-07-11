@@ -68,19 +68,19 @@ export const requestLogin = createAsyncThunk(
         { withCredentials: true }
       );
 
-      const guestCart = window.localStorage.getItem('guestCart');
-      if (guestCart) {
-        const cart = JSON.parse(guestCart) as ICart;
-        for (let item of cart.products) {
-          await axios.post(
-            VITE_API_URL + `/api/user/${res.data.userId}/cart/add-item`,
-            { productId: item.product._id, qty: item.qty },
-            { withCredentials: true }
-          );
-        }
+      // const guestCart = window.localStorage.getItem('guestCart');
+      // if (guestCart) {
+      //   const cart = JSON.parse(guestCart) as ICart;
+      //   for (let item of cart.products) {
+      //     await axios.post(
+      //       VITE_API_URL + `/api/user/${res.data.userId}/cart/add-item`,
+      //       { productId: item.product._id, qty: item.qty },
+      //       { withCredentials: true }
+      //     );
+      //   }
 
-        window.localStorage.removeItem('guestCart');
-      }
+      //   window.localStorage.removeItem('guestCart');
+      // }
 
       return res.data;
     } catch (err: any) {

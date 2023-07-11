@@ -76,7 +76,7 @@ export default function SignWrapper({
       >
         <div
           onClick={closeSlider}
-          className='absolute  right-5 top-5 z-50 h-10 w-3'
+          className='absolute right-5 top-5 z-50 h-10 w-3 cursor-pointer'
         >
           {mode === 'sign-in' ? (
             <img src={x} alt='x-icon' className=' w-1 lg:w-2 ' />
