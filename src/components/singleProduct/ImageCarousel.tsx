@@ -1,20 +1,26 @@
+import { useEffect, useLayoutEffect, useState } from 'react';
+import 'lazysizes';
+import { gsap } from 'gsap';
+
 import { TProduct } from '../../redux/slices/allProductSlice';
-import { useEffect, useState } from 'react';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { ImageData } from '../../../server/database';
-import 'lazysizes';
 
 export type ImageCarouselProps = {
   product: TProduct;
   num: number;
+  selectedImage: string;
   setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
+  changeImage: ((oldImage: string, newImage: string) => void) | null;
 };
 
 export default function ImageCarousel({
   product,
   num,
+  selectedImage,
   setSelectedImage,
+  changeImage,
 }: ImageCarouselProps) {
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();
   const [renderImage, setRenderImage] = useState<ImageData[]>();
@@ -43,12 +49,11 @@ export default function ImageCarousel({
   }, [num, product]);
 
   useEffect(() => {
-    setRenderImage(prodImagesCopy?.slice(0, num));
+    setRenderImage(prodImagesCopy?.slice(0, num + 1));
   }, [prodImagesCopy, num]);
 
   useEffect(() => {
-    if (!renderImage) return;
-    setSelectedImage(renderImage[0].imageURL);
+    if (!renderImage?.length || !changeImage) return;
   }, [renderImage]);
 
   const decrementor = () => {
@@ -56,16 +61,56 @@ export default function ImageCarousel({
       ...prev!.slice(prev!.length - 1),
       ...prev!.slice(0, -1),
     ]);
+
+    changeImage!(
+      prodImagesCopy![0]!.imageURL,
+      prodImagesCopy!.at(-1)!.imageURL
+    );
   };
+
+  // useLayoutEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     const tl = gsap.timeline();
+  //     const leadImage = document.querySelector('div.image-card:first-of-type');
+  //     const trailingImage = document.querySelector(
+  //       'div.image-card:last-of-type'
+  //     );
+  //     tl.to(leadImage, {
+  //       opacity: 0,
+  //     })
+  //       .to('.image-card', {
+  //         x: '-=100%',
+  //       })
+  //       .set(leadImage, {
+  //         display: 'none',
+  //       })
+  //       .set(trailingImage, {
+  //         display: 'inherit',
+  //         opacity: 0,
+  //       })
+  //       .to(
+  //         trailingImage,
+  //         {
+  //           opacity: 1,
+  //         },
+  //         '<'
+  //       );
+  //   });
+
+  //   return () => {
+  //     ctx.revert();
+  //   };
+  // });
+
   const incrementor = () => {
-    console.log('prodImagesCopy:', prodImagesCopy);
+    changeImage!(prodImagesCopy![0]!.imageURL, prodImagesCopy![1]!.imageURL);
     setProdImagesCopy((prev) => [...prev!.slice(1), prev![0]]);
   };
 
   if (!prodImagesCopy || !renderImage) return <h1>Loading images...</h1>;
 
   return (
-    <div className='relative flex w-4/5 items-start justify-center gap-3'>
+    <div className='relative flex w-11/12 items-start justify-center gap-3'>
       <button
         onClick={decrementor}
         className='absolute -left-7 shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20'
@@ -76,15 +121,19 @@ export default function ImageCarousel({
           className='h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5'
         />
       </button>
-      {renderImage.map((image) => {
+      {renderImage.map((image, idx) => {
         let extension = image.imageURL.split('.').at(-1);
         return (
           <div
             key={image.imageURL}
             onClick={() => {
-              setSelectedImage(image.imageURL);
+              changeImage!(selectedImage, image.imageURL);
+              // setSelectedImage(image.imageURL);
             }}
-            className='image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
+            className={
+              'image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]' +
+              (idx === num ? ' hidden' : '')
+            }
           >
             {['gif', 'mp4'].includes(extension!) ? (
               <video
@@ -106,6 +155,23 @@ export default function ImageCarousel({
           </div>
         );
       })}
+      {/* render "+1" image for use in animation */}
+      {/* {renderImage?.length > 0 && trailingImage()} */}
+      {/* {['gif', 'mp4'].includes(
+        prodImagesCopy[Math.min(num, prodImagesCopy.length)]?.imageURL
+          ?.split('.')
+          ?.at(-1)
+      ) ? (
+        <video
+          className='trailing-image hidden'
+          src={prodImagesCopy[Math.min(num, prodImagesCopy.length)].imageURL}
+        />
+      ) : (
+        <img
+          className='trailing-image hidden'
+          src={prodImagesCopy[Math.min(num, prodImagesCopy.length)].imageURL}
+        />
+      )} */}
       <button
         onClick={incrementor}
         className='absolute -right-7 shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20'

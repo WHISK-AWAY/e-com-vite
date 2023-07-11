@@ -142,8 +142,79 @@ export default function SingleProduct() {
 
   const scrollerRef = useRef(null);
   const pinRef = useRef(null);
+  const mainImage = useRef<HTMLDivElement>(null);
+
+  const mainImageTimeline = useRef<gsap.core.Timeline | null>(null);
+  const changeImage = useRef<
+    ((oldImage: string, newImage: string) => void) | null
+  >(null);
+
+  const images = {
+    oldImage: 'http://localhost:5173/assets/productImages/ten_4001_15ml.jpg',
+    newImage:
+      'http://localhost:5173/assets/productImages/serum-ten_nav-desktop.jpg',
+  };
+
+  // useLayoutEffect(() => {
+  //   // Set up fade-out animation & generate image change function to be used _
+  //   // by carousel component
+  //   if (!selectedImage || !mainImage?.current) return;
+
+  //   const ctx = gsap.context(() => {
+  //     const tl = gsap.timeline();
+
+  //     tl.pause().addLabel('fadeOut').to('.fader', {
+  //       opacity: 0,
+  //       duration: 0.25,
+  //     });
+
+  //     function imageChanger(oldImage: string, newImage: string) {
+  //       mainImageTimeline.current!.play('fadeOut').then(() => {
+  //         console.log('setting new image');
+  //         setSelectedImage(newImage);
+  //       });
+  //     }
+  //     changeImage.current = imageChanger;
+  //     mainImageTimeline.current = tl;
+  //   }, mainImage.current);
+
+  //   return () => {
+  //     mainImageTimeline.current = null;
+  //     ctx.revert();
+  //   };
+  // }, [mainImage, selectedImage]);
+
+  function imageChanger(oldImage: string, newImage: string) {
+    gsap
+      .to('.fader', {
+        opacity: 0,
+        duration: 0.25,
+      })
+      .then(() => {
+        setSelectedImage(newImage);
+      });
+  }
+
+  changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
+    // Fade in animation - triggered upon new image load
+    if (!selectedImage || !mainImage?.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from('.fader', {
+        opacity: 0,
+        duration: 0.25,
+      });
+    }, mainImage.current);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [selectedImage, mainImage]);
+
+  useLayoutEffect(() => {
+    // Animation: pin ingredients image while ingredients list scrolls
     if (!scrollerRef || !pinRef) return;
 
     const ctx = gsap.context((_) => {
@@ -333,61 +404,67 @@ export default function SingleProduct() {
         {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
         <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
           <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
-            {userId ? (
-              itemIsFavorited ? (
-                <div
-                  onClick={handleFavoriteRemove}
-                  className='w-fit cursor-pointer'
-                >
-                  <img
-                    src={heartFilled}
-                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
-                  />
-                </div>
-              ) : (
-                <div
-                  onClick={handleFavoriteAdd}
-                  className='w-fit cursor-pointer'
-                >
-                  <img
-                    src={heartBlanc}
-                    className='absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
-                  />
-                </div>
-              )
-            ) : (
-              <img
-                src={heartBlanc}
-                onClick={notify}
-                className='absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
-              />
-            )}
-            <div className='relative z-auto'></div>
-
-            <div className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'>
+            <div
+              ref={mainImage}
+              className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'
+            >
               {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                 <video
                   src={selectedImage}
                   // data-sizes='auto'
-                  className='absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
+                  className='fader absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
                   muted={true}
                   autoPlay={true}
                   loop={true}
+                  // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
                 />
               ) : (
                 <img
                   src={selectedImage}
                   // data-sizes='auto'
                   alt='product image'
-                  className='aspect-[3/4] w-full object-cover'
+                  className='fader aspect-[3/4] w-full object-cover'
+                />
+              )}
+              {userId ? (
+                itemIsFavorited ? (
+                  <div
+                    onClick={handleFavoriteRemove}
+                    className='w-fit cursor-pointer'
+                  >
+                    <img
+                      src={heartFilled}
+                      className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                    />
+                  </div>
+                ) : (
+                  <div
+                    onClick={handleFavoriteAdd}
+                    className='w-fit cursor-pointer'
+                  >
+                    <img
+                      src={heartBlanc}
+                      className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                    />
+                  </div>
+                )
+              ) : (
+                <img
+                  src={heartBlanc}
+                  onClick={notify}
+                  className='fader absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
                 />
               )}
             </div>
-            <ImageCarousel
-              num={3}
-              product={singleProduct}
-              setSelectedImage={setSelectedImage}
-            />
+            {changeImage?.current && (
+              <ImageCarousel
+                num={3}
+                product={singleProduct}
+                setSelectedImage={setSelectedImage}
+                selectedImage={selectedImage}
+                changeImage={changeImage.current}
+              />
+            )}
           </div>
         </section>
 
