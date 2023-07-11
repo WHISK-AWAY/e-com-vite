@@ -9,6 +9,7 @@ import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
@@ -16,15 +17,13 @@ import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
-import grapefrutButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
+import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
 import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
 import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
 import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -76,18 +75,18 @@ export default function Homepage() {
       return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
-      tl.to(grapefruitButtRef.current, {
+      // const tl = gsap.timeline({});
+      gsap.to(grapefruitButtRef.current, {
         scrollTrigger: {
           trigger: grapefruitButtRef.current,
           pin: true,
           start: 'top 64px',
           endTrigger: treatRef.current,
-          end: 'bottom 45%',
+          end: 'bottom 62%',
         },
       });
 
-      tl.from('p', {
+      gsap.from('.anim-text', {
         duration: 4,
         opacity: 0,
         ease: 'power4.out',
@@ -107,17 +106,12 @@ export default function Homepage() {
       //     duration: 5,
       //   })
       // })
-    }, treatRef);
+    }, treatRef.current);
 
     return () => {
       ctx.revert();
     };
-  }, [
-    grapefruitButtRef.current,
-    shopBodyRef.current,
-    specialRef.current,
-    treatRef.current,
-  ]);
+  });
 
   if (!randomProd) return <p>...loading</p>;
   return (
@@ -338,27 +332,27 @@ export default function Homepage() {
                 className='z-10 h-fit w-[30%] self-center border'
               >
                 <img
-                  data-src={grapefrutButt}
+                  data-src={grapefruitButt}
                   data-sizes='auto'
-                  alt='lady  wearing nude leotard holding  grapefruit cut in half pressed to her hips'
+                  alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
                   className='lazyload aspect-square object-cover'
                 />
               </div>
-              <p className='relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+              <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
                 treat
               </p>
-              <p className='relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
+              <p className='anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
                 your skin
               </p>
-              <p className='-translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
+              <p className='anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
                 to
               </p>
-              <p className='right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
+              <p className='anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
                 something
               </p>
               <p
                 ref={specialRef}
-                className='-translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
+                className='anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
               >
                 special
               </p>
