@@ -195,6 +195,16 @@ export default function SingleProduct() {
       });
   }
 
+  // render n + 2 images
+  // first & last images display: hidden
+  // increment animation:
+  // increment indices
+  // set all rightwards 1 (post-index change)
+  // fade out idx 0
+  // shift all leftwards
+  // make idx 3 not-hidden
+  // fade in idx 3
+
   changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
