@@ -110,17 +110,17 @@ export default function SearchContainer({
     }
   }
 
-  function handleSelectSearchItem(args: {
-    type: 'tag' | 'product';
-    name?: string;
-    id?: string;
-  }) {
-    if (args.type === 'tag') {
-      navigate('/shop-all?page=1', { state: { filterKey: args.name } });
-    } else {
-      navigate('/product/' + args.id);
-    }
-  }
+  // function handleSelectSearchItem(args: {
+  //   type: 'tag' | 'product';
+  //   name?: string;
+  //   id?: string;
+  // }) {
+  //   if (args.type === 'tag') {
+  //     navigate('/shop-all?page=1', { state: { filterKey: args.name } });
+  //   } else {
+  //     navigate('/product/' + args.id);
+  //   }
+  // }
 
   //fuse fuzzy product search
 
@@ -133,12 +133,12 @@ export default function SearchContainer({
     const searchTerm = e.target.value;
     // console.log('searchTerm', searchTerm);
 
-    const productResults = catalogue.products.filter((prod) => {
-      return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    const tagResults = catalogue.tags.filter((tag) => {
-      return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+    // const productResults = catalogue.products.filter((prod) => {
+    //   return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
+    // });
+    // const tagResults = catalogue.tags.filter((tag) => {
+    //   return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
+    // });
 
     const options = {
       includeScore: true,

@@ -1,5 +1,5 @@
-import mongoose, { Schema, Types } from 'mongoose';
-import type { ImageData, IProduct } from './dbTypes';
+import mongoose, { Schema } from 'mongoose';
+import type { IProduct } from './dbTypes';
 
 const productSchema = new Schema<IProduct>({
   productName: { type: String, required: true, unique: true },

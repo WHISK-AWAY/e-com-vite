@@ -1,50 +1,51 @@
 import footer from '../assets/bg-img/footer.jpg';
-import { useAccountInfo } from '../utilities/convertKitAccInfo';
-import { useSubscribers } from '../utilities/subscribers';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
 import { useEffect } from 'react';
-import 'lazysizes'
+import 'lazysizes';
 
 type FormData = {
-  email: string
-}
+  email: string;
+};
 
 const ZFormData = z.object({
-  email: z.string().email({message: 'please enter a valid e-mail address'})
-})
-
+  email: z.string().email({ message: 'please enter a valid e-mail address' }),
+});
 
 export default function Footer() {
   const FORM_ID = '5294841';
   const { mutate } = useSubscribe(FORM_ID);
-  const defaultValues:FormData = {
-    email: ''
-  } 
+  const defaultValues: FormData = {
+    email: '',
+  };
 
-  
-  const {register, reset, handleSubmit,setValue,  formState: {errors, dirtyFields}} = useForm<FormData>({
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    formState: { errors, dirtyFields },
+  } = useForm<FormData>({
     resolver: zodResolver(ZFormData),
     defaultValues,
-  }) 
-  
+  });
+
   useEffect(() => {
     for (let key in errors) {
-      if(key === 'email') 
-      setValue('email', '')
+      if (key === 'email') setValue('email', '');
     }
-}, [errors.email])
+  }, [errors.email]);
 
   const handleSubscribe = async (email: FormData) => {
-    await mutate( email );
+    await mutate(email);
 
-    console.log('emaiol', email)
-    if(dirtyFields.email) {
+    console.log('emaiol', email);
+    if (dirtyFields.email) {
       reset({
-        email: 'thank you'
-      })
+        email: 'thank you',
+      });
     }
   };
 

@@ -28,7 +28,7 @@ export default function SignWrapper({
         opacity: 0,
         duration: 0.3,
       });
-      const slider = tl.from(
+      tl.from(
         wrapperRef.current,
         {
           x: '+=100%',
@@ -87,11 +87,7 @@ export default function SignWrapper({
         {mode === 'sign-in' ? (
           <SignIn setMode={setMode} closeSlider={closeSlider} />
         ) : (
-          <SignUp
-            mode={mode}
-            setMode={setMode}
-            setIsSignFormHidden={setIsSignFormHidden}
-          />
+          <SignUp setMode={setMode} />
         )}
       </div>
     </section>

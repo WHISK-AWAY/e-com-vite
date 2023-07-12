@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { ZodCreateProduct } from '../../../../client-side-types';
 import {
   adminCreateSingleProduct,
   adminEditSingleProduct,
@@ -15,7 +16,7 @@ import {
 import { fetchAllTags, selectTagState } from '../../../redux/slices/tagSlice';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
-import { ImageDesc } from '../../../../server/database/dbTypes';
+import { ImageDesc } from '../../../../client-side-types';
 
 export type TCreateSingleProduct = {
   productName: string;
@@ -77,7 +78,7 @@ export type EditOrCreateFormModes = 'edit' | 'new';
 export default function CreateOrEditProduct() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState<TCreateSingleProduct>();
+  // const [formValues, setFormValues] = useState<TCreateSingleProduct>();
   const [editOrCreateFormModes, setEditOrCreateFormModes] =
     useState<EditOrCreateFormModes>('new');
   const product = useAppSelector(selectSingleProduct);
@@ -130,8 +131,7 @@ export default function CreateOrEditProduct() {
     reset,
     control,
     handleSubmit,
-    getValues,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<TCreateSingleProduct>({
     resolver: zodResolver(ZSingleProduct),
     defaultValues,
@@ -164,7 +164,7 @@ export default function CreateOrEditProduct() {
         };
       }),
       tags: data.tags.map((tag) => tag.label),
-    };
+    } as ZodCreateProduct;
 
     if (editOrCreateFormModes === 'new') {
       await dispatch(adminCreateSingleProduct(productFields));
@@ -249,10 +249,7 @@ export default function CreateOrEditProduct() {
           control={control}
           name='tags'
           rules={{ required: true, min: 3 }}
-          render={({
-            field: { onChange, onBlur, value, name, ref },
-            formState,
-          }) => {
+          render={({ field: { onChange, onBlur, value } }) => {
             return (
               <CreatableSelect
                 closeMenuOnSelect={false}

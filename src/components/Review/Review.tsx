@@ -4,7 +4,7 @@ import {
   IReviewState,
   downvoteReview,
   upvoteReview,
-  deleteReview,
+  // deleteReview,
 } from '../../redux/slices/reviewSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectAuth } from '../../redux/slices/authSlice';
@@ -26,16 +26,16 @@ export default function Review({ review, last = false }: ReviewProps) {
   const reviewId = review._id;
   const { userId } = useAppSelector(selectAuth);
 
-  const handleDelete = () => {
-    if (userId && productId)
-      dispatch(
-        deleteReview({
-          userId,
-          productId,
-          reviewId,
-        })
-      );
-  };
+  // const handleDelete = () => {
+  //   if (userId && productId)
+  //     dispatch(
+  //       deleteReview({
+  //         userId,
+  //         productId,
+  //         reviewId,
+  //       })
+  //     );
+  // };
 
   return (
     <section

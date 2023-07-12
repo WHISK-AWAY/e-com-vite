@@ -6,7 +6,7 @@ import {
   selectSingleUser,
 } from '../../redux/slices/userSlice';
 import { useParams } from 'react-router';
-import { getUserId, requestLogout } from '../../redux/slices/authSlice';
+import { requestLogout } from '../../redux/slices/authSlice';
 import EditAccountInfo from './EditAccountInfo';
 import OrderHistory from './OrderHistory';
 import { useNavigate } from 'react-router';
@@ -67,7 +67,7 @@ export default function UserProfile() {
             loop={true}
             muted={true}
           />
-          <div className='menu-items-container flex h-full w-full mt-[5%] flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[16%] pb-[5%] font-hubbali text-[1.7vw]'>
+          <div className='menu-items-container mt-[5%] flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pb-[5%] pt-[16%] font-hubbali text-[1.7vw]'>
             <div>
               <div className='flex flex-col items-center'>
                 <button

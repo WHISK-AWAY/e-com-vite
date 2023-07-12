@@ -1,7 +1,6 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { httpClient } from './convertKitClient';
 const VITE_CONVERTKIT_API_SECRET = import.meta.env.VITE_CONVERTKIT_API_SECRET;
-
 
 type AccountInfoData = {
   name: string;
@@ -10,10 +9,8 @@ type AccountInfoData = {
 };
 
 export const useAccountInfo = () => {
-  const queryClient = useQueryClient()
-  const queryString = [
-    `api_secret=${VITE_CONVERTKIT_API_SECRET}`,
-  ];
+  // const queryClient = useQueryClient();
+  const queryString = [`api_secret=${VITE_CONVERTKIT_API_SECRET}`];
 
   return useQuery(`accountInfo-${queryString}`, async () => {
     const response = await httpClient.get<AccountInfoData>(

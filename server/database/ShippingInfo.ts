@@ -1,6 +1,4 @@
 import mongoose, { Schema, Types } from 'mongoose';
-import User from './User';
-import { mongooseConnection } from '.';
 
 export interface IShippingAddress {
   _id: Types.ObjectId;

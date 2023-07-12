@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'lazysizes';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 
 import { TProduct } from '../../redux/slices/allProductSlice';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
@@ -11,7 +11,7 @@ export type ImageCarouselProps = {
   product: TProduct;
   num: number;
   selectedImage: string;
-  setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
+  // setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
   changeImage: ((oldImage: string, newImage: string) => void) | null;
 };
 
@@ -19,7 +19,7 @@ export default function ImageCarousel({
   product,
   num,
   selectedImage,
-  setSelectedImage,
+  // setSelectedImage,
   changeImage,
 }: ImageCarouselProps) {
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();

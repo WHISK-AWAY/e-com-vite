@@ -1,6 +1,6 @@
 import mongoose, { Schema, Types } from 'mongoose';
 import User from './User';
-import Order from './Order';
+// import Order from './Order';
 import { softDeletePlugin, SoftDeleteModel } from 'soft-delete-plugin-mongoose';
 
 export interface IReview extends mongoose.Document {
@@ -73,7 +73,7 @@ const reviewSchema = new Schema<IReview>({
 reviewSchema.pre('save', async function (next) {
   if (!this.isNew) return next();
 
-  let updatedUser = await User.findByIdAndUpdate(this.user, {
+  await User.findByIdAndUpdate(this.user, {
     $inc: { reviewCount: 1 },
   });
   // console.log('updatedUser:', JSON.parse(JSON.stringify(updatedUser)));

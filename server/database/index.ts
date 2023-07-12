@@ -1,10 +1,14 @@
-export { default as Order, IOrder } from './Order';
-export { default as Promo, IPromo } from './Promo';
+export { default as Order } from './Order';
+export type { IOrder } from './Order';
+export { default as Promo } from './Promo';
+export type { IPromo } from './Promo';
 export { default as Product } from './Product';
-export { default as Review, IReview } from './Review';
-export { default as Tag, ITag } from './Tag';
+export { default as Review } from './Review';
+export type { IReview } from './Review';
+export { default as Tag } from './Tag';
+export type { ITag } from './Tag';
 export { default as User } from './User';
-export {
+export type {
   IUser,
   ICart,
   TCartReturn,
@@ -12,9 +16,12 @@ export {
   IProduct,
   ImageData,
 } from './dbTypes';
-export { default as UserVote, IUserVote } from './UserVote';
-export { default as Statistics, IBestsellerRef } from './Statistics';
-export { default as Shipping, IShippingAddress } from './ShippingInfo';
+export { default as UserVote } from './UserVote';
+export type { IUserVote } from './UserVote';
+export { default as Statistics } from './Statistics';
+export type { IBestsellerRef } from './Statistics';
+export { default as Shipping } from './ShippingInfo';
+export type { IShippingAddress } from './ShippingInfo';
 
 import dotenv from 'dotenv';
 dotenv.config();

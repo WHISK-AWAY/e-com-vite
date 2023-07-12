@@ -1,12 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { TUser } from '../../redux/slices/userSlice';
-import { appendErrors, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { editUserAccountInfo } from '../../redux/slices/userSlice';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import { validateAddress } from '../../utilities/googleAddressValidation';
 
 type ShippingProps = {
@@ -48,11 +47,7 @@ export default function ShippingInfo({ user }: ShippingProps) {
 
   const {
     register,
-    reset,
     handleSubmit,
-    setError,
-    getValues,
-    setValue,
     formState: { errors, dirtyFields },
   } = useForm<ShippingInfoFields>({
     resolver: zodResolver(ZShippingData),
@@ -72,10 +67,9 @@ export default function ShippingInfo({ user }: ShippingProps) {
   const submitData = (addressData: ShippingInfoFields) => {
     console.log('inside submitData');
 
-    validateAddress(addressData).then((validationInfo) => {
+    validateAddress(addressData).then((_) => {
       // if (validationInfo.result === 'confirmed') {
       if (true) {
-        // * good shit
         setAddressValidationFailed(false);
         console.log('address confirmed');
         dispatch(

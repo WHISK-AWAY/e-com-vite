@@ -4,7 +4,7 @@ import { useAppSelector } from '../redux/hooks';
 import { TProduct } from '../redux/slices/allProductSlice';
 
 export default function SortFilterAllProds({
-  sort,
+  // sort,
   setSort,
   filter,
   setFilter,
@@ -12,7 +12,7 @@ export default function SortFilterAllProds({
   sortKey,
   sortDir,
 }: {
-  sort: TSort;
+  // sort: TSort;
   setSort: React.Dispatch<React.SetStateAction<TSort>>;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;

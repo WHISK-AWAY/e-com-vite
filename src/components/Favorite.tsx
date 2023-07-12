@@ -9,7 +9,6 @@ import { selectAuth } from '../redux/slices/authSlice';
 import { addToCart } from '../redux/slices/cartSlice';
 import FavoriteItem from './FavoriteItem';
 import x from '../../src/assets/icons/x.svg';
-import { Link } from 'react-router-dom';
 
 export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
   const dispatch = useAppDispatch();

@@ -3,7 +3,7 @@ import { RootState } from '../../store';
 import axios, { AxiosError } from 'axios';
 
 import type { ReviewSortFields } from '../../../components/Admin/AdminReviews';
-import { ImageData } from '../../../../server/database';
+import type { ImageData } from '../../../../client-side-types';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -202,7 +202,7 @@ const adminReviewSlice = createSlice({
       })
       .addCase(
         fetchAllAdminReviews.rejected,
-        (state, { payload }: PayloadAction<any>) => {
+        (_, { payload }: PayloadAction<any>) => {
           return { ...initialState, errors: payload };
         }
       );

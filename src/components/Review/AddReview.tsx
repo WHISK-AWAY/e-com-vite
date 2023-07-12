@@ -91,13 +91,9 @@ export default function AddReview({
   const {
     register,
     handleSubmit,
-    reset,
-    setError,
-    clearErrors,
-    getValues,
     setValue,
     control,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<TAddReview>({
     resolver: zodResolver(zodAddReview),
     defaultValues,
@@ -223,7 +219,7 @@ export default function AddReview({
                       control={control}
                       name='skinConcernOptions'
                       rules={{ required: true, min: 3, max: 5 }}
-                      render={({ field: { onChange, onBlur }, formState }) => (
+                      render={({ field: { onChange, onBlur } }) => (
                         <Select
                           unstyled={false}
                           className='h-fit text-xs lg:text-base 2xl:h-16'

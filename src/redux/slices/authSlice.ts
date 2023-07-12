@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
-import { z } from 'zod';
-import { createZodUser } from '../../../server/api/authRouter';
-import { ICart } from './cartSlice';
-
+import type { UserSignUpInput } from '../../../client-side-types';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 /**
@@ -20,8 +17,6 @@ export type AuthState = {
     status: number | null;
   };
 };
-
-export type UserSignUpInput = z.infer<typeof createZodUser>;
 
 export type Credentials = {
   email: string;
@@ -212,7 +207,7 @@ export const authSlice = createSlice({
      */
 
     builder
-      .addCase(requestLogout.pending, (state) => {
+      .addCase(requestLogout.pending, () => {
         return { ...initialState, loading: true };
       })
       .addCase(requestLogout.fulfilled, () => {

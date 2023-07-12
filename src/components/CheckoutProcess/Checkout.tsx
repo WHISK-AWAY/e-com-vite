@@ -3,10 +3,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import {
-  StripeElementsOptions,
-  StripePaymentElementOptions,
-} from '@stripe/stripe-js';
+import { StripePaymentElementOptions } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { selectOrderState } from '../../redux/slices/orderSlice';
 import { useAppSelector } from '../../redux/hooks';

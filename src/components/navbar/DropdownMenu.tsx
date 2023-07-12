@@ -15,10 +15,10 @@ export type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
   setIsMenuHidden,
-  isMenuHidden,
-}: {
+}: // isMenuHidden,
+{
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  isMenuHidden: boolean;
+  // isMenuHidden: boolean;
 }) {
   const navigate = useNavigate();
 

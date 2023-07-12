@@ -58,15 +58,15 @@ export default function EditPassword({ user }: AccountProps) {
   const {
     register,
     reset,
-    resetField,
+    // resetField,
     handleSubmit,
     setError,
     clearErrors,
-    trigger,
-    getValues,
-    setValue,
+    // trigger,
+    // getValues,
+    // setValue,
 
-    formState: { errors, touchedFields, dirtyFields },
+    formState: { errors, dirtyFields },
   } = useForm<PasswordFormData>({
     resolver: zodResolver(ZPasswordEdit),
     defaultValues,

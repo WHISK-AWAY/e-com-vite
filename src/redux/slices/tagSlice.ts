@@ -44,7 +44,7 @@ const tagSlice = createSlice({
       .addCase(fetchAllTags.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchAllTags.fulfilled, (state, { payload }) => {
+      .addCase(fetchAllTags.fulfilled, (_, { payload }) => {
         return { ...initialState, tags: payload };
       })
       .addCase(fetchAllTags.rejected, (_, { payload }: PayloadAction<any>) => {
@@ -52,7 +52,6 @@ const tagSlice = createSlice({
       });
   },
 });
-
 
 export type TTag = {
   tagName: string;
@@ -68,5 +67,5 @@ export type TagState = {
   };
 };
 
-    export const selectTagState = (state: RootState) => state.tag;
-    export default tagSlice.reducer;
+export const selectTagState = (state: RootState) => state.tag;
+export default tagSlice.reducer;

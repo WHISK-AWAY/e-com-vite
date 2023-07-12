@@ -144,16 +144,16 @@ export default function SingleProduct() {
   const pinRef = useRef(null);
   const mainImage = useRef<HTMLDivElement>(null);
 
-  const mainImageTimeline = useRef<gsap.core.Timeline | null>(null);
+  // const mainImageTimeline = useRef<gsap.core.Timeline | null>(null);
   const changeImage = useRef<
     ((oldImage: string, newImage: string) => void) | null
   >(null);
 
-  const images = {
-    oldImage: 'http://localhost:5173/assets/productImages/ten_4001_15ml.jpg',
-    newImage:
-      'http://localhost:5173/assets/productImages/serum-ten_nav-desktop.jpg',
-  };
+  // const images = {
+  //   oldImage: 'http://localhost:5173/assets/productImages/ten_4001_15ml.jpg',
+  //   newImage:
+  //     'http://localhost:5173/assets/productImages/serum-ten_nav-desktop.jpg',
+  // };
 
   // useLayoutEffect(() => {
   //   // Set up fade-out animation & generate image change function to be used _
@@ -185,6 +185,7 @@ export default function SingleProduct() {
   // }, [mainImage, selectedImage]);
 
   function imageChanger(oldImage: string, newImage: string) {
+    console.log(oldImage);
     gsap
       .to('.fader', {
         opacity: 0,
@@ -460,7 +461,7 @@ export default function SingleProduct() {
               <ImageCarousel
                 num={3}
                 product={singleProduct}
-                setSelectedImage={setSelectedImage}
+                // setSelectedImage={setSelectedImage}
                 selectedImage={selectedImage}
                 changeImage={changeImage.current}
               />

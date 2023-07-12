@@ -4,7 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { TReduxError } from '../reduxTypes';
 import type { ShippingInfoFields } from '../../components/UserAccount/shippingAddress/ManageShippingAddress';
-import { ImageData } from '../../../server/database';
+import { ImageData } from '../../../client-side-types';
 import { TTag } from './allProductSlice';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 

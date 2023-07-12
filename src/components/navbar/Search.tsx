@@ -1,8 +1,8 @@
 import type { TSearch } from '../../redux/slices/allProductSlice';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { gsap } from 'gsap';
-import x from '../../assets/icons/x.svg';
+// import { gsap } from 'gsap';
+// import x from '../../assets/icons/x.svg';
 
 export default function Search({
   searchResults,
@@ -57,7 +57,7 @@ export default function Search({
 
   const handleTagNameSearch = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    tagId: string,
+    // tagId: string,
     tagName: string
   ) => {
     e.preventDefault();
@@ -134,7 +134,7 @@ export default function Search({
               // <Link to={`/shop-all?page=1`} state={{ filterKey: tag.tagName }}>
 
               <div
-                onClick={(e) => handleTagNameSearch(e, tag.tagId, tag.tagName)}
+                onClick={(e) => handleTagNameSearch(e, tag.tagId)}
                 key={tag.tagId}
               >
                 <p>{tag.tagName}</p>

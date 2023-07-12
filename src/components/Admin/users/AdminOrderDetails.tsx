@@ -4,8 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
   selectSingleOrder,
   fetchSingleOrder,
-  fetchAllOrders,
-  selectOrderState,
 } from '../../../redux/slices/orderSlice';
 
 export default function AdminOrderDetails() {
@@ -13,7 +11,6 @@ export default function AdminOrderDetails() {
   const order = useAppSelector(selectSingleOrder);
   const { orderId } = useParams();
   const { userId } = useParams();
-  const allOrders = useAppSelector(selectOrderState);
 
   useEffect(() => {
     if (userId && orderId) dispatch(fetchSingleOrder({ userId, orderId }));
@@ -50,14 +47,19 @@ export default function AdminOrderDetails() {
               <tr>
                 <td className='pr-2'>{userId}</td>
                 <td className='pr-2'>{ord.productId}</td>
-                <td className='pr-2'>{new Date(order?.date).toLocaleDateString()}</td>
+                <td className='pr-2'>
+                  {new Date(order?.date).toLocaleDateString()}
+                </td>
                 <td className='pr-2'>{ord.productName}</td>
                 <td className='pr-2'>{ord.price}</td>
                 <td className='pr-2'>{ord.qty}</td>
                 <td className='pr-2'>{order?.promoCode?.promoCodeName}</td>
                 <td className='pr-2'>{order?.promoCode?.promoCodeRate}</td>
-                {order.promoCode ? 
-                <td>-{(order?.subtotal! - order?.total!).toFixed(2)}</td> : 'No discount'}
+                {order.promoCode ? (
+                  <td>-{(order?.subtotal! - order?.total!).toFixed(2)}</td>
+                ) : (
+                  'No discount'
+                )}
                 <td className='pr-2'>{order?.subtotal}</td>
                 <td className='pr-2'>{order?.total}</td>
                 <td>{order?.orderStatus}</td>

@@ -19,7 +19,7 @@ export default function ShopByCategoryListItem({
   const [catState, setCatState] = useState<gsap.core.Timeline | null>(null);
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
-  const catRef = useRef(null);
+  // const catRef = useRef(null);
 
   useEffect(() => {
     setMenuHeight(

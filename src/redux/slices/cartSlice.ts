@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import axios, { Axios, AxiosError } from 'axios';
-import { ImageData } from '../../../server/database';
+import axios, { AxiosError } from 'axios';
+import type { ImageData } from '../../../client-side-types';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {

@@ -1,32 +1,21 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import {
-  selectAuth,
-  requestSignUp,
-  requestLogin,
-} from '../redux/slices/authSlice';
+import { useAppDispatch } from '../redux/hooks';
+import { requestSignUp, requestLogin } from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
 import { TMode } from './SignWrapper';
 import signup from '../assets/bg-vids/sign-up.mp4';
-import SignIn from './SignIn';
 
 export default function SignUp({
-  setIsSignFormHidden,
-  mode,
   setMode,
 }: {
-  // setIsSignupHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  mode: TMode;
   setMode: React.Dispatch<React.SetStateAction<TMode>>;
-  setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const selectAuthUser = useAppSelector(selectAuth);
 
   const zodUser: ZodType<FormData> = z
     .object({
@@ -79,7 +68,6 @@ export default function SignUp({
     handleSubmit,
     reset,
     setError,
-    clearErrors,
     getValues,
     formState: { errors },
   } = useForm<FormData>({

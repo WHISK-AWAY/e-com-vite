@@ -3,8 +3,10 @@ import { UserProduct } from '../userSlice';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 import axios, { AxiosError } from 'axios';
 import { RootState } from '../../store';
-import { zodProduct } from '../../../../server/utils';
-import z from 'zod';
+import type {
+  ZodCreateProduct,
+  ZodEditProduct,
+} from '../../../../client-side-types';
 
 export interface ProductState {
   allProducts: { products: UserProduct[] };
@@ -13,8 +15,8 @@ export interface ProductState {
   errors: { status: number | null; message: string | null };
 }
 
-export type ZodCreateProduct = z.infer<typeof zodProduct>;
-export type ZodEditProduct = Partial<z.infer<typeof zodProduct>>;
+// export type ZodCreateProduct = z.infer<typeof zodProduct>;
+// export type ZodEditProduct = Partial<z.infer<typeof zodProduct>>;
 
 const initialState: ProductState = {
   allProducts: {

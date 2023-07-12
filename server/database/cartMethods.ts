@@ -1,11 +1,8 @@
-import bcrypt from 'bcrypt';
-import { v4 as uuid } from 'uuid';
 import dotenv from 'dotenv';
 dotenv.config({ path: '../../.env ' });
-const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
+// const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
 import Product from './Product';
-import { ICart, IUser, TCartReturn, TProduct } from './dbTypes';
-
+import type { ICart, TCartReturn, TProduct } from './dbTypes';
 
 export async function addToCart(
   this: ICart & { parent?(): any },

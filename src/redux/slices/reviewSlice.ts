@@ -78,10 +78,10 @@ export const addReview = createAsyncThunk(
   'review/addReview',
   async (
     {
-      userId,
+      // userId,
       productId,
       review,
-    }: { userId: string; productId: string; review: TAddNewReview },
+    }: { userId?: string; productId: string; review: TAddNewReview },
     thunkApi
   ) => {
     try {
@@ -105,14 +105,14 @@ export const deleteReview = createAsyncThunk(
   'review/deleteReview',
   async (
     {
-      userId,
+      // userId,
       reviewId,
       productId,
-    }: { userId: string; reviewId: string; productId: string },
+    }: { userId?: string; reviewId: string; productId: string },
     thunkApi
   ) => {
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         VITE_API_URL + `/api/product/${productId}/review/${reviewId}`,
         { withCredentials: true }
       );

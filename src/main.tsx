@@ -5,7 +5,7 @@ import './index.css';
 import { store } from '../src/redux/store.ts';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

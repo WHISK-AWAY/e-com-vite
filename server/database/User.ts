@@ -1,12 +1,12 @@
-import mongoose, { Schema, StringExpression, Types } from 'mongoose';
-import Product from './Product';
+import mongoose, { Schema } from 'mongoose';
+// import Product from './Product';
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { v4 as uuid } from 'uuid';
 dotenv.config({ path: '../../.env ' });
 const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
 import { softDeletePlugin, SoftDeleteModel } from 'soft-delete-plugin-mongoose';
-import { ICart, TProduct, TCartReturn, IUser } from './dbTypes';
+import type { ICart, IUser } from './dbTypes';
 import {
   addToCart,
   cartSubtotal,

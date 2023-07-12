@@ -1,10 +1,10 @@
 import { TProduct } from '../../redux/slices/allProductSlice';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { useNavigate } from 'react-router';
 import 'lazysizes';
-import { gsap } from 'gsap';
+// import { gsap } from 'gsap';
 
 type RenderProduct = Omit<TProduct, 'relatedProducts'>;
 
@@ -39,8 +39,6 @@ export default function ProductCarousel({
     setProdCopy((prev) => [...prev.slice(1), prev[0]]);
   };
 
-
-
   return (
     <div className='relative flex w-3/4 items-start justify-center gap-10 2xl:w-4/5'>
       <button
@@ -51,7 +49,7 @@ export default function ProductCarousel({
           src={arrowLeft}
           // ref={leftArrowRef}
           alt='left-arrow-icon'
-          className='h-3 transform transition-all duration-150 hover:scale-150 group hover:ease-in-out active:scale-50 xl:h-5 active:bg-red-800 active:ease-in active:duration-700 active:'
+          className='active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5'
         />
       </button>
       {renderProduct.map((prod) => {
@@ -80,7 +78,7 @@ export default function ProductCarousel({
             className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
           >
             <img
-              className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:invisible  group-hover:scale-105 group-active:ease-in-out xl:w-[175px] 2xl:w-[200px] group-active:duration-[10000] active:translate-y-[600%]'
+              className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
               data-src={
                 prod.images.find((image) => image.imageDesc === 'product-front')
                   ?.imageURL || prod.images[0].imageURL
