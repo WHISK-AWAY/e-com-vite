@@ -1,5 +1,5 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { TProduct } from '../../redux/slices/allProductSlice';
-import { useEffect, useRef, useState } from 'react';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { useNavigate } from 'react-router';
@@ -18,6 +18,8 @@ export default function ProductCarousel({
   const navigate = useNavigate();
   const [prodCopy, setProdCopy] = useState<RenderProduct[]>([]);
   const [renderProduct, setRenderProduct] = useState<RenderProduct[]>([]);
+  const incrementAnimation = useRef<gsap.core.Timeline | null>(null);
+  const decrementAnimation = useRef<gsap.core.Timeline | null>(null);
   // const rightArrowRef = useRef(null);
   // const leftArrowRef = useRef(null);
 
@@ -26,20 +28,130 @@ export default function ProductCarousel({
   }, [products]);
 
   useEffect(() => {
-    setRenderProduct(prodCopy.slice(0, num));
+    // setRenderProduct(prodCopy.slice(0, num));
+    setupRenderProductsArray();
   }, [prodCopy, num]);
 
+  useLayoutEffect(() => {
+    if (!renderProduct?.length) return;
+
+    const ctx = gsap.context(() => {
+      const incTimeline = gsap.timeline().pause();
+      const decTimeline = gsap.timeline().pause();
+      const products = Array.from(document.querySelectorAll('.ymal-card'));
+
+      if (!products?.length)
+        return console.error('Error: no products selected.');
+
+      incTimeline
+        .addLabel('begin')
+        .to(products[1], {
+          // fade out first shown product
+          opacity: 0,
+        })
+        .to(products, {
+          // shift all products leftward
+          x: (_, target) => {
+            return -target.getBoundingClientRect().width - 40; // 40 being the 'gap' setting
+          },
+        })
+        .set(products[1], {
+          // remove first shown product
+          display: 'none',
+        })
+        .set(products.at(-1)!, {
+          // un-hide (while making invisible) new last product
+          display: 'inherit',
+          opacity: 0,
+        })
+        .set(products, {
+          // position all products for arrival of "new" rendered product
+          x: 0,
+        })
+        .to(products.at(-1)!, {
+          // fade in last product
+          opacity: 1,
+        });
+
+      decTimeline
+        .addLabel('begin')
+        .to(products[num], {
+          // fade out last shown product
+          opacity: 0,
+        })
+        .to(products, {
+          // shift all products rightward
+          x: (_, target) => {
+            return target.getBoundingClientRect().width + 40; // 40 being the 'gap' setting
+          },
+        })
+        .set(products[num], {
+          // remove last shown product
+          display: 'none',
+        })
+        .set(products, {
+          // position all products for arrival of "new" rendered product
+          x: 0,
+        })
+        .set(products[0], {
+          // un-hide (while making invisible) new first product
+          display: 'inherit',
+          opacity: 0,
+        })
+        .to(products[0], {
+          // fade in new first product
+          opacity: 1,
+        });
+
+      incrementAnimation.current = incTimeline;
+      decrementAnimation.current = decTimeline;
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  });
+
   const decrementor = () => {
-    setProdCopy((prev) => [
-      ...prev.slice(products.length - 1),
-      ...prev.slice(0, -1),
-    ]);
+    decrementAnimation.current
+      ?.duration(0.75)
+      .resume('begin')
+      .then(() => {
+        setProdCopy((prev) => [
+          ...prev.slice(products.length - 1),
+          ...prev.slice(0, -1),
+        ]);
+      });
   };
   const incrementor = () => {
-    setProdCopy((prev) => [...prev.slice(1), prev[0]]);
+    incrementAnimation.current
+      ?.duration(0.75)
+      .resume('begin')
+      .then(() => {
+        setProdCopy((prev) => [...prev.slice(1), prev[0]]);
+      });
   };
 
+  function setupRenderProductsArray() {
+    // build array of n+2 products to place in carousel
+    // idx 0 & idx n+1 will be hidden until animated by incrementing/decrementing
+    if (!prodCopy?.length) return;
 
+    // index zero should be the last image in the array (to prep for decrementor)
+    const tempProductsArray = [prodCopy.at(-1)!];
+
+    let i = 0;
+    while (tempProductsArray.length < num + 2) {
+      // reset index if we reach the end of the products array
+      if (i === prodCopy.length) i = 0;
+
+      tempProductsArray.push(prodCopy[i]);
+      i++;
+    }
+
+    setRenderProduct(tempProductsArray);
+    return;
+  }
 
   return (
     <div className='relative flex w-3/4 items-start justify-center gap-10 2xl:w-4/5'>
@@ -49,67 +161,69 @@ export default function ProductCarousel({
       >
         <img
           src={arrowLeft}
-          // ref={leftArrowRef}
           alt='left-arrow-icon'
-          className='h-3 transform transition-all duration-150 hover:scale-150 group hover:ease-in-out active:scale-50 xl:h-5 active:bg-red-800 active:ease-in active:duration-700 active:'
+          className='active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5'
         />
       </button>
-      {renderProduct.map((prod) => {
-        const gifURL = prod.images.find((image) =>
-          ['gif-product', 'video-product'].includes(image.imageDesc)
-        )?.imageURL;
+      <div className='card-wrapper flex items-start justify-center gap-10'>
+        {renderProduct.map((prod, idx) => {
+          const gifURL = prod.images.find((image) =>
+            ['gif-product', 'video-product'].includes(image.imageDesc)
+          )?.imageURL;
 
-        let hoverFallback =
-          prod.images
-            .slice(1)
-            .find((image) => image.imageDesc === 'product-texture')?.imageURL ||
-          prod.images
-            .slice(1)
-            .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
-          prod.images
-            .slice(1)
-            .find((image) => !image.imageDesc.includes('video'))?.imageURL;
-
-        return (
-          <div
-            key={prod._id.toString()}
-            onClick={() => {
-              // window.scrollTo({ top: 0, behavior: 'smooth' });
-              navigate('/product/' + prod._id);
-            }}
-            className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
-          >
-            <img
-              className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:invisible  group-hover:scale-105 group-active:ease-in-out xl:w-[175px] 2xl:w-[200px] group-active:duration-[10000] active:translate-y-[600%]'
-              data-src={
-                prod.images.find((image) => image.imageDesc === 'product-front')
-                  ?.imageURL || prod.images[0].imageURL
-              }
-              data-sizes='auto'
-              alt='product image'
-            />
-            {gifURL ? (
-              <video
-                className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                data-src={gifURL}
-                data-sizes='auto'
-                muted={true}
-                autoPlay={true}
-                loop={true}
-              />
-            ) : (
+          let hoverFallback =
+            prod.images
+              .slice(1)
+              .find((image) => image.imageDesc === 'product-texture')
+              ?.imageURL ||
+            prod.images
+              .slice(1)
+              .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+            prod.images
+              .slice(1)
+              .find((image) => !image.imageDesc.includes('video'))?.imageURL;
+          return (
+            <div
+              key={prod._id.toString() + '_' + idx}
+              onClick={() => {
+                // window.scrollTo({ top: 0, behavior: 'smooth' });
+                navigate('/product/' + prod._id);
+              }}
+              className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
+            >
               <img
-                className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                data-src={hoverFallback}
-                data-sizes='auto'
+                className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                src={
+                  prod.images.find(
+                    (image) => image.imageDesc === 'product-front'
+                  )?.imageURL || prod.images[0].imageURL
+                }
+                // data-sizes='auto'
+                alt='product image'
               />
-            )}
-            <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
-              {prod.productName}
-            </h4>
-          </div>
-        );
-      })}
+              {gifURL ? (
+                <video
+                  className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                  src={gifURL}
+                  // data-sizes='auto'
+                  muted={true}
+                  autoPlay={true}
+                  loop={true}
+                />
+              ) : (
+                <img
+                  className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                  src={hoverFallback}
+                  data-sizes='auto'
+                />
+              )}
+              <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
+                {prod.productName}
+              </h4>
+            </div>
+          );
+        })}
+      </div>
       <button
         onClick={incrementor}
         className='absolute -right-24 top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40 '
