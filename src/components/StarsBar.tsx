@@ -23,7 +23,7 @@ export default function StarsBar({
   const filledStars = Math.floor(score);
   const halfStars = Math.ceil(score) - Math.floor(score);
   const emptyStars = 5 - filledStars - halfStars;
-  // TODO: deal with half-stars
+
   return (
     <div className='relative mb-10 flex w-fit flex-col'>
       <div className='star-container flex flex-row'>
