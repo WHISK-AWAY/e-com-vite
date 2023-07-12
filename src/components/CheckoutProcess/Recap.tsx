@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import 'lazysizes'
+import 'lazysizes';
 
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
@@ -34,6 +34,8 @@ import Counter from '../Counter';
 import oceanBg from '../../../src/assets/bg-img/ocean.jpg';
 import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 import x from '../../../src/assets/icons/x.svg';
+
+const API_URL = import.meta.env.VITE_API_URL;
 const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
 export default function Recap() {
@@ -172,7 +174,7 @@ export default function Recap() {
           createOrder({ userId, order: orderDetails() as TOrder })
         );
         const { data } = await axios.post(
-          'http://localhost:3001/api/checkout/create-payment-intent',
+          `${API_URL}/api/checkout/create-payment-intent`,
           {},
           { withCredentials: true }
         );
@@ -185,7 +187,7 @@ export default function Recap() {
 
         await dispatch(createGuestOrder(order));
         const { data } = await axios.post(
-          'http://localhost:3001/api/checkout/create-guest-payment-intent',
+          `${API_URL}/api/checkout/create-guest-payment-intent`,
           cart,
           { withCredentials: true }
         );
