@@ -10,4 +10,4 @@ COPY . .
 
 CMD ["npm", "run", "server"]
 
-EXPOSE 3001
+EXPOSE 3050
