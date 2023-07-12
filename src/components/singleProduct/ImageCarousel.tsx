@@ -49,8 +49,29 @@ export default function ImageCarousel({
   }, [num, product]);
 
   useEffect(() => {
-    setRenderImage(prodImagesCopy?.slice(0, num + 1));
+    setupRenderImagesArray();
+    // setRenderImage(prodImagesCopy?.slice(0, num + 2)); // select first n+2 images to render
+    // idx 0 & idx n will be hidden until animated by incrementing/decrementing
   }, [prodImagesCopy, num]);
+
+  function setupRenderImagesArray() {
+    if (!prodImagesCopy?.length) return;
+
+    // index zero should be the last image in the array (to prep for decrementor)
+    const tempImagesArray = [prodImagesCopy.at(-1)!];
+
+    let i = 0;
+    while (tempImagesArray.length < num + 2) {
+      // reset index if we reach the end of the images array
+      if (i === prodImagesCopy.length) i = 0;
+
+      tempImagesArray.push(prodImagesCopy[i]);
+      i++;
+    }
+
+    setRenderImage(tempImagesArray);
+    return;
+  }
 
   useEffect(() => {
     if (!renderImage?.length || !changeImage) return;
@@ -67,6 +88,15 @@ export default function ImageCarousel({
       prodImagesCopy!.at(-1)!.imageURL
     );
   };
+
+  useEffect(() => {
+    // ! debug
+    console.log('renderImage:', renderImage);
+  }, [renderImage]);
+  useEffect(() => {
+    // ! debug
+    console.log('prodImagesCopy:', prodImagesCopy);
+  }, [prodImagesCopy]);
 
   // useLayoutEffect(() => {
   //   const ctx = gsap.context(() => {
@@ -121,57 +151,41 @@ export default function ImageCarousel({
           className='h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5'
         />
       </button>
-      {renderImage.map((image, idx) => {
-        let extension = image.imageURL.split('.').at(-1);
-        return (
-          <div
-            key={image.imageURL}
-            onClick={() => {
-              changeImage!(selectedImage, image.imageURL);
-              // setSelectedImage(image.imageURL);
-            }}
-            className={
-              'image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]' +
-              (idx === num ? ' hidden' : '')
-            }
-          >
-            {['gif', 'mp4'].includes(extension!) ? (
-              <video
-                muted={true}
-                autoPlay={true}
-                loop={true}
-                data-src={image.imageURL}
-                data-sizes='auto'
-                className='lazyload aspect-[3/4] border border-charcoal object-cover'
-              />
-            ) : (
-              <img
-                className='lazyload aspect-[3/4] border border-charcoal object-cover'
-                data-src={image.imageURL}
-                data-sizes='auto'
-                alt={image.imageDesc}
-              />
-            )}
-          </div>
-        );
-      })}
-      {/* render "+1" image for use in animation */}
-      {/* {renderImage?.length > 0 && trailingImage()} */}
-      {/* {['gif', 'mp4'].includes(
-        prodImagesCopy[Math.min(num, prodImagesCopy.length)]?.imageURL
-          ?.split('.')
-          ?.at(-1)
-      ) ? (
-        <video
-          className='trailing-image hidden'
-          src={prodImagesCopy[Math.min(num, prodImagesCopy.length)].imageURL}
-        />
-      ) : (
-        <img
-          className='trailing-image hidden'
-          src={prodImagesCopy[Math.min(num, prodImagesCopy.length)].imageURL}
-        />
-      )} */}
+      <div className='images-wrapper flex gap-3'>
+        {renderImage.map((image, idx) => {
+          let extension = image.imageURL.split('.').at(-1);
+          return (
+            <div
+              key={image.imageURL + '_' + idx}
+              onClick={() => {
+                changeImage!(selectedImage, image.imageURL);
+                // setSelectedImage(image.imageURL);
+              }}
+              className={
+                'image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
+              }
+            >
+              {['gif', 'mp4'].includes(extension!) ? (
+                <video
+                  muted={true}
+                  autoPlay={true}
+                  loop={true}
+                  data-src={image.imageURL}
+                  data-sizes='auto'
+                  className='lazyload aspect-[3/4] border border-charcoal object-cover'
+                />
+              ) : (
+                <img
+                  className='lazyload aspect-[3/4] border border-charcoal object-cover'
+                  data-src={image.imageURL}
+                  data-sizes='auto'
+                  alt={image.imageDesc}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
       <button
         onClick={incrementor}
         className='absolute -right-7 shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20'
