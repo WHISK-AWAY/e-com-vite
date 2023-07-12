@@ -10,16 +10,12 @@ import { ImageData } from '../../../server/database';
 export type ImageCarouselProps = {
   product: TProduct;
   num: number;
-  selectedImage: string;
-  setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
   changeImage: ((newImage: string) => void) | null;
 };
 
 export default function ImageCarousel({
   product,
   num,
-  selectedImage,
-  setSelectedImage,
   changeImage,
 }: ImageCarouselProps) {
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();
@@ -28,7 +24,8 @@ export default function ImageCarousel({
   const decrementAnimation = useRef<gsap.core.Timeline | null>(null);
 
   // * This works now, but commenting it out until we can discuss how _
-  // * exactly it should behave.
+  // * exactly it should behave. Note: it does not currently reset _
+  // * upon user interation.
   // useEffect(() => {
   //   let clearId = setInterval(() => autoIncrementImage(), 1000 * 10);
 
@@ -39,7 +36,6 @@ export default function ImageCarousel({
   // function autoIncrementImage() {
   //   console.log('autoincrement running');
   //   incrementor();
-  //   setSelectedImage(prodImagesCopy![0].imageURL);
   // }
 
   useEffect(() => {
@@ -52,11 +48,11 @@ export default function ImageCarousel({
 
   useEffect(() => {
     setupRenderImagesArray();
-    // setRenderImage(prodImagesCopy?.slice(0, num + 2)); // select first n+2 images to render
-    // idx 0 & idx n will be hidden until animated by incrementing/decrementing
   }, [prodImagesCopy, num]);
 
   function setupRenderImagesArray() {
+    // build array of n+2 images to place in carousel
+    // idx 0 & idx n+1 will be hidden until animated by incrementing/decrementing
     if (!prodImagesCopy?.length) return;
 
     // index zero should be the last image in the array (to prep for decrementor)
@@ -102,16 +98,6 @@ export default function ImageCarousel({
         changeImage!(prodImagesCopy!.at(-1)!.imageURL);
       });
   };
-
-  useEffect(() => {
-    // ! debug
-    console.log('renderImage:', renderImage);
-  }, [renderImage]);
-
-  useEffect(() => {
-    // ! debug
-    console.log('prodImagesCopy:', prodImagesCopy);
-  }, [prodImagesCopy]);
 
   useLayoutEffect(() => {
     if (!renderImage?.length) return;
@@ -187,40 +173,6 @@ export default function ImageCarousel({
       ctx.revert();
     };
   });
-
-  // useLayoutEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     const tl = gsap.timeline();
-  //     const leadImage = document.querySelector('div.image-card:first-of-type');
-  //     const trailingImage = document.querySelector(
-  //       'div.image-card:last-of-type'
-  //     );
-  //     tl.to(leadImage, {
-  //       opacity: 0,
-  //     })
-  //       .to('.image-card', {
-  //         x: '-=100%',
-  //       })
-  //       .set(leadImage, {
-  //         display: 'none',
-  //       })
-  //       .set(trailingImage, {
-  //         display: 'inherit',
-  //         opacity: 0,
-  //       })
-  //       .to(
-  //         trailingImage,
-  //         {
-  //           opacity: 1,
-  //         },
-  //         '<'
-  //       );
-  //   });
-
-  //   return () => {
-  //     ctx.revert();
-  //   };
-  // });
 
   if (!prodImagesCopy || !renderImage) return <h1>Loading images...</h1>;
 

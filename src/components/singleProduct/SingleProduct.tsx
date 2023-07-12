@@ -144,43 +144,7 @@ export default function SingleProduct() {
   const pinRef = useRef(null);
   const mainImage = useRef<HTMLDivElement>(null);
 
-  const mainImageTimeline = useRef<gsap.core.Timeline | null>(null);
   const changeImage = useRef<((newImage: string) => void) | null>(null);
-
-  const images = {
-    oldImage: 'http://localhost:5173/assets/productImages/ten_4001_15ml.jpg',
-    newImage:
-      'http://localhost:5173/assets/productImages/serum-ten_nav-desktop.jpg',
-  };
-
-  // useLayoutEffect(() => {
-  //   // Set up fade-out animation & generate image change function to be used _
-  //   // by carousel component
-  //   if (!selectedImage || !mainImage?.current) return;
-
-  //   const ctx = gsap.context(() => {
-  //     const tl = gsap.timeline();
-
-  //     tl.pause().addLabel('fadeOut').to('.fader', {
-  //       opacity: 0,
-  //       duration: 0.25,
-  //     });
-
-  //     function imageChanger(oldImage: string, newImage: string) {
-  //       mainImageTimeline.current!.play('fadeOut').then(() => {
-  //         console.log('setting new image');
-  //         setSelectedImage(newImage);
-  //       });
-  //     }
-  //     changeImage.current = imageChanger;
-  //     mainImageTimeline.current = tl;
-  //   }, mainImage.current);
-
-  //   return () => {
-  //     mainImageTimeline.current = null;
-  //     ctx.revert();
-  //   };
-  // }, [mainImage, selectedImage]);
 
   function imageChanger(newImage: string) {
     gsap
@@ -192,16 +156,6 @@ export default function SingleProduct() {
         setSelectedImage(newImage);
       });
   }
-
-  // render n + 2 images
-  // first & last images display: hidden
-  // increment animation:
-  // increment indices
-  // set all rightwards 1 (post-index change)
-  // fade out idx 0
-  // shift all leftwards
-  // make idx 3 not-hidden
-  // fade in idx 3
 
   changeImage.current = imageChanger;
 
@@ -468,8 +422,6 @@ export default function SingleProduct() {
               <ImageCarousel
                 num={3}
                 product={singleProduct}
-                setSelectedImage={setSelectedImage}
-                selectedImage={selectedImage}
                 changeImage={changeImage.current}
               />
             )}
