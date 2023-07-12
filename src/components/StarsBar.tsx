@@ -3,7 +3,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import starFilled from '../../src/assets/icons/star-filled.svg';
 import starBlank from '../../src/assets/icons/star-blanc.svg';
 import starHalf from '../../src/assets/icons/star-half.svg';
-import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
 
