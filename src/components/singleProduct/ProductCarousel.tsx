@@ -4,7 +4,7 @@ import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { useNavigate } from 'react-router';
 import 'lazysizes';
-// import { gsap } from 'gsap';
+import { gsap } from 'gsap';
 
 type RenderProduct = Omit<TProduct, 'relatedProducts'>;
 

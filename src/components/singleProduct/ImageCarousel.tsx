@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import 'lazysizes';
-// import { gsap } from 'gsap';
+import { gsap } from 'gsap';
 
 import { TProduct } from '../../redux/slices/allProductSlice';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
