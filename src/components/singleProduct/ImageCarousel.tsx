@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import 'lazysizes';
 import { gsap } from 'gsap';
 
@@ -12,7 +12,7 @@ export type ImageCarouselProps = {
   num: number;
   selectedImage: string;
   setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
-  changeImage: ((oldImage: string, newImage: string) => void) | null;
+  changeImage: ((newImage: string) => void) | null;
 };
 
 export default function ImageCarousel({
@@ -24,6 +24,8 @@ export default function ImageCarousel({
 }: ImageCarouselProps) {
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();
   const [renderImage, setRenderImage] = useState<ImageData[]>();
+  const incrementAnimation = useRef<gsap.core.Timeline | null>(null);
+  const decrementAnimation = useRef<gsap.core.Timeline | null>(null);
 
   // * This works now, but commenting it out until we can discuss how _
   // * exactly it should behave.
@@ -77,26 +79,114 @@ export default function ImageCarousel({
     if (!renderImage?.length || !changeImage) return;
   }, [renderImage]);
 
-  const decrementor = () => {
-    setProdImagesCopy((prev) => [
-      ...prev!.slice(prev!.length - 1),
-      ...prev!.slice(0, -1),
-    ]);
+  const incrementor = () => {
+    incrementAnimation.current
+      ?.duration(0.5)
+      .resume('begin')
+      .then(() => {
+        setProdImagesCopy((prev) => [...prev!.slice(1), prev![0]]);
+        changeImage!(prodImagesCopy![1]!.imageURL);
+      });
+  };
 
-    changeImage!(
-      prodImagesCopy![0]!.imageURL,
-      prodImagesCopy!.at(-1)!.imageURL
-    );
+  const decrementor = () => {
+    decrementAnimation.current
+      ?.duration(0.5)
+      .resume('begin')
+      .then(() => {
+        setProdImagesCopy((prev) => [
+          ...prev!.slice(prev!.length - 1),
+          ...prev!.slice(0, -1),
+        ]);
+
+        changeImage!(prodImagesCopy!.at(-1)!.imageURL);
+      });
   };
 
   useEffect(() => {
     // ! debug
     console.log('renderImage:', renderImage);
   }, [renderImage]);
+
   useEffect(() => {
     // ! debug
     console.log('prodImagesCopy:', prodImagesCopy);
   }, [prodImagesCopy]);
+
+  useLayoutEffect(() => {
+    if (!renderImage?.length) return;
+
+    const ctx = gsap.context(() => {
+      const incTimeline = gsap.timeline().pause();
+      const decTimeline = gsap.timeline().pause();
+      const images = Array.from(document.querySelectorAll('.image-card'));
+
+      if (!images?.length) return console.error('Error: no images selected.');
+
+      incTimeline
+        .addLabel('begin')
+        .to(images[1], {
+          // fade out first shown image
+          opacity: 0,
+        })
+        .to(images, {
+          // shift all images leftward
+          x: '-=100%',
+        })
+        .set(images[1], {
+          // remove first shown image
+          display: 'none',
+        })
+        .set(images, {
+          // shift images back rightward to make up space left by disappeared first image
+          x: '+=100%',
+        })
+        .set(images.at(-1)!, {
+          // un-hide (while making invisible) new last image
+          display: 'inherit',
+          opacity: 0,
+        })
+        .to(images.at(-1)!, {
+          // fade in last image
+          opacity: 1,
+        });
+
+      decTimeline
+        .addLabel('begin')
+        .to(images[num], {
+          // fade out last shown image
+          opacity: 0,
+        })
+        .to(images, {
+          // shift all images rightward
+          x: '+=100%',
+        })
+        .set(images[num], {
+          // remove last shown image
+          display: 'none',
+        })
+        .set(images, {
+          // shift all images back leftward to make up for space left by disappeared last image
+          x: '-=100%',
+        })
+        .set(images[0], {
+          // un-hide (while making invisible) new first image
+          display: 'inherit',
+          opacity: 0,
+        })
+        .to(images[0], {
+          // fade in new first image
+          opacity: 1,
+        });
+
+      incrementAnimation.current = incTimeline;
+      decrementAnimation.current = decTimeline;
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  });
 
   // useLayoutEffect(() => {
   //   const ctx = gsap.context(() => {
@@ -132,11 +222,6 @@ export default function ImageCarousel({
   //   };
   // });
 
-  const incrementor = () => {
-    changeImage!(prodImagesCopy![0]!.imageURL, prodImagesCopy![1]!.imageURL);
-    setProdImagesCopy((prev) => [...prev!.slice(1), prev![0]]);
-  };
-
   if (!prodImagesCopy || !renderImage) return <h1>Loading images...</h1>;
 
   return (
@@ -158,7 +243,7 @@ export default function ImageCarousel({
             <div
               key={image.imageURL + '_' + idx}
               onClick={() => {
-                changeImage!(selectedImage, image.imageURL);
+                changeImage!(image.imageURL);
                 // setSelectedImage(image.imageURL);
               }}
               className={
@@ -170,15 +255,17 @@ export default function ImageCarousel({
                   muted={true}
                   autoPlay={true}
                   loop={true}
-                  data-src={image.imageURL}
-                  data-sizes='auto'
+                  // data-src={image.imageURL}
+                  src={image.imageURL}
+                  // data-sizes='auto'
                   className='lazyload aspect-[3/4] border border-charcoal object-cover'
                 />
               ) : (
                 <img
                   className='lazyload aspect-[3/4] border border-charcoal object-cover'
-                  data-src={image.imageURL}
-                  data-sizes='auto'
+                  src={image.imageURL}
+                  // data-src={image.imageURL}
+                  // data-sizes='auto'
                   alt={image.imageDesc}
                 />
               )}

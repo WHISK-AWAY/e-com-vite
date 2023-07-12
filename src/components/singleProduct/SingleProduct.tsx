@@ -145,9 +145,7 @@ export default function SingleProduct() {
   const mainImage = useRef<HTMLDivElement>(null);
 
   const mainImageTimeline = useRef<gsap.core.Timeline | null>(null);
-  const changeImage = useRef<
-    ((oldImage: string, newImage: string) => void) | null
-  >(null);
+  const changeImage = useRef<((newImage: string) => void) | null>(null);
 
   const images = {
     oldImage: 'http://localhost:5173/assets/productImages/ten_4001_15ml.jpg',
@@ -184,7 +182,7 @@ export default function SingleProduct() {
   //   };
   // }, [mainImage, selectedImage]);
 
-  function imageChanger(oldImage: string, newImage: string) {
+  function imageChanger(newImage: string) {
     gsap
       .to('.fader', {
         opacity: 0,
