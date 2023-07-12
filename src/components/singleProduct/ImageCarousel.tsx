@@ -188,7 +188,7 @@ export default function ImageCarousel({
           className='h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5'
         />
       </button>
-      <div className='images-wrapper flex gap-3'>
+      <div className='images-wrapper flex items-start justify-center gap-3'>
         {renderImage.map((image, idx) => {
           let extension = image.imageURL.split('.').at(-1);
           return (
@@ -210,11 +210,11 @@ export default function ImageCarousel({
                   // data-src={image.imageURL}
                   src={image.imageURL}
                   // data-sizes='auto'
-                  className='lazyload aspect-[3/4] border border-charcoal object-cover'
+                  className='lazyload aspect-[3/4] w-full border border-charcoal object-cover'
                 />
               ) : (
                 <img
-                  className='lazyload aspect-[3/4] border border-charcoal object-cover'
+                  className='lazyload aspect-[3/4] w-full border border-charcoal object-cover'
                   src={image.imageURL}
                   // data-src={image.imageURL}
                   // data-sizes='auto'
