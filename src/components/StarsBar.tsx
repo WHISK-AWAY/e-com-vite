@@ -3,7 +3,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import starFilled from '../../src/assets/icons/star-filled.svg';
 import starBlank from '../../src/assets/icons/star-blanc.svg';
 import starHalf from '../../src/assets/icons/star-half.svg';
-import { useEffect, useState } from 'react';
 
 dayjs.extend(relativeTime);
 
@@ -23,7 +22,7 @@ export default function StarsBar({
   const filledStars = Math.floor(score);
   const halfStars = Math.ceil(score) - Math.floor(score);
   const emptyStars = 5 - filledStars - halfStars;
-  // TODO: deal with half-stars
+
   return (
     <div className='relative mb-10 flex w-fit flex-col'>
       <div className='star-container flex flex-row'>
