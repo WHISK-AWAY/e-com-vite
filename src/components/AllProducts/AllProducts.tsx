@@ -27,7 +27,12 @@ import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 
 import 'lazysizes';
-import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import Lenis from '@studio-freight/lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
+// import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+// import { useLocomotiveScroll } from 'react-locomotive-scroll';
+
 
 const PRODS_PER_PAGE = 9;
 export const notify = () =>
@@ -217,13 +222,47 @@ AllProductsProps) {
     return pages;
   };
 
+
+  const lenis = new Lenis({
+    duration: 2.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+    lerp: 0,
+  });
+
+  // lenis.on('scroll', (e: any) => {
+  //   console.log(e);
+  // });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+  requestAnimationFrame(raf);
+
+  // const { scroll } = useLocomotiveScroll();
+
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
 
   return (
     <section
-      data-scroll-section
+      // data-scroll-section
+      data-lenis-prevent
       className=' all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
     >
       <section className='header-section relative flex w-full justify-center'>
