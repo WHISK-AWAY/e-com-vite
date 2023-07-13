@@ -72,55 +72,6 @@ export default function Homepage() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  useLayoutEffect(() => {
-    if (
-      !grapefruitButtRef.current ||
-      !treatRef.current ||
-      !specialRef.current ||
-      !shopBodyRef.current
-    )
-      return;
-
-    const ctx = gsap.context(() => {
-      // const tl = gsap.timeline({});
-      gsap.to(grapefruitButtRef.current, {
-        scrollTrigger: {
-          trigger: grapefruitButtRef.current,
-          pin: true,
-          start: 'top 64px',
-          endTrigger: treatRef.current,
-          end: 'bottom 62%',
-        },
-      });
-
-      gsap.from('.anim-text', {
-        duration: 4,
-        opacity: 0,
-        ease: 'power4.out',
-        y: 20,
-        scrollTrigger: {
-          scrub: 1,
-          trigger: treatRef.current,
-          start: 'top 70%',
-          end: 'bottom center',
-        },
-      });
-      // tl.from(shopBodyButtonRef.current, {
-      //   duration: 0.4,
-      //   start: 'bottom bottom',
-      //   onEnter:() => gsap.to(shopBodyButtonRef.current, {√
-      //     backgroundColor: 'white',
-      //     duration: 5,
-      //   })
-      // })
-    }, treatRef.current);
-
-    return () => {
-      ScrollTrigger.refresh();
-      ctx.revert();
-    };
-  });
-
   const handsRef = useRef(null);
   const leavesRef = useRef(null);
 
@@ -183,13 +134,15 @@ export default function Homepage() {
   // })
   //   })
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       !document.querySelector('.landing-section-content') ||
       !document.querySelector('.philosophy-section-content') ||
       !document.querySelector('.rainbow-lady') ||
       !document.querySelector('.rainbow-lady-rp') ||
-      !document.querySelector('.beach-section-content')
+      !document.querySelector('.beach-section-content') ||
+      !document.querySelector('.beach-lady-img') ||
+      !document.querySelector('.beach-section-rp')
     )
       return;
     const ctx = gsap.context(() => {
@@ -206,7 +159,7 @@ export default function Homepage() {
           start: 'top bottom',
           end: 'top top',
           // pin: true,
-          scrub: true,
+          scrub: 0.2,
         },
       });
 
@@ -217,7 +170,7 @@ export default function Homepage() {
         yPercent: 400,
         // backgroundColor: '#000',
         scrollTrigger: {
-          scrub: true,
+          scrub: 0.5,
           trigger: '.philosophy-text',
           start: 'center bottom',
           // markers: true,
@@ -226,12 +179,12 @@ export default function Homepage() {
       });
 
       gsap.from('.rainbow-lady', {
-        opacity: 0,
+        // opacity: 0,
         x: -300,
         ease: 'slow',
         duration: 3,
         scrollTrigger: {
-          scrub: true,
+          scrub: 1,
           trigger: '.rainbow-lady',
           start: 'top 110%',
           end: 'center 70%',
@@ -242,11 +195,11 @@ export default function Homepage() {
       gsap.from('.your-skin-text, .uv-rays-text', {
         opacity: 0,
         ease: 'slow.inOut',
-        yPercent: 130,
-        // stagger: .1,
+        yPercent: 230,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: '.rainbow-lady',
-          scrub: true,
+          scrub: 1,
           start: 'top bottom',
           end: 'top top',
         },
@@ -254,12 +207,13 @@ export default function Homepage() {
 
       gsap.from('.rainbow-lady-rp', {
         ease: 'slow.inOut',
-        xPercent: 190,
-        duration: 2,
-        // opacity: 0,
+        x: 90,
+        duration: 1,
+        opacity: 0,
         scrollTrigger: {
-          trigger: '.uv-rays-text',
-          scrub: true,
+          // markers: true,
+          trigger: '.rainbow-lady',
+          scrub: 0.2,
           start: 'top 90% ',
           end: 'bottom 80% ',
         },
@@ -268,33 +222,140 @@ export default function Homepage() {
       gsap.from('.rainbow-lady-text', {
         // opacity: 0,
         ease: 'slow.inOut',
-        yPercent: 100,
+        yPercent: 200,
         stagger: 0.1,
         scrollTrigger: {
           trigger: '.rainbow-lady-text',
-          scrub: true,
+          scrub: 0.4,
           start: 'top 120%',
           end: 'bottom bottom',
         },
       });
 
-      tl.to('.beach-section-content', {
-        yPercent: -29,
+
+      //og anim
+      gsap.to('.beach-section-content', {
+        yPercent: -35,
         ease: 'slow.inOut',
         // opacity: 0,
         // delay: 2,
         duration: 1,
+        onComplete: (() => {
+          ScrollTrigger.refresh()
+        }),
         scrollTrigger: {
-          markers: true,
+          pinSpacing: false, 
           trigger: '.rainbow-lady-text',
           start: 'top 90%',
           end: 'top top',
-          // pin: true,
-          scrub: true,
+          // pin: tru
+          scrub: 1.7,
         },
       });
 
-      
+      // gsap.to('.beach-section-content', {
+      //   // yPercent: -105,
+      //   ease: 'slow.inOut',
+      //   // opacity: 0,
+      //   // delay: 2,
+      //   duration: 1,
+      //   scrollTrigger: {
+      //     trigger: '.rainbow-lady-text',
+      //     start: 'top 90%',
+      //     end: 'top top',
+      //     // pin: tru
+      //     scrub: 1.7,
+      //   },
+      // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      //   gsap.to(grapefruitButtRef.current, {
+      //     // yPercent: 30,
+      //   scrollTrigger: {
+      //     trigger: grapefruitButtRef.current,
+      //     pin: true,
+      //     markers: true,
+      //     scrub: true,
+      //     start: 'top 64px',
+      //     endTrigger: treatRef.current,
+      //     end: 'bottom 60%',
+      //   },
+      // });
+
+      //  gsap.from(
+      //    '.anim-text',
+      //    {
+      //      duration: 1,
+      //      opacity: 0,
+      //      ease: 'slow.out',
+      //      y: 20,
+      //      scrollTrigger: {
+      //       markers: true,
+      //        scrub: 1,
+      //        trigger: treatRef.current,
+      //        start: 'top 10%',
+      //        end: 'bottom center',
+      //      },
+      //    },
+      //  );
+
+      // gsap.from('.beach-section-rp', {
+      //   yPercent: -50,
+      //   ease: 'slow',
+      //   opacity: 0,
+      //   duration: 1,
+      //   scrollTrigger: {
+      //     markers: true,
+      //     trigger: '.beach-section-content',
+      //     start: 'top top',
+      //     end: 'bottom bottom',
+      //     scrub: 1,
+      //   }
+      // })
+      // gsap.from('.beach-lady-img', {
+      //   scale: 2,
+      //   ease: 'slow',
+      //   duration: 2,
+      //   scrollTrigger: {
+      //     trigger: '.beach-lady-img',
+      //     start: 'top 90%',
+      //     end: 'top bottom',
+      //     scrub: true,
+      //   }
+      // })
+
+      // gsap.from('.beach-oval-container', {
+      //   yPercent: -20,
+      //   ease: 'slow',
+      //   scrollTrigger: {
+      //     trigger: '.beach-lady-img',
+      //     start: 'bottom bottom',
+      //     end: 'bottom 90%',
+      //     scrub: true,
+      //     markers: true,
+      //   }
+      // })
     });
 
     return () => {
@@ -306,8 +367,75 @@ export default function Homepage() {
     document.querySelector('.rainbow-lady'),
     document.querySelector('.rainbow-lady-rp'),
     document.querySelector('.beach-section-content'),
+    document.querySelector('.beach-lady-img'),
+    document.querySelector('.beach-section-rp'),
   ]);
 
+  useLayoutEffect(() => {
+    if (
+      !grapefruitButtRef.current ||
+      !treatRef.current ||
+      !specialRef.current ||
+      !shopBodyRef.current
+    )
+      return;
+
+    const ctx = gsap.context(() => {
+      // const tl = gsap.timeline({});
+      // tl.to(grapefruitButtRef.current, {
+      //   scrollTrigger: {
+      //     trigger: grapefruitButtRef.current,
+      //     pin: true,
+      //     // scrub: true,
+      //     pinSpacing: false,
+      //     markers: true,
+      //     start: 'top 64px',
+      //     endTrigger: treatRef.current,
+      //     end: 'bottom 62%',
+      //   },
+      // });
+
+      // gsap.set('.beach-section-content', {
+      //   yPercent: 35,
+      //   scrollTrigger: {
+      //     trigger: '.beach-section-content',
+      //     start: 'bottom -400px',
+      //   },
+      // });
+
+      ScrollTrigger.create({
+        trigger: grapefruitButtRef.current,
+        pin: grapefruitButtRef.current,
+        pinReparent: true,
+        markers: true,
+        start: 'top 64px',
+        scrub: 2,
+        // pinSpacing: 'padding',
+        endTrigger: specialRef.current,
+        // horizontal: false,
+        end: 'clamp(bottom 52%)',
+      });
+
+      gsap.from('.anim-text', {
+        duration: 4,
+        opacity: 0,
+        ease: 'power4.out',
+        y: 20,
+        scrollTrigger: {
+          // pinReparent: true,
+          scrub: 1,
+          trigger: treatRef.current,
+          start: 'top 70%',
+          end: 'bottom center',
+        },
+      });
+    }, treatRef.current);
+
+    return () => {
+      ScrollTrigger.refresh();
+      ctx.revert();
+    };
+  });
   //lenis smooth scroll setup
 
   const lenis = new Lenis({
@@ -401,7 +529,7 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='  relative mb-[85%]  flex h-full w-screen items-start bg-white'>
+      <div className='  relative mb-[95%]  flex h-full w-screen items-start bg-white'>
         <img
           data-src={rainbowLady}
           data-sizes='auto'
@@ -420,17 +548,17 @@ export default function Homepage() {
           </p>
         </div>
 
-        <div className='flex w-[40%] flex-col'>
-          <div className=' flex w-[90%] flex-col items-center justify-center'>
+        <div className='flex w-[40%] flex-col '>
+          <div className=' flex  w-[90%] flex-col items-center justify-center'>
             <Link to={'/product/' + randomProd!._id}>
               <img
-                className='lazyload rainbow-lady-rp transform pt-[75%] transition  duration-300 hover:scale-105'
-                data-src={
+                className=' rainbow-lady-rp  aspect-[1/2] object-cover pt-[70%]'
+                src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd!.images[0].imageURL
                 }
-                data-sizes='auto'
+                // data-sizes='auto'
               />
             </Link>
           </div>
@@ -441,7 +569,7 @@ export default function Homepage() {
             formulations at this time of year.
           </p>
         </div>
-        <span className='fake-span relative h-full w-full'></span>
+        {/* <span className='fake-span relative h-full w-full'></span> */}
       </div>
 
       <div className=' relative flex  w-full flex-col items-center '>
@@ -449,18 +577,18 @@ export default function Homepage() {
           <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
-          <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+          <p className='ready-text  absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
             ready
           </p>
 
-          <div className='flex w-[45%] justify-center self-center  pt-[10%]'>
+          <div className=' relative flex w-[45%] justify-center self-center  pt-[10%]'>
             <div className='flex  justify-center'>
               <Link
                 to={'/product/' + randomProd01!._id}
-                className='flex justify-center'
+                className=' flex justify-center'
               >
                 <img
-                  className='lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  className='beach-section-rp lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
                     randomProd01!.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -477,7 +605,7 @@ export default function Homepage() {
                 className='flex transform justify-center transition  duration-300 hover:scale-105'
               >
                 <img
-                  className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  className='beach-section-rp lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
                     randomProd02!.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -501,13 +629,13 @@ export default function Homepage() {
               data-src={beachLady}
               data-sizes='auto'
               alt='lady with a big white hat is laying on the beach'
-              className='lazyload aspect-auto h-3/4 w-full object-cover'
+              className='lazyload beach-lady-img aspect-auto h-3/4 w-full object-cover'
             />
           </div>
 
-          <div className=' relative flex h-full  w-[80%]  justify-center gap-10'>
+          <div className=' 2xl: relative flex  h-full  w-[80%] justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]'>
             <div className='text-container flex w-full flex-col'>
-              <div className='absolute left-0 top-0 h-[75%] w-[22%] -translate-y-[15%] translate-x-[40%] rounded-full bg-black/20'>
+              <div className='beach-oval-container absolute left-0 top-0 h-[75%] w-[22%] -translate-y-[15%] translate-x-[40%] rounded-full bg-black/20'>
                 <p className=' absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[120%] text-start font-aurora text-[1.4vw] leading-relaxed text-white'>
                   heavy moisturizers are ideal for cold climates or during
                   winter when the air is dryer but they can be too cloying
@@ -522,17 +650,17 @@ export default function Homepage() {
                 autoPlay={true}
                 muted={true}
                 loop={true}
-                className='lazyload aspect-[4/6] w-[70%]'
+                className='lazyload bw-seizure-vid aspect-[4/6] w-[70%]'
               />
             </div>
-            <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%]'>
+            <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%] pl-[8%]'>
               {' '}
               <Link
                 to={'/product/' + randomProd03!._id}
                 className=' flex  flex-col items-center'
               >
                 <img
-                  className='lazyload aspect-[5/6] w-[50%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
+                  className='lazyload aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
                   data-src={
                     randomProd03!.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -555,20 +683,21 @@ export default function Homepage() {
             </p>
           </div>
 
-          <div className='z-10 mb-[5%] flex  w-full flex-col items-center'>
+          <div className='z-10 mb-[5%]  flex  w-full flex-col items-center'>
             <div
               ref={treatRef}
               className=' flex h-full flex-col self-center text-center'
             >
               <div
                 ref={grapefruitButtRef}
-                className='z-10 h-fit w-[30%] self-center border'
+                className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center border'
               >
                 <img
-                  data-src={grapefruitButt}
-                  data-sizes='auto'
+                  // onLoad={() => ScrollTrigger.refresh()}
+                  src={grapefruitButt}
+                  // data-sizes='auto'
                   alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
-                  className='lazyload aspect-square object-cover'
+                  className=' aspect-square object-cover'
                 />
               </div>
               <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
