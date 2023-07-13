@@ -147,7 +147,8 @@ export default function Homepage() {
       !document.querySelector('.hyd-text-left') ||
       !document.querySelector('.unleash-lady-img') ||
       !document.querySelector('.rainbow-wrapper') ||
-      !document.querySelector('.unleash-rp')
+      !document.querySelector('.unleash-rp') ||
+      !document.querySelector('.beach-section-rp')
     )
       return;
     const ctx = gsap.context(() => {
@@ -179,7 +180,7 @@ export default function Homepage() {
       //     scrub: 1,
       //   },
       // });
-      
+
       // gsap.to('.rainbow-wrapper', {
       //   backgroundColor: '#8E9282',
       //   ease: 'slow.out',
@@ -273,7 +274,7 @@ export default function Homepage() {
           start: 'top 90%',
           end: 'top top',
           // pin: tru
-          scrub: 1.7,
+          scrub: 1.3,
         },
       });
 
@@ -305,8 +306,7 @@ export default function Homepage() {
           //  pin: true
         },
       });
-      
-      
+
       gsap.from('.unleash-rp', {
         // opacity: 0,
         x: -450,
@@ -314,7 +314,6 @@ export default function Homepage() {
         duration: 2,
         stagger: 0.8,
         scrollTrigger: {
-          markers: true,
           scrub: 2,
           trigger: '.unleash-section-content',
           start: 'top top',
@@ -324,64 +323,64 @@ export default function Homepage() {
       });
 
       // gsap.to('.beach-section-content', {
-      //   // yPercent: -105,
-      //   ease: 'slow.inOut',
-      //   // opacity: 0,
-      //   // delay: 2,
-      //   duration: 1,
-      //   scrollTrigger: {
-      //     trigger: '.rainbow-lady-text',
-      //     start: 'top 90%',
-      //     end: 'top top',
-      //     // pin: tru
-      //     scrub: 1.7,
-      //   },
-      // });
-
-    
+        //   // yPercent: -105,
+        //   ease: 'slow.inOut',
+        //   // opacity: 0,
+        //   // delay: 2,
+        //   duration: 1,
+        //   scrollTrigger: {
+          //     trigger: '.rainbow-lady-text',
+          //     start: 'top 90%',
+          //     end: 'top top',
+          //     // pin: tru
+          //     scrub: 1.7,
+          //   },
+          // });
 
       // gsap.from('.beach-section-rp', {
-      //   yPercent: -50,
+      //   yPercent: 20,
       //   ease: 'slow',
-      //   opacity: 0,
+      //   // opacity: 0,
+      //   delay: .6,
+      //   scale: 1.1,
       //   duration: 1,
       //   scrollTrigger: {
       //     markers: true,
-      //     trigger: '.beach-section-content',
+      //     trigger: '.beach-section-content-top',
       //     start: 'top top',
       //     end: 'bottom bottom',
       //     scrub: 1,
-      //   }
-      // })
+      //   },
+      // });
 
-      //    gsap.from('.beach-section-rp', {
-      //     yPercent: 20,
-      //     ease: 'slow',
-      //     scale: 1.3,
-      //     // opacity: 0,
-      //     duration: 1,
-      //     scrollTrigger: {
-      //       // markers: true,
-      //       trigger: '.beach-section-rp',
-      //       start: 'top 100%',
-      //       end: 'center center',
-      //       scrub: 1,
-      //     },
-      //   });
+         gsap.from('.beach-section-rp', {
+           yPercent: 15,
+           ease: 'slow',
+           scale: 1.1,
+           // opacity: 0,
+           duration: 1,
+           scrollTrigger: {
+             markers: true,
+             trigger: '.beach-section-content',
+             start: 'top 90%',
+             end: 'center center',
+             scrub: .3,
+           },
+         });
 
-      //   gsap.from('.beach-oval-container', {
-      //     yPercent: -30,
-      //     ease: 'slow',
-      //     duration: 2,
-      //     stagger: 0.8,
-      //     scrollTrigger: {
-      //       trigger: '.beach-lady-img',
-      //       start: 'top center',
-      //       end: 'bottom center',
-      //       scrub: 2,
-      //       // markers: true,
-      //     },
-      //   });
+        gsap.from('.beach-oval-container', {
+          yPercent: -30,
+          ease: 'slow',
+          duration: 2,
+          stagger: 0.8,
+          scrollTrigger: {
+            trigger: '.beach-lady-img',
+            start: 'top center',
+            end: 'bottom center',
+            scrub: 2,
+            // markers: true,
+          },
+        });
 
       //   gsap.from('.beach-text-closer', {
       //     yPercent: 30,
@@ -435,8 +434,10 @@ export default function Homepage() {
     document.querySelector('.beach-section-rp'),
     document.querySelector('.unleash-section-content'),
     document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'), document.querySelector('.rainbow-wrapper'),  document.querySelector('.unleash-rp')
-  
+    document.querySelector('.unleash-lady-img'),
+    document.querySelector('.rainbow-wrapper'),
+    document.querySelector('.unleash-rp'),
+    document.querySelector('.beach-section-rp'),
   ]);
 
   useLayoutEffect(() => {
@@ -648,14 +649,14 @@ export default function Homepage() {
             ready
           </p>
 
-          <div className=' relative flex w-[45%] justify-center self-center  pt-[10%]'>
+          <div className='beach-section-rp relative flex w-[45%] justify-center self-center  pt-[10%]'>
             <div className='flex  justify-center'>
               <Link
                 to={'/product/' + randomProd01!._id}
                 className=' flex justify-center'
               >
                 <img
-                  className='beach-section-rp lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  className=' lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
                     randomProd01!.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -672,7 +673,7 @@ export default function Homepage() {
                 className='flex transform justify-center transition  duration-300 hover:scale-105'
               >
                 <img
-                  className='beach-section-rp lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
                   data-src={
                     randomProd02!.images.find(
                       (image) => image.imageDesc === 'product-front'
