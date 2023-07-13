@@ -14,6 +14,7 @@ import type { TSearch } from '../../redux/slices/allProductSlice';
 import SignWrapper from '../SignWrapper';
 import CartFavWrapper from '../CartFavWrapper';
 import DropDownMenu from './DropdownMenu';
+import { gsap } from 'gsap';
 
 import Fuse from 'fuse.js';
 
@@ -165,17 +166,16 @@ export default function Navbar() {
   // };
 
 
-window.addEventListener('scroll', function () {
-  const navbar = document.getElementById('navbar');
-  const scrollPosition = window.scrollY;
+// window.addEventListener('scroll', function () {
+//   const navbar = document.getElementById('navbar');
+//   const scrollPosition = window.scrollY;
 
-  if (scrollPosition > 0) {
-    navbar?.classList.add('navbar-scrolled');
-  } else {
-    navbar?.classList.remove('navbar-scrolled');
-  }
-});
-
+//   if (scrollPosition > 0) {
+//     navbar?.classList.add('navbar-scrolled');
+//   } else {
+//     navbar?.classList.remove('navbar-scrolled');
+//   }
+// });
 
 
   return (
@@ -195,9 +195,9 @@ window.addEventListener('scroll', function () {
           },
         }}
       />
-      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center  justify-start gap-4 font-hubbali text-xs  lg:gap-5  lg:text-lg 2xl:gap-6'>
+      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center  justify-start gap-4 font-hubbali text-xs  lg:gap-5 cursor-pointer lg:text-lg 2xl:gap-6'>
         <div
-          className=''
+          className='shop'
           onMouseEnter={() => setIsMenuHidden(false)}
           onClick={() => setIsMenuHidden(false)}
         >
@@ -220,7 +220,7 @@ window.addEventListener('scroll', function () {
       <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
         <Link
           to='/'
-          className='font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          className='font-notable text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
           onClick={() => setIsMenuHidden(true)}
         >
           ASTORIA
