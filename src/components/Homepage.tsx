@@ -145,7 +145,9 @@ export default function Homepage() {
       !document.querySelector('.beach-section-rp') ||
       !document.querySelector('.unleash-section-content') ||
       !document.querySelector('.hyd-text-left') ||
-      !document.querySelector('.unleash-lady-img')
+      !document.querySelector('.unleash-lady-img') ||
+      !document.querySelector('.rainbow-wrapper') ||
+      !document.querySelector('.unleash-rp')
     )
       return;
     const ctx = gsap.context(() => {
@@ -166,12 +168,32 @@ export default function Homepage() {
         },
       });
 
+      // gsap.to('.philosophy-section-content', {
+      //   backgroundColor: 'rgba(142 146 130 .9)',
+      //   color: '#fff',
+      //   ease: 'slow',
+      //   scrollTrigger: {
+      //     trigger: '.philosophy-section-content',
+      //     start: 'center bottom',
+      //     markers: true,
+      //     scrub: 1,
+      //   },
+      // });
+      
+      // gsap.to('.rainbow-wrapper', {
+      //   backgroundColor: '#8E9282',
+      //   ease: 'slow.out',
+      //   scrollTrigger: {
+      //     trigger: '.philosophy-section-content',
+      //     scrub: 1
+      //   }
+      // })
+
       gsap.from('.philosophy-text', {
         opacity: 0,
         // duration: 2,
         ease: 'circ.out',
         yPercent: 400,
-        backgroundColor: '#8E9282',
         scrollTrigger: {
           scrub: 0.5,
           trigger: '.philosophy-text',
@@ -274,29 +296,32 @@ export default function Homepage() {
         x: 400,
         ease: 'slow.inOut',
         duration: 2,
-        stagger: 0.8,
+        // stagger: 0.8,
         scrollTrigger: {
-          scrub: 0.9,
+          scrub: 2,
           trigger: '.unleash-section-content',
-          start: 'top 110%',
+          start: 'top center',
           end: 'center 70%',
           //  pin: true
         },
       });
-      // gsap.from('.unleash-rp', {
-      //   // opacity: 0,
-      //   y: -10,
-      //   ease: 'slow.inOut',
-      //   duration: 2,
-      //   stagger: 0.8,
-      //   scrollTrigger: {
-      //     scrub: 0.9,
-      //     trigger: '.unleash-section-content',
-      //     start: 'top 110%',
-      //     end: 'center 70%',
-      //     //  pin: true
-      //   },
-      // });
+      
+      
+      gsap.from('.unleash-rp', {
+        // opacity: 0,
+        x: -450,
+        ease: 'slow',
+        duration: 2,
+        stagger: 0.8,
+        scrollTrigger: {
+          markers: true,
+          scrub: 2,
+          trigger: '.unleash-section-content',
+          start: 'top top',
+          end: 'bottom 70%',
+          //  pin: true
+        },
+      });
 
       // gsap.to('.beach-section-content', {
       //   // yPercent: -105,
@@ -313,35 +338,7 @@ export default function Homepage() {
       //   },
       // });
 
-      //   gsap.to(grapefruitButtRef.current, {
-      //     // yPercent: 30,
-      //   scrollTrigger: {
-      //     trigger: grapefruitButtRef.current,
-      //     pin: true,
-      //     markers: true,
-      //     scrub: true,
-      //     start: 'top 64px',
-      //     endTrigger: treatRef.current,
-      //     end: 'bottom 60%',
-      //   },
-      // });
-
-      //  gsap.from(
-      //    '.anim-text',
-      //    {
-      //      duration: 1,
-      //      opacity: 0,
-      //      ease: 'slow.out',
-      //      y: 20,
-      //      scrollTrigger: {
-      //       markers: true,
-      //        scrub: 1,
-      //        trigger: treatRef.current,
-      //        start: 'top 10%',
-      //        end: 'bottom center',
-      //      },
-      //    },
-      //  );
+    
 
       // gsap.from('.beach-section-rp', {
       //   yPercent: -50,
@@ -438,7 +435,8 @@ export default function Homepage() {
     document.querySelector('.beach-section-rp'),
     document.querySelector('.unleash-section-content'),
     document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'),
+    document.querySelector('.unleash-lady-img'), document.querySelector('.rainbow-wrapper'),  document.querySelector('.unleash-rp')
+  
   ]);
 
   useLayoutEffect(() => {
@@ -599,7 +597,7 @@ export default function Homepage() {
         </p>
       </div>
 
-      <div className='  relative mb-[95%]  flex h-full w-screen items-start bg-white'>
+      <div className=' rainbow-wrapper relative mb-[95%]  flex h-full w-screen items-start bg-white'>
         <img
           data-src={rainbowLady}
           data-sizes='auto'
@@ -639,7 +637,6 @@ export default function Homepage() {
             formulations at this time of year.
           </p>
         </div>
-        {/* <span className='fake-span relative h-full w-full'></span> */}
       </div>
 
       <div className='beach-section-content-top relative flex  w-full flex-col items-center  '>
@@ -805,7 +802,7 @@ export default function Homepage() {
       </div>
 
       <div className='unleash-section-content flex w-full flex-col items-center'>
-        <p className=' -translate-y-[50%] z-50 font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
+        <p className=' z-50 -translate-y-[50%] font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
           unleash{' '}
         </p>
         <p className='-translate-y-[550%] font-raleway text-[2vw] font-thin leading-none tracking-wide'>
@@ -833,10 +830,10 @@ export default function Homepage() {
             </p>
             <Link
               to={'/product/' + randomProd04!._id}
-              className='flex w-[70%] flex-col  items-center self-end pr-[15%]'
+              className='unleash-rp flex w-[70%] flex-col  items-center self-end pr-[15%]'
             >
               <img
-                className='unleash-rp lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
+                className='lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
                 data-src={
                   randomProd04!.images.find(
                     (image) => image.imageDesc === 'product-front'
