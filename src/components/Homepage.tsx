@@ -9,11 +9,11 @@ import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/rain-leaves.mp4';
+import rainLeaves from '../assets/vid/homapage/leaves.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
@@ -25,6 +25,10 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 import Preloader from './Preloader';
+import { CSSPlugin } from 'gsap/CSSPlugin';
+import Lenis from '@studio-freight/lenis';
+gsap.registerPlugin(CSSPlugin);
+import '../index.css';
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -65,6 +69,8 @@ export default function Homepage() {
       setRandomProd06(randomProduct(allProducts));
     }
   }, [allProducts]);
+
+  gsap.registerPlugin(ScrollTrigger);
 
   useLayoutEffect(() => {
     if (
@@ -110,36 +116,257 @@ export default function Homepage() {
     }, treatRef.current);
 
     return () => {
-      ScrollTrigger.refresh()
+      ScrollTrigger.refresh();
       ctx.revert();
     };
   });
 
+  const handsRef = useRef(null);
+  const leavesRef = useRef(null);
 
+  //   useLayoutEffect(() => {
+
+  //     if(!handsRef.current || !leavesRef.current) return
+  // const ctx = gsap.context(()=> {
+  // const tl = gsap.timeline();
+  //   tl.set('.leaves, .hands', {
+  //     display: 'none',
+  //     // height: 0,
+  //     overflow: 'hidden',
+  //     width: 0,
+
+  //   })
+
+  //   tl.from(leavesRef.current, {
+  //     xPercent: 100,
+  //     duration: 1.5,
+  //     width: '100%',
+  //     overflow: 'hidden',
+  //     // display: 'block',
+  //     object: 'cover',
+  //     // delay: 2,
+  //     ease: 'expo.inOut'
+  //   }, '<')
+
+  //     tl.to(leavesRef.current, {
+  //     // xPercent: -100,
+  //     // height: '41%',
+  //     // height: '100%',
+  //     // delay: .3,
+  //     ease: 'expo.inOut',
+  //     duration: 1,
+  //     object: 'cover',
+  //     // xPercent: 100,
+  //     // width: '1000vw',
+  //     // overflow: 'hidden',
+  //     display: 'block',
+  //     width: '100%',
+  //     // transformOrigin: 'left center'
+  //   }, '<')
+
+  //   tl.to(handsRef.current, {
+  //     overflow: 'hidden',
+  //     ease: 'expo.inOut',
+  //     width: '40%',
+  //     duration: 2,
+  //   object: 'right',
+  //     delay: 1,
+  //     display: 'block',
+  //     // object: 'cover'
+
+  //   })
+
+  // })
+
+  // return (() => {
+  //     ctx.revert()
+  // })
+  //   })
+
+  useEffect(() => {
+    if (
+      !document.querySelector('.landing-section-content') ||
+      !document.querySelector('.philosophy-section-content') ||
+      !document.querySelector('.rainbow-lady') ||
+      !document.querySelector('.rainbow-lady-rp') ||
+      !document.querySelector('.beach-section-content')
+    )
+      return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({});
+
+      tl.to('.landing-section-content', {
+        yPercent: 100,
+        ease: 'none',
+        // opacity: 0,
+        // delay: 2,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.philosophy-section-content',
+          start: 'top bottom',
+          end: 'top top',
+          // pin: true,
+          scrub: true,
+        },
+      });
+
+      gsap.from('.philosophy-text', {
+        opacity: 0,
+        // duration: 2,
+        ease: 'circ.out',
+        yPercent: 400,
+        // backgroundColor: '#000',
+        scrollTrigger: {
+          scrub: true,
+          trigger: '.philosophy-text',
+          start: 'center bottom',
+          // markers: true,
+          end: 'bottom 50%',
+        },
+      });
+
+      gsap.from('.rainbow-lady', {
+        opacity: 0,
+        x: -300,
+        ease: 'slow',
+        duration: 3,
+        scrollTrigger: {
+          scrub: true,
+          trigger: '.rainbow-lady',
+          start: 'top 110%',
+          end: 'center 70%',
+          //  pin: true
+        },
+      });
+
+      gsap.from('.your-skin-text, .uv-rays-text', {
+        opacity: 0,
+        ease: 'slow.inOut',
+        yPercent: 130,
+        // stagger: .1,
+        scrollTrigger: {
+          trigger: '.rainbow-lady',
+          scrub: true,
+          start: 'top bottom',
+          end: 'top top',
+        },
+      });
+
+      gsap.from('.rainbow-lady-rp', {
+        ease: 'slow.inOut',
+        xPercent: 190,
+        duration: 2,
+        // opacity: 0,
+        scrollTrigger: {
+          trigger: '.uv-rays-text',
+          scrub: true,
+          start: 'top 90% ',
+          end: 'bottom 80% ',
+        },
+      });
+
+      gsap.from('.rainbow-lady-text', {
+        // opacity: 0,
+        ease: 'slow.inOut',
+        yPercent: 100,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: '.rainbow-lady-text',
+          scrub: true,
+          start: 'top 120%',
+          end: 'bottom bottom',
+        },
+      });
+
+      tl.to('.beach-section-content', {
+        yPercent: -29,
+        ease: 'slow.inOut',
+        // opacity: 0,
+        // delay: 2,
+        duration: 1,
+        scrollTrigger: {
+          markers: true,
+          trigger: '.rainbow-lady-text',
+          start: 'top 90%',
+          end: 'top top',
+          // pin: true,
+          scrub: true,
+        },
+      });
+
+      
+    });
+
+    return () => {
+      ctx.revert();
+    };
+  }, [
+    document.querySelector('.landing-section-content'),
+    document.querySelector('.philosophy-section-content'),
+    document.querySelector('.rainbow-lady'),
+    document.querySelector('.rainbow-lady-rp'),
+    document.querySelector('.beach-section-content'),
+  ]);
+
+  //lenis smooth scroll setup
+
+  const lenis = new Lenis({
+    duration: 2.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+    lerp: 0,
+    autoResize: true,
+  });
+
+  // lenis.on('scroll', (e:any) => {
+  //   console.log(e);
+  // });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+  requestAnimationFrame(raf);
 
   if (!randomProd) return <p>...loading</p>;
   return (
     <div
+      data-scroll-section
       className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
       onLoad={() => ScrollTrigger.refresh()}
     >
-     <Preloader/>
-      <div className=' relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
+      {/* <Preloader/> */}
+      <div className='landing-section-content relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
         <video
+          ref={handsRef}
           data-src={handLotion}
           data-sizes='auto'
           loop={true}
           autoPlay={true}
           muted={true}
-          className='lazyload -z-10 aspect-[1/2] h-full basis-1/2 translate-x-1 items-center justify-center object-cover'
+          className='lazyload hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover'
         />
         <video
+          ref={leavesRef}
           data-src={rainLeaves}
           data-sizes='auto'
           loop={true}
           autoPlay={true}
           muted={true}
-          className='lazyload -z-10 aspect-[1/2] h-full  basis-1/2 -translate-x-1  items-center justify-center object-cover'
+          className='lazyload leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
         />
 
         <div className=' absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference'>
@@ -166,29 +393,29 @@ export default function Homepage() {
         </Link>
       </div>
 
-      <div className='flex flex-col py-[7%]'>
-        <p className='self-center px-[11%] text-center font-aurora text-[1.5vw] text-charcoal'>
+      <div className='philosophy-section-content relative flex flex-col bg-white pb-[18%] pt-[20%] '>
+        <p className='philosophy-text self-center px-[11%] text-center font-aurora text-[1.5vw] text-charcoal '>
           our philosophy is not to add anything to our products to make them
           stand out; instead we pare them back and distill each formula down to
           the most-essential, natural active ingredients.
         </p>
       </div>
 
-      <div className='rainbow-lady relative mb-[25%]  flex h-full  w-screen items-start'>
+      <div className='  relative mb-[85%]  flex h-full w-screen items-start bg-white'>
         <img
           data-src={rainbowLady}
           data-sizes='auto'
           alt='red haired ladys profile with reflection of a rainbow on her face'
-          className='lazyload w-[60%] -translate-x-[15%]  '
+          className='rainbow-lady lazyload w-[60%] -translate-x-[15%]  '
         />
         <div className=''>
           <p className='absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'>
             protect
           </p>
-          <p className='absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'>
+          <p className='your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'>
             your skin
           </p>
-          <p className='absolute left-[4%] top-[10%] whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 md:text-5xl lg:text-[4rem] xl:text-[5rem] 2xl:text-[6vw]'>
+          <p className='uv-rays-text absolute left-[4%] top-[10%] whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 md:text-5xl lg:text-[4rem] xl:text-[5rem] 2xl:text-[6vw]'>
             from harmful uva & uvb rays
           </p>
         </div>
@@ -197,7 +424,7 @@ export default function Homepage() {
           <div className=' flex w-[90%] flex-col items-center justify-center'>
             <Link to={'/product/' + randomProd!._id}>
               <img
-                className='lazyload transform pt-[55%] transition  duration-300 hover:scale-105'
+                className='lazyload rainbow-lady-rp transform pt-[75%] transition  duration-300 hover:scale-105'
                 data-src={
                   randomProd!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -207,21 +434,22 @@ export default function Homepage() {
               />
             </Link>
           </div>
-          <p className='absolute bottom-[5%] right-[9%] w-[50vw] font-aurora text-[2.5vw] leading-loose text-[#262625]'>
+          <p className='rainbow-lady-text absolute bottom-[5%] right-[9%] w-[50vw] font-aurora text-[1.5vw] leading-loose text-[#262625]'>
             during the summer months, it's essential to keep your skin
             moisturized and hydrated wherever possible. however, it's important
             to switch high-intensity heavy creams in favor of lighter
             formulations at this time of year.
           </p>
         </div>
+        <span className='fake-span relative h-full w-full'></span>
       </div>
 
-      <div className='flex  w-full flex-col items-center '>
-        <div className='relative flex  w-full flex-col items-center bg-[#383838]'>
+      <div className=' relative flex  w-full flex-col items-center '>
+        <div className='beach-section-content relative flex  w-full flex-col items-center bg-[#383838]'>
           <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
-          <p className='absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+          <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
             ready
           </p>
 
