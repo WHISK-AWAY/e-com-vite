@@ -142,7 +142,10 @@ export default function Homepage() {
       !document.querySelector('.rainbow-lady-rp') ||
       !document.querySelector('.beach-section-content') ||
       !document.querySelector('.beach-lady-img') ||
-      !document.querySelector('.beach-section-rp')
+      !document.querySelector('.beach-section-rp') ||
+      !document.querySelector('.unleash-section-content') ||
+      !document.querySelector('.hyd-text-left') ||
+      !document.querySelector('.unleash-lady-img')
     )
       return;
     const ctx = gsap.context(() => {
@@ -168,7 +171,7 @@ export default function Homepage() {
         // duration: 2,
         ease: 'circ.out',
         yPercent: 400,
-        // backgroundColor: '#000',
+        backgroundColor: '#8E9282',
         scrollTrigger: {
           scrub: 0.5,
           trigger: '.philosophy-text',
@@ -232,7 +235,6 @@ export default function Homepage() {
         },
       });
 
-
       //og anim
       gsap.to('.beach-section-content', {
         yPercent: -55,
@@ -240,11 +242,11 @@ export default function Homepage() {
         // opacity: 0,
         // delay: 2,
         duration: 1,
-        onComplete: (() => {
-          ScrollTrigger.refresh()
-        }),
+        onComplete: () => {
+          ScrollTrigger.refresh();
+        },
         scrollTrigger: {
-          pinSpacing: 'margin', 
+          pinSpacing: 'margin',
           trigger: '.rainbow-lady-text',
           start: 'top 90%',
           end: 'top top',
@@ -252,6 +254,49 @@ export default function Homepage() {
           scrub: 1.7,
         },
       });
+
+      gsap.from('.unleash-lady-img', {
+        // opacity: 0,
+        x: 400,
+        ease: 'slow.inOut',
+        duration: 2,
+        scrollTrigger: {
+          scrub: 2,
+          trigger: '.unleash-section-content',
+          start: 'top 110%',
+          end: 'center 70%',
+          //  pin: true
+        },
+      });
+
+      gsap.from('.hyd-text-left', {
+        // opacity: 0,
+        x: 400,
+        ease: 'slow.inOut',
+        duration: 2,
+        stagger: 0.8,
+        scrollTrigger: {
+          scrub: 0.9,
+          trigger: '.unleash-section-content',
+          start: 'top 110%',
+          end: 'center 70%',
+          //  pin: true
+        },
+      });
+      // gsap.from('.unleash-rp', {
+      //   // opacity: 0,
+      //   y: -10,
+      //   ease: 'slow.inOut',
+      //   duration: 2,
+      //   stagger: 0.8,
+      //   scrollTrigger: {
+      //     scrub: 0.9,
+      //     trigger: '.unleash-section-content',
+      //     start: 'top 110%',
+      //     end: 'center 70%',
+      //     //  pin: true
+      //   },
+      // });
 
       // gsap.to('.beach-section-content', {
       //   // yPercent: -105,
@@ -267,28 +312,6 @@ export default function Homepage() {
       //     scrub: 1.7,
       //   },
       // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       //   gsap.to(grapefruitButtRef.current, {
       //     // yPercent: 30,
@@ -333,6 +356,50 @@ export default function Homepage() {
       //     scrub: 1,
       //   }
       // })
+
+      //    gsap.from('.beach-section-rp', {
+      //     yPercent: 20,
+      //     ease: 'slow',
+      //     scale: 1.3,
+      //     // opacity: 0,
+      //     duration: 1,
+      //     scrollTrigger: {
+      //       // markers: true,
+      //       trigger: '.beach-section-rp',
+      //       start: 'top 100%',
+      //       end: 'center center',
+      //       scrub: 1,
+      //     },
+      //   });
+
+      //   gsap.from('.beach-oval-container', {
+      //     yPercent: -30,
+      //     ease: 'slow',
+      //     duration: 2,
+      //     stagger: 0.8,
+      //     scrollTrigger: {
+      //       trigger: '.beach-lady-img',
+      //       start: 'top center',
+      //       end: 'bottom center',
+      //       scrub: 2,
+      //       // markers: true,
+      //     },
+      //   });
+
+      //   gsap.from('.beach-text-closer', {
+      //     yPercent: 30,
+      //     ease: 'slow',
+      //     opacity: 0,
+      //     duration: 1,
+      //     scrollTrigger: {
+      //       markers: true,
+      //       trigger: '.beach-oval-container',
+      //       start: 'center bottom',
+      //       end: 'bottom bottom',
+      //       scrub: 0.7,
+      //     },
+      //   });
+      // });
       // gsap.from('.beach-lady-img', {
       //   scale: 2,
       //   ease: 'slow',
@@ -369,6 +436,9 @@ export default function Homepage() {
     document.querySelector('.beach-section-content'),
     document.querySelector('.beach-lady-img'),
     document.querySelector('.beach-section-rp'),
+    document.querySelector('.unleash-section-content'),
+    document.querySelector('.hyd-text-left'),
+    document.querySelector('.unleash-lady-img'),
   ]);
 
   useLayoutEffect(() => {
@@ -407,13 +477,13 @@ export default function Homepage() {
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
         // pinReparent: true,
-        markers: true,
-        start: 'top 64px',
+        // markers: true,
+        start: 'center center',
         scrub: 2,
         // pinSpacing: 'padding',
         endTrigger: specialRef.current,
         // horizontal: false,
-        end: 'clamp(bottom 52%)',
+        end: 'center center',
       });
 
       gsap.from('.anim-text', {
@@ -426,7 +496,7 @@ export default function Homepage() {
           scrub: 1,
           trigger: treatRef.current,
           start: 'top 70%',
-          end: 'bottom center',
+          end: 'bottom 10%',
         },
       });
     }, treatRef.current);
@@ -572,8 +642,8 @@ export default function Homepage() {
         {/* <span className='fake-span relative h-full w-full'></span> */}
       </div>
 
-      <div className=' relative flex  w-full flex-col items-center  '>
-        <div className='beach-section-content relative flex  w-full flex-col items-center -mb-[80%] bg-[#383838]'>
+      <div className='beach-section-content-top relative flex  w-full flex-col items-center  '>
+        <div className='beach-section-content relative -mb-[80%]   flex w-full flex-col items-center bg-[#383838]'>
           <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
@@ -683,14 +753,14 @@ export default function Homepage() {
             </p>
           </div>
         </div>
-        <div className='z-10 mb-[5%] flex  w-full  flex-col items-center bg-[#383838]'>
+        <div className='z-10 flex w-full  flex-col  items-center bg-[#383838] pb-[7%]'>
           <div
             ref={treatRef}
             className=' flex h-full flex-col self-center text-center'
           >
             <div
               ref={grapefruitButtRef}
-              className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center border'
+              className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center '
             >
               <img
                 // onLoad={() => ScrollTrigger.refresh()}
@@ -734,8 +804,8 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='flex w-full flex-col items-center'>
-        <p className=' -translate-y-[50%]  font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
+      <div className='unleash-section-content flex w-full flex-col items-center'>
+        <p className=' -translate-y-[50%] z-50 font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
           unleash{' '}
         </p>
         <p className='-translate-y-[550%] font-raleway text-[2vw] font-thin leading-none tracking-wide'>
@@ -749,12 +819,12 @@ export default function Homepage() {
             data-src={ladyMask}
             data-sizes='auto'
             alt='woman applying mask to her face'
-            className='lazyload h-screen  w-[3/5] object-cover '
+            className='unleash-lady-img lazyload h-screen  w-[3/5] object-cover '
           />
 
           <div className=' relative flex w-2/5  flex-col justify-end gap-10'>
             <p className=' font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]'>
-              <span className='absolute -right-4 top-0 translate-y-[60%]  tracking-[2.9rem] text-[#262626] 2xl:translate-y-0'>
+              <span className='hyd-text-left absolute -right-4 top-0 translate-y-[60%]  tracking-[2.9rem] text-[#262626] 2xl:translate-y-0'>
                 hyd
               </span>
               <span className='absolute right-0 top-0 translate-x-[102%] translate-y-[60%] tracking-[1rem] text-white  2xl:translate-y-0'>
@@ -766,7 +836,7 @@ export default function Homepage() {
               className='flex w-[70%] flex-col  items-center self-end pr-[15%]'
             >
               <img
-                className='lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
+                className='unleash-rp lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
                 data-src={
                   randomProd04!.images.find(
                     (image) => image.imageDesc === 'product-front'
