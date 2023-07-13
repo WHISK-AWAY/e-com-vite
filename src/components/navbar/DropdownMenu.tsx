@@ -32,14 +32,30 @@ export default function DropdownMenu({
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      tl.from('.text-reveal', {
-        duration: 0.3,
+
+
+      tl.set(menuWrapper.current, {
+        height: 0,
+        display: 'none',
+        overflow: 'hidden'
+      })
+
+      tl.to(menuWrapper.current, {
+        height: '100vh',
+        ease: 'expo.inOut',
+        duration: 1.5,
         overflow: 'hidden',
-        ease: 'power3',
+        display: 'flex'
+      },)
+
+      tl.from('.text-reveal', {
+        duration: .7,
+        overflow: 'hidden',
+        ease: 'power1.inOut',
         height: 0,
         stagger: 0.05,
-        opacity: 0,
-      }).to('.text-reveal>img', { duration: 0.05, opacity: 1 });
+        // opacity: .7,
+      }, 'menuWrapper.current-=.5').to('.text-reveal>img', { duration: .4, opacity: 1, ease: 'power4', });
 
       menuAnimation.current = tl;
     }, menuWrapper.current);
@@ -79,7 +95,8 @@ export default function DropdownMenu({
     } else {
       return (
         menuAnimation.current
-          // .duration(menuAnimation.current.duration() / 2)
+          .duration(menuAnimation.current.duration() / 1.5)
+          
           .reverse()
           .then(() => {
             setIsMenuHidden(true);
@@ -97,17 +114,17 @@ export default function DropdownMenu({
   }, []);
 
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
-
+// text-[#bbbcbee0
   return (
     <section
       ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '
+      className='menu-wrapper absolute right-0 top-0 z-40 flex h-0 w-screen flex-col bg-[#8e9282] font-antonio font-thin  uppercase text-[#bbbcbee0] 3xl:pt-[7%] '
     >
       {/* Logo section (absolute) */}
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
         <Link
           to='/'
-          className='flex items-center gap-1 font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          className='flex items-center gap-1 font-notable text-[2.5vw] text-white  3xl:text-[1.6vw]'
           onClick={closeMenu}
         >
           <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
@@ -125,7 +142,7 @@ export default function DropdownMenu({
       />
 
       {/* Menu options */}
-      <div className='menu-option-container flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw] 5xl:text-[6vw]'>
+      <div className='menu-option-container flex flex-col text-[7vw] text-white leading-[1] 3xl:text-[7vw] 5xl:text-[6vw] pt-[10%]'>
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
