@@ -148,7 +148,8 @@ export default function Homepage() {
       !document.querySelector('.unleash-lady-img') ||
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
-      !document.querySelector('.beach-section-rp')
+      !document.querySelector('.beach-section-rp') ||
+      !document.querySelector('.beach-oval-text')
     )
       return;
     const ctx = gsap.context(() => {
@@ -323,19 +324,19 @@ export default function Homepage() {
       });
 
       // gsap.to('.beach-section-content', {
-        //   // yPercent: -105,
-        //   ease: 'slow.inOut',
-        //   // opacity: 0,
-        //   // delay: 2,
-        //   duration: 1,
-        //   scrollTrigger: {
-          //     trigger: '.rainbow-lady-text',
-          //     start: 'top 90%',
-          //     end: 'top top',
-          //     // pin: tru
-          //     scrub: 1.7,
-          //   },
-          // });
+      //   // yPercent: -105,
+      //   ease: 'slow.inOut',
+      //   // opacity: 0,
+      //   // delay: 2,
+      //   duration: 1,
+      //   scrollTrigger: {
+      //     trigger: '.rainbow-lady-text',
+      //     start: 'top 90%',
+      //     end: 'top top',
+      //     // pin: tru
+      //     scrub: 1.7,
+      //   },
+      // });
 
       // gsap.from('.beach-section-rp', {
       //   yPercent: 20,
@@ -353,34 +354,47 @@ export default function Homepage() {
       //   },
       // });
 
-         gsap.from('.beach-section-rp', {
-           yPercent: 15,
-           ease: 'slow',
-           scale: 1.1,
-           // opacity: 0,
-           duration: 1,
-           scrollTrigger: {
-             markers: true,
-             trigger: '.beach-section-content',
-             start: 'top 90%',
-             end: 'center center',
-             scrub: .3,
-           },
-         });
-
-        gsap.from('.beach-oval-container', {
-          yPercent: -30,
-          ease: 'slow',
-          duration: 2,
-          stagger: 0.8,
-          scrollTrigger: {
-            trigger: '.beach-lady-img',
-            start: 'top center',
-            end: 'bottom center',
-            scrub: 2,
-            // markers: true,
-          },
-        });
+      gsap.from('.beach-section-rp', {
+        yPercent: 15,
+        ease: 'slow',
+        scale: .6,
+        // opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: '.beach-section-content',
+          start: 'top 90%',
+          end: 'center center',
+          scrub: 0.3,
+          markers: true,
+        },
+      });
+      
+      gsap.from('.beach-oval-container, .beach-oval-text', {
+        yPercent: -35,
+        ease: 'slow',
+        // duration: 2,
+        opacity: 0,
+        stagger: .8,
+        scrollTrigger: {
+          trigger: '.beach-lady-img',
+          start: 'center center',
+          end: 'bottom center',
+          scrub: 2,
+        },
+      });
+      
+      // gsap.from('beach-oval-text', {
+      //   y: -60,
+      //   ease: 'slow',
+      //   opacity: 0,
+      //   scrollTrigger: {
+      //     markers: true,
+      //     trigger: 'beach-section-content',
+      //     start: 'top 10%',
+      //     end: 'bottom 90%',
+      //     scrub: true,
+      //   },
+      // });
 
       //   gsap.from('.beach-text-closer', {
       //     yPercent: 30,
@@ -438,6 +452,7 @@ export default function Homepage() {
     document.querySelector('.rainbow-wrapper'),
     document.querySelector('.unleash-rp'),
     document.querySelector('.beach-section-rp'),
+    document.querySelector('.beach-oval-text'),
   ]);
 
   useLayoutEffect(() => {
@@ -704,7 +719,7 @@ export default function Homepage() {
           <div className=' 2xl: relative flex  h-full  w-[80%] justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]'>
             <div className='text-container flex w-full flex-col'>
               <div className='beach-oval-container absolute left-0 top-0 h-[75%] w-[22%] -translate-y-[15%] translate-x-[40%] rounded-full bg-black/20'>
-                <p className=' absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[120%] text-start font-aurora text-[1.4vw] leading-relaxed text-white'>
+                <p className='beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[120%] text-start font-aurora text-[1.4vw] leading-relaxed text-white'>
                   heavy moisturizers are ideal for cold climates or during
                   winter when the air is dryer but they can be too cloying
                   during the heat of summer and don't provide adequate
