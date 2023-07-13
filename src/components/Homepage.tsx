@@ -235,7 +235,7 @@ export default function Homepage() {
 
       //og anim
       gsap.to('.beach-section-content', {
-        yPercent: -35,
+        yPercent: -55,
         ease: 'slow.inOut',
         // opacity: 0,
         // delay: 2,
@@ -244,7 +244,7 @@ export default function Homepage() {
           ScrollTrigger.refresh()
         }),
         scrollTrigger: {
-          pinSpacing: false, 
+          pinSpacing: 'margin', 
           trigger: '.rainbow-lady-text',
           start: 'top 90%',
           end: 'top top',
@@ -406,7 +406,7 @@ export default function Homepage() {
       ScrollTrigger.create({
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
-        pinReparent: true,
+        // pinReparent: true,
         markers: true,
         start: 'top 64px',
         scrub: 2,
@@ -572,8 +572,8 @@ export default function Homepage() {
         {/* <span className='fake-span relative h-full w-full'></span> */}
       </div>
 
-      <div className=' relative flex  w-full flex-col items-center '>
-        <div className='beach-section-content relative flex  w-full flex-col items-center bg-[#383838]'>
+      <div className=' relative flex  w-full flex-col items-center  '>
+        <div className='beach-section-content relative flex  w-full flex-col items-center -mb-[80%] bg-[#383838]'>
           <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
@@ -682,56 +682,55 @@ export default function Homepage() {
               of summer and don't provide adequate
             </p>
           </div>
-
-          <div className='z-10 mb-[5%]  flex  w-full flex-col items-center'>
+        </div>
+        <div className='z-10 mb-[5%] flex  w-full  flex-col items-center bg-[#383838]'>
+          <div
+            ref={treatRef}
+            className=' flex h-full flex-col self-center text-center'
+          >
             <div
-              ref={treatRef}
-              className=' flex h-full flex-col self-center text-center'
+              ref={grapefruitButtRef}
+              className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center border'
             >
-              <div
-                ref={grapefruitButtRef}
-                className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center border'
-              >
-                <img
-                  // onLoad={() => ScrollTrigger.refresh()}
-                  src={grapefruitButt}
-                  // data-sizes='auto'
-                  alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
-                  className=' aspect-square object-cover'
-                />
-              </div>
-              <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
-                treat
-              </p>
-              <p className='anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
-                your skin
-              </p>
-              <p className='anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
-                to
-              </p>
-              <p className='anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
-                something
-              </p>
-              <p
-                ref={specialRef}
-                className='anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
-              >
-                special
-              </p>
+              <img
+                // onLoad={() => ScrollTrigger.refresh()}
+                src={grapefruitButt}
+                // data-sizes='auto'
+                alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
+                className=' aspect-square object-cover'
+              />
             </div>
-            <Link
-              // ref={shopBodyButtonRef}
-              to='/shop-all'
-              ref={shopBodyRef}
-              state={{ filterKey: 'body' }}
-              className='group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white '
+            <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+              treat
+            </p>
+            <p className='anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
+              your skin
+            </p>
+            <p className='anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
+              to
+            </p>
+            <p className='anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
+              something
+            </p>
+            <p
+              ref={specialRef}
+              className='anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
             >
-              <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full '></span>
-              <span className='relative group-hover:text-charcoal'>
-                shop body
-              </span>
-            </Link>
+              special
+            </p>
           </div>
+          <Link
+            // ref={shopBodyButtonRef}
+            to='/shop-all'
+            ref={shopBodyRef}
+            state={{ filterKey: 'body' }}
+            className='group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white '
+          >
+            <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full '></span>
+            <span className='relative group-hover:text-charcoal'>
+              shop body
+            </span>
+          </Link>
         </div>
       </div>
 
