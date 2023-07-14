@@ -35,41 +35,28 @@ export default function ShopByCategoryListItem({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
-      tl.fromTo(
-        localParent.current,
-        {
+      tl.set('.submenu-item', {
+        opacity: 0,
+      })
+        .fromTo(
+          localParent.current,
+          {
+            opacity: 1,
+            height: 0,
+          },
+          {
+            height: menuHeight,
+            duration: 0.5,
+            ease: 'expo',
+          }
+        )
+        .to('.submenu-item', {
           opacity: 1,
-          height: 0,
-        },
-        {
-          height: menuHeight,
-          duration: 1.5,
-          ease: 'expo',
-        }
-      );
-
-      // tl.set(localParent.current, {
-      //   opacity: 1,
-      //   height: 0,
-      //   // duration: 0.2,
-      // });
-      // tl.to(
-      //   localParent.current,
-      //   {
-      //     height: menuHeight,
-      //     // delay: .1,
-      //     duration: 1.5,
-      //     ease: 'expo',
-      //   },
-      //   '<'
-      // );
+          stagger: 0.025,
+          duration: 0.25,
+        });
 
       setCatState(tl);
-
-      // moved this stuff to the onMouseLeave of the localParent div element
-      // localParent?.current?.addEventListener('mouseleave', () => {
-      //   tl?.duration(0.9).reverse();
-      // });
     });
 
     return () => {
@@ -78,19 +65,29 @@ export default function ShopByCategoryListItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu(fullClose: boolean = false) {
+    // Close the submenu. If fullClose is true, also close the outer shop menu.
+
     if (fullClose) {
       setMenuMode('none');
       closeOuterMenu();
     } else
       gsap
-        .to(localParent.current, {
-          overflow: 'hidden',
-          height: 0,
-          duration: 0.5,
-          ease: 'power1.in',
+        .to('.submenu-item', {
+          opacity: 0,
+          duration: 0.25,
+          stagger: -0.025,
         })
         .then(() => {
-          setMenuMode('none');
+          gsap
+            .to(localParent.current, {
+              overflow: 'hidden',
+              height: 0,
+              duration: 0.3,
+              ease: 'power1.in',
+            })
+            .then(() => {
+              setMenuMode('none');
+            });
         });
   }
 
@@ -115,7 +112,7 @@ export default function ShopByCategoryListItem({
                   closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
-                className='odd:text-[3vw] hover:underline hover:underline-offset-2'
+                className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-2'
               >
                 {name}
               </Link>

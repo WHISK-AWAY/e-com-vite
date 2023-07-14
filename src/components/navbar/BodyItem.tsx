@@ -41,19 +41,28 @@ export default function BodyItem({
   useLayoutEffect(() => {
     if (!localParent.current) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
+      const tl = gsap.timeline();
 
-      tl.fromTo(
-        localParent.current,
-        { height: 0 },
-        {
-          height: menuHeight,
-          duration: 1.5,
-          ease: 'power4',
-        }
-      );
-
-      setBodyState(tl);
+      tl.set('.submenu-item', {
+        opacity: 0,
+      })
+        .fromTo(
+          localParent.current,
+          {
+            opacity: 1,
+            height: 0,
+          },
+          {
+            height: menuHeight,
+            duration: 0.5,
+            ease: 'expo',
+          }
+        )
+        .to('.submenu-item', {
+          opacity: 1,
+          stagger: 0.025,
+          duration: 0.25,
+        });
     });
 
     return () => {
@@ -67,38 +76,53 @@ export default function BodyItem({
       closeOuterMenu();
     } else
       gsap
-        .to(localParent.current, {
-          overflow: 'hidden',
-          height: 0,
-          duration: 0.5,
-          ease: 'power1.in',
+        .to('.submenu-item', {
+          opacity: 0,
+          duration: 0.25,
+          stagger: -0.025,
         })
         .then(() => {
-          setMenuMode('none');
+          gsap
+            .to(localParent.current, {
+              overflow: 'hidden',
+              height: 0,
+              duration: 0.3,
+              ease: 'power1.in',
+            })
+            .then(() => {
+              setMenuMode('none');
+            });
         });
   }
 
   return (
-    <section
+    <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] py-[2%] pl-10 text-[2vw] text-white '
+      className='absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap'
     >
-      {filteredTags.map((tag) => {
-        const name = tag.tagName;
+      {menuHeight > 0 && (
+        <section
+          onMouseLeave={() => closeLocalMenu()}
+          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+        >
+          {filteredTags.map((tag) => {
+            const name = tag.tagName;
 
-        return (
-          <Link
-            to='/shop-all'
-            onClick={() => closeLocalMenu(true)}
-            state={{ filterKey: name }}
-            className='odd:text-[3vw] hover:underline hover:underline-offset-2'
-            key={tag._id}
-          >
-            {name}
-          </Link>
-        );
-      })}
-    </section>
+            return (
+              <Link
+                to='/shop-all'
+                onClick={() => closeLocalMenu(true)}
+                state={{ filterKey: name }}
+                className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-2'
+                key={tag._id}
+              >
+                {name}
+              </Link>
+            );
+          })}
+        </section>
+      )}
+    </div>
   );
 }
