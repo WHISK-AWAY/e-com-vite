@@ -2,7 +2,7 @@
 
 echo 'Building docker containers for e-com project.'
 
-docker build -t e-com_server:latest server
-docker build -t e-com_frontend:latest .
+docker build -t patty-private:e-com-server server
+docker build -t patty-private:e-com-frontend .
 
 echo 'Done'
