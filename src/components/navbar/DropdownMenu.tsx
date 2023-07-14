@@ -91,17 +91,12 @@ export default function DropdownMenu({
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
-    console.log('click!');
     if (menuMode !== menu) {
       return setMenuMode(() => menu);
     } else {
       return setMenuMode(() => 'none');
     }
   }
-
-  useEffect(() => {
-    console.log('menumode: ', menuMode);
-  }, [menuMode]);
 
   function closeMenu() {
     // Reverse opening animation at double speed & then close menu
