@@ -35,21 +35,34 @@ export default function ShopByCategoryListItem({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
-      tl.set(localParent.current, {
-        opacity: 1,
-        height: 0,
-        // duration: 0.2,
-      });
-      tl.to(
+      tl.fromTo(
         localParent.current,
         {
+          opacity: 1,
+          height: 0,
+        },
+        {
           height: menuHeight,
-          // delay: .1,
           duration: 1.5,
           ease: 'expo',
-        },
-        '<'
+        }
       );
+
+      // tl.set(localParent.current, {
+      //   opacity: 1,
+      //   height: 0,
+      //   // duration: 0.2,
+      // });
+      // tl.to(
+      //   localParent.current,
+      //   {
+      //     height: menuHeight,
+      //     // delay: .1,
+      //     duration: 1.5,
+      //     ease: 'expo',
+      //   },
+      //   '<'
+      // );
 
       setCatState(tl);
 
@@ -64,17 +77,27 @@ export default function ShopByCategoryListItem({
     };
   }, [localParent.current, menuHeight]);
 
-  function closeLocalMenu() {
-    return catState
-      ?.duration(0.9)
-      .reverse()
-      .then(() => setMenuMode('none'));
+  function closeLocalMenu(fullClose: boolean = false) {
+    gsap
+      .to(localParent.current, {
+        overflow: 'hidden',
+        height: 0,
+        duration: 0.5,
+        ease: 'power1.in',
+      })
+      .then(() => {
+        if (fullClose) {
+          closeOuterMenu();
+        } else {
+          setMenuMode('none');
+        }
+      });
   }
 
   return (
     <div
       ref={localParent}
-      onMouseLeave={closeLocalMenu}
+      onMouseLeave={() => closeLocalMenu()}
       className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap'
     >
       {menuHeight > 0 && (
@@ -89,9 +112,7 @@ export default function ShopByCategoryListItem({
                 key={tag._id}
                 to='/shop-all'
                 onClick={() => {
-                  closeLocalMenu()?.then(() => {
-                    closeOuterMenu();
-                  });
+                  closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
                 className='odd:text-[3vw] hover:underline hover:underline-offset-2'

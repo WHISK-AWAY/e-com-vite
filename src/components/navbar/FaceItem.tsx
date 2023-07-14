@@ -55,13 +55,14 @@ export default function FaceItem({
       const tl = gsap.timeline({});
       tl.fromTo(
         localParent.current,
-        { overflow: 'hidden', height: 0 },
+        {
+          opacity: 1,
+          height: 0,
+        },
         {
           height: menuHeight,
           duration: 1.5,
-          ease: 'power4',
-          overflow: 'hidden',
-          // onReverseComplete: () => setMenuMode('none'),
+          ease: 'expo',
         }
       );
 
@@ -73,11 +74,21 @@ export default function FaceItem({
     };
   }, [localParent.current, menuHeight]);
 
-  function closeLocalMenu() {
-    return faceState
-      ?.duration(0.9)
-      .reverse()
-      .then(() => setMenuMode('none'));
+  function closeLocalMenu(fullClose: boolean = false) {
+    gsap
+      .to(localParent.current, {
+        overflow: 'hidden',
+        height: 0,
+        duration: 0.5,
+        ease: 'power1.in',
+      })
+      .then(() => {
+        if (fullClose) {
+          closeOuterMenu();
+        } else {
+          setMenuMode('none');
+        }
+      });
   }
 
   if (!filteredTags) return <p>...loading</p>;
@@ -85,8 +96,8 @@ export default function FaceItem({
   return (
     <section
       ref={localParent}
-      onMouseLeave={closeLocalMenu}
-      className='absolute right-0 top-[65%] z-10 flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] py-[2%] pl-10 text-[2vw] text-white'
+      onMouseLeave={() => closeLocalMenu()}
+      className='absolute right-0 top-[65%] z-10 flex h-0 w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] py-[2%] pl-10 text-[2vw] text-white'
     >
       {filteredTags.map((tag) => {
         const name = tag.tagName;
@@ -95,7 +106,7 @@ export default function FaceItem({
             to='/shop-all'
             state={{ filterKey: name }}
             className='odd:text-[3vw] hover:underline hover:underline-offset-2'
-            onClick={() => closeLocalMenu()?.then(closeOuterMenu)}
+            onClick={() => closeLocalMenu(true)}
             key={tag._id}
           >
             {name}

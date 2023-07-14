@@ -61,17 +61,27 @@ export default function BodyItem({
     };
   }, [localParent.current, menuHeight]);
 
-  function closeLocalMenu() {
-    return bodyState
-      ?.duration(0.9)
-      .reverse()
-      .then(() => setMenuMode('none'));
+  function closeLocalMenu(fullClose: boolean = false) {
+    gsap
+      .to(localParent.current, {
+        overflow: 'hidden',
+        height: 0,
+        duration: 0.5,
+        ease: 'power1.in',
+      })
+      .then(() => {
+        if (fullClose) {
+          closeOuterMenu();
+        } else {
+          setMenuMode('none');
+        }
+      });
   }
 
   return (
     <section
       ref={localParent}
-      onMouseLeave={closeLocalMenu}
+      onMouseLeave={() => closeLocalMenu()}
       className='absolute right-0 top-[65%] flex h-screen w-screen flex-col flex-wrap place-content-start gap-x-[3vw] bg-[#262626] py-[2%] pl-10 text-[2vw] text-white '
     >
       {filteredTags.map((tag) => {
@@ -80,7 +90,7 @@ export default function BodyItem({
         return (
           <Link
             to='/shop-all'
-            onClick={() => closeLocalMenu()?.then(() => closeOuterMenu())}
+            onClick={() => closeLocalMenu(true)}
             state={{ filterKey: name }}
             className='odd:text-[3vw] hover:underline hover:underline-offset-2'
             key={tag._id}

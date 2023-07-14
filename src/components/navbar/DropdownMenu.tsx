@@ -32,7 +32,7 @@ export default function DropdownMenu({
 
       tl.set(menuWrapper.current, {
         height: 0,
-        display: 'none',
+        // display: 'none',
         overflow: 'hidden',
       });
 
