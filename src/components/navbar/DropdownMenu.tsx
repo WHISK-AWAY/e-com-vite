@@ -1,14 +1,15 @@
 import ShopByCategoryListItem from './ShopByCategoryListItem';
 import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
-import x from '../../assets/icons/x.svg';
-import chevronRight from '../../assets/icons/new.svg';
+import x from '../../assets/icons/whiteX.svg';
+import chevronRight from '../../assets/icons/whiteArrow.svg';
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { gsap } from 'gsap';
 
 import dot from '../../assets/icons/dot.svg';
+import randomImg from '../../assets/bg-img/category/random_10.jpg'
 
 const menuOptions = ['category', 'face', 'body', 'none'] as const;
 export type MenuOption = (typeof menuOptions)[number] | null;
@@ -28,7 +29,7 @@ export default function DropdownMenu({
 
   useLayoutEffect(() => {
     // Animate overall menu text reveal
-    if (!menuWrapper?.current) return;
+    if (!menuWrapper?.current || !document.querySelector('.text-reveal')) return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
@@ -56,6 +57,35 @@ export default function DropdownMenu({
         stagger: 0.05,
         // opacity: .7,
       }, 'menuWrapper.current-=.5').to('.text-reveal>img', { duration: .4, opacity: 1, ease: 'power4', });
+
+
+
+     const items = document.querySelectorAll('.text-reveal')
+      console.log('it', items)
+
+      items.forEach((el) => {
+
+        
+        
+        
+// console.log('el', el)
+      el?.addEventListener('mouseenter', (e) => {
+            gsap.to(e.target, {
+              ease: 'back.out(1.7)',
+              duration: 1,
+              // text-shadow: '5px 5px #558abb',
+              color: '#fff',
+            });
+          });
+
+          el.addEventListener('mouseleave', (e) => {
+            gsap.to(e.target, { ease: 'slow.inOut', duration:1, delay: .1, color: 'transparent',});
+          });
+
+          //  el.addEventListener('mousemove', (e) => {
+          //    gsap.to(e.target, { x: e.offsetX - 2 });
+          //  });
+        })
 
       menuAnimation.current = tl;
     }, menuWrapper.current);
@@ -114,11 +144,12 @@ export default function DropdownMenu({
   }, []);
 
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
+
 // text-[#bbbcbee0
   return (
     <section
       ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex h-0 w-screen flex-col bg-[#8e9282] font-antonio font-thin  uppercase text-[#bbbcbee0] 3xl:pt-[7%] '
+      className='menu-wrapper absolute right-0 top-0 z-40 flex h-0 w-screen flex-col bg-[#8e9282] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
     >
       {/* Logo section (absolute) */}
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
@@ -127,9 +158,9 @@ export default function DropdownMenu({
           className='flex items-center gap-1 font-notable text-[2.5vw] text-white  3xl:text-[1.6vw]'
           onClick={closeMenu}
         >
-          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
           ASTORIA
-          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
         </Link>
       </div>
 
@@ -142,7 +173,7 @@ export default function DropdownMenu({
       />
 
       {/* Menu options */}
-      <div className='menu-option-container flex flex-col text-[7vw] text-white leading-[1] 3xl:text-[7vw] 5xl:text-[6vw] pt-[10%]'>
+      <div className='menu-option-container flex flex-col text-[7vw] text-transparent txt-stroke leading-[1] 3xl:text-[7vw] 5xl:text-[6vw] pt-[13%] 3xl:pt-[2%]'>
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
@@ -152,6 +183,7 @@ export default function DropdownMenu({
             }
             className={textRevealClasses + ' uppercase'}
           >
+            {/* <img src={randomImg} className='cv-ph absolute w-[300px] h-[400px] object-cover top-0 right-0  overflow-hidden'/> */}
             shop all
           </button>
         </div>
@@ -165,9 +197,9 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                   menuMode === 'category'
-                    ? 'ease rotate-90 transform transition-all duration-300'
+                    ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
                 }`}
                 // onMouseEnter={() => toggleMenu('category')}
@@ -209,9 +241,9 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                   menuMode === 'face'
-                    ? 'ease rotate-90 transform transition-all duration-300'
+                    ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
                 }`}
               />
@@ -231,9 +263,9 @@ export default function DropdownMenu({
             <img
               src={chevronRight}
               alt='right arrow'
-              className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+              className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                 menuMode === 'body'
-                  ? 'ease rotate-90 transform transition-all duration-300'
+                  ? 'ease rotate-90 transform transition-all duration-700'
                   : ''
               }`}
             />
