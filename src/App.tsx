@@ -22,23 +22,12 @@ import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 import Featured from './components/Featured/Featured';
 import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
-import { useLocation } from 'react-router-dom';
 import Lenis from '@studio-freight/lenis';
-import '../src/index.css'
+import '../src/index.css';
 
-import LocomotiveScroll from 'locomotive-scroll';
-// import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
-import { useEffect, useRef } from 'react';
-import Preloader from './components/Preloader';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 function App() {
-
-  // const containerRef = useRef<HTMLDivElement>(null);
-
-  // const location = useLocation();
-
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -51,10 +40,6 @@ function App() {
     lerp: 0,
   });
 
-  // lenis.on('scroll', (e:any) => {
-  //   console.log(e);
-  // });
-
   lenis.on('scroll', ScrollTrigger.update);
 
   function raf(time: number) {
@@ -62,33 +47,21 @@ function App() {
     requestAnimationFrame(raf);
   }
 
-
   gsap.ticker.add((time) => {
     lenis.raf(time * 1000);
   });
 
   gsap.ticker.lagSmoothing(0);
- requestAnimationFrame(raf);
+  requestAnimationFrame(raf);
 
   return (
-    // <LocomotiveScrollProvider
-    //   options={{
-    //     smooth: true,
-    //   }}
-    //   watch={[location.pathname]}
-    //   containerRef={containerRef}
-    //   // location={location}
-    // >
     <div
       data-lenis-prevent
-      // ref={containerRef}
-      // data-scroll-container
-      // id='data-scroll-container'
       className='data-scroll-container mx-auto min-h-screen text-charcoal'
     >
       {/* <Preloader/> */}
       <Navbar />
-      <Routes location={location} key={location.pathname}>
+      <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/shop-all' element={<AllProducts />} />
         <Route
