@@ -262,7 +262,7 @@ export default function Homepage() {
       //og anim
       gsap.to('.beach-section-content', {
         yPercent: -55,
-        ease: 'slow.inOut',
+        ease: 'slow',
         // opacity: 0,
         // delay: 2,
         duration: 1,
@@ -275,7 +275,7 @@ export default function Homepage() {
           start: 'top 90%',
           end: 'top top',
           // pin: tru
-          scrub: 1.3,
+          scrub: 2.3,
         },
       });
 
@@ -313,7 +313,7 @@ export default function Homepage() {
         x: -450,
         ease: 'slow',
         duration: 2,
-        stagger: 0.8,
+        // stagger: 0.8,
         scrollTrigger: {
           scrub: 2,
           trigger: '.unleash-section-content',
@@ -402,7 +402,7 @@ export default function Homepage() {
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
           end: 'bottom bottom',
@@ -426,6 +426,30 @@ export default function Homepage() {
               },
             });
 
+
+            gsap.from('.facewash-lady-img', {
+              opacity: 0,
+              yPercent: 100,
+              ease: 'slow',
+              scrollTrigger: {
+                trigger: '.facewash-section-content',
+                start: 'top 10%',
+                end: 'center bottom',
+                scrub: 2,
+              }
+            })
+
+            gsap.from('.facewash-rp', {
+              xPercent: 200,
+              ease: 'slow',
+              scrollTrigger: {
+                trigger: '.facewash-section-content',
+                start: 'top 10%',
+                markers: true,
+                end: 'top 40%',
+                scrub: 2.4,
+              },
+            });
      
     });
 
@@ -871,15 +895,15 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='relative flex  flex-col items-center justify-center pt-[25%]'>
+      <div className='facewash-section-content z-10 relative flex  flex-col items-center justify-center pt-[25%]'>
         <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
-          <p className='w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='w-full z-20 -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
           </p>
 
-          <Link to={'/product/' + randomProd06!._id} className='flex w-full '>
+          <Link to={'/product/' + randomProd06!._id} className='flex w-full z-50 facewash-rp'>
             <img
               className='lazyload aspect-[7/9] w-full transform object-cover transition  duration-300 hover:scale-110'
               data-src={
@@ -892,12 +916,12 @@ export default function Homepage() {
           </Link>
         </div>
 
-        <div className='flex w-full flex-col '>
+        <div className='flex w-full flex-col -z-10'>
           <img
             data-src={ladyFacewash}
             data-sizes='auto'
             alt='lady washing her face in the bathroom with white towel on her head'
-            className='lazyload aspect-[4/6] h-screen self-center'
+            className='facewash-lady-img lazyload aspect-[4/6] h-screen self-center'
           />
           <p className='w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
             heavy moisturizers are ideal for cold climates or during winter when
