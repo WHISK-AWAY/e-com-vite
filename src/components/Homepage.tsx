@@ -149,7 +149,7 @@ export default function Homepage() {
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
       !document.querySelector('.beach-section-rp') ||
-      !document.querySelector('.beach-oval-text')
+      !document.querySelector('.beach-oval-text') || !document.querySelector('.beach-text-closer')
     )
       return;
     const ctx = gsap.context(() => {
@@ -355,34 +355,34 @@ export default function Homepage() {
       // });
 
       gsap.from('.beach-section-rp', {
-        yPercent: 15,
-        ease: 'slow',
-        scale: .6,
+        y: -10,
+        ease: 'slow.inOut',
+        scale: 1.1,
         // opacity: 0,
         duration: 1,
         scrollTrigger: {
           trigger: '.beach-section-content',
-          start: 'top 90%',
-          end: 'center center',
-          scrub: 0.3,
-          markers: true,
+          start: 'top 10%',
+          end: 'bottom center',
+          scrub: 1.4,
+          // markers: true,
         },
       });
-      
+
       gsap.from('.beach-oval-container, .beach-oval-text', {
         yPercent: -35,
-        ease: 'slow',
-        // duration: 2,
+        ease: 'slow.inOut',
+        duration: 2,
         opacity: 0,
-        stagger: .8,
+        stagger: 0.8,
         scrollTrigger: {
-          trigger: '.beach-lady-img',
-          start: 'center center',
+          trigger: '.beach-section-rp',
+          start: 'top center',
           end: 'bottom center',
-          scrub: 2,
+          scrub: 1.5,
         },
       });
-      
+
       // gsap.from('beach-oval-text', {
       //   y: -60,
       //   ease: 'slow',
@@ -396,43 +396,37 @@ export default function Homepage() {
       //   },
       // });
 
-      //   gsap.from('.beach-text-closer', {
-      //     yPercent: 30,
-      //     ease: 'slow',
-      //     opacity: 0,
-      //     duration: 1,
-      //     scrollTrigger: {
-      //       markers: true,
-      //       trigger: '.beach-oval-container',
-      //       start: 'center bottom',
-      //       end: 'bottom bottom',
-      //       scrub: 0.7,
-      //     },
-      //   });
-      // });
-      // gsap.from('.beach-lady-img', {
-      //   scale: 2,
-      //   ease: 'slow',
-      //   duration: 2,
-      //   scrollTrigger: {
-      //     trigger: '.beach-lady-img',
-      //     start: 'top 90%',
-      //     end: 'top bottom',
-      //     scrub: true,
-      //   }
-      // })
+      gsap.from('.beach-text-closer', {
+        yPercent: 30,
+        ease: 'slow.inOut',
+        opacity: 0,
+        duration: 1.9,
+        scrollTrigger: {
+          markers: true,
+          trigger: '.beach-oval-container',
+          start: 'center top',
+          end: 'bottom bottom',
+          scrub: 2.7,
+        },
+      });
 
-      // gsap.from('.beach-oval-container', {
-      //   yPercent: -20,
-      //   ease: 'slow',
-      //   scrollTrigger: {
-      //     trigger: '.beach-lady-img',
-      //     start: 'bottom bottom',
-      //     end: 'bottom 90%',
-      //     scrub: true,
-      //     markers: true,
-      //   }
-      // })
+
+            gsap.from('.beach-rp-right', {
+              opacity: 0,
+              x: 300,
+              ease: 'expo.inOut',
+              duration: 2,
+              // stagger: 0.8,
+              scrollTrigger: {
+                scrub: 2.3,
+                trigger: '.beach-section-rp',
+                start: 'top center',
+                end: 'bottom 90%',
+                //  pin: true
+              },
+            });
+
+     
     });
 
     return () => {
@@ -453,6 +447,7 @@ export default function Homepage() {
     document.querySelector('.unleash-rp'),
     document.querySelector('.beach-section-rp'),
     document.querySelector('.beach-oval-text'),
+    document.querySelector('.beach-text-closer'),
   ]);
 
   useLayoutEffect(() => {
@@ -685,7 +680,7 @@ export default function Homepage() {
             <div className='flex justify-center'>
               <Link
                 to={'/product/' + randomProd02!._id}
-                className='flex transform justify-center transition  duration-300 hover:scale-105'
+                className=' flex transform justify-center transition  duration-300 hover:scale-105'
               >
                 <img
                   className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
@@ -740,7 +735,7 @@ export default function Homepage() {
               {' '}
               <Link
                 to={'/product/' + randomProd03!._id}
-                className=' flex  flex-col items-center'
+                className='beach-rp-right flex  flex-col items-center'
               >
                 <img
                   className='lazyload aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
@@ -758,7 +753,7 @@ export default function Homepage() {
             </div>
           </div>
 
-          <div className='w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white'>
+          <div className='beach-text-closer w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white'>
             <p>
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
