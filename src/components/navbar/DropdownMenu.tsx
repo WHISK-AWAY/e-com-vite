@@ -40,6 +40,16 @@ export default function DropdownMenu({
         opacity: 0,
       });
 
+      tl.set(menuWrapper.current, {
+        left: 0,
+        transformOrigin: 'left',
+      });
+      tl.from(menuWrapper.current, {
+        backgroundColor: 'white',
+        duration: 0.2,
+        width: 0,
+      });
+
       tl.to(menuWrapper.current, {
         height: '100vh',
         ease: 'expo.inOut',
