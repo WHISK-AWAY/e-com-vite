@@ -192,7 +192,7 @@ export default function ProductCarousel({
               className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
             >
               <img
-                className='lazyload aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                className='aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
                 src={
                   prod.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -203,7 +203,7 @@ export default function ProductCarousel({
               />
               {gifURL ? (
                 <video
-                  className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                  className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
                   src={gifURL}
                   // data-sizes='auto'
                   muted={true}
@@ -212,9 +212,8 @@ export default function ProductCarousel({
                 />
               ) : (
                 <img
-                  className='lazyload invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                  className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
                   src={hoverFallback}
-                  data-sizes='auto'
                 />
               )}
               <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
