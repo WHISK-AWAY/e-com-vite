@@ -30,18 +30,14 @@ export default function DropdownMenu({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
 
-      tl.set(menuWrapper.current, {
-        height: 0,
-        // display: 'none',
-        overflow: 'hidden',
-      });
-
       tl.set('.x-icon', {
         opacity: 0,
       });
 
       tl.set(menuWrapper.current, {
+        overflow: 'hidden',
         left: 0,
+        height: '64px',
         transformOrigin: 'left',
       });
       tl.from(menuWrapper.current, {
@@ -149,7 +145,7 @@ export default function DropdownMenu({
   return (
     <section
       ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex h-0 w-screen flex-col bg-[#8e9282] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
+      className='menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8e9282] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
     >
       {/* Logo section (absolute) */}
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
