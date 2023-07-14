@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 import {
   fetchSingleProduct,
   selectSingleProduct,
@@ -115,7 +116,6 @@ const bgImgs = [
 
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
-gsap.registerPlugin(ScrollTrigger);
 import 'lazysizes';
 
 export default function SingleProduct() {
@@ -186,7 +186,7 @@ export default function SingleProduct() {
         scrollTrigger: {
           trigger: scroller,
           pin: true,
-          pinSpacing: false,
+          pinSpacing: true,
           endTrigger: pinRef.current,
           end: 'bottom bottom',
         },
@@ -194,7 +194,7 @@ export default function SingleProduct() {
     });
 
     return () => ctx.revert();
-  }, [scrollerRef.current, bgImg, bgVid, singleProduct, pinRef.current]);
+  });
 
   useEffect(() => {
     // * component initialization

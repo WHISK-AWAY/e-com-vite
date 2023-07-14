@@ -1,24 +1,20 @@
 import ShopByCategoryListItem from './ShopByCategoryListItem';
 import FaceItem from './FaceItem';
 import BodyItem from './BodyItem';
-import x from '../../assets/icons/x.svg';
-import chevronRight from '../../assets/icons/new.svg';
+import x from '../../assets/icons/whiteX.svg';
+import chevronRight from '../../assets/icons/whiteArrow.svg';
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { gsap } from 'gsap';
-
-import dot from '../../assets/icons/dot.svg';
 
 const menuOptions = ['category', 'face', 'body', 'none'] as const;
 export type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
   setIsMenuHidden,
-}: // isMenuHidden,
-{
+}: {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  // isMenuHidden: boolean;
 }) {
   const navigate = useNavigate();
 
@@ -28,18 +24,80 @@ export default function DropdownMenu({
 
   useLayoutEffect(() => {
     // Animate overall menu text reveal
-    if (!menuWrapper?.current) return;
+    if (!menuWrapper?.current || !document.querySelector('.text-reveal'))
+      return;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      tl.from('.text-reveal', {
-        duration: 0.3,
-        overflow: 'hidden',
-        ease: 'power3',
-        height: 0,
-        stagger: 0.05,
+
+      tl.set('.x-icon', {
         opacity: 0,
-      }).to('.text-reveal>img', { duration: 0.05, opacity: 1 });
+      });
+
+      tl.set(menuWrapper.current, {
+        overflow: 'hidden',
+        left: 0,
+        height: '64px',
+        transformOrigin: 'left',
+      });
+      tl.from(menuWrapper.current, {
+        backgroundColor: 'white',
+        duration: 0.2,
+        width: 0,
+        opacity: 0,
+      });
+
+      tl.to(menuWrapper.current, {
+        height: '100vh',
+        ease: 'expo.inOut',
+        duration: 1.5,
+        overflow: 'hidden',
+        display: 'flex',
+      });
+
+      tl.from(
+        '.text-reveal',
+        {
+          duration: 0.7,
+          overflow: 'hidden',
+          ease: 'power1.inOut',
+          height: 0,
+          stagger: 0.05,
+          // opacity: .7,
+        },
+        'menuWrapper.current-=.5'
+      ).to('.text-reveal>img', { duration: 0.4, opacity: 1, ease: 'power4' });
+
+      const items = document.querySelectorAll('.text-reveal');
+
+      items.forEach((el) => {
+        // console.log('el', el)
+        el?.addEventListener('mouseenter', (e) => {
+          gsap.to(e.target, {
+            ease: 'back.out(1.7)',
+            duration: 1,
+            // text-shadow: '5px 5px #558abb',
+            color: '#fff',
+          });
+        });
+
+        el.addEventListener('mouseleave', (e) => {
+          gsap.to(e.target, {
+            ease: 'slow.inOut',
+            duration: 1,
+            delay: 0.1,
+            color: 'transparent',
+          });
+        });
+      });
+
+      tl.to(
+        '.x-icon',
+        {
+          opacity: 1,
+        },
+        '<'
+      );
 
       menuAnimation.current = tl;
     }, menuWrapper.current);
@@ -52,24 +110,11 @@ export default function DropdownMenu({
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
-    if (menuMode === menu) {
-      setMenuMode('none');
+    if (menuMode !== menu) {
+      return setMenuMode(() => menu);
     } else {
-      setMenuMode(menu);
+      return setMenuMode(() => 'none');
     }
-    // } else if (menuMode === 'face') {
-    //   setMenuMode('face');
-    //   setIsFaceMenu(true);
-
-    // } else if(menuMode === 'body') {
-
-    //   setMenuMode('body');
-    //   setIsBodyMenu(true);
-
-    // } else {
-    //   setMenuMode('category');
-    //   setIsCatMenu(true);
-    // }
   }
 
   function closeMenu() {
@@ -77,14 +122,12 @@ export default function DropdownMenu({
     if (!menuAnimation.current) {
       setIsMenuHidden(true);
     } else {
-      return (
-        menuAnimation.current
-          // .duration(menuAnimation.current.duration() / 2)
-          .reverse()
-          .then(() => {
-            setIsMenuHidden(true);
-          })
-      );
+      return menuAnimation.current
+        .duration(menuAnimation.current.duration() / 1.5)
+        .reverse()
+        .then(() => {
+          setIsMenuHidden(true);
+        });
     }
   }
 
@@ -98,21 +141,22 @@ export default function DropdownMenu({
 
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
 
+  // text-[#bbbcbee0
   return (
     <section
       ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex h-screen w-screen flex-col bg-white pt-[10%] font-antonio font-thin  uppercase text-[#262626] 3xl:pt-[7%] '
+      className='menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8e9282] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
     >
       {/* Logo section (absolute) */}
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
         <Link
           to='/'
-          className='flex items-center gap-1 font-chonburi text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+          className='flex items-center gap-1 font-notable text-[2.5vw] text-white  3xl:text-[1.6vw]'
           onClick={closeMenu}
         >
-          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
           ASTORIA
-          <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' />
+          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
         </Link>
       </div>
 
@@ -120,12 +164,12 @@ export default function DropdownMenu({
       <img
         src={x}
         alt='x-icon'
-        className='absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
+        className='x-icon absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
         onClick={closeMenu}
       />
 
       {/* Menu options */}
-      <div className='menu-option-container flex flex-col text-[7vw] leading-[1] 3xl:text-[7vw] 5xl:text-[6vw]'>
+      <div className='menu-option-container txt-stroke flex flex-col pt-[13%] text-[7vw] leading-[1] text-transparent 3xl:pt-[2%] 3xl:text-[7vw] 5xl:text-[6vw]'>
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
@@ -135,6 +179,7 @@ export default function DropdownMenu({
             }
             className={textRevealClasses + ' uppercase'}
           >
+            {/* <img src={randomImg} className='cv-ph absolute w-[300px] h-[400px] object-cover top-0 right-0  overflow-hidden'/> */}
             shop all
           </button>
         </div>
@@ -148,9 +193,9 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                   menuMode === 'category'
-                    ? 'ease rotate-90 transform transition-all duration-300'
+                    ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
                 }`}
                 // onMouseEnter={() => toggleMenu('category')}
@@ -181,7 +226,8 @@ export default function DropdownMenu({
           <div className='chevron-container'>
             <button
               className={'relative h-full uppercase' + textRevealClasses}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 toggleMenu('face');
               }}
               // onMouseEnter={() => {
@@ -192,9 +238,9 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                   menuMode === 'face'
-                    ? 'ease rotate-90 transform transition-all duration-300'
+                    ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
                 }`}
               />
@@ -214,9 +260,9 @@ export default function DropdownMenu({
             <img
               src={chevronRight}
               alt='right arrow'
-              className={`ease absolute right-0 top-1/2 h-[3vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[45%] 3xl:h-[2vw] ${
+              className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
                 menuMode === 'body'
-                  ? 'ease rotate-90 transform transition-all duration-300'
+                  ? 'ease rotate-90 transform transition-all duration-700'
                   : ''
               }`}
             />

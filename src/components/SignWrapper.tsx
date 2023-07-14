@@ -56,7 +56,7 @@ export default function SignWrapper({
 
   const closeSlider = () => {
     reverseSlide
-      ?.duration(reverseSlide.duration() / 2)
+      ?.duration(reverseSlide.duration() / 1)
       .reverse()
       .then(() => {
         setIsSignFormHidden(true);

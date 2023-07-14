@@ -24,13 +24,13 @@ export default function CartFavWrapper({
 
       tl.from(blurBg.current, {
         opacity: 0,
-        duration: 0.3,
+        duration: 0.6,
       });
       tl.from(
         wrapper.current,
         {
           x: '+=100%',
-          duration: 0.8,
+          duration: 1,
           ease: 'power4.inOut',
         },
         '<'
@@ -54,7 +54,7 @@ export default function CartFavWrapper({
 
   const closeSlider = () => {
     reverseSlide
-      ?.duration(reverseSlide.duration() / 2)
+      ?.duration(reverseSlide.duration() / 1.4)
       .reverse()
       .then(() => {
         setIsCartFavWrapperHidden(true);

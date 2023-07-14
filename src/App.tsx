@@ -22,10 +22,44 @@ import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
 import Featured from './components/Featured/Featured';
 import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
+import Lenis from '@studio-freight/lenis';
+import '../src/index.css';
 
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 function App() {
+  const lenis = new Lenis({
+    duration: 2.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    wheelMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+    lerp: 0,
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+  });
+
+  gsap.ticker.lagSmoothing(0);
+  requestAnimationFrame(raf);
+
   return (
-    <div className='mx-auto min-h-screen text-charcoal'>
+    <div
+      data-lenis-prevent
+      className='data-scroll-container mx-auto min-h-screen text-charcoal'
+    >
+      {/* <Preloader/> */}
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
@@ -68,6 +102,7 @@ function App() {
       </Routes>
       <Footer />
     </div>
+    // </LocomotiveScrollProvider>
   );
 }
 

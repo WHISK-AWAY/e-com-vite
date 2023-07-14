@@ -78,7 +78,21 @@ input:focus {
     scrollbar-width: none; /* Firefox */
   }
 
-  /* input:-webkit-autofill {
+
+  .inset-clip {
+    clip-path: inset(0 0 0 0 )
+  }
+
+  .poly-clip {
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)
+  }
+
+
+  .txt-stroke {
+    -webkit-text-stroke: 2px #fff;
+  }
+
+ /* input:-webkit-autofill {
   border: 3px solid white;
   outline-color: white;
   background: rgba(128, 35, 35, 0.515);
@@ -193,3 +207,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+   pointer-events: none;
+} 
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
