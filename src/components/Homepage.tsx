@@ -149,7 +149,8 @@ export default function Homepage() {
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
       !document.querySelector('.beach-section-rp') ||
-      !document.querySelector('.beach-oval-text') || !document.querySelector('.beach-text-closer')
+      !document.querySelector('.beach-oval-text') ||
+      !document.querySelector('.beach-text-closer')
     )
       return;
     const ctx = gsap.context(() => {
@@ -171,7 +172,7 @@ export default function Homepage() {
       });
 
       // gsap.to('.philosophy-section-content', {
-      //   backgroundColor: 'rgba(142 146 130 .9)',
+      //   backgroundColor: 'rgba(142 146 130 .2)',
       //   color: '#fff',
       //   ease: 'slow',
       //   scrollTrigger: {
@@ -275,7 +276,7 @@ export default function Homepage() {
           start: 'top 90%',
           end: 'top top',
           // pin: tru
-          scrub: 1.3,
+          scrub: 2.3,
         },
       });
 
@@ -313,7 +314,7 @@ export default function Homepage() {
         x: -450,
         ease: 'slow',
         duration: 2,
-        stagger: 0.8,
+        // stagger: 0.8,
         scrollTrigger: {
           scrub: 2,
           trigger: '.unleash-section-content',
@@ -355,31 +356,32 @@ export default function Homepage() {
       // });
 
       gsap.from('.beach-section-rp', {
-        y: -10,
+        y: -20,
         ease: 'slow.inOut',
-        scale: 1.1,
+        scale: 1.2,
         // opacity: 0,
         duration: 1,
         scrollTrigger: {
-          trigger: '.beach-section-content',
-          start: 'top 10%',
-          end: 'bottom center',
+          trigger: '.beach-section-rp',
+          start: 'top 80%',
+          end: 'bottom top',
           scrub: 1.4,
           // markers: true,
         },
       });
 
       gsap.from('.beach-oval-container, .beach-oval-text', {
-        yPercent: -35,
+        yPercent: -45,
         ease: 'slow.inOut',
         duration: 2,
         opacity: 0,
         stagger: 0.8,
         scrollTrigger: {
+          // markers: true,
           trigger: '.beach-section-rp',
-          start: 'top center',
-          end: 'bottom center',
-          scrub: 1.5,
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 2.5,
         },
       });
 
@@ -398,35 +400,165 @@ export default function Homepage() {
 
       gsap.from('.beach-text-closer', {
         yPercent: 30,
-        ease: 'slow.inOut',
+        ease: 'sine',
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
           markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
-          end: 'bottom bottom',
-          scrub: 2.7,
+          end: 'bottom center',
+          scrub: 1.7,
+        },
+      });
+
+      gsap.from('.beach-rp-right', {
+        opacity: 0,
+        x: 200,
+        ease: 'slow.inOut',
+        duration: 2,
+        // stagger: 0.8,
+        scrollTrigger: {
+          scrub: 2.3,
+          trigger: '.beach-section-rp',
+          start: 'top center',
+          end: 'bottom 90%',
+          //  pin: true
+        },
+      });
+
+      gsap.from('.facewash-lady-img', {
+        // opacity: 0,
+        yPercent: 60,
+        ease: 'slow',
+        scrollTrigger: {
+          trigger: '.facewash-section-content',
+          start: 'top 90%',
+          end: 'center 60%',
+          scrub: 2,
+        },
+      });
+
+      gsap.from('.facewash-rp', {
+        xPercent: 200,
+        ease: 'sine',
+        scrollTrigger: {
+          trigger: '.facewash-section-content',
+          start: 'top 90%',
+          // markers: true,
+          end: 'top 40%',
+          scrub: 3.4,
+        },
+      });
+
+      gsap.from('.facewash-section-text-top', {
+        yPercent: 30,
+        opacity: 0,
+        // ease: 'slow',
+        ease: 'slow',
+        scrollTrigger: {
+          trigger: '.facewash-section-content',
+          start: 'top center',
+          // markers: true,
+          end: 'center center',
+          scrub: 0.6,
+        },
+      });
+
+      gsap.from('.facewash-section-text-right', {
+        ease: 'slow',
+        opacity: 0,
+        yPercent: -40,
+        scrollTrigger: {
+          trigger: '.facewash-section-content',
+          start: 'top top',
+          end: 'center center',
+          scrub: 1.4,
+        },
+      });
+
+      gsap.from('.papaya-img', {
+        ease: 'sine',
+        xPercent: -100,
+        scrollTrigger: {
+          trigger: '.facewash-lady-img',
+          start: 'top center',
+          end: 'top center',
+          // markers:true,
+          scrub: 2.4,
+        },
+      });
+
+      // gsap.from('.ingredient-header-right', {
+      //   ease: 'slow',
+      //   opacity: 0,
+      //   xPercent: 100,
+      //   scrollTrigger: {
+      //     trigger: '.facewash-lady-img',
+      //     start: 'top center',
+      //     end: 'top botom',
+      //     markers: true,
+      //     scrub: .5
+      //   }
+      // })
+
+      gsap.from('.ingredient-rp', {
+        ease: 'slow.inOut',
+        xPercent: 100,
+        scrollTrigger: {
+          trigger: '.papaya-img',
+          start: 'top bottom',
+          end: 'top top',
+          // markers: true,
+          scrub: 2.2,
+        },
+      });
+
+      gsap.from('.ingredient-section-subheader', {
+        ease: 'slow',
+        opacity: 0,
+        duration: 1,
+        yPercent: 100,
+        // stagger: 3.5,
+        scrollTrigger: {
+          trigger: '.ingredient-section-subheader',
+          start: 'top 80%',
+          end: 'top center',
+          scrub: 1.3,
+          // markers: true,
+        },
+      });
+
+      gsap.from('.ingredient-section-closer', {
+        ease: 'sine',
+        opacity: 0,
+        duration: 1.4,
+        yPercent: 80,
+        scrollTrigger: {
+          trigger: '.papaya-img',
+          start: 'bottom center',
+          end: 'center center',
+          scrub: 2.3,
+          // markers: true,
         },
       });
 
 
-            gsap.from('.beach-rp-right', {
-              opacity: 0,
-              x: 300,
-              ease: 'expo.inOut',
-              duration: 2,
-              // stagger: 0.8,
-              scrollTrigger: {
-                scrub: 2.3,
-                trigger: '.beach-section-rp',
-                start: 'top center',
-                end: 'bottom 90%',
-                //  pin: true
-              },
-            });
-
-     
+      gsap.from('.landing-page-closer-container', {
+        ease: 'power3.inOut',
+        scale: 1.1,
+        duration: 1,
+        yPercent: 20,
+        // rotateY: 50,
+        stagger:1.4,
+        scrollTrigger: {
+          trigger: '.ingredient-section-closer',
+          start: 'top bottom',
+          end: 'bottom bettom',
+          // markers: true, 
+          scrub: .3
+        }
+      })
     });
 
     return () => {
@@ -488,7 +620,7 @@ export default function Homepage() {
         // pinReparent: true,
         // markers: true,
         start: 'center center',
-        scrub: 2.9,
+        scrub: 4.9,
         // pinSpacing: 'padding',
         endTrigger: specialRef.current,
         // horizontal: false,
@@ -499,13 +631,14 @@ export default function Homepage() {
         duration: 4,
         opacity: 0,
         ease: 'slow.inOut',
+        stagger: .1,
         y: 25,
         scrollTrigger: {
           // pinReparent: true,
-          scrub: 1,
+          scrub: 1.2,
           trigger: treatRef.current,
           start: 'top 70%',
-          end: 'bottom 10%',
+          end: 'bottom 20%',
         },
       });
     }, treatRef.current);
@@ -813,7 +946,7 @@ export default function Homepage() {
       </div>
 
       <div className='unleash-section-content flex w-full flex-col items-center'>
-        <p className=' z-50 -translate-y-[50%] font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
+        <p className=' z-10 -translate-y-[50%] font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
           unleash{' '}
         </p>
         <p className='-translate-y-[550%] font-raleway text-[2vw] font-thin leading-none tracking-wide'>
@@ -871,15 +1004,18 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='relative flex  flex-col items-center justify-center pt-[25%]'>
+      <div className='facewash-section-content relative z-10 flex  flex-col items-center justify-center pt-[25%]'>
         <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
-          <p className='w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='facewash-section-text-top z-20 w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
           </p>
 
-          <Link to={'/product/' + randomProd06!._id} className='flex w-full '>
+          <Link
+            to={'/product/' + randomProd06!._id}
+            className='facewash-rp z-50 flex w-full'
+          >
             <img
               className='lazyload aspect-[7/9] w-full transform object-cover transition  duration-300 hover:scale-110'
               data-src={
@@ -892,14 +1028,14 @@ export default function Homepage() {
           </Link>
         </div>
 
-        <div className='flex w-full flex-col '>
+        <div className='-z-10 flex w-full flex-col'>
           <img
             data-src={ladyFacewash}
             data-sizes='auto'
             alt='lady washing her face in the bathroom with white towel on her head'
-            className='lazyload aspect-[4/6] h-screen self-center'
+            className='facewash-lady-img lazyload aspect-[4/6] h-screen self-center'
           />
-          <p className='w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
+          <p className='facewash-section-text-right w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -907,31 +1043,33 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='flex w-[90%] max-w-[1440px] self-center '>
+      <div className='ingredient-section-content flex w-[90%] max-w-[1440px] self-center '>
         <div className='flex h-screen  w-[65%] border '>
           <img
             data-src={papaya}
             data-sizes='auto'
             alt='ripe papaya cut in half'
-            className='lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover '
+            className='papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover '
           />
           <div className='relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap '>
             <p className='relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]'>
               <span className='absolute left-0 top-0 -translate-x-[100%] text-white'>
                 we u
               </span>
-              <span className='absolute left-0 top-0  text-[#262626]'>se</span>
+              <span className='ingredient-header-right absolute left-0 top-0  text-[#262626]'>
+                se
+              </span>
             </p>
           </div>
         </div>
 
         <div className=' relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] '>
-          <p className='absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] '>
+          <p className='ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] '>
             only best ingredients for best results
           </p>
           <Link
             to={'/product/' + randomProd05!._id}
-            className='flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px] '
+            className='ingredient-rp flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px] '
           >
             <img
               className='lazyload aspect-[3/5] transform object-cover pl-[8%] transition duration-300  hover:scale-105 min-[2500px]:max-h-[750px]'
@@ -948,15 +1086,15 @@ export default function Homepage() {
           </Link>
         </div>
       </div>
-      <div className='flex w-[70%] items-center justify-center self-center pb-[6%] pt-[5%] leading-loose'>
+      <div className='ingredient-section-closer flex w-[70%] items-center justify-center self-center pb-[6%] pt-[15%] leading-loose'>
         <p className='text-center font-aurora text-[1.4vw]'>
           heavy moisturizers are ideal for cold climates or during winter when
           the air is dryer but they can be too cloying during the heat of summer
-          and don't provide adequate{' '}
+          and don't provide adequate hydration
         </p>
       </div>
 
-      <div className='flex h-full w-[80%] justify-center self-center pb-[6%]'>
+      <div className='landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[6%]'>
         <div className='flex h-[40dvh] gap-9 2xl:h-[50dvh]'>
           <img
             data-src={coconutHand}
@@ -968,7 +1106,7 @@ export default function Homepage() {
             data-src={melon}
             data-sizes='auto'
             alt='melon cut in half'
-            className='lazyload aspect-[1/2] w-[30%] object-cover'
+            className='melon-img lazyload aspect-[1/2] w-[30%] object-cover'
           />
           <video
             data-src={legBrush}
@@ -976,7 +1114,7 @@ export default function Homepage() {
             muted={true}
             loop={true}
             autoPlay={true}
-            className='lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover'
+            className='leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover'
           />
         </div>
       </div>
