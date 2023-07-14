@@ -155,6 +155,7 @@ router.get('/:productId', async (req, res, next) => {
     ).populate('tags');
 
     let randomProductCount = RELATED_PRODUCTS_COUNT - sameTagProducts.length;
+
     const differentTagProducts = await Product.find(
       {
         tags: { $nin: tagList },
@@ -164,15 +165,37 @@ router.get('/:productId', async (req, res, next) => {
       { limit: randomProductCount }
     ).populate('tags');
 
-    const relatedProducts = [...sameTagProducts, ...differentTagProducts];
+    let relatedProducts = [...sameTagProducts, ...differentTagProducts];
 
-    // product.relatedProducts = relatedProducts;
+    randomProductCount -= differentTagProducts.length;
+    if (randomProductCount > 0) {
+      const existingProductList = [
+        product._id,
+        ...relatedProducts.map((prod) => prod._id),
+      ];
+
+      const fallbackProducts = await Product.find(
+        {
+          _id: {
+            $nin: existingProductList,
+          },
+        },
+        {},
+        { limit: randomProductCount }
+      ).populate('tags');
+
+      relatedProducts = relatedProducts.concat(
+        JSON.parse(JSON.stringify(fallbackProducts))
+      );
+    }
+
+    // console.log(relatedProducts.sort(() => Math.random() - 0.5));
+
     const combinedProduct = {
       ...JSON.parse(JSON.stringify(product)),
-      relatedProducts: relatedProducts,
+      relatedProducts: relatedProducts.sort(() => Math.random() - 0.5),
     };
 
-    // pull 4 products from not the same tag name
     res.status(200).json(combinedProduct);
   } catch (err) {
     next(err);
