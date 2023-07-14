@@ -48,6 +48,7 @@ export default function DropdownMenu({
         backgroundColor: 'white',
         duration: 0.2,
         width: 0,
+        opacity: 0,
       });
 
       tl.to(menuWrapper.current, {
