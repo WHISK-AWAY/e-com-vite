@@ -200,12 +200,7 @@ export default function Navbar() {
           SHOP
         </div>
 
-        {!isMenuHidden && (
-          <DropDownMenu
-            setIsMenuHidden={setIsMenuHidden}
-            isMenuHidden={isMenuHidden}
-          />
-        )}
+        {!isMenuHidden && <DropDownMenu setIsMenuHidden={setIsMenuHidden} />}
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
