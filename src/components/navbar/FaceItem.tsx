@@ -36,7 +36,6 @@ export default function FaceItem({
 
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
-  const [faceState, setFaceState] = useState<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     setMenuHeight(

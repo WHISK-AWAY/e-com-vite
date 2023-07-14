@@ -16,10 +16,8 @@ export default function ShopByCategoryListItem({
 }: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
-  const [catState, setCatState] = useState<gsap.core.Timeline | null>(null);
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
-  // const catRef = useRef(null);
 
   useEffect(() => {
     setMenuHeight(
@@ -55,8 +53,6 @@ export default function ShopByCategoryListItem({
           stagger: 0.025,
           duration: 0.25,
         });
-
-      setCatState(tl);
     });
 
     return () => {

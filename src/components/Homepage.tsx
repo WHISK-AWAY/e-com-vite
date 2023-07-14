@@ -24,7 +24,6 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-import Preloader from './Preloader';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -543,22 +542,21 @@ export default function Homepage() {
         },
       });
 
-
       gsap.from('.landing-page-closer-container', {
         ease: 'power3.inOut',
         scale: 1.1,
         duration: 1,
         yPercent: 20,
         // rotateY: 50,
-        stagger:1.4,
+        stagger: 1.4,
         scrollTrigger: {
           trigger: '.ingredient-section-closer',
           start: 'top bottom',
           end: 'bottom bettom',
-          // markers: true, 
-          scrub: .3
-        }
-      })
+          // markers: true,
+          scrub: 0.3,
+        },
+      });
     });
 
     return () => {
@@ -631,7 +629,7 @@ export default function Homepage() {
         duration: 4,
         opacity: 0,
         ease: 'slow.inOut',
-        stagger: .1,
+        stagger: 0.1,
         y: 25,
         scrollTrigger: {
           // pinReparent: true,

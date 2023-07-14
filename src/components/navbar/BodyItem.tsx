@@ -21,7 +21,6 @@ export default function BodyItem({
 
   const [menuHeight, setMenuHeight] = useState(0);
   const localParent = useRef<HTMLDivElement>(null);
-  const [bodyState, setBodyState] = useState<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     if (localParent.current) {
