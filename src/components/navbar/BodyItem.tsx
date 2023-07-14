@@ -50,7 +50,6 @@ export default function BodyItem({
           height: menuHeight,
           duration: 1.5,
           ease: 'power4',
-          onReverseComplete: () => setMenuMode('none'),
         }
       );
 
@@ -63,7 +62,10 @@ export default function BodyItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu() {
-    return bodyState?.duration(0.9).reverse();
+    return bodyState
+      ?.duration(0.9)
+      .reverse()
+      .then(() => setMenuMode('none'));
   }
 
   return (

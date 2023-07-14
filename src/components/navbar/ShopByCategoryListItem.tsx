@@ -43,9 +43,6 @@ export default function ShopByCategoryListItem({
       tl.to(
         localParent.current,
         {
-          onReverseComplete: () => {
-            setMenuMode('none');
-          },
           height: menuHeight,
           // delay: .1,
           duration: 1.5,
@@ -68,7 +65,10 @@ export default function ShopByCategoryListItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu() {
-    return catState?.duration(0.9).reverse();
+    return catState
+      ?.duration(0.9)
+      .reverse()
+      .then(() => setMenuMode('none'));
   }
 
   return (
@@ -80,7 +80,7 @@ export default function ShopByCategoryListItem({
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className='border-2  border-white  flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
         >
           {tagList.map((tag) => {
             const name = tag.tagName;

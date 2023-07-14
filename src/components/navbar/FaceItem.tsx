@@ -61,7 +61,7 @@ export default function FaceItem({
           duration: 1.5,
           ease: 'power4',
           overflow: 'hidden',
-          onReverseComplete: () => setMenuMode('none'),
+          // onReverseComplete: () => setMenuMode('none'),
         }
       );
 
@@ -74,7 +74,10 @@ export default function FaceItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu() {
-    return faceState?.duration(0.9).reverse();
+    return faceState
+      ?.duration(0.9)
+      .reverse()
+      .then(() => setMenuMode('none'));
   }
 
   if (!filteredTags) return <p>...loading</p>;
