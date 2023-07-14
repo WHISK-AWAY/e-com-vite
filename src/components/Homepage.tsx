@@ -50,7 +50,7 @@ export default function Homepage() {
     window.scrollTo({ top: 0 });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!allProducts.products.length) {
       dispatch(
         fetchAllProducts({
@@ -134,7 +134,7 @@ export default function Homepage() {
   // })
   //   })
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       !document.querySelector('.landing-section-content') ||
       !document.querySelector('.philosophy-section-content') ||
@@ -309,7 +309,7 @@ export default function Homepage() {
       });
 
       gsap.from('.unleash-rp', {
-        // opacity: 0,
+        opacity: 0,
         x: -450,
         ease: 'slow',
         duration: 2,
@@ -488,7 +488,7 @@ export default function Homepage() {
         // pinReparent: true,
         // markers: true,
         start: 'center center',
-        scrub: 2,
+        scrub: 2.9,
         // pinSpacing: 'padding',
         endTrigger: specialRef.current,
         // horizontal: false,
@@ -498,8 +498,8 @@ export default function Homepage() {
       gsap.from('.anim-text', {
         duration: 4,
         opacity: 0,
-        ease: 'power4.out',
-        y: 20,
+        ease: 'slow.inOut',
+        y: 25,
         scrollTrigger: {
           // pinReparent: true,
           scrub: 1,
