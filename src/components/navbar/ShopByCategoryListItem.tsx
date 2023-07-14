@@ -35,31 +35,28 @@ export default function ShopByCategoryListItem({
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
-      tl.set(localParent.current, {
-        opacity: 1,
-        height: 0,
-        // duration: 0.2,
-      });
-      tl.to(
-        localParent.current,
-        {
-          onReverseComplete: () => {
-            setMenuMode('none');
+      tl.set('.submenu-item', {
+        opacity: 0,
+      })
+        .fromTo(
+          localParent.current,
+          {
+            opacity: 1,
+            height: 0,
           },
-          height: menuHeight,
-          // delay: .1,
-          duration: 1.5,
-          ease: 'expo',
-        },
-        '<'
-      );
+          {
+            height: menuHeight,
+            duration: 0.5,
+            ease: 'expo',
+          }
+        )
+        .to('.submenu-item', {
+          opacity: 1,
+          stagger: 0.025,
+          duration: 0.25,
+        });
 
       setCatState(tl);
-
-      // moved this stuff to the onMouseLeave of the localParent div element
-      // localParent?.current?.addEventListener('mouseleave', () => {
-      //   tl?.duration(0.9).reverse();
-      // });
     });
 
     return () => {
@@ -67,20 +64,43 @@ export default function ShopByCategoryListItem({
     };
   }, [localParent.current, menuHeight]);
 
-  function closeLocalMenu() {
-    return catState?.duration(0.9).reverse();
+  function closeLocalMenu(fullClose: boolean = false) {
+    // Close the submenu. If fullClose is true, also close the outer shop menu.
+
+    if (fullClose) {
+      setMenuMode('none');
+      closeOuterMenu();
+    } else
+      gsap
+        .to('.submenu-item', {
+          opacity: 0,
+          duration: 0.25,
+          stagger: -0.025,
+        })
+        .then(() => {
+          gsap
+            .to(localParent.current, {
+              overflow: 'hidden',
+              height: 0,
+              duration: 0.3,
+              ease: 'power1.in',
+            })
+            .then(() => {
+              setMenuMode('none');
+            });
+        });
   }
 
   return (
     <div
       ref={localParent}
-      onMouseLeave={closeLocalMenu}
+      onMouseLeave={() => closeLocalMenu()}
       className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap'
     >
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className='border-2  border-white  flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
@@ -89,12 +109,10 @@ export default function ShopByCategoryListItem({
                 key={tag._id}
                 to='/shop-all'
                 onClick={() => {
-                  closeLocalMenu()?.then(() => {
-                    closeOuterMenu();
-                  });
+                  closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
-                className='odd:text-[3vw] hover:underline hover:underline-offset-2'
+                className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-2'
               >
                 {name}
               </Link>

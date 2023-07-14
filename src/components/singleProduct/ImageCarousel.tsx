@@ -117,20 +117,22 @@ export default function ImageCarousel({
         })
         .to(images, {
           // shift all images leftward
-          x: '-=100%',
+          x: (_, target) => {
+            return -target.getBoundingClientRect().width - 12; // 12 being the 'gap' setting
+          },
         })
         .set(images[1], {
           // remove first shown image
           display: 'none',
         })
-        .set(images, {
-          // shift images back rightward to make up space left by disappeared first image
-          x: '+=100%',
-        })
         .set(images.at(-1)!, {
           // un-hide (while making invisible) new last image
           display: 'inherit',
           opacity: 0,
+        })
+        .set(images, {
+          // position all products for arrival of "new" rendered product
+          x: 0,
         })
         .to(images.at(-1)!, {
           // fade in last image
@@ -145,20 +147,22 @@ export default function ImageCarousel({
         })
         .to(images, {
           // shift all images rightward
-          x: '+=100%',
+          x: (_, target) => {
+            return target.getBoundingClientRect().width + 12; // 12 being the 'gap' setting
+          },
         })
         .set(images[num], {
           // remove last shown image
           display: 'none',
         })
-        .set(images, {
-          // shift all images back leftward to make up for space left by disappeared last image
-          x: '-=100%',
-        })
         .set(images[0], {
           // un-hide (while making invisible) new first image
           display: 'inherit',
           opacity: 0,
+        })
+        .set(images, {
+          // position all products for arrival of "new" rendered product
+          x: 0,
         })
         .to(images[0], {
           // fade in new first image

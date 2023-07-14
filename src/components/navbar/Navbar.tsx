@@ -191,21 +191,16 @@ export default function Navbar() {
           },
         }}
       />
-      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 cursor-pointer  items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
+      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
         <div
-          className='shop'
+          className='shop cursor-pointer'
           onMouseEnter={() => setIsMenuHidden(false)}
           onClick={() => setIsMenuHidden(false)}
         >
           SHOP
         </div>
 
-        {!isMenuHidden && (
-          <DropDownMenu
-            setIsMenuHidden={setIsMenuHidden}
-            isMenuHidden={isMenuHidden}
-          />
-        )}
+        {!isMenuHidden && <DropDownMenu setIsMenuHidden={setIsMenuHidden} />}
 
         <NavLink to='/shop-all/bestsellers' state={{ sortKey: 'saleCount' }}>
           BESTSELLERS
