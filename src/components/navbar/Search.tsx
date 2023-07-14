@@ -20,9 +20,6 @@ export default function Search({
   const navigate = useNavigate();
 
   //prevent scroll on overflow
-  /**
-   * !does not work at the moment
-   */
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
