@@ -44,20 +44,20 @@ export default function SearchContainer({
       tl.from(blurBgRef.current, {
         opacity: 0,
         duration: 0.3,
-        ease: 'power4.inOut',
+        ease: 'expo.inOut',
       });
       tl.from(
         formRef.current,
         {
           y: '-=100%',
           duration: 0.8,
-          ease: 'power4.inOut',
+          ease: 'expo.inOut',
         },
         '<'
       );
       tl.from(logoRef.current, {
         duration: 0.4,
-        ease: 'power4.inOut',
+        ease: 'expo.inOut',
         opacity: 0,
       });
 
@@ -100,7 +100,7 @@ export default function SearchContainer({
   function closeSlider() {
     if (anim) {
       anim
-        .duration(anim.duration() / 2) // double-speed the reversal
+        .duration(anim.duration() / 1.2) // double-speed the reversal
         .reverse()
         .then(() => {
           setIsSearchHidden(true);
@@ -194,21 +194,21 @@ export default function SearchContainer({
           <img
             src={x}
             alt='x-icon'
-            className='absolute left-[5%] top-8 h-[2vw] cursor-pointer'
+            className='absolute left-[5%] top-12 4xl:top-20 h-[2vw] 5xl:top-32 cursor-pointer 4xl:h-[1.5vw]'
             onClick={closeSlider}
           />
           <Link
             to='/'
-            className='font-chonburi  text-[2.5vw] text-[#262626] 3xl:text-[1.6vw]'
+            className='font-notable  text-[2.5vw] text-[#262626] 3xl:text-[1.6vw]'
             onClick={closeSlider}
             ref={logoRef}
           >
             ASTORIA
           </Link>
         </div>
-        <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 '>
+        <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 pt-[10px]'>
           <input
-            className='w-full rounded-sm border border-charcoal font-federo text-[1.5vw] placeholder:font-aurora  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
+            className='w-full rounded-sm border border-charcoal font-federo text-[1.5vw] placeholder:font-poiret  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal '
             type='text'
             id='search'
             value={search}

@@ -62,13 +62,8 @@ export default function Navbar() {
   useEffect(() => {
     dispatch(getUserId());
     dispatch(searchProducts());
+    dispatch(fetchAllTags());
   }, []);
-
-  useEffect(() => {
-    if (!tagState.tags.length) {
-      dispatch(fetchAllTags());
-    }
-  }, [tagState]);
 
   // * this part doesn't really work all that well, but the navigates should
   // * at least be in the ball park of what we want
@@ -165,21 +160,22 @@ export default function Navbar() {
   //   });
   // };
 
+  // window.addEventListener('scroll', function () {
+  //   const navbar = document.getElementById('navbar');
+  //   const scrollPosition = window.scrollY;
 
-// window.addEventListener('scroll', function () {
-//   const navbar = document.getElementById('navbar');
-//   const scrollPosition = window.scrollY;
-
-//   if (scrollPosition > 0) {
-//     navbar?.classList.add('navbar-scrolled');
-//   } else {
-//     navbar?.classList.remove('navbar-scrolled');
-//   }
-// });
-
+  //   if (scrollPosition > 0) {
+  //     navbar?.classList.add('navbar-scrolled');
+  //   } else {
+  //     navbar?.classList.remove('navbar-scrolled');
+  //   }
+  // });
 
   return (
-    <nav id='navbar' className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'>
+    <nav
+      id='navbar'
+      className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'
+    >
       <Toaster
         position='top-right'
         containerStyle={{ position: 'absolute', right: 0 }}
@@ -195,7 +191,7 @@ export default function Navbar() {
           },
         }}
       />
-      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center  justify-start gap-4 font-hubbali text-xs  lg:gap-5 cursor-pointer lg:text-lg 2xl:gap-6'>
+      <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 cursor-pointer  items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
         <div
           className='shop'
           onMouseEnter={() => setIsMenuHidden(false)}

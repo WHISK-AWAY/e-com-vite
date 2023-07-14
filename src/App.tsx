@@ -28,10 +28,6 @@ import '../src/index.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 function App() {
-  // const containerRef = useRef<HTMLDivElement>(null);
-
-  // const location = useLocation();
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -43,10 +39,6 @@ function App() {
     infinite: false,
     lerp: 0,
   });
-
-  // lenis.on('scroll', (e:any) => {
-  //   console.log(e);
-  // });
 
   lenis.on('scroll', ScrollTrigger.update);
 
@@ -63,24 +55,12 @@ function App() {
   requestAnimationFrame(raf);
 
   return (
-    // <LocomotiveScrollProvider
-    //   options={{
-    //     smooth: true,
-    //   }}
-    //   watch={[location.pathname]}
-    //   containerRef={containerRef}
-    //   // location={location}
-    // >
     <div
       data-lenis-prevent
-      // ref={containerRef}
-      // data-scroll-container
-      // id='data-scroll-container'
       className='data-scroll-container mx-auto min-h-screen text-charcoal'
     >
       {/* <Preloader/> */}
       <Navbar />
-      {/* <Routes location={location} key={location.pathname}> */}
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/shop-all' element={<AllProducts />} />

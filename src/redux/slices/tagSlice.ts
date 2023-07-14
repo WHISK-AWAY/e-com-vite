@@ -17,8 +17,10 @@ export const fetchAllTags = createAsyncThunk(
       if (err instanceof AxiosError) {
         console.log('error in fetchAllTags:', err);
         return thunkApi.rejectWithValue({
-          status: err.response?.status,
-          message: err.response?.data.message,
+          status: err.response?.status || 500,
+          message: `Error fetching ${err.config?.url}: ${
+            err.message || 'Server error'
+          }`,
         });
       }
       console.log('bad error in fetchAllTags:', err);
@@ -53,7 +55,6 @@ const tagSlice = createSlice({
   },
 });
 
-
 export type TTag = {
   tagName: string;
   _id: string;
@@ -68,5 +69,5 @@ export type TagState = {
   };
 };
 
-    export const selectTagState = (state: RootState) => state.tag;
-    export default tagSlice.reducer;
+export const selectTagState = (state: RootState) => state.tag;
+export default tagSlice.reducer;

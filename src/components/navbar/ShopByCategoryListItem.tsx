@@ -37,6 +37,7 @@ export default function ShopByCategoryListItem({
 
       tl.set(localParent.current, {
         opacity: 1,
+        height: 0,
         // duration: 0.2,
       });
       tl.to(
@@ -48,7 +49,7 @@ export default function ShopByCategoryListItem({
           height: menuHeight,
           // delay: .1,
           duration: 1.5,
-          ease: 'power4',
+          ease: 'expo',
         },
         '<'
       );
@@ -74,12 +75,12 @@ export default function ShopByCategoryListItem({
     <div
       ref={localParent}
       onMouseLeave={closeLocalMenu}
-      className='group absolute left-0 top-[65%] z-10 flex h-0 w-screen flex-col flex-wrap'
+      className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap'
     >
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className=' flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#262626]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+          className='border-2  border-white  flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
