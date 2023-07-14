@@ -87,6 +87,11 @@ input:focus {
     clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%)
   }
 
+
+  .txt-stroke {
+    -webkit-text-stroke: 2px #fff;
+  }
+
  /* input:-webkit-autofill {
   border: 3px solid white;
   outline-color: white;
