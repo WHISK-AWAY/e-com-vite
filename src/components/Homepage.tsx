@@ -445,12 +445,37 @@ export default function Homepage() {
               scrollTrigger: {
                 trigger: '.facewash-section-content',
                 start: 'top 10%',
-                markers: true,
+                // markers: true,
                 end: 'top 40%',
                 scrub: 2.4,
               },
             });
+
+            gsap.from('.facewash-section-text-top', {
+              yPercent: 30,
+              opacity: 0,
+              // ease: 'slow',
+              ease: 'slow',
+              scrollTrigger: {
+                trigger: '.facewash-section-content',
+                start: 'top center',
+                markers: true,
+                end: 'center center',
+                scrub: .6,
+              }
+            })
      
+            gsap.from('.facewash-section-text-right', {
+              ease: 'slow',
+              opacity: 0,
+              yPercent: -40,
+              scrollTrigger: {
+                trigger: '.facewash-section-content',
+                start: 'top top',
+                end: 'center center',
+                scrub: 1.4,
+              }
+            })
     });
 
     return () => {
@@ -897,7 +922,7 @@ export default function Homepage() {
 
       <div className='facewash-section-content z-10 relative flex  flex-col items-center justify-center pt-[25%]'>
         <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
-          <p className='w-full z-20 -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
+          <p className='facewash-section-text-top w-full z-20 -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
@@ -923,7 +948,7 @@ export default function Homepage() {
             alt='lady washing her face in the bathroom with white towel on her head'
             className='facewash-lady-img lazyload aspect-[4/6] h-screen self-center'
           />
-          <p className='w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
+          <p className='facewash-section-text-right w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate
