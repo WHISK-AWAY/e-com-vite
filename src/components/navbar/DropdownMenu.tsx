@@ -36,6 +36,10 @@ export default function DropdownMenu({
         overflow: 'hidden',
       });
 
+      tl.set('.x-icon', {
+        opacity: 0,
+      });
+
       tl.to(menuWrapper.current, {
         height: '100vh',
         ease: 'expo.inOut',
@@ -79,6 +83,14 @@ export default function DropdownMenu({
           });
         });
       });
+
+      tl.to(
+        '.x-icon',
+        {
+          opacity: 1,
+        },
+        '<'
+      );
 
       menuAnimation.current = tl;
     }, menuWrapper.current);
@@ -145,7 +157,7 @@ export default function DropdownMenu({
       <img
         src={x}
         alt='x-icon'
-        className='absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
+        className='x-icon absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
         onClick={closeMenu}
       />
 
