@@ -64,7 +64,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (!tagState.tags.length) {
+    if (!tagState.tags.length && !tagState.errors.message) {
       dispatch(fetchAllTags());
     }
   }, [tagState]);
