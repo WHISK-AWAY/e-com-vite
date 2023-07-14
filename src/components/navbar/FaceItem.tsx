@@ -52,8 +52,7 @@ export default function FaceItem({
   useLayoutEffect(() => {
     if (!localParent.current) return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
-      tl.fromTo(
+      gsap.fromTo(
         localParent.current,
         {
           opacity: 1,
@@ -66,7 +65,7 @@ export default function FaceItem({
         }
       );
 
-      setFaceState(tl);
+      // setFaceState(tl);
     });
 
     return () => {
@@ -75,20 +74,20 @@ export default function FaceItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu(fullClose: boolean = false) {
-    gsap
-      .to(localParent.current, {
-        overflow: 'hidden',
-        height: 0,
-        duration: 0.5,
-        ease: 'power1.in',
-      })
-      .then(() => {
-        if (fullClose) {
-          closeOuterMenu();
-        } else {
+    if (fullClose) {
+      setMenuMode('none');
+      closeOuterMenu();
+    } else
+      gsap
+        .to(localParent.current, {
+          overflow: 'hidden',
+          height: 0,
+          duration: 0.5,
+          ease: 'power1.in',
+        })
+        .then(() => {
           setMenuMode('none');
-        }
-      });
+        });
   }
 
   if (!filteredTags) return <p>...loading</p>;

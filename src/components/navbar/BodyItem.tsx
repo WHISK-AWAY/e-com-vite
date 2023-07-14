@@ -62,20 +62,20 @@ export default function BodyItem({
   }, [localParent.current, menuHeight]);
 
   function closeLocalMenu(fullClose: boolean = false) {
-    gsap
-      .to(localParent.current, {
-        overflow: 'hidden',
-        height: 0,
-        duration: 0.5,
-        ease: 'power1.in',
-      })
-      .then(() => {
-        if (fullClose) {
-          closeOuterMenu();
-        } else {
+    if (fullClose) {
+      setMenuMode('none');
+      closeOuterMenu();
+    } else
+      gsap
+        .to(localParent.current, {
+          overflow: 'hidden',
+          height: 0,
+          duration: 0.5,
+          ease: 'power1.in',
+        })
+        .then(() => {
           setMenuMode('none');
-        }
-      });
+        });
   }
 
   return (
