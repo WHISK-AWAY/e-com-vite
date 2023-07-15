@@ -37,13 +37,13 @@ export default function DropdownMenu({
       tl.set(menuWrapper.current, {
         overflow: 'hidden',
         left: 0,
-        height: '64px',
+        height: 0,
         transformOrigin: 'left',
       });
       tl.from(menuWrapper.current, {
         backgroundColor: 'white',
         duration: 0.2,
-        width: 0,
+        // width: 0,
         opacity: 0,
       });
 
