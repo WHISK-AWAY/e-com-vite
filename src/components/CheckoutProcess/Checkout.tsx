@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { selectOrderState } from '../../redux/slices/orderSlice';
 import { useAppSelector } from '../../redux/hooks';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Checkout() {
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +62,7 @@ export default function Checkout() {
       confirmParams: {
         receipt_email: 'stacylukavsky@gmail.com',
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:5173/checkout/success?order=${order.singleOrder?._id}`,
+        return_url: `${API_URL}/checkout/success?order=${order.singleOrder?._id}`,
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
