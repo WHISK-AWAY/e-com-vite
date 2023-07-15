@@ -12,7 +12,7 @@ const router = express.Router();
 // const app = express();
 // app.use(express.static('public'));
 
-const YOUR_DOMAIN = 'http://localhost:5173';
+const YOUR_DOMAIN = process.env.CLIENT_URL;
 
 // const calculateOrderAmount = (items) => {
 //   // Replace this constant with a calculation of the order's amount
@@ -78,13 +78,11 @@ router.post('/create-guest-payment-intent', async (req, res, next) => {
       });
     }
 
-    const subtotal = productLookup.reduce((accum:number, s:IProduct) => {
-
+    const subtotal = productLookup.reduce((accum: number, s: IProduct) => {
       return accum + s.price * prodDetails[s._id!.toString()];
-    }, 0)
+    }, 0);
 
-
-    console.log('sub', subtotal)
+    console.log('sub', subtotal);
     if (!subtotal) return res.status(400).send('bad');
 
     const paymentIntent = await stripe.paymentIntents.create({
