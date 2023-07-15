@@ -29,7 +29,8 @@ export default function ShopByCategoryListItem({
   }, [window.innerHeight, localParent.current]);
 
   useLayoutEffect(() => {
-    if (!localParent.current || !document.querySelector('.submenu-item')) return;
+    if (!localParent.current || !document.querySelector('.submenu-item'))
+      return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
@@ -87,14 +88,13 @@ export default function ShopByCategoryListItem({
         });
   }
 
-
-  const subItem = document.querySelectorAll('.submenu-item')
-  const underline = document.querySelectorAll('.underline');
+  // const subItem = document.querySelectorAll('.submenu-item')
+  // const underline = document.querySelectorAll('.underline');
 
   // useEffect(() => {
 
   //   if(!subItem) return;
-  
+
   //   subItem?.forEach((el) => {
   //     el?.addEventListener('mouseenter', (e) => {
   //       gsap.to(e.target, {
@@ -115,7 +115,6 @@ export default function ShopByCategoryListItem({
   //       })
   //     })
 
-   
   //     // gsap.to(underline, {
   //     // })
   //   })
@@ -135,18 +134,17 @@ export default function ShopByCategoryListItem({
           {tagList.map((tag) => {
             const name = tag.tagName;
             return (
-             
-                <Link
-                  key={tag._id}
-                  to='/shop-all'
-                  onClick={() => {
-                    closeLocalMenu(true);
-                  }}
-                  state={{ filterKey: name }}
-                  className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-4 text-center ease   hover:scale-105 hover:duration-500 hover:offsetX'
-                >
-                  {name}
-                </Link>
+              <Link
+                key={tag._id}
+                to='/shop-all'
+                onClick={() => {
+                  closeLocalMenu(true);
+                }}
+                state={{ filterKey: name }}
+                className='submenu-item ease hover:offsetX text-center odd:text-[3vw] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-500'
+              >
+                {name}
+              </Link>
             );
           })}
         </section>
