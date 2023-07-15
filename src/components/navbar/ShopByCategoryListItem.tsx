@@ -31,7 +31,7 @@ export default function ShopByCategoryListItem({
   }, [window.innerHeight, localParent.current]);
 
   useLayoutEffect(() => {
-    if (!localParent.current) return;
+    if (!localParent.current || !document.querySelector('.submenu-item')) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({});
 
@@ -91,11 +91,45 @@ export default function ShopByCategoryListItem({
         });
   }
 
+
+  const subItem = document.querySelectorAll('.submenu-item')
+  const underline = document.querySelectorAll('.underline');
+
+  // useEffect(() => {
+
+  //   if(!subItem) return;
+  
+  //   subItem?.forEach((el) => {
+  //     el?.addEventListener('mouseenter', (e) => {
+  //       gsap.to(e.target, {
+  //         // width: '100%',
+  //         delay: .2,
+  //         ease: 'slow.inOut',
+  //         textDecoration: 'underline',
+  //         duration: 1.3,
+  //         // className: 'underline',
+  //       })
+  //     })
+
+  //     el?.addEventListener('mouseleave', (e) => {
+  //       gsap.to(e.target, {
+  //         ease: 'slow.inOut',
+  //         duration: .3,
+  //         textDecoration: 'none',
+  //       })
+  //     })
+
+   
+  //     // gsap.to(underline, {
+  //     // })
+  //   })
+  // }, [subItem])
+
   return (
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap'
+      className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin'
     >
       {menuHeight > 0 && (
         <section
@@ -105,17 +139,18 @@ export default function ShopByCategoryListItem({
           {tagList.map((tag) => {
             const name = tag.tagName;
             return (
-              <Link
-                key={tag._id}
-                to='/shop-all'
-                onClick={() => {
-                  closeLocalMenu(true);
-                }}
-                state={{ filterKey: name }}
-                className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-2'
-              >
-                {name}
-              </Link>
+             
+                <Link
+                  key={tag._id}
+                  to='/shop-all'
+                  onClick={() => {
+                    closeLocalMenu(true);
+                  }}
+                  state={{ filterKey: name }}
+                  className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-4 text-center ease   hover:scale-105 hover:duration-500 hover:offsetX'
+                >
+                  {name}
+                </Link>
             );
           })}
         </section>
