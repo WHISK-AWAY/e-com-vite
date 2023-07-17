@@ -30,13 +30,11 @@ import 'lazysizes';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { toastGuestFavorite } from '../../utilities/toast';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
 
-
 const PRODS_PER_PAGE = 9;
-export const notify = () =>
-  toast('Please make an account to start adding favorites');
 /**
  * sort by name or price (ascending & descending)
  */
@@ -222,7 +220,6 @@ AllProductsProps) {
     return pages;
   };
 
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -234,10 +231,6 @@ AllProductsProps) {
     infinite: false,
     lerp: 0,
   });
-
-  // lenis.on('scroll', (e: any) => {
-  //   console.log(e);
-  // });
 
   lenis.on('scroll', ScrollTrigger.update);
 
@@ -252,8 +245,6 @@ AllProductsProps) {
 
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
-
-  // const { scroll } = useLocomotiveScroll();
 
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
@@ -393,7 +384,7 @@ AllProductsProps) {
                         src={heartEmpty}
                         alt='heart-blanc'
                         className='h-3 lg:h-4 xl:w-5'
-                        onClick={notify}
+                        onClick={() => toastGuestFavorite()}
                       />
                     ) : (
                       <img
