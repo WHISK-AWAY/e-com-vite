@@ -781,29 +781,29 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='beach-section-content-top relative flex  w-full flex-col items-center  '>
-          <div className='beach-section-content relative -mb-[80%]   flex w-full flex-col items-center bg-[#383838]'>
+        <div className='beach-section-content-top relative flex w-full flex-col items-center'>
+          <div className='beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-[#383838]'>
             <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
               beach
             </p>
-            <p className='ready-text  absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+            <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
               ready
             </p>
 
-            <div className='beach-section-rp relative flex w-[45%] justify-center self-center  pt-[10%]'>
-              <div className='flex  justify-center'>
+            <div className='beach-section-rp relative flex w-[45%] justify-center self-center pt-[10%]'>
+              <div className='flex justify-center'>
                 <Link
                   to={'/product/' + randomProd01!._id}
                   className=' flex justify-center'
                 >
                   <img
-                    className=' lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd01!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -814,13 +814,13 @@ export default function Homepage() {
                   className=' flex transform justify-center transition  duration-300 hover:scale-105'
                 >
                   <img
-                    className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    src={
                       randomProd02!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd02!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -836,10 +836,10 @@ export default function Homepage() {
 
             <div className='w-[80%] pt-[2%]'>
               <img
-                data-src={beachLady}
-                data-sizes='auto'
+                src={beachLady}
+                // data-sizes='auto'
                 alt='lady with a big white hat is laying on the beach'
-                className='lazyload beach-lady-img aspect-auto h-3/4 w-full object-cover'
+                className='beach-lady-img aspect-auto h-3/4 w-full object-cover'
               />
             </div>
 
