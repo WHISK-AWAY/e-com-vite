@@ -7,8 +7,6 @@ import {
 } from '../redux/slices/allProductSlice';
 import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import 'lazysizes';
 
@@ -24,10 +22,13 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
-gsap.registerPlugin(CSSPlugin);
 import '../index.css';
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { CSSPlugin } from 'gsap/CSSPlugin';
+gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -403,7 +404,7 @@ export default function Homepage() {
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
           end: 'bottom center',
@@ -562,23 +563,7 @@ export default function Homepage() {
     return () => {
       ctx.revert();
     };
-  }, [
-    document.querySelector('.landing-section-content'),
-    document.querySelector('.philosophy-section-content'),
-    document.querySelector('.rainbow-lady'),
-    document.querySelector('.rainbow-lady-rp'),
-    document.querySelector('.beach-section-content'),
-    document.querySelector('.beach-lady-img'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.unleash-section-content'),
-    document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'),
-    document.querySelector('.rainbow-wrapper'),
-    document.querySelector('.unleash-rp'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.beach-oval-text'),
-    document.querySelector('.beach-text-closer'),
-  ]);
+  });
 
   useLayoutEffect(() => {
     if (
