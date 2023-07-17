@@ -311,7 +311,7 @@ AllProductsProps) {
             {!isSearchHidden && (
               <SortFilterAllProds
                 setSort={setSort}
-                sort={sort}
+                // sort={sort}
                 filter={filter}
                 setFilter={setFilter}
                 allProducts={allProducts}
