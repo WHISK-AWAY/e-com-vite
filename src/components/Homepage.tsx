@@ -24,7 +24,6 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-import Preloader from './Preloader';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -149,13 +148,12 @@ export default function Homepage() {
       !document.querySelector('.unleash-lady-img') ||
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
-      !document.querySelector('.beach-section-rp') ||
       !document.querySelector('.beach-oval-text') ||
       !document.querySelector('.beach-text-closer')
     )
       return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
+      const tl = gsap.timeline();
 
       tl.to('.landing-section-content', {
         yPercent: 100,
@@ -405,7 +403,7 @@ export default function Homepage() {
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
           end: 'bottom center',
@@ -544,44 +542,27 @@ export default function Homepage() {
         },
       });
 
-
       gsap.from('.landing-page-closer-container', {
         ease: 'power3.inOut',
         scale: 1.1,
         duration: 1,
         yPercent: 20,
         // rotateY: 50,
-        stagger:1.4,
+        stagger: 1.4,
         scrollTrigger: {
           trigger: '.ingredient-section-closer',
           start: 'top bottom',
           end: 'bottom bettom',
-          // markers: true, 
-          scrub: .3
-        }
-      })
+          // markers: true,
+          scrub: 0.3,
+        },
+      });
     });
 
     return () => {
       ctx.revert();
     };
-  }, [
-    document.querySelector('.landing-section-content'),
-    document.querySelector('.philosophy-section-content'),
-    document.querySelector('.rainbow-lady'),
-    document.querySelector('.rainbow-lady-rp'),
-    document.querySelector('.beach-section-content'),
-    document.querySelector('.beach-lady-img'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.unleash-section-content'),
-    document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'),
-    document.querySelector('.rainbow-wrapper'),
-    document.querySelector('.unleash-rp'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.beach-oval-text'),
-    document.querySelector('.beach-text-closer'),
-  ]);
+  });
 
   useLayoutEffect(() => {
     if (
@@ -632,7 +613,7 @@ export default function Homepage() {
         duration: 4,
         opacity: 0,
         ease: 'slow.inOut',
-        stagger: .1,
+        stagger: 0.1,
         y: 25,
         scrollTrigger: {
           // pinReparent: true,
@@ -800,29 +781,29 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='beach-section-content-top relative flex  w-full flex-col items-center  '>
-          <div className='beach-section-content relative -mb-[80%]   flex w-full flex-col items-center bg-[#383838]'>
+        <div className='beach-section-content-top relative flex w-full flex-col items-center'>
+          <div className='beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-[#383838]'>
             <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
               beach
             </p>
-            <p className='ready-text  absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+            <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
               ready
             </p>
 
-            <div className='beach-section-rp relative flex w-[45%] justify-center self-center  pt-[10%]'>
-              <div className='flex  justify-center'>
+            <div className='beach-section-rp relative flex w-[45%] justify-center self-center pt-[10%]'>
+              <div className='flex justify-center'>
                 <Link
                   to={'/product/' + randomProd01!._id}
                   className=' flex justify-center'
                 >
                   <img
-                    className=' lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd01!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -833,13 +814,13 @@ export default function Homepage() {
                   className=' flex transform justify-center transition  duration-300 hover:scale-105'
                 >
                   <img
-                    className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    src={
                       randomProd02!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd02!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -855,10 +836,10 @@ export default function Homepage() {
 
             <div className='w-[80%] pt-[2%]'>
               <img
-                data-src={beachLady}
-                data-sizes='auto'
+                src={beachLady}
+                // data-sizes='auto'
                 alt='lady with a big white hat is laying on the beach'
-                className='lazyload beach-lady-img aspect-auto h-3/4 w-full object-cover'
+                className='beach-lady-img aspect-auto h-3/4 w-full object-cover'
               />
             </div>
 

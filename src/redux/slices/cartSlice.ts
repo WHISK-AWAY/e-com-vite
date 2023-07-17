@@ -2,6 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios, { Axios, AxiosError } from 'axios';
 import { ImageData } from '../../../server/database';
+import { toastAddedToCart } from '../../utilities/toast';
+
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface ICart {
@@ -123,6 +125,8 @@ export const addToCart = createAsyncThunk(
           }
         }
 
+        toastAddedToCart();
+
         return cart;
       }
 
@@ -132,6 +136,7 @@ export const addToCart = createAsyncThunk(
         { withCredentials: true }
       );
 
+      toastAddedToCart();
       return data.cart;
     } catch (err) {
       if (err instanceof AxiosError)

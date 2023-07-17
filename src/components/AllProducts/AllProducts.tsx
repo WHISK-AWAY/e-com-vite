@@ -31,13 +31,11 @@ import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { motion } from 'framer-motion';
+import { toastGuestFavorite } from '../../utilities/toast';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
 
-
 const PRODS_PER_PAGE = 9;
-export const notify = () =>
-  toast('Please make an account to start adding favorites');
 /**
  * sort by name or price (ascending & descending)
  */
@@ -223,7 +221,6 @@ AllProductsProps) {
     return pages;
   };
 
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -235,10 +232,6 @@ AllProductsProps) {
     infinite: false,
     lerp: 0,
   });
-
-  // lenis.on('scroll', (e: any) => {
-  //   console.log(e);
-  // });
 
   lenis.on('scroll', ScrollTrigger.update);
 
@@ -254,8 +247,6 @@ AllProductsProps) {
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
-  // const { scroll } = useLocomotiveScroll();
-
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
@@ -269,7 +260,6 @@ AllProductsProps) {
         exit={{ scaleY: 1 }}
         transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
       />
-
 
       <motion.div
         className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
@@ -373,19 +363,17 @@ AllProductsProps) {
                     className='h-full w-full'
                   >
                     <img
-                      data-src={imageURL}
-                      data-sizes='auto'
+                      src={imageURL}
                       alt='product image'
-                      className='lazyload h-full w-full object-cover group-hover:invisible'
+                      className='h-full w-full object-cover group-hover:invisible'
                     />
                     {hoverURL ? (
                       <video
-                        data-src={hoverURL}
-                        data-sizes='auto'
+                        src={hoverURL}
                         muted={true}
                         autoPlay={true}
                         loop={true}
-                        className='lazyload invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
+                        className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                       />
                     ) : (
                       <img
@@ -415,7 +403,7 @@ AllProductsProps) {
                           src={heartEmpty}
                           alt='heart-blanc'
                           className='h-3 lg:h-4 xl:w-5'
-                          onClick={notify}
+                          onClick={toastGuestFavorite}
                         />
                       ) : (
                         <img
