@@ -261,7 +261,6 @@ AllProductsProps) {
         transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
       />
 
-
       <motion.div
         className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
         initial={{ scaleY: 1 }}
@@ -363,12 +362,18 @@ AllProductsProps) {
                     to={'/product/' + product._id}
                     className='h-full w-full'
                   >
-                    {!userId ? (
-                      <img
-                        src={heartEmpty}
-                        alt='heart-blanc'
-                        className='h-3 lg:h-4 xl:w-5'
-                        onClick={() => toastGuestFavorite()}
+                    <img
+                      src={imageURL}
+                      alt='product image'
+                      className='h-full w-full object-cover group-hover:invisible'
+                    />
+                    {hoverURL ? (
+                      <video
+                        src={hoverURL}
+                        muted={true}
+                        autoPlay={true}
+                        loop={true}
+                        className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                       />
                     ) : (
                       <img
