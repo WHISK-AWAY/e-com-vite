@@ -404,7 +404,7 @@ export default function Homepage() {
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
           end: 'bottom center',
@@ -543,22 +543,21 @@ export default function Homepage() {
         },
       });
 
-
       gsap.from('.landing-page-closer-container', {
         ease: 'power3.inOut',
         scale: 1.1,
         duration: 1,
         yPercent: 20,
         // rotateY: 50,
-        stagger:1.4,
+        stagger: 1.4,
         scrollTrigger: {
           trigger: '.ingredient-section-closer',
           start: 'top bottom',
           end: 'bottom bettom',
-          // markers: true, 
-          scrub: .3
-        }
-      })
+          // markers: true,
+          scrub: 0.3,
+        },
+      });
     });
 
     return () => {
@@ -631,7 +630,7 @@ export default function Homepage() {
         duration: 4,
         opacity: 0,
         ease: 'slow.inOut',
-        stagger: .1,
+        stagger: 0.1,
         y: 25,
         scrollTrigger: {
           // pinReparent: true,
@@ -783,17 +782,17 @@ export default function Homepage() {
         </div>
       </div>
 
-      <div className='beach-section-content-top relative flex  w-full flex-col items-center  '>
-        <div className='beach-section-content relative -mb-[80%]   flex w-full flex-col items-center bg-[#383838]'>
+      <div className='beach-section-content-top relative flex w-full flex-col items-center'>
+        <div className='beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-[#383838]'>
           <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
             beach
           </p>
-          <p className='ready-text  absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+          <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
             ready
           </p>
 
-          <div className='beach-section-rp relative flex w-[45%] justify-center self-center  pt-[10%]'>
-            <div className='flex  justify-center'>
+          <div className='beach-section-rp relative flex w-[45%] justify-center self-center pt-[10%]'>
+            <div className='flex justify-center'>
               <Link
                 to={'/product/' + randomProd01!._id}
                 className=' flex justify-center'
