@@ -137,7 +137,7 @@ export default function Navbar() {
 
               <img
                 src={
-                  singleUserState.user?.favorites?.length >= 1
+                  userId && singleUserState.user?.favorites?.length >= 1
                     ? heartFilled
                     : heartBlanc
                 }
