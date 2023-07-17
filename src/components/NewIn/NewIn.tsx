@@ -6,6 +6,7 @@ import gelBg from '../../assets/bg-img/new in/red-gray-gel.jpg';
 import redBlobs from '../../assets/vid/new in/red-blobs.mp4';
 import redLady from '../../assets/vid/new in/lady-in-red.mp4';
 import roseBg from '../../assets/bg-img/new in/rose.jpg';
+import { motion } from 'framer-motion';
 const tintImageURL =
   'https://media.typology.com/storyblok/3327x3327/309b6fd67b/05_lip_oil_gamme_carrousel.jpg';
 // 'https://media.typology.com/storyblok/1872x1872/2b69157428/teinte_packshot-collection_web_15ml.jpg';
@@ -15,6 +16,23 @@ const tintGif =
 
 export default function NewIn() {
   return (
+<>
+           <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+
+      <motion.div
+        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 0 }}
+        transition={{ delay: 0.6, duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        />
     <main className='new-in no-scrollbar min-h-screen overflow-x-hidden'>
       <header className='relative mb-[7vw] flex h-full flex-col items-center justify-start'>
         <h1 className='right-1/2 whitespace-nowrap font-archivo text-[16.75vw] font-xxbold uppercase leading-none tracking-widest text-charcoal/90'>
@@ -26,7 +44,7 @@ export default function NewIn() {
           muted={true}
           autoPlay={true}
           loop={true}
-        />
+          />
       </header>
       <section className='middle-section relative z-10 flex h-full w-screen flex-col items-center gap-[2vw] p-6 pb-[8vw]'>
         <img
@@ -34,7 +52,7 @@ export default function NewIn() {
           data-sizes='auto'
           className='lazyload middle-section-bg absolute right-0 top-0 z-0 h-full w-full object-cover object-top'
           alt='abstract background'
-        />
+          />
         <div className='middle-section-columns relative flex w-full basis-3/4 gap-6 pt-[18vw]'>
           <div className='product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%]'>
             <img
@@ -42,7 +60,7 @@ export default function NewIn() {
               data-sizes='auto'
               className='lazyload absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:invisible'
               alt='lineup of tinted lip products'
-            />
+              />
             <video
               data-src={tintGif}
               data-sizes='auto'
@@ -50,7 +68,7 @@ export default function NewIn() {
               autoPlay={true}
               loop={true}
               className='lazyload invisible absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:visible'
-            />
+              />
           </div>
           <div className='mid-left relative z-10 min-h-[70vh] basis-1/2'>
             <video
@@ -70,7 +88,7 @@ export default function NewIn() {
               muted={true}
               autoPlay={true}
               loop={true}
-            ></video>
+              ></video>
             <div className='new-in absolute right-1/2 top-0 translate-x-[70%] translate-y-[-50%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase leading-none text-white/20'>
               <p>new in</p>
               <p>new in</p>
@@ -98,7 +116,7 @@ export default function NewIn() {
             to='/shop-all'
             state={{ filterKey: 'tint' }}
             className='relative border-2 border-white bg-transparent px-[9vw] py-[1.4vw] font-raleway text-[2.5vw] font-light text-white'
-          >
+            >
             shop now
           </Link>
         </div>
@@ -112,7 +130,7 @@ export default function NewIn() {
           data-src={roseBg}
           data-sizes='auto'
           alt='close-up photo of a red rose'
-        />
+          />
         <div className='bottom-text absolute top-0 w-3/5 translate-y-[75%] text-white lg:w-1/2 xl:w-5/12 2xl:w-1/3'>
           <h3 className='mb-3 font-yantramanav text-[2.5vw] uppercase tracking-widest'>
             rosehip oil
@@ -126,5 +144,6 @@ export default function NewIn() {
         </div>
       </section>
     </main>
+          </>
   );
 }
