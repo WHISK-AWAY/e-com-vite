@@ -28,6 +28,7 @@ import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 import Search from './Search';
 import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -172,16 +173,33 @@ export default function Navbar() {
   // });
 
   return (
+<>
+          <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+
+      <motion.div
+        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 0 }}
+        transition={{ delay: 0.6, duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+        />
     <nav
       id='navbar'
       className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'
-    >
+      >
       <Toaster
         position='top-right'
         containerStyle={{ position: 'absolute', right: 0 }}
         toastOptions={{
           className:
-            'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
+          'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
           duration: 5000,
           style: {
             maxWidth: 700,
@@ -190,13 +208,13 @@ export default function Navbar() {
             zIndex: '50',
           },
         }}
-      />
+        />
       <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
         <div
           className='shop cursor-pointer'
           onMouseEnter={() => setIsMenuHidden(false)}
           onClick={() => setIsMenuHidden(false)}
-        >
+          >
           SHOP
         </div>
 
@@ -213,7 +231,7 @@ export default function Navbar() {
           to='/'
           className='font-notable text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
           onClick={() => setIsMenuHidden(true)}
-        >
+          >
           ASTORIA
         </Link>
       </div>
@@ -223,10 +241,10 @@ export default function Navbar() {
           src={searchIcon}
           className='h-3 cursor-pointer lg:h-[18px] xl:h-[21px]'
           onClick={() => setIsSearchHidden((prev) => !prev)}
-        />
+          />
         {!isSearchHidden && (
           <SearchContainer setIsSearchHidden={setIsSearchHidden} />
-        )}
+          )}
 
         {
           <div>
@@ -237,29 +255,29 @@ export default function Navbar() {
                 await setMode('cart');
                 setIsCartFavWrapperHidden(false);
               }}
-            />
+              />
             {!isCartFavWrapperHidden && mode === 'cart' && (
               <CartFavWrapper
-                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-                mode={mode}
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              mode={mode}
               />
-            )}
+              )}
           </div>
         }
         {
           <div>
             {!isCartFavWrapperHidden && mode === 'fav' && (
               <CartFavWrapper
-                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-                mode={mode}
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              mode={mode}
               />
-            )}
+              )}
 
             <img
               src={
                 singleUserState.user?.favorites?.length >= 1
-                  ? heartFilled
-                  : heartBlanc
+                ? heartFilled
+                : heartBlanc
               }
               // style={{strokeWidth: '2'}}
               className='w-3 cursor-pointer lg:w-[16px] xl:w-5 '
@@ -267,7 +285,7 @@ export default function Navbar() {
                 await setMode('fav');
                 setIsCartFavWrapperHidden(false);
               }}
-            />
+              />
           </div>
         }
 
@@ -282,18 +300,19 @@ export default function Navbar() {
             </button>
             {!isSignFormHidden && (
               <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
-            )}
+              )}
           </>
         )}
       </div>
       {userId && singleUserState.user.role === 'admin' && (
         <NavLink
-          to='/admin'
-          className='fixed bottom-[5%] left-[5%] z-50 font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
+        to='/admin'
+        className='fixed bottom-[5%] left-[5%] z-50 font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white'
         >
           ADMIN
         </NavLink>
       )}
     </nav>
+      </>
   );
 }
