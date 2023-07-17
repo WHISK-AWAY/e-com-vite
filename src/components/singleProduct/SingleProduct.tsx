@@ -72,7 +72,6 @@ import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
 import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
 import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
 import honey from '../../../src/assets/vid/honey_dipper.mp4';
-import { notify } from '../AllProducts/AllProducts';
 import { getMaxQty } from '../../utilities/helpers';
 
 const bgImgs = [
@@ -117,6 +116,7 @@ const bgImgs = [
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 import 'lazysizes';
+import { toastGuestFavorite } from '../../utilities/toast';
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -413,7 +413,7 @@ export default function SingleProduct() {
               ) : (
                 <img
                   src={heartBlanc}
-                  onClick={notify}
+                  onClick={toastGuestFavorite}
                   className='fader absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
                 />
               )}
