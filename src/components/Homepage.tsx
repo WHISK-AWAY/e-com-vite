@@ -855,12 +855,12 @@ export default function Homepage() {
               </div>
               <div className='video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center'>
                 <video
-                  data-src={bwSeizure}
-                  data-sizes='auto'
+                  src={bwSeizure}
+                  // data-sizes='auto'
                   autoPlay={true}
                   muted={true}
                   loop={true}
-                  className='lazyload bw-seizure-vid aspect-[4/6] w-[70%]'
+                  className='bw-seizure-vid aspect-[4/6] w-[70%]'
                 />
               </div>
               <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%] pl-[8%]'>
@@ -870,13 +870,13 @@ export default function Homepage() {
                   className='beach-rp-right flex  flex-col items-center'
                 >
                   <img
-                    className='lazyload aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
+                    src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd03!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                   <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
                     {randomProd03?.productName}
