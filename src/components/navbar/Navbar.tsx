@@ -67,21 +67,8 @@ export default function Navbar() {
       >
         <Toaster
           position='top-right'
-          // containerStyle={{
-          //   position: 'absolute',
-          //   right: 15,
-          //   top: 15,
-          //   zIndex: 50,
-          //   width: 'auto',
-          //   minWidth: 500,
-          // }}
           toastOptions={{
-            // className:
-            //   'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
             duration: 5000,
-            // style: {
-            //   maxWidth: 700,
-            // },
           }}
         />
         <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
