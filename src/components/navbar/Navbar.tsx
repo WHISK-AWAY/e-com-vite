@@ -1,22 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { NavLink, useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { getUserId, selectAuth } from '../../redux/slices/authSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import {
   fetchSingleUser,
   selectSingleUser,
 } from '../../redux/slices/userSlice';
-import {
-  searchProducts,
-  selectSearchProducts,
-} from '../../redux/slices/allProductSlice';
-import type { TSearch } from '../../redux/slices/allProductSlice';
+import { searchProducts } from '../../redux/slices/allProductSlice';
 import SignWrapper from '../SignWrapper';
 import CartFavWrapper from '../CartFavWrapper';
 import DropDownMenu from './DropdownMenu';
-import { gsap } from 'gsap';
-
-import Fuse from 'fuse.js';
 
 import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
@@ -24,34 +17,21 @@ import user from '../../assets/icons/user.svg';
 import bag from '../../assets/icons/bag-blanc.svg';
 import searchIcon from '../../assets/icons/search.svg';
 
-import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
-import Search from './Search';
+import { fetchAllTags } from '../../redux/slices/tagSlice';
 import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
 
 export type TCFMode = 'cart' | 'fav';
 
 export default function Navbar() {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
-  const catalogue = useAppSelector(selectSearchProducts);
-  const [search, setSearch] = useState('');
-  const [searchNotFound, setSearchNotFound] = useState(false);
   const [isSignFormHidden, setIsSignFormHidden] = useState(true);
   const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
   const [mode, setMode] = useState<TCFMode>('cart');
-  const [isHover, setHover] = useState(false);
   const [isMenuHidden, setIsMenuHidden] = useState(true);
-  const tagState = useAppSelector(selectTagState);
   const [isSearchHidden, setIsSearchHidden] = useState(true);
-  const test = useRef(null);
-
-  const [searchResults, setSearchResults] = useState<TSearch>({
-    products: [],
-    tags: [],
-  });
 
   useEffect(() => {
     // if (!userId && !authError) dispatch(getUserId());
