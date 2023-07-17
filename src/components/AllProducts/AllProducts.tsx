@@ -300,7 +300,7 @@ AllProductsProps) {
         {!bestsellers && (
           <section className='filter-section flex flex-col self-end pb-10 pt-20'>
             <div className='flex gap-6  self-end '>
-              <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
+              <p className='flex  font-marcellus lg:text-lg'>sort/categories</p>
 
               <img
                 src={filterIcon}

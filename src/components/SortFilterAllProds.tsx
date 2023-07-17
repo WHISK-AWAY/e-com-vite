@@ -31,10 +31,11 @@ export default function SortFilterAllProds({
   }
 
   return (
-    <div className='controls flex font-marcellus '>
-      <div className='sort-selector border'>
+    <div className='controls flex gap-4 font-marcellus '>
+      <div className='sort-selector'>
         <h2>Sort by:</h2>
         <select
+          className='rounded-sm'
           onChange={handleSort}
           defaultValue={JSON.stringify({
             key: sortKey || 'productName',
@@ -91,9 +92,13 @@ export default function SortFilterAllProds({
         </select>
       </div>
 
-      <div className='filter-selector border'>
-        <h2>Filter by:</h2>
-        <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+      <div className='filter-selector'>
+        <h2>Choose category:</h2>
+        <select
+          className='rounded-sm'
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+        >
           <option className='capitalize' value='all'>
             all
           </option>
