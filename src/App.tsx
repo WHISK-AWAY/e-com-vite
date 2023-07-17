@@ -27,6 +27,7 @@ import '../src/index.css';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+gsap.registerPlugin(ScrollTrigger);
 function App() {
   const lenis = new Lenis({
     duration: 2.2,
