@@ -237,7 +237,7 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vh,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
+                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
                   menuMode === 'face'
                     ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
