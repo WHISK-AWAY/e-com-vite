@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
 import {
   TProduct,
   fetchAllProducts,
@@ -12,7 +11,7 @@ import {
   removeFromFavorites,
   selectSingleUserFavorites,
 } from '../../redux/slices/userSlice';
-import { getUserId, selectAuthUserId } from '../../redux/slices/authSlice';
+import { selectAuthUserId } from '../../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 // import allProdsBg from '../../assets/bg-img/all-prods.jpg';
 import filterIcon from '../../../src/assets/icons/filter.svg';
