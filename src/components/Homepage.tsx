@@ -24,7 +24,6 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-import Preloader from './Preloader';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
