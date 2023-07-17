@@ -24,7 +24,6 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
-import Preloader from './Preloader';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -149,13 +148,12 @@ export default function Homepage() {
       !document.querySelector('.unleash-lady-img') ||
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
-      !document.querySelector('.beach-section-rp') ||
       !document.querySelector('.beach-oval-text') ||
       !document.querySelector('.beach-text-closer')
     )
       return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
+      const tl = gsap.timeline();
 
       tl.to('.landing-section-content', {
         yPercent: 100,
@@ -405,7 +403,7 @@ export default function Homepage() {
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center top',
           end: 'bottom center',
@@ -544,44 +542,27 @@ export default function Homepage() {
         },
       });
 
-
       gsap.from('.landing-page-closer-container', {
         ease: 'power3.inOut',
         scale: 1.1,
         duration: 1,
         yPercent: 20,
         // rotateY: 50,
-        stagger:1.4,
+        stagger: 1.4,
         scrollTrigger: {
           trigger: '.ingredient-section-closer',
           start: 'top bottom',
           end: 'bottom bettom',
-          // markers: true, 
-          scrub: .3
-        }
-      })
+          // markers: true,
+          scrub: 0.3,
+        },
+      });
     });
 
     return () => {
       ctx.revert();
     };
-  }, [
-    document.querySelector('.landing-section-content'),
-    document.querySelector('.philosophy-section-content'),
-    document.querySelector('.rainbow-lady'),
-    document.querySelector('.rainbow-lady-rp'),
-    document.querySelector('.beach-section-content'),
-    document.querySelector('.beach-lady-img'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.unleash-section-content'),
-    document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'),
-    document.querySelector('.rainbow-wrapper'),
-    document.querySelector('.unleash-rp'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.beach-oval-text'),
-    document.querySelector('.beach-text-closer'),
-  ]);
+  });
 
   useLayoutEffect(() => {
     if (
@@ -632,7 +613,7 @@ export default function Homepage() {
         duration: 4,
         opacity: 0,
         ease: 'slow.inOut',
-        stagger: .1,
+        stagger: 0.1,
         y: 25,
         scrollTrigger: {
           // pinReparent: true,

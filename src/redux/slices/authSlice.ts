@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
 import { ICart } from './cartSlice';
+import { toastUserLoggedIn, toastUserLoggedOut } from '../../utilities/toast';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
@@ -68,19 +69,7 @@ export const requestLogin = createAsyncThunk(
         { withCredentials: true }
       );
 
-      // const guestCart = window.localStorage.getItem('guestCart');
-      // if (guestCart) {
-      //   const cart = JSON.parse(guestCart) as ICart;
-      //   for (let item of cart.products) {
-      //     await axios.post(
-      //       VITE_API_URL + `/api/user/${res.data.userId}/cart/add-item`,
-      //       { productId: item.product._id, qty: item.qty },
-      //       { withCredentials: true }
-      //     );
-      //   }
-
-      //   window.localStorage.removeItem('guestCart');
-      // }
+      if (res.data.firstName) toastUserLoggedIn(res.data.firstName);
 
       return res.data;
     } catch (err: any) {
@@ -129,8 +118,8 @@ export const requestLogout = createAsyncThunk(
         {},
         { withCredentials: true }
       );
-      console.log('user signed out');
 
+      toastUserLoggedOut();
       return null;
     } catch (err) {
       if (err instanceof AxiosError)
