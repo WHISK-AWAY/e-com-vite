@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import AllProducts from './components/AllProducts/AllProducts';
 import SingleProduct from './components/singleProduct/SingleProduct';
@@ -24,10 +24,11 @@ import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
 import Lenis from '@studio-freight/lenis';
 import '../src/index.css';
-
+import { AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 function App() {
+  const location = useLocation();
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -61,13 +62,15 @@ function App() {
     >
       {/* <Preloader/> */}
       <Navbar />
-      <Routes>
+      <AnimatePresence mode='wait'>
+
+      <Routes location={location} key={location.pathname}>
         <Route path='/' element={<Homepage />} />
         <Route path='/shop-all' element={<AllProducts />} />
         <Route
           path='/shop-all/bestsellers'
           element={<AllProducts sortKey='saleCount' />}
-        />
+          />
         <Route path='/featured' element={<Featured />} />
         <Route path='/new-in' element={<NewIn />} />
         <Route path='/product/:productId' element={<SingleProduct />} />
@@ -82,11 +85,11 @@ function App() {
         <Route
           path='/admin/users/:userId/orders'
           element={<AdminUserOrderHistory />}
-        />
+          />
         <Route
           path='/admin/users/:userId/order/:orderId/details'
           element={<AdminOrderDetails />}
-        />
+          />
         <Route path='/admin/inventory' element={<Inventory />} />
         <Route path='/admin/tags' element={<TagInventory />} />
         <Route path='/admin/tags/new' element={<CreateOrEditTag />} />
@@ -95,11 +98,12 @@ function App() {
         <Route
           path='/admin/product/:productId'
           element={<CreateOrEditProduct />}
-        />
+          />
         <Route path='/admin/promos' element={<PromoInventory />} />
         <Route path='/admin/promos/new' element={<CreateOrEditPromo />} />
         <Route path='/admin/promos/:promoId' element={<CreateOrEditPromo />} />
       </Routes>
+          </AnimatePresence>
       <Footer />
     </div>
     // </LocomotiveScrollProvider>
