@@ -148,13 +148,12 @@ export default function Homepage() {
       !document.querySelector('.unleash-lady-img') ||
       !document.querySelector('.rainbow-wrapper') ||
       !document.querySelector('.unleash-rp') ||
-      !document.querySelector('.beach-section-rp') ||
       !document.querySelector('.beach-oval-text') ||
       !document.querySelector('.beach-text-closer')
     )
       return;
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({});
+      const tl = gsap.timeline();
 
       tl.to('.landing-section-content', {
         yPercent: 100,
@@ -563,23 +562,7 @@ export default function Homepage() {
     return () => {
       ctx.revert();
     };
-  }, [
-    document.querySelector('.landing-section-content'),
-    document.querySelector('.philosophy-section-content'),
-    document.querySelector('.rainbow-lady'),
-    document.querySelector('.rainbow-lady-rp'),
-    document.querySelector('.beach-section-content'),
-    document.querySelector('.beach-lady-img'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.unleash-section-content'),
-    document.querySelector('.hyd-text-left'),
-    document.querySelector('.unleash-lady-img'),
-    document.querySelector('.rainbow-wrapper'),
-    document.querySelector('.unleash-rp'),
-    document.querySelector('.beach-section-rp'),
-    document.querySelector('.beach-oval-text'),
-    document.querySelector('.beach-text-closer'),
-  ]);
+  });
 
   useLayoutEffect(() => {
     if (
@@ -798,13 +781,13 @@ export default function Homepage() {
                 className=' flex justify-center'
               >
                 <img
-                  className=' lazyload aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                  data-src={
+                  className='aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  src={
                     randomProd01!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd01!.images[0].imageURL
                   }
-                  data-sizes='auto'
+                  // data-sizes='auto'
                 />
               </Link>
             </div>
@@ -815,13 +798,13 @@ export default function Homepage() {
                 className=' flex transform justify-center transition  duration-300 hover:scale-105'
               >
                 <img
-                  className='lazyload aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
-                  data-src={
+                  className='aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                  src={
                     randomProd02!.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd02!.images[0].imageURL
                   }
-                  data-sizes='auto'
+                  // data-sizes='auto'
                 />
               </Link>
             </div>
@@ -836,10 +819,10 @@ export default function Homepage() {
 
           <div className='w-[80%] pt-[2%]'>
             <img
-              data-src={beachLady}
-              data-sizes='auto'
+              src={beachLady}
+              // data-sizes='auto'
               alt='lady with a big white hat is laying on the beach'
-              className='lazyload beach-lady-img aspect-auto h-3/4 w-full object-cover'
+              className='beach-lady-img aspect-auto h-3/4 w-full object-cover'
             />
           </div>
 
