@@ -141,9 +141,12 @@ export default function SingleProduct() {
   const [bgImg, setBgImg] = useState('');
   const [bgVid, setBgVid] = useState('');
 
-  const scrollerRef = useRef(null);
-  const pinRef = useRef(null);
+  const ingredientBgImgWrapper = useRef(null);
+  const ingredientSection = useRef(null);
   const mainImage = useRef<HTMLDivElement>(null);
+  const prodImgWrapper = useRef(null);
+  const prodInfoWrapper = useRef(null);
+
 
   const changeImage = useRef<((newImage: string) => void) | null>(null);
 
@@ -151,7 +154,8 @@ export default function SingleProduct() {
     gsap
       .to('.fader', {
         opacity: 0,
-        duration: 0.25,
+        duration: 0.05,
+        ease: 'expo.inOut'
       })
       .then(() => {
         setSelectedImage(newImage);
@@ -178,20 +182,30 @@ export default function SingleProduct() {
 
   useLayoutEffect(() => {
     // Animation: pin ingredients image while ingredients list scrolls
-    if (!scrollerRef || !pinRef) return;
+    if (!ingredientBgImgWrapper || !ingredientSection || !prodImgWrapper || !prodInfoWrapper) return;
 
     const ctx = gsap.context((_) => {
-      const scroller = scrollerRef.current;
+      const scroller = ingredientBgImgWrapper.current;
 
       gsap.to(scroller, {
         scrollTrigger: {
           trigger: scroller,
           pin: true,
           pinSpacing: true,
-          endTrigger: pinRef.current,
+          endTrigger: ingredientSection.current,
           end: 'bottom bottom',
         },
       });
+
+      gsap.to(prodImgWrapper.current, {
+        scrollTrigger: {
+          trigger: prodImgWrapper.current, 
+          pin: true,
+          endTrigger: ingredientSection.current,
+          start: 'top 20%',
+          end: 'top bottom'
+        }
+      })
     });
 
     return () => ctx.revert();
@@ -363,8 +377,8 @@ export default function SingleProduct() {
    */
   return (
     <>
-      <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
+       <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#131313]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
@@ -380,20 +394,20 @@ export default function SingleProduct() {
         astoria
       </motion.span> */}
       <motion.div
-        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
+        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#131313]'
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
-        transition={{ delay: 0.3, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
+        transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      /> 
       <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
-        <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
+        <section ref={prodInfoWrapper} className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
           {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-          <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
+          <section ref={prodImgWrapper} className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
             <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
               <div
                 ref={mainImage}
-                className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'
+                className='aspect-[3/4] w-[230px]  lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'
               >
                 {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                   <video
@@ -562,12 +576,12 @@ export default function SingleProduct() {
           </section>
         </section>
         <section
-          ref={pinRef}
+          ref={ingredientSection}
           className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'
         >
           <div
             className='bg-img h-screen shrink-0 basis-3/5 px-4'
-            ref={scrollerRef}
+            ref={ingredientBgImgWrapper}
           >
             {bgVid ? (
               <video
