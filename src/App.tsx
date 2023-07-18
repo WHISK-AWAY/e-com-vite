@@ -163,7 +163,7 @@ function App() {
     >
       {/* <Preloader/> */}
       <Navbar />
-      <AnimatePresence mode='wait'>
+      <AnimatePresence mode='wait' initial={false}>
         {React.cloneElement(element, { key: location.pathname })}
       </AnimatePresence>
       <Footer />

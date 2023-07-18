@@ -29,7 +29,7 @@ import 'lazysizes';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { motion } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
@@ -96,6 +96,7 @@ AllProductsProps) {
   const [prevFilter, setPrevFilter] = useState('all');
 
   let { state } = useLocation();
+  const isPresent = useIsPresent();
 
   const userFavorites = useAppSelector(selectSingleUserFavorites);
 
@@ -257,6 +258,14 @@ AllProductsProps) {
   return (
     <>
       <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      />
+      {/* <motion.div
         className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
@@ -270,7 +279,7 @@ AllProductsProps) {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.6, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-      />
+      /> */}
       <section
         // data-scroll-section
         data-lenis-prevent

@@ -28,7 +28,7 @@ import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
 import '../index.css';
-import { motion } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -45,6 +45,8 @@ export default function Homepage() {
   const treatRef = useRef<HTMLDivElement>(null);
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
+
+  const isPresent = useIsPresent();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -667,6 +669,14 @@ export default function Homepage() {
   return (
     <>
       <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      />
+      {/* <motion.div
         className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
@@ -680,7 +690,7 @@ export default function Homepage() {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
+      /> */}
       <div
         data-scroll-section
         className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '

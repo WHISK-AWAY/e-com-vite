@@ -116,7 +116,7 @@ const bgImgs = [
 const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 
 import 'lazysizes';
-import { motion } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
 
 export default function SingleProduct() {
@@ -146,6 +146,8 @@ export default function SingleProduct() {
   const mainImage = useRef<HTMLDivElement>(null);
 
   const changeImage = useRef<((newImage: string) => void) | null>(null);
+
+  const isPresent = useIsPresent();
 
   function imageChanger(newImage: string) {
     gsap
@@ -364,10 +366,11 @@ export default function SingleProduct() {
   return (
     <>
       <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
-        initial={{ scaleY: 0 }}
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
       />
       {/* <motion.span
@@ -379,13 +382,13 @@ export default function SingleProduct() {
       >
         astoria
       </motion.span> */}
-      <motion.div
+      {/* <motion.div
         className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.3, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
+      /> */}
       <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
         <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
           {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
