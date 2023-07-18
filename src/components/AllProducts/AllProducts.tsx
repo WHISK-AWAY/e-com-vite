@@ -101,7 +101,7 @@ AllProductsProps) {
 
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
-  }, [state]);
+  }, [state?.filterKey]);
 
   let curPage = Number(params.get('page'));
 
@@ -152,12 +152,16 @@ AllProductsProps) {
     setBestsellers(
       pathname[pathname.length - 1].toLowerCase() === 'bestsellers'
     );
-  }, [pageNum, sort, filter]);
+  }, [pageNum, sort.key, sort.direction, filter]);
 
   useEffect(() => {
     if (filter !== prevFilter) {
       setParams({ page: '1' });
       setPrevFilter(filter); // attempts to prevent resetting page # when reloading page
+      window.scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   }, [filter]);
 
