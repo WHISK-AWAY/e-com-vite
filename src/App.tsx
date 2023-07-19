@@ -23,7 +23,7 @@ import NewIn from './components/NewIn/NewIn';
 import Footer from './components/Footer';
 import Lenis from '@studio-freight/lenis';
 import '../src/index.css';
-import { AnimatePresence, useIsPresent, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React from 'react';
@@ -54,8 +54,6 @@ function App() {
 
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
-
-  const isPresent = useIsPresent();
 
   const element = useRoutes([
     {
@@ -163,23 +161,12 @@ function App() {
       data-lenis-prevent
       className='data-scroll-container mx-auto min-h-screen text-charcoal'
     >
-      {/* <Preloader/> */}
       <AnimatePresence mode='wait' initial={false}>
         <Navbar key='navbar' />
         {React.cloneElement(element, { key: location.pathname }, element)}
-
         <Footer key='footer' />
-        <motion.div
-          className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
-          initial={{ scaleY: 1 }}
-          animate={{ scaleY: 0 }}
-          exit={{ scaleY: 1 }}
-          style={{ originY: isPresent ? 1 : 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        />
       </AnimatePresence>
     </div>
-    // </LocomotiveScrollProvider>
   );
 }
 

@@ -677,7 +677,7 @@ export default function SingleProduct() {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
         style={{ originY: isPresent ? 1 : 0 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       />
     </>
   );
