@@ -103,7 +103,7 @@ export default function BodyItem({
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
-          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+          className='flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-white'
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
@@ -113,7 +113,7 @@ export default function BodyItem({
                 to='/shop-all'
                 onClick={() => closeLocalMenu(true)}
                 state={{ filterKey: name }}
-                className='submenu-item odd:text-[3vw] hover:underline hover:underline-offset-2'
+                className='submenu-item odd:text-[min(3vw,_4.5vh)] hover:underline hover:underline-offset-2'
                 key={tag._id}
               >
                 {name}

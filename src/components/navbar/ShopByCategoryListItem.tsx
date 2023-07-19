@@ -88,7 +88,7 @@ export default function ShopByCategoryListItem({
         });
   }
 
-  // const subItem = document.querySelectorAll('.submenu-item')
+  // const subItem = document.querySelectorAll('.submenu-item');
   // const underline = document.querySelectorAll('.underline');
 
   // useEffect(() => {
@@ -129,7 +129,7 @@ export default function ShopByCategoryListItem({
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[2vw] leading-tight text-white'
+          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden border-2 border-white bg-[#51524b]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-white'
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
@@ -141,7 +141,7 @@ export default function ShopByCategoryListItem({
                   closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
-                className='submenu-item ease hover:offsetX text-center odd:text-[3vw] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-500'
+                className='submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-500'
               >
                 {name}
               </Link>

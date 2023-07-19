@@ -151,7 +151,7 @@ export default function DropdownMenu({
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
         <Link
           to='/'
-          className='flex items-center gap-1 font-notable text-[2.5vw] text-white  3xl:text-[1.6vw]'
+          className='flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]'
           onClick={closeMenu}
         >
           {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
@@ -164,12 +164,12 @@ export default function DropdownMenu({
       <img
         src={x}
         alt='x-icon'
-        className='x-icon absolute left-10 top-10 h-[2vw] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[1.6vw]'
+        className='x-icon absolute left-10 top-10 h-[min(2vw,_3vh)] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[min(1.6vw,_3vh)]'
         onClick={closeMenu}
       />
 
       {/* Menu options */}
-      <div className='menu-option-container txt-stroke flex flex-col pt-[13%] text-[7vw] leading-[1] text-transparent 3xl:pt-[2%] 3xl:text-[7vw] 5xl:text-[6vw]'>
+      <div className='menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)]'>
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
@@ -179,7 +179,6 @@ export default function DropdownMenu({
             }
             className={textRevealClasses + ' uppercase'}
           >
-            {/* <img src={randomImg} className='cv-ph absolute w-[300px] h-[400px] object-cover top-0 right-0  overflow-hidden'/> */}
             shop all
           </button>
         </div>
@@ -193,7 +192,7 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
+                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
                   menuMode === 'category'
                     ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
@@ -238,7 +237,7 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
+                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
                   menuMode === 'face'
                     ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
@@ -260,9 +259,9 @@ export default function DropdownMenu({
             <img
               src={chevronRight}
               alt='right arrow'
-              className={`ease absolute right-0 top-1/2 h-[2.5vw] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[35%] 3xl:h-[1.5vw] ${
+              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] origin-[50%_50%] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
                 menuMode === 'body'
-                  ? 'ease rotate-90 transform transition-all duration-700'
+                  ? 'ease rotate-90 transform duration-700'
                   : ''
               }`}
             />

@@ -6,6 +6,7 @@ import { TReduxError } from '../reduxTypes';
 import type { ShippingInfoFields } from '../../components/UserAccount/shippingAddress/ManageShippingAddress';
 import { ImageData } from '../../../client-side-types';
 import { TTag } from './allProductSlice';
+import { toastAddedToFavorites } from '../../utilities/toast';
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export interface userState {
@@ -264,6 +265,8 @@ export const addToFavorites = createAsyncThunk(
         updateObject,
         { withCredentials: true }
       );
+
+      toastAddedToFavorites();
 
       return data;
     } catch (err) {
