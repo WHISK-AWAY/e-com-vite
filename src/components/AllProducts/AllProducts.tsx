@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
 import {
   TProduct,
   fetchAllProducts,
@@ -12,7 +11,7 @@ import {
   removeFromFavorites,
   selectSingleUserFavorites,
 } from '../../redux/slices/userSlice';
-import { getUserId, selectAuthUserId } from '../../redux/slices/authSlice';
+import { selectAuthUserId } from '../../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 // import allProdsBg from '../../assets/bg-img/all-prods.jpg';
 import filterIcon from '../../../src/assets/icons/filter.svg';
@@ -30,7 +29,7 @@ import 'lazysizes';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { motion } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
@@ -97,12 +96,13 @@ AllProductsProps) {
   const [prevFilter, setPrevFilter] = useState('all');
 
   let { state } = useLocation();
+  const isPresent = useIsPresent();
 
   const userFavorites = useAppSelector(selectSingleUserFavorites);
 
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
-  }, [state]);
+  }, [state?.filterKey]);
 
   let curPage = Number(params.get('page'));
 
@@ -153,12 +153,16 @@ AllProductsProps) {
     setBestsellers(
       pathname[pathname.length - 1].toLowerCase() === 'bestsellers'
     );
-  }, [pageNum, sort, filter]);
+  }, [pageNum, sort.key, sort.direction, filter]);
 
   useEffect(() => {
     if (filter !== prevFilter) {
       setParams({ page: '1' });
       setPrevFilter(filter); // attempts to prevent resetting page # when reloading page
+      window.scroll({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   }, [filter]);
 
@@ -253,8 +257,8 @@ AllProductsProps) {
 
   return (
     <>
-     <motion.div
-        className='slide-in fixed left-0 top-0 z-[300] h-screen w-screen origin-bottom bg-[#131313]'
+      {/* <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
@@ -268,9 +272,8 @@ AllProductsProps) {
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
-        transition={{  duration: 1.9, ease: [0.22, 1, 0.36, 1] }}
-      />
-
+        transition={{ delay: 0.6, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+      /> */}
       <section
         // data-scroll-section
         data-lenis-prevent
@@ -303,7 +306,7 @@ AllProductsProps) {
         {!bestsellers && (
           <section className='filter-section flex flex-col self-end pb-10 pt-20'>
             <div className='flex gap-6  self-end '>
-              <p className='flex  font-marcellus lg:text-lg'>sort/filter by </p>
+              <p className='flex  font-marcellus lg:text-lg'>sort/categories</p>
 
               <img
                 src={filterIcon}
@@ -314,7 +317,7 @@ AllProductsProps) {
             {!isSearchHidden && (
               <SortFilterAllProds
               setSort={setSort}
-              sort={sort}
+              // sort={sort}
               filter={filter}
               setFilter={setFilter}
               allProducts={allProducts}
@@ -479,7 +482,14 @@ AllProductsProps) {
           </div>
         )}
       </section>
-        
+      <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
     </>
   );
 }

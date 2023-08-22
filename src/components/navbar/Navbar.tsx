@@ -65,24 +65,11 @@ export default function Navbar() {
         id='navbar'
         className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'
       >
-      <Toaster
-        position='top-right'
-        // containerStyle={{
-        //   position: 'absolute',
-        //   right: 15,
-        //   top: 15,
-        //   zIndex: 50,
-        //   width: 'auto',
-        //   minWidth: 500,
-        // }}
-        toastOptions={{
-          // className:
-          //   'rounded-sm shadow-none font-raleway text-center uppercase  border border-charcoal/60 text-[1vw] p-[2%] text-[#262626] 2xl:text-[1rem]',
-          duration: 5000,
-          // style: {
-          //   maxWidth: 700,
-          // },
-        }}
+        <Toaster
+          position='top-right'
+          toastOptions={{
+            duration: 5000,
+          }}
         />
         <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
           <div
@@ -150,7 +137,7 @@ export default function Navbar() {
 
               <img
                 src={
-                  singleUserState.user?.favorites?.length >= 1
+                  userId && singleUserState.user?.favorites?.length >= 1
                     ? heartFilled
                     : heartBlanc
                 }

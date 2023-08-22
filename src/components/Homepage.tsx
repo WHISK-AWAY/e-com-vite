@@ -28,7 +28,7 @@ import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
 import '../index.css';
-import { motion } from 'framer-motion';
+import { motion, useIsPresent } from 'framer-motion';
 
 export default function Homepage() {
   const dispatch = useAppDispatch();
@@ -45,6 +45,8 @@ export default function Homepage() {
   const treatRef = useRef<HTMLDivElement>(null);
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
+
+  const isPresent = useIsPresent();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -666,7 +668,7 @@ export default function Homepage() {
   if (!randomProd) return <p>...loading</p>;
   return (
     <>
-      <motion.div
+      {/* <motion.div
         className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
@@ -680,7 +682,7 @@ export default function Homepage() {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
+      /> */}
       <div
         data-scroll-section
         className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
@@ -855,12 +857,12 @@ export default function Homepage() {
               </div>
               <div className='video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center'>
                 <video
-                  data-src={bwSeizure}
-                  data-sizes='auto'
+                  src={bwSeizure}
+                  // data-sizes='auto'
                   autoPlay={true}
                   muted={true}
                   loop={true}
-                  className='lazyload bw-seizure-vid aspect-[4/6] w-[70%]'
+                  className='bw-seizure-vid aspect-[4/6] w-[70%]'
                 />
               </div>
               <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%] pl-[8%]'>
@@ -870,13 +872,13 @@ export default function Homepage() {
                   className='beach-rp-right flex  flex-col items-center'
                 >
                   <img
-                    className='lazyload aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
-                    data-src={
+                    className='aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
+                    src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd03!.images[0].imageURL
                     }
-                    data-sizes='auto'
+                    // data-sizes='auto'
                   />
                   <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
                     {randomProd03?.productName}
@@ -1119,6 +1121,14 @@ export default function Homepage() {
         </div>
         {/* <div className='pb-96'></div> */}
       </div>
+      <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
     </>
   );
 }

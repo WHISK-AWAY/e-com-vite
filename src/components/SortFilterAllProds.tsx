@@ -1,10 +1,13 @@
+import { useRef, useEffect } from 'react';
 import { selectTagState } from '../redux/slices/tagSlice';
 import { SortDir, SortKey, TSort } from './AllProducts/AllProducts';
 import { useAppSelector } from '../redux/hooks';
 import { TProduct } from '../redux/slices/allProductSlice';
 
+import { gsap } from 'gsap';
+
 export default function SortFilterAllProds({
-  sort,
+  // sort,
   setSort,
   filter,
   setFilter,
@@ -12,7 +15,7 @@ export default function SortFilterAllProds({
   sortKey,
   sortDir,
 }: {
-  sort: TSort;
+  // sort: TSort;
   setSort: React.Dispatch<React.SetStateAction<TSort>>;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
@@ -23,18 +26,36 @@ export default function SortFilterAllProds({
     count: number | null;
   };
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(containerRef.current, {
+        height: 0,
+        opacity: 0,
+      });
+    }, containerRef.current);
+
+    return () => ctx.revert();
+  });
 
   function handleSort(e: React.ChangeEvent<HTMLSelectElement>) {
     setSort(JSON.parse(e.target.value));
   }
 
   return (
-    <div className='controls flex font-marcellus '>
-      <div className='sort-selector border'>
+    <div
+      ref={containerRef}
+      className='controls flex h-fit gap-4 overflow-clip font-marcellus'
+    >
+      <div className='sort-selector'>
         <h2>Sort by:</h2>
         <select
+          className='rounded-sm'
           onChange={handleSort}
           defaultValue={JSON.stringify({
             key: sortKey || 'productName',
@@ -91,9 +112,13 @@ export default function SortFilterAllProds({
         </select>
       </div>
 
-      <div className='filter-selector border'>
-        <h2>Filter by:</h2>
-        <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+      <div className='filter-selector'>
+        <h2>Choose category:</h2>
+        <select
+          className='rounded-sm'
+          onChange={(e) => setFilter(e.target.value)}
+          value={filter}
+        >
           <option className='capitalize' value='all'>
             all
           </option>

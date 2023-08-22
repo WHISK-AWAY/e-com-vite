@@ -150,6 +150,8 @@ export default function SingleProduct() {
 
   const changeImage = useRef<((newImage: string) => void) | null>(null);
 
+  // const isPresent = useIsPresent();
+
   function imageChanger(newImage: string) {
     gsap
       .to('.fader', {
@@ -699,6 +701,18 @@ export default function SingleProduct() {
           </div>
         </section>
       </main>
+      {/**
+       * 
+       * 
+      <motion.div
+        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        exit={{ scaleY: 1 }}
+        style={{ originY: isPresent ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      />
+       */}
     </>
   );
 }

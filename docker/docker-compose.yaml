@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo:jammy
+    restart: always
+    env_file:
+      - .env.mongo
+    ports:
+      - 127.0.0.1:27018:27017
+    volumes:
+      - e_com_db:/data/db
+  api:
+    image: pbryan9/patty-private:e-com-server
+    restart: always
+    env_file:
+      - .env.api
+    ports:
+      - 3050:3050
+    depends_on:
+      - mongo
+  client:
+    image: pbryan9/patty-private:e-com-frontend
+    ports:
+      - 80:80
+      - 443:443
+    env_file:
+      - .env.production
+    depends_on:
+      - api
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+
+volumes:
+  e_com_db:
