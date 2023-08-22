@@ -13,6 +13,11 @@ input:focus {
   outline: none;
 }
 
+.clicked {
+  background-color: #FF0000; /* Change this to the desired clicked color */
+  transition: background-color 0.5s ease; /* Adjust the duration and easing function as needed */
+} 
+
 *:focus {
   outline: none;
 }
