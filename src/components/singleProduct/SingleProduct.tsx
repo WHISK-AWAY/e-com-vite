@@ -294,8 +294,11 @@ export default function SingleProduct() {
     setCount((prev) => prev - 1);
   };
 
+
+    const [isClicked, setIsClicked] = useState(false);
   // Add selected quantity to cart.
   const handleAddToCart = () => {
+    setIsClicked(true)
     if (count < 1) return;
 
     setCount(1);
@@ -377,7 +380,7 @@ export default function SingleProduct() {
    */
   return (
     <>
-       <motion.div
+      <motion.div
         className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#131313]'
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
@@ -399,11 +402,17 @@ export default function SingleProduct() {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      /> 
+      />
       <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
-        <section ref={prodInfoWrapper} className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
+        <section
+          ref={prodInfoWrapper}
+          className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'
+        >
           {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-          <section ref={prodImgWrapper} className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
+          <section
+            ref={prodImgWrapper}
+            className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'
+          >
             <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
               <div
                 ref={mainImage}
@@ -526,7 +535,7 @@ export default function SingleProduct() {
                 {/* <button
                 onClick={handleAddToCart}
                 disabled={maxQty === 0}
-                className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg  uppercase text-white outline outline-slate-800 hover:outline-offset-4 hover:invert disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
+                className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg  uppercase text-white outline outline-slate-800 hover:outline-offset-4 disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4 active:border border-red-500 '
               >
                 add to cart
               </button> */}
@@ -534,15 +543,15 @@ export default function SingleProduct() {
                 <button
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
-                  className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-italiana text-[2vw] font-medium uppercase  text-white transition-all  active:w-3/5 active:scale-105 active:duration-100 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
+                  className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-italiana text-[2vw] font-medium uppercase  text-white transition-all  hover:scale-[1.01] active:bg-red-300 hover:duration-00 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
                 >
                   <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full '></span>
                   <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full'></span>
-                  <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-100 transition-all  delay-200 duration-1000  group-hover:h-full'></span>
-                  <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-100 transition-all delay-200 duration-1000  group-hover:h-full'></span>
-                  <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-white opacity-0 delay-500 duration-700 group-hover:opacity-100'></span>
+                  <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-400 transition-all  delay-200 duration-1000  group-hover:h-full'></span>
+                  <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-400 transition-all delay-200 duration-1000  group-hover:h-full'></span>
+                  <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-[#383838] active:bg-yellow-400 opacity-0 delay-500 duration-700 group-hover:opacity-100'></span>
 
-                  <span className='ease relative transition-colors delay-200 duration-1000  group-hover:text-charcoal'>
+                  <span className='ease relative transition-colors delay-200 duration-1000  '>
                     add to cart
                   </span>
                 </button>
