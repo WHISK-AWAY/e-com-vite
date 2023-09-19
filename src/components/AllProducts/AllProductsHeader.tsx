@@ -91,7 +91,7 @@ export default function AllProductsHeader({
             className='transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out'
           >
             <picture>
-              <source srcSet={makeWebpUrl(randomProdImage!)} type="image/webp" />
+              {randomProdImage && <source srcSet={makeWebpUrl(randomProdImage!)} type="image/webp" />}
               <img
                 src={randomProdImage}
                 alt={`product image: ${randomProd.productName}`}
@@ -110,7 +110,7 @@ export default function AllProductsHeader({
               />
             ) : (
               <picture>
-                <source srcSet={makeWebpUrl(backupImage!)} type="image/webp" />
+                {backupImage && <source srcSet={makeWebpUrl(backupImage!)} type="image/webp" />}
                 <img
                   src={backupImage}
                   alt={`alternate product image: ${randomProd.productName}`}
