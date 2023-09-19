@@ -118,10 +118,11 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
         className='lazyload h-full object-cover'
         loop={true}
         autoPlay={true}
+        muted={true}
       />
 
-      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana'>
-        <h1 className='pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl'>
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana portrait:translate-y-[40%]'>
+        <h1 className='pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
           {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
           SIGN IN
         </h1>
@@ -130,11 +131,14 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
           onSubmit={handleSubmit(submitData)}
         >
           <div className='email-field flex flex-col py-[4%] uppercase xl:text-xl 2xl:text-xl'>
-            <label htmlFor='email' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='email'
+              className='pl-4 lg:pb-1 portrait:text-[1.3rem]'
+            >
               email
             </label>
             <input
-              className='input-ring-charcoal rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14'
+              className='input-ring-charcoal appearance-none rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg'
               type='email'
               id='user-email'
               autoComplete='email'
@@ -146,11 +150,14 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
             {/* {errors.email && <p>{errors.email.message}</p>} */}
           </div>
           <div className='password-field flex flex-col uppercase xl:text-xl 2xl:text-xl'>
-            <label htmlFor='password' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='password'
+              className='pl-4 lg:pb-1 portrait:text-[1.3rem]'
+            >
               password
             </label>
             <input
-              className='input-ring-charcoal flex rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-1 focus:outline-offset-0 focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 '
+              className='input-ring-charcoal flex appearance-none rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-1 focus:outline-offset-0 focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg'
               type='password'
               id='password'
               autoComplete='current-password'
@@ -164,17 +171,17 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               )} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 '
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 portrait:md:py-4 portrait:md:text-[1.7rem]'
             type='submit'
           >
             sign in
           </button>
         </form>
-        <p className='text-center text-xs xl:text-base'>
+        <p className='text-center text-xs xl:text-base portrait:pt-2 portrait:text-[1.2rem] '>
           new here? create an account{' '}
           <span
             onClick={async () => setMode('sign-up')}
-            className=' cursor-pointer text-xs text-white underline xl:text-base'
+            className=' cursor-pointer text-xs text-white underline xl:text-base  portrait:text-[1.2rem]'
           >
             instead
           </span>
