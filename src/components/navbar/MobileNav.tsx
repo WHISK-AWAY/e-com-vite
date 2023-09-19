@@ -17,25 +17,34 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
 import { TCFMode } from './Navbar';
 import SignWrapper from '../SignWrapper';
+import DropdownMenu from './DropdownMenu';
+import CartFavWrapper from '../CartFavWrapper';
+import SearchContainer from './SearchContainer';
 
 export type NavbarProps = {
   setIsSearchHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  isSearchHidden:boolean;
   setIsCartFavWrapperHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  isCartFavWrapperHidden: boolean;
   setMode: React.Dispatch<React.SetStateAction<TCFMode>>;
   mode: TCFMode;
   setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isSignFormHidden: boolean;
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  isMenuHidden: boolean;
 };
 
 export default function MobileNav({
   setIsSearchHidden,
+  isSearchHidden,
   setIsCartFavWrapperHidden,
+  isCartFavWrapperHidden,
   setMode,
   mode,
   setIsSignFormHidden,
   isSignFormHidden,
   setIsMenuHidden,
+  isMenuHidden,
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
@@ -50,12 +59,15 @@ export default function MobileNav({
       <section className='flex h-full w-fit items-center  gap-6 pl-3'>
         {/**hamburger menu section */}
 
-        <img
-          src={menuIcon}
-          alt='Menu'
-          className='h-6'
-          onClick={() => setIsMenuHidden(false)}
-        />
+        <>
+          <img
+            src={menuIcon}
+            alt='Menu'
+            className='h-6'
+            onClick={() => setIsMenuHidden(false)}
+          />
+          {!isMenuHidden && <DropdownMenu setIsMenuHidden={setIsMenuHidden} />}
+        </>
 
         {/**logo section */}
         <Link
@@ -68,38 +80,64 @@ export default function MobileNav({
 
       {/**user nav section */}
       <section className='user-navigation flex h-full w-fit items-center justify-center gap-4 pr-3'>
+
+        <>
         <img
           src={searchIcon}
           alt='Search'
           className='h-6'
           onClick={() => setIsSearchHidden((prev) => !prev)}
-        />
-        <img
-          src={bag}
-          alt='Cart'
-          className='h-6'
-          onClick={() => {
-            setMode('cart');
-            setIsCartFavWrapperHidden(false);
-          }}
-        />
-        <img
-          src={
-            userId && singleUserState.user?.favorites?.length >= 1
-              ? heartFilled
-              : heartBlanc
-          }
-          alt={
-            userId && singleUserState.user?.favorites?.length >= 1
-              ? 'Favorites (Filled Heart)'
-              : 'Favorites (Empty Heart)'
-          }
-          className='h-6'
-          onClick={() => {
-            setMode('fav');
-            setIsCartFavWrapperHidden(false);
-          }}
-        />
+          />
+
+        {!isSearchHidden && (
+          <SearchContainer setIsSearchHidden={setIsSearchHidden} />
+          )}
+          </>
+        <>
+          <img
+            src={bag}
+            alt='Cart'
+            className='h-6'
+            onClick={() => {
+              setMode('cart');
+              setIsCartFavWrapperHidden(false);
+            }}
+          />
+
+          {!isCartFavWrapperHidden && mode === 'cart' && (
+            <CartFavWrapper
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              mode={mode}
+            />
+          )}
+        </>
+
+        <>
+          <img
+            src={
+              userId && singleUserState.user?.favorites?.length >= 1
+                ? heartFilled
+                : heartBlanc
+            }
+            alt={
+              userId && singleUserState.user?.favorites?.length >= 1
+                ? 'Favorites (Filled Heart)'
+                : 'Favorites (Empty Heart)'
+            }
+            className='h-6'
+            onClick={() => {
+              setMode('fav');
+              setIsCartFavWrapperHidden(false);
+            }}
+          />
+
+          {!isCartFavWrapperHidden && mode === 'fav' && (
+            <CartFavWrapper
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              mode={mode}
+            />
+          )}
+        </>
 
         {userId ? (
           <Link to={`/user/${userId}`}>
