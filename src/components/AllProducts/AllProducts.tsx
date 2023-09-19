@@ -77,7 +77,7 @@ export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
 }: // filterKey = 'all',
-AllProductsProps) {
+  AllProductsProps) {
   const dispatch = useAppDispatch();
   if (sortKey === 'saleCount') sortDir = 'desc';
 
@@ -278,28 +278,28 @@ AllProductsProps) {
         // data-scroll-section
         data-lenis-prevent
         className=' all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
-        >
+      >
         <section className='header-section relative flex w-full justify-center'>
           {bestsellers ? (
             <BestsellersHeader />
-            ) : (
-              <AllProductsHeader
+          ) : (
+            <AllProductsHeader
               // allProdsBg={allProdsBg}
               filter={filter}
               randomProd={randomProd}
-              />
-              )}
+            />
+          )}
         </section>
         {!bestsellers && (
           <div
-          ref={topElement}
-          className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
+            ref={topElement}
+            className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
           >
             {filter && filter === 'all' ? (
               <p>{filter} products</p>
-              ) : (
-                <p>all {filter}</p>
-                )}
+            ) : (
+              <p>all {filter}</p>
+            )}
           </div>
         )}
 
@@ -312,19 +312,19 @@ AllProductsProps) {
                 src={filterIcon}
                 className='flex w-6 cursor-pointer flex-row'
                 onClick={() => setIsSearchHidden((prev) => !prev)}
-                />
+              />
             </div>
             {!isSearchHidden && (
               <SortFilterAllProds
-              setSort={setSort}
-              // sort={sort}
-              filter={filter}
-              setFilter={setFilter}
-              allProducts={allProducts}
-              sortKey={sortKey}
-              sortDir={sortDir}
+                setSort={setSort}
+                // sort={sort}
+                filter={filter}
+                setFilter={setFilter}
+                allProducts={allProducts}
+                sortKey={sortKey}
+                sortDir={sortDir}
               />
-              )}
+            )}
           </section>
         )}
 
@@ -332,70 +332,69 @@ AllProductsProps) {
           {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
           {allProducts.products.map((product) => {
             let imageURL =
-            product.images.find(
-              (image) => image.imageDesc === 'product-front'
+              product.images.find(
+                (image) => image.imageDesc === 'product-front'
               )?.imageURL || product.images[0].imageURL;
-              let hoverURL =
+            let hoverURL =
               product.images.find((image) =>
-              ['gif-product', 'video-product'].includes(image.imageDesc)
+                ['gif-product', 'video-product'].includes(image.imageDesc)
               )?.imageURL || undefined;
-              
-              // If we don't have a gif, fail over to rendering a second image.
-              // Choose a texture image if available; an alt if that doesn't work; and any non-video as a last resort.
-              
-              let hoverFallback =
+
+            // If we don't have a gif, fail over to rendering a second image.
+            // Choose a texture image if available; an alt if that doesn't work; and any non-video as a last resort.
+
+            let hoverFallback =
               product.images
-              .slice(1)
-              .find((image) => image.imageDesc === 'product-texture')
-              ?.imageURL ||
+                .slice(1)
+                .find((image) => image.imageDesc === 'product-texture')
+                ?.imageURL ||
               product.images
-              .slice(1)
-              .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+                .slice(1)
+                .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
               product.images
-              .slice(1)
-              .find((image) => !image.imageDesc.includes('video'))?.imageURL;
+                .slice(1)
+                .find((image) => !image.imageDesc.includes('video'))?.imageURL;
             return (
               <li
                 className='relative flex list-none flex-col justify-between'
                 key={product._id.toString()}
               >
                 <div
-                  className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${
-                    hoverURL || hoverFallback ? 'group' : ''
-                  }`}
-                  >
+                  className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${hoverURL || hoverFallback ? 'group' : ''
+                    }`}
+                >
                   <Link
                     to={'/product/' + product._id}
                     className='h-full w-full'
-                    >
+                  >
                     <img
                       src={imageURL}
                       alt='product image'
                       className='h-full w-full object-cover group-hover:invisible'
-                      />
+                    />
                     {hoverURL ? (
                       <video
-                      src={hoverURL}
-                      muted={true}
-                      autoPlay={true}
-                      loop={true}
-                      className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
+                        src={hoverURL}
+                        muted={true}
+                        autoPlay={true}
+                        loop={true}
+                        className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                       />
-                      ) : (
-                        <img
+                    ) : (
+                      <img
                         src={hoverFallback}
                         alt='alternate product image'
                         className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
-                        />
-                        )}
+                      />
+                    )}
                   </Link>
 
                   {(userId &&
                     !userFavorites
-                    ?.map((fav) => fav._id)
-                    .includes(product._id.toString())) ||
+                      ?.map((fav) => fav._id)
+                      .includes(product._id.toString())) ||
                     !userId ? (
-                      <div
+                    <div
                       className='absolute right-[4%] top-[3%] cursor-pointer'
                       onClick={() => {
                         handleAddOrRemoveFromFavorites({
@@ -403,32 +402,32 @@ AllProductsProps) {
                           productId: product._id.toString(),
                         });
                       }}
-                      >
+                    >
                       {!userId ? (
                         <img
-                        src={heartEmpty}
-                        alt='heart-blanc'
-                        className='h-3 lg:h-4 xl:w-5'
-                        onClick={toastGuestFavorite}
+                          src={heartEmpty}
+                          alt='heart-blanc'
+                          className='h-3 lg:h-4 xl:w-5'
+                          onClick={toastGuestFavorite}
                         />
                       ) : (
                         <img
                           src={heartEmpty}
                           alt='heart-blanc'
                           className='h-3 lg:h-4 xl:w-5'
-                          />
-                          )}
+                        />
+                      )}
                     </div>
                   ) : (
                     <div
-                    className='absolute right-[4%] top-[3%] cursor-pointer'
-                    onClick={() => {
+                      className='absolute right-[4%] top-[3%] cursor-pointer'
+                      onClick={() => {
                         handleAddOrRemoveFromFavorites({
                           userId: userId!,
                           productId: product._id.toString(),
                         });
                       }}
-                      >
+                    >
                       <img src={heartFilled} alt='heart-filled' className='' />
                     </div>
                   )}
@@ -454,30 +453,30 @@ AllProductsProps) {
                 alt='left-arrow'
                 className='h-4 cursor-pointer pr-8'
                 onClick={pageDecrementor}
-                />
+              />
               {pageFlipper().firstPage}
               {pageNum! !== 1 && pageNum! !== maxPages && (
                 <img
                   src={dots}
                   alt='three-dots'
                   className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
-                  />
-                  )}
+                />
+              )}
               {pageNum! !== 1 && pageNum! !== maxPages && (
                 <p>{pageFlipper().currentPage}</p>
-                )}
+              )}
               <img
                 src={dots}
                 alt='three-dots'
                 className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
-                />
+              />
               {pageFlipper().lastPage}
               <img
                 src={arrowRight}
                 alt='right-arrow'
                 className='h-4 rotate-180 cursor-pointer pr-8'
                 onClick={pageIncrementor}
-                />
+              />
             </div>
           </div>
         )}

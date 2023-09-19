@@ -201,7 +201,7 @@ export default function SingleProduct() {
 
       gsap.to(prodImgWrapper.current, {
         scrollTrigger: {
-          trigger: prodImgWrapper.current, 
+          trigger: prodImgWrapper.current,
           pin: true,
           endTrigger: ingredientSection.current,
           start: 'top 20%',
@@ -428,7 +428,7 @@ export default function SingleProduct() {
                     muted={true}
                     autoPlay={true}
                     loop={true}
-                    // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
+                  // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
                   />
                 ) : (
                   <img
