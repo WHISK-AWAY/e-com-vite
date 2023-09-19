@@ -31,6 +31,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
+import makeWebpUrl from '../../utilities/makeWebpUrl';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
 
@@ -257,27 +258,9 @@ export default function AllProducts({
 
   return (
     <>
-      {/* <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
-      />
-         
-
-
-      <motion.div
-        className='slide-out  fixed left-0 top-0 z-[300] h-screen w-screen origin-top bg-red-700'
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{ delay: 0.6, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-      /> */}
       <section
-        // data-scroll-section
         data-lenis-prevent
-        className=' all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
+        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
       >
         <section className='header-section relative flex w-full justify-center'>
           {bestsellers ? (
@@ -307,9 +290,10 @@ export default function AllProducts({
           <section className='filter-section flex flex-col self-end pb-10 pt-20'>
             <div className='flex gap-6  self-end '>
               <p className='flex  font-marcellus lg:text-lg'>sort/categories</p>
-
+              {/* TODO: intrinsic height/width */}
               <img
                 src={filterIcon}
+                alt={`${isSearchHidden ? 'show' : 'hide'} filter options`}
                 className='flex w-6 cursor-pointer flex-row'
                 onClick={() => setIsSearchHidden((prev) => !prev)}
               />
@@ -335,6 +319,9 @@ export default function AllProducts({
               product.images.find(
                 (image) => image.imageDesc === 'product-front'
               )?.imageURL || product.images[0].imageURL;
+
+            let webpURL = makeWebpUrl(imageURL);
+
             let hoverURL =
               product.images.find((image) =>
                 ['gif-product', 'video-product'].includes(image.imageDesc)
@@ -367,11 +354,16 @@ export default function AllProducts({
                     to={'/product/' + product._id}
                     className='h-full w-full'
                   >
-                    <img
-                      src={imageURL}
-                      alt='product image'
-                      className='h-full w-full object-cover group-hover:invisible'
-                    />
+                    <picture>
+                      <source srcSet={webpURL} type="image/webp" />
+                      <img
+                        src={imageURL}
+                        alt={`product image: ${product.productName}`}
+                        className='h-full w-full object-cover group-hover:invisible'
+                        height='1600'
+                        width='1600'
+                      />
+                    </picture>
                     {hoverURL ? (
                       <video
                         src={hoverURL}
@@ -381,11 +373,16 @@ export default function AllProducts({
                         className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                       />
                     ) : (
-                      <img
-                        src={hoverFallback}
-                        alt='alternate product image'
-                        className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
-                      />
+                      <picture>
+                        <source srcSet={makeWebpUrl(hoverFallback!)} type='image/webp' />
+                        <img
+                          src={hoverFallback}
+                          alt={`alternate image: ${product.productName}`}
+                          className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
+                          height='1600'
+                          width='1600'
+                        />
+                      </picture>
                     )}
                   </Link>
 
@@ -406,14 +403,14 @@ export default function AllProducts({
                       {!userId ? (
                         <img
                           src={heartEmpty}
-                          alt='heart-blanc'
+                          alt='add to favorites'
                           className='h-3 lg:h-4 xl:w-5'
                           onClick={toastGuestFavorite}
                         />
                       ) : (
                         <img
                           src={heartEmpty}
-                          alt='heart-blanc'
+                          alt='add to favorites'
                           className='h-3 lg:h-4 xl:w-5'
                         />
                       )}
@@ -428,7 +425,7 @@ export default function AllProducts({
                         });
                       }}
                     >
-                      <img src={heartFilled} alt='heart-filled' className='' />
+                      <img src={heartFilled} alt='remove from favorites' className='' />
                     </div>
                   )}
                 </div>
@@ -450,7 +447,7 @@ export default function AllProducts({
             <div className='flex items-center font-grotesque text-xl '>
               <img
                 src={arrowLeft}
-                alt='left-arrow'
+                alt='go back one page'
                 className='h-4 cursor-pointer pr-8'
                 onClick={pageDecrementor}
               />
@@ -458,7 +455,7 @@ export default function AllProducts({
               {pageNum! !== 1 && pageNum! !== maxPages && (
                 <img
                   src={dots}
-                  alt='three-dots'
+                  alt=''
                   className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
                 />
               )}
@@ -467,13 +464,13 @@ export default function AllProducts({
               )}
               <img
                 src={dots}
-                alt='three-dots'
+                alt=''
                 className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
               />
               {pageFlipper().lastPage}
               <img
                 src={arrowRight}
-                alt='right-arrow'
+                alt='go forward one page'
                 className='h-4 rotate-180 cursor-pointer pr-8'
                 onClick={pageIncrementor}
               />

@@ -118,6 +118,7 @@ const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
 import 'lazysizes';
 import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
+import makeWebpUrl from '../../utilities/makeWebpUrl';
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -415,12 +416,17 @@ export default function SingleProduct() {
                   // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
                   />
                 ) : (
-                  <img
-                    src={selectedImage}
-                    // data-sizes='auto'
-                    alt='product image'
-                    className='fader aspect-[3/4] w-full object-cover'
-                  />
+                  <picture>
+                    <source srcSet={makeWebpUrl(selectedImage)} type="image/webp" />
+                    <img
+                      src={selectedImage}
+                      // data-sizes='auto'
+                      height='1600'
+                      width='1600'
+                      alt={`product image: ${singleProduct.productName}`}
+                      className='fader aspect-[3/4] w-full object-cover'
+                    />
+                  </picture>
                 )}
                 {userId ? (
                   itemIsFavorited ? (
@@ -431,6 +437,9 @@ export default function SingleProduct() {
                       <img
                         src={heartFilled}
                         className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                        height='17'
+                        width='20'
+                        alt='remove from favorites'
                       />
                     </div>
                   ) : (
@@ -441,6 +450,9 @@ export default function SingleProduct() {
                       <img
                         src={heartBlanc}
                         className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                        height='17'
+                        width='20'
+                        alt='add to favorites'
                       />
                     </div>
                   )
@@ -449,6 +461,9 @@ export default function SingleProduct() {
                     src={heartBlanc}
                     onClick={toastGuestFavorite}
                     className='fader absolute right-[5%] top-[4%] w-4 lg:w-5 xl:w-6'
+                    height='17'
+                    width='20'
+                    alt='add to favorites'
                   />
                 )}
               </div>

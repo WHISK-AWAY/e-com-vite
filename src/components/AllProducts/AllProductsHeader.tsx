@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../redux/slices/allProductSlice';
 import { CategoryHeaderInfo, getCategoryHeaderInfo } from './CategoryHeaders';
+import makeWebpUrl from '../../utilities/makeWebpUrl';
 
 export type AllProductsHeaderProps = {
   filter: string;
@@ -46,12 +47,12 @@ export default function AllProductsHeader({
         randomProd.images
           .slice(1)
           .find((image) => image.imageDesc === 'product-texture')?.imageURL ||
-          randomProd.images
-            .slice(1)
-            .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
-          randomProd.images
-            .slice(1)
-            .find((image) => !image.imageDesc.includes('video'))?.imageURL
+        randomProd.images
+          .slice(1)
+          .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
+        randomProd.images
+          .slice(1)
+          .find((image) => !image.imageDesc.includes('video'))?.imageURL
       );
     }
 
@@ -70,18 +71,8 @@ export default function AllProductsHeader({
             __html: categoryInfo?.splitTitle || <span>problem</span>,
           }}
         >
-          {/* {filter && filter === 'all' ? (
-            <>
-              <span className='absolute -translate-x-full  text-white'>
-                all
-              </span>
-              <span className='right-90 absolute'> products</span>
-            </>
-          ) : (
-            filter
-          )} */}
         </h1>
-
+        {/* TODO: webp images for category headers */}
         <img src={categoryInfo?.image} className='-z-10' />
       </section>
 
@@ -92,19 +83,23 @@ export default function AllProductsHeader({
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5  ${
-            randomProdGif || backupImage ? 'group' : ''
-          }`}
+          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5  ${randomProdGif || backupImage ? 'group' : ''
+            }`}
         >
           <Link
             to={`/product/${randomProd._id}`}
             className='transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out'
           >
-            <img
-              src={randomProdImage}
-              alt='product image'
-              className='aspect-square w-full object-cover group-hover:invisible'
-            />
+            <picture>
+              <source srcSet={makeWebpUrl(randomProdImage!)} type="image/webp" />
+              <img
+                src={randomProdImage}
+                alt={`product image: ${randomProd.productName}`}
+                className='aspect-square w-full object-cover group-hover:invisible'
+                height='1600'
+                width='1600'
+              />
+            </picture>
             {randomProdGif ? (
               <video
                 src={randomProdGif}
@@ -114,11 +109,16 @@ export default function AllProductsHeader({
                 className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
               />
             ) : (
-              <img
-                src={backupImage}
-                alt='alternate product image'
-                className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
-              />
+              <picture>
+                <source srcSet={makeWebpUrl(backupImage!)} type="image/webp" />
+                <img
+                  src={backupImage}
+                  alt={`alternate product image: ${randomProd.productName}`}
+                  className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
+                  height='1600'
+                  width='1600'
+                />
+              </picture>
             )}
           </Link>
           <Link to={'/product/' + randomProd._id}>

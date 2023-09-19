@@ -1,11 +1,12 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'react';
-import 'lazysizes';
+// import 'lazysizes';
 import { gsap } from 'gsap';
 
 import { TProduct } from '../../redux/slices/allProductSlice';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { ImageData } from '../../../server/database';
+import makeWebpUrl from '../../utilities/makeWebpUrl';
 
 export type ImageCarouselProps = {
   product: TProduct;
@@ -217,13 +218,18 @@ export default function ImageCarousel({
                   className='lazyload aspect-[3/4] w-full  object-cover'
                 />
               ) : (
-                <img
-                  className='lazyload aspect-[3/4] w-full  object-cover'
-                  src={image.imageURL}
-                  // data-src={image.imageURL}
-                  // data-sizes='auto'
-                  alt={image.imageDesc}
-                />
+                <picture>
+                  <source type="image/webp" srcSet={makeWebpUrl(image.imageURL)}></source>
+                  <img
+                    className='lazyload aspect-[3/4] w-full  object-cover'
+                    src={image.imageURL}
+                    // data-src={image.imageURL}
+                    // data-sizes='auto'
+                    alt={image.imageDesc}
+                    height="1600"
+                    width="1600"
+                  />
+                </picture>
               )}
             </div>
           );
