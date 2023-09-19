@@ -71,6 +71,7 @@ export default function Navbar() {
         mode={mode}
         setIsSignFormHidden={setIsSignFormHidden}
         isSignFormHidden={isSignFormHidden}
+        setIsMenuHidden={setIsMenuHidden}
       />
       <nav
         id='navbar'
