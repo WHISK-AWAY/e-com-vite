@@ -145,7 +145,7 @@ export default function DropdownMenu({
   return (
     <section
       ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8e9282] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
+      className='menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8c8c7f] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
     >
       {/* Logo section (absolute) */}
       <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>

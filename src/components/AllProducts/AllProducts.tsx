@@ -77,7 +77,7 @@ export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
 }: // filterKey = 'all',
-AllProductsProps) {
+  AllProductsProps) {
   const dispatch = useAppDispatch();
   if (sortKey === 'saleCount') sortDir = 'desc';
 
@@ -264,9 +264,11 @@ AllProductsProps) {
         exit={{ scaleY: 1 }}
         transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
       />
+         
+
 
       <motion.div
-        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
+        className='slide-out  fixed left-0 top-0 z-[300] h-screen w-screen origin-top bg-red-700'
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
@@ -358,9 +360,8 @@ AllProductsProps) {
                 key={product._id.toString()}
               >
                 <div
-                  className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${
-                    hoverURL || hoverFallback ? 'group' : ''
-                  }`}
+                  className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${hoverURL || hoverFallback ? 'group' : ''
+                    }`}
                 >
                   <Link
                     to={'/product/' + product._id}
@@ -392,7 +393,7 @@ AllProductsProps) {
                     !userFavorites
                       ?.map((fav) => fav._id)
                       .includes(product._id.toString())) ||
-                  !userId ? (
+                    !userId ? (
                     <div
                       className='absolute right-[4%] top-[3%] cursor-pointer'
                       onClick={() => {

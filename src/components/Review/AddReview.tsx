@@ -166,7 +166,7 @@ export default function AddReview({
                 (image) => image.imageDesc === 'product-front'
               )?.imageURL || product.images[0].imageURL
             }
-            className='aspect-[3/4] border border-charcoal object-cover'
+            className='aspect-[3/4]  object-cover'
             alt='product image'
           />
         </div>

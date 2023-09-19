@@ -214,11 +214,11 @@ export default function ImageCarousel({
                   // data-src={image.imageURL}
                   src={image.imageURL}
                   // data-sizes='auto'
-                  className='lazyload aspect-[3/4] w-full border border-charcoal object-cover'
+                  className='lazyload aspect-[3/4] w-full  object-cover'
                 />
               ) : (
                 <img
-                  className='lazyload aspect-[3/4] w-full border border-charcoal object-cover'
+                  className='lazyload aspect-[3/4] w-full  object-cover'
                   src={image.imageURL}
                   // data-src={image.imageURL}
                   // data-sizes='auto'

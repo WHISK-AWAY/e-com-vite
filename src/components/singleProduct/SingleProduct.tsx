@@ -141,9 +141,12 @@ export default function SingleProduct() {
   const [bgImg, setBgImg] = useState('');
   const [bgVid, setBgVid] = useState('');
 
-  const scrollerRef = useRef(null);
-  const pinRef = useRef(null);
+  const ingredientBgImgWrapper = useRef(null);
+  const ingredientSection = useRef(null);
   const mainImage = useRef<HTMLDivElement>(null);
+  const prodImgWrapper = useRef(null);
+  const prodInfoWrapper = useRef(null);
+
 
   const changeImage = useRef<((newImage: string) => void) | null>(null);
 
@@ -153,7 +156,8 @@ export default function SingleProduct() {
     gsap
       .to('.fader', {
         opacity: 0,
-        duration: 0.25,
+        duration: 0.05,
+        ease: 'expo.inOut'
       })
       .then(() => {
         setSelectedImage(newImage);
@@ -180,20 +184,30 @@ export default function SingleProduct() {
 
   useLayoutEffect(() => {
     // Animation: pin ingredients image while ingredients list scrolls
-    if (!scrollerRef || !pinRef) return;
+    if (!ingredientBgImgWrapper || !ingredientSection || !prodImgWrapper || !prodInfoWrapper) return;
 
     const ctx = gsap.context((_) => {
-      const scroller = scrollerRef.current;
+      const scroller = ingredientBgImgWrapper.current;
 
       gsap.to(scroller, {
         scrollTrigger: {
           trigger: scroller,
           pin: true,
           pinSpacing: true,
-          endTrigger: pinRef.current,
+          endTrigger: ingredientSection.current,
           end: 'bottom bottom',
         },
       });
+
+      gsap.to(prodImgWrapper.current, {
+        scrollTrigger: {
+          trigger: prodImgWrapper.current,
+          pin: true,
+          endTrigger: ingredientSection.current,
+          start: 'top 20%',
+          end: 'top bottom'
+        }
+      })
     });
 
     return () => ctx.revert();
@@ -337,7 +351,7 @@ export default function SingleProduct() {
    */
 
   const parseIngredients = () => {
-    const text = singleProduct.productIngredients.split('\n');
+    const text = singleProduct.productIngredients.split('\n')
     let arr = [];
     for (let i = 0; i < text.length; i++) {
       arr.push(text[i].trim().split(':'));
@@ -382,13 +396,13 @@ export default function SingleProduct() {
         transition={{ delay: 0.3, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
       /> */}
       <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
-        <section className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
+        <section ref={prodInfoWrapper} className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'>
           {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
-          <section className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
+          <section ref={prodImgWrapper} className='image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20'>
             <div className='relative z-10 flex flex-col items-center justify-between gap-3'>
               <div
                 ref={mainImage}
-                className='aspect-[3/4] w-[230px] border border-charcoal lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'
+                className='aspect-[3/4] w-[230px]  lg:w-[300px] xl:w-[375px] 2xl:w-[424px]'
               >
                 {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                   <video
@@ -398,7 +412,7 @@ export default function SingleProduct() {
                     muted={true}
                     autoPlay={true}
                     loop={true}
-                    // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
+                  // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
                   />
                 ) : (
                   <img
@@ -508,7 +522,7 @@ export default function SingleProduct() {
                 onClick={handleAddToCart}
                 disabled={maxQty === 0}
                 className='mt-14 w-4/5 max-w-[255px] rounded-sm bg-charcoal py-2 font-italiana text-lg  uppercase text-white outline outline-slate-800 hover:outline-offset-4 hover:invert disabled:bg-charcoal/40 lg:max-w-[400px] lg:text-2xl xl:max-w-[475px] xl:py-3 xl:text-3xl 2xl:py-4'
-                >
+              >
                 add to cart
               </button> */}
 
@@ -557,12 +571,12 @@ export default function SingleProduct() {
           </section>
         </section>
         <section
-          ref={pinRef}
+          ref={ingredientSection}
           className='ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32'
         >
           <div
             className='bg-img h-screen shrink-0 basis-3/5 px-4'
-            ref={scrollerRef}
+            ref={ingredientBgImgWrapper}
           >
             {bgVid ? (
               <video
