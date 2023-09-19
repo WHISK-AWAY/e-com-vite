@@ -25,6 +25,7 @@ export type NavbarProps = {
   mode: TCFMode;
   setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isSignFormHidden: boolean;
+  setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function MobileNav({
@@ -34,6 +35,7 @@ export default function MobileNav({
   mode,
   setIsSignFormHidden,
   isSignFormHidden,
+  setIsMenuHidden,
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
@@ -48,10 +50,18 @@ export default function MobileNav({
       <section className='flex h-full w-fit items-center  gap-6 pl-3'>
         {/**hamburger menu section */}
 
-        <img src={menuIcon} alt='Menu' className='h-6' />
+        <img
+          src={menuIcon}
+          alt='Menu'
+          className='h-6'
+          onClick={() => setIsMenuHidden(false)}
+        />
 
         {/**logo section */}
-        <Link to={'/'} className='pb-3 font-notable text-[2.5rem] leading-none text-primary-gray'>
+        <Link
+          to={'/'}
+          className='pb-3 font-notable text-[2.5rem] leading-none text-primary-gray'
+        >
           A
         </Link>
       </section>
