@@ -95,6 +95,7 @@ export default function Navbar() {
           isSignFormHidden={isSignFormHidden}
           setIsMenuHidden={setIsMenuHidden}
           isMenuHidden={isMenuHidden}
+          mobileMenu={mobileMenu}
         />
       ) : (
         <nav
@@ -202,7 +203,7 @@ export default function Navbar() {
                   <img src={user} className='w-3 lg:w-4 xl:w-5' />
                 </button>
                 {!isSignFormHidden && (
-                  <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
+                  <SignWrapper setIsSignFormHidden={setIsSignFormHidden} mobileMenu={mobileMenu}/>
                 )}
               </>
             )}
