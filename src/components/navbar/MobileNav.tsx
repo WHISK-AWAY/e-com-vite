@@ -23,7 +23,7 @@ import SearchContainer from './SearchContainer';
 
 export type NavbarProps = {
   setIsSearchHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  isSearchHidden:boolean;
+  isSearchHidden: boolean;
   setIsCartFavWrapperHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isCartFavWrapperHidden: boolean;
   setMode: React.Dispatch<React.SetStateAction<TCFMode>>;
@@ -55,10 +55,9 @@ export default function MobileNav({
   }, [userId]);
 
   return (
-    <nav className='mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between bg-pink-200 p-2'>
+    <nav className='mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between bg-white p-2'>
       <section className='flex h-full w-fit items-center  gap-6 pl-3'>
         {/**hamburger menu section */}
-
         <>
           <img
             src={menuIcon}
@@ -80,19 +79,21 @@ export default function MobileNav({
 
       {/**user nav section */}
       <section className='user-navigation flex h-full w-fit items-center justify-center gap-4 pr-3'>
-
+        {/**search section */}
         <>
-        <img
-          src={searchIcon}
-          alt='Search'
-          className='h-6'
-          onClick={() => setIsSearchHidden((prev) => !prev)}
+          <img
+            src={searchIcon}
+            alt='Search'
+            className='h-6'
+            onClick={() => setIsSearchHidden((prev) => !prev)}
           />
 
-        {!isSearchHidden && (
-          <SearchContainer setIsSearchHidden={setIsSearchHidden} />
+          {!isSearchHidden && (
+            <SearchContainer setIsSearchHidden={setIsSearchHidden} />
           )}
-          </>
+        </>
+
+        {/**cart section */}
         <>
           <img
             src={bag}
@@ -112,6 +113,7 @@ export default function MobileNav({
           )}
         </>
 
+        {/**fav section */}
         <>
           <img
             src={
@@ -139,6 +141,7 @@ export default function MobileNav({
           )}
         </>
 
+        {/**user section */}
         {userId ? (
           <Link to={`/user/${userId}`}>
             {' '}
