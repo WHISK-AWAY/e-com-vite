@@ -22,6 +22,8 @@ import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 
+import MobileNav from './MobileNav';
+
 export type TCFMode = 'cart' | 'fav';
 
 export default function Navbar() {
@@ -33,6 +35,7 @@ export default function Navbar() {
   const [mode, setMode] = useState<TCFMode>('cart');
   const [isMenuHidden, setIsMenuHidden] = useState(true);
   const [isSearchHidden, setIsSearchHidden] = useState(true);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
@@ -60,6 +63,14 @@ export default function Navbar() {
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.6, duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <MobileNav
+        setIsSearchHidden={setIsSearchHidden}
+        setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+        setMode={setMode}
+        mode={mode}
+        setIsSignFormHidden={setIsSignFormHidden}
+        isSignFormHidden={isSignFormHidden}
       />
       <nav
         id='navbar'
@@ -113,8 +124,8 @@ export default function Navbar() {
               <img
                 src={bag}
                 className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
-                onClick={async () => {
-                  await setMode('cart');
+                onClick={() => {
+                  setMode('cart');
                   setIsCartFavWrapperHidden(false);
                 }}
               />
@@ -143,8 +154,8 @@ export default function Navbar() {
                 }
                 // style={{strokeWidth: '2'}}
                 className='w-3 cursor-pointer lg:w-[16px] xl:w-5 '
-                onClick={async () => {
-                  await setMode('fav');
+                onClick={() => {
+                  setMode('fav');
                   setIsCartFavWrapperHidden(false);
                 }}
               />
