@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
 import { useEffect } from 'react';
 import 'lazysizes'
-import makeWebpUrl from '../utilities/makeWebpUrl';
+import convertMediaUrl from '../utilities/convertMediaUrl';
 
 type FormData = {
   email: string

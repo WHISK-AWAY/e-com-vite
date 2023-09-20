@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TProduct } from '../../redux/slices/allProductSlice';
 import { CategoryHeaderInfo, getCategoryHeaderInfo } from './CategoryHeaders';
-import makeWebpUrl from '../../utilities/makeWebpUrl';
+import convertMediaUrl from '../../utilities/convertMediaUrl';
 
 export type AllProductsHeaderProps = {
   filter: string;
@@ -76,8 +76,8 @@ export default function AllProductsHeader({
         <h1 className='landscape:hidden self-start whitespace-nowrap leading-none pl-7 pb-10  rotate-90 text-[2rem] font-grotesque font-bold uppercase text-primary-gray w-1/6'>{categoryInfo?.category}</h1>
         {/* TODO: webp images for category headers */}
         <picture>
-          <source srcSet={makeWebpUrl(categoryInfo?.image)} type="image/webp" />
-          <img src={categoryInfo?.image} className='-z-10  portrait:w-full portrait:h-[60svh]' height='4493' width='2996' alt='' />
+          <source srcSet={convertMediaUrl(categoryInfo?.image)} type="image/webp" />
+          <img src={categoryInfo?.image} className='-z-10  portrait:w-full portrait:h-[60svh]' height='4493' width='2996' alt=''/>
         </picture>
       </section>
 
@@ -96,7 +96,7 @@ export default function AllProductsHeader({
             className='transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out'
           >
             <picture>
-              {randomProd && randomProdImage && <source srcSet={makeWebpUrl(randomProdImage!)} type="image/webp" />}
+              {randomProd && randomProdImage && <source srcSet={convertMediaUrl(randomProdImage!)} type="image/webp" />}
               <img
                 src={randomProdImage}
                 alt={`product image: ${randomProd.productName}`}
@@ -115,7 +115,7 @@ export default function AllProductsHeader({
               />
             ) : (
               <picture>
-                {backupImage && <source srcSet={makeWebpUrl(backupImage!)} type="image/webp" />}
+                {backupImage && <source srcSet={convertMediaUrl(backupImage!)} type="image/webp" />}
                 <img
                   src={backupImage}
                   alt={`alternate product image: ${randomProd.productName}`}

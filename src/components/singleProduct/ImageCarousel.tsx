@@ -6,7 +6,7 @@ import { TProduct } from '../../redux/slices/allProductSlice';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { ImageData } from '../../../server/database';
-import makeWebpUrl from '../../utilities/makeWebpUrl';
+import convertMediaUrl from '../../utilities/convertMediaUrl';
 
 export type ImageCarouselProps = {
   product: TProduct;
@@ -219,7 +219,7 @@ export default function ImageCarousel({
                 />
               ) : (
                 <picture>
-                  <source type="image/webp" srcSet={makeWebpUrl(image.imageURL)}></source>
+                  <source type="image/webp" srcSet={convertMediaUrl(image.imageURL)}></source>
                   <img
                     className='lazyload aspect-[3/4] w-full  object-cover'
                     src={image.imageURL}
