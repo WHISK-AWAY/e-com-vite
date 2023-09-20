@@ -31,7 +31,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { motion, useIsPresent } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
-import makeWebpUrl from '../../utilities/makeWebpUrl';
+import convertMediaUrl from '../../utilities/convertMediaUrl';
 // import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 // import { useLocomotiveScroll } from 'react-locomotive-scroll';
 
@@ -320,7 +320,7 @@ export default function AllProducts({
                 (image) => image.imageDesc === 'product-front'
               )?.imageURL || product.images[0].imageURL;
 
-            let webpURL = makeWebpUrl(imageURL);
+            let webpURL = convertMediaUrl(imageURL);
 
             let hoverURL =
               product.images.find((image) =>
@@ -374,7 +374,7 @@ export default function AllProducts({
                       />
                     ) : (
                       <picture>
-                        <source srcSet={makeWebpUrl(hoverFallback!)} type='image/webp' />
+                        <source srcSet={convertMediaUrl(hoverFallback!)} type='image/webp' />
                         <img
                           src={hoverFallback}
                           alt={`alternate image: ${product.productName}`}
