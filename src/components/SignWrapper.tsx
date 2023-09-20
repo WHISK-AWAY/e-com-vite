@@ -98,13 +98,17 @@ export default function SignWrapper({
             <img
               src={x}
               alt='x-icon'
-              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'}`}
+              className={`${
+                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+              }`}
             />
           ) : (
             <img
               src={whiteX}
               alt='x-icon'
-              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2'}`}
+              className={`${
+                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+              }`}
             />
           )}
         </div>
