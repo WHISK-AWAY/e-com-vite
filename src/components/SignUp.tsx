@@ -100,9 +100,9 @@ export default function SignUp({
           email: '',
         });
         setError('email', { type: 'custom', message: 'email already exists' }),
-          {
-            keepErrors: true,
-          };
+        {
+          keepErrors: true,
+        };
       } else {
         // clearErrors('email');
       }
@@ -145,13 +145,14 @@ export default function SignUp({
   return (
     <>
       <video
-        data-src={signup}
-        data-sizes='auto'
-        className='lazyload h-full object-cover'
+        className='h-full object-cover'
         loop={true}
         autoPlay={true}
         muted={true}
-      />
+      >
+        <source src="/assets/bg-vids/sign-up.webm" type="video/webm" />
+        <source src="/assets/bg-vids/sign-up.mp4" type="video/mp4" />
+      </video>
 
       <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret text-white portrait:translate-y-[5%] '>
         <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
