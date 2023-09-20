@@ -75,29 +75,29 @@ export default function CartItem({
         <div className='upper-wrapper flex w-full flex-col items-center'>
           <h2
             onClick={goToProduct}
-            className='cursor-pointer text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem]'
+            className='cursor-pointer text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem] landscape:short:text-sm'
           >
             {product.productName}
           </h2>
-          <div className='text-center font-grotesque text-sm lg:text-base  portrait:pt-1 portrait:text-[1rem]'>
+          <div className='text-center font-grotesque text-sm lg:text-base  portrait:pt-1 portrait:text-[1rem] landscape:short:text-sm'>
             ${price}
           </div>
         </div>
-        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-20'>
+        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-16'>
           <img
             src={minus}
             alt='minus-icon'
             onClick={handleDecrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
           />
-          <span className='py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-base'>
+          <span className='py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-sm'>
             {count}
           </span>
           <img
             src={plus}
             alt='plus-icon'
             onClick={handleIncrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
           />
         </div>
       </div>
