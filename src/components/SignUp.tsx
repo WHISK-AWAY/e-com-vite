@@ -153,7 +153,7 @@ export default function SignUp({
         muted={true}
       />
 
-      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white portrait:translate-y-[10%]'>
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white portrait:translate-y-[5%] '>
         <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
           SIGN UP
         </h1>
@@ -172,7 +172,7 @@ export default function SignUp({
               type='text'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
-              className='input-ring-white input focus-ring-white appearance-none!important rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal focus:outline-none  focus:outline-2 focus:outline-offset-0 focus:outline-white md:h-9 lg:h-10 lg:text-base xl:h-11  2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
+              className='input-ring-white input focus-ring-white appearance-none!important rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal focus:outline-none  focus:outline-2 focus:outline-offset-0 focus:outline-white md:h-9 lg:h-10 lg:text-base xl:h-11  2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
@@ -187,7 +187,7 @@ export default function SignUp({
               type='text'
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
-              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.lastName && <p>{errors.lastName.message}</p>} */}
           </div>
@@ -205,7 +205,7 @@ export default function SignUp({
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
-              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.email && <p>{errors.email.message}</p>} */}
           </div>
@@ -221,7 +221,7 @@ export default function SignUp({
               autoComplete='new-password'
               placeholder={errors.password?.message || ''}
               {...register('password')}
-              className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
+              className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.password && <p>{errors.password.message}</p>} */}
           </div>
@@ -237,7 +237,7 @@ export default function SignUp({
               autoComplete='new-password'
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
-              className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
+              className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
