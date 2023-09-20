@@ -213,12 +213,13 @@ export default function ProductCarousel({
               {gifURL ? (
                 <video
                   className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                  src={gifURL}
-                  // data-sizes='auto'
                   muted={true}
                   autoPlay={true}
                   loop={true}
-                />
+                >
+                  <source src={gifURL} type={gifURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                  <source src={convertMediaUrl(gifURL)} type='video/webm' />
+                </video>
               ) : (
                 <picture>
                   <source srcSet={convertMediaUrl(hoverFallback!)} type="image/webp" />

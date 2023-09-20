@@ -343,17 +343,15 @@ export default function AllProducts({
                 .find((image) => !image.imageDesc.includes('video'))?.imageURL;
             return (
               <li
-                className={` ${
-                  allProducts.products.length % 2 === 0
+                className={` ${allProducts.products.length % 2 === 0
                     ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
                     : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
-                } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
+                  } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
                 key={product._id.toString()}
               >
                 <div
-                  className={`group-hover:scale-105 aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0   hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
-                    hoverURL || hoverFallback ? 'group' : ''
-                  }`}
+                  className={`group-hover:scale-105 aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0   hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${hoverURL || hoverFallback ? 'group' : ''
+                    }`}
                 >
                   <Link
                     to={'/product/' + product._id}
@@ -371,12 +369,15 @@ export default function AllProducts({
                     </picture>
                     {hoverURL ? (
                       <video
-                        src={hoverURL}
+                        // src={hoverURL}
                         muted={true}
                         autoPlay={true}
                         loop={true}
                         className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
-                      />
+                      >
+                        <source src={hoverURL} type={hoverURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                        <source src={convertMediaUrl(hoverURL)} type='video/webm' />
+                      </video>
                     ) : (
                       <picture>
                         <source srcSet={convertMediaUrl(hoverFallback!)} type='image/webp' />
@@ -395,7 +396,7 @@ export default function AllProducts({
                     !userFavorites
                       ?.map((fav) => fav._id)
                       .includes(product._id.toString())) ||
-                  !userId ? (
+                    !userId ? (
                     <div
                       className='absolute right-[4%] top-[3%] cursor-pointer'
                       onClick={() => {
@@ -441,11 +442,10 @@ export default function AllProducts({
 
                 <div className='place-items-stretch border-primary-gray px-2  text-start portrait:border-l portrait:pb-4 landscape:border-t'>
                   <p
-                    className={`${
-                      product.productName.length > 10
+                    className={`${product.productName.length > 10
                         ? 'overflow-hidden text-ellipsis whitespace-nowrap'
                         : ''
-                    } pt-2   font-grotesque  lg:text-[1rem] portrait:pt-1 `}
+                      } pt-2   font-grotesque  lg:text-[1rem] portrait:pt-1 `}
                   >
                     <Link to={'/product/' + product._id}>
                       {product.productName.toUpperCase()}

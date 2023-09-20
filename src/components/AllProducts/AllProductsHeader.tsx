@@ -77,7 +77,7 @@ export default function AllProductsHeader({
         {/* TODO: webp images for category headers */}
         <picture>
           <source srcSet={convertMediaUrl(categoryInfo?.image)} type="image/webp" />
-          <img src={categoryInfo?.image} className='-z-10  portrait:w-full portrait:h-[60svh]' height='4493' width='2996' alt=''/>
+          <img src={categoryInfo?.image} className='-z-10  portrait:w-full portrait:h-[60svh]' height='4493' width='2996' alt='' />
         </picture>
       </section>
 
@@ -107,15 +107,18 @@ export default function AllProductsHeader({
             </picture>
             {randomProdGif ? (
               <video
-                src={randomProdGif}
+                // src={randomProdGif}
                 muted={true}
                 autoPlay={true}
                 loop={true}
                 className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
-              />
+              >
+                <source src={randomProdGif} type={randomProdGif.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                <source src={convertMediaUrl(randomProdGif)} type='video/webm' />
+              </video>
             ) : (
               <picture>
-                {backupImage && <source srcSet={convertMediaUrl(backupImage!)} type="image/webp" />}
+                <source srcSet={convertMediaUrl(backupImage)} type="image/webp" />
                 <img
                   src={backupImage}
                   alt={`alternate product image: ${randomProd.productName}`}

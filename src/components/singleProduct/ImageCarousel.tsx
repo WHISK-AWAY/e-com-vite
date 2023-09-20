@@ -196,6 +196,7 @@ export default function ImageCarousel({
       <div className='images-wrapper flex items-start justify-center gap-3'>
         {renderImage.map((image, idx) => {
           let extension = image.imageURL.split('.').at(-1);
+          console.log('imageUrl:', convertMediaUrl(image.imageURL))
           return (
             <div
               key={image.imageURL + '_' + idx}
@@ -212,16 +213,16 @@ export default function ImageCarousel({
                   muted={true}
                   autoPlay={true}
                   loop={true}
-                  // data-src={image.imageURL}
-                  src={image.imageURL}
-                  // data-sizes='auto'
-                  className='lazyload aspect-[3/4] w-full  object-cover'
-                />
+                  className='aspect-[3/4] w-full  object-cover'
+                >
+                  <source src={image.imageURL} type={extension === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                  <source src={convertMediaUrl(image.imageURL)} type="video/webm" />
+                </video>
               ) : (
                 <picture>
                   <source type="image/webp" srcSet={convertMediaUrl(image.imageURL)}></source>
                   <img
-                    className='lazyload aspect-[3/4] w-full  object-cover'
+                    className='aspect-[3/4] w-full  object-cover'
                     src={image.imageURL}
                     // data-src={image.imageURL}
                     // data-sizes='auto'

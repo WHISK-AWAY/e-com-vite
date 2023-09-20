@@ -340,20 +340,19 @@ export default function SingleProduct() {
               >
                 {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                   <video
-                    src={selectedImage}
-                    // data-sizes='auto'
                     className='fader absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
                     muted={true}
                     autoPlay={true}
                     loop={true}
-                  // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
-                  />
+                  >
+                    <source src={selectedImage} type={selectedImage.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                    <source src={convertMediaUrl(selectedImage)} type='video/webm' />
+                  </video>
                 ) : (
                   <picture>
                     <source srcSet={convertMediaUrl(selectedImage)} type="image/webp" />
                     <img
                       src={selectedImage}
-                      // data-sizes='auto'
                       height='1600'
                       width='1600'
                       alt={`product image: ${singleProduct.productName}`}
