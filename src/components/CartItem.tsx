@@ -70,34 +70,34 @@ export default function CartItem({
           src={x}
           alt='x-icon'
           onClick={() => handleRemove(_id, qty)}
-          className='absolute right-0 top-0 h-2 w-3 cursor-pointer lg:h-3 lg:w-3'
+          className='absolute right-0 top-0 h-2 w-3 cursor-pointer lg:h-3 lg:w-3 portrait:h-4'
         />
         <div className='upper-wrapper flex w-full flex-col items-center'>
           <h2
             onClick={goToProduct}
-            className='cursor-pointer text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'
+            className='cursor-pointer text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem]'
           >
             {product.productName}
           </h2>
-          <div className='lg:text-md text-center font-grotesque text-sm xl:text-base'>
+          <div className='text-center font-grotesque text-sm lg:text-base  portrait:text-[1rem] portrait:pt-1'>
             ${price}
           </div>
         </div>
-        <div className='flex w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24'>
+        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1'>
           <img
             src={minus}
             alt='minus-icon'
             onClick={handleDecrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
           />
-          <span className='lg:text-md font-grotesque  text-sm lg:px-2 xl:px-4 xl:text-lg'>
+          <span className='font-grotesque text-sm  lg:px-2 lg:text-sm  xl:text-lg portrait:pb-1 portrait:text-[1.1rem] leading-none xl:pb-1 py-1 lg:py-0'>
             {count}
           </span>
           <img
             src={plus}
             alt='plus-icon'
             onClick={handleIncrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5'
+            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
           />
         </div>
       </div>
