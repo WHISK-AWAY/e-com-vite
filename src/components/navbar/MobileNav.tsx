@@ -32,6 +32,7 @@ export type NavbarProps = {
   isSignFormHidden: boolean;
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
+  mobileMenu: boolean
 };
 
 export default function MobileNav({
@@ -45,6 +46,7 @@ export default function MobileNav({
   isSignFormHidden,
   setIsMenuHidden,
   isMenuHidden,
+  mobileMenu
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
@@ -157,7 +159,7 @@ export default function MobileNav({
               <img src={user} className='h-6' />
             </button>
             {!isSignFormHidden && (
-              <SignWrapper setIsSignFormHidden={setIsSignFormHidden} />
+              <SignWrapper setIsSignFormHidden={setIsSignFormHidden} mobileMenu={mobileMenu}/>
             )}
           </>
         )}
