@@ -495,7 +495,7 @@ export default function SingleProduct() {
 
           <section className='product-details flex basis-3/5 flex-col items-center px-8'>
             <div className='product-desc mb-5 flex flex-col items-center text-justify lg:mb-9'>
-              <h1 className='product-name pb-9 text-center font-federo text-[1rem] uppercase xl:text-[1.5rem]'>
+              <h1 className='product-name pb-9 text-center font-grotesque font-light text-[1.4rem] uppercase xl:text-[1.5rem]'>
                 {singleProduct.productName}
               </h1>
               <div
@@ -510,19 +510,19 @@ export default function SingleProduct() {
                   reviewCount={allReviews.reviews.length}
                 />
               </div>
-              <p className='product-long-desc font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl'>
+              <p className='product-long-desc font-grotesque font-light text-xs lg:text-sm xl:text-lg 2xl:text-xl'>
                 {singleProduct.productShortDesc} Retinol stimulates the
                 synthesis of collagen and elastin to combat loss of firmness and
                 wrinkles. This retinol serum visibly improves fine lines and
                 smooths skin. 99% naturally derived. Vegan. Made in France.
               </p>
             </div>
-            <div className='cart-controls mb-24 w-full font-grotesque text-base font-medium lg:mb-28 lg:text-lg xl:text-xl 2xl:text-2xl'>
+            <div className='cart-controls mb-24 w-full font-grotesque text-base font-light lg:mb-28 lg:text-lg xl:text-xl 2xl:text-2xl'>
               <div className='cart-section flex w-full flex-col items-center text-center'>
                 <div className='price-counter flex flex-col items-center'>
                   <p className='price'>${singleProduct.price}</p>
 
-                  <div className='qty-counter mt-3 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal px-2'>
+                  <div className='qty-counter mt-3 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal/80 px-2'>
                     <div onClick={qtyDecrementor} className='cursor-pointer'>
                       <img
                         src={minus}
@@ -560,7 +560,7 @@ export default function SingleProduct() {
                 <button
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
-                  className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-italiana text-[2vw] font-medium uppercase  text-white transition-all  hover:scale-[1.01] active:bg-red-300 hover:duration-00 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
+                  className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium uppercase  text-white transition-all  hover:scale-[1.01] active:bg-red-300 hover:duration-00 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
                 >
                   <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full '></span>
                   <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full'></span>
