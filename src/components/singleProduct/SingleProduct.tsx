@@ -29,96 +29,12 @@ import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
 
-// * background images
-import lemons from '../../../src/assets/bg-img/ingredient-bg/lemon-slice.jpg';
-import coconut from '../../../src/assets/bg-img/ingredient-bg/coconut.jpg';
-import bee from '../../../src/assets/bg-img/ingredient-bg/bee.jpg';
-import flaxSpoons from '../../../src/assets/bg-img/ingredient-bg/flax-spoons.jpg';
-import olives from '../../../src/assets/bg-img/ingredient-bg/hand-olives.jpg';
-import honeyDrip from '../../../src/assets/bg-img/ingredient-bg/honey-drip.jpg';
-import slicedCitrus from '../../../src/assets/bg-img/ingredient-bg/sliced-citrus.jpg';
-import agave from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
-import raspberry from '../../../src/assets/bg-img/ingredient-bg/green-raspberry.jpg';
-import peonies from '../../../src/assets/bg-img/ingredient-bg/close-peonies.jpg';
-import honeycomb from '../../../src/assets/bg-img/ingredient-bg/honeycomb.jpg';
-import agaveAbstract from '../../../src/assets/bg-img/ingredient-bg/agave-abstract.jpg';
-import aloeDew from '../../../src/assets/bg-img/ingredient-bg/aloe-dew.jpg';
-import aloeGel from '../../../src/assets/bg-img/ingredient-bg/aloe-gel.jpg';
-import closeFlower from '../../../src/assets/bg-img/ingredient-bg/close-flower.jpg';
-import closePeonies from '../../../src/assets/bg-img/ingredient-bg/close-peonies.jpg';
-import coffee from '../../../src/assets/bg-img/ingredient-bg/coffee.jpg';
-import agave2 from '../../../src/assets/bg-img/ingredient-bg/agave-2.jpg';
-import daisies from '../../../src/assets/bg-img/ingredient-bg/daisies.jpg';
-import floatingFlowers from '../../../src/assets/bg-img/ingredient-bg/floating-flowers.jpg';
-import flowerSpike from '../../../src/assets/bg-img/ingredient-bg/flower-spike.jpg';
-import gingerPlate from '../../../src/assets/bg-img/ingredient-bg/ginger-plate.jpg';
-import greenRaspberry from '../../../src/assets/bg-img/ingredient-bg/green-raspberry.jpg';
-import handfulOfRaspberries from '../../../src/assets/bg-img/ingredient-bg/handful-of-raspberries.jpg';
-import iceFlowers from '../../../src/assets/bg-img/ingredient-bg/ice-cube-flowers.jpg';
-import littleWFlowers from '../../../src/assets/bg-img/ingredient-bg/little-purple-flowers.jpg';
-import littlePFlowers from '../../../src/assets/bg-img/ingredient-bg/little-purple-flowers.jpg';
-import pinkFlowerBunch from '../../../src/assets/bg-img/ingredient-bg/pink-flower-bunch.jpg';
-import poppies from '../../../src/assets/bg-img/ingredient-bg/poppies.jpg';
-import purpleFlowers from '../../../src/assets/bg-img/ingredient-bg/purple-flowers.jpg';
-import tomatoes from '../../../src/assets/bg-img/ingredient-bg/tomatoes.jpg';
-import turmeric from '../../../src/assets/bg-img/ingredient-bg/turmeric.jpg';
-import whiteFlowers from '../../../src/assets/bg-img/ingredient-bg/white-flowers.jpg';
-import coconuts from '../../../src/assets/bg-img/ingredient-bg/coconuts.jpg';
-import papaya from '../../../src/assets/bg-img/ingredient-bg/papaya.jpg';
-import smallFlowers from '../../../src/assets/bg-img/ingredient-bg/small-flowers.jpg';
-
-// * test vid
-import flowerShower from '../../../src/assets/vid/flower_shower.mp4';
-import grapeLady from '../../../src/assets/vid/some-lady-twirling-grapes.mp4';
-import flowerCloseUp from '../../../src/assets/vid/flower_closeup.mp4';
-import honey from '../../../src/assets/vid/honey_dipper.mp4';
-import { getMaxQty } from '../../utilities/helpers';
-
-const bgImgs = [
-  smallFlowers,
-  coconuts,
-  tomatoes,
-  coffee,
-  turmeric,
-  whiteFlowers,
-  poppies,
-  purpleFlowers,
-  pinkFlowerBunch,
-  littlePFlowers,
-  littleWFlowers,
-  iceFlowers,
-  handfulOfRaspberries,
-  greenRaspberry,
-  papaya,
-  gingerPlate,
-  flowerSpike,
-  floatingFlowers,
-  daisies,
-  lemons,
-  coconut,
-  bee,
-  flaxSpoons,
-  olives,
-  honeyDrip,
-  slicedCitrus,
-  agave,
-  raspberry,
-  peonies,
-  honeycomb,
-  agaveAbstract,
-  agave2,
-  aloeDew,
-  aloeGel,
-  closeFlower,
-  closePeonies,
-];
-
-const bgVids = [flowerShower, grapeLady, flowerCloseUp, honey];
-
 import 'lazysizes';
 import { motion } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
-import makeWebpUrl from '../../utilities/makeWebpUrl';
+import convertMediaUrl from '../../utilities/convertMediaUrl';
+import { getMaxQty } from '../../utilities/helpers';
+import { getRandomBackgroundImage, getRandomBackgroundVideo } from './randomBackground';
 
 export default function SingleProduct() {
   const reviewSection = useRef<HTMLDivElement>(null);
@@ -225,10 +141,11 @@ export default function SingleProduct() {
     dispatch(fetchAllReviews(productId));
 
     if (Math.random() < 0.5) {
-      setBgImg(bgImgs[Math.floor(Math.random() * bgImgs.length)]);
+      setBgImg(getRandomBackgroundImage());
       setBgVid('');
     } else {
-      setBgVid(bgVids[Math.floor(Math.random() * bgVids.length)]);
+      // setBgVid(bgVids[Math.floor(Math.random() * bgVids.length)]);
+      setBgVid(getRandomBackgroundVideo());
       setBgImg('');
     }
 
@@ -298,7 +215,7 @@ export default function SingleProduct() {
   };
 
 
-    const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   // Add selected quantity to cart.
   const handleAddToCart = () => {
     setIsClicked(true)
@@ -433,7 +350,7 @@ export default function SingleProduct() {
                   />
                 ) : (
                   <picture>
-                    <source srcSet={makeWebpUrl(selectedImage)} type="image/webp" />
+                    <source srcSet={convertMediaUrl(selectedImage)} type="image/webp" />
                     <img
                       src={selectedImage}
                       // data-sizes='auto'
@@ -611,14 +528,20 @@ export default function SingleProduct() {
           >
             {bgVid ? (
               <video
-                src={bgVid}
                 autoPlay={true}
+                controls={false}
                 loop={true}
                 muted={true}
                 className='h-screen w-full object-cover'
-              />
+              >
+                <source src={convertMediaUrl(bgVid)} type="video/webm" />
+                <source src={bgVid} type="video/mp4" />
+              </video>
             ) : (
-              <img src={bgImg} className='h-screen w-full object-cover' />
+              <picture>
+                <source srcSet={convertMediaUrl(bgImg)} type="image/webp" />
+                <img src={bgImg} className='h-screen w-full object-cover' />
+              </picture>
             )}
           </div>
           <div className='ingredients mt-4 flex h-full min-h-screen basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
