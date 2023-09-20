@@ -150,10 +150,11 @@ export default function SignUp({
         className='lazyload h-full object-cover'
         loop={true}
         autoPlay={true}
+        muted={true}
       />
 
-      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white'>
-        <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl'>
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white portrait:translate-y-[10%]'>
+        <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
           SIGN UP
         </h1>
         <form
@@ -161,31 +162,40 @@ export default function SignUp({
           onSubmit={handleSubmit(submitData)}
         >
           <div className='first-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
-            <label htmlFor='first-name' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='first-name'
+              className='pl-4 lg:pb-1 portrait:text-[1.2rem]'
+            >
               first name
             </label>
             <input
               type='text'
               placeholder={errors.firstName?.message || ''}
               {...register('firstName')}
-              className='input-ring-white input focus-ring-white appearance-none!important rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal focus:outline-none  focus:outline-2 focus:outline-offset-0 focus:outline-white md:h-9 lg:h-10 lg:text-base xl:h-11  2xl:h-12 '
+              className='input-ring-white input focus-ring-white appearance-none!important rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal focus:outline-none  focus:outline-2 focus:outline-offset-0 focus:outline-white md:h-9 lg:h-10 lg:text-base xl:h-11  2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.firstName && <p>{errors.firstName.message}</p>} */}
           </div>
           <div className='last-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg  2xl:text-lg'>
-            <label htmlFor='last-name' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='last-name'
+              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+            >
               last name
             </label>
             <input
               type='text'
               placeholder={errors.lastName?.message || ''}
               {...register('lastName')}
-              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.lastName && <p>{errors.lastName.message}</p>} */}
           </div>
           <div className='email-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
-            <label htmlFor='email' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='email'
+              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+            >
               email
             </label>
             <input
@@ -195,12 +205,15 @@ export default function SignUp({
               {...register('email', {
                 onBlur: (e) => emailFetcher(e.target.value),
               })}
-              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white input focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.email && <p>{errors.email.message}</p>} */}
           </div>
           <div className='password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
-            <label htmlFor='password' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='password'
+              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+            >
               password
             </label>
             <input
@@ -208,12 +221,15 @@ export default function SignUp({
               autoComplete='new-password'
               placeholder={errors.password?.message || ''}
               {...register('password')}
-              className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white  focus-ring-white rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.password && <p>{errors.password.message}</p>} */}
           </div>
           <div className='confirm-password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
-            <label htmlFor='confirm-password' className='pl-4 lg:pb-1'>
+            <label
+              htmlFor='confirm-password'
+              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+            >
               confirm password
             </label>
             <input
@@ -221,22 +237,22 @@ export default function SignUp({
               autoComplete='new-password'
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
-              className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12'
+              className='input-ring-white focus-ring-white  rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg'
             ></input>
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 xl:text-xl 2xl:py-3 2xl:text-2xl'
+            className='mb-[2%] mt-[6%] flex w-[110%] flex-col  items-center  self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 xl:text-xl 2xl:py-3 2xl:text-2xl portrait:w-full  portrait:py-1  portrait:md:py-3 portrait:md:text-[1.7rem]'
             type='submit'
           >
             sign up
           </button>
         </form>
-        <p className='text-center text-base md:text-xs'>
+        <p className='text-center text-base md:text-xs portrait:md:text-[1.2rem] '>
           already have an account? sign in{' '}
           <span
             onClick={() => setMode('sign-in')}
-            className='cursor-pointer text-base text-[#958585] underline md:text-xs'
+            className='cursor-pointer text-base text-[#958585] underline md:text-xs  portrait:md:text-[1.2rem]'
           >
             here
           </span>
