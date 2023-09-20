@@ -55,7 +55,7 @@ export default function SortFilterAllProds({
       <div className='sort-selector'>
         <h2>Sort by:</h2>
         <select
-          className='rounded-sm appearance-none'
+          className='appearance-none rounded-sm portrait:w-40'
           onChange={handleSort}
           defaultValue={JSON.stringify({
             key: sortKey || 'productName',
@@ -112,10 +112,10 @@ export default function SortFilterAllProds({
         </select>
       </div>
 
-      <div className='filter-selector'>
+      <div className='filter-selector '>
         <h2>Choose category:</h2>
         <select
-          className='rounded-sm'
+          className='rounded-sm portrait:w-40'
           onChange={(e) => setFilter(e.target.value)}
           value={filter}
         >
@@ -129,7 +129,9 @@ export default function SortFilterAllProds({
             </option>
           ))}
         </select>
-        ({allProducts.count})
+        <span className='portrait:hidden'>
+          ({allProducts.count})
+          </span>
       </div>
     </div>
   );
