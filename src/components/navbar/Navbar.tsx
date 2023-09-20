@@ -108,7 +108,7 @@ export default function Navbar() {
               duration: 5000,
             }}
           />
-          <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6'>
+          <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6 portrait:md:text-[1.1rem]'>
             <div
               className='shop cursor-pointer'
               onMouseEnter={() => setIsMenuHidden(false)}
@@ -133,17 +133,17 @@ export default function Navbar() {
           <div className='logo-section max-w-1/3 flex h-full items-center justify-center'>
             <Link
               to='/'
-              className='font-notable text-[2.5vw] text-[#262626]  3xl:text-[1.6vw]'
+              className='font-notable text-[2.5vw] text-[#262626]  3xl:text-[1.6vw] portrait:md:text-[1.7rem]'
               onClick={() => setIsMenuHidden(true)}
             >
               ASTORIA
             </Link>
           </div>
 
-          <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2'>
+          <div className='user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2 portrait:md:gap-4'>
             <img
               src={searchIcon}
-              className='h-3 cursor-pointer lg:h-[18px] xl:h-[21px]'
+              className='h-3 cursor-pointer lg:h-[18px] xl:h-[21px] portrait:md:h-6'
               onClick={() => setIsSearchHidden((prev) => !prev)}
             />
             {!isSearchHidden && (
@@ -154,7 +154,7 @@ export default function Navbar() {
               <div>
                 <img
                   src={bag}
-                  className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px]'
+                  className='w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px] portrait:md:w-6'
                   onClick={() => {
                     setMode('cart');
                     setIsCartFavWrapperHidden(false);
@@ -184,7 +184,7 @@ export default function Navbar() {
                       : heartBlanc
                   }
                   // style={{strokeWidth: '2'}}
-                  className='w-3 cursor-pointer lg:w-[16px] xl:w-5 '
+                  className='w-3 cursor-pointer lg:w-[16px] xl:w-5 portrait:md:w-6'
                   onClick={() => {
                     setMode('fav');
                     setIsCartFavWrapperHidden(false);
@@ -195,15 +195,21 @@ export default function Navbar() {
 
             {userId ? (
               <NavLink to={`/user/${userId}`}>
-                <img src={user} className='w-3 lg:w-4 xl:w-5' />
+                <img src={user} className='w-3 lg:w-4 xl:w-5 portrait:md:w-6' />
               </NavLink>
             ) : (
               <>
                 <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
-                  <img src={user} className='w-3 lg:w-4 xl:w-5' />
+                  <img
+                    src={user}
+                    className='w-3 lg:w-4 xl:w-5 portrait:md:w-6'
+                  />
                 </button>
                 {!isSignFormHidden && (
-                  <SignWrapper setIsSignFormHidden={setIsSignFormHidden} mobileMenu={mobileMenu}/>
+                  <SignWrapper
+                    setIsSignFormHidden={setIsSignFormHidden}
+                    mobileMenu={mobileMenu}
+                  />
                 )}
               </>
             )}
