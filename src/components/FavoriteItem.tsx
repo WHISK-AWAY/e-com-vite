@@ -89,30 +89,30 @@ export default function FavoriteItem({
           <div className='upper-wrapper flex w-full flex-col items-center'>
             <h2
               onClick={goToProduct}
-              className='cursor-pointer items-center self-center text-center font-hubbali text-xs uppercase lg:text-sm xl:text-base 2xl:text-lg'
+              className='cursor-pointer items-center self-center text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem]'
             >
               {product.productName}
             </h2>
 
-            <p className='text-center font-grotesque text-sm 2xl:text-lg'>
+            <p className='portrait:text-[1rem]portrait:pt-1 text-center font-grotesque text-sm lg:text-base 2xl:text-lg'>
               ${product.price}
             </p>
           </div>
-          <div className='qty-controller flex w-12 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24 xl:py-[3px] 2xl:py-1'>
+          <div className='qty-controller align-center flex h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24   portrait:mt-3 portrait:w-20 portrait:md:py-1 '>
             <img
               src={minus}
               alt='minus-icon'
               onClick={qtyDecrementor}
-              className='h-3 cursor-pointer lg:h-3 xl:h-5'
+              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
             />
-            <span className='lg:text-md font-grotesque text-xs lg:px-2 xl:px-4 xl:text-base 2xl:text-base'>
+            <span className=' py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem]'>
               {count}
             </span>
             <img
               src={plus}
               alt='plus-icon'
               onClick={qtyIncrementor}
-              className='h-3 cursor-pointer lg:h-3 xl:h-5'
+              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
             />
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function FavoriteItem({
 
       {/*button*/}
       <button
-        className='flex w-[65%] items-center justify-center rounded-sm bg-charcoal py-1 text-center font-italiana text-sm uppercase text-white disabled:bg-charcoal/40 lg:w-[60%] lg:py-2 2xl:text-lg'
+        className='mb-1 flex  w-[60%] justify-center self-end rounded-sm bg-charcoal py-1 text-center font-poiret text-xs uppercase text-white  disabled:bg-charcoal/40 lg:py-2 2xl:text-lg portrait:py-2 portrait:text-[1rem]'
         disabled={maxQty === 0}
         onClick={() =>
           handleAddToCart({
@@ -135,7 +135,7 @@ export default function FavoriteItem({
       <img
         src={x}
         alt='x-icon'
-        className='absolute right-0 top-0 h-2  w-3 cursor-pointer lg:h-3 lg:w-3'
+        className='absolute right-0 top-0 h-2  w-3 cursor-pointer lg:h-3 lg:w-3 portrait:h-4'
         onClick={() => handleRemove({ userId, productId: product._id })}
       />
     </section>
