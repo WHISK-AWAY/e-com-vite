@@ -171,7 +171,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               )} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 portrait:md:py-4 portrait:md:text-[1.7rem]'
+            className='mb-[2%] mt-[6%] flex w-[110%] portrait:w-full  flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 portrait:md:py-4 portrait:md:text-[1.7rem]'
             type='submit'
           >
             sign in
