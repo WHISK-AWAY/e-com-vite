@@ -79,18 +79,18 @@ export default function CartItem({
           >
             {product.productName}
           </h2>
-          <div className='text-center font-grotesque text-sm lg:text-base  portrait:text-[1rem] portrait:pt-1'>
+          <div className='text-center font-grotesque text-sm lg:text-base  portrait:pt-1 portrait:text-[1rem]'>
             ${price}
           </div>
         </div>
-        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1'>
+        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-20'>
           <img
             src={minus}
             alt='minus-icon'
             onClick={handleDecrement}
             className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
           />
-          <span className='font-grotesque text-sm  lg:px-2 lg:text-sm  xl:text-lg portrait:pb-1 portrait:text-[1.1rem] leading-none xl:pb-1 py-1 lg:py-0'>
+          <span className='py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-base'>
             {count}
           </span>
           <img

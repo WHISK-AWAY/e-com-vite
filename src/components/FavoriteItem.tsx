@@ -98,14 +98,14 @@ export default function FavoriteItem({
               ${product.price}
             </p>
           </div>
-          <div className='qty-controller align-center flex h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24   portrait:mt-3 portrait:w-20 portrait:md:py-1 '>
+          <div className='qty-controller align-center flex h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24   portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-20'>
             <img
               src={minus}
               alt='minus-icon'
               onClick={qtyDecrementor}
               className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
             />
-            <span className=' py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem]'>
+            <span className=' py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-base'>
               {count}
             </span>
             <img
