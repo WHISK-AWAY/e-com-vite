@@ -164,6 +164,7 @@ export default function Navbar() {
                   <CartFavWrapper
                     setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
                     mode={mode}
+                    mobileMenu={mobileMenu}
                   />
                 )}
               </div>
@@ -174,6 +175,7 @@ export default function Navbar() {
                   <CartFavWrapper
                     setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
                     mode={mode}
+                    mobileMenu={mobileMenu}
                   />
                 )}
 
