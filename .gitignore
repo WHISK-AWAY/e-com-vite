@@ -31,3 +31,4 @@ scraperImages
 # src/public/assets/productImages
 # src/public/assets/productVideos
 # src/public/assets/productGifs
+src/public/assets/*/originals
