@@ -260,7 +260,7 @@ export default function AllProducts({
     <>
       <section
         data-lenis-prevent
-        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5'
+        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5 portrait:px-0 portrait:w-[100dvw]'
       >
         <section className='header-section relative flex w-full justify-center'>
           {bestsellers ? (
@@ -312,7 +312,7 @@ export default function AllProducts({
           </section>
         )}
 
-        <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 '>
+        <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 portrait:grid-cols-2 portrait:gap-0 portrait:p-0 '>
           {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
           {allProducts.products.map((product) => {
             let imageURL =
@@ -343,23 +343,28 @@ export default function AllProducts({
                 .find((image) => !image.imageDesc.includes('video'))?.imageURL;
             return (
               <li
-                className='relative flex list-none flex-col justify-between'
+                className={` ${
+                  allProducts.products.length % 2 === 0
+                    ? 'first-of-type:col-span-full last-of-type:col-span-full'
+                    : '[&:nth-of-type(3)]:col-span-full '
+                } relative flex list-none flex-col justify-between   bg-white `}
                 key={product._id.toString()}
               >
                 <div
-                  className={`aspect-[3/4] w-full transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out  ${hoverURL || hoverFallback ? 'group' : ''
-                    }`}
+                  className={`aspect-[3/4] w-full transform border-primary-gray transition duration-300 odd:border-r-0 even:border-l-0 hover:scale-105  group-hover:scale-105 group-hover:ease-in-out portrait:aspect-[4/5] portrait:border  ${
+                    hoverURL || hoverFallback ? 'group' : ''
+                  }`}
                 >
                   <Link
                     to={'/product/' + product._id}
                     className='h-full w-full'
                   >
                     <picture>
-                      <source srcSet={webpURL} type="image/webp" />
+                      <source srcSet={webpURL} type='image/webp' />
                       <img
                         src={imageURL}
                         alt={`product image: ${product.productName}`}
-                        className='h-full w-full object-cover group-hover:invisible'
+                        className='h-full w-full object-cover group-hover:invisible '
                         height='1600'
                         width='1600'
                       />
@@ -374,7 +379,10 @@ export default function AllProducts({
                       />
                     ) : (
                       <picture>
-                        <source srcSet={makeWebpUrl(hoverFallback!)} type='image/webp' />
+                        <source
+                          srcSet={makeWebpUrl(hoverFallback!)}
+                          type='image/webp'
+                        />
                         <img
                           src={hoverFallback}
                           alt={`alternate image: ${product.productName}`}
@@ -390,7 +398,7 @@ export default function AllProducts({
                     !userFavorites
                       ?.map((fav) => fav._id)
                       .includes(product._id.toString())) ||
-                    !userId ? (
+                  !userId ? (
                     <div
                       className='absolute right-[4%] top-[3%] cursor-pointer'
                       onClick={() => {
@@ -425,25 +433,37 @@ export default function AllProducts({
                         });
                       }}
                     >
-                      <img src={heartFilled} alt='remove from favorites' className='' />
+                      <img
+                        src={heartFilled}
+                        alt='remove from favorites'
+                        className=''
+                      />
                     </div>
                   )}
                 </div>
 
-                <p className='place-items-stretch pt-10 text-center  font-hubbali  lg:text-xl'>
-                  <Link to={'/product/' + product._id}>
-                    {product.productName.toUpperCase()}
-                  </Link>
-                </p>
-                <p className='pt-3 text-center font-grotesque lg:text-xl'>
-                  ${product.price}
-                </p>
+                <div className='place-items-stretch border-l border-primary-gray px-2 text-start portrait:pb-4'>
+                  <p
+                    className={`${
+                      product.productName.length > 10
+                        ? 'overflow-hidden text-ellipsis whitespace-nowrap'
+                        : ''
+                    } pt-10   font-hubbali  lg:text-xl portrait:pt-1 `}
+                  >
+                    <Link to={'/product/' + product._id}>
+                      {product.productName.toUpperCase()}
+                    </Link>
+                  </p>
+                  <p className='pt-3  font-grotesque lg:text-xl portrait:pt-0'>
+                    ${product.price}
+                  </p>
+                </div>
               </li>
             );
           })}
         </div>
         {maxPages > 1 && (
-          <div className='flex w-full justify-center pb-14 pt-20 tracking-widest'>
+          <div className='flex w-full justify-center pb-14 pt-20 tracking-widest portrait:border-t border-primary-gray'>
             <div className='flex items-center font-grotesque text-xl '>
               <img
                 src={arrowLeft}
