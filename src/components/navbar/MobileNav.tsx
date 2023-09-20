@@ -57,7 +57,7 @@ export default function MobileNav({
   }, [userId]);
 
   return (
-    <nav className='mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between  p-2'>
+    <nav className='mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between bg-white p-2'>
       <section className='flex h-full w-fit items-center  gap-6 pl-3'>
         {/**hamburger menu section */}
         <>
@@ -111,8 +111,9 @@ export default function MobileNav({
             <CartFavWrapper
               setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
               mode={mode}
-            />
-          )}
+              mobileMenu={mobileMenu}
+              />
+              )}
         </>
 
         {/**fav section */}
@@ -120,13 +121,13 @@ export default function MobileNav({
           <img
             src={
               userId && singleUserState.user?.favorites?.length >= 1
-                ? heartFilled
-                : heartBlanc
+              ? heartFilled
+              : heartBlanc
             }
             alt={
               userId && singleUserState.user?.favorites?.length >= 1
-                ? 'Favorites (Filled Heart)'
-                : 'Favorites (Empty Heart)'
+              ? 'Favorites (Filled Heart)'
+              : 'Favorites (Empty Heart)'
             }
             className='h-6'
             onClick={() => {
@@ -137,8 +138,9 @@ export default function MobileNav({
 
           {!isCartFavWrapperHidden && mode === 'fav' && (
             <CartFavWrapper
-              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-              mode={mode}
+            setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+            mode={mode}
+            mobileMenu={mobileMenu}
             />
           )}
         </>
