@@ -32,3 +32,4 @@ scraperImages
 # src/public/assets/productVideos
 # src/public/assets/productGifs
 src/public/assets/*/originals
+src/public/assets/*/compressed
