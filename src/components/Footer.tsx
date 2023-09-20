@@ -7,41 +7,42 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
 import { useEffect } from 'react';
 import 'lazysizes'
+import makeWebpUrl from '../utilities/makeWebpUrl';
 
 type FormData = {
   email: string
 }
 
 const ZFormData = z.object({
-  email: z.string().email({message: 'please enter a valid e-mail address'})
+  email: z.string().email({ message: 'please enter a valid e-mail address' })
 })
 
 
 export default function Footer() {
   const FORM_ID = '5294841';
   const { mutate } = useSubscribe(FORM_ID);
-  const defaultValues:FormData = {
+  const defaultValues: FormData = {
     email: ''
-  } 
+  }
 
-  
-  const {register, reset, handleSubmit,setValue,  formState: {errors, dirtyFields}} = useForm<FormData>({
+
+  const { register, reset, handleSubmit, setValue, formState: { errors, dirtyFields } } = useForm<FormData>({
     resolver: zodResolver(ZFormData),
     defaultValues,
-  }) 
-  
+  })
+
   useEffect(() => {
     for (let key in errors) {
-      if(key === 'email') 
-      setValue('email', '')
+      if (key === 'email')
+        setValue('email', '')
     }
-}, [errors.email])
+  }, [errors.email])
 
   const handleSubscribe = async (email: FormData) => {
-    await mutate( email );
+    await mutate(email);
 
     console.log('emaiol', email)
-    if(dirtyFields.email) {
+    if (dirtyFields.email) {
       reset({
         email: 'thank you'
       })
@@ -67,11 +68,13 @@ export default function Footer() {
             </p>
           </div>
           <div className='w-full'>
-            <img
-              data-src={footer}
-              data-sizes='auto'
-              className='lazyload aspect-[3/4] h-[300px] w-full border-r-[1.5px] border-white object-cover '
-            />
+            <picture>
+              <source srcSet='/assets/bg-img/footer.webp' />
+              <img
+                src='/assets/bg-img/footer.jpg'
+                className='aspect-[3/4] h-[300px] w-full border-r-[1.5px] border-white object-cover'
+              />
+            </picture>
           </div>
         </div>
       </div>

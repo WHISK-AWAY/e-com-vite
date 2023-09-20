@@ -28,6 +28,6 @@ package-lock.json
 .env
 .env*
 scraperImages
-src/public/assets/productImages
+# src/public/assets/productImages
 src/public/assets/productVideos
 src/public/assets/productGifs

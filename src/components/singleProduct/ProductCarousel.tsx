@@ -5,6 +5,7 @@ import arrowRight from '../../assets/icons/arrowRight.svg';
 import { useNavigate } from 'react-router';
 import 'lazysizes';
 import { gsap } from 'gsap';
+import makeWebpUrl from '../../utilities/makeWebpUrl';
 
 type RenderProduct = Omit<TProduct, 'relatedProducts'>;
 
@@ -167,6 +168,10 @@ export default function ProductCarousel({
       </button>
       <div className='card-wrapper flex items-start justify-center gap-10'>
         {renderProduct.map((prod, idx) => {
+          const imageURL = prod.images.find(
+            (image) => image.imageDesc === 'product-front'
+          )?.imageURL || prod.images[0].imageURL
+
           const gifURL = prod.images.find((image) =>
             ['gif-product', 'video-product'].includes(image.imageDesc)
           )?.imageURL;
@@ -191,16 +196,20 @@ export default function ProductCarousel({
               }}
               className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden xl:w-[200px] xl:gap-6 2xl:w-[225px] `}
             >
-              <img
-                className='aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                src={
-                  prod.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || prod.images[0].imageURL
-                }
-                // data-sizes='auto'
-                alt='product image'
-              />
+              <picture>
+                <source srcSet={makeWebpUrl(imageURL)} type="image/webp" />
+                <img
+                  className='aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 active:translate-y-[600%]  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                  src={
+                    prod.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || prod.images[0].imageURL
+                  }
+                  height='1600'
+                  width='1600'
+                  alt={`product image: ${prod.productName}`}
+                />
+              </picture>
               {gifURL ? (
                 <video
                   className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
@@ -211,10 +220,15 @@ export default function ProductCarousel({
                   loop={true}
                 />
               ) : (
-                <img
-                  className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                  src={hoverFallback}
-                />
+                <picture>
+                  <source srcSet={makeWebpUrl(hoverFallback!)} type="image/webp" />
+                  <img
+                    className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
+                    src={hoverFallback}
+                    height='1600'
+                    width='1600'
+                  />
+                </picture>
               )}
               <h4 className='text-center font-hubbali text-xs uppercase lg:text-sm xl:text-lg'>
                 {prod.productName}
