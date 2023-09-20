@@ -35,6 +35,7 @@ export default {
       garamond: ['EB Garamond', 'serif'],
       bodoni: ['Bodoni Moda', 'serif'],
       antonio: ['Antonio', 'sans-serif'],
+      jost: ['Jost', 'monospace']
     },
     fontWeight: {
       thin: 100,
