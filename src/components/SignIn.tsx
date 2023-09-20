@@ -121,7 +121,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
         muted={true}
       />
 
-      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana portrait:translate-y-[40%]'>
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret portrait:translate-y-[40%]'>
         <h1 className='pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
           {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
           SIGN IN
@@ -130,10 +130,10 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
           className='sign-in-form flex w-full flex-col'
           onSubmit={handleSubmit(submitData)}
         >
-          <div className='email-field flex flex-col py-[4%] uppercase xl:text-xl 2xl:text-xl'>
+          <div className='email-field flex flex-col py-[4%] uppercase xl:text-xl 2xl:text-xl '>
             <label
               htmlFor='email'
-              className='pl-4 lg:pb-1 portrait:text-[1.3rem]'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.3rem]'
             >
               email
             </label>
@@ -152,7 +152,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
           <div className='password-field flex flex-col uppercase xl:text-xl 2xl:text-xl'>
             <label
               htmlFor='password'
-              className='pl-4 lg:pb-1 portrait:text-[1.3rem]'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.3rem]'
             >
               password
             </label>
@@ -171,13 +171,13 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               )} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] portrait:w-full  flex-col items-center self-center rounded-sm bg-charcoal py-2 font-italiana text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4 portrait:md:py-4 portrait:md:text-[1.7rem]'
+            className='mb-[2%] mt-[6%] flex w-full flex-col  items-center self-center rounded-sm bg-charcoal py-2 font-poiret text-2xl uppercase tracking-wide text-white md:text-base lg:py-3 lg:text-xl 2xl:py-4  portrait:md:py-4 portrait:md:text-[1.7rem]'
             type='submit'
           >
             sign in
           </button>
         </form>
-        <p className='text-center text-xs xl:text-base portrait:pt-2 portrait:text-[1.2rem] '>
+        <p className='text-center font-grotesque text-xs xl:text-base portrait:pt-2 portrait:text-[1.2rem]'>
           new here? create an account{' '}
           <span
             onClick={async () => setMode('sign-up')}

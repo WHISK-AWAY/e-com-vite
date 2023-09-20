@@ -153,7 +153,7 @@ export default function SignUp({
         muted={true}
       />
 
-      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-italiana text-white portrait:translate-y-[5%] '>
+      <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret text-white portrait:translate-y-[5%] '>
         <h1 className='pb-[11%] pt-[29%] text-lg lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>
           SIGN UP
         </h1>
@@ -164,7 +164,7 @@ export default function SignUp({
           <div className='first-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
             <label
               htmlFor='first-name'
-              className='pl-4 lg:pb-1 portrait:text-[1.2rem]'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.2rem]'
             >
               first name
             </label>
@@ -179,7 +179,7 @@ export default function SignUp({
           <div className='last-name-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg  2xl:text-lg'>
             <label
               htmlFor='last-name'
-              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
             >
               last name
             </label>
@@ -194,7 +194,7 @@ export default function SignUp({
           <div className='email-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
             <label
               htmlFor='email'
-              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
             >
               email
             </label>
@@ -212,7 +212,7 @@ export default function SignUp({
           <div className='password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
             <label
               htmlFor='password'
-              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
             >
               password
             </label>
@@ -228,7 +228,7 @@ export default function SignUp({
           <div className='confirm-password-field flex flex-col py-[1%] text-base uppercase tracking-wide xl:text-lg 2xl:text-lg'>
             <label
               htmlFor='confirm-password'
-              className='pl-4 lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
+              className='pl-4 font-grotesque lg:pb-1 portrait:text-[1.2rem] portrait:md:pt-2'
             >
               confirm password
             </label>
@@ -242,13 +242,13 @@ export default function SignUp({
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
           <button
-            className='mb-[2%] mt-[6%] flex w-[110%] flex-col  items-center  self-center rounded-sm bg-charcoal font-italiana text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 xl:text-xl 2xl:py-3 2xl:text-2xl portrait:w-full  portrait:py-1  portrait:md:py-3 portrait:md:text-[1.7rem]'
+            className='mb-[2%] mt-[6%] flex w-full flex-col  items-center  self-center rounded-sm bg-charcoal font-poiret text-2xl uppercase tracking-wide text-white md:py-2 md:text-base lg:py-3 xl:text-xl 2xl:py-3 2xl:text-2xl portrait:w-full  portrait:py-1  portrait:md:py-3 portrait:md:text-[1.7rem]'
             type='submit'
           >
             sign up
           </button>
         </form>
-        <p className='text-center text-base md:text-xs portrait:md:text-[1.2rem] '>
+        <p className='text-center font-grotesque text-base md:text-xs portrait:md:text-[1.2rem]'>
           already have an account? sign in{' '}
           <span
             onClick={() => setMode('sign-in')}
