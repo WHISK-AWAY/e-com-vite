@@ -260,9 +260,9 @@ export default function AllProducts({
     <>
       <section
         data-lenis-prevent
-        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:px-0 portrait:w-[100dvw]'
+        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:w-[100dvw] portrait:px-0'
       >
-        <section className='header-section relative flex w-full justify-center'>
+        <section className='header-section relative flex w-full justify-center portrait:flex-col '>
           {bestsellers ? (
             <BestsellersHeader />
           ) : (
@@ -276,7 +276,7 @@ export default function AllProducts({
         {!bestsellers && (
           <div
             ref={topElement}
-            className='sub-header pt-28 font-grotesque font-light text-[2rem] uppercase tracking-wide'
+            className='sub-header pt-28 font-grotesque text-[2rem] font-light uppercase tracking-wide portrait:px-2 portrait:pt-5'
           >
             {filter && filter === 'all' ? (
               <p>{filter} products</p>
@@ -287,9 +287,9 @@ export default function AllProducts({
         )}
 
         {!bestsellers && (
-          <section className='filter-section flex flex-col self-end pb-10 pt-20 portrait:pr-3 portrait:w-[90svw]'>
+          <section className='filter-section flex flex-col self-end pb-10 pt-20 portrait:w-fit portrait:pr-3 portrait:pt-7'>
             <div className='flex gap-6  self-end '>
-              <p className='flex  font-grotesque lg:text-lg'>sort/categories</p>
+              <p className='flex  font-grotesque text-sm 2xl:text-base'>sort/categories</p>
               {/* TODO: intrinsic height/width */}
               <img
                 src={filterIcon}
@@ -312,7 +312,7 @@ export default function AllProducts({
           </section>
         )}
 
-        <div className='grid grid-cols-4  portrait:grid-cols-2 landscape:border-t border-primary-gray'>
+        <div className='grid grid-cols-4  border-primary-gray portrait:grid-cols-2 landscape:border-t'>
           {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
           {allProducts.products.map((product) => {
             let imageURL =
@@ -351,7 +351,7 @@ export default function AllProducts({
                 key={product._id.toString()}
               >
                 <div
-                  className={`group-hover:scale-105 aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0   hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
+                  className={`aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0 hover:scale-105   group-hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
                     hoverURL || hoverFallback ? 'group' : ''
                   }`}
                 >
@@ -379,7 +379,10 @@ export default function AllProducts({
                       />
                     ) : (
                       <picture>
-                        <source srcSet={convertMediaUrl(hoverFallback!)} type='image/webp' />
+                        <source
+                          srcSet={convertMediaUrl(hoverFallback!)}
+                          type='image/webp'
+                        />
                         <img
                           src={hoverFallback}
                           alt={`alternate image: ${product.productName}`}
@@ -443,15 +446,15 @@ export default function AllProducts({
                   <p
                     className={`${
                       product.productName.length > 10
-                        ? 'overflow-hidden text-ellipsis whitespace-nowrap'
+                        ? 'overflow-hidden text-ellipsis whitespace-nowrap text-xs lg:text-sm 2xl:text-base'
                         : ''
-                    } pt-2   font-grotesque  lg:text-[1rem] portrait:pt-1 `}
+                    } pt-2   font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-1`}
                   >
                     <Link to={'/product/' + product._id}>
                       {product.productName.toUpperCase()}
                     </Link>
                   </p>
-                  <p className=' pb-2 font-grotesque lg:text-[1rem] portrait:pt-0'>
+                  <p className=' pb-2 font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-0'>
                     ${product.price}
                   </p>
                 </div>
@@ -460,7 +463,7 @@ export default function AllProducts({
           })}
         </div>
         {maxPages > 1 && (
-          <div className='flex w-full justify-center pb-14 pt-20 tracking-widest portrait:border-t border-primary-gray'>
+          <div className='flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t'>
             <div className='flex items-center font-grotesque text-xl '>
               <img
                 src={arrowLeft}
