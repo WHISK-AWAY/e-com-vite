@@ -49,7 +49,7 @@ export default function Footer() {
   };
 
   return (
-    <section className='footer-section max-w-screen flex h-[300px] bg-[#262626]  text-white'>
+    <section className='footer-section max-w-screen flex h-[300px] bg-[#262626]  text-white hidden'>
       <div className='flex w-4/12 flex-col items-start justify-start self-start md:w-8/12 2xl:w-3/12'>
         <div className=' flex  w-full'>
           <div className='flex w-full flex-col px-6 pt-4  md:justify-center md:px-3 2xl:px-9 2xl:pt-9'>
