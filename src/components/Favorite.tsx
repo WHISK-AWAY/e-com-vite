@@ -55,21 +55,21 @@ export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
   return (
     <div className='flex h-full  flex-col items-center justify-start lg:gap-4'>
       <div className='header w-full border-b border-charcoal pt-5'>
-        <h1 className='flex justify-center pb-3 font-italiana text-base lg:text-2xl'>
+        <h1 className='flex translate-x-[4%] justify-center pb-3 font-poiret  text-base  lg:text-xl portrait:text-[1.4rem]'>
           {userFavorite?.length
             ? 'YOUR FAVORITES ' + `(${userFavorite?.length})`
             : 'YOUR FAVORITES'}
         </h1>
 
         <img
-          className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5'
+          className='absolute right-0 top-6 h-3 w-10 cursor-pointer lg:h-5  portrait:top-4 portrait:h-6'
           src={x}
           alt='x-icon'
           onClick={closeSlider}
         />
       </div>
 
-      <div className='favorite-product-info m-10 h-full w-10/12 overflow-hidden border border-charcoal p-3 lg:p-10'>
+      <div className='favorite-product-info m-10 h-full w-10/12 overflow-hidden border border-charcoal p-3 lg:p-6 landscape:short:p-3'>
         <div className='flex h-full flex-col items-center justify-between overflow-hidden'>
           {userFavorite?.length && userId ? (
             <div className='no-scrollbar flex flex-col gap-6 overflow-auto'>
@@ -87,7 +87,7 @@ export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
               })}
             </div>
           ) : (
-            <div className='text-center font-marcellus text-sm'>
+            <div className='text-center font-grotesque text-sm'>
               you don't have any favorites
             </div>
           )}
@@ -95,7 +95,7 @@ export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
           <div className='flex w-11/12 flex-col items-center justify-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
             <button
               onClick={closeSlider}
-              className='w-fit border border-charcoal px-6 font-italiana text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg'
+              className='w-fit border border-charcoal px-6 font-grotesque text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg portrait:py-2 portrait:text-[1rem] '
             >
               continue shopping
             </button>
