@@ -79,13 +79,13 @@ export default function SignWrapper({
       ref={blurBg}
       onClick={clickOff}
       id='wrapper'
-      className='wrapper form-container fixed right-0 top-0 flex h-[100vh] w-[100svw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur'
+      className='wrapper form-container fixed right-0 top-0 flex h-[100svh] w-[100svw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur-md'
     >
       <div
         ref={wrapperRef}
         className={` ${
-          mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[35vw]'
-        } relative flex h-full  flex-col self-end bg-white 2xl:max-w-[23vw] portrait:md:w-[65svw] `}
+          mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[40vw]'
+        } relative flex h-full  flex-col self-end bg-white 2xl:w-[30vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw] `}
       >
         <div
           ref={xIconRef}
