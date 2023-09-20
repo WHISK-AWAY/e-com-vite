@@ -196,7 +196,6 @@ export default function ImageCarousel({
       <div className='images-wrapper flex items-start justify-center gap-3'>
         {renderImage.map((image, idx) => {
           let extension = image.imageURL.split('.').at(-1);
-          console.log('imageUrl:', convertMediaUrl(image.imageURL))
           return (
             <div
               key={image.imageURL + '_' + idx}
