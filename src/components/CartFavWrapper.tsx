@@ -7,9 +7,11 @@ import { gsap } from 'gsap';
 export default function CartFavWrapper({
   mode,
   setIsCartFavWrapperHidden,
+  mobileMenu
 }: {
   mode: TCFMode;
   setIsCartFavWrapperHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileMenu: boolean
 }) {
   const wrapper = useRef(null);
   const blurBg = useRef(null);
@@ -66,12 +68,14 @@ export default function CartFavWrapper({
       ref={blurBg}
       id='wrapper'
       onClick={clickOff}
-      className='cart-container fixed right-0 top-0 z-[99] flex h-screen w-screen flex-col overflow-hidden bg-[#35403F]/50 backdrop-blur-md'
+      className='cart-container fixed right-0 top-0 z-[99] flex h-[100svh] w-[100svw] flex-col overflow-hidden bg-[#35403F]/50 backdrop-blur-md'
     >
       <div
         ref={wrapper}
         // onClick={() => setIsCartFavWrapperHidden(true)}
-        className='flex h-full  min-w-[35vw] max-w-[40vw] flex-col self-end bg-white 4xl:max-w-[10vw]'
+        className={` ${
+          mobileMenu ? 'h-[100svh] w-[100svw]  ' : 'w-[40vw]'
+        } flex h-full  flex-col self-end bg-white 2xl:w-[34vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw]`}
       >
         {mode === 'cart' ? (
           <Cart closeSlider={closeSlider} />
