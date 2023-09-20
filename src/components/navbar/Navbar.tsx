@@ -82,6 +82,12 @@ export default function Navbar() {
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.6, duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
       />
+      <Toaster
+        position='top-right'
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
 
       {mobileMenu ? (
         <MobileNav
@@ -100,14 +106,8 @@ export default function Navbar() {
       ) : (
         <nav
           id='navbar'
-          className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'
+          className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10 '
         >
-          <Toaster
-            position='top-right'
-            toastOptions={{
-              duration: 5000,
-            }}
-          />
           <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6 portrait:md:text-[1.1rem]'>
             <div
               className='shop cursor-pointer'
