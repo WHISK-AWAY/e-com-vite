@@ -50,12 +50,12 @@ export default function SortFilterAllProds({
   return (
     <div
       ref={containerRef}
-      className='controls flex h-fit gap-4 overflow-clip font-marcellus'
+      className='controls flex h-fit gap-4 overflow-clip font-grotesque '
     >
       <div className='sort-selector'>
         <h2>Sort by:</h2>
         <select
-          className='rounded-sm'
+          className='rounded-sm appearance-none'
           onChange={handleSort}
           defaultValue={JSON.stringify({
             key: sortKey || 'productName',
