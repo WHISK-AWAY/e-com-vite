@@ -347,11 +347,11 @@ export default function AllProducts({
                   allProducts.products.length % 2 === 0
                     ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
                     : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
-                } relative flex list-none flex-col justify-between   landscape:border-b landscape:border-l border-primary-gray landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
+                } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
                 key={product._id.toString()}
               >
                 <div
-                  className={`aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0 hover:scale-105 group-hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
+                  className={`group-hover:scale-105 aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0   hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
                     hoverURL || hoverFallback ? 'group' : ''
                   }`}
                 >
@@ -412,14 +412,14 @@ export default function AllProducts({
                         <img
                           src={heartEmpty}
                           alt='add to favorites'
-                          className='h-3 lg:h-4 xl:w-5 portrait:h-5'
+                          className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
                           onClick={toastGuestFavorite}
                         />
                       ) : (
                         <img
                           src={heartEmpty}
                           alt='add to favorites'
-                          className='h-3 lg:h-4 xl:w-5'
+                          className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
                         />
                       )}
                     </div>
@@ -436,7 +436,7 @@ export default function AllProducts({
                       <img
                         src={heartFilled}
                         alt='remove from favorites'
-                        className=''
+                        className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
                       />
                     </div>
                   )}
