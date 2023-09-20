@@ -260,7 +260,7 @@ export default function AllProducts({
     <>
       <section
         data-lenis-prevent
-        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center px-10 pt-5 portrait:px-0 portrait:w-[100dvw]'
+        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:px-0 portrait:w-[100dvw]'
       >
         <section className='header-section relative flex w-full justify-center'>
           {bestsellers ? (
@@ -276,7 +276,7 @@ export default function AllProducts({
         {!bestsellers && (
           <div
             ref={topElement}
-            className='sub-header pt-28 font-marcellus text-3xl uppercase tracking-wide'
+            className='sub-header pt-28 font-grotesque font-light text-[2rem] uppercase tracking-wide'
           >
             {filter && filter === 'all' ? (
               <p>{filter} products</p>
@@ -287,9 +287,9 @@ export default function AllProducts({
         )}
 
         {!bestsellers && (
-          <section className='filter-section flex flex-col self-end pb-10 pt-20'>
+          <section className='filter-section flex flex-col self-end pb-10 pt-20 portrait:pr-3 portrait:w-[90svw]'>
             <div className='flex gap-6  self-end '>
-              <p className='flex  font-marcellus lg:text-lg'>sort/categories</p>
+              <p className='flex  font-grotesque lg:text-lg'>sort/categories</p>
               {/* TODO: intrinsic height/width */}
               <img
                 src={filterIcon}
@@ -312,7 +312,7 @@ export default function AllProducts({
           </section>
         )}
 
-        <div className='grid grid-cols-3 gap-16 p-[6%] lg:gap-36 portrait:grid-cols-2 portrait:gap-0 portrait:p-0 '>
+        <div className='grid grid-cols-4  portrait:grid-cols-2 landscape:border-t border-primary-gray'>
           {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
           {allProducts.products.map((product) => {
             let imageURL =
@@ -345,13 +345,13 @@ export default function AllProducts({
               <li
                 className={` ${
                   allProducts.products.length % 2 === 0
-                    ? 'first-of-type:col-span-full last-of-type:col-span-full'
-                    : '[&:nth-of-type(3)]:col-span-full '
-                } relative flex list-none flex-col justify-between   bg-white `}
+                    ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
+                    : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
+                } relative flex list-none flex-col justify-between   landscape:border-b landscape:border-l border-primary-gray landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
                 key={product._id.toString()}
               >
                 <div
-                  className={`aspect-[3/4] w-full transform border-primary-gray transition duration-300 odd:border-r-0 even:border-l-0 hover:scale-105  group-hover:scale-105 group-hover:ease-in-out portrait:aspect-[4/5] portrait:border  ${
+                  className={`aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0 hover:scale-105 group-hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
                     hoverURL || hoverFallback ? 'group' : ''
                   }`}
                 >
@@ -412,7 +412,7 @@ export default function AllProducts({
                         <img
                           src={heartEmpty}
                           alt='add to favorites'
-                          className='h-3 lg:h-4 xl:w-5'
+                          className='h-3 lg:h-4 xl:w-5 portrait:h-5'
                           onClick={toastGuestFavorite}
                         />
                       ) : (
@@ -442,19 +442,19 @@ export default function AllProducts({
                   )}
                 </div>
 
-                <div className='place-items-stretch border-l border-primary-gray px-2 text-start portrait:pb-4'>
+                <div className='place-items-stretch border-primary-gray px-2  text-start portrait:border-l portrait:pb-4 landscape:border-t'>
                   <p
                     className={`${
                       product.productName.length > 10
                         ? 'overflow-hidden text-ellipsis whitespace-nowrap'
                         : ''
-                    } pt-10   font-hubbali  lg:text-xl portrait:pt-1 `}
+                    } pt-2   font-grotesque  lg:text-[1rem] portrait:pt-1 `}
                   >
                     <Link to={'/product/' + product._id}>
                       {product.productName.toUpperCase()}
                     </Link>
                   </p>
-                  <p className='pt-3  font-grotesque lg:text-xl portrait:pt-0'>
+                  <p className=' pb-2 font-grotesque lg:text-[1rem] portrait:pt-0'>
                     ${product.price}
                   </p>
                 </div>
