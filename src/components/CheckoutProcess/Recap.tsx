@@ -234,22 +234,22 @@ export default function Recap() {
   //   return <h1>Loading address book...</h1>;
 
   return (
-    <div className='recap-container m-[5%] mx-auto flex h-full w-[80%] flex-col'>
+    <div className='recap-container m-[5%] mx-auto flex h-full w-[80%] flex-col portrait:w-[95svw]'>
       <section className='order-recap flex flex-col items-center'>
         {/* PRODUCTS RECAP */}
 
-        <div className='header-section w-[80%] border-l border-r border-t border-charcoal py-2 text-center font-italiana text-xl'>
+        <div className='header-section w-[80%] border-l border-r border-t border-charcoal py-2 text-center font-poiret text-xl'>
           <h1>ORDER CONFIRMATION</h1>
         </div>
 
-        <div className='product-recap flex  w-full justify-between gap-10 border border-charcoal p-10'>
-          <div className='flex w-3/5 flex-col'>
+        <div className='product-recap flex  w-full justify-between gap-10 border border-charcoal p-10 portrait:p-5'>
+          <div className='flex w-3/5 flex-col portrait:w-full'>
             {cart.products.map((item) => {
               return (
-                <div key={item._id} className='flex h-56'>
+                <div key={item._id} className='flex h-56 portrait:gap-5 '>
                   <img
                     src={x}
-                    className='h-3 w-5 pr-3'
+                    className='h-3 w-5 pr-3 portrait:h-6 '
                     onClick={async () => {
                       await dispatch(
                         removeFromCart({
@@ -273,10 +273,10 @@ export default function Recap() {
                     />
                   </div>
                   <div className='flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]'>
-                    <p className='pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl'>
+                    <p className='pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:pb-0 portrait:text-[1rem]'>
                       {item.product.productName}
                     </p>
-                    <p className='pb-2 font-grotesque text-base lg:text-lg xl:text-lg'>
+                    <p className='pb-2 font-grotesque text-base lg:text-lg xl:text-lg portrait:text-[1rem]'>
                       ${item.product.price}
                     </p>
                     <Counter
@@ -291,7 +291,7 @@ export default function Recap() {
             })}
           </div>
 
-          <div className='bg-img-container relative flex w-2/5 flex-col '>
+          <div className='bg-img-container relative flex w-2/5 flex-col portrait:hidden'>
             <img
               data-src={oceanBg}
               data-sizes='auto'
@@ -306,20 +306,20 @@ export default function Recap() {
           </div>
         </div>
 
-        <div className='flex h-40 w-[85%] flex-col justify-center  bg-[#31333A]'>
-          <h2 className='pl-5 font-italiana text-base uppercase tracking-wide text-white lg:text-xl'>
+        <div className='flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-72 portrait:w-[90svw]'>
+          <h2 className='pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:text-[1.2rem]'>
             order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
-            <section className='promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10'>
+            <section className='promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10 '>
               <form
-                className='mx-5 flex  h-10 flex-nowrap md:items-center'
+                className='mx-5 flex  h-10 flex-nowrap md:items-center   portrait:first:flex-wrap'
                 onSubmit={(e) => handlePromoSubmit(e)}
               >
                 <label
                   htmlFor='promo-code'
-                  className='h-full border border-white  px-2 py-2 font-italiana text-sm lg:px-16 lg:text-base'
+                  className='h-full border border-white portrait:border-none px-2 py-2 font-grotesque text-sm lg:px-16 lg:text-base portrait:text-[.7rem] '
                 >
                   enter your promo code:
                 </label>
@@ -332,7 +332,7 @@ export default function Recap() {
                   onChange={(e) => setPromo(e.target.value)}
                   className='address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50'
                 ></input>
-                <button className='h-full border border-white px-10  font-italiana text-sm uppercase lg:text-lg'>
+                <button className='h-full border border-white px-10  font-poiret text-sm uppercase lg:text-lg portrait:text-[1rem] portrait:py-2 portrait:w-[50%] portrait:ml-20'>
                   verify
                 </button>
               </form>
@@ -355,7 +355,7 @@ export default function Recap() {
 
       {/* PLAIN TEXT USER ADDRESS */}
       <section className='flex w-[100%] flex-col  border border-charcoal'>
-        <div className='relative flex place-content-center place-items-center border-b  border-charcoal font-italiana'>
+        <div className='relative flex place-content-center place-items-center border-b  border-charcoal font-poiret'>
           <h1 className='items-center py-3 text-center text-xl'>
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
           </h1>
@@ -382,10 +382,10 @@ export default function Recap() {
           )}
         </div>
 
-        <div className='shipping-detail m-20 flex h-full w-[80%] flex-col items-center justify-center self-center'>
+        <div className='shipping-detail m-20 flex h-full w-[80%] portrait:w-[95%] flex-col items-center justify-center self-center'>
           {!clientSecret && (
             <div className='flex h-full w-[100%] flex-col items-center lg:w-[60%] xl:w-[110%] 2xl:w-[80%]'>
-              <h2 className='h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-italiana text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12'>
+              <h2 className='h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-poiret text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12'>
                 {manageShippingAddress
                   ? userId
                     ? 'address book'
@@ -395,10 +395,10 @@ export default function Recap() {
             </div>
           )}
           {!clientSecret ? (
-            <div className='relative flex h-full  w-full max-w-[800px] border border-charcoal font-marcellus text-sm md:w-5/6  lg:w-4/6 lg:text-base xl:w-4/6 2xl:w-3/6'>
+            <div className='relative flex h-full  w-full max-w-[800px] border border-charcoal font-grotesque portrait:text-[1.2rem] text-sm md:w-5/6  lg:w-4/6 lg:text-base xl:w-4/6 2xl:w-3/6 '>
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
-                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose'>
+                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose '>
                     <div className='flex flex-col self-center'>
                       <p className=''>full name</p>
 
@@ -453,7 +453,7 @@ export default function Recap() {
                 </Elements>
               ) : (
                 <button
-                  className='w-full self-center rounded-sm bg-charcoal px-8 py-2 font-italiana text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6'
+                  className='w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6'
                   onClick={(e) => handleCheckout(e)}
                 >
                   confirm&proceed
@@ -463,14 +463,14 @@ export default function Recap() {
           )}
           {clientSecret && (
             <button
-              className='rounded-sm border border-charcoal px-8 py-1 font-italiana text-base text-charcoal'
+              className='rounded-sm border border-charcoal px-8 py-1 font-grotesque text-base text-charcoal'
               onClick={handleCancel}
             >
               cancel
             </button>
           )}
           {isCheckoutCancel && (
-            <span className='mt-5 font-marcellus'>checkout cancelled</span>
+            <span className='mt-5 font-poiret'>checkout cancelled</span>
           )}
         </div>
       </section>
