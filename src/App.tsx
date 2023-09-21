@@ -1,9 +1,9 @@
 import { useLocation, useRoutes } from 'react-router-dom';
 import Homepage from './components/Homepage';
-import AllProducts from './components/AllProducts/AllProducts';
+import AllProducts from './components/AllProducts/AllProducts.tsx';
 import SingleProduct from './components/singleProduct/SingleProduct';
 import UserProfile from './components/UserAccount/UserProfile';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/navbar/Navbar.tsx';
 import Success from './components/CheckoutProcess/stripe/Success';
 import Recap from './components/CheckoutProcess/Recap';
 import AdminDashboard from './components/Admin/AdminDashboard';
@@ -26,9 +26,11 @@ import '../src/index.css';
 import { AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 function App() {
   const location = useLocation();
+  const [mobileMenu, setMobileMenu] = useState(false);
+
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -55,6 +57,24 @@ function App() {
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
+  useEffect(() => {
+    const checkDimentions = () => {
+      // const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+      if (window.innerWidth < 650 || window.innerHeight < 450) {
+        setMobileMenu(true);
+      } else {
+        setMobileMenu(false);
+      }
+    };
+
+    window.addEventListener('resize', checkDimentions);
+    checkDimentions();
+
+    return () => {
+      window.removeEventListener('resize', checkDimentions);
+    };
+  }, []);
+
   const element = useRoutes([
     {
       path: '/',
@@ -62,11 +82,11 @@ function App() {
     },
     {
       path: '/shop-all',
-      element: <AllProducts />,
+      element: <AllProducts mobileMenu={mobileMenu}/>,
     },
     {
       path: '/shop-all/bestsellers',
-      element: <AllProducts sortKey='saleCount' />,
+      element: <AllProducts  mobileMenu={mobileMenu} sortKey='saleCount' />,
     },
     {
       path: '/featured',
