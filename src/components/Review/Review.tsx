@@ -17,10 +17,9 @@ dayjs.extend(relativeTime);
 
 export type ReviewProps = {
   review: IReviewState;
-  last?: boolean;
 };
 
-export default function Review({ review, last = false }: ReviewProps) {
+export default function Review({ review }: ReviewProps) {
   const dispatch = useAppDispatch();
   const productId = review.product._id;
   const reviewId = review._id;
@@ -39,9 +38,7 @@ export default function Review({ review, last = false }: ReviewProps) {
 
   return (
     <section
-      className={`review-details flex w-full justify-center font-hubbali text-sm lg:text-lg lg:leading-5 ${
-        last ? '' : 'border-b border-charcoal pb-4 lg:pb-6 xl:pb-8'
-      }`}
+      className='review-details flex w-full justify-center font-hubbali text-sm lg:text-lg lg:leading-5 border-b border-charcoal pb-4 lg:pb-6 xl:pb-8 last:border-b-0 last:pb-0'
     >
       <div className='review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5'>
         <div className='monogram aspect-square w-fit rounded-full bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem]'>
@@ -59,8 +56,8 @@ export default function Review({ review, last = false }: ReviewProps) {
           skin concerns:{' '}
           {review.skinConcernOptions?.length > 0
             ? review.skinConcernOptions
-                .map((concern) => concern.label)
-                .join(', ')
+              .map((concern) => concern.label)
+              .join(', ')
             : '(none provided)'}
         </p>
       </div>
@@ -73,12 +70,12 @@ export default function Review({ review, last = false }: ReviewProps) {
               date={review.date}
             />
           </div>
-          <div className='review-bars flex flex-col items-start gap-2 font-hubbali text-xs xl:text-base'>
-            <div className='quality-score flex flex-col items-start'>
+          <div className='review-bars flex flex-col items-end gap-2 font-hubbali text-xs xl:text-base'>
+            <div className='quality-score flex flex-col items-start gap-0'>
               <p>QUALITY</p>
               <ScoreBar score={review.rating.quality} />
             </div>
-            <div className='value-score flex flex-col items-start'>
+            <div className='value-score flex flex-col items-start gap-0'>
               <p>VALUE</p>
               <ScoreBar score={review.rating.value} />
             </div>
@@ -111,9 +108,8 @@ export default function Review({ review, last = false }: ReviewProps) {
                   src={review.userVote === 'upvote' ? thumbFilled : thumb}
                   className='w-5'
                   alt='thumbs up'
-                  title={`${review.upvote} ${
-                    review.upvote === 1 ? 'person has' : 'people have'
-                  } found this helpful`}
+                  title={`${review.upvote} ${review.upvote === 1 ? 'person has' : 'people have'
+                    } found this helpful`}
                 />
               </button>
               <br />
@@ -126,9 +122,8 @@ export default function Review({ review, last = false }: ReviewProps) {
                   src={review.userVote === 'downvote' ? thumbFilled : thumb}
                   className='w-5 rotate-180'
                   alt='thumbs down'
-                  title={`${review.downvote} ${
-                    review.downvote === 1 ? 'person has' : 'people have'
-                  } found this unhelpful`}
+                  title={`${review.downvote} ${review.downvote === 1 ? 'person has' : 'people have'
+                    } found this unhelpful`}
                 />
               </button>
             </div>

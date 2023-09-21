@@ -640,11 +640,10 @@ export default function SingleProduct() {
             {allReviews.reviews.length > 0 && (
               <div className='reviews-wrapper mt-6'>
                 <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8'>
-                  {allReviews.reviews.map((review, idx) => (
+                  {allReviews.reviews.map((review) => (
                     <Review
                       review={review}
                       key={review._id}
-                      last={allReviews.reviews.length - 1 === idx}
                     />
                   ))}
                 </div>
