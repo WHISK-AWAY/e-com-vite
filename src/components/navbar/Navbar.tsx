@@ -106,7 +106,7 @@ export default function Navbar() {
       ) : (
         <nav
           id='navbar'
-          className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10 '
+          className='navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10'
         >
           <div className='shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6 portrait:md:text-[1.1rem]'>
             <div
