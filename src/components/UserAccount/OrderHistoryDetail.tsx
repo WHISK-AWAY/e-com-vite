@@ -23,7 +23,7 @@ export default function OrderHistoryDetail({
   });
 
   return (
-    <div className='order-detail-wrapper relative h-full w-full pb-10 font-grotesque text-xs lg:text-sm  2xl:text-base portrait:text-[1rem] portrait:max-h-[50svh]'>
+    <div className='order-detail-wrapper relative h-full w-full pb-10 font-grotesque text-xs lg:text-sm  2xl:text-base portrait:max-h-[50svh] portrait:text-[1rem] portrait:md:text-base '>
       <img
         className='absolute right-0 top-0 cursor-pointer'
         onClick={() => setDetailOrder(null)}
@@ -62,7 +62,7 @@ export default function OrderHistoryDetail({
           delivery address
         </h3>
         <div className='address-wrapper grid w-full grid-cols-[2fr,_3fr] border border-charcoal text-xs xl:grid-cols-[1fr,_3fr] 2xl:text-base portrait:text-[1rem]'>
-          <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[20%]'>
+          <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[20%] portrait:md:text-base'>
             <p className=''>full name</p>
             <p className=''>email</p>
             <p className=''>address 1</p>
@@ -71,7 +71,7 @@ export default function OrderHistoryDetail({
             <p className=''>state</p>
             <p className=''>zip</p>
           </div>
-          <div className='address-component-column grid h-full w-full grid-cols-1 place-items-start items-center gap-2 bg-white py-5 pl-[5%] text-xs 2xl:text-base portrait:text-[.9rem]'>
+          <div className='address-component-column grid h-full w-full grid-cols-1 place-items-start items-center gap-2 bg-white py-5 pl-[5%] text-xs 2xl:text-base portrait:text-[.9rem] portrait:md:text-base'>
             <p className='uppercase'>
               {address.firstName} {address.lastName}
             </p>
@@ -90,33 +90,3 @@ export default function OrderHistoryDetail({
     </div>
   );
 }
-
-// (
-//   <div className='order-card' key={order._id}>
-//     <h2>Order Date: {new Date(order.date).toLocaleDateString()}</h2>
-//     <p>
-//       Status: <span className='text-red-600'>{order.orderStatus}</span>
-//     </p>
-//     <p>Order subtotal: {order.subtotal}</p>
-//     <p>
-//       Discount from promo:{' '}
-//       {(order.total! - order.subtotal!).toLocaleString()}
-//     </p>
-//     <p className='text-green-500'>Total: {order.total}</p>
-//     <div className='products'>
-//       <h2 className='uppercase underline'>Order Details:</h2>
-//       {order.orderDetails.map((prod) => (
-//         <div className='product-detail' key={prod.productId}>
-//           <p>Product name: {prod.productName}</p>
-//           <div className='product-image'>
-//             <img src={prod.imageURL} alt='probably a kisa' />
-//           </div>
-//           <p>Product s-desc: {prod.productShortDesc}</p>
-//           <p>Qty: {prod.qty}</p>
-//           <p>Unit price: {prod.price}</p>
-//           <p>Line tot: {(prod.price * prod.qty).toLocaleString()}</p>
-//         </div>
-//       ))}
-//     </div>
-//   </div>
-// )
