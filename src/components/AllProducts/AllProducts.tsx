@@ -1,22 +1,13 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Key } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import {
   TProduct,
   fetchAllProducts,
   selectAllProducts,
 } from '../../redux/slices/allProductSlice';
-import {
-  addToFavorites,
-  removeFromFavorites,
-  selectSingleUserFavorites,
-} from '../../redux/slices/userSlice';
-import { selectAuthUserId } from '../../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
-// import allProdsBg from '../../assets/bg-img/all-prods.jpg';
 import filterIcon from '../../../src/assets/icons/filter.svg';
-import heartEmpty from '../../../src/assets/icons/heart-blanc.svg';
-import heartFilled from '../../../src/assets/icons/heart-filled.svg';
 import arrowRight from '../../../src/assets/icons/arrowRight.svg';
 import arrowLeft from '../../../src/assets/icons/arrowLeft.svg';
 import dots from '../../../src/assets/icons/threeDots.svg';
@@ -30,10 +21,7 @@ import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { motion, useIsPresent } from 'framer-motion';
-import { toastGuestFavorite } from '../../utilities/toast';
-import convertMediaUrl from '../../utilities/convertMediaUrl';
-// import 'lazysizes/plugins/parent-fit/ls.parent-fit';
-// import { useLocomotiveScroll } from 'react-locomotive-scroll';
+import ProductCard from './ProductCard';
 
 const PRODS_PER_PAGE = 9;
 /**
@@ -101,8 +89,6 @@ export default function AllProducts({
   let { state } = useLocation();
   const isPresent = useIsPresent();
 
-  const userFavorites = useAppSelector(selectSingleUserFavorites);
-
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
   }, [state?.filterKey]);
@@ -110,8 +96,6 @@ export default function AllProducts({
   let curPage = Number(params.get('page'));
 
   const allProducts = useAppSelector(selectAllProducts);
-
-  const userId = useAppSelector(selectAuthUserId);
 
   const tagState = useAppSelector(selectTagState);
 
@@ -184,27 +168,6 @@ export default function AllProducts({
     topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleAddOrRemoveFromFavorites = ({
-    userId,
-    productId,
-  }: {
-    userId: string;
-    productId: string;
-  }) => {
-    if (userId) {
-      let favId = [] as string[];
-      userFavorites.forEach((fav) => {
-        favId.push(fav._id);
-      });
-
-      if (!favId?.includes(productId)) {
-        dispatch(addToFavorites({ userId, productId }));
-      } else {
-        dispatch(removeFromFavorites({ userId, productId }));
-      }
-    }
-  };
-
   useEffect(() => {
     setRandomProd(randomProduct(allProducts));
   }, [allProducts]);
@@ -254,7 +217,7 @@ export default function AllProducts({
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
-  
+
 
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
@@ -317,160 +280,14 @@ export default function AllProducts({
           </section>
         )}
 
-        <div className='grid grid-cols-4  border-primary-gray portrait:grid-cols-2 landscape:border-t'>
-          {/* ALL PRODUCTS + ADD/REMOVE FAVORITE */}
-          {allProducts.products.map((product) => {
-            let imageURL =
-              product.images.find(
-                (image) => image.imageDesc === 'product-front'
-              )?.imageURL || product.images[0].imageURL;
-
-            let webpURL = convertMediaUrl(imageURL);
-
-            let hoverURL =
-              product.images.find((image) =>
-                ['gif-product', 'video-product'].includes(image.imageDesc)
-              )?.imageURL || undefined;
-
-            // If we don't have a gif, fail over to rendering a second image.
-            // Choose a texture image if available; an alt if that doesn't work; and any non-video as a last resort.
-
-            let hoverFallback =
-              product.images
-                .slice(1)
-                .find((image) => image.imageDesc === 'product-texture')
-                ?.imageURL ||
-              product.images
-                .slice(1)
-                .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
-              product.images
-                .slice(1)
-                .find((image) => !image.imageDesc.includes('video'))?.imageURL;
-            return (
-              <li
-                className={` ${allProducts.products.length % 2 === 0
-                  ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
-                  : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
-                  } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
-                key={product._id.toString()}
-              >
-                <div
-                  className={`aspect-[3/4] h-full transform border-primary-gray transition duration-300 even:border-l-0 hover:scale-105   group-hover:scale-105  group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0  ${
-                    hoverURL || hoverFallback ? 'group' : ''
-                  }`}
-                >
-                  <Link
-                    to={'/product/' + product._id}
-                    className='h-full w-full'
-                  >
-                    <picture>
-                      <source srcSet={webpURL} type='image/webp' />
-                      <img
-                        src={imageURL}
-                        alt={`product image: ${product.productName}`}
-                        className='h-full w-full object-cover group-hover:invisible '
-                        height='1600'
-                        width='1600'
-                      />
-                    </picture>
-                    {hoverURL ? (
-                      <video
-                        // src={hoverURL}
-                        loop
-                        autoPlay
-                        muted
-                        playsInline
-                        controls={false}
-                        className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
-                      >
-                        <source src={hoverURL} type={hoverURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
-                        <source src={convertMediaUrl(hoverURL)} type='video/webm' />
-                      </video>
-                    ) : (
-                      <picture>
-                        <source
-                          srcSet={convertMediaUrl(hoverFallback!)}
-                          type='image/webp'
-                        />
-                        <img
-                          src={hoverFallback}
-                          alt={`alternate image: ${product.productName}`}
-                          className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover group-hover:visible'
-                          height='1600'
-                          width='1600'
-                        />
-                      </picture>
-                    )}
-                  </Link>
-
-                  {(userId &&
-                    !userFavorites
-                      ?.map((fav) => fav._id)
-                      .includes(product._id.toString())) ||
-                    !userId ? (
-                    <div
-                      className='absolute right-[4%] top-[3%] cursor-pointer'
-                      onClick={() => {
-                        handleAddOrRemoveFromFavorites({
-                          userId: userId!,
-                          productId: product._id.toString(),
-                        });
-                      }}
-                    >
-                      {!userId ? (
-                        <img
-                          src={heartEmpty}
-                          alt='add to favorites'
-                          className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
-                          onClick={toastGuestFavorite}
-                        />
-                      ) : (
-                        <img
-                          src={heartEmpty}
-                          alt='add to favorites'
-                          className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
-                        />
-                      )}
-                    </div>
-                  ) : (
-                    <div
-                      className='absolute right-[4%] top-[3%] cursor-pointer'
-                      onClick={() => {
-                        handleAddOrRemoveFromFavorites({
-                          userId: userId!,
-                          productId: product._id.toString(),
-                        });
-                      }}
-                    >
-                      <img
-                        src={heartFilled}
-                        alt='remove from favorites'
-                        className='h-3 lg:h-4 xl:w-5 portrait:h-5 portrait:md:h-6'
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div className='place-items-stretch border-primary-gray px-2  text-start portrait:border-l portrait:pb-4 landscape:border-t'>
-                  <p
-                    className={`${
-                      product.productName.length > 10
-                        ? 'overflow-hidden text-ellipsis whitespace-nowrap text-xs lg:text-sm 2xl:text-base'
-                        : ''
-                    } pt-2   font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-1`}
-                  >
-                    <Link to={'/product/' + product._id}>
-                      {product.productName.toUpperCase()}
-                    </Link>
-                  </p>
-                  <p className=' pb-2 font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-0'>
-                    ${product.price}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
+        {/* // ! product cards */}
+        <div id="product-card-container" className='grid grid-cols-4 border-primary-gray portrait:grid-cols-2 landscape:border-t'>
+          {allProducts?.products?.map(product => (
+            <ProductCard product={product} key={product._id as Key} />
+          ))}
         </div>
+
+        {/* // ! pagination */}
         {maxPages > 1 && (
           <div className='flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t'>
             <div className='flex items-center font-grotesque text-xl '>

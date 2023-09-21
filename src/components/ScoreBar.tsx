@@ -57,37 +57,37 @@ export default function ScoreBar({ score, maxScore = 5 }: ScoreBarProps) {
   return (
     <div className='bar-container flex flex-nowrap justify-center'>
       {filledFirstSection > 0 && (
-        <img src={barEndcapFilledLeft} className={BAR_STYLES} />
+        <img src={barEndcapFilledLeft} className={BAR_STYLES} width="34" height="9" />
       )}
       {halfFirstSection > 0 && (
-        <img src={barEndcapHalfLeft} className={BAR_STYLES} />
+        <img src={barEndcapHalfLeft} className={BAR_STYLES} width="34" height="9" />
       )}
       {hollowFirstSection > 0 && (
-        <img src={barEndcapHollowLeft} className={BAR_STYLES} />
+        <img src={barEndcapHollowLeft} className={BAR_STYLES} width="34" height="9" />
       )}
 
       {Array(filledMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionFilled} className={BAR_STYLES} key={idx} />
+          <img src={barSectionFilled} className={BAR_STYLES} key={idx} width="34" height="9" />
         ))}
       {halfMidsection > 0 && (
-        <img src={barSectionHalf} className={BAR_STYLES} />
+        <img src={barSectionHalf} className={BAR_STYLES} width="34" height="9" />
       )}
       {Array(hollowMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionHollow} className={BAR_STYLES} key={idx} />
+          <img src={barSectionHollow} className={BAR_STYLES} key={idx} width="34" height="9" />
         ))}
 
       {filledLastSection > 0 && (
-        <img src={barEndcapFilledRight} className={BAR_STYLES} />
+        <img src={barEndcapFilledRight} className={BAR_STYLES} width="34" height="9" />
       )}
       {halfLastSection > 0 && (
-        <img src={barEndcapHalfRight} className={BAR_STYLES} />
+        <img src={barEndcapHalfRight} className={BAR_STYLES} width="34" height="9" />
       )}
       {hollowLastSection > 0 && (
-        <img src={barEndcapHollowRight} className={BAR_STYLES} />
+        <img src={barEndcapHollowRight} className={BAR_STYLES} width="34" height="9" />
       )}
     </div>
   );

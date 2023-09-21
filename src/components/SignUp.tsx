@@ -1,46 +1,39 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import {
-  selectAuth,
   requestSignUp,
   requestLogin,
 } from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
-import { TMode } from './SignWrapper';
-import signup from '../assets/bg-vids/sign-up.mp4';
-import SignIn from './SignIn';
+import type { TMode } from './SignWrapper';
+
+type SignUpProps = {
+  setMode: React.Dispatch<React.SetStateAction<TMode>>;
+  closeSlider: () => void;
+}
 
 export default function SignUp({
-  setIsSignFormHidden,
-  mode,
   setMode,
-}: {
-  // setIsSignupHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  mode: TMode;
-  setMode: React.Dispatch<React.SetStateAction<TMode>>;
-  setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+  closeSlider
+}: SignUpProps) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const selectAuthUser = useAppSelector(selectAuth);
 
   const zodUser: ZodType<FormData> = z
     .object({
       firstName: z
         .string()
-        .min(1, { message: 'should have at least 1 character' }),
+        .min(1, { message: 'First name must be at least 1 character.' }),
       lastName: z
         .string()
-        .min(2, { message: 'should have at least 2 characters' }),
-      email: z.string().email({ message: 'should be a valid email ' }),
+        .min(2, { message: 'Last name must be at least 2 characters.' }),
+      email: z.string().email({ message: 'Please enter a valid e-mail address.' }),
       password: z
         .string()
-        .min(8, { message: 'should contain at least 8 characters' })
-        .max(20, { message: 'should contain at most 20 characters' }),
+        .min(8, { message: 'Password must contain 8-20 characters.' })
+        .max(20, { message: 'Password must contain 8-20 characters.' }),
       address: z
         .object({
           address_1: z.string(),
@@ -52,19 +45,16 @@ export default function SignUp({
         .optional(),
       confirmPassword: z
         .string()
-        .min(8, { message: 'should contain at least 8 characters' })
-        .max(20, { message: 'should contain at most 8 characters' }),
+        .min(8, { message: 'Password must contain 8-20 characters.' })
+        .max(20, { message: 'Password must contain 8-20 characters.' }),
     })
     .strict()
-    .superRefine(({ confirmPassword, password }, ctx) => {
-      if (password !== confirmPassword) {
-        ctx.addIssue({
-          code: 'custom',
-          message: 'password fields do not match',
-          path: ['confirmPassword'],
-        });
-      }
-    });
+    .refine(({ password, confirmPassword }) => {
+      return password === confirmPassword
+    }, {
+      message: 'Password fields do not match.',
+      path: ['confirmPassword'],
+    })
 
   type FormData = {
     firstName: string;
@@ -79,7 +69,6 @@ export default function SignUp({
     handleSubmit,
     reset,
     setError,
-    clearErrors,
     getValues,
     formState: { errors },
   } = useForm<FormData>({
@@ -112,14 +101,6 @@ export default function SignUp({
   };
 
   useEffect(() => {
-    // console.log('err.email', errors.email);
-    // if (selectAuthUser.error.status === 409) {
-    //   reset({
-    //     email: '',
-    //   });
-    //   setError('email', { type: 'custom', message: 'Email already exists' });
-    // }
-
     if (errors.confirmPassword) {
       reset(
         {
@@ -139,7 +120,7 @@ export default function SignUp({
       .then(() =>
         dispatch(requestLogin({ email: data.email, password: data.password }))
       )
-      .then(() => navigate('/shop-all'));
+      .then(closeSlider);
   };
 
   return (

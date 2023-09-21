@@ -121,27 +121,28 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
     const ctx = gsap.context((_) => {
       const scroller = ingredientBgImgWrapper.current;
 
-      gsap.to(scroller, {
-        scrollTrigger: {
-          trigger: scroller,
-          pin: true,
-          pinSpacing: true,
-          endTrigger: ingredientSection.current,
-          end: 'bottom bottom',
-        },
-      });
+      if (scroller) {
+        gsap.to(scroller, {
+          scrollTrigger: {
+            trigger: scroller,
+            pin: true,
+            pinSpacing: true,
+            endTrigger: ingredientSection.current,
+            end: 'bottom bottom',
+          },
+        });
 
-      gsap.to(prodImgWrapper.current, {
-        scrollTrigger: {
-          trigger: prodImgWrapper.current,
-          pin: true,
-          endTrigger: ingredientSection.current,
-          start: 'top 20%',
-          end: 'top bottom',
-        },
-      });
+        gsap.to(prodImgWrapper.current, {
+          scrollTrigger: {
+            trigger: prodImgWrapper.current,
+            pin: true,
+            endTrigger: ingredientSection.current,
+            start: 'top 20%',
+            end: 'top bottom'
+          }
+        })
+      }
     });
-
     return () => ctx.revert();
   });
 
@@ -308,8 +309,6 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
 
     return res;
   };
-
-  console.log('selected image:', selectedImage);
 
   /**
    * * MAIN RENDER
@@ -606,7 +605,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
             YOU MAY ALSO LIKE
           </h2>
           {singleProduct.relatedProducts && (
-            <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+            <ProductCarousel products={singleProduct.relatedProducts} />
           )}
         </section>
 
@@ -659,11 +658,10 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
             {allReviews.reviews.length > 0 && (
               <div className='reviews-wrapper mt-6'>
                 <div className='reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8'>
-                  {allReviews.reviews.map((review, idx) => (
+                  {allReviews.reviews.map((review) => (
                     <Review
                       review={review}
                       key={review._id}
-                      last={allReviews.reviews.length - 1 === idx}
                     />
                   ))}
                 </div>
