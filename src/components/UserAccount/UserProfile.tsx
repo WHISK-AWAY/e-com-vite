@@ -74,7 +74,7 @@ export default function UserProfile() {
             <source src={flowerBg} type='video/mp4' />
             <source src={convertMediaUrl(flowerBg)} type='video/webm' />
           </video>
-          <div className='menu-items-container mt-[15%] flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pb-[5%] pt-[16%] font-grotesque text-[1rem] 2xl:text-[1.2rem] 5xl:text-[1.4rem] portrait:mt-[7%] portrait:pt-5 portrait:text-[1.3rem]'>
+          <div className='menu-items-container mt-[15%] flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pb-[5%] pt-[16%] font-grotesque text-[1rem] 2xl:text-[1.2rem] 5xl:text-[1.4rem] portrait:mt-[7%] portrait:pt-5 portrait:text-[1.3rem] portrait:md:text-[1.5rem]'>
             <div>
               <div className='flex flex-col items-center '>
                 <button
@@ -120,15 +120,15 @@ export default function UserProfile() {
             <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
         </div>
-        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 landscape:short:pb-10 6xl:pb-44 portrait:absolute portrait:px-1 '>
+        <div className='user-settings-main shrink-1 flex h-[90%] grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44 portrait:absolute portrait:px-1 landscape:short:pb-10 '>
           <div className='relative flex h-fit  w-fit flex-col items-center justify-start pt-[4%]'>
-            <h2 className='w-3/4 border border-b-0 border-charcoal bg-white py-[1%] text-center font-poiret text-sm uppercase lg:text-base 2xl:text-lg'>
+            <h2 className='w-3/4 border border-b-0 border-charcoal bg-white py-[1%] text-center font-poiret text-sm uppercase lg:text-base 2xl:text-lg portrait:md:text-lg'>
               {viewMap[view]}
             </h2>
             <div
               className={`user-profile-edit-section shrink-1 no-scrollbar h-fit w-fit grow-0 overflow-auto border border-charcoal bg-white`}
             >
-              <div className='h-fit w-[40svw] xl:w-[32svw] 4xl:w-[30svw] 5xl:w-[20svw] 6xl:w-[15svw] portrait:w-[90svw]'>
+              <div className='h-fit w-[40svw] xl:w-[32svw] 4xl:w-[30svw] 5xl:w-[20svw] 6xl:w-[15svw] portrait:w-[90svw] portrait:md:max-w-[60svw]'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}
                 {view === 'password' && <EditPassword user={user.user} />}
                 {view === 'shipping' && <UserAddressBook user={user.user} />}
