@@ -98,7 +98,7 @@ function App() {
     },
     {
       path: 'product/:productId',
-      element: <SingleProduct />,
+      element: <SingleProduct mobileMenu={mobileMenu}/>,
     },
     {
       path: 'user/:userId',
