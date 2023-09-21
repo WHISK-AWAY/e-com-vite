@@ -346,11 +346,14 @@ export default function SingleProduct() {
                     muted={true}
                     autoPlay={true}
                     loop={true}
-                  // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
+                    // onPlay={() => mainImageTimeline.current?.play('fadeIn')}
                   />
                 ) : (
                   <picture>
-                    <source srcSet={convertMediaUrl(selectedImage)} type="image/webp" />
+                    <source
+                      srcSet={convertMediaUrl(selectedImage)}
+                      type='image/webp'
+                    />
                     <img
                       src={selectedImage}
                       // data-sizes='auto'
@@ -369,7 +372,7 @@ export default function SingleProduct() {
                     >
                       <img
                         src={heartFilled}
-                        className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                        className='fader absolute right-[5%] top-[5%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
                         height='17'
                         width='20'
                         alt='remove from favorites'
@@ -382,7 +385,7 @@ export default function SingleProduct() {
                     >
                       <img
                         src={heartBlanc}
-                        className='fader absolute right-[5%] top-[9%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
+                        className='fader absolute right-[5%] top-[5%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6'
                         height='17'
                         width='20'
                         alt='add to favorites'
@@ -412,7 +415,7 @@ export default function SingleProduct() {
 
           <section className='product-details flex basis-3/5 flex-col items-center px-8'>
             <div className='product-desc mb-5 flex flex-col items-center text-justify lg:mb-9'>
-              <h1 className='product-name pb-9 text-center font-grotesque font-light text-[1.4rem] uppercase xl:text-[1.5rem]'>
+              <h1 className='product-name pb-9 text-center font-grotesque text-[1.4rem] font-light uppercase xl:text-[1.5rem]'>
                 {singleProduct.productName}
               </h1>
               <div
@@ -427,17 +430,19 @@ export default function SingleProduct() {
                   reviewCount={allReviews.reviews.length}
                 />
               </div>
-              <p className='product-long-desc font-grotesque font-light text-xs lg:text-sm xl:text-lg 2xl:text-xl'>
+              <p className='product-long-desc font-grotesque text-xs font-light lg:text-sm xl:text-lg '>
                 {singleProduct.productShortDesc} Retinol stimulates the
                 synthesis of collagen and elastin to combat loss of firmness and
                 wrinkles. This retinol serum visibly improves fine lines and
                 smooths skin. 99% naturally derived. Vegan. Made in France.
               </p>
             </div>
-            <div className='cart-controls mb-24 w-full font-grotesque text-base font-light lg:mb-28 lg:text-lg xl:text-xl 2xl:text-2xl'>
+            <div className='cart-controls mb-24 w-full font-grotesque text-base font-light lg:mb-28 lg:text-lg xl:text-xl '>
               <div className='cart-section flex w-full flex-col items-center text-center'>
                 <div className='price-counter flex flex-col items-center'>
-                  <p className='price'>${singleProduct.price}</p>
+                  <p className='price lg:text-lg xl:text-xl 2xl:text-2xl'>
+                    ${singleProduct.price}
+                  </p>
 
                   <div className='qty-counter mt-3 flex h-fit w-fit items-center gap-2 rounded-full border border-charcoal/80 px-2'>
                     <div onClick={qtyDecrementor} className='cursor-pointer'>
@@ -461,7 +466,7 @@ export default function SingleProduct() {
                     </div>
                   </div>
                   {maxQty <= 10 && (
-                    <div className='font-grotesque text-xs text-red-800 lg:text-sm xl:text-lg 2xl:text-xl'>
+                    <div className='font-grotesque text-xs text-red-800 lg:text-sm xl:text-lg '>
                       {maxQty === 0 ? 'out of stock' : 'limited stock'}
                     </div>
                   )}
@@ -477,13 +482,13 @@ export default function SingleProduct() {
                 <button
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
-                  className='group relative mt-[6%] w-4/5 max-w-full overflow-hidden rounded-sm  border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium uppercase  text-white transition-all  hover:scale-[1.01] active:bg-red-300 hover:duration-00 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
+                  className='hover:duration-00 group relative mt-[6%] w-4/5 max-w-full overflow-hidden  rounded-sm border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium  uppercase text-white  transition-all hover:scale-[1.01] active:bg-red-300 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw]'
                 >
                   <span className='ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full '></span>
                   <span className='ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full'></span>
                   <span className='ease absolute left-0 top-0 h-0 w-full bg-gray-400 transition-all  delay-200 duration-1000  group-hover:h-full'></span>
                   <span className='ease absolute bottom-0 left-0 h-0 w-full bg-gray-400 transition-all delay-200 duration-1000  group-hover:h-full'></span>
-                  <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-[#383838] active:bg-yellow-400 opacity-0 delay-500 duration-700 group-hover:opacity-100'></span>
+                  <span className='absolute inset-0 h-full w-full border border-charcoal/80 bg-[#383838] opacity-0 delay-500 duration-700 active:bg-yellow-400 group-hover:opacity-100'></span>
 
                   <span className='ease relative transition-colors delay-200 duration-1000  '>
                     add to cart
@@ -492,11 +497,11 @@ export default function SingleProduct() {
               </div>
             </div>
 
-            <div className='why-we-love-it text-sm lg:text-base xl:text-lg 2xl:text-xl'>
-              <h2 className='mb-4 text-center font-federo uppercase'>
+            <div className='why-we-love-it'>
+              <h2 className='mb-4 text-center font-grotesque text-base  uppercase lg:text-base xl:text-xl 2xl:text-xl'>
                 why we love it
               </h2>
-              <p className='text-center font-grotesque'>
+              <p className='text-center font-grotesque text-xs font-light lg:text-sm xl:text-base'>
                 CEO 15% Vitamin C Brightening Serum, is targeted to quickly
                 fight the look of dullness, dark spots, and discolorations at
                 the source, while diminishing the signs of premature aging. Skin
@@ -534,27 +539,27 @@ export default function SingleProduct() {
                 muted={true}
                 className='h-screen w-full object-cover'
               >
-                <source src={convertMediaUrl(bgVid)} type="video/webm" />
-                <source src={bgVid} type="video/mp4" />
+                <source src={convertMediaUrl(bgVid)} type='video/webm' />
+                <source src={bgVid} type='video/mp4' />
               </video>
             ) : (
               <picture>
-                <source srcSet={convertMediaUrl(bgImg)} type="image/webp" />
+                <source srcSet={convertMediaUrl(bgImg)} type='image/webp' />
                 <img src={bgImg} className='h-screen w-full object-cover' />
               </picture>
             )}
           </div>
           <div className='ingredients mt-4 flex h-full min-h-screen basis-2/5 flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12'>
-            <h3 className='font-aurora text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl'>
+            <h3 className='font-aurora text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl'>
               key ingredients
             </h3>
             {parseIngredients().map((el, idx) => {
               return (
                 <p
                   key={idx}
-                  className='font-grotesque text-base xl:text-xl 2xl:text-2xl'
+                  className='font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl '
                 >
-                  <span className='font-grotesque font-xbold uppercase'>
+                  <span className='font-grotesque font-bold uppercase'>
                     {el.split(':')[0]}:
                   </span>
                   {el.split(':')[1]}
@@ -569,7 +574,7 @@ export default function SingleProduct() {
           ref={youMayAlsoLikeRef}
           className='product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32'
         >
-          <h2 className='mb-5 font-marcellus text-2xl lg:mb-8 lg:text-4xl xl:mb-12 xl:text-5xl'>
+          <h2 className='mb-5 font-grotesque text-xl lg:mb-8 lg:text-2xl xl:mb-12 xl:text-3xl'>
             YOU MAY ALSO LIKE
           </h2>
           {singleProduct.relatedProducts && (
@@ -583,7 +588,7 @@ export default function SingleProduct() {
           ref={reviewSection}
           className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10'
         >
-          <h2 className='self-start font-gayathri text-[4.25rem] lg:text-[5.7rem] xl:text-[7rem] 2xl:text-[8rem]'>
+          <h2 className='self-start font-gayathri font-semibold text-[3rem]  '>
             REVIEWS
           </h2>
           <div className='review-subtitle-container flex flex-col items-center justify-between'>
@@ -603,11 +608,11 @@ export default function SingleProduct() {
               />
             ) : allReviews.reviews?.length < 1 ? (
               <>
-                <p className='mb-7'>
+                <p className='mb-7 text-sm'>
                   No reviews yet...be the first to leave one!
                 </p>
                 <button
-                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl'
+                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana  uppercase lg:px-8  text-sm lg:text-base xl:rounded 2xl:px-10 2xl:py-3 '
                   onClick={() => setShowReviewForm((prev) => !prev)}
                 >
                   write a review
