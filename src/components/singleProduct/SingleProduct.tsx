@@ -302,9 +302,6 @@ export default function SingleProduct() {
     return res;
   };
 
-  console.log('selected image:', selectedImage)
-
-
   /**
    * * MAIN RENDER
    */
