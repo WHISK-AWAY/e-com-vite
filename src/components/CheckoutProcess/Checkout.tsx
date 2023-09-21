@@ -92,7 +92,7 @@ export default function Checkout() {
           >
             <span
               id='button-text'
-              className='my-5 rounded-sm bg-charcoal px-10 py-1 font-italiana text-lg uppercase text-white'
+              className='my-5 rounded-sm bg-charcoal px-10 py-1 font-poiret text-lg uppercase text-white'
             >
               {isLoading ? (
                 <div className='spinner' id='spinner'></div>
