@@ -101,26 +101,35 @@ export default function EditAccountInfo({ user }: AccountProps) {
   if (!user) return <h1>Error accessing user info.</h1>;
 
   return (
-    <section className='edit-account-container h-fit w-full min-w-[40vw] text-sm lg:text-base xl:text-lg 2xl:text-xl'>
+    <section className='edit-account-container h-fit  w-fit text-[1rem]  xl:w-[30svw]  5xl:w-[20svw] 6xl:w-[15svw]'>
       <form
         className='flex h-full w-full flex-col justify-between'
         onSubmit={handleSubmit(formSubmit)}
       >
         <div className='input-wrapper flex h-fit items-center'>
-          <div className='label-column shrink-1 flex h-48 grow-0 basis-[35%] flex-col items-center justify-around border-r border-charcoal bg-white p-5 lg:basis-[30%]'>
-            <label className='w-full' htmlFor='first-name'>
+          <div className='label-column shrink-1 flex h-44 grow-0 basis-[25%] flex-col items-start justify-around border-r  border-charcoal px-5   py-5  lg:basis-[20%] '>
+            <label
+              className='w-fit whitespace-nowrap  text-sm 2xl:text-base'
+              htmlFor='first-name'
+            >
               first name
             </label>
-            <label className='w-full' htmlFor='last-name'>
+            <label
+              className='w-fit whitespace-nowrap  text-sm 2xl:text-base'
+              htmlFor='last-name'
+            >
               last name
             </label>
-            <label className='w-full' htmlFor='email'>
+            <label
+              className='w-fit whitespace-nowrap text-sm 2xl:text-base'
+              htmlFor='email'
+            >
               email
             </label>
           </div>
-          <div className='input-column grow-1 flex h-48 shrink-0 basis-[65%] flex-col items-center justify-around bg-white p-5 lg:basis-[70%]'>
+          <div className='input-column grow-1 flex h-44 shrink-0 basis-[75%] flex-col items-center justify-around overflow-x-hidden bg-white p-5  lg:basis-[80%]'>
             <input
-              className='focus-no-ring w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1 text-sm 2xl:text-base'
               type='text'
               id='first-name'
               placeholder={errors.firstName?.message || ''}
@@ -128,7 +137,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='focus-no-ring w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1 text-sm 2xl:text-base'
               type='text'
               id='last-name'
               placeholder={errors.lastName?.message || ''}
@@ -136,7 +145,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             />
 
             <input
-              className='focus-no-ring w-full border border-charcoal px-3 py-1'
+              className='focus-no-ring w-full border border-charcoal px-3 py-1 text-sm 2xl:text-base'
               type='text'
               id='email'
               placeholder={errors.email?.message || ''}
@@ -145,9 +154,9 @@ export default function EditAccountInfo({ user }: AccountProps) {
           </div>
         </div>
 
-        <div className='button-wrapper absolute -bottom-[30%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%]'>
+        <div className='button-wrapper absolute -bottom-[20%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%] font-poiret text-[.5rem] lg:text-[.8rem] 2xl:text-[1rem]'>
           <button
-            className='self-end rounded-sm border border-charcoal bg-white px-[4%] py-[1.5%] font-italiana uppercase text-charcoal disabled:border-charcoal/30 disabled:text-charcoal/30'
+            className='self-end rounded-sm border border-charcoal bg-white px-4   uppercase text-charcoal disabled:border-charcoal/30 disabled:text-charcoal/30'
             onClick={cancelEdits}
             type='button'
             disabled={saveDisabled}
@@ -155,7 +164,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
             cancel
           </button>
           <button
-            className='rounded-sm bg-charcoal px-[4%] py-[1.5%] font-italiana uppercase text-white disabled:bg-charcoal/30'
+            className='rounded-sm bg-charcoal px-4   uppercase text-white disabled:bg-charcoal/30'
             type='submit'
             disabled={saveDisabled}
           >
