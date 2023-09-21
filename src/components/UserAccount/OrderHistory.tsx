@@ -18,7 +18,7 @@ export default function OrderHistory() {
 
   // if (orderState.loading) return <h1>Loading orders history...</h1>;
   return (
-    <div className='history-container max-h-full max-w-[50vw] p-4 font-marcellus text-xs lg:text-sm xl:text-xl'>
+    <div className='history-container max-h-[60svh] max-w-[65vw] p-4 font-grotesque text-xs  5xl:text-base bg-white'>
       {allOrders?.length > 0 ? (
         !detailOrder ? (
           <OrderHistorySummary
@@ -32,7 +32,7 @@ export default function OrderHistory() {
           />
         )
       ) : (
-        <h1 className='text-center text-lg lg:text-xl xl:text-2xl 2xl:text-3xl'>
+        <h1 className='text-center text-xs lg:text-base xl:text-lg '>
           No orders found.
         </h1>
       )}
