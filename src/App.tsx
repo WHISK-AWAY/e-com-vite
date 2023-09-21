@@ -110,7 +110,7 @@ function App() {
     },
     {
       path: '/checkout/success',
-      element: <Success />,
+      element: <Success mobileMenu={mobileMenu}/>,
     },
     {
       path: '/admin',
