@@ -112,7 +112,7 @@ export default function SignWrapper({
           <SignIn setMode={setMode} closeSlider={closeSlider} />
         ) : (
           <SignUp
-            setMode={setMode}
+            setMode={setMode} closeSlider={closeSlider}
           />
         )}
       </div>

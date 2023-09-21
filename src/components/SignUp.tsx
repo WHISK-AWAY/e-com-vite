@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,13 +12,14 @@ import type { TMode } from './SignWrapper';
 
 type SignUpProps = {
   setMode: React.Dispatch<React.SetStateAction<TMode>>;
+  closeSlider: () => void;
 }
 
 export default function SignUp({
   setMode,
+  closeSlider
 }: SignUpProps) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const zodUser: ZodType<FormData> = z
     .object({
@@ -120,7 +120,7 @@ export default function SignUp({
       .then(() =>
         dispatch(requestLogin({ email: data.email, password: data.password }))
       )
-      .then(() => navigate('/shop-all'));
+      .then(closeSlider);
   };
 
   return (
