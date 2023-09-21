@@ -49,8 +49,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     >
       <div
         // hover:scale-105 group-hover:scale-105 
-        className={`aspect-[3/4] h-full transform border-primary-gray transition duration-300 overflow-hidden even:border-l-0 group-hover:ease-in-out portrait:aspect-[4/5] portrait:border portrait:odd:border-r-0 ${hoverURL || hoverFallback ? 'group' : ''
-          }`}
+        className='aspect-[3/4] portrait:aspect-[4/5] h-full w-full transition duration-300 transform overflow-hidden even:border-l-0 group-hover:ease-in-out border-primary-gray portrait:border portrait:odd:border-r-0 group'
       >
         <Link
           to={'/product/' + product._id}
@@ -62,7 +61,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               src={imageURL}
               alt={`product image: ${product.productName}`}
               // group-hover:h-[105%] group-hover:w-[105%] group-hover:invisible 
-              className='h-[calc(100%_-_2px)] w-[calc(100%_-_2px)] object-cover object-center transition-all duration-300'
+              className='h-[calc(100%_-_1px)] w-[calc(100%_-_1px)] opacity-100 group-hover:opacity-0 object-cover object-center transition-all duration-300'
               height='1600'
               width='1600'
             />
@@ -75,7 +74,8 @@ export default function ProductCard({ product }: ProductCardProps) {
               muted
               playsInline
               controls={false}
-              className='invisible absolute right-0 top-0 h-[calc(100%_-_2px)] w-[calc(100%_-_2px)] object-cover object-center group-hover:visible group-hover:scale-105 transition-transform duration-300'
+              // group-hover:visible 
+              className='absolute right-0 top-0 h-[calc(100%_-_1px)] w-[calc(100%_-_1px)] opacity-0 group-hover:opacity-100 object-cover object-center group-hover:scale-125 transition-all duration-300'
             >
               <source src={hoverURL} type={hoverURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
               <source src={convertMediaUrl(hoverURL)} type='video/webm' />
@@ -89,7 +89,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <img
                 src={hoverFallback}
                 alt={`alternate image: ${product.productName}`}
-                className='invisible absolute right-0 top-0 h-[calc(100%_-_2px)] w-[calc(100%_-_2px)] object-cover object-center group-hover:visible group-hover:scale-105 transition-transform duration-300'
+                className='absolute right-0 top-0 h-[calc(100%_-_1px)] w-[calc(100%_-_1px)] opacity-0 group-hover:opacity-100 object-cover object-center group-hover:scale-125 transition-all duration-300'
                 height='1600'
                 width='1600'
               />
