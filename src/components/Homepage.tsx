@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves.mp4';
+import rainLeaves from '../assets/vid/homapage/leaves-compressed41.webm';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
@@ -694,16 +694,20 @@ export default function Homepage() {
             ref={handsRef}
             data-src={handLotion}
             data-sizes='auto'
+            playsInline={true}
             loop={true}
             autoPlay={true}
             muted={true}
+            controls={false}
             className='lazyload hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover'
           />
           <video
             ref={leavesRef}
-            data-src={rainLeaves}
-            data-sizes='auto'
+            src={rainLeaves}
+            playsInline={true}
+            // data-sizes='auto'
             loop={true}
+            controls={false}
             autoPlay={true}
             muted={true}
             className='lazyload leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
@@ -770,7 +774,7 @@ export default function Homepage() {
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd!.images[0].imageURL
                   }
-                  // data-sizes='auto'
+                // data-sizes='auto'
                 />
               </Link>
             </div>
@@ -805,7 +809,7 @@ export default function Homepage() {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd01!.images[0].imageURL
                     }
-                    // data-sizes='auto'
+                  // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -822,7 +826,7 @@ export default function Homepage() {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd02!.images[0].imageURL
                     }
-                    // data-sizes='auto'
+                  // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -878,7 +882,7 @@ export default function Homepage() {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd03!.images[0].imageURL
                     }
-                    // data-sizes='auto'
+                  // data-sizes='auto'
                   />
                   <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
                     {randomProd03?.productName}

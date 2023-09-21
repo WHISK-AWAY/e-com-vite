@@ -117,6 +117,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
         loop={true}
         autoPlay={true}
         muted={true}
+        playsInline={true}
       >
         <source src="/assets/bg-vids/sign-in.webm" type="video/webm" />
         <source src="/assets/bg-vids/sign-in.mp4" type="video/mp4" />
