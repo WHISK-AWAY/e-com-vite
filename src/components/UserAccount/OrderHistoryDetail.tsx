@@ -23,7 +23,7 @@ export default function OrderHistoryDetail({
   });
 
   return (
-    <div className='order-detail-wrapper relative h-full w-full pb-10 font-marcellus text-xs lg:text-base xl:text-lg 2xl:text-xl'>
+    <div className='order-detail-wrapper relative h-full w-full pb-10 font-grotesque text-xs lg:text-sm  2xl:text-base'>
       <img
         className='absolute right-0 top-0 cursor-pointer'
         onClick={() => setDetailOrder(null)}
@@ -57,12 +57,12 @@ export default function OrderHistoryDetail({
           ${order.total?.toFixed(2)}
         </div>
       </div>
-      <div className='shipping-info mx-auto mt-6 flex w-4/5 flex-col items-center'>
-        <h3 className='w-3/5 border border-b-0 border-charcoal py-1 text-center font-italiana text-2xl uppercase'>
+      <div className='shipping-info mx-auto mt-6 flex w-[100%] flex-col items-center'>
+        <h3 className='w-[80%] border border-b-0 border-charcoal py-1 text-center font-poiret text-sm uppercase 2xl:text-base'>
           delivery address
         </h3>
-        <div className='address-wrapper grid w-full grid-cols-[2fr,_3fr] border border-charcoal xl:grid-cols-[1fr,_3fr]'>
-          <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[25%]'>
+        <div className='address-wrapper grid w-full grid-cols-[2fr,_3fr] border border-charcoal text-xs xl:grid-cols-[1fr,_3fr] 2xl:text-base'>
+          <div className='address-label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[20%]'>
             <p className=''>full name</p>
             <p className=''>email</p>
             <p className=''>address 1</p>
@@ -71,7 +71,7 @@ export default function OrderHistoryDetail({
             <p className=''>state</p>
             <p className=''>zip</p>
           </div>
-          <div className='address-component-column grid h-full grid-cols-1 place-items-start items-center gap-2 bg-white py-5 pl-[10%]'>
+          <div className='address-component-column grid h-full w-full grid-cols-1 place-items-start items-center gap-2 bg-white py-5 pl-[5%] text-xs 2xl:text-base'>
             <p className='uppercase'>
               {address.firstName} {address.lastName}
             </p>
