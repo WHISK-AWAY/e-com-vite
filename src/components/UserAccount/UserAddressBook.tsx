@@ -58,7 +58,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
 
   return (
     <>
-      <div className='flex h-[50vh] max-h-[400px] max-w-[50vw] flex-col items-center justify-start text-xs lg:text-sm xl:text-base 2xl:text-lg'>
+      <div className='flex h-[30svh] max-h-[400px] max-w-[50vw] flex-col items-center justify-start text-xs lg:text-sm xl:text-base portrait:w-full portrait:max-w-full landscape:short:h-[35svh]'>
         {currentAddress ? (
           showAddressManager ? (
             <div>maybe someday this will be an address book manager...</div>
@@ -82,7 +82,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                     alt='right arrow'
                   />
                 )}
-                <div className='label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[30%] xl:pl-[25%]'>
+                <div className='label-column grid h-full grid-cols-1 place-items-start items-center gap-2 border-r border-charcoal bg-white py-5 pl-[30%] xl:pl-[25%] portrait:text-[1rem]'>
                   <p className=''>full name</p>
                   <p className=''>email</p>
                   <p className=''>address 1</p>
@@ -91,7 +91,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                   <p className=''>state</p>
                   <p className=''>zip</p>
                 </div>
-                <div className='input-column grid h-full grid-cols-1 place-items-start items-center gap-2 bg-white p-[6%] py-5'>
+                <div className='input-column grid h-full grid-cols-1 place-items-start items-center gap-2 bg-white p-[6%] py-5  portrait:w-full  portrait:text-[1rem]'>
                   <p className='uppercase'>
                     {currentAddress.firstName} {currentAddress.lastName}
                   </p>
@@ -106,7 +106,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
                   <p className='uppercase'>{currentAddress.zip}</p>
                 </div>
               </div>
-              <div className='absolute -bottom-[15%] right-1/2 flex translate-x-[50%] justify-center gap-6 text-base 2xl:-bottom-[22%] 2xl:text-xl'>
+              <div className='absolute -bottom-[15%] right-1/2 flex translate-x-[50%] justify-center gap-6 font-poiret  text-[.7rem] 2xl:text-[1rem]'>
                 {/* disabling edit & new until ready to work on it... */}
                 {addresses.length && (
                   <>
@@ -121,7 +121,7 @@ export default function UserAddressBook({ user }: UserAddressBookProps) {
             </>
           )
         ) : (
-          <h1 className='py-4 text-center text-lg lg:text-xl xl:text-2xl 2xl:text-3xl'>
+          <h1 className='py-4 text-center text-sm lg:text-base '>
             No addresses found.
           </h1>
         )}
