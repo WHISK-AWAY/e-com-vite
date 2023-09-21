@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-import { Types } from 'mongoose';
+import type { Types } from 'mongoose';
 import { RootState } from '../store';
 import { TSort } from '../../components/AllProducts/AllProducts';
 import { ImageData } from '../../../server/database';

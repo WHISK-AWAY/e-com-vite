@@ -41,11 +41,13 @@ export default function NewIn() {
             lip tints
           </h1>
           <video
-            data-src={roseLady}
-            className='lazyload relative z-30 h-screen w-11/12 object-cover object-center'
-            muted={true}
-            autoPlay={true}
-            loop={true}
+            src={roseLady}
+            className='relative z-30 h-screen w-11/12 object-cover object-center'
+            loop
+            autoPlay
+            muted
+            playsInline
+            controls={false}
           />
         </header>
         <section className='middle-section relative z-10 flex h-full w-screen flex-col items-center gap-[2vw] p-6 pb-[8vw]'>
@@ -64,32 +66,35 @@ export default function NewIn() {
                 alt='lineup of tinted lip products'
               />
               <video
-                data-src={tintGif}
-                data-sizes='auto'
-                muted={true}
-                autoPlay={true}
-                loop={true}
-                className='lazyload invisible absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:visible'
+                src={tintGif}
+                loop
+                autoPlay
+                muted
+                playsInline
+                controls={false}
+                className='invisible absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:visible'
               />
             </div>
             <div className='mid-left relative z-10 min-h-[70vh] basis-1/2'>
               <video
-                className='lazyload aspect-[1/2] w-full rounded-sm object-cover object-top'
-                data-src={redBlobs}
-                data-sizes='auto'
-                muted={true}
-                autoPlay={true}
-                loop={true}
+                className='aspect-[1/2] w-full rounded-sm object-cover object-top'
+                src={redBlobs}
+                loop
+                autoPlay
+                muted
+                playsInline
+                controls={false}
               ></video>
             </div>
             <div className='mid-right relative z-10 basis-1/2'>
               <video
-                className='lazyload aspect-[1/2] w-full object-cover object-top'
-                data-src={redLady}
-                data-sizes='auto'
-                muted={true}
-                autoPlay={true}
-                loop={true}
+                className='aspect-[1/2] w-full object-cover object-top'
+                src={redLady}
+                loop
+                autoPlay
+                muted
+                playsInline
+                controls={false}
               ></video>
               <div className='new-in absolute right-1/2 top-0 translate-x-[70%] translate-y-[-50%] whitespace-nowrap font-yantramanav text-[13vw] font-bold uppercase leading-none text-white/20'>
                 <p>new in</p>

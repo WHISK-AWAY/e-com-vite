@@ -209,9 +209,11 @@ export default function ImageCarousel({
             >
               {['gif', 'mp4'].includes(extension!) ? (
                 <video
-                  muted={true}
-                  autoPlay={true}
-                  loop={true}
+                  loop
+                  autoPlay
+                  muted
+                  playsInline
+                  controls={false}
                   className='aspect-[3/4] w-full  object-cover'
                 >
                   <source src={image.imageURL} type={extension === 'mp4' ? 'video/mp4' : 'image/gif'} />

@@ -344,8 +344,8 @@ export default function AllProducts({
             return (
               <li
                 className={` ${allProducts.products.length % 2 === 0
-                    ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
-                    : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
+                  ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
+                  : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
                   } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
                 key={product._id.toString()}
               >
@@ -370,9 +370,11 @@ export default function AllProducts({
                     {hoverURL ? (
                       <video
                         // src={hoverURL}
-                        muted={true}
-                        autoPlay={true}
-                        loop={true}
+                        loop
+                        autoPlay
+                        muted
+                        playsInline
+                        controls={false}
                         className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
                       >
                         <source src={hoverURL} type={hoverURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
@@ -443,8 +445,8 @@ export default function AllProducts({
                 <div className='place-items-stretch border-primary-gray px-2  text-start portrait:border-l portrait:pb-4 landscape:border-t'>
                   <p
                     className={`${product.productName.length > 10
-                        ? 'overflow-hidden text-ellipsis whitespace-nowrap'
-                        : ''
+                      ? 'overflow-hidden text-ellipsis whitespace-nowrap'
+                      : ''
                       } pt-2   font-grotesque  lg:text-[1rem] portrait:pt-1 `}
                   >
                     <Link to={'/product/' + product._id}>

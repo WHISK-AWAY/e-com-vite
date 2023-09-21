@@ -108,9 +108,11 @@ export default function AllProductsHeader({
             {randomProdGif ? (
               <video
                 // src={randomProdGif}
-                muted={true}
-                autoPlay={true}
-                loop={true}
+                loop
+                autoPlay
+                muted
+                playsInline
+                controls={false}
                 className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
               >
                 <source src={randomProdGif} type={randomProdGif.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />

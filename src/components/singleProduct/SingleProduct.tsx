@@ -81,6 +81,13 @@ export default function SingleProduct() {
       });
   }
 
+  // useEffect(() => {
+  // ! debug
+  //   const img = new Image();
+  //   img.src = convertMediaUrl(selectedImage);
+  //   img.onload = () => console.log(`loaded ${img.src}`)
+  // }, [selectedImage])
+
   changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
@@ -295,6 +302,9 @@ export default function SingleProduct() {
     return res;
   };
 
+  console.log('selected image:', selectedImage)
+
+
   /**
    * * MAIN RENDER
    */
@@ -341,9 +351,11 @@ export default function SingleProduct() {
                 {['gif', 'mp4'].includes(selectedImage.split('.').at(-1)!) ? (
                   <video
                     className='fader absolute -z-10 aspect-[3/4] w-[calc(100%_-_2px)] object-cover'
-                    muted={true}
-                    autoPlay={true}
-                    loop={true}
+                    loop
+                    autoPlay
+                    muted
+                    playsInline
+                    controls={false}
                   >
                     <source src={selectedImage} type={selectedImage.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
                     <source src={convertMediaUrl(selectedImage)} type='video/webm' />
@@ -527,10 +539,11 @@ export default function SingleProduct() {
           >
             {bgVid ? (
               <video
-                autoPlay={true}
+                loop
+                autoPlay
+                muted
+                playsInline
                 controls={false}
-                loop={true}
-                muted={true}
                 className='h-screen w-full object-cover'
               >
                 <source src={convertMediaUrl(bgVid)} type="video/webm" />

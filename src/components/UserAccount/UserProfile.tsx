@@ -63,12 +63,13 @@ export default function UserProfile() {
             </span>
           </h1>
           <video
-            className='lazyload absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
-            data-src={flowerBg}
-            data-sizes='auto'
-            autoPlay={true}
-            loop={true}
-            muted={true}
+            className='absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
+            src={flowerBg}
+            loop
+            autoPlay
+            muted
+            playsInline
+            controls={false}
           >
             <source src={flowerBg} type='video/mp4' />
             <source src={convertMediaUrl(flowerBg)} type='video/webm' />
