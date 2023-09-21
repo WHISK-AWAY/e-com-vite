@@ -706,10 +706,10 @@ export default function Homepage() {
             src={rainLeaves}
             playsInline={true}
             // data-sizes='auto'
-            loop={true}
+            loop
             controls={false}
-            autoPlay={true}
-            muted={true}
+            autoPlay
+            muted
             className='lazyload leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
           />
 
