@@ -105,7 +105,7 @@ export default function ProductCarousel({
     return () => {
       ctx.revert();
     };
-  });
+  }, [renderProduct[0]?._id]);
 
   const decrementCarousel = () => {
     decrementAnimation.current
