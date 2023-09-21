@@ -89,30 +89,30 @@ export default function FavoriteItem({
           <div className='upper-wrapper flex w-full flex-col items-center'>
             <h2
               onClick={goToProduct}
-              className='cursor-pointer items-center self-center text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem]'
+              className='cursor-pointer items-center self-center text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem] landscape:short:text-sm'
             >
               {product.productName}
             </h2>
 
-            <p className='portrait:text-[1rem]portrait:pt-1 text-center font-grotesque text-sm lg:text-base 2xl:text-lg'>
+            <p className='portrait:text-[1rem]portrait:pt-1 text-center font-grotesque text-sm lg:text-base 2xl:text-lg landscape:short:text-sm'>
               ${product.price}
             </p>
           </div>
-          <div className='qty-controller align-center flex h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24   portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-20'>
+          <div className='qty-controller align-center flex h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal lg:w-16 xl:w-24   portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-16'>
             <img
               src={minus}
               alt='minus-icon'
               onClick={qtyDecrementor}
-              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
+              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
             />
-            <span className=' py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-base'>
+            <span className=' py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-sm'>
               {count}
             </span>
             <img
               src={plus}
               alt='plus-icon'
               onClick={qtyIncrementor}
-              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5'
+              className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
             />
           </div>
         </div>
@@ -120,7 +120,7 @@ export default function FavoriteItem({
 
       {/*button*/}
       <button
-        className='mb-1 flex  w-[60%] justify-center self-end rounded-sm bg-charcoal py-1 text-center font-poiret text-xs uppercase text-white  disabled:bg-charcoal/40 lg:py-2 2xl:text-lg portrait:py-2 portrait:text-[1rem]'
+        className='mb-1 flex  w-[60%] justify-center self-end rounded-sm bg-charcoal py-1 text-center font-poiret text-xs uppercase text-white  disabled:bg-charcoal/40 lg:py-2 2xl:text-lg portrait:py-2 portrait:text-[1rem] landscape:short:text-sm'
         disabled={maxQty === 0}
         onClick={() =>
           handleAddToCart({

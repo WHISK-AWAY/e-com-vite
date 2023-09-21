@@ -95,7 +95,7 @@ export default function Favorite({ closeSlider }: { closeSlider: () => void }) {
           <div className='flex w-11/12 flex-col items-center justify-center border-t-[0.75px] border-charcoal/80 pt-5 align-bottom'>
             <button
               onClick={closeSlider}
-              className='w-fit border border-charcoal px-6 font-grotesque text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg portrait:py-2 portrait:text-[1rem] '
+              className='w-fit border border-charcoal px-6 font-grotesque text-xs lg:py-1 lg:text-sm xl:text-base 2xl:px-10 2xl:text-lg portrait:py-2 portrait:text-[1rem] landscape:short:py-1 landscape:short:text-sm'
             >
               continue shopping
             </button>

@@ -8,12 +8,14 @@ export type AllProductsHeaderProps = {
   filter: string;
   // allProdsBg: string;
   randomProd: TProduct;
+  mobileMenu: boolean
 };
 
 export default function AllProductsHeader({
   filter,
   // allProdsBg,
   randomProd,
+  mobileMenu
 }: AllProductsHeaderProps) {
   const [randomProdImage, setRandomProdImage] = useState<string | undefined>(
     undefined
@@ -63,44 +65,68 @@ export default function AllProductsHeader({
   }, [randomProd]);
 
 
+
+  console.log(categoryInfo)
   return (
     <>
-      <section className=' relative flex w-1/2 portrait:w-[100vw]'>
+      <section className=' relative flex w-1/2 portrait:w-[100vw] portrait:md:w-1/2'>
         <h1
-          className='absolute right-0 top-6 font-italiana text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl portrait:hidden'
+          className={`${
+            mobileMenu ? 'hidden' : ''
+          } absolute right-0 top-6 font-poiret text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl `}
           dangerouslySetInnerHTML={{
             __html: categoryInfo?.splitTitle || <span>problem</span>,
           }}
-        >
+        ></h1>
+
+        {/**mobile header */}
+        <h1 className='w-1/6 -rotate-90 self-end whitespace-nowrap pl-7 font-grotesque text-[2rem] font-bold uppercase leading-none text-primary-gray portrait:md:hidden landscape:hidden'>
+          {categoryInfo?.category === 'all'
+            ? `${categoryInfo?.category} products`
+            : categoryInfo?.category}
         </h1>
-        <h1 className='landscape:hidden self-start whitespace-nowrap leading-none pl-7 pb-10  rotate-90 text-[2rem] font-grotesque font-bold uppercase text-primary-gray w-1/6'>{categoryInfo?.category}</h1>
         {/* TODO: webp images for category headers */}
         <picture>
-          <source srcSet={convertMediaUrl(categoryInfo?.image)} type="image/webp" />
-          <img src={categoryInfo?.image} className='-z-10  portrait:w-full portrait:h-[60svh]' height='4493' width='2996' alt='' />
+          <source
+            srcSet={convertMediaUrl(categoryInfo?.image)}
+            type='image/webp'
+          />
+          <img
+            src={categoryInfo?.image}
+            className='-z-10   max-h-[calc(100svh_-_90px)] object-cover portrait:h-[60svh]'
+            height='4493'
+            width='2996'
+            alt=''
+          />
         </picture>
       </section>
 
-      <section className='random-product flex basis-1/2 portrait:basis-0 flex-col items-center '>
-        <div className='mt-32 flex pb-10 pl-9 font-grotesque text-xs md:mt-24  md:pb-5 lg:mt-40 lg:pl-12 lg:text-base xl:mt-44 2xl:mt-56 2xl:pl-16 2xl:text-lg portrait:text-[1rem] portrait:hidden'>
+      <section className='random-product flex basis-1/2 flex-col items-center portrait:basis-0 portrait:md:basis-1/2'>
+        <div className='mt-32 flex pb-10 pl-9 font-grotesque text-xs md:mt-24  md:pb-5 lg:mt-40 lg:pl-12 lg:text-base xl:mt-44 2xl:mt-56 2xl:pl-16 2xl:text-lg portrait:mt-4 portrait:pl-20 portrait:pr-2 portrait:text-[1.1rem] portrait:md:mt-32 portrait:md:px-5 portrait:md:text-[1.1rem] landscape:short:text-sm'>
           Discover our most popular formulations for face, body, hands, and
           hair. All our products are vegan, cruelty-free, and made in France
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 portrait:hidden  ${randomProdGif || backupImage ? 'group' : ''
-            }`}
+          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 portrait:hidden portrait:md:flex portrait:md:w-4/5  ${
+            randomProdGif || backupImage ? 'group' : ''
+          }`}
         >
           <Link
             to={`/product/${randomProd._id}`}
             className='transform transition  duration-300 hover:scale-105 group-hover:scale-105 group-hover:ease-in-out'
           >
             <picture>
-              {randomProd && randomProdImage && <source srcSet={convertMediaUrl(randomProdImage!)} type="image/webp" />}
+              {randomProd && randomProdImage && (
+                <source
+                  srcSet={convertMediaUrl(randomProdImage!)}
+                  type='image/webp'
+                />
+              )}
               <img
                 src={randomProdImage}
                 alt={`product image: ${randomProd.productName}`}
-                className='aspect-square w-full object-cover group-hover:invisible'
+                className='aspect-square w-full object-cover group-hover:invisible '
                 height='1600'
                 width='1600'
               />
@@ -132,11 +158,11 @@ export default function AllProductsHeader({
             )}
           </Link>
           <Link to={'/product/' + randomProd._id}>
-            <p className='text-md pb-3  pt-7 text-center font-grotesque text-sm uppercase md:pt-5 md:text-xs lg:text-lg xl:text-2xl'>
+            <p className='text-md pb-1  pt-7 text-center font-grotesque text-sm uppercase md:pt-5 md:text-xs lg:text-base 3xl:text-lg portrait:md:text-[1.1rem]'>
               {randomProd!.productName}
             </p>
           </Link>
-          <p className='text-center font-grotesque text-sm lg:text-lg  xl:text-2xl'>
+          <p className='text-center font-grotesque text-sm lg:text-base  3xl:text-lg portrait:md:text-[1.1rem]'>
             ${randomProd!.price}
           </p>
         </div>

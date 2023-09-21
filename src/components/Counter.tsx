@@ -48,14 +48,14 @@ export default function Counter({
       <img
         src={minus}
         alt='minus-icon'
-        className='h-3 lg:h-4 xl:h-5'
+        className='h-3 lg:h-4 xl:h-5 portrait:h-5'
         onClick={decrementor}
       />
-      <p className='font-grotesque lg:text-base text-sm'>{counter}</p>
+      <p className='font-grotesque text-sm lg:text-base portrait:text-[1rem] portrait:py-1'>{counter}</p>
       <img
         src={plus}
         alt='plus-icon'
-        className='h-3 lg:h-4 xl:h-5'
+        className='h-3 lg:h-4 xl:h-5 portrait:h-5'
         onClick={incrementor}
       />
     </div>

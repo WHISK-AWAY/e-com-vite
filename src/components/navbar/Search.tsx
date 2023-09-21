@@ -86,10 +86,10 @@ export default function Search({
     <>
       {/* PRODUCT NAME SEARCH */}
 
-      {searchNotFound && <p>no results matched your search...</p>}
+      {searchNotFound && <p className='text-[1rem]'>no results matched your search...</p>}
       {searchResults.products.length > 0 && (
-        <article className='product-name-search relative left-0   top-0 z-40 flex w-[90vw]  translate-x-[6%]  translate-y-[50%] overflow-x-scroll px-7 py-2 3xl:translate-y-[81%]'>
-          <div className='flex gap-10'>
+        <article className='product-name-search relative left-0   top-0 z-40 flex w-[90svw]  translate-x-[6%] font-grotesque  translate-y-[65%] overflow-x-scroll px-7 py-2 3xl:translate-y-[81%] portrait:translate-y-[55%] portrait:sm:translate-y-[70%]'>
+          <div className='flex gap-10 portrait:gap-10 portrait:h-72'>
             {searchResults.products.map((result) => {
               return (
                 <Link
@@ -98,21 +98,27 @@ export default function Search({
                   key={result.productId}
                 >
                   <div
-                    className='flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start '
+                    className='flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start portrait:h-64 portrait:w-96'
                     onClick={(e) =>
                       handleProductNameSearch(e, result.productId)
                     }
                     key={result.productId}
                   >
                     <img
-                      className=' aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4'
+                      className=' aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4 portrait:basis-3/4'
                       src={
                         result.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || result.images[0].imageURL
                       }
                     />
-                    <p className='flex w-fit basis-1/4 self-center text-center text-[1vw] uppercase 3xl:text-[.7vw] '>
+                    <p
+                      className={` ${
+                        result.productName.length > 20
+                          ? 'w-full overflow-hidden text-ellipsis whitespace-nowrap '
+                          : ''
+                      }   basis-1/4 self-center text-center text-[.7rem] uppercase 3xl:text-[.7vw] portrait:text-[1rem] h-full`}
+                    >
                       {result.productName}
                     </p>
                   </div>
