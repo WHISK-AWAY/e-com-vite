@@ -13,7 +13,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves-compressed41.webm';
+import rainLeaves from '../assets/vid/homapage/leaves-compressed-31.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
@@ -24,6 +24,8 @@ import papaya from '../assets/bg-img/homepage/papaya.jpg';
 import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+
+
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -692,25 +694,23 @@ export default function Homepage() {
         <div className='landing-section-content relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
           <video
             ref={handsRef}
-            data-src={handLotion}
-            data-sizes='auto'
-            playsInline={true}
-            loop={true}
-            autoPlay={true}
-            muted={true}
+            src={handLotion}
+            playsInline
+            loop
+            autoPlay
+            muted
             controls={false}
-            className='lazyload hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover'
+            className='hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover'
           />
           <video
             ref={leavesRef}
             src={rainLeaves}
             playsInline
-            // data-sizes='auto'
             loop
             controls={false}
             autoPlay
             muted
-            className='lazyload leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
+            className='leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
           />
 
           <div className=' absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference'>
@@ -863,9 +863,11 @@ export default function Homepage() {
                 <video
                   src={bwSeizure}
                   // data-sizes='auto'
-                  autoPlay={true}
-                  muted={true}
-                  loop={true}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls={false}
                   className='bw-seizure-vid aspect-[4/6] w-[70%]'
                 />
               </div>
@@ -1114,11 +1116,12 @@ export default function Homepage() {
               className='melon-img lazyload aspect-[1/2] w-[30%] object-cover'
             />
             <video
-              data-src={legBrush}
-              data-sizes='auto'
-              muted={true}
-              loop={true}
-              autoPlay={true}
+              src={legBrush}
+              muted
+              loop
+              autoPlay
+              playsInline
+              controls={false}
               className='leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover'
             />
           </div>
