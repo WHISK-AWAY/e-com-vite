@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import convertMediaUrl from "../../utilities/convertMediaUrl";
 import type { RenderProduct } from './ProductCarousel'
-
-
+import type { ImageData } from '../../../server/database';
 
 type ProdCarouselCardProps = {
   prod: RenderProduct;
@@ -22,43 +21,24 @@ export default function ProdCarouselCard({ prod }: ProdCarouselCardProps) {
   useEffect(() => {
     if (!prod._id || !prod.images.length) return;
 
-    let tempFront: string | null = null;
-    let tempHover: string | null = null;
-
-    let i = 0;
-
-    while (!tempFront && !tempHover) {
-      if (i >= prod.images.length) break;
-
-      let image = prod.images[i];
-
-      // TODO: this needs a rework to prefer certain types over others
-      switch (image.imageDesc) {
-        case 'product-front':
-          if (!tempFront) tempFront = image.imageURL;
-          break;
-        case 'gif-product':
-          if (!tempHover) tempHover = image.imageURL;
-          break;
-        case 'video-product':
-          if (!tempHover) tempHover = image.imageURL;
-          break;
-        case 'product-texture':
-          if (!tempHover) tempHover = image.imageURL;
-          break;
-        case 'product-alt':
-          if (!tempHover) tempHover = image.imageURL;
-          break;
-      }
-
-      i++;
-    }
-
-    if (!tempFront) tempFront = prod.images[0].imageURL
-    if (!tempHover) tempHover = prod.images[1].imageURL
-
-    setImages({ front: tempFront, hover: tempHover })
+    setImages({ front: chooseFrontImage(prod.images), hover: chooseHoverImage(prod.images) })
   }, [prod._id])
+
+  function chooseFrontImage(images: ImageData[]) {
+    if (!images?.length) return '';
+
+    return images.find(img => img.imageDesc === 'product-front')?.imageURL || images[0].imageURL
+  }
+
+  function chooseHoverImage(images: ImageData[]) {
+    if (!images?.length) return '';
+
+    return images.find(img => img.imageDesc === 'video-product')?.imageURL
+      || images.find(img => img.imageDesc === 'gif-product')?.imageURL
+      || images.find(img => img.imageDesc === 'product-texture')?.imageURL
+      || images.find(img => img.imageDesc === 'product-alt')?.imageURL
+      || images.at(-1)!.imageURL
+  }
 
   return (
     <div
@@ -81,7 +61,7 @@ export default function ProdCarouselCard({ prod }: ProdCarouselCardProps) {
             />
           </picture>)}
         {images?.hover &&
-          (['jpg', 'jpeg', 'gif', 'png', 'webp'].includes(images.hover.split('.').at(-1)!) ? (
+          (['jpg', 'jpeg', 'png', 'webp'].includes(images.hover.split('.').at(-1)!) ? (
             <picture>
               <source srcSet={convertMediaUrl(images.hover)} type="image/webp" />
               <img
@@ -101,7 +81,7 @@ export default function ProdCarouselCard({ prod }: ProdCarouselCardProps) {
               controls={false}
             >
               <source src={convertMediaUrl(images.hover)} type='video/webm' />
-              <source src={images.hover} type='video/mp4' />
+              <source src={images.hover} type={images.hover.split('.').at(-1) === 'gif' ? 'image/gif' : 'video/mp4'} />
             </video>
           ))}
       </div>
