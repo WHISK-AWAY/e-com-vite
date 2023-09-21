@@ -50,7 +50,7 @@ export default function UserProfile() {
   if (!user) return <h1>Loading...</h1>;
   return (
     <section className='user-profile-container relative mx-auto flex h-[calc(100svh_-_64px)] w-[100svw] flex-col items-center gap-2 font-grotesque '>
-      <div className='user-settings-wrapper flex h-[calc(100svh_-_64px)] min-h-[390px] w-full items-start justify-center pb-12 text-base lg:min-h-[450px] lg:pb-16 lg:text-lg xl:min-h-[500px] xl:pb-20 xl:text-xl 2xl:min-h-[600px] 2xl:pb-24 2xl:text-[1.75rem] '>
+      <div className='user-settings-wrapper flex h-[calc(100svh_-_64px)] min-h-[390px] w-full items-start justify-center pb-12 text-base lg:min-h-[450px] lg:pb-16 lg:text-lg xl:min-h-[500px] xl:pb-20 xl:text-xl 2xl:min-h-[600px] 2xl:pb-24 2xl:text-[1.75rem]'>
         <div
           className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[8%] portrait:basis-full portrait:px-3`}
         >
@@ -74,7 +74,7 @@ export default function UserProfile() {
             <source src={flowerBg} type='video/mp4' />
             <source src={convertMediaUrl(flowerBg)} type='video/webm' />
           </video>
-          <div className='menu-items-container mt-[15%] flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pb-[5%] pt-[16%] font-grotesque text-[1rem] 2xl:text-[1.2rem] 5xl:text-[1.4rem] portrait:mt-[7%] portrait:pt-5'>
+          <div className='menu-items-container mt-[15%] flex h-full w-full flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pb-[5%] pt-[16%] font-grotesque text-[1rem] 2xl:text-[1.2rem] 5xl:text-[1.4rem] portrait:mt-[7%] portrait:pt-5 portrait:text-[1.3rem]'>
             <div>
               <div className='flex flex-col items-center '>
                 <button
@@ -126,7 +126,7 @@ export default function UserProfile() {
               {viewMap[view]}
             </h2>
             <div
-              className={`user-profile-edit-section shrink-1 no-scrollbar h-fit w-fit grow-0 overflow-auto border border-charcoal`}
+              className={`user-profile-edit-section shrink-1 no-scrollbar h-fit w-fit grow-0 overflow-auto border border-charcoal bg-white`}
             >
               <div className='h-fit w-[40svw] xl:w-[32svw] 4xl:w-[30svw] 5xl:w-[20svw] 6xl:w-[15svw] portrait:w-[90svw]'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}
