@@ -152,8 +152,8 @@ export default function ManageShippingAddress({
             />
           ) : (
             <div className='flex w-full justify-center '>
-              <div className='flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center'>
-                <div className='form-keys flex h-full  flex-col  py-9  text-start  leading-loose'>
+              <div className='flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center portrait:w-[25%]'>
+                <div className='form-keys flex h-full  flex-col  py-9  text-start  font-grotesque leading-loose  portrait:text-[1.1rem]'>
                   <p>full name</p>
                   <p>last name</p>
                   <p>email</p>
@@ -165,8 +165,8 @@ export default function ManageShippingAddress({
                 </div>
               </div>
 
-              <div className='flex w-5/6 flex-col items-start'>
-                <div className='form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose'>
+              <div className='flex w-5/6 flex-col items-start  portrait:w-4/5'>
+                <div className='form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose portrait:px-8 portrait:text-[1rem]'>
                   <p>{addresses[selectorIdx!]?.shipToAddress.firstName}</p>
                   <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
                   <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
@@ -187,7 +187,7 @@ export default function ManageShippingAddress({
         </section>
 
         {!isFormEdit && (
-          <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-italiana text-sm text-white '>
+          <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-poiret text-sm text-white '>
             <div className='absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-6'>
               <button
                 onClick={() => {
