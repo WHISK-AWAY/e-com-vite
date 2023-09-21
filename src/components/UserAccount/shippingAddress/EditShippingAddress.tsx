@@ -364,7 +364,7 @@ export default function EditShippingAddress({
 
               <div className='default-field flex w-full flex-col pb-3 text-end text-sm'>
                 <div className='flex self-end'>
-                  <label htmlFor='isDefault' className='pr-2'>
+                  <label htmlFor='isDefault' className='pr-2 portrait:text-[1rem]'>
                     make this address the default:{' '}
                   </label>
                   <input
@@ -384,14 +384,14 @@ export default function EditShippingAddress({
           <div className='btn-section flex justify-center gap-6 pb-5'>
             <button
               type='submit'
-              className='rounded-sm bg-charcoal px-6 py-1 font-italiana text-white lg:px-7'
+              className='rounded-sm bg-charcoal px-6 py-1 font-poiret portrait:py-2 text-white lg:px-7'
             >
               SAVE CHANGES
             </button>
             {addresses.length > 0 && (
               <button
                 type='button'
-                className='rounded-sm bg-charcoal px-9  py-1 font-italiana text-white lg:px-11'
+                className='rounded-sm bg-charcoal px-9  py-1 font-poiret text-white lg:px-11'
                 onClick={() => {
                   setIsFormEdit(false);
                   setAddressFormMode('edit');
