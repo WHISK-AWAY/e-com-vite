@@ -49,12 +49,12 @@ export default function UserProfile() {
 
   if (!user) return <h1>Loading...</h1>;
   return (
-    <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-marcellus'>
+    <section className='user-profile-container relative mx-auto flex min-h-[calc(100dvh_-_64px)] w-full flex-col items-center gap-2 font-grotesque'>
       <div className='user-settings-wrapper flex h-[calc(100dvh_-_64px)] min-h-[390px] w-full items-start justify-center pb-12 text-base lg:min-h-[450px] lg:pb-16 lg:text-lg xl:min-h-[500px] xl:pb-20 xl:text-xl 2xl:min-h-[600px] 2xl:pb-24 2xl:text-[1.75rem]'>
         <div
           className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[8%] `}
         >
-          <h1 className='font-italiana text-[2.5rem] uppercase lg:text-[3.25rem] xl:text-[4rem] 2xl:text-[4.75rem]'>
+          <h1 className='font-poiret text-[2.5rem] uppercase lg:text-[3.25rem] xl:text-[4rem] 2xl:text-[4.75rem]'>
             <span className='absolute bottom-0 right-1 translate-y-[150%] tracking-normal text-white xl:-bottom-3'>
               hello
             </span>
@@ -74,12 +74,12 @@ export default function UserProfile() {
             <source src={flowerBg} type='video/mp4' />
             <source src={convertMediaUrl(flowerBg)} type='video/webm' />
           </video>
-          <div className='menu-items-container flex h-full w-full mt-[5%] flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[16%] pb-[5%] font-hubbali text-[1.7vw]'>
+          <div className='menu-items-container flex h-full w-full mt-[15%] flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[16%] pb-[5%] font-grotesque text-[1rem] 2xl:text-[1.2rem] 5xl:text-[1.4rem]'>
             <div>
-              <div className='flex flex-col items-center'>
+              <div className='flex flex-col items-center '>
                 <button
                   className={
-                    '' + view === 'account' ? ' uppercase' : ' lowercase'
+                    '' + view === 'account' ? ' uppercase ' : ' lowercase'
                   }
                   onClick={() => setView('account')}
                 >
@@ -120,15 +120,15 @@ export default function UserProfile() {
             <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
         </div>
-        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7'>
-          <div className='relative flex h-fit max-h-[calc(100vh_-_112px)] w-fit flex-col items-center justify-start pt-[4%] lg:max-h-[calc(100vh_-_130px)] xl:max-h-[calc(100vh_-_140px)] 2xl:max-h-[calc(100vh_-_160px)]'>
-            <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-italiana text-xl uppercase lg:text-2xl xl:text-3xl 2xl:text-[2rem]'>
+        <div className='user-settings-main shrink-1 flex h-full grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44'>
+          <div className='relative flex h-fit  w-fit flex-col items-center justify-start pt-[4%]'>
+            <h2 className='w-3/4 border border-b-0 border-charcoal py-[1%] text-center font-poiret text-sm uppercase lg:text-base 2xl:text-lg'>
               {viewMap[view]}
             </h2>
             <div
               className={`user-profile-edit-section shrink-1 no-scrollbar h-fit w-fit grow-0 overflow-auto border border-charcoal`}
             >
-              <div className='h-fit w-full min-w-[40vw]'>
+              <div className='h-fit w-[40svw] xl:w-[32svw] 4xl:w-[30svw] 5xl:w-[20svw] 6xl:w-[15svw]'>
                 {view === 'account' && <EditAccountInfo user={user.user} />}
                 {view === 'password' && <EditPassword user={user.user} />}
                 {view === 'shipping' && <UserAddressBook user={user.user} />}
