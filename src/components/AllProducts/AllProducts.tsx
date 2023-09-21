@@ -6,10 +6,6 @@ import {
   fetchAllProducts,
   selectAllProducts,
 } from '../../redux/slices/allProductSlice';
-import {
-  selectSingleUserFavorites,
-} from '../../redux/slices/userSlice';
-import { selectAuthUserId } from '../../redux/slices/authSlice';
 import { fetchAllTags, selectTagState } from '../../redux/slices/tagSlice';
 import filterIcon from '../../../src/assets/icons/filter.svg';
 import arrowRight from '../../../src/assets/icons/arrowRight.svg';
@@ -93,8 +89,6 @@ export default function AllProducts({
   let { state } = useLocation();
   const isPresent = useIsPresent();
 
-  const userFavorites = useAppSelector(selectSingleUserFavorites);
-
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
   }, [state?.filterKey]);
@@ -102,8 +96,6 @@ export default function AllProducts({
   let curPage = Number(params.get('page'));
 
   const allProducts = useAppSelector(selectAllProducts);
-
-  const userId = useAppSelector(selectAuthUserId);
 
   const tagState = useAppSelector(selectTagState);
 
@@ -288,11 +280,14 @@ export default function AllProducts({
           </section>
         )}
 
+        {/* // ! product cards */}
         <div id="product-card-container" className='grid grid-cols-4 border-primary-gray portrait:grid-cols-2 landscape:border-t'>
           {allProducts?.products?.map(product => (
             <ProductCard product={product} key={product._id as Key} />
           ))}
         </div>
+
+        {/* // ! pagination */}
         {maxPages > 1 && (
           <div className='flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t'>
             <div className='flex items-center font-grotesque text-xl '>
