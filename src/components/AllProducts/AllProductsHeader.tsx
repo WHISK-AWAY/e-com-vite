@@ -133,20 +133,20 @@ export default function AllProductsHeader({
             </picture>
             {randomProdGif ? (
               <video
-                src={randomProdGif}
-                muted={true}
-                autoPlay={true}
-                loop={true}
+                // src={randomProdGif}
+                loop
+                autoPlay
+                muted
+                playsInline
+                controls={false}
                 className='invisible absolute right-0 top-0 aspect-square w-full object-cover group-hover:visible'
-              />
+              >
+                <source src={randomProdGif} type={randomProdGif.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                <source src={convertMediaUrl(randomProdGif)} type='video/webm' />
+              </video>
             ) : (
               <picture>
-                {backupImage && (
-                  <source
-                    srcSet={convertMediaUrl(backupImage!)}
-                    type='image/webp'
-                  />
-                )}
+                <source srcSet={convertMediaUrl(backupImage)} type="image/webp" />
                 <img
                   src={backupImage}
                   alt={`alternate product image: ${randomProd.productName}`}

@@ -113,13 +113,16 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
   return (
     <>
       <video
-        data-src={signin}
-        data-sizes='auto'
-        className='lazyload h-full object-cover'
-        loop={true}
-        autoPlay={true}
-        muted={true}
-      />
+        className='h-full object-cover'
+        loop
+        autoPlay
+        muted
+        playsInline
+        controls={false}
+      >
+        <source src="/assets/bg-vids/sign-in.webm" type="video/webm" />
+        <source src="/assets/bg-vids/sign-in.mp4" type="video/mp4" />
+      </video>
 
       <div className='absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret portrait:translate-y-[40%]'>
         <h1 className='pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]'>

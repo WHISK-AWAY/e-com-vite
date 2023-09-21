@@ -348,11 +348,10 @@ export default function AllProducts({
                 .find((image) => !image.imageDesc.includes('video'))?.imageURL;
             return (
               <li
-                className={` ${
-                  allProducts.products.length % 2 === 0
-                    ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
-                    : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
-                } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
+                className={` ${allProducts.products.length % 2 === 0
+                  ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
+                  : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
+                  } relative flex list-none flex-col justify-between   border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
                 key={product._id.toString()}
               >
                 <div
@@ -376,12 +375,17 @@ export default function AllProducts({
                     </picture>
                     {hoverURL ? (
                       <video
-                        src={hoverURL}
-                        muted={true}
-                        autoPlay={true}
-                        loop={true}
+                        // src={hoverURL}
+                        loop
+                        autoPlay
+                        muted
+                        playsInline
+                        controls={false}
                         className='invisible absolute right-0 top-0 aspect-[3/4] w-full object-cover  group-hover:visible'
-                      />
+                      >
+                        <source src={hoverURL} type={hoverURL.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                        <source src={convertMediaUrl(hoverURL)} type='video/webm' />
+                      </video>
                     ) : (
                       <picture>
                         <source
@@ -403,7 +407,7 @@ export default function AllProducts({
                     !userFavorites
                       ?.map((fav) => fav._id)
                       .includes(product._id.toString())) ||
-                  !userId ? (
+                    !userId ? (
                     <div
                       className='absolute right-[4%] top-[3%] cursor-pointer'
                       onClick={() => {

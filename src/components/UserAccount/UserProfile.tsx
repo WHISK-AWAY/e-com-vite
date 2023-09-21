@@ -6,13 +6,16 @@ import {
   selectSingleUser,
 } from '../../redux/slices/userSlice';
 import { useParams } from 'react-router';
-import { getUserId, requestLogout } from '../../redux/slices/authSlice';
+import { requestLogout } from '../../redux/slices/authSlice';
 import EditAccountInfo from './EditAccountInfo';
 import OrderHistory from './OrderHistory';
 import { useNavigate } from 'react-router';
 import EditPassword from './EditPassword';
 import UserAddressBook from './UserAddressBook';
-import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
+import convertMediaUrl from '../../utilities/convertMediaUrl';
+// import flowerBg from '../../assets/bg-vids/user_acc_flowers.mp4';
+
+const flowerBg = '/assets/bg-vids/user_acc_flowers.mp4';
 
 type views = 'account' | 'shipping' | 'order' | 'password';
 
@@ -60,13 +63,17 @@ export default function UserProfile() {
             </span>
           </h1>
           <video
-            className='lazyload absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
-            data-src={flowerBg}
-            data-sizes='auto'
-            autoPlay={true}
-            loop={true}
-            muted={true}
-          />
+            className='absolute right-0 -z-10 h-screen min-h-[515px] w-full -translate-y-[64px] object-cover xl:min-h-[565px] 2xl:min-h-[664px]'
+            src={flowerBg}
+            loop
+            autoPlay
+            muted
+            playsInline
+            controls={false}
+          >
+            <source src={flowerBg} type='video/mp4' />
+            <source src={convertMediaUrl(flowerBg)} type='video/webm' />
+          </video>
           <div className='menu-items-container flex h-full w-full mt-[5%] flex-col items-center justify-between gap-[1%] border border-white bg-[rgba(255,238,238,.33)] pt-[16%] pb-[5%] font-hubbali text-[1.7vw]'>
             <div>
               <div className='flex flex-col items-center'>

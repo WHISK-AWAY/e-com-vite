@@ -209,19 +209,21 @@ export default function ImageCarousel({
             >
               {['gif', 'mp4'].includes(extension!) ? (
                 <video
-                  muted={true}
-                  autoPlay={true}
-                  loop={true}
-                  // data-src={image.imageURL}
-                  src={image.imageURL}
-                  // data-sizes='auto'
-                  className='lazyload aspect-[3/4] w-full  object-cover'
-                />
+                  loop
+                  autoPlay
+                  muted
+                  playsInline
+                  controls={false}
+                  className='aspect-[3/4] w-full  object-cover'
+                >
+                  <source src={image.imageURL} type={extension === 'mp4' ? 'video/mp4' : 'image/gif'} />
+                  <source src={convertMediaUrl(image.imageURL)} type="video/webm" />
+                </video>
               ) : (
                 <picture>
                   <source type="image/webp" srcSet={convertMediaUrl(image.imageURL)}></source>
                   <img
-                    className='lazyload aspect-[3/4] w-full  object-cover'
+                    className='aspect-[3/4] w-full  object-cover'
                     src={image.imageURL}
                     // data-src={image.imageURL}
                     // data-sizes='auto'
