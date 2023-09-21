@@ -15,7 +15,7 @@ export function toastUserLoggedIn(username: string) {
 
   toast.custom((t) => (
     <ToastBody
-      message={`Log-in successful. Welcome back, ${username}!`}
+      message={`Log-in successful. Welcome, ${username}!`}
       toastInstance={t}
     />
   ));
