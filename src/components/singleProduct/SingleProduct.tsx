@@ -587,7 +587,7 @@ export default function SingleProduct() {
             YOU MAY ALSO LIKE
           </h2>
           {singleProduct.relatedProducts && (
-            <ProductCarousel products={singleProduct.relatedProducts} num={4} />
+            <ProductCarousel products={singleProduct.relatedProducts} />
           )}
         </section>
 

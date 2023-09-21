@@ -1,44 +1,41 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { TProduct } from '../../redux/slices/allProductSlice';
+import { type TProduct } from '../../redux/slices/allProductSlice';
 import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
-import { useNavigate } from 'react-router';
-import 'lazysizes';
 import { gsap } from 'gsap';
-import convertMediaUrl from '../../utilities/convertMediaUrl';
+import ProdCarouselCard from './ProdCarouselCard';
 
-type RenderProduct = Omit<TProduct, 'relatedProducts'>;
+export type RenderProduct = Omit<TProduct, 'relatedProducts'>;
+
+type ProductCarouselProps = {
+  products: Omit<TProduct, 'relatedProducts'>[];
+  num?: number;
+}
 
 export default function ProductCarousel({
   products,
-  num,
-}: {
-  products: Omit<TProduct, 'relatedProducts'>[];
-  num: number;
-}) {
-  const navigate = useNavigate();
+  num = 4,
+}: ProductCarouselProps) {
   const [prodCopy, setProdCopy] = useState<RenderProduct[]>([]);
   const [renderProduct, setRenderProduct] = useState<RenderProduct[]>([]);
   const incrementAnimation = useRef<gsap.core.Timeline | null>(null);
   const decrementAnimation = useRef<gsap.core.Timeline | null>(null);
-  // const rightArrowRef = useRef(null);
-  // const leftArrowRef = useRef(null);
 
   useEffect(() => {
     setProdCopy([...products]);
   }, [products]);
 
   useEffect(() => {
-    // setRenderProduct(prodCopy.slice(0, num));
     setupRenderProductsArray();
-  }, [prodCopy, num]);
+  }, [prodCopy[0]?._id, num]);
 
   useLayoutEffect(() => {
     if (!renderProduct?.length) return;
 
     const ctx = gsap.context(() => {
-      const incTimeline = gsap.timeline().pause();
+      const incTimeline = gsap.timeline({ paused: true });
       const decTimeline = gsap.timeline().pause();
+
       const products = Array.from(document.querySelectorAll('.ymal-card'));
 
       if (!products?.length)
@@ -61,18 +58,16 @@ export default function ProductCarousel({
           display: 'none',
         })
         .set(products.at(-1)!, {
-          // un-hide (while making invisible) new last product
+          // un-hide new last product
           display: 'inherit',
-          opacity: 0,
         })
         .set(products, {
           // position all products for arrival of "new" rendered product
           x: 0,
         })
-        .to(products.at(-1)!, {
-          // fade in last product
-          opacity: 1,
-        });
+        .from(products.at(-1)!, {
+          opacity: 0,
+        })
 
       decTimeline
         .addLabel('begin')
@@ -95,13 +90,12 @@ export default function ProductCarousel({
           x: 0,
         })
         .set(products[0], {
-          // un-hide (while making invisible) new first product
+          // un-hide new first product
           display: 'inherit',
-          opacity: 0,
         })
-        .to(products[0], {
+        .from(products[0], {
           // fade in new first product
-          opacity: 1,
+          opacity: 0,
         });
 
       incrementAnimation.current = incTimeline;
@@ -113,9 +107,9 @@ export default function ProductCarousel({
     };
   });
 
-  const decrementor = () => {
+  const decrementCarousel = () => {
     decrementAnimation.current
-      ?.duration(0.75)
+      ?.duration(0.5)
       .resume('begin')
       .then(() => {
         setProdCopy((prev) => [
@@ -124,9 +118,9 @@ export default function ProductCarousel({
         ]);
       });
   };
-  const incrementor = () => {
+  const incrementCarousel = () => {
     incrementAnimation.current
-      ?.duration(0.75)
+      ?.duration(0.5)
       .resume('begin')
       .then(() => {
         setProdCopy((prev) => [...prev.slice(1), prev[0]]);
@@ -142,6 +136,7 @@ export default function ProductCarousel({
     const tempProductsArray = [prodCopy.at(-1)!];
 
     let i = 0;
+
     while (tempProductsArray.length < num + 2) {
       // reset index if we reach the end of the products array
       if (i === prodCopy.length) i = 0;
@@ -157,7 +152,7 @@ export default function ProductCarousel({
   return (
     <div className='relative flex w-3/4 items-start justify-center gap-10 2xl:w-4/5'>
       <button
-        onClick={decrementor}
+        onClick={decrementCarousel}
         className='absolute -left-24 top-[75px] shrink-0 grow-0 self-center xl:-left-32 xl:top-[125px] 2xl:-left-40'
       >
         <img
@@ -166,101 +161,17 @@ export default function ProductCarousel({
           className='active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5'
         />
       </button>
+      {/* // ! caution: keep this gap setting aligned with carousel card animation */}
       <div className='card-wrapper flex items-start justify-center gap-10'>
-        {renderProduct.map((prod, idx) => {
-          const imageURL = prod.images.find(
-            (image) => image.imageDesc === 'product-front'
-          )?.imageURL || prod.images[0].imageURL
-
-          const gifURL = prod.images.find((image) =>
-            ['gif-product', 'video-product'].includes(image.imageDesc)
-          )?.imageURL;
-
-          let hoverFallback =
-            prod.images
-              .slice(1)
-              .find((image) => image.imageDesc === 'product-texture')
-              ?.imageURL ||
-            prod.images
-              .slice(1)
-              .find((image) => image.imageDesc === 'product-alt')?.imageURL ||
-            prod.images
-              .slice(1)
-              .find((image) => !image.imageDesc.includes('video'))?.imageURL;
-          return (
-            <div
-              key={prod._id.toString() + '_' + idx}
-              onClick={() => {
-                // window.scrollTo({ top: 0, behavior: 'smooth' });
-                navigate('/product/' + prod._id);
-              }}
-              className={`ymal-card group relative flex w-[125px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-2 first:hidden last:hidden xl:w-[200px]  2xl:w-[225px]`}
-            >
-              <picture>
-                <source srcSet={convertMediaUrl(imageURL)} type='image/webp' />
-                <img
-                  // active:translate-y-[600%] 
-                  className='aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105  group-hover:invisible group-hover:scale-105 group-active:duration-[10000] group-active:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                  src={
-                    prod.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || prod.images[0].imageURL
-                  }
-                  height='1600'
-                  width='1600'
-                  alt={`product image: ${prod.productName}`}
-                />
-              </picture>
-              {gifURL ? (
-                gifURL.split('.').at(-1) === 'mp4' ? (
-                  <video
-                    className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                    loop
-                    autoPlay
-                    muted
-                    playsInline
-                    controls={false}
-                  >
-                    <source src={gifURL} type='video/mp4' />
-                    <source src={convertMediaUrl(gifURL)} type='video/webm' />
-                  </video>
-                ) : (
-                  <picture>
-                    <source srcSet={convertMediaUrl(gifURL)} type="image/webm" />
-                    <img
-                      className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                      src={gifURL}
-                      height='1600'
-                      width='1600'
-                    />
-                  </picture>
-                )) : (
-                <picture>
-                  <source
-                    srcSet={convertMediaUrl(hoverFallback!)}
-                    type='image/webp'
-                  />
-                  <img
-                    className='invisible absolute top-0 aspect-[3/4] w-[100px] transform object-cover transition duration-300 hover:scale-105 group-hover:visible  group-hover:scale-105 group-hover:ease-in-out xl:w-[175px] 2xl:w-[200px]'
-                    src={hoverFallback}
-                    height='1600'
-                    width='1600'
-                  />
-                </picture>
-              )}
-              <h4 className='w-full overflow-hidden text-ellipsis whitespace-nowrap text-center font-grotesque text-xs uppercase lg:text-sm xl:text-lg '>
-                {prod.productName}
-              </h4>
-            </div>
-          );
-        })}
+        {renderProduct.length > 0 && renderProduct.map((prod) => (
+          <ProdCarouselCard prod={prod} key={prod._id!.toString()} />
+        ))}
       </div>
       <button
-        onClick={incrementor}
+        onClick={incrementCarousel}
         className='absolute -right-24 top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40 '
       >
         <img
-          // ref={rightArrowRef}
           src={arrowRight}
           alt='right-arrow-icon'
           className='h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in-out active:scale-50 xl:h-5'
