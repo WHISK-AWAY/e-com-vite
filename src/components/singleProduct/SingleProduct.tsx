@@ -113,27 +113,28 @@ export default function SingleProduct() {
     const ctx = gsap.context((_) => {
       const scroller = ingredientBgImgWrapper.current;
 
-      gsap.to(scroller, {
-        scrollTrigger: {
-          trigger: scroller,
-          pin: true,
-          pinSpacing: true,
-          endTrigger: ingredientSection.current,
-          end: 'bottom bottom',
-        },
-      });
+      if (scroller) {
+        gsap.to(scroller, {
+          scrollTrigger: {
+            trigger: scroller,
+            pin: true,
+            pinSpacing: true,
+            endTrigger: ingredientSection.current,
+            end: 'bottom bottom',
+          },
+        });
 
-      gsap.to(prodImgWrapper.current, {
-        scrollTrigger: {
-          trigger: prodImgWrapper.current,
-          pin: true,
-          endTrigger: ingredientSection.current,
-          start: 'top 20%',
-          end: 'top bottom'
-        }
-      })
+        gsap.to(prodImgWrapper.current, {
+          scrollTrigger: {
+            trigger: prodImgWrapper.current,
+            pin: true,
+            endTrigger: ingredientSection.current,
+            start: 'top 20%',
+            end: 'top bottom'
+          }
+        })
+      }
     });
-
     return () => ctx.revert();
   });
 
