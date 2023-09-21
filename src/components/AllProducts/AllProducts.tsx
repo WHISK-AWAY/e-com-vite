@@ -70,6 +70,7 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
+  mobileMenu: boolean
 
   // filterKey?: string;
 };
@@ -77,6 +78,7 @@ export type AllProductsProps = {
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
+  mobileMenu
 }: // filterKey = 'all',
   AllProductsProps) {
   const dispatch = useAppDispatch();
@@ -252,6 +254,8 @@ export default function AllProducts({
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
+  
+
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
@@ -262,12 +266,13 @@ export default function AllProducts({
         data-lenis-prevent
         className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:w-[100dvw] portrait:px-0'
       >
-        <section className='header-section relative flex w-full justify-center portrait:flex-col '>
+        <section className={`${mobileMenu ? 'flex-col' : 'flex'} header-section relative  w-full justify-center `}>
           {bestsellers ? (
             <BestsellersHeader />
           ) : (
             <AllProductsHeader
               // allProdsBg={allProdsBg}
+              mobileMenu={mobileMenu}
               filter={filter}
               randomProd={randomProd}
             />
