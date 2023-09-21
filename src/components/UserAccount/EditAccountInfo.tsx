@@ -101,27 +101,27 @@ export default function EditAccountInfo({ user }: AccountProps) {
   if (!user) return <h1>Error accessing user info.</h1>;
 
   return (
-    <section className='edit-account-container h-fit  w-fit text-[1rem]  xl:w-[30svw]  5xl:w-[20svw] 6xl:w-[15svw] portrait:w-full'>
+    <section className='edit-account-container h-fit  w-fit text-[1rem]  xl:w-[30svw]  5xl:w-[20svw] 6xl:w-[15svw] portrait:w-full portrait:md:max-w-[60svw]'>
       <form
         className='flex h-full w-full flex-col justify-between'
         onSubmit={handleSubmit(formSubmit)}
       >
         <div className='input-wrapper flex h-fit items-center'>
-          <div className='label-column shrink-1 flex h-44 grow-0 basis-[25%] flex-col items-start justify-around border-r bg-white border-charcoal px-5   py-5  lg:basis-[20%] '>
+          <div className='label-column shrink-1 flex h-44 grow-0 basis-[25%] flex-col items-start justify-around border-r border-charcoal bg-white px-5   py-5  lg:basis-[20%] '>
             <label
-              className='w-fit whitespace-nowrap  text-sm 2xl:text-base'
+              className='w-fit whitespace-nowrap  text-sm 2xl:text-base portrait:md:text-base'
               htmlFor='first-name'
             >
               first name
             </label>
             <label
-              className='w-fit whitespace-nowrap  text-sm 2xl:text-base'
+              className='w-fit whitespace-nowrap  text-sm 2xl:text-base portrait:md:text-base'
               htmlFor='last-name'
             >
               last name
             </label>
             <label
-              className='w-fit whitespace-nowrap text-sm 2xl:text-base'
+              className='w-fit whitespace-nowrap text-sm 2xl:text-base portrait:md:text-base'
               htmlFor='email'
             >
               email
@@ -154,7 +154,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
           </div>
         </div>
 
-        <div className='button-wrapper absolute -bottom-[20%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%] font-poiret text-[.5rem] lg:text-[.8rem] 2xl:text-[1rem]'>
+        <div className='button-wrapper absolute -bottom-[20%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%] font-poiret text-[.5rem] lg:text-[.8rem] 2xl:text-[1rem] '>
           <button
             className='self-end rounded-sm border border-charcoal bg-white/30 px-4   uppercase text-charcoal disabled:border-charcoal/30 disabled:text-charcoal/30'
             onClick={cancelEdits}
