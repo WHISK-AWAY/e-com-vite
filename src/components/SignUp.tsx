@@ -3,29 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 import {
-  selectAuth,
   requestSignUp,
   requestLogin,
 } from '../redux/slices/authSlice';
 import { emailExists } from '../utilities/helpers';
-import { TMode } from './SignWrapper';
+import type { TMode } from './SignWrapper';
 
 type SignUpProps = {
-  mode: TMode;
   setMode: React.Dispatch<React.SetStateAction<TMode>>;
-  setIsSignFormHidden: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SignUp({
-  setIsSignFormHidden,
-  mode,
   setMode,
 }: SignUpProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const selectAuthUser = useAppSelector(selectAuth);
 
   const zodUser: ZodType<FormData> = z
     .object({
@@ -75,7 +69,6 @@ export default function SignUp({
     handleSubmit,
     reset,
     setError,
-    clearErrors,
     getValues,
     formState: { errors },
   } = useForm<FormData>({
@@ -108,14 +101,6 @@ export default function SignUp({
   };
 
   useEffect(() => {
-    // console.log('err.email', errors.email);
-    // if (selectAuthUser.error.status === 409) {
-    //   reset({
-    //     email: '',
-    //   });
-    //   setError('email', { type: 'custom', message: 'Email already exists' });
-    // }
-
     if (errors.confirmPassword) {
       reset(
         {

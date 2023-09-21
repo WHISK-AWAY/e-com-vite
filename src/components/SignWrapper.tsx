@@ -42,12 +42,12 @@ export default function SignWrapper({
           },
           '<'
         )
-        gsap.from(xIconRef.current, {
-          opacity: 0,
-          delay:.9,
-          duration: 1.3,
-          ease: 'slow.inOut',
-        });
+      gsap.from(xIconRef.current, {
+        opacity: 0,
+        delay: .9,
+        duration: 1.3,
+        ease: 'slow.inOut',
+      });
 
       setReverseSlide(tl);
     });
@@ -83,32 +83,28 @@ export default function SignWrapper({
     >
       <div
         ref={wrapperRef}
-        className={` ${
-          mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[40vw]'
-        } relative flex h-full  flex-col self-end bg-white 2xl:w-[30vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw] `}
+        className={` ${mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[40vw]'
+          } relative flex h-full  flex-col self-end bg-white 2xl:w-[30vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw] `}
       >
         <div
           ref={xIconRef}
           onClick={closeSlider}
-          className={` ${
-            mobileMenu ? ' w-9 ' : ' w-3'
-          } absolute right-5 top-5 z-50 h-10  cursor-pointer`}
+          className={` ${mobileMenu ? ' w-9 ' : ' w-3'
+            } absolute right-5 top-5 z-50 h-10  cursor-pointer`}
         >
           {mode === 'sign-in' ? (
             <img
               src={x}
               alt='x-icon'
-              className={`${
-                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
-              }`}
+              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+                }`}
             />
           ) : (
             <img
               src={whiteX}
               alt='x-icon'
-              className={`${
-                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
-              }`}
+              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+                }`}
             />
           )}
         </div>
@@ -116,9 +112,7 @@ export default function SignWrapper({
           <SignIn setMode={setMode} closeSlider={closeSlider} />
         ) : (
           <SignUp
-            mode={mode}
             setMode={setMode}
-            setIsSignFormHidden={setIsSignFormHidden}
           />
         )}
       </div>
