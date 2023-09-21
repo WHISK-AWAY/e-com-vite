@@ -704,7 +704,7 @@ export default function Homepage() {
           <video
             ref={leavesRef}
             src={rainLeaves}
-            playsInline={true}
+            playsInline
             // data-sizes='auto'
             loop
             controls={false}
