@@ -379,14 +379,14 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                     ref={prodInfoWrapper}
                     className={` ${
                         mobileMenu ? 'flex-col' : 'flex'
-                    } single-product-top-screen mb-16 w-full justify-center  border border-black md:w-full lg:mb-20 3xl:mb-44 4xl:mb-20 4xl:pb-36  short:pb-56 portrait:md:mb-0 portrait:md:pb-24 portrait:lg:pb-56 `}
+                    } single-product-top-screen mb-16 w-full justify-center   md:w-full lg:mb-20 3xl:mb-44 4xl:mb-20 4xl:pb-36  short:pb-56 portrait:md:mb-0 portrait:md:pb-24 portrait:lg:pb-56 `}
                 >
                     {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
                     <section
                         ref={prodImgWrapper}
                         className={` ${
                             mobileMenu ? 'pl-0' : 'xl:pl-7 short:pl-24'
-                        } image-section relative flex h-full basis-2/5 flex-col items-center bg-sky-200 align-top `}
+                        } image-section relative flex h-full basis-2/5 flex-col items-center  align-top `}
                     >
                         <div className="relative z-10 flex flex-col items-center justify-between gap-3 align-top ">
                             <div
@@ -493,7 +493,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                     <section
                         className={`${
                             mobileMenu ? 'px-4' : 'px-8'
-                        } product-details flex basis-3/5 flex-col items-center bg-pink-200 `}
+                        } product-details flex basis-3/5 flex-col items-center `}
                     >
                         <div className="product-desc mb-5 flex flex-col items-center text-justify lg:mb-9">
                             <h1 className="product-name pb-9 text-center font-grotesque text-[1.4rem] font-light uppercase xl:text-[1.5rem] portrait:pt-5 portrait:lg:text-[2rem]">
@@ -628,7 +628,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                     ref={ingredientSection}
                     className={` ${
                         mobileMenu ? 'gap-2' : 'gap-5'
-                    } ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center  bg-sky-200 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32 portrait:md:mb-0 portrait:md:pb-56`}
+                    } ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center   lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32 portrait:md:mb-0 portrait:md:pb-56`}
                 >
                     <div
                         className={`${
