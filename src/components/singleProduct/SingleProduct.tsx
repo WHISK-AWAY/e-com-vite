@@ -41,7 +41,22 @@ import {
 import MobileNav from '../navbar/MobileNav';
 import MobileAddToCartHelper from './MobileAddToCartHelper';
 
-export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
+export type SingleProductProps = {
+    mobileMenu: boolean;
+    isCartFavWrapperHidden: boolean;
+    isSearchHidden: boolean;
+    isMenuHidden: boolean;
+    isSignFormHidden: boolean
+};
+
+
+export default function SingleProduct({
+    mobileMenu,
+    isCartFavWrapperHidden,
+    isSearchHidden,
+    isMenuHidden,
+    isSignFormHidden,
+}: SingleProductProps) {
     const reviewSection = useRef<HTMLDivElement>(null);
     const youMayAlsoLikeRef = useRef<HTMLDivElement>(null);
     const { productId } = useParams();
@@ -62,6 +77,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
     const [selectedImage, setSelectedImage] = useState('');
     const [bgImg, setBgImg] = useState('');
     const [bgVid, setBgVid] = useState('');
+    const [mobileAddToCartHidden, setMobileAddToCartHidden] = useState(false);
 
     const ingredientBgImgWrapper = useRef(null);
     const ingredientSection = useRef(null);
@@ -108,11 +124,10 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
         };
     }, [selectedImage, mainImage]);
 
-
     const pinSpacerToggler =
         window.matchMedia('(orientation: portrait)').matches || mobileMenu;
 
-        console.log(pinSpacerToggler)
+    console.log(pinSpacerToggler);
     useLayoutEffect(() => {
         // Animation: pin ingredients image while ingredients list scrolls
         if (
@@ -324,6 +339,14 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
     };
 
     /**
+     * * MOBILE ADD TO CART MENU HELPED
+     */
+
+    useEffect(() => {
+        if (!isCartFavWrapperHidden || isSearchHidden || !isMenuHidden || !isSignFormHidden)
+            setMobileAddToCartHidden(true);
+    }, []);
+    /**
      * * MAIN RENDER
      */
     return (
@@ -356,17 +379,20 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                 }}
             />
 
-            {mobileMenu && (
-                <MobileAddToCartHelper
-                    qtyIncrementor={qtyIncrementor}
-                    qtyDecrementor={qtyDecrementor}
-                    count={count}
-                    productName={singleProduct.productName}
-                    price={singleProduct.price}
-                    handleAddToCart={handleAddToCart}
-                    maxQty={maxQty}
-                />
-            )}
+            {mobileMenu &&
+                isCartFavWrapperHidden &&
+                isSearchHidden &&
+                isMenuHidden && isSignFormHidden &&  (
+                    <MobileAddToCartHelper
+                        qtyIncrementor={qtyIncrementor}
+                        qtyDecrementor={qtyDecrementor}
+                        count={count}
+                        productName={singleProduct.productName}
+                        price={singleProduct.price}
+                        handleAddToCart={handleAddToCart}
+                        maxQty={maxQty}
+                    />
+                )}
             <main
                 className={` ${
                     mobileMenu
