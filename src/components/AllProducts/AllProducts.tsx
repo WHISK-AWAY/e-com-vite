@@ -64,7 +64,7 @@ export default function AllProducts({
   const [params, setParams] = useSearchParams();
   let curPage = Number(params.get('page'));
 
-  const [isSearchHidden, setIsSearchHidden] = useState(true);
+  const [filterMenuIsOpen, setFilterMenuIsOpen] = useState(false);
   const [randomProd, setRandomProd] = useState<TProduct>();
   const [pageNum, setPageNum] = useState<number | undefined>();
   const [bestsellers, setBestsellers] = useState(false);
@@ -128,8 +128,13 @@ export default function AllProducts({
         top: 0,
         behavior: 'smooth',
       });
+      setFilterMenuIsOpen(false)
     }
   }, [filter]);
+
+  useEffect(() => {
+    setRandomProd(randomProduct(allProducts));
+  }, [allProducts]);
 
   const pageIncrementor = () => {
     const nextPage = curPage + 1;
@@ -146,9 +151,6 @@ export default function AllProducts({
     topElement.current?.scrollIntoView({ behavior: 'smooth' })
   };
 
-  useEffect(() => {
-    setRandomProd(randomProduct(allProducts));
-  }, [allProducts]);
 
   type TPageFlipper = {
     firstPage: number;
@@ -233,28 +235,31 @@ export default function AllProducts({
         )}
 
         {!bestsellers && (
-          <section className='filter-section flex flex-col self-end pb-10 pt-20 portrait:w-fit portrait:pr-3 portrait:pt-7'>
-            <div className='flex gap-6  self-end '>
+          <section
+            className='filter-section flex flex-col self-end pb-10 pt-20 portrait:w-fit portrait:pr-3 portrait:pt-7'
+          >
+            <div className='flex gap-6 self-end cursor-pointer'
+              onClick={() => setFilterMenuIsOpen((prev) => !prev)}>
               <p className='flex  font-grotesque text-sm 2xl:text-base'>sort/categories</p>
               {/* TODO: intrinsic height/width */}
               <img
                 src={filterIcon}
-                alt={`${isSearchHidden ? 'show' : 'hide'} filter options`}
-                className='flex w-6 cursor-pointer flex-row'
-                onClick={() => setIsSearchHidden((prev) => !prev)}
+                alt={`${filterMenuIsOpen ? 'hide' : 'show'} filter options`}
+                className='flex w-6 flex-row'
+
               />
             </div>
-            {!isSearchHidden && (
-              <SortFilterAllProds
-                setSort={setSort}
-                // sort={sort}
-                filter={filter}
-                setFilter={setFilter}
-                allProducts={allProducts}
-                sortKey={sortKey}
-                sortDir={sortDir}
-              />
-            )}
+            <SortFilterAllProds
+              setSort={setSort}
+              // sort={sort}
+              filter={filter}
+              setFilter={setFilter}
+              allProducts={allProducts}
+              sortKey={sortKey}
+              sortDir={sortDir}
+              filterMenuIsOpen={filterMenuIsOpen}
+              setFilterMenuIsOpen={setFilterMenuIsOpen}
+            />
           </section>
         )}
 
