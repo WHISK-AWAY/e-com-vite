@@ -4,7 +4,7 @@ import BodyItem from './BodyItem';
 import x from '../../assets/icons/whiteX.svg';
 import chevronRight from '../../assets/icons/whiteArrow.svg';
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { gsap } from 'gsap';
 
@@ -13,8 +13,10 @@ export type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
   setIsMenuHidden,
+  mobileMenu,
 }: {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileMenu: boolean;
 }) {
   const navigate = useNavigate();
 
@@ -200,6 +202,20 @@ export default function DropdownMenu({
           >
             shop all
           </button>
+        </div>
+
+        <div
+          className={`${
+            mobileMenu ? '' : 'hidden'
+          } txt-stroke ml-[20%] flex flex-col text-transparent text-white`}
+        >
+          <NavLink
+            to="/shop-all/bestsellers"
+            state={{ sortKey: 'saleCount' }}
+          >
+            BESTSELLERS
+          </NavLink>
+          <NavLink to={'/new-in'}>NEW IN</NavLink>
         </div>
         <div className="menu-option relative pl-[15%]">
           <div className="chevron-container relative w-fit">

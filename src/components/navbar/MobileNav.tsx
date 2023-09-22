@@ -67,7 +67,7 @@ export default function MobileNav({
             className='h-9 pt-3'
             onClick={() => setIsMenuHidden(false)}
           />
-          {!isMenuHidden && <DropdownMenu setIsMenuHidden={setIsMenuHidden} />}
+          {!isMenuHidden && <DropdownMenu setIsMenuHidden={setIsMenuHidden} mobileMenu={mobileMenu}/>}
         </>
 
         {/**logo section */}
