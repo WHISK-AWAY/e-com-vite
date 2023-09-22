@@ -194,7 +194,7 @@ export default function ImageCarousel({
               <img
                   src={arrowLeft}
                   alt="previous image"
-                  className="h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5 portrait:h-5"
+                  className="h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5 portrait:h-5 portrait:lg:h-7"
               />
           </button>
           <div className="images-wrapper flex items-start justify-center gap-3">
@@ -263,7 +263,7 @@ export default function ImageCarousel({
               <img
                   src={arrowRight}
                   alt="next image"
-                  className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in active:scale-50 xl:h-5 portrait:h-5"
+                  className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in active:scale-50 xl:h-5 portrait:h-5 portrait:lg:h-7"
               />
           </button>
       </div>

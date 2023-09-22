@@ -70,6 +70,7 @@ export type AddReviewProps = {
   productId: string;
   product: TProduct;
   setShowReviewForm: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileMenu: boolean
 };
 
 /**
@@ -83,6 +84,7 @@ export default function AddReview({
   productId,
   product,
   setShowReviewForm,
+  mobileMenu
 }: AddReviewProps) {
   const reviewButtonRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -141,25 +143,31 @@ export default function AddReview({
       );
   };
 
-  const labelClasses = ' bg-white  text-xs lg:text-base xl:text-lg 2xl:text-xl';
+  const labelClasses = ' bg-white  text-xs lg:text-base xl:text-lg 2xl:text-xl portrait:text-[1.1rem]';
   const inputClasses =
-    'focus:border-charcoal focus:rounded-[3px] focus-no-ring input-ring-charcoal px-2 border text-xs lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-7 xl:h-9 2xl:h-14';
+      'focus:border-charcoal portrait:text-[1.1rem] focus:rounded-[3px] focus-no-ring input-ring-charcoal px-2 border text-xs lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-5 portrait:h-7 xl:h-9 2xl:h-14';
 
   // className={'' + inputClasses}
 
   return (
       <section
           ref={reviewButtonRef}
-          className="new-review-container mb-14 flex flex-col items-center justify-center gap-5 2xl:gap-7  h-[70svh]"
+          className={` ${
+              mobileMenu ? 'w-[95svw] mb-16' : 'w-[60svw] mb-36'
+          } new-review-container flex h-[70svh]  flex-col items-center justify-center  gap-4 2xl:gap-7`}
       >
           <button
-              className="self-end rounded-sm border border-charcoal px-6 py-1 font-poiret text-xs uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-2 2xl:text-xl"
+              className="self-end rounded-sm border border-charcoal px-5 py-1  font-poiret text-xs uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-2 2xl:text-xl"
               onClick={() => setShowReviewForm((prev) => !prev)}
           >
               cancel
           </button>
-          <div className="flex justify-center gap-5 xl:gap-8">
-              <div className="review-image-container shrink-0 grow-0 basis-2/5 items-center justify-center">
+          <div className="flex w-full justify-center gap-5  xl:gap-8">
+              <div
+                  className={` ${
+                      mobileMenu ? 'hidden' : ''
+                  } review-image-container shrink-0 grow-0 basis-1/5 items-center justify-center`}
+              >
                   <img
                       src={
                           product.images.find(
@@ -170,14 +178,18 @@ export default function AddReview({
                       alt="product image"
                   />
               </div>
-              <div className="review-form-container flex basis-3/5 flex-col items-center">
+              <div
+                  className={`${
+                      mobileMenu ? 'basis-full' : 'basis-4/5'
+                  } review-form-container flex flex-col items-center`}
+              >
                   <form
                       onSubmit={handleSubmit(addNewReview)}
                       className="flex w-full flex-col items-center gap-5 xl:gap-7"
                   >
                       <div className="input-form-wrapper flex w-full flex-col items-center">
                           <div className="review-form-header w-4/5 border border-b-0 border-charcoal">
-                              <h2 className="py-2 text-center font-poiret uppercase lg:text-xl xl:text-2xl">
+                              <h2 className="py-2 text-center font-poiret text-xs uppercase lg:text-xl xl:text-2xl portrait:text-[1.4rem]">
                                   write a review
                               </h2>
                           </div>
@@ -259,6 +271,7 @@ export default function AddReview({
                                                           state
                                                       ) => ({
                                                           ...baseStyles,
+                                                          // height: '20px',
                                                           borderColor:
                                                               errors.skinConcernOptions
                                                                   ? 'rgb(248,113,113)'
@@ -269,7 +282,7 @@ export default function AddReview({
                                                           },
                                                           borderRadius:
                                                               state.isFocused
-                                                                  ? '3px'
+                                                                  ? '2px'
                                                                   : 'none',
                                                           backgroundColor:
                                                               errors.skinConcernOptions
@@ -309,7 +322,11 @@ export default function AddReview({
                                               />
                                           )}
                                       ></Controller>
-                                      {errors.skinConcernOptions?.message || ''}
+
+                                      <p className="text-xs">
+                                          {errors.skinConcernOptions?.message ||
+                                              ''}
+                                      </p>
                                   </div>
                                   <label
                                       htmlFor="title"
@@ -343,7 +360,7 @@ export default function AddReview({
                                           errors.content?.message || ''
                                       }
                                       {...register('content')}
-                                      className={`focus-no-ring input-ring-charcoal row-span-3 h-36 border border-charcoal px-2 focus:rounded-[3px] focus:border-charcoal text-xs lg:text-base xl:text-lg 2xl:text-xl ${
+                                      className={`focus-no-ring input-ring-charcoal row-span-3 h-28 resize-none border border-charcoal px-2 text-xs focus:rounded-[3px] focus:border-charcoal lg:text-base xl:text-lg 2xl:text-xl ${
                                           errors.content
                                               ? ' border-red-700 bg-red-100 '
                                               : ''
@@ -367,7 +384,7 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="quality-rating-1"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.quality'
                                                   )}
@@ -376,7 +393,7 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="quality-rating-2"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.quality'
                                                   )}
@@ -385,7 +402,7 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="quality-rating-3"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.quality'
                                                   )}
@@ -394,7 +411,7 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="quality-rating-4"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.quality'
                                                   )}
@@ -403,7 +420,7 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="quality-rating-5"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.quality'
                                                   )}
@@ -412,7 +429,7 @@ export default function AddReview({
                                           </div>
                                           <label
                                               htmlFor="quality-rating"
-                                              className="text-[0.5rem] uppercase lg:text-xs 2xl:text-sm"
+                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
                                           >
                                               quality
                                           </label>
@@ -425,34 +442,34 @@ export default function AddReview({
                                               <input
                                                   type="radio"
                                                   id="value-rating-1"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register('rating.value')}
                                                   value={1}
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register('rating.value')}
                                                   id="value-rating-2"
                                                   value={2}
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register('rating.value')}
                                                   id="value-rating-3"
                                                   value={3}
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register('rating.value')}
                                                   id="value-rating-4"
                                                   value={4}
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register('rating.value')}
                                                   id="value-rating-5"
                                                   value={5}
@@ -460,7 +477,7 @@ export default function AddReview({
                                           </div>
                                           <label
                                               htmlFor="value-rating"
-                                              className="text-[0.5rem] uppercase lg:text-xs 2xl:text-sm"
+                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
                                           >
                                               value
                                           </label>
@@ -472,7 +489,7 @@ export default function AddReview({
                                           >
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.overall'
                                                   )}
@@ -481,7 +498,7 @@ export default function AddReview({
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.overall'
                                                   )}
@@ -490,7 +507,7 @@ export default function AddReview({
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.overall'
                                                   )}
@@ -499,7 +516,7 @@ export default function AddReview({
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.overall'
                                                   )}
@@ -508,7 +525,7 @@ export default function AddReview({
                                               />
                                               <input
                                                   type="radio"
-                                                  className="text-charcoal focus:bg-charcoal focus:ring-0"
+                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
                                                   {...register(
                                                       'rating.overall'
                                                   )}
@@ -518,7 +535,7 @@ export default function AddReview({
                                           </div>
                                           <label
                                               htmlFor="overall-rating"
-                                              className="text-[0.5rem] font-bold uppercase lg:text-xs 2xl:text-sm"
+                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
                                           >
                                               overall
                                           </label>
@@ -528,7 +545,7 @@ export default function AddReview({
                           </div>
                       </div>
                       <button
-                          className="self-end rounded-sm bg-charcoal px-6 py-1 font-poiret uppercase text-white lg:text-lg xl:rounded xl:px-8 xl:py-2 xl:text-xl 2xl:text-2xl"
+                          className="self-end rounded-sm bg-charcoal px-6 py-1 font-poiret text-xs uppercase text-white lg:text-lg xl:rounded xl:px-8 xl:py-2 xl:text-xl 2xl:text-2xl portrait:py-2 portrait:text-[1.4rem]"
                           type="submit"
                       >
                           submit review
