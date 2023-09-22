@@ -162,7 +162,7 @@ export default function ProductCarousel({
               <img
                   src={arrowLeft}
                   alt="left-arrow-icon"
-                  className="active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5 portrait:h-5"
+                  className="active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5 portrait:h-5 portrait:lg:h-7"
               />
           </button>
           {/* // ! caution: keep this gap setting aligned with carousel card animation */}
@@ -184,7 +184,7 @@ export default function ProductCarousel({
               <img
                   src={arrowRight}
                   alt="right-arrow-icon"
-                  className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in-out active:scale-50 xl:h-5 portrait:h-5"
+                  className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in-out active:scale-50 xl:h-5 portrait:h-5 portrait:lg:h-7"
               />
           </button>
       </div>
