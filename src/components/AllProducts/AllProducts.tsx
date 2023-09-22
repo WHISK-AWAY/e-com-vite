@@ -24,20 +24,6 @@ import { motion, useIsPresent } from 'framer-motion';
 import ProductCard from './ProductCard';
 
 const PRODS_PER_PAGE = 9;
-/**
- * sort by name or price (ascending & descending)
- */
-
-// function log(name:string, ...args:any[]): void {
-//   // Extract the current timestamp
-//   // const timestamp = new Date().toISOString();
-
-//   // Prepend the timestamp to the log message
-//   const message = `${name} ${args.join(' ')}`;
-
-//   // Output the custom log message
-//   console.log(message);
-// }
 
 export type SortKey = 'productName' | 'price' | 'saleCount';
 export type SortDir = 'asc' | 'desc';
@@ -59,21 +45,31 @@ export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
   mobileMenu: boolean
-
-  // filterKey?: string;
 };
 
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
   mobileMenu
-}: // filterKey = 'all',
+}:
   AllProductsProps) {
   const dispatch = useAppDispatch();
+
+  let { state } = useLocation();
   if (sortKey === 'saleCount') sortDir = 'desc';
 
+  const allProducts = useAppSelector(selectAllProducts);
+  const tagState = useAppSelector(selectTagState);
+
   const [params, setParams] = useSearchParams();
+  let curPage = Number(params.get('page'));
+
+  const [isSearchHidden, setIsSearchHidden] = useState(true);
+  const [randomProd, setRandomProd] = useState<TProduct>();
   const [pageNum, setPageNum] = useState<number | undefined>();
+  const [bestsellers, setBestsellers] = useState(false);
+  const [filter, setFilter] = useState('all');
+  const [prevFilter, setPrevFilter] = useState('all');
   const [sort, setSort] = useState<TSort>({
     key: sortKey,
     direction: sortDir,
@@ -81,26 +77,11 @@ export default function AllProducts({
 
   const topElement = useRef<HTMLHeadingElement | null>(null);
 
-  const [bestsellers, setBestsellers] = useState(false);
-
-  const [filter, setFilter] = useState('all');
-  const [prevFilter, setPrevFilter] = useState('all');
-
-  let { state } = useLocation();
-  const isPresent = useIsPresent();
+  const isPresent = useIsPresent(); // framer
 
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
   }, [state?.filterKey]);
-
-  let curPage = Number(params.get('page'));
-
-  const allProducts = useAppSelector(selectAllProducts);
-
-  const tagState = useAppSelector(selectTagState);
-
-  const [isSearchHidden, setIsSearchHidden] = useState(true);
-  const [randomProd, setRandomProd] = useState<TProduct>();
 
   useEffect(() => {
     if (topElement?.current) topElement.current.scrollIntoView(true);
@@ -112,12 +93,9 @@ export default function AllProducts({
 
   useEffect(() => {
     // make sure we have all tags upon page load in order to populate filter selector
+    // TODO: consider moving this to some central location (app, nav, etc)
     dispatch(fetchAllTags());
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getUserId());
-  // }, [userId]);
 
   useEffect(() => {
     setSort({ key: sortKey, direction: sortDir });
@@ -157,7 +135,7 @@ export default function AllProducts({
     const nextPage = curPage + 1;
     if (nextPage > maxPages) return;
     setParams({ page: String(nextPage) });
-    topElement.current?.scrollIntoView({ behavior: 'smooth' });
+    topElement.current?.scrollIntoView({ behavior: 'smooth' })
   };
 
   const pageDecrementor = () => {
@@ -165,7 +143,7 @@ export default function AllProducts({
 
     if (prevPage < 1) return;
     setParams({ page: String(prevPage) });
-    topElement.current?.scrollIntoView({ behavior: 'smooth' });
+    topElement.current?.scrollIntoView({ behavior: 'smooth' })
   };
 
   useEffect(() => {
@@ -244,7 +222,7 @@ export default function AllProducts({
         {!bestsellers && (
           <div
             ref={topElement}
-            className='sub-header pt-28 font-grotesque text-[2rem] font-light uppercase tracking-wide portrait:px-2 portrait:pt-5'
+            className='sub-header pt-28 font-grotesque text-[2rem] font-light uppercase tracking-wide portrait:px-2 portrait:pt-5 scroll-mt-16'
           >
             {filter && filter === 'all' ? (
               <p>{filter} products</p>
