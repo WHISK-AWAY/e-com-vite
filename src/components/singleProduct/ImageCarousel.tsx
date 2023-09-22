@@ -12,12 +12,14 @@ export type ImageCarouselProps = {
   product: TProduct;
   num: number;
   changeImage: ((newImage: string) => void) | null;
+  mobileMenu: boolean
 };
 
 export default function ImageCarousel({
   product,
   num,
   changeImage,
+  mobileMenu
 }: ImageCarouselProps) {
   const [prodImagesCopy, setProdImagesCopy] = useState<ImageData[]>();
   const [renderImage, setRenderImage] = useState<ImageData[]>();
@@ -182,71 +184,88 @@ export default function ImageCarousel({
   if (!prodImagesCopy || !renderImage) return <h1>Loading images...</h1>;
 
   return (
-    <div className='relative flex w-11/12 items-start justify-center gap-3'>
-      <button
-        onClick={decrementor}
-        className='absolute -left-7 shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20'
-      >
-        <img
-          src={arrowLeft}
-          alt='previous image'
-          className='h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5'
-        />
-      </button>
-      <div className='images-wrapper flex items-start justify-center gap-3'>
-        {renderImage.map((image, idx) => {
-          let extension = image.imageURL.split('.').at(-1);
-          return (
-            <div
-              key={image.imageURL + '_' + idx}
-              onClick={() => {
-                changeImage!(image.imageURL);
-                // setSelectedImage(image.imageURL);
-              }}
-              className={
-                'image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
-              }
-            >
-              {['gif', 'mp4'].includes(extension!) ? (
-                <video
-                  loop
-                  autoPlay
-                  muted
-                  playsInline
-                  controls={false}
-                  className='aspect-[3/4] w-full  object-cover'
-                >
-                  <source src={image.imageURL} type={extension === 'mp4' ? 'video/mp4' : 'image/gif'} />
-                  <source src={convertMediaUrl(image.imageURL)} type="video/webm" />
-                </video>
-              ) : (
-                <picture>
-                  <source type="image/webp" srcSet={convertMediaUrl(image.imageURL)}></source>
-                  <img
-                    className='aspect-[3/4] w-full  object-cover'
-                    src={image.imageURL}
-                    // data-src={image.imageURL}
-                    // data-sizes='auto'
-                    alt={image.imageDesc}
-                    height="1600"
-                    width="1600"
-                  />
-                </picture>
-              )}
-            </div>
-          );
-        })}
+      <div className="relative flex w-11/12 items-start justify-center gap-3">
+          <button
+              onClick={decrementor}
+              className={` ${
+                  mobileMenu ? '-left-1 top-7' : '-left-7'
+              } absolute  shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20`}
+          >
+              <img
+                  src={arrowLeft}
+                  alt="previous image"
+                  className="h-3 transform transition-all duration-150  hover:scale-150 hover:ease-in active:scale-50 xl:h-5 portrait:h-5"
+              />
+          </button>
+          <div className="images-wrapper flex items-start justify-center gap-3">
+              {renderImage.map((image, idx) => {
+                  let extension = image.imageURL.split('.').at(-1);
+                  return (
+                      <div
+                          key={image.imageURL + '_' + idx}
+                          onClick={() => {
+                              changeImage!(image.imageURL);
+                              // setSelectedImage(image.imageURL);
+                          }}
+                          className={
+                              'image-card flex w-[50px] shrink-0 grow-0 cursor-pointer flex-col items-center justify-center gap-4 first:hidden last:hidden lg:w-[75px] xl:w-[100px] xl:gap-6 2xl:w-[120px]'
+                          }
+                      >
+                          {['gif', 'mp4'].includes(extension!) ? (
+                              <video
+                                  loop
+                                  autoPlay
+                                  muted
+                                  playsInline
+                                  controls={false}
+                                  className="aspect-[3/4] w-full  object-cover"
+                              >
+                                  <source
+                                      src={image.imageURL}
+                                      type={
+                                          extension === 'mp4'
+                                              ? 'video/mp4'
+                                              : 'image/gif'
+                                      }
+                                  />
+                                  <source
+                                      src={convertMediaUrl(image.imageURL)}
+                                      type="video/webm"
+                                  />
+                              </video>
+                          ) : (
+                              <picture>
+                                  <source
+                                      type="image/webp"
+                                      srcSet={convertMediaUrl(image.imageURL)}
+                                  ></source>
+                                  <img
+                                      className="aspect-[3/4] w-full  object-cover"
+                                      src={image.imageURL}
+                                      // data-src={image.imageURL}
+                                      // data-sizes='auto'
+                                      alt={image.imageDesc}
+                                      height="1600"
+                                      width="1600"
+                                  />
+                              </picture>
+                          )}
+                      </div>
+                  );
+              })}
+          </div>
+          <button
+              onClick={incrementor}
+              className={` ${
+                  mobileMenu ? '-right-1 top-6' : '-right-7'
+              } absolute  shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20`}
+          >
+              <img
+                  src={arrowRight}
+                  alt="next image"
+                  className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in active:scale-50 xl:h-5 portrait:h-5"
+              />
+          </button>
       </div>
-      <button
-        onClick={incrementor}
-        className='absolute -right-7 shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20'
-      >
-        <img
-          src={arrowRight}
-          alt='next image'
-          className='h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in active:scale-50 xl:h-5'
-        />
-      </button>
-    </div>
   );
 }
