@@ -1,32 +1,35 @@
+import React, { useEffect, useState, Suspense } from 'react';
 import { useLocation, useRoutes } from 'react-router-dom';
-import Homepage from './components/Homepage';
-import AllProducts from './components/AllProducts/AllProducts.tsx';
-import SingleProduct from './components/singleProduct/SingleProduct';
-import UserProfile from './components/UserAccount/UserProfile';
-import Navbar from './components/navbar/Navbar.tsx';
-import Success from './components/CheckoutProcess/stripe/Success';
-import Recap from './components/CheckoutProcess/Recap';
-import AdminDashboard from './components/Admin/AdminDashboard';
-import AdminReports from './components/Admin/Reports/AdminReports';
-import AdminReviews from './components/Admin/AdminReviews';
-import Inventory from './components/Admin/products/Inventory';
-import CreateOrEditProduct from './components/Admin/products/CreateOrEditProduct';
-import AdminUsers from './components/Admin/users/AdminUsers';
-import AdminUserOrderHistory from './components/Admin/users/AdminUserOrderHistory';
-import AdminOrderDetails from './components/Admin/users/AdminOrderDetails';
-import TagInventory from './components/Admin/tags/TagInventory';
-import CreateOrEditTag from './components/Admin/tags/CreateOrEditTag';
-import PromoInventory from './components/Admin/promos/PromoInventory';
-import CreateOrEditPromo from './components/Admin/promos/CreateOrEditPromo';
-import Featured from './components/Featured/Featured';
-import NewIn from './components/NewIn/NewIn';
-import Footer from './components/Footer';
 import Lenis from '@studio-freight/lenis';
-import '../src/index.css';
 import { AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import React, { useEffect, useState } from 'react';
+
+import Homepage from './components/Homepage';
+import AllProducts from './components/AllProducts/AllProducts.tsx';
+import SingleProduct from './components/singleProduct/SingleProduct';
+import Navbar from './components/navbar/Navbar.tsx';
+import NewIn from './components/NewIn/NewIn';
+import Footer from './components/Footer';
+
+const AdminDashboard = React.lazy(() => import('./components/Admin/AdminDashboard'))
+const AdminReports = React.lazy(() => import('./components/Admin/Reports/AdminReports'))
+const AdminReviews = React.lazy(() => import('./components/Admin/AdminReviews'))
+const Inventory = React.lazy(() => import('./components/Admin/products/Inventory'))
+const CreateOrEditProduct = React.lazy(() => import('./components/Admin/products/CreateOrEditProduct'))
+const AdminUsers = React.lazy(() => import('./components/Admin/users/AdminUsers'))
+const AdminUserOrderHistory = React.lazy(() => import('./components/Admin/users/AdminUserOrderHistory'))
+const AdminOrderDetails = React.lazy(() => import('./components/Admin/users/AdminOrderDetails'))
+const TagInventory = React.lazy(() => import('./components/Admin/tags/TagInventory'))
+const CreateOrEditTag = React.lazy(() => import('./components/Admin/tags/CreateOrEditTag'))
+const PromoInventory = React.lazy(() => import('./components/Admin/promos/PromoInventory'))
+const CreateOrEditPromo = React.lazy(() => import('./components/Admin/promos/CreateOrEditPromo'))
+const Success = React.lazy(() => import('./components/CheckoutProcess/stripe/Success'));
+const Recap = React.lazy(() => import('./components/CheckoutProcess/Recap'));
+const UserProfile = React.lazy(() => import('./components/UserAccount/UserProfile'));
+
+import '../src/index.css';
+
 function App() {
   const location = useLocation();
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -82,15 +85,11 @@ function App() {
     },
     {
       path: '/shop-all',
-      element: <AllProducts mobileMenu={mobileMenu}/>,
+      element: <AllProducts mobileMenu={mobileMenu} />,
     },
     {
       path: '/shop-all/bestsellers',
-      element: <AllProducts  mobileMenu={mobileMenu} sortKey='saleCount' />,
-    },
-    {
-      path: '/featured',
-      element: <Featured />,
+      element: <AllProducts mobileMenu={mobileMenu} sortKey='saleCount' />,
     },
     {
       path: '/new-in',
@@ -102,75 +101,75 @@ function App() {
     },
     {
       path: 'user/:userId',
-      element: <UserProfile />,
+      element: <Suspense fallback={<h1>Loading</h1>}><UserProfile /></Suspense>,
     },
     {
       path: 'checkout',
-      element: <Recap />,
+      element: <Suspense fallback={<h1>Loading</h1>}><Recap /></Suspense>,
     },
     {
       path: '/checkout/success',
-      element: <Success />,
+      element: <Suspense fallback={<h1>Loading</h1>}><Success /></Suspense>,
     },
     {
       path: '/admin',
-      element: <AdminDashboard />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminDashboard /></Suspense>,
     },
     {
       path: '/admin/reports',
-      element: <AdminReports />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminReports /></Suspense>,
     },
     {
       path: '/admin/reviews',
-      element: <AdminReviews />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminReviews /></Suspense>,
     },
     {
       path: '/admin/users',
-      element: <AdminUsers />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminUsers /></Suspense>,
     },
     {
       path: '/admin/users/:userId/orders',
-      element: <AdminUserOrderHistory />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminUserOrderHistory /></Suspense>,
     },
     {
       path: '/admin/users/:userId/order/:orderId/details',
-      element: <AdminOrderDetails />,
+      element: <Suspense fallback={<h1>Loading</h1>}><AdminOrderDetails /></Suspense>,
     },
     {
       path: '/admin/inventory',
-      element: <Inventory />,
+      element: <Suspense fallback={<h1>Loading</h1>}><Inventory /></Suspense>,
     },
     {
       path: '/admin/tags',
-      element: <TagInventory />,
+      element: <Suspense fallback={<h1>Loading</h1>}><TagInventory /></Suspense>,
     },
     {
       path: '/admin/tags/new',
-      element: <CreateOrEditTag />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditTag /></Suspense>,
     },
     {
       path: '/admin/tags/:tagId',
-      element: <CreateOrEditTag />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditTag /></Suspense>,
     },
     {
       path: '/admin/product/new',
-      element: <CreateOrEditProduct />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditProduct /></Suspense>,
     },
     {
       path: '/admin/product/:productId',
-      element: <CreateOrEditProduct />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditProduct /></Suspense>,
     },
     {
       path: '/admin/promos',
-      element: <PromoInventory />,
+      element: <Suspense fallback={<h1>Loading</h1>}><PromoInventory /></Suspense>,
     },
     {
       path: '/admin/promos/new',
-      element: <CreateOrEditPromo />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditPromo /></Suspense>,
     },
     {
       path: '/admin/promos/:promoId',
-      element: <CreateOrEditPromo />,
+      element: <Suspense fallback={<h1>Loading</h1>}><CreateOrEditPromo /></Suspense>,
     },
   ]);
 
