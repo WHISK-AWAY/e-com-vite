@@ -26,7 +26,7 @@ export default function DropdownMenu({
     // close menu when esc button is pressed
 
     function escButtonHandler(e: KeyboardEvent) {
-      if (e.code !== 'Escape') return;
+      if (e.code !== 'Escape' || e.key === 'Escape') return;
       console.log('hello', e)
       closeMenu();
     }
