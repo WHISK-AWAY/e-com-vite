@@ -28,166 +28,202 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import React, { useEffect, useState } from 'react';
 function App() {
-  const location = useLocation();
-  const [mobileMenu, setMobileMenu] = useState(false);
+    const location = useLocation();
+    const [mobileMenu, setMobileMenu] = useState(false);
+    const [isSignFormHidden, setIsSignFormHidden] = useState(true);
+    const [isCartFavWrapperHidden, setIsCartFavWrapperHidden] = useState(true);
+    const [isMenuHidden, setIsMenuHidden] = useState(true);
+    const [isSearchHidden, setIsSearchHidden] = useState(true);
 
-  const lenis = new Lenis({
-    duration: 2.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    wheelMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-    lerp: 0,
-  });
+    const lenis = new Lenis({
+        duration: 2.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+        lerp: 0,
+    });
 
-  lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', ScrollTrigger.update);
 
-  function raf(time: number) {
-    lenis.raf(time);
+    function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
     requestAnimationFrame(raf);
-  }
 
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-  });
+    useEffect(() => {
+        const checkDimentions = () => {
+            // const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+            if (window.innerWidth < 650 || window.innerHeight < 450) {
+                setMobileMenu(true);
+            } else {
+                setMobileMenu(false);
+            }
+        };
 
-  gsap.ticker.lagSmoothing(0);
-  requestAnimationFrame(raf);
+        window.addEventListener('resize', checkDimentions);
+        checkDimentions();
 
-  useEffect(() => {
-    const checkDimentions = () => {
-      // const isPortrait = window.matchMedia('(orientation: portrait)').matches;
-      if (window.innerWidth < 650 || window.innerHeight < 450) {
-        setMobileMenu(true);
-      } else {
-        setMobileMenu(false);
-      }
-    };
+        return () => {
+            window.removeEventListener('resize', checkDimentions);
+        };
+    }, []);
 
-    window.addEventListener('resize', checkDimentions);
-    checkDimentions();
+    const element = useRoutes([
+        {
+            path: '/',
+            element: <Homepage />,
+        },
+        {
+            path: '/shop-all',
+            element: <AllProducts mobileMenu={mobileMenu} />,
+        },
+        {
+            path: '/shop-all/bestsellers',
+            element: (
+                <AllProducts
+                    mobileMenu={mobileMenu}
+                    sortKey="saleCount"
+                />
+            ),
+        },
+        {
+            path: '/featured',
+            element: <Featured />,
+        },
+        {
+            path: '/new-in',
+            element: <NewIn />,
+        },
+        {
+            path: 'product/:productId',
+            element: (
+                <SingleProduct
+                    mobileMenu={mobileMenu}
+                    isCartFavWrapperHidden={isCartFavWrapperHidden}
+                    isSearchHidden={isSearchHidden}
+                    isMenuHidden={isMenuHidden}
+                    isSignFormHidden={isSignFormHidden}
+                />
+            ),
+        },
+        {
+            path: 'user/:userId',
+            element: <UserProfile />,
+        },
+        {
+            path: 'checkout',
+            element: <Recap />,
+        },
+        {
+            path: '/checkout/success',
+            element: <Success mobileMenu={mobileMenu} />,
+        },
+        {
+            path: '/admin',
+            element: <AdminDashboard />,
+        },
+        {
+            path: '/admin/reports',
+            element: <AdminReports />,
+        },
+        {
+            path: '/admin/reviews',
+            element: <AdminReviews />,
+        },
+        {
+            path: '/admin/users',
+            element: <AdminUsers />,
+        },
+        {
+            path: '/admin/users/:userId/orders',
+            element: <AdminUserOrderHistory />,
+        },
+        {
+            path: '/admin/users/:userId/order/:orderId/details',
+            element: <AdminOrderDetails />,
+        },
+        {
+            path: '/admin/inventory',
+            element: <Inventory />,
+        },
+        {
+            path: '/admin/tags',
+            element: <TagInventory />,
+        },
+        {
+            path: '/admin/tags/new',
+            element: <CreateOrEditTag />,
+        },
+        {
+            path: '/admin/tags/:tagId',
+            element: <CreateOrEditTag />,
+        },
+        {
+            path: '/admin/product/new',
+            element: <CreateOrEditProduct />,
+        },
+        {
+            path: '/admin/product/:productId',
+            element: <CreateOrEditProduct />,
+        },
+        {
+            path: '/admin/promos',
+            element: <PromoInventory />,
+        },
+        {
+            path: '/admin/promos/new',
+            element: <CreateOrEditPromo />,
+        },
+        {
+            path: '/admin/promos/:promoId',
+            element: <CreateOrEditPromo />,
+        },
+    ]);
 
-    return () => {
-      window.removeEventListener('resize', checkDimentions);
-    };
-  }, []);
+    if (!element) return <main>Route location not found...</main>;
 
-  const element = useRoutes([
-    {
-      path: '/',
-      element: <Homepage />,
-    },
-    {
-      path: '/shop-all',
-      element: <AllProducts mobileMenu={mobileMenu}/>,
-    },
-    {
-      path: '/shop-all/bestsellers',
-      element: <AllProducts  mobileMenu={mobileMenu} sortKey='saleCount' />,
-    },
-    {
-      path: '/featured',
-      element: <Featured />,
-    },
-    {
-      path: '/new-in',
-      element: <NewIn />,
-    },
-    {
-      path: 'product/:productId',
-      element: <SingleProduct mobileMenu={mobileMenu}/>,
-    },
-    {
-      path: 'user/:userId',
-      element: <UserProfile />,
-    },
-    {
-      path: 'checkout',
-      element: <Recap />,
-    },
-    {
-      path: '/checkout/success',
-      element: <Success mobileMenu={mobileMenu}/>,
-    },
-    {
-      path: '/admin',
-      element: <AdminDashboard />,
-    },
-    {
-      path: '/admin/reports',
-      element: <AdminReports />,
-    },
-    {
-      path: '/admin/reviews',
-      element: <AdminReviews />,
-    },
-    {
-      path: '/admin/users',
-      element: <AdminUsers />,
-    },
-    {
-      path: '/admin/users/:userId/orders',
-      element: <AdminUserOrderHistory />,
-    },
-    {
-      path: '/admin/users/:userId/order/:orderId/details',
-      element: <AdminOrderDetails />,
-    },
-    {
-      path: '/admin/inventory',
-      element: <Inventory />,
-    },
-    {
-      path: '/admin/tags',
-      element: <TagInventory />,
-    },
-    {
-      path: '/admin/tags/new',
-      element: <CreateOrEditTag />,
-    },
-    {
-      path: '/admin/tags/:tagId',
-      element: <CreateOrEditTag />,
-    },
-    {
-      path: '/admin/product/new',
-      element: <CreateOrEditProduct />,
-    },
-    {
-      path: '/admin/product/:productId',
-      element: <CreateOrEditProduct />,
-    },
-    {
-      path: '/admin/promos',
-      element: <PromoInventory />,
-    },
-    {
-      path: '/admin/promos/new',
-      element: <CreateOrEditPromo />,
-    },
-    {
-      path: '/admin/promos/:promoId',
-      element: <CreateOrEditPromo />,
-    },
-  ]);
-
-  if (!element) return <main>Route location not found...</main>;
-
-  return (
-    <div
-      data-lenis-prevent
-      className='data-scroll-container mx-auto min-h-screen text-charcoal'
-    >
-      <AnimatePresence mode='wait' initial={false}>
-        <Navbar key='navbar' />
-        {React.cloneElement(element, { key: location.pathname }, element)}
-        <Footer key='footer' />
-      </AnimatePresence>
-    </div>
-  );
+    return (
+        <div
+            data-lenis-prevent
+            className="data-scroll-container mx-auto min-h-screen text-charcoal"
+        >
+            <AnimatePresence
+                mode="wait"
+                initial={false}
+            >
+                <Navbar
+                    key="navbar"
+                    setIsSearchHidden={setIsSearchHidden}
+                    isSearchHidden={isSearchHidden}
+                    setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                    isCartFavWrapperHidden={isCartFavWrapperHidden}
+                    setIsSignFormHidden={setIsSignFormHidden}
+                    isSignFormHidden={isSignFormHidden}
+                    setIsMenuHidden={setIsMenuHidden}
+                    isMenuHidden={isMenuHidden}
+                    mobileMenu={mobileMenu}
+                    setMobileMenu={setMobileMenu}
+                />
+                {React.cloneElement(
+                    element,
+                    { key: location.pathname },
+                    element
+                )}
+                <Footer key="footer" />
+            </AnimatePresence>
+        </div>
+    );
 }
 
 export default App;
