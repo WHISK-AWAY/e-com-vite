@@ -32,7 +32,7 @@ export default function StarsBar({
                       <img
                           key={idx}
                           src={starFilled}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4"
+                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
                       />
                   ))}
               {Array(halfStars)
@@ -41,7 +41,7 @@ export default function StarsBar({
                       <img
                           key={idx}
                           src={starHalf}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4"
+                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
                       />
                   ))}
               {Array(emptyStars)
@@ -50,13 +50,13 @@ export default function StarsBar({
                       <img
                           key={idx}
                           src={starBlank}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4"
+                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
                       />
                   ))}
           </div>
           <h4
               className={
-                  'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base portrait:text-[.8rem]' +
+                  'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base portrait:text-[.8rem] portrait:lg:text-lg' +
                   (option === 'count'
                       ? ' translate-x-[150%]'
                       : ' translate-x-full')
