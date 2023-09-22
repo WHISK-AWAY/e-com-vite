@@ -7,7 +7,7 @@ export default {
   theme: {
     fontFamily: {
       chonburi: ['Chonburi', 'cursive'],
-      grotesque: ['Darker Grotesque', 'sans-serif'],
+      grotesque: ['Darker Grotesque', 'monospace'],
       hubbali: ['Hubballi', 'cursive'],
       italiana: ['Italiana', 'serif'],
       aurora: ['La Belle Aurore', 'cursive'],

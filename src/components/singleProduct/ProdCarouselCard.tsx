@@ -85,7 +85,7 @@ export default function ProdCarouselCard({ prod }: ProdCarouselCardProps) {
             </video>
           ))}
       </div>
-      <h4 className='w-full overflow-hidden text-ellipsis whitespace-nowrap text-center font-grotesque text-xs uppercase lg:text-sm xl:text-lg '>
+      <h4 className='w-full overflow-hidden text-ellipsis whitespace-nowrap text-center font-grotesque text-xs uppercase lg:text-sm xl:text-lg portrait:text-[1rem]'>
         {prod.productName}
       </h4>
     </div>)
