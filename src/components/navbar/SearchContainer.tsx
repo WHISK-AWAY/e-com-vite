@@ -210,6 +210,7 @@ export default function SearchContainer({
         </div>
         <div className="absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 pt-[10px] portrait:h-10 portrait:w-[90svw]  ">
           <input
+            autoFocus
             className="w-full rounded-sm border border-charcoal font-grotesque text-[1.5vw] placeholder:font-poiret  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal portrait:w-full portrait:text-[1rem] "
             type="text"
             id="search"
