@@ -148,7 +148,6 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                                   endTrigger: prodInfoWrapper.current,
                                   start: 'top 64px',
                                   end: 'bottom 80%',
-                                  markers: true
                               },
                           });
                 }
@@ -573,7 +572,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                                 <button
                                     onClick={handleAddToCart}
                                     disabled={maxQty === 0}
-                                    className="hover:duration-00 group relative mt-[6%] w-4/5 max-w-full overflow-hidden  rounded-sm border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium  uppercase text-white  transition-all hover:scale-[1.01] active:bg-red-300 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw] portrait:w-full portrait:py-2 portrait:text-[1.6rem] portrait:lg:text-[2.3rem] portrait:lg:py-4"
+                                    className="hover:duration-00 group relative mt-[6%] w-4/5 max-w-full overflow-hidden  rounded-sm border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium  uppercase text-white  transition-all hover:scale-[1.01] active:bg-red-300 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw] portrait:w-full portrait:py-2 portrait:text-[1.6rem] portrait:lg:py-4 portrait:lg:text-[2.3rem]"
                                 >
                                     <span className="ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full "></span>
                                     <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full"></span>
@@ -704,7 +703,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                     ref={youMayAlsoLikeRef}
                     className="product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32 "
                 >
-                    <h2 className="mb-5 font-grotesque text-xl lg:mb-8 lg:text-2xl xl:mb-12 xl:text-3xl portrait:text-[1.5rem] portrait:lg:text-[2.5rem] portrait:lg:pb-10">
+                    <h2 className="mb-5 font-grotesque text-xl lg:mb-8 lg:text-2xl xl:mb-12 xl:text-3xl portrait:text-[1.5rem] portrait:lg:pb-10 portrait:lg:text-[2.5rem]">
                         YOU MAY ALSO LlKE
                     </h2>
 
@@ -726,7 +725,11 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                     <h2 className="self-start font-gayathri text-[3rem] font-semibold  ">
                         REVIEWS
                     </h2>
-                    <div className="review-subtitle-container flex flex-col items-start justify-between ">
+                    <div
+                        className={` ${
+                            mobileMenu ? 'items-center' : 'items-end'
+                        } review-subtitle-container flex flex-col justify-between `}
+                    >
                         {allReviews.reviews?.length > 0 && (
                             <div className="star-bar-placement self-start">
                                 <StarsBar
@@ -737,6 +740,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                         )}
                         {showReviewForm ? (
                             <AddReview
+                                mobileMenu={mobileMenu}
                                 product={singleProduct}
                                 productId={productId!}
                                 setShowReviewForm={setShowReviewForm}
@@ -747,7 +751,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                                     No reviews yet...be the first to leave one!
                                 </p>
                                 <button
-                                    className="rounded-sm border border-charcoal px-6 py-2  font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 landscape:-mt-36  landscape:mb-36 "
+                                    className="rounded-sm border border-charcoal px-6 py-2  font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10   landscape:-mt-36 landscape:mb-36"
                                     onClick={() =>
                                         setShowReviewForm((prev) => !prev)
                                     }
@@ -759,7 +763,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                             ''
                         ) : (
                             <button
-                                className="self-end rounded-sm border border-charcoal px-6  py-2  font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:text-base landscape:-mt-36 landscape:mb-36 "
+                                className="self-end rounded-sm border border-charcoal px-6  py-2  font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:text-base  landscape:-mt-36 landscape:mb-36"
                                 onClick={() =>
                                     setShowReviewForm((prev) => !prev)
                                 }
