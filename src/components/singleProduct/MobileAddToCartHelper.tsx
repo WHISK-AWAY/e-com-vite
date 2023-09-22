@@ -14,7 +14,7 @@ export type mobileAddToCartHelperProps = {
 
 export default function MobileAddToCartHelper({qtyIncrementor, qtyDecrementor, count, productName, price, handleAddToCart, maxQty}: mobileAddToCartHelperProps) {
   return (
-          <section className="fixed bottom-0 z-40 flex h-24 w-[100svw] flex-col items-center justify-around  bg-white pb-2">
+          <section className="fixed bottom-0 z-40 flex h-24 w-[100svw] flex-col items-center justify-around  bg-white pb-2 border-t border-primary-gray">
             <div className='self-start'>
 
               <p className="font-medium font-grotesque  pl-6 text-[1.1rem] leading-none pb-1">{productName}</p>
