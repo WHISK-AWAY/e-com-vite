@@ -207,7 +207,7 @@ export default function AllProducts({
     <>
       <section
         data-lenis-prevent
-        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:w-[100dvw] portrait:px-0'
+        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:w-[100dvw] portrait:px-0 pb-8'
       >
         <section className={`${mobileMenu ? 'flex-col' : 'flex'} header-section relative  w-full justify-center `}>
           {bestsellers ? (
@@ -264,7 +264,10 @@ export default function AllProducts({
         )}
 
         {/* // ! product cards */}
-        <div id="product-card-container" className='grid grid-cols-4 border-primary-gray portrait:grid-cols-2 landscape:border-t'>
+        <div id="product-card-container"
+          //  landscape:border-t
+          className='grid grid-cols-4 border-primary-gray portrait:grid-cols-2'
+        >
           {allProducts?.products?.map(product => (
             <ProductCard product={product} key={product._id as Key} />
           ))}
