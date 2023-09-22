@@ -22,6 +22,20 @@ export default function DropdownMenu({
   const menuAnimation = useRef<gsap.core.Timeline | null>(null);
   let menuWrapper = useRef(null);
 
+  useEffect(() => {
+    // close menu when esc button is pressed
+
+    function escButtonHandler(e: KeyboardEvent) {
+      if (e.code !== 'Escape') return;
+      console.log('hello', e)
+      closeMenu();
+    }
+
+    addEventListener('keydown', escButtonHandler)
+
+    return () => removeEventListener('keydown', escButtonHandler)
+  }, [])
+
   useLayoutEffect(() => {
     // Animate overall menu text reveal
     if (!menuWrapper?.current || !document.querySelector('.text-reveal'))
@@ -192,12 +206,11 @@ export default function DropdownMenu({
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                  menuMode === 'category'
-                    ? 'ease rotate-90 transform transition-all duration-700'
-                    : ''
-                }`}
-                // onMouseEnter={() => toggleMenu('category')}
+                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${menuMode === 'category'
+                  ? 'ease rotate-90 transform transition-all duration-700'
+                  : ''
+                  }`}
+              // onMouseEnter={() => toggleMenu('category')}
               />
             </button>
           </div>
@@ -229,19 +242,18 @@ export default function DropdownMenu({
                 e.preventDefault();
                 toggleMenu('face');
               }}
-              // onMouseEnter={() => {
-              //   toggleMenu('face');
-              // }}
+            // onMouseEnter={() => {
+            //   toggleMenu('face');
+            // }}
             >
               face
               <img
                 src={chevronRight}
                 alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                  menuMode === 'face'
-                    ? 'ease rotate-90 transform transition-all duration-700'
-                    : ''
-                }`}
+                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${menuMode === 'face'
+                  ? 'ease rotate-90 transform transition-all duration-700'
+                  : ''
+                  }`}
               />
             </button>
           </div>
@@ -259,11 +271,10 @@ export default function DropdownMenu({
             <img
               src={chevronRight}
               alt='right arrow'
-              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] origin-[50%_50%] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                menuMode === 'body'
-                  ? 'ease rotate-90 transform duration-700'
-                  : ''
-              }`}
+              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] origin-[50%_50%] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${menuMode === 'body'
+                ? 'ease rotate-90 transform duration-700'
+                : ''
+                }`}
             />
           </button>
           {menuMode === 'body' && (
