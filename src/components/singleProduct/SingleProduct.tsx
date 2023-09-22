@@ -374,7 +374,9 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                   {/* <section className='image-section relative flex flex-col items-center pt-14 lg:basis-2/5 xl:basis-[576px]'> */}
                   <section
                       ref={prodImgWrapper}
-                      className="image-section relative mt-8 flex basis-2/5 flex-col items-center xl:mt-20 portrait:mt-0"
+                      className={` ${
+                          mobileMenu ? 'mt-0' : 'mt-8'
+                      } image-section relative flex basis-2/5 flex-col items-center xl:mt-20`}
                   >
                       <div className="relative z-10 flex flex-col items-center justify-between gap-3">
                           <div
@@ -478,7 +480,11 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                       </div>
                   </section>
 
-                  <section className="product-details flex basis-3/5 flex-col items-center px-8 portrait:px-4">
+                  <section
+                      className={`${
+                          mobileMenu ? 'px-4' : 'px-8'
+                      } product-details flex basis-3/5 flex-col items-center `}
+                  >
                       <div className="product-desc mb-5 flex flex-col items-center text-justify lg:mb-9">
                           <h1 className="product-name pb-9 text-center font-grotesque text-[1.4rem] font-light uppercase xl:text-[1.5rem] portrait:pt-5">
                               {singleProduct.productName}
@@ -608,7 +614,9 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
               </section>
               <section
                   ref={ingredientSection}
-                  className="ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center gap-5 lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32 portrait:gap-2"
+                  className={` ${
+                      mobileMenu ? 'gap-2' : 'gap-5'
+                  } ingredients-container mb-20 flex h-fit w-full flex-row-reverse justify-center  lg:mb-24 lg:gap-7 xl:gap-9 2xl:mb-32 `}
               >
                   <div
                       className={`${
@@ -625,7 +633,9 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                               muted
                               playsInline
                               controls={false}
-                              className="h-screen w-full object-cover portrait:h-[40svh] "
+                              className={`${
+                                  mobileMenu ? 'h-[40svh]' : 'h-screen'
+                              }  w-full object-cover  `}
                           >
                               <source
                                   src={convertMediaUrl(bgVid)}
@@ -644,7 +654,9 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                               />
                               <img
                                   src={bgImg}
-                                  className="h-screen w-full object-cover portrait:h-[40svh]"
+                                  className={`${
+                                      mobileMenu ? 'h-[40svh]' : 'h-screen'
+                                  }  w-full object-cover  `}
                               />
                           </picture>
                       )}
@@ -656,14 +668,14 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                               : 'min-h-screen basis-2/5 '
                       } ingredients mt-4 flex h-full   flex-col gap-6 lg:mt-6 lg:gap-8 xl:gap-12`}
                   >
-                      <h3 className="font-aurora text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                      <h3 className="font-aurora text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl portrait:pl-2 portrait:text-[1.5rem]">
                           key ingredients
                       </h3>
                       {parseIngredients().map((el, idx) => {
                           return (
                               <p
                                   key={idx}
-                                  className="font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl portrait:text-[1rem]"
+                                  className="font-grotesque text-xs lg:text-sm xl:text-lg 2xl:text-xl portrait:pl-2 portrait:text-[1.1rem]"
                               >
                                   <span className="font-grotesque font-bold uppercase">
                                       {el.split(':')[0]}:
@@ -680,7 +692,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                   ref={youMayAlsoLikeRef}
                   className="product-suggestions mb-20 flex flex-col items-center lg:mb-24 xl:mb-32 "
               >
-                  <h2 className="mb-5 font-grotesque text-xl lg:mb-8 lg:text-2xl xl:mb-12 xl:text-3xl">
+                  <h2 className="mb-5 font-grotesque text-xl lg:mb-8 lg:text-2xl xl:mb-12 xl:text-3xl portrait:text-[1.5rem]">
                       YOU MAY ALSO LlKE
                   </h2>
 
@@ -697,12 +709,12 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
               <section
                   id="review-container"
                   ref={reviewSection}
-                  className="review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10"
+                  className="review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-grotesque lg:w-10/12 lg:pt-10 portrait:px-3"
               >
                   <h2 className="self-start font-gayathri text-[3rem] font-semibold  ">
                       REVIEWS
                   </h2>
-                  <div className="review-subtitle-container flex flex-col items-center justify-between">
+                  <div className="review-subtitle-container flex flex-col items-start justify-between ">
                       {allReviews.reviews?.length > 0 && (
                           <div className="star-bar-placement self-start">
                               <StarsBar
@@ -723,7 +735,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                                   No reviews yet...be the first to leave one!
                               </p>
                               <button
-                                  className="rounded-sm border border-charcoal px-6 py-2 font-italiana  text-sm uppercase  lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-3 "
+                                  className="landscape:-mt-36 landscape:mb-36 rounded-sm border border-charcoal  px-6 py-2 font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded  2xl:px-10 "
                                   onClick={() =>
                                       setShowReviewForm((prev) => !prev)
                                   }
@@ -735,7 +747,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                           ''
                       ) : (
                           <button
-                              className="self-end rounded-sm border border-charcoal px-6 py-2 font-italiana text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-4 2xl:text-xl"
+                              className="landscape:-mt-36 landscape:mb-36 self-end rounded-sm border  border-charcoal  px-6 py-2 font-poiret text-sm uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:text-base "
                               onClick={() => setShowReviewForm((prev) => !prev)}
                           >
                               write a review
@@ -746,6 +758,7 @@ export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
                               <div className="reviews-wrapper flex w-full flex-col items-center gap-4 lg:gap-6 xl:gap-8">
                                   {allReviews.reviews.map((review) => (
                                       <Review
+                                          mobileMenu={mobileMenu}
                                           review={review}
                                           key={review._id}
                                       />
