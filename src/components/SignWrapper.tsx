@@ -32,19 +32,18 @@ export default function SignWrapper({
         opacity: 0,
         duration: 0.3,
       });
-      const slider = tl
-        .from(
-          wrapperRef.current,
-          {
-            x: '+=100%',
-            duration: 0.8,
-            ease: 'power4.out',
-          },
-          '<'
-        )
+      tl.from(
+        wrapperRef.current,
+        {
+          x: '+=100%',
+          duration: 0.8,
+          ease: 'power4.out',
+        },
+        '<'
+      );
       gsap.from(xIconRef.current, {
         opacity: 0,
-        delay: .9,
+        delay: 0.9,
         duration: 1.3,
         ease: 'slow.inOut',
       });
@@ -78,41 +77,49 @@ export default function SignWrapper({
     <section
       ref={blurBg}
       onClick={clickOff}
-      id='wrapper'
-      className='wrapper form-container fixed right-0 top-0 flex h-[100svh] w-[100svw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur-md'
+      id="wrapper"
+      className="wrapper form-container fixed right-0 top-0 flex h-[100svh] w-[100svw] flex-col overflow-hidden bg-[#35403F]/60 backdrop-blur-md"
     >
       <div
         ref={wrapperRef}
-        className={` ${mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[40vw]'
-          } relative flex h-full  flex-col self-end bg-white 2xl:w-[30vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw] `}
+        className={` ${
+          mobileMenu ? 'h-[100svh] w-[100svw]' : 'w-[40vw]'
+        } relative flex h-full  flex-col self-end bg-white 2xl:w-[30vw] 5xl:w-[25vw] 6xl:w-[20vw] portrait:md:w-[65svw] `}
       >
         <div
           ref={xIconRef}
           onClick={closeSlider}
-          className={` ${mobileMenu ? ' w-9 ' : ' w-3'
-            } absolute right-5 top-5 z-50 h-10  cursor-pointer`}
+          className={` ${
+            mobileMenu ? ' w-9 ' : ' w-3'
+          } absolute right-5 top-5 z-50 h-10  cursor-pointer`}
         >
           {mode === 'sign-in' ? (
             <img
               src={x}
-              alt='x-icon'
-              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
-                }`}
+              alt="x-icon"
+              className={`${
+                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+              }`}
             />
           ) : (
             <img
               src={whiteX}
-              alt='x-icon'
-              className={`${mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
-                }`}
+              alt="x-icon"
+              className={`${
+                mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
+              }`}
             />
           )}
         </div>
         {mode === 'sign-in' ? (
-          <SignIn setMode={setMode} closeSlider={closeSlider} />
+          <SignIn
+            setMode={setMode}
+            closeSlider={closeSlider}
+          />
         ) : (
           <SignUp
-            setMode={setMode} closeSlider={closeSlider}
+            setMode={setMode}
+            closeSlider={closeSlider}
           />
         )}
       </div>

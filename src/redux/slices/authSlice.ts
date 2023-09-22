@@ -3,7 +3,6 @@ import type { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
-import { ICart } from './cartSlice';
 import { toastUserLoggedIn, toastUserLoggedOut } from '../../utilities/toast';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -201,7 +200,7 @@ export const authSlice = createSlice({
      */
 
     builder
-      .addCase(requestLogout.pending, (state) => {
+      .addCase(requestLogout.pending, () => {
         return { ...initialState, loading: true };
       })
       .addCase(requestLogout.fulfilled, () => {

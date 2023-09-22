@@ -202,7 +202,7 @@ const adminReviewSlice = createSlice({
       })
       .addCase(
         fetchAllAdminReviews.rejected,
-        (state, { payload }: PayloadAction<any>) => {
+        (_, { payload }: PayloadAction<any>) => {
           return { ...initialState, errors: payload };
         }
       );

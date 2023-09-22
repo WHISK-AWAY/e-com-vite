@@ -21,7 +21,6 @@ export default function BodyItem({
 
   const [menuHeight, setMenuHeight] = useState(0);
   const localParent = useRef<HTMLDivElement>(null);
-  const [bodyState, setBodyState] = useState<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
     if (localParent.current) {
@@ -99,22 +98,22 @@ export default function BodyItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className='absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin'
+      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
     >
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
-          className='flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#FBFBFB]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]'
+          className="flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#FBFBFB]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]"
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
 
             return (
               <Link
-                to='/shop-all'
+                to="/shop-all"
                 onClick={() => closeLocalMenu(true)}
                 state={{ filterKey: name }}
-                className='submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300'
+                className="submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300"
                 key={tag._id}
               >
                 {name}

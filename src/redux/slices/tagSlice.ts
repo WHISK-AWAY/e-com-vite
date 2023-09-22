@@ -46,7 +46,7 @@ const tagSlice = createSlice({
       .addCase(fetchAllTags.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchAllTags.fulfilled, (state, { payload }) => {
+      .addCase(fetchAllTags.fulfilled, (_, { payload }) => {
         return { ...initialState, tags: payload };
       })
       .addCase(fetchAllTags.rejected, (_, { payload }: PayloadAction<any>) => {

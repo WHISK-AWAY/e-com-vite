@@ -44,15 +44,14 @@ export type TSort = {
 export type AllProductsProps = {
   sortKey?: SortKey;
   sortDir?: SortDir;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function AllProducts({
   sortKey = 'productName',
   sortDir = 'asc',
-  mobileMenu
-}:
-  AllProductsProps) {
+  mobileMenu,
+}: AllProductsProps) {
   const dispatch = useAppDispatch();
 
   let { state } = useLocation();
@@ -128,7 +127,7 @@ export default function AllProducts({
         top: 0,
         behavior: 'smooth',
       });
-      setFilterMenuIsOpen(false)
+      setFilterMenuIsOpen(false);
     }
   }, [filter]);
 
@@ -140,7 +139,7 @@ export default function AllProducts({
     const nextPage = curPage + 1;
     if (nextPage > maxPages) return;
     setParams({ page: String(nextPage) });
-    topElement.current?.scrollIntoView({ behavior: 'smooth' })
+    topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const pageDecrementor = () => {
@@ -148,9 +147,8 @@ export default function AllProducts({
 
     if (prevPage < 1) return;
     setParams({ page: String(prevPage) });
-    topElement.current?.scrollIntoView({ behavior: 'smooth' })
+    topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
 
   type TPageFlipper = {
     firstPage: number;
@@ -197,8 +195,6 @@ export default function AllProducts({
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
-
-
   if (!allProducts.products.length) return <p>...Loading</p>;
   if (!tagState.tags.length) return <p>...Tags loading</p>;
   if (!randomProd) return <p>..Loading random prod</p>;
@@ -207,9 +203,13 @@ export default function AllProducts({
     <>
       <section
         data-lenis-prevent
-        className='all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pt-5 portrait:w-[100dvw] portrait:px-0 pb-8'
+        className="all-product-container mx-auto flex w-11/12 max-w-screen-2xl flex-col items-center pb-8 pt-5 portrait:w-[100dvw] portrait:px-0"
       >
-        <section className={`${mobileMenu ? 'flex-col' : 'flex'} header-section relative  w-full justify-center `}>
+        <section
+          className={`${
+            mobileMenu ? 'flex-col' : 'flex'
+          } header-section relative  w-full justify-center `}
+        >
           {bestsellers ? (
             <BestsellersHeader />
           ) : (
@@ -224,7 +224,7 @@ export default function AllProducts({
         {!bestsellers && (
           <div
             ref={topElement}
-            className='sub-header pt-28 font-grotesque text-[2rem] font-light uppercase tracking-wide portrait:px-2 portrait:pt-5 scroll-mt-16'
+            className="sub-header scroll-mt-16 pt-28 font-grotesque text-[2rem] font-light uppercase tracking-wide portrait:px-2 portrait:pt-5"
           >
             {filter && filter === 'all' ? (
               <p>{filter} products</p>
@@ -235,18 +235,19 @@ export default function AllProducts({
         )}
 
         {!bestsellers && (
-          <section
-            className='filter-section flex flex-col self-end pb-10 pt-20 portrait:w-fit portrait:pr-3 portrait:pt-7'
-          >
-            <div className='flex gap-6 self-end cursor-pointer'
-              onClick={() => setFilterMenuIsOpen((prev) => !prev)}>
-              <p className='flex  font-grotesque text-sm 2xl:text-base'>sort/categories</p>
+          <section className="filter-section flex flex-col self-end pb-10 pt-20 portrait:w-fit portrait:pr-3 portrait:pt-7">
+            <div
+              className="flex cursor-pointer gap-6 self-end"
+              onClick={() => setFilterMenuIsOpen((prev) => !prev)}
+            >
+              <p className="flex  font-grotesque text-sm 2xl:text-base">
+                sort/categories
+              </p>
               {/* TODO: intrinsic height/width */}
               <img
                 src={filterIcon}
                 alt={`${filterMenuIsOpen ? 'hide' : 'show'} filter options`}
-                className='flex w-6 flex-row'
-
+                className="flex w-6 flex-row"
               />
             </div>
             <SortFilterAllProds
@@ -264,31 +265,35 @@ export default function AllProducts({
         )}
 
         {/* // ! product cards */}
-        <div id="product-card-container"
+        <div
+          id="product-card-container"
           //  landscape:border-t
-          className='grid grid-cols-4 border-primary-gray portrait:grid-cols-2'
+          className="test-class-name grid grid-cols-4 border-primary-gray portrait:grid-cols-2"
         >
-          {allProducts?.products?.map(product => (
-            <ProductCard product={product} key={product._id as Key} />
+          {allProducts?.products?.map((product) => (
+            <ProductCard
+              product={product}
+              key={product._id as Key}
+            />
           ))}
         </div>
 
         {/* // ! pagination */}
         {maxPages > 1 && (
-          <div className='flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t'>
-            <div className='flex items-center font-grotesque text-xl '>
+          <div className="flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t">
+            <div className="flex items-center font-grotesque text-xl ">
               <img
                 src={arrowLeft}
-                alt='go back one page'
-                className='h-4 cursor-pointer pr-8'
+                alt="go back one page"
+                className="h-4 cursor-pointer pr-8"
                 onClick={pageDecrementor}
               />
               {pageFlipper().firstPage}
               {pageNum! !== 1 && pageNum! !== maxPages && (
                 <img
                   src={dots}
-                  alt=''
-                  className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
+                  alt=""
+                  className="flex h-6 w-8 translate-y-[30%] cursor-pointer"
                 />
               )}
               {pageNum! !== 1 && pageNum! !== maxPages && (
@@ -296,14 +301,14 @@ export default function AllProducts({
               )}
               <img
                 src={dots}
-                alt=''
-                className='flex h-6 w-8 translate-y-[30%] cursor-pointer'
+                alt=""
+                className="flex h-6 w-8 translate-y-[30%] cursor-pointer"
               />
               {pageFlipper().lastPage}
               <img
                 src={arrowRight}
-                alt='go forward one page'
-                className='h-4 rotate-180 cursor-pointer pr-8'
+                alt="go forward one page"
+                className="h-4 rotate-180 cursor-pointer pr-8"
                 onClick={pageIncrementor}
               />
             </div>
@@ -311,7 +316,7 @@ export default function AllProducts({
         )}
       </section>
       <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
+        className="slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1 }}
