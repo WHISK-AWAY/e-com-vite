@@ -1,13 +1,11 @@
-import footer from '../assets/bg-img/footer.jpg';
-import { useAccountInfo } from '../utilities/convertKitAccInfo';
-import { useSubscribers } from '../utilities/subscribers';
+// import { useAccountInfo } from '../utilities/convertKitAccInfo';
+// import { useSubscribers } from '../utilities/subscribers';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
 import { useEffect } from 'react';
-import 'lazysizes'
-import convertMediaUrl from '../utilities/convertMediaUrl';
+// import 'lazysizes'
 
 type FormData = {
   email: string
