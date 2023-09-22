@@ -4,7 +4,7 @@ import BodyItem from './BodyItem';
 import x from '../../assets/icons/whiteX.svg';
 import chevronRight from '../../assets/icons/whiteArrow.svg';
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import { gsap } from 'gsap';
 
@@ -13,8 +13,10 @@ export type MenuOption = (typeof menuOptions)[number] | null;
 
 export default function DropdownMenu({
   setIsMenuHidden,
+  mobileMenu
 }: {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileMenu: boolean
 }) {
   const navigate = useNavigate();
 
@@ -143,134 +145,164 @@ export default function DropdownMenu({
 
   // text-[#bbbcbee0
   return (
-    <section
-      ref={menuWrapper}
-      className='menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8c8c7f] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] '
-    >
-      {/* Logo section (absolute) */}
-      <div className='logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center'>
-        <Link
-          to='/'
-          className='flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]'
-          onClick={closeMenu}
-        >
-          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
-          ASTORIA
-          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
-        </Link>
-      </div>
-
-      {/* Close icon (absolute) */}
-      <img
-        src={x}
-        alt='x-icon'
-        className='x-icon absolute left-10 top-10 h-[min(2vw,_3vh)] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[min(1.6vw,_3vh)]'
-        onClick={closeMenu}
-      />
-
-      {/* Menu options */}
-      <div className='menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)]'>
-        <div className={'menu-option ml-[25%]'}>
-          <button
-            onClick={() =>
-              closeMenu()?.then(() =>
-                navigate('/shop-all', { state: { filterKey: 'all' } })
-              )
-            }
-            className={textRevealClasses + ' uppercase'}
-          >
-            shop all
-          </button>
-        </div>
-        <div className='menu-option relative pl-[15%]'>
-          <div className='chevron-container relative w-fit'>
-            <button
-              className={'relative h-full uppercase ' + textRevealClasses}
-              onClick={() => toggleMenu('category')}
-            >
-              shop by category
-              <img
-                src={chevronRight}
-                alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                  menuMode === 'category'
-                    ? 'ease rotate-90 transform transition-all duration-700'
-                    : ''
-                }`}
-                // onMouseEnter={() => toggleMenu('category')}
-              />
-            </button>
+      <section
+          ref={menuWrapper}
+          className="menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8c8c7f] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] "
+      >
+          {/* Logo section (absolute) */}
+          <div className="logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center">
+              <Link
+                  to="/"
+                  className="flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]"
+                  onClick={closeMenu}
+              >
+                  {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
+                  ASTORIA
+                  {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
+              </Link>
           </div>
 
-          {menuMode === 'category' && (
-            <ShopByCategoryListItem
-              setMenuMode={setMenuMode}
-              closeOuterMenu={closeMenu}
-            />
-          )}
-        </div>
-        <div className='menu-option relative pl-[30%]'>
-          <button
-            onClick={() =>
-              closeMenu()?.then(() =>
-                navigate('/shop-all', { state: { filterKey: 'spf' } })
-              )
-            }
-            className={textRevealClasses + ' uppercase'}
-          >
-            summer care
-          </button>
-        </div>
-        <div className='menu-option relative pl-[30%]'>
-          <div className='chevron-container'>
-            <button
-              className={'relative h-full uppercase' + textRevealClasses}
-              onClick={(e) => {
-                e.preventDefault();
-                toggleMenu('face');
-              }}
-              // onMouseEnter={() => {
-              //   toggleMenu('face');
-              // }}
-            >
-              face
-              <img
-                src={chevronRight}
-                alt='right arrow'
-                className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                  menuMode === 'face'
-                    ? 'ease rotate-90 transform transition-all duration-700'
-                    : ''
-                }`}
-              />
-            </button>
+          {/* Close icon (absolute) */}
+          <img
+              src={x}
+              alt="x-icon"
+              className="x-icon absolute left-10 top-10 h-[min(2vw,_3vh)] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[min(1.6vw,_3vh)]"
+              onClick={closeMenu}
+          />
+
+          {/* Menu options */}
+          <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)]">
+              <div className={'menu-option ml-[25%]'}>
+                  <button
+                      onClick={() =>
+                          closeMenu()?.then(() =>
+                              navigate('/shop-all', {
+                                  state: { filterKey: 'all' },
+                              })
+                          )
+                      }
+                      className={textRevealClasses + ' uppercase'}
+                  >
+                      shop all
+                  </button>
+              </div>
+
+              <div
+                  className={`${
+                      mobileMenu ? '' : 'hidden'
+                  } txt-stroke ml-[20%] flex flex-col text-transparent text-white`}
+              >
+                  <NavLink
+                      to="/shop-all/bestsellers"
+                      state={{ sortKey: 'saleCount' }}
+                  >
+                      BESTSELLERS
+                  </NavLink>
+                  <NavLink to={'/new-in'}>NEW IN</NavLink>
+              </div>
+              <div className="menu-option relative pl-[15%]">
+                  <div className="chevron-container relative w-fit">
+                      <button
+                          className={
+                              'relative h-full uppercase ' + textRevealClasses
+                          }
+                          onClick={() => toggleMenu('category')}
+                      >
+                          shop by category
+                          <img
+                              src={chevronRight}
+                              alt="right arrow"
+                              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform  cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
+                                  menuMode === 'category'
+                                      ? 'ease rotate-90 transform transition-all duration-700'
+                                      : ''
+                              }`}
+                              // onMouseEnter={() => toggleMenu('category')}
+                          />
+                      </button>
+                  </div>
+
+                  {menuMode === 'category' && (
+                      <ShopByCategoryListItem
+                          setMenuMode={setMenuMode}
+                          closeOuterMenu={closeMenu}
+                      />
+                  )}
+              </div>
+              <div className="menu-option relative pl-[30%]">
+                  <button
+                      onClick={() =>
+                          closeMenu()?.then(() =>
+                              navigate('/shop-all', {
+                                  state: { filterKey: 'spf' },
+                              })
+                          )
+                      }
+                      className={textRevealClasses + ' uppercase'}
+                  >
+                      summer care
+                  </button>
+              </div>
+              <div className="menu-option relative pl-[30%]">
+                  <div className="chevron-container">
+                      <button
+                          className={
+                              'relative h-full uppercase' + textRevealClasses
+                          }
+                          onClick={(e) => {
+                              e.preventDefault();
+                              toggleMenu('face');
+                          }}
+                          // onMouseEnter={() => {
+                          //   toggleMenu('face');
+                          // }}
+                      >
+                          face
+                          <img
+                              src={chevronRight}
+                              alt="right arrow"
+                              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
+                                  menuMode === 'face'
+                                      ? 'ease rotate-90 transform transition-all duration-700'
+                                      : ''
+                              }`}
+                          />
+                      </button>
+                  </div>
+                  {menuMode === 'face' && (
+                      <FaceItem
+                          setMenuMode={setMenuMode}
+                          closeOuterMenu={closeMenu}
+                      />
+                  )}
+              </div>
+              <div className="menu-option relative pl-[30%]">
+                  <button
+                      className={
+                          'relative h-full uppercase' + textRevealClasses
+                      }
+                      // onMouseEnter={() => toggleMenu('body')}
+                      onClick={() => toggleMenu('body')}
+                  >
+                      body
+                      <img
+                          src={chevronRight}
+                          alt="right arrow"
+                          className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] origin-[50%_50%] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
+                              menuMode === 'body'
+                                  ? 'ease rotate-90 transform duration-700'
+                                  : ''
+                          }`}
+                      />
+                  </button>
+                  {menuMode === 'body' && (
+                      <BodyItem
+                          setMenuMode={setMenuMode}
+                          closeOuterMenu={closeMenu}
+                      />
+                  )}
+              </div>
           </div>
-          {menuMode === 'face' && (
-            <FaceItem setMenuMode={setMenuMode} closeOuterMenu={closeMenu} />
-          )}
-        </div>
-        <div className='menu-option relative pl-[30%]'>
-          <button
-            className={'relative h-full uppercase' + textRevealClasses}
-            // onMouseEnter={() => toggleMenu('body')}
-            onClick={() => toggleMenu('body')}
-          >
-            body
-            <img
-              src={chevronRight}
-              alt='right arrow'
-              className={`ease absolute right-0 top-1/2 h-[min(2.5vw,_3vh)] origin-[50%_50%] translate-x-[290%] translate-y-[-50%] transform cursor-pointer opacity-0 transition-all duration-300 xl:h-[min(2vw,_3vh)] 3xl:h-[min(1.5vw,_3vh)] ${
-                menuMode === 'body'
-                  ? 'ease rotate-90 transform duration-700'
-                  : ''
-              }`}
-            />
-          </button>
-          {menuMode === 'body' && (
-            <BodyItem setMenuMode={setMenuMode} closeOuterMenu={closeMenu} />
-          )}
-        </div>
-      </div>
-    </section>
+      </section>
   );
 }
