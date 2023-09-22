@@ -16,10 +16,10 @@ export default function ShopByCategoryListItem({
 }: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
-  const [catState, setCatState] = useState<gsap.core.Timeline | null>(null);
+  // const [catState, setCatState] = useState<gsap.core.Timeline | null>(null);
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
-  const catRef = useRef(null);
+  // const catRef = useRef(null);
 
   useEffect(() => {
     setMenuHeight(
@@ -57,7 +57,7 @@ export default function ShopByCategoryListItem({
           duration: 0.25,
         });
 
-      setCatState(tl);
+      // setCatState(tl);
     });
 
     return () => {
@@ -92,8 +92,8 @@ export default function ShopByCategoryListItem({
         });
   }
 
-  const subItem = document.querySelectorAll('.submenu-item');
-  const underline = document.querySelectorAll('.underline');
+  // const subItem = document.querySelectorAll('.submenu-item');
+  // const underline = document.querySelectorAll('.underline');
 
   // useEffect(() => {
 
@@ -128,24 +128,24 @@ export default function ShopByCategoryListItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className='group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin'
+      className="group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
     >
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className='flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]'
+          className="flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]"
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
             return (
               <Link
                 key={tag._id}
-                to='/shop-all'
+                to="/shop-all"
                 onClick={() => {
                   closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
-                className='submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300'
+                className="submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300"
               >
                 {name}
               </Link>

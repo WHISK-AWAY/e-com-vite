@@ -3,7 +3,6 @@ import type { RootState } from '../store';
 import axios, { AxiosError } from 'axios';
 import { z } from 'zod';
 import { createZodUser } from '../../../server/api/authRouter';
-import { ICart } from './cartSlice';
 import { toastUserLoggedIn, toastUserLoggedOut } from '../../utilities/toast';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
@@ -44,7 +43,7 @@ export const requestSignUp = createAsyncThunk(
         userInfo,
         { withCredentials: true }
       );
-      console.log('signup thunk data received', data);
+      // console.log('signup thunk data received', data);
       return data;
     } catch (err: any) {
       if (err instanceof AxiosError)
@@ -73,7 +72,7 @@ export const requestLogin = createAsyncThunk(
 
       return res.data;
     } catch (err: any) {
-      console.log('requestLogin err:', err);
+      // console.log('requestLogin err:', err);
       if (err instanceof AxiosError)
         return thunkApi.rejectWithValue({
           status: err.response?.status,
@@ -201,7 +200,7 @@ export const authSlice = createSlice({
      */
 
     builder
-      .addCase(requestLogout.pending, (state) => {
+      .addCase(requestLogout.pending, () => {
         return { ...initialState, loading: true };
       })
       .addCase(requestLogout.fulfilled, () => {

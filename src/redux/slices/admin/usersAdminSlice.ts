@@ -107,7 +107,7 @@ const adminUsersSlice = createSlice({
       let sortedUsers: TUser[] = [];
       if (sortDir === 'asc') {
         if (['firstName', 'email', 'role'].includes(sortField)) {
-          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
+          sortedUsers = [...state.allUsers].sort((a: any, b: any) => {
             if (a[sortField].toLowerCase() === b[sortField].toLowerCase()) {
               return a._id > b._id ? 1 : -1;
             }
@@ -133,7 +133,7 @@ const adminUsersSlice = createSlice({
             return b.cart.products.length - a.cart.products.length;
           });
         } else {
-          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
+          sortedUsers = [...state.allUsers].sort((a: any, b: any) => {
             if (a[sortField] === b[sortField]) {
               return a._id < b._id ? 1 : -1;
             } else {
@@ -143,7 +143,7 @@ const adminUsersSlice = createSlice({
         }
       } else {
         if (['firstName', 'email', 'state', 'role'].includes(sortField)) {
-          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
+          sortedUsers = [...state.allUsers].sort((a: any, b: any) => {
             if (a[sortField].toLowerCase() === b[sortField].toLowerCase()) {
               return a._id < b._id ? 1 : -1;
             }
@@ -161,7 +161,7 @@ const adminUsersSlice = createSlice({
             return a.lastName.toLowerCase() < b.lastName.toLowerCase() ? 1 : -1;
           });
         } else {
-          sortedUsers = [...state.allUsers].sort((a:any, b:any) => {
+          sortedUsers = [...state.allUsers].sort((a: any, b: any) => {
             if (a[sortField] === b[sortField]) {
               return a._id < b._id ? 1 : -1;
             } else {
@@ -179,7 +179,7 @@ const adminUsersSlice = createSlice({
      * * FETCH ALL USERS
      */
     builder
-      .addCase(fetchAllUsersAdmin.pending, (state, { payload }) => {
+      .addCase(fetchAllUsersAdmin.pending, (state) => {
         return { ...state, loading: true };
       })
       .addCase(fetchAllUsersAdmin.fulfilled, (state, { payload }) => {
@@ -187,7 +187,7 @@ const adminUsersSlice = createSlice({
       })
       .addCase(
         fetchAllUsersAdmin.rejected,
-        (state, { payload }: PayloadAction<any>) => {
+        (_, { payload }: PayloadAction<any>) => {
           return { ...initialState, errors: payload };
         }
       );
@@ -196,7 +196,7 @@ const adminUsersSlice = createSlice({
      * * UPDATE USER ROLE
      */
     builder
-      .addCase(updateUserRole.pending, (state, { payload }) => {
+      .addCase(updateUserRole.pending, (state) => {
         return { ...state, loading: true };
       })
       .addCase(updateUserRole.fulfilled, (state, { payload }) => {
@@ -204,7 +204,7 @@ const adminUsersSlice = createSlice({
       })
       .addCase(
         updateUserRole.rejected,
-        (state, { payload }: PayloadAction<any>) => {
+        (_, { payload }: PayloadAction<any>) => {
           return { ...initialState, errors: payload };
         }
       );
@@ -214,7 +214,7 @@ const adminUsersSlice = createSlice({
      */
 
     builder
-      .addCase(deleteUser.pending, (state, { payload }) => {
+      .addCase(deleteUser.pending, (state) => {
         return { ...state, loading: true };
       })
       .addCase(deleteUser.fulfilled, (state, { payload }) => {
@@ -230,7 +230,7 @@ const adminUsersSlice = createSlice({
       .addCase(
         deleteUser.rejected,
         (state, { payload }: PayloadAction<any>) => {
-          return { ...state, loading: true };
+          return { ...state, loading: false, errors: payload };
         }
       );
   },

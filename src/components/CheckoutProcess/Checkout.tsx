@@ -3,10 +3,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import {
-  StripeElementsOptions,
-  StripePaymentElementOptions,
-} from '@stripe/stripe-js';
+import { type StripePaymentElementOptions } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { selectOrderState } from '../../redux/slices/orderSlice';
 import { useAppSelector } from '../../redux/hooks';
@@ -80,29 +77,38 @@ export default function Checkout() {
   };
 
   return (
-    <div className='flex flex-col '>
-      <form id='payment-form' onSubmit={(e) => handlePaymentSubmit(e)}>
+    <div className="flex flex-col ">
+      <form
+        id="payment-form"
+        onSubmit={(e) => handlePaymentSubmit(e)}
+      >
         {/* PAYMENT FORM */}
-        <PaymentElement id='payment-element' options={paymentElementOptions} />
-        <div className=' flex   justify-center '>
+        <PaymentElement
+          id="payment-element"
+          options={paymentElementOptions}
+        />
+        <div className=" flex   justify-center ">
           <button
             disabled={isLoading || !stripe || !elements}
-            id='submit'
-            className=' flex '
+            id="submit"
+            className=" flex "
           >
             <span
-              id='button-text'
-              className='my-5 rounded-sm bg-charcoal px-10 py-1 font-poiret text-lg uppercase text-white'
+              id="button-text"
+              className="my-5 rounded-sm bg-charcoal px-10 py-1 font-poiret text-lg uppercase text-white"
             >
               {isLoading ? (
-                <div className='spinner' id='spinner'></div>
+                <div
+                  className="spinner"
+                  id="spinner"
+                ></div>
               ) : (
                 'Pay now'
               )}
             </span>
           </button>
           {/* Show any error or success messages */}
-          {message && <div id='payment-message'>{message}</div>}
+          {message && <div id="payment-message">{message}</div>}
         </div>
       </form>
     </div>

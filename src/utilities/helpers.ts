@@ -31,26 +31,19 @@ export async function checkPassword(password: string) {
     )) as { data: { passwordCheck?: boolean; error?: string } };
     // if (data.error) throw new Error(data.error);
     if (data.error) {
-      console.log('passwordcheck error:', data.error);
       return false;
     }
 
     const passwordCheck = data.passwordCheck;
-    console.log('passwordCheck:', passwordCheck);
     return passwordCheck;
   } catch (err) {
     if (err instanceof AxiosError) {
-      console.log({
-        status: err.response?.status,
-        message: err.response?.data.error,
-      });
       // return {
       //   status: err.response?.status,
       //   message: err.response?.data.error,
       // };
       return false;
     } else {
-      console.log('some other kinda err:', err);
       return false;
     }
   }

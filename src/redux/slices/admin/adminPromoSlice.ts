@@ -72,9 +72,7 @@ export const adminFetchSinglePromo = createAsyncThunk(
 export const adminCreateSinglePromo = createAsyncThunk(
   'singlePromo/adminCreateSinglePromo',
   async (promo: TPromo, thunkApi) => {
-    console.log('create promo thunk');
     try {
-      console.log('create inside try promo thunk');
       const { data } = await axios.post(VITE_API_URL + '/api/promo/', promo, {
         withCredentials: true,
       });

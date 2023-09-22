@@ -87,8 +87,6 @@ export const deleteReview = createAsyncThunk(
         { withCredentials: true }
       );
 
-      console.log('data @ deleteReview:', data);
-
       return { deletedReviewId: reviewId };
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -202,7 +200,7 @@ const adminReviewSlice = createSlice({
       })
       .addCase(
         fetchAllAdminReviews.rejected,
-        (state, { payload }: PayloadAction<any>) => {
+        (_, { payload }: PayloadAction<any>) => {
           return { ...initialState, errors: payload };
         }
       );

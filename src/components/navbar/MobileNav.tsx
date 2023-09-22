@@ -32,7 +32,7 @@ export type NavbarProps = {
   isSignFormHidden: boolean;
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function MobileNav({
@@ -46,7 +46,7 @@ export default function MobileNav({
   isSignFormHidden,
   setIsMenuHidden,
   isMenuHidden,
-  mobileMenu
+  mobileMenu,
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
@@ -57,36 +57,41 @@ export default function MobileNav({
   }, [userId]);
 
   return (
-    <nav className='mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between bg-white p-2'>
-      <section className='flex h-full w-fit items-center  gap-6 pl-3'>
+    <nav className="mobile-nav-container align-center sticky top-0 z-40 flex h-16 w-[100vw] items-center justify-between bg-white p-2">
+      <section className="flex h-full w-fit items-center  gap-6 pl-3">
         {/**hamburger menu section */}
         <>
           <img
             src={menuIcon}
-            alt='Menu'
-            className='h-9 pt-3'
+            alt="Menu"
+            className="h-9 pt-3"
             onClick={() => setIsMenuHidden(false)}
           />
-          {!isMenuHidden && <DropdownMenu setIsMenuHidden={setIsMenuHidden} mobileMenu={mobileMenu}/>}
+          {!isMenuHidden && (
+            <DropdownMenu
+              setIsMenuHidden={setIsMenuHidden}
+              mobileMenu={mobileMenu}
+            />
+          )}
         </>
 
         {/**logo section */}
         <Link
           to={'/'}
-          className='pb-3 font-notable text-[2.5rem] leading-none text-primary-gray'
+          className="pb-3 font-notable text-[2.5rem] leading-none text-primary-gray"
         >
           A
         </Link>
       </section>
 
       {/**user nav section */}
-      <section className='user-navigation flex h-full w-fit items-center justify-center gap-4 pr-3'>
+      <section className="user-navigation flex h-full w-fit items-center justify-center gap-4 pr-3">
         {/**search section */}
         <>
           <img
             src={searchIcon}
-            alt='Search'
-            className='h-6'
+            alt="Search"
+            className="h-6"
             onClick={() => setIsSearchHidden((prev) => !prev)}
           />
 
@@ -99,8 +104,8 @@ export default function MobileNav({
         <>
           <img
             src={bag}
-            alt='Cart'
-            className='h-6'
+            alt="Cart"
+            className="h-6"
             onClick={() => {
               setMode('cart');
               setIsCartFavWrapperHidden(false);
@@ -112,8 +117,8 @@ export default function MobileNav({
               setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
               mode={mode}
               mobileMenu={mobileMenu}
-              />
-              )}
+            />
+          )}
         </>
 
         {/**fav section */}
@@ -121,15 +126,15 @@ export default function MobileNav({
           <img
             src={
               userId && singleUserState.user?.favorites?.length >= 1
-              ? heartFilled
-              : heartBlanc
+                ? heartFilled
+                : heartBlanc
             }
             alt={
               userId && singleUserState.user?.favorites?.length >= 1
-              ? 'Favorites (Filled Heart)'
-              : 'Favorites (Empty Heart)'
+                ? 'Favorites (Filled Heart)'
+                : 'Favorites (Empty Heart)'
             }
-            className='h-6'
+            className="h-6"
             onClick={() => {
               setMode('fav');
               setIsCartFavWrapperHidden(false);
@@ -138,9 +143,9 @@ export default function MobileNav({
 
           {!isCartFavWrapperHidden && mode === 'fav' && (
             <CartFavWrapper
-            setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-            mode={mode}
-            mobileMenu={mobileMenu}
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              mode={mode}
+              mobileMenu={mobileMenu}
             />
           )}
         </>
@@ -152,16 +157,22 @@ export default function MobileNav({
             <img
               src={user}
               alt={userId ? 'User Account' : 'Sign In'}
-              className='h-6'
+              className="h-6"
             />
           </Link>
         ) : (
           <>
             <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
-              <img src={user} className='h-6' />
+              <img
+                src={user}
+                className="h-6"
+              />
             </button>
             {!isSignFormHidden && (
-              <SignWrapper setIsSignFormHidden={setIsSignFormHidden} mobileMenu={mobileMenu}/>
+              <SignWrapper
+                setIsSignFormHidden={setIsSignFormHidden}
+                mobileMenu={mobileMenu}
+              />
             )}
           </>
         )}

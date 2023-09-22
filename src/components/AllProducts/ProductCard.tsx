@@ -41,10 +41,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <li
+      // see index.css for definition of .first-row-top-border
       className={` ${allProducts.products.length % 2 === 0
         ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full'
         : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
-        } relative flex list-none flex-col justify-between border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
+        } relative flex list-none flex-col justify-between border-primary-gray first-row-top-border landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
       key={product._id.toString()}
     >
       <div

@@ -64,16 +64,12 @@ export default function AllProductsHeader({
     };
   }, [randomProd]);
 
-
-
-  console.log(categoryInfo)
   return (
     <>
       <section className=' relative flex w-1/2 portrait:w-[100vw] portrait:md:w-1/2'>
         <h1
-          className={`${
-            mobileMenu ? 'hidden' : ''
-          } absolute right-0 top-6 font-poiret text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl `}
+          className={`${mobileMenu ? 'hidden' : ''
+            } absolute right-0 top-6 font-poiret text-6xl uppercase tracking-wide lg:text-8xl 2xl:top-20 2xl:text-9xl `}
           dangerouslySetInnerHTML={{
             __html: categoryInfo?.splitTitle || <span>problem</span>,
           }}
@@ -108,9 +104,8 @@ export default function AllProductsHeader({
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 portrait:hidden portrait:md:flex portrait:md:w-4/5  ${
-            randomProdGif || backupImage ? 'group' : ''
-          }`}
+          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 portrait:hidden portrait:md:flex portrait:md:w-4/5  ${randomProdGif || backupImage ? 'group' : ''
+            }`}
         >
           <Link
             to={`/product/${randomProd._id}`}

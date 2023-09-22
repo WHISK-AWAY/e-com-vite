@@ -3,6 +3,7 @@ import CreatableSelect from 'react-select/creatable';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  type ZodCreateProduct,
   adminCreateSingleProduct,
   adminEditSingleProduct,
 } from '../../../redux/slices/admin/adminProductsSlice';
@@ -77,7 +78,6 @@ export type EditOrCreateFormModes = 'edit' | 'new';
 export default function CreateOrEditProduct() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState<TCreateSingleProduct>();
   const [editOrCreateFormModes, setEditOrCreateFormModes] =
     useState<EditOrCreateFormModes>('new');
   const product = useAppSelector(selectSingleProduct);
@@ -130,8 +130,7 @@ export default function CreateOrEditProduct() {
     reset,
     control,
     handleSubmit,
-    getValues,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useForm<TCreateSingleProduct>({
     resolver: zodResolver(ZSingleProduct),
     defaultValues,
@@ -164,7 +163,7 @@ export default function CreateOrEditProduct() {
         };
       }),
       tags: data.tags.map((tag) => tag.label),
-    };
+    } as ZodCreateProduct;
 
     if (editOrCreateFormModes === 'new') {
       await dispatch(adminCreateSingleProduct(productFields));
@@ -182,77 +181,78 @@ export default function CreateOrEditProduct() {
   };
 
   return (
-    <section className='product-form-container'>
+    <section className="product-form-container">
       <form onSubmit={handleSubmit(handleCreateOrEditProduct)}>
-        <div className='product-name-section'>
+        <div className="product-name-section">
           {!productId ? <h1>NEW PRODUCT FORM</h1> : <h1>EDIT PRODUCT FORM </h1>}
-          <label htmlFor='product-name'>PRODUCT NAME</label>
+          <label htmlFor="product-name">PRODUCT NAME</label>
           <input
-            type='text'
-            id='product-name'
+            type="text"
+            id="product-name"
             {...register('productName')}
           ></input>
           {errors.productName && (
-            <p className='text-red-700'>{errors.productName?.message}</p>
+            <p className="text-red-700">{errors.productName?.message}</p>
           )}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-long-desc'>PRODUCT LONG DESCRIPTION</label>
+        <div className="product-name-section">
+          <label htmlFor="product-long-desc">PRODUCT LONG DESCRIPTION</label>
           <textarea
-            id='product-long-desc'
+            id="product-long-desc"
             {...register('productIngredients')}
           ></textarea>
           {errors.productIngredients && (
-            <p className='text-red-700'>{errors.productIngredients?.message}</p>
+            <p className="text-red-700">{errors.productIngredients?.message}</p>
           )}
         </div>
-        <div className='product-name-section'>
-          <label htmlFor='product-short-desc'>PRODUCT SHORT DESCRIPTION</label>
+        <div className="product-name-section">
+          <label htmlFor="product-short-desc">PRODUCT SHORT DESCRIPTION</label>
           <textarea
-            id='product-short-desc'
+            id="product-short-desc"
             {...register('productShortDesc')}
           ></textarea>
           {errors.productShortDesc && (
-            <p className='text-red-700'>{errors.productShortDesc?.message}</p>
+            <p className="text-red-700">{errors.productShortDesc?.message}</p>
           )}
         </div>
-        <div className='price-section'>
-          <label htmlFor='price'>PRODUCT PRICE</label>
+        <div className="price-section">
+          <label htmlFor="price">PRODUCT PRICE</label>
           <input
-            type='number'
-            id='price'
+            type="number"
+            id="price"
             {...register('price', { valueAsNumber: true })}
           ></input>
           {errors.price && (
-            <p className='text-red-700'>{errors.price?.message}</p>
+            <p className="text-red-700">{errors.price?.message}</p>
           )}
         </div>
-        <div className='qty-section'>
-          <label htmlFor='qty'>PRODUCT QTY</label>
+        <div className="qty-section">
+          <label htmlFor="qty">PRODUCT QTY</label>
           <input
-            type='number'
-            id='qty'
+            type="number"
+            id="qty"
             {...register('qty', { valueAsNumber: true })}
           ></input>
-          {errors.qty && <p className='text-red-700'>{errors.qty?.message}</p>}
+          {errors.qty && <p className="text-red-700">{errors.qty?.message}</p>}
         </div>
-        <div className='image-section'>
-          <label htmlFor='image-URL'>PRODUCT IMAGE</label>
-          <input type='text' id='image-URL' {...register('imageURL')}></input>
+        <div className="image-section">
+          <label htmlFor="image-URL">PRODUCT IMAGE</label>
+          <input
+            type="text"
+            id="image-URL"
+            {...register('imageURL')}
+          ></input>
           {errors.imageURL && (
-            <p className='text-red-700'>{errors.imageURL?.message}</p>
+            <p className="text-red-700">{errors.imageURL?.message}</p>
           )}
         </div>
 
         <h1>SELECT TAGS:</h1>
         <Controller
           control={control}
-          name='tags'
+          name="tags"
           rules={{ required: true, min: 3 }}
-          render={({
-            field: { onChange, onBlur, value, name, ref },
-            formState,
-          }) => {
+          render={({ field: { onChange, onBlur, value } }) => {
             return (
               <CreatableSelect
                 closeMenuOnSelect={false}
@@ -261,17 +261,20 @@ export default function CreateOrEditProduct() {
                 onChange={onChange}
                 isMulti={true}
                 options={allTags.tags.map((tag) => {
-                  return { value: tag.tagName, label: tag.tagName };
+                  return {
+                    value: tag.tagName,
+                    label: tag.tagName,
+                  };
                 })}
               ></CreatableSelect>
             );
           }}
         ></Controller>
-        {errors.tags && <p className='text-red-700'>{errors.tags?.message}</p>}
-        {productId && <button className='bg-blue-300'>EDIT</button>}
+        {errors.tags && <p className="text-red-700">{errors.tags?.message}</p>}
+        {productId && <button className="bg-blue-300">EDIT</button>}
 
         <br />
-        {!productId && <button className='bg-blue-300'>SAVE</button>}
+        {!productId && <button className="bg-blue-300">SAVE</button>}
       </form>
     </section>
   );

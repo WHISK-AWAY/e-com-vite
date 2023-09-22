@@ -70,7 +70,7 @@ export type AddReviewProps = {
   productId: string;
   product: TProduct;
   setShowReviewForm: React.Dispatch<React.SetStateAction<boolean>>;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 /**
@@ -84,7 +84,7 @@ export default function AddReview({
   productId,
   product,
   setShowReviewForm,
-  mobileMenu
+  mobileMenu,
 }: AddReviewProps) {
   const reviewButtonRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
@@ -134,426 +134,366 @@ export default function AddReview({
   }, [Object.keys(errors)]);
 
   const addNewReview = (data: TAddReview) => {
-    console.log(data);
-
-    // * following lines commented out for testing -- bring these back
     if (userId)
       dispatch(addReview({ userId, productId, review: data })).then(() =>
         setShowReviewForm(false)
       );
   };
 
-  const labelClasses = ' bg-white  text-xs lg:text-base xl:text-lg 2xl:text-xl portrait:text-[1.1rem]';
+  const labelClasses =
+    ' bg-white  text-xs lg:text-base xl:text-lg 2xl:text-xl portrait:text-[1.1rem]';
   const inputClasses =
-      'focus:border-charcoal portrait:text-[1.1rem] focus:rounded-[3px] focus-no-ring input-ring-charcoal px-2 border text-xs lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-5 portrait:h-7 xl:h-9 2xl:h-14';
+    'focus:border-charcoal portrait:text-[1.1rem] focus:rounded-[3px] focus-no-ring input-ring-charcoal px-2 border text-xs lg:text-base xl:text-lg 2xl:text-xl border-charcoal h-5 portrait:h-7 xl:h-9 2xl:h-14';
 
   // className={'' + inputClasses}
 
   return (
-      <section
-          ref={reviewButtonRef}
-          className={` ${
-              mobileMenu ? 'w-[95svw] mb-16' : 'w-[60svw] mb-36'
-          } new-review-container flex h-[70svh]  flex-col items-center justify-center  gap-4 2xl:gap-7`}
+    <section
+      ref={reviewButtonRef}
+      className={` ${
+        mobileMenu ? 'mb-16 w-[95svw]' : 'mb-36 w-[60svw]'
+      } new-review-container flex h-[70svh]  flex-col items-center justify-center  gap-4 2xl:gap-7`}
+    >
+      <button
+        className="self-end rounded-sm border border-charcoal px-5 py-1  font-poiret text-xs uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-2 2xl:text-xl"
+        onClick={() => setShowReviewForm((prev) => !prev)}
       >
-          <button
-              className="self-end rounded-sm border border-charcoal px-5 py-1  font-poiret text-xs uppercase lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-2 2xl:text-xl"
-              onClick={() => setShowReviewForm((prev) => !prev)}
+        cancel
+      </button>
+      <div className="flex w-full justify-center gap-5  xl:gap-8">
+        <div
+          className={` ${
+            mobileMenu ? 'hidden' : ''
+          } review-image-container shrink-0 grow-0 basis-1/5 items-center justify-center`}
+        >
+          <img
+            src={
+              product.images.find(
+                (image) => image.imageDesc === 'product-front'
+              )?.imageURL || product.images[0].imageURL
+            }
+            className="aspect-[4/5]  object-cover "
+            alt="product image"
+          />
+        </div>
+        <div
+          className={`${
+            mobileMenu ? 'basis-full' : 'basis-4/5'
+          } review-form-container flex flex-col items-center`}
+        >
+          <form
+            onSubmit={handleSubmit(addNewReview)}
+            className="flex w-full flex-col items-center gap-5 xl:gap-7"
           >
-              cancel
-          </button>
-          <div className="flex w-full justify-center gap-5  xl:gap-8">
-              <div
-                  className={` ${
-                      mobileMenu ? 'hidden' : ''
-                  } review-image-container shrink-0 grow-0 basis-1/5 items-center justify-center`}
-              >
-                  <img
-                      src={
-                          product.images.find(
-                              (image) => image.imageDesc === 'product-front'
-                          )?.imageURL || product.images[0].imageURL
-                      }
-                      className="aspect-[4/5]  object-cover "
-                      alt="product image"
-                  />
+            <div className="input-form-wrapper flex w-full flex-col items-center">
+              <div className="review-form-header w-4/5 border border-b-0 border-charcoal">
+                <h2 className="py-2 text-center font-poiret text-xs uppercase lg:text-xl xl:text-2xl portrait:text-[1.4rem]">
+                  write a review
+                </h2>
               </div>
-              <div
-                  className={`${
-                      mobileMenu ? 'basis-full' : 'basis-4/5'
-                  } review-form-container flex flex-col items-center`}
-              >
-                  <form
-                      onSubmit={handleSubmit(addNewReview)}
-                      className="flex w-full flex-col items-center gap-5 xl:gap-7"
+              <div className="review-form-body h-full w-full border border-charcoal font-grotesque font-light">
+                {/* <div className='review-form-body-left grid grid-rows-[9] border-r border-charcoal'></div> */}
+                <div className="review-form-body-right grid h-full grid-cols-[30%_70%] items-center gap-y-2 p-4 xl:gap-y-5 2xl:p-7">
+                  <label
+                    htmlFor="nickname"
+                    className={'' + labelClasses}
                   >
-                      <div className="input-form-wrapper flex w-full flex-col items-center">
-                          <div className="review-form-header w-4/5 border border-b-0 border-charcoal">
-                              <h2 className="py-2 text-center font-poiret text-xs uppercase lg:text-xl xl:text-2xl portrait:text-[1.4rem]">
-                                  write a review
-                              </h2>
-                          </div>
-                          <div className="review-form-body h-full w-full border border-charcoal font-grotesque font-light">
-                              {/* <div className='review-form-body-left grid grid-rows-[9] border-r border-charcoal'></div> */}
-                              <div className="review-form-body-right grid h-full grid-cols-[30%_70%] items-center gap-y-2 p-4 xl:gap-y-5 2xl:p-7">
-                                  <label
-                                      htmlFor="nickname"
-                                      className={'' + labelClasses}
-                                  >
-                                      nickname
-                                  </label>
-                                  <input
-                                      className={`${inputClasses} ${
-                                          errors.nickname?.message
-                                              ? ' border-red-700 bg-red-100'
-                                              : ''
-                                      }`}
-                                      type="text"
-                                      id="nickname"
-                                      placeholder={
-                                          errors.nickname?.message || ''
-                                      }
-                                      {...register('nickname')}
-                                  ></input>
-                                  <label
-                                      htmlFor="location"
-                                      className={'' + labelClasses}
-                                  >
-                                      location
-                                  </label>
-                                  <input
-                                      className={`${inputClasses} ${
-                                          errors.location?.message
-                                              ? ' border-red-700 bg-red-100'
-                                              : ''
-                                      }`}
-                                      type="text"
-                                      id="location"
-                                      placeholder={
-                                          errors.location?.message || ''
-                                      }
-                                      {...register('location')}
-                                  ></input>
-                                  <label
-                                      htmlFor="skin-concern-select"
-                                      className={
-                                          'self-start pt-1' + labelClasses
-                                      }
-                                  >
-                                      skin concerns
-                                  </label>
-                                  <div className="select-container min-h-fit bg-white">
-                                      <Controller
-                                          control={control}
-                                          name="skinConcernOptions"
-                                          rules={{
-                                              required: true,
-                                              min: 3,
-                                              max: 5,
-                                          }}
-                                          render={({
-                                              field: { onChange, onBlur },
-                                              formState,
-                                          }) => (
-                                              <Select
-                                                  unstyled={false}
-                                                  className="h-fit text-xs lg:text-base 2xl:h-16"
-                                                  theme={(theme) => ({
-                                                      ...theme,
-                                                      colors: {
-                                                          ...theme.colors,
-                                                          primary: '#4a4a4a',
-                                                      },
-                                                  })}
-                                                  styles={{
-                                                      control: (
-                                                          baseStyles,
-                                                          state
-                                                      ) => ({
-                                                          ...baseStyles,
-                                                          // height: '20px',
-                                                          borderColor:
-                                                              errors.skinConcernOptions
-                                                                  ? 'rgb(248,113,113)'
-                                                                  : '#4a4a4a',
-                                                          ':hover': {
-                                                              borderColor:
-                                                                  '#4a4a4a',
-                                                          },
-                                                          borderRadius:
-                                                              state.isFocused
-                                                                  ? '2px'
-                                                                  : 'none',
-                                                          backgroundColor:
-                                                              errors.skinConcernOptions
-                                                                  ? 'rgb(254,226,226)'
-                                                                  : 'white',
-                                                          fontFamily:
-                                                              'Darker Grotesque, monospace',
-                                                          minHeight: '100%',
-                                                      }),
-                                                      menu: (
-                                                          baseStyles,
-                                                          _
-                                                      ) => ({
-                                                          ...baseStyles,
-                                                          borderRadius: 'none',
-                                                          backgroundColor:
-                                                              'white',
-                                                          color: '#4a4a4a',
-                                                          // fontSize: '0.5rem',
-                                                          fontFamily:
-                                                              'Darker Grotesque, monospace',
-                                                      }),
-                                                      dropdownIndicator: (
-                                                          baseStyles,
-                                                          _
-                                                      ) => ({
-                                                          ...baseStyles,
-                                                          color: '#4a4a4a',
-                                                      }),
-                                                  }}
-                                                  closeMenuOnSelect={false}
-                                                  onBlur={onBlur}
-                                                  onChange={onChange}
-                                                  isMulti={true}
-                                                  options={SKIN_CONCERN_OPTIONS}
-                                                  id="skin-concern-select"
-                                              />
-                                          )}
-                                      ></Controller>
+                    nickname
+                  </label>
+                  <input
+                    className={`${inputClasses} ${
+                      errors.nickname?.message
+                        ? ' border-red-700 bg-red-100'
+                        : ''
+                    }`}
+                    type="text"
+                    id="nickname"
+                    placeholder={errors.nickname?.message || ''}
+                    {...register('nickname')}
+                  ></input>
+                  <label
+                    htmlFor="location"
+                    className={'' + labelClasses}
+                  >
+                    location
+                  </label>
+                  <input
+                    className={`${inputClasses} ${
+                      errors.location?.message
+                        ? ' border-red-700 bg-red-100'
+                        : ''
+                    }`}
+                    type="text"
+                    id="location"
+                    placeholder={errors.location?.message || ''}
+                    {...register('location')}
+                  ></input>
+                  <label
+                    htmlFor="skin-concern-select"
+                    className={'self-start pt-1' + labelClasses}
+                  >
+                    skin concerns
+                  </label>
+                  <div className="select-container min-h-fit bg-white">
+                    <Controller
+                      control={control}
+                      name="skinConcernOptions"
+                      rules={{
+                        required: true,
+                        min: 3,
+                        max: 5,
+                      }}
+                      render={({ field: { onChange, onBlur }, formState }) => (
+                        <Select
+                          unstyled={false}
+                          className="h-fit text-xs lg:text-base 2xl:h-16"
+                          theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                              ...theme.colors,
+                              primary: '#4a4a4a',
+                            },
+                          })}
+                          styles={{
+                            control: (baseStyles, state) => ({
+                              ...baseStyles,
+                              // height: '20px',
+                              borderColor: errors.skinConcernOptions
+                                ? 'rgb(248,113,113)'
+                                : '#4a4a4a',
+                              ':hover': {
+                                borderColor: '#4a4a4a',
+                              },
+                              borderRadius: state.isFocused ? '2px' : 'none',
+                              backgroundColor: errors.skinConcernOptions
+                                ? 'rgb(254,226,226)'
+                                : 'white',
+                              fontFamily: 'Darker Grotesque, monospace',
+                              minHeight: '100%',
+                            }),
+                            menu: (baseStyles, _) => ({
+                              ...baseStyles,
+                              borderRadius: 'none',
+                              backgroundColor: 'white',
+                              color: '#4a4a4a',
+                              // fontSize: '0.5rem',
+                              fontFamily: 'Darker Grotesque, monospace',
+                            }),
+                            dropdownIndicator: (baseStyles, _) => ({
+                              ...baseStyles,
+                              color: '#4a4a4a',
+                            }),
+                          }}
+                          closeMenuOnSelect={false}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          isMulti={true}
+                          options={SKIN_CONCERN_OPTIONS}
+                          id="skin-concern-select"
+                        />
+                      )}
+                    ></Controller>
 
-                                      <p className="text-xs">
-                                          {errors.skinConcernOptions?.message ||
-                                              ''}
-                                      </p>
-                                  </div>
-                                  <label
-                                      htmlFor="title"
-                                      className={'' + labelClasses}
-                                  >
-                                      review title
-                                  </label>
-                                  <input
-                                      className={`${inputClasses} ${
-                                          errors.title?.message
-                                              ? ' border-red-700 bg-red-100'
-                                              : ''
-                                      }`}
-                                      type="text"
-                                      id="title"
-                                      placeholder={errors.title?.message || ''}
-                                      {...register('title')}
-                                  />{' '}
-                                  <label
-                                      htmlFor="content"
-                                      className={
-                                          'row-span-3 self-start pt-1' +
-                                          labelClasses
-                                      }
-                                  >
-                                      review
-                                  </label>
-                                  <textarea
-                                      id="content"
-                                      placeholder={
-                                          errors.content?.message || ''
-                                      }
-                                      {...register('content')}
-                                      className={`focus-no-ring input-ring-charcoal row-span-3 h-28 resize-none border border-charcoal px-2 text-xs focus:rounded-[3px] focus:border-charcoal lg:text-base xl:text-lg 2xl:text-xl ${
-                                          errors.content
-                                              ? ' border-red-700 bg-red-100 '
-                                              : ''
-                                      }`}
-                                  ></textarea>
-                                  <label
-                                      htmlFor="quality-rating"
-                                      className={
-                                          'self-start pt-1 lg:pt-0 xl:-translate-y-2' +
-                                          labelClasses
-                                      }
-                                  >
-                                      rating
-                                  </label>
-                                  <div className="review-ratings-container flex justify-between bg-white">
-                                      <div className="quality-rating-container">
-                                          <div
-                                              id="quality-rating"
-                                              className="quality-rating flex gap-[1px]"
-                                          >
-                                              <input
-                                                  type="radio"
-                                                  id="quality-rating-1"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.quality'
-                                                  )}
-                                                  value={1}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  id="quality-rating-2"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.quality'
-                                                  )}
-                                                  value={2}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  id="quality-rating-3"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.quality'
-                                                  )}
-                                                  value={3}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  id="quality-rating-4"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.quality'
-                                                  )}
-                                                  value={4}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  id="quality-rating-5"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.quality'
-                                                  )}
-                                                  value={5}
-                                              />
-                                          </div>
-                                          <label
-                                              htmlFor="quality-rating"
-                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
-                                          >
-                                              quality
-                                          </label>
-                                      </div>
-                                      <div className="value-rating-container">
-                                          <div
-                                              id="value-rating"
-                                              className="value-rating flex gap-[1px]"
-                                          >
-                                              <input
-                                                  type="radio"
-                                                  id="value-rating-1"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register('rating.value')}
-                                                  value={1}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register('rating.value')}
-                                                  id="value-rating-2"
-                                                  value={2}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register('rating.value')}
-                                                  id="value-rating-3"
-                                                  value={3}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register('rating.value')}
-                                                  id="value-rating-4"
-                                                  value={4}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register('rating.value')}
-                                                  id="value-rating-5"
-                                                  value={5}
-                                              />
-                                          </div>
-                                          <label
-                                              htmlFor="value-rating"
-                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
-                                          >
-                                              value
-                                          </label>
-                                      </div>
-                                      <div className="overall-rating">
-                                          <div
-                                              id="overall-rating"
-                                              className="overall-rating flex gap-[1px]"
-                                          >
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.overall'
-                                                  )}
-                                                  id="overall-rating-1"
-                                                  value={1}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.overall'
-                                                  )}
-                                                  id="overall-rating-2"
-                                                  value={2}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.overall'
-                                                  )}
-                                                  id="overall-rating-3"
-                                                  value={3}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.overall'
-                                                  )}
-                                                  id="overall-rating-4"
-                                                  value={4}
-                                              />
-                                              <input
-                                                  type="radio"
-                                                  className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
-                                                  {...register(
-                                                      'rating.overall'
-                                                  )}
-                                                  id="overall-rating-5"
-                                                  value={5}
-                                              />
-                                          </div>
-                                          <label
-                                              htmlFor="overall-rating"
-                                              className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
-                                          >
-                                              overall
-                                          </label>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <button
-                          className="self-end rounded-sm bg-charcoal px-6 py-1 font-poiret text-xs uppercase text-white lg:text-lg xl:rounded xl:px-8 xl:py-2 xl:text-xl 2xl:text-2xl portrait:py-2 portrait:text-[1.4rem]"
-                          type="submit"
+                    <p className="text-xs">
+                      {errors.skinConcernOptions?.message || ''}
+                    </p>
+                  </div>
+                  <label
+                    htmlFor="title"
+                    className={'' + labelClasses}
+                  >
+                    review title
+                  </label>
+                  <input
+                    className={`${inputClasses} ${
+                      errors.title?.message ? ' border-red-700 bg-red-100' : ''
+                    }`}
+                    type="text"
+                    id="title"
+                    placeholder={errors.title?.message || ''}
+                    {...register('title')}
+                  />{' '}
+                  <label
+                    htmlFor="content"
+                    className={'row-span-3 self-start pt-1' + labelClasses}
+                  >
+                    review
+                  </label>
+                  <textarea
+                    id="content"
+                    placeholder={errors.content?.message || ''}
+                    {...register('content')}
+                    className={`focus-no-ring input-ring-charcoal row-span-3 h-28 resize-none border border-charcoal px-2 text-xs focus:rounded-[3px] focus:border-charcoal lg:text-base xl:text-lg 2xl:text-xl ${
+                      errors.content ? ' border-red-700 bg-red-100 ' : ''
+                    }`}
+                  ></textarea>
+                  <label
+                    htmlFor="quality-rating"
+                    className={
+                      'self-start pt-1 lg:pt-0 xl:-translate-y-2' + labelClasses
+                    }
+                  >
+                    rating
+                  </label>
+                  <div className="review-ratings-container flex justify-between bg-white">
+                    <div className="quality-rating-container">
+                      <div
+                        id="quality-rating"
+                        className="quality-rating flex gap-[1px]"
                       >
-                          submit review
-                      </button>
-                  </form>
+                        <input
+                          type="radio"
+                          id="quality-rating-1"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.quality')}
+                          value={1}
+                        />
+                        <input
+                          type="radio"
+                          id="quality-rating-2"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.quality')}
+                          value={2}
+                        />
+                        <input
+                          type="radio"
+                          id="quality-rating-3"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.quality')}
+                          value={3}
+                        />
+                        <input
+                          type="radio"
+                          id="quality-rating-4"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.quality')}
+                          value={4}
+                        />
+                        <input
+                          type="radio"
+                          id="quality-rating-5"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.quality')}
+                          value={5}
+                        />
+                      </div>
+                      <label
+                        htmlFor="quality-rating"
+                        className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
+                      >
+                        quality
+                      </label>
+                    </div>
+                    <div className="value-rating-container">
+                      <div
+                        id="value-rating"
+                        className="value-rating flex gap-[1px]"
+                      >
+                        <input
+                          type="radio"
+                          id="value-rating-1"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.value')}
+                          value={1}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.value')}
+                          id="value-rating-2"
+                          value={2}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.value')}
+                          id="value-rating-3"
+                          value={3}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.value')}
+                          id="value-rating-4"
+                          value={4}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.value')}
+                          id="value-rating-5"
+                          value={5}
+                        />
+                      </div>
+                      <label
+                        htmlFor="value-rating"
+                        className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
+                      >
+                        value
+                      </label>
+                    </div>
+                    <div className="overall-rating">
+                      <div
+                        id="overall-rating"
+                        className="overall-rating flex gap-[1px]"
+                      >
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.overall')}
+                          id="overall-rating-1"
+                          value={1}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.overall')}
+                          id="overall-rating-2"
+                          value={2}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.overall')}
+                          id="overall-rating-3"
+                          value={3}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.overall')}
+                          id="overall-rating-4"
+                          value={4}
+                        />
+                        <input
+                          type="radio"
+                          className="h-3 w-3 text-charcoal focus:bg-charcoal focus:ring-0 "
+                          {...register('rating.overall')}
+                          id="overall-rating-5"
+                          value={5}
+                        />
+                      </div>
+                      <label
+                        htmlFor="overall-rating"
+                        className="text-[0.5rem] font-medium uppercase lg:text-xs 2xl:text-sm portrait:text-[.9rem]"
+                      >
+                        overall
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
-          </div>
-      </section>
+            </div>
+            <button
+              className="self-end rounded-sm bg-charcoal px-6 py-1 font-poiret text-xs uppercase text-white lg:text-lg xl:rounded xl:px-8 xl:py-2 xl:text-xl 2xl:text-2xl portrait:py-2 portrait:text-[1.4rem]"
+              type="submit"
+            >
+              submit review
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 }
 {

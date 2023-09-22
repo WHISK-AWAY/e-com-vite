@@ -110,17 +110,17 @@ export default function SearchContainer({
     }
   }
 
-  function handleSelectSearchItem(args: {
-    type: 'tag' | 'product';
-    name?: string;
-    id?: string;
-  }) {
-    if (args.type === 'tag') {
-      navigate('/shop-all?page=1', { state: { filterKey: args.name } });
-    } else {
-      navigate('/product/' + args.id);
-    }
-  }
+  // function handleSelectSearchItem(args: {
+  //   type: 'tag' | 'product';
+  //   name?: string;
+  //   id?: string;
+  // }) {
+  //   if (args.type === 'tag') {
+  //     navigate('/shop-all?page=1', { state: { filterKey: args.name } });
+  //   } else {
+  //     navigate('/product/' + args.id);
+  //   }
+  // }
 
   //fuse fuzzy product search
 
@@ -133,12 +133,14 @@ export default function SearchContainer({
     const searchTerm = e.target.value;
     // console.log('searchTerm', searchTerm);
 
-    const productResults = catalogue.products.filter((prod) => {
-      return prod.productName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-    const tagResults = catalogue.tags.filter((tag) => {
-      return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+    // const productResults = catalogue.products.filter((prod) => {
+    //     return prod.productName
+    //         .toLowerCase()
+    //         .includes(searchTerm.toLowerCase());
+    // });
+    // const tagResults = catalogue.tags.filter((tag) => {
+    //     return tag.tagName.toLowerCase().includes(searchTerm.toLowerCase());
+    // });
 
     const options = {
       includeScore: true,
@@ -182,40 +184,41 @@ export default function SearchContainer({
     <section
       ref={blurBgRef}
       onClick={clickOff}
-      id='wrapper'
-      className='product-search-section absolute right-0 top-0 z-0 h-screen w-screen bg-[#35403F]/50 backdrop-blur'
+      id="wrapper"
+      className="product-search-section absolute right-0 top-0 z-0 h-screen w-screen bg-[#35403F]/50 backdrop-blur"
     >
       <form
         ref={formRef}
         onSubmit={(e) => handleFormSubmit(e)}
-        className='absolute right-0 top-0 z-20  w-full bg-white portrait:h-[70svh] h-[70vh]'
+        className="absolute right-0 top-0 z-20  h-[70vh] w-full bg-white portrait:h-[70svh]"
       >
-        <div className='logo-wrapper fixed top-0 mx-auto flex h-16 w-full items-center justify-center'>
+        <div className="logo-wrapper fixed top-0 mx-auto flex h-16 w-full items-center justify-center">
           <img
             src={x}
-            alt='x-icon'
-            className='absolute left-[5%] top-12 h-[2vw] cursor-pointer 4xl:top-20 4xl:h-[1.5vw] 5xl:top-32 portrait:top-5 portrait:h-6'
+            alt="x-icon"
+            className="absolute left-[5%] top-12 h-[2vw] cursor-pointer 4xl:top-20 4xl:h-[1.5vw] 5xl:top-32 portrait:top-5 portrait:h-6"
             onClick={closeSlider}
           />
           <Link
-            to='/'
-            className='font-notable  text-[2.5vw] text-[#262626] 3xl:text-[1.6vw] portrait:hidden portrait:md:block portrait:md:text-[2rem]'
+            to="/"
+            className="font-notable  text-[2.5vw] text-[#262626] 3xl:text-[1.6vw] portrait:hidden portrait:md:block portrait:md:text-[2rem]"
             onClick={closeSlider}
             ref={logoRef}
           >
             ASTORIA
           </Link>
         </div>
-        <div className='absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 pt-[10px] portrait:w-[90svw] portrait:h-10  '>
+        <div className="absolute right-1/2 top-0 flex h-[4vw] w-[45vw] translate-x-[50%] translate-y-[150%] gap-5 pt-[10px] portrait:h-10 portrait:w-[90svw]  ">
           <input
-            className='w-full rounded-sm border border-charcoal font-grotesque text-[1.5vw] placeholder:font-poiret  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal portrait:text-[1rem] portrait:w-full '
-            type='text'
-            id='search'
+            autoFocus
+            className="w-full rounded-sm border border-charcoal font-grotesque text-[1.5vw] placeholder:font-poiret  placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal portrait:w-full portrait:text-[1rem] "
+            type="text"
+            id="search"
             value={search}
-            placeholder='search...'
+            placeholder="search..."
             onChange={(e) => handleSearch(e)}
           ></input>
-          <button className='bg-charcoal px-[10%] font-poiret text-[1.5vw] uppercase text-white portrait:text-[.8rem] portrait:px-4'>
+          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] uppercase text-white portrait:px-4 portrait:text-[.8rem]">
             search
           </button>
         </div>

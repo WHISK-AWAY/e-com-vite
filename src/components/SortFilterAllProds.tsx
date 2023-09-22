@@ -1,21 +1,11 @@
 import { useRef, useEffect } from 'react';
-import { selectTagState } from '../redux/slices/tagSlice';
 import { SortDir, SortKey, TSort } from './AllProducts/AllProducts';
 import { useAppSelector } from '../redux/hooks';
 import { TProduct } from '../redux/slices/allProductSlice';
 
 import { gsap } from 'gsap';
 
-export default function SortFilterAllProds({
-  // sort,
-  setSort,
-  filter,
-  setFilter,
-  allProducts,
-  sortKey,
-  sortDir,
-}: {
-  // sort: TSort;
+type SortFilterAllProdsProps = {
   setSort: React.Dispatch<React.SetStateAction<TSort>>;
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
@@ -25,32 +15,63 @@ export default function SortFilterAllProds({
     products: TProduct[];
     count: number | null;
   };
-}) {
+  filterMenuIsOpen: boolean;
+  setFilterMenuIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function SortFilterAllProds({
+  // sort,
+  setSort,
+  filter,
+  setFilter,
+  allProducts,
+  sortKey,
+  sortDir,
+  filterMenuIsOpen,
+  setFilterMenuIsOpen,
+}: SortFilterAllProdsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const tagState = useAppSelector(selectTagState);
-  const tagList = tagState.tags;
+  const tagList = useAppSelector(state => state.tag.tags)
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    let tl: gsap.core.Timeline | undefined;
 
     const ctx = gsap.context(() => {
-      gsap.from(containerRef.current, {
-        height: 0,
-        opacity: 0,
-      });
-    }, containerRef.current);
+      if (filterMenuIsOpen) {
+        tl = gsap.timeline();
 
-    return () => ctx.revert();
-  });
+        tl
+          .set(containerRef.current, {
+            display: 'flex',
+            height: 0
+          })
+          .to(containerRef.current, {
+            height: 'auto',
+            opacity: 1,
+            ease: 'power2.inOut',
+            duration: 0.5,
+          })
+      }
+    });
+
+    return () => {
+      if (tl) {
+        tl.reverse().then(() => ctx.revert())
+      }
+      else ctx.revert();
+
+    }
+  }, [filterMenuIsOpen]);
 
   function handleSort(e: React.ChangeEvent<HTMLSelectElement>) {
     setSort(JSON.parse(e.target.value));
+    setFilterMenuIsOpen(false);
   }
 
   return (
     <div
       ref={containerRef}
-      className='controls flex h-fit gap-4 overflow-clip font-grotesque '
+      className='controls h-0 gap-4 overflow-clip font-grotesque'
     >
       <div className='sort-selector'>
         <h2>Sort by:</h2>
@@ -67,7 +88,7 @@ export default function SortFilterAllProds({
               key: 'productName',
               direction: 'asc',
             })}
-            // selected={sort.key === 'productName' && sort.direction === 'asc'}
+          // selected={sort.key === 'productName' && sort.direction === 'asc'}
           >
             Alphabetical, ascending
           </option>
@@ -76,7 +97,7 @@ export default function SortFilterAllProds({
               key: 'productName',
               direction: 'desc',
             })}
-            // selected={sort.key === 'productName' && sort.direction === 'desc'}
+          // selected={sort.key === 'productName' && sort.direction === 'desc'}
           >
             Alphabetical, descending
           </option>
@@ -86,26 +107,26 @@ export default function SortFilterAllProds({
               key: 'saleCount',
               direction: 'desc',
             })}
-            // selected={sort.key === 'saleCount' && sort.direction === 'desc'}
+          // selected={sort.key === 'saleCount' && sort.direction === 'desc'}
           >
             best sellers, high-to-low
           </option>
           <option
             className='capitalize'
             value={JSON.stringify({ key: 'saleCount', direction: 'asc' })}
-            // selected={sort.key === 'saleCount' && sort.direction === 'asc'}
+          // selected={sort.key === 'saleCount' && sort.direction === 'asc'}
           >
             best sellers, low-to-high
           </option>
           <option
             value={JSON.stringify({ key: 'price', direction: 'asc' })}
-            // selected={sort.key === 'price' && sort.direction === 'asc'}
+          // selected={sort.key === 'price' && sort.direction === 'asc'}
           >
             Price, low-to-high
           </option>
           <option
             value={JSON.stringify({ key: 'price', direction: 'desc' })}
-            // selected={sort.key === 'price' && sort.direction === 'desc'}
+          // selected={sort.key === 'price' && sort.direction === 'desc'}
           >
             Price, high-to-low
           </option>
@@ -131,7 +152,7 @@ export default function SortFilterAllProds({
         </select>
         <span className='portrait:hidden'>
           ({allProducts.count})
-          </span>
+        </span>
       </div>
     </div>
   );
