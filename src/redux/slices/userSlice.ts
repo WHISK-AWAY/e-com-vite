@@ -120,7 +120,7 @@ export const fetchSingleUser = createAsyncThunk(
           status: err.response?.status,
           message: err.response?.data.message,
         });
-      console.log(err);
+      // console.log(err);
     }
   }
 );
@@ -144,7 +144,7 @@ export const editUserAccountInfo = createAsyncThunk(
           status: err.response?.status,
           message: err.response?.data.message,
         });
-      console.log(err);
+      // console.log(err);
     }
   }
 );
@@ -271,7 +271,7 @@ export const addToFavorites = createAsyncThunk(
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log(err);
+        // console.log(err);
         return thunkApi.rejectWithValue({
           status: err.response?.status,
           message: err.response?.data.message,
@@ -301,7 +301,7 @@ export const removeFromFavorites = createAsyncThunk(
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log(err);
+        // console.log(err);
         return thunkApi.rejectWithValue({
           status: err.response?.status,
           message: err.response?.data.message,
@@ -367,7 +367,7 @@ const userSlice = createSlice({
       })
       .addCase(addToFavorites.rejected, (state, action: PayloadAction<any>) => {
         // stuff
-        console.log('addToFavorites error in addCase:', action);
+        // console.log('addToFavorites error in addCase:', action);
         state.loading = false;
         state.errors = action.payload;
       })
@@ -399,7 +399,7 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(editUserAccountInfo.fulfilled, (state, { payload }) => {
-        console.log('asscase');
+        // console.log('asscase');
         state.loading = false;
         state.user = payload;
         state.errors = initialState.errors;

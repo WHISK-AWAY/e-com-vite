@@ -43,7 +43,7 @@ export const requestSignUp = createAsyncThunk(
         userInfo,
         { withCredentials: true }
       );
-      console.log('signup thunk data received', data);
+      // console.log('signup thunk data received', data);
       return data;
     } catch (err: any) {
       if (err instanceof AxiosError)
@@ -72,7 +72,7 @@ export const requestLogin = createAsyncThunk(
 
       return res.data;
     } catch (err: any) {
-      console.log('requestLogin err:', err);
+      // console.log('requestLogin err:', err);
       if (err instanceof AxiosError)
         return thunkApi.rejectWithValue({
           status: err.response?.status,

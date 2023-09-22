@@ -15,7 +15,7 @@ export const fetchAllTags = createAsyncThunk(
       return data;
     } catch (err) {
       if (err instanceof AxiosError) {
-        console.log('error in fetchAllTags:', err);
+        // console.log('error in fetchAllTags:', err);
         return thunkApi.rejectWithValue({
           status: err.response?.status || 500,
           message: `Error fetching ${err.config?.url}: ${
@@ -23,7 +23,7 @@ export const fetchAllTags = createAsyncThunk(
           }`,
         });
       }
-      console.log('bad error in fetchAllTags:', err);
+      // console.log('bad error in fetchAllTags:', err);
     }
   }
 );

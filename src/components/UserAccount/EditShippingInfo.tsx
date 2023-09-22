@@ -65,14 +65,12 @@ export default function ShippingInfo({ user }: ShippingProps) {
   if (!address) return <h1>No addresses saved...</h1>;
 
   const submitData = (addressData: ShippingInfoFields) => {
-    console.log('inside submitData');
-
     validateAddress(addressData).then((_) => {
       // if (validationInfo.result === 'confirmed') {
       if (true) {
         // * good shit
         setAddressValidationFailed(false);
-        console.log('address confirmed');
+        // console.log('address confirmed');
         dispatch(
           editUserAccountInfo({
             userId: user._id!,

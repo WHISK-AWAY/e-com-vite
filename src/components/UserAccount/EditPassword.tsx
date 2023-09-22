@@ -83,12 +83,12 @@ export default function EditPassword({ user }: AccountProps) {
     }
   }, [passwordUpdated]);
 
-  useEffect(() => {
-    console.log('form errors:', errors);
-  }, [errors]);
+  // useEffect(() => {
+  //   console.log('form errors:', errors);
+  // }, [errors]);
 
   function formSubmit(data: PasswordFormData) {
-    console.log('form-submitted data:', data);
+    // console.log('form-submitted data:', data);
     const updateUser: TEditUser = {
       userId: user._id,
       user: {

@@ -42,7 +42,6 @@ export const adminFetchAllTags = createAsyncThunk(
           message: err.response?.data.message,
         });
       }
-      console.log('bad error in fetchAllTags:', err);
     }
   }
 );

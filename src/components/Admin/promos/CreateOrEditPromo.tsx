@@ -61,7 +61,7 @@ export default function CreateOrEditPromo() {
 
   useEffect(() => {
     if (promo._id && formMode === 'edit') {
-      console.log('promo', promo);
+      // console.log('promo', promo);
       reset({
         promoCodeName: promos.promos.find((pcd) => pcd._id === promoId)
           ?.promoCodeName,
@@ -86,40 +86,46 @@ export default function CreateOrEditPromo() {
   };
 
   return (
-    <section className='create-edit-form-section'>
+    <section className="create-edit-form-section">
       <form onSubmit={handleSubmit(handleCreateOrEditForm)}>
         {promoId ? <h1>EDIT PROMO CODE</h1> : <h1>CREATE NEW PROMO CODE</h1>}
 
         <br />
-        <div className='promo-code-name'>
-          <label htmlFor='promo-code-name'>PROMO CODE NAME</label>
+        <div className="promo-code-name">
+          <label htmlFor="promo-code-name">PROMO CODE NAME</label>
           <input
-            type='text'
-            id='promo-code-name'
+            type="text"
+            id="promo-code-name"
             {...register('promoCodeName')}
           />
           {errors.promoCodeName && (
-            <p className='text-red-700'>{errors.promoCodeName?.message}</p>
+            <p className="text-red-700">{errors.promoCodeName?.message}</p>
           )}
         </div>
-        <div className='promo-rate'>
-          <label htmlFor='promo-rate'>PROMO RATE</label>
+        <div className="promo-rate">
+          <label htmlFor="promo-rate">PROMO RATE</label>
           <input
-            type='number'
-            id='promo-rate'
+            type="number"
+            id="promo-rate"
             step={0.01}
             {...register('promoRate', { valueAsNumber: true })}
           />
           {errors.promoRate && (
-            <p className='text-red-700'>{errors.promoRate?.message}</p>
+            <p className="text-red-700">{errors.promoRate?.message}</p>
           )}
         </div>
         {promoId ? (
-          <button type='submit' className='bg-blue-300'>
+          <button
+            type="submit"
+            className="bg-blue-300"
+          >
             EDIT
           </button>
         ) : (
-          <button type='submit' className='bg-blue-300'>
+          <button
+            type="submit"
+            className="bg-blue-300"
+          >
             SAVE
           </button>
         )}
