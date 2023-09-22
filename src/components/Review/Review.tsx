@@ -38,20 +38,24 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
   };
 
   return (
-      <section className={` ${mobileMenu ? 'flex-col' : 'flex'} review-details  w-full justify-center border-b border-charcoal pb-4 font-grotesque text-sm last:border-b-0 last:pb-0 lg:pb-6 lg:text-lg lg:leading-5 xl:pb-8`}>
-          <div className="review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5">
+      <section
+          className={` ${
+              mobileMenu ? 'flex-col' : 'flex'
+          } review-details  w-full justify-center border-b border-charcoal pb-4 font-grotesque text-sm last:border-b-0 last:pb-0 lg:pb-6 lg:text-lg lg:leading-5 xl:pb-8`}
+      >
+          <div className="review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5 ">
               <div className="monogram aspect-square w-fit rounded-[100%] bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem]">
                   {review.nickname![0].toUpperCase()}
               </div>
-              <p className="font-grotesque text-sm font-semibold lg:text-base xl:text-lg 2xl:text-xl">
+              <p className="font-grotesque text-sm font-semibold lg:text-base xl:text-lg 2xl:text-xl portrait:lg:text-[1.5rem]">
                   {review.nickname}
               </p>
-              <div className="review-user-info-group text-sm 2xl:text-base">
+              <div className="review-user-info-group text-sm 2xl:text-base portrait:lg:text-[1.3rem]">
                   <p>{review.location ? review.location : ''}</p>
                   <p>votes: {review.user.voteCount}</p>
                   <p>reviews: {review.user.reviewCount}</p>
               </div>
-              <p className="text-sm lowercase 2xl:text-base">
+              <p className="text-sm lowercase 2xl:text-base portrait:lg:text-[1.3rem]">
                   skin concerns:{' '}
                   {review.skinConcernOptions?.length > 0
                       ? review.skinConcernOptions
@@ -60,7 +64,7 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
                       : '(none provided)'}
               </p>
           </div>
-          <div className="review-right flex basis-3/5 flex-col items-center gap-7 xl:gap-10">
+          <div className="review-right flex basis-3/5 flex-col items-center gap-7 xl:gap-10 portrait:lg:pl-10">
               <div className="individual-review-scores flex w-full justify-between">
                   <div className="review-stars portrait:mt-16 ">
                       <StarsBar
@@ -69,7 +73,11 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
                           date={review.date}
                       />
                   </div>
-                  <div className={` ${mobileMenu ? 'pt-14' : ''} review-bars flex flex-col items-end gap-2 font-grotesque text-xs xl:text-base`}>
+                  <div
+                      className={` ${
+                          mobileMenu ? 'pt-14' : ''
+                      } review-bars flex flex-col items-end gap-2 font-grotesque text-xs xl:text-base`}
+                  >
                       <div className="quality-score flex flex-col items-start gap-0">
                           <p>QUALITY</p>
                           <ScoreBar score={review.rating.quality} />
@@ -87,10 +95,10 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
                       )}
                   </div>
               </div>
-              <h3 className="review-title font-raleway text-lg uppercase lg:text-[1.3rem] 2xl:text-[1.5rem] font-semibold">
+              <h3 className="review-title font-raleway text-lg font-semibold uppercase lg:text-[1.3rem] 2xl:text-[1.5rem]">
                   {review.title}
               </h3>
-              <div className="review-content font-grotesque text-sm xl:text-sm 2xl:text-base 2xl:leading-5">
+              <div className="review-content font-grotesque text-sm xl:text-sm 2xl:text-base 2xl:leading-5 portrait:lg:text-[1.2rem]">
                   {review.content +
                       (review.content.length < 100
                           ? ' This hydrating antioxidant formula instantly illuminates the complexion with bright radiance, while phytosterols help to reduce the signs of skin sensitivity. Saccharide Isomerate extract diminishes the appearance of pores and reinforces the skin’s moisture barrier for a skin-smoothing glow. Rapidly brighten the appearance of the skin and boost vital skin bounce, in a flash!'
