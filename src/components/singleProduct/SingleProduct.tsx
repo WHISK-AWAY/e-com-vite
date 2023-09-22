@@ -34,9 +34,12 @@ import { motion } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
 import convertMediaUrl from '../../utilities/convertMediaUrl';
 import { getMaxQty } from '../../utilities/helpers';
-import { getRandomBackgroundImage, getRandomBackgroundVideo } from './randomBackground';
+import {
+  getRandomBackgroundImage,
+  getRandomBackgroundVideo,
+} from './randomBackground';
 
-export default function SingleProduct() {
+export default function SingleProduct({ mobileMenu }: { mobileMenu: boolean }) {
   const reviewSection = useRef<HTMLDivElement>(null);
   const youMayAlsoLikeRef = useRef<HTMLDivElement>(null);
   const { productId } = useParams();
@@ -64,7 +67,6 @@ export default function SingleProduct() {
   const prodImgWrapper = useRef(null);
   const prodInfoWrapper = useRef(null);
 
-
   const changeImage = useRef<((newImage: string) => void) | null>(null);
 
   // const isPresent = useIsPresent();
@@ -74,7 +76,7 @@ export default function SingleProduct() {
       .to('.fader', {
         opacity: 0,
         duration: 0.05,
-        ease: 'expo.inOut'
+        ease: 'expo.inOut',
       })
       .then(() => {
         setSelectedImage(newImage);
@@ -108,7 +110,13 @@ export default function SingleProduct() {
 
   useLayoutEffect(() => {
     // Animation: pin ingredients image while ingredients list scrolls
-    if (!ingredientBgImgWrapper || !ingredientSection || !prodImgWrapper || !prodInfoWrapper) return;
+    if (
+      !ingredientBgImgWrapper ||
+      !ingredientSection ||
+      !prodImgWrapper ||
+      !prodInfoWrapper
+    )
+      return;
 
     const ctx = gsap.context((_) => {
       const scroller = ingredientBgImgWrapper.current;
@@ -222,11 +230,10 @@ export default function SingleProduct() {
     setCount((prev) => prev - 1);
   };
 
-
   const [isClicked, setIsClicked] = useState(false);
   // Add selected quantity to cart.
   const handleAddToCart = () => {
-    setIsClicked(true)
+    setIsClicked(true);
     if (count < 1) return;
 
     setCount(1);
@@ -280,7 +287,7 @@ export default function SingleProduct() {
    */
 
   const parseIngredients = () => {
-    const text = singleProduct.productIngredients.split('\n')
+    const text = singleProduct.productIngredients.split('\n');
     let arr = [];
     for (let i = 0; i < text.length; i++) {
       arr.push(text[i].trim().split(':'));
@@ -331,7 +338,7 @@ export default function SingleProduct() {
         exit={{ scaleY: 0 }}
         transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
       />
-      <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px]'>
+      <main className=' single-product-main mx-auto mb-40 mt-8 flex min-h-[calc(100vh_-_4rem)] max-w-[calc(100vw_-_20px)] flex-col items-center px-12 xl:mt-14 2xl:max-w-[1420px] bg-pink-300'>
         <section
           ref={prodInfoWrapper}
           className='single-product-top-screen mb-11 flex w-full justify-center md:w-full lg:mb-20 xl:mb-24'
@@ -355,8 +362,18 @@ export default function SingleProduct() {
                     playsInline
                     controls={false}
                   >
-                    <source src={selectedImage} type={selectedImage.split('.').at(-1) === 'mp4' ? 'video/mp4' : 'image/gif'} />
-                    <source src={convertMediaUrl(selectedImage)} type='video/webm' />
+                    <source
+                      src={selectedImage}
+                      type={
+                        selectedImage.split('.').at(-1) === 'mp4'
+                          ? 'video/mp4'
+                          : 'image/gif'
+                      }
+                    />
+                    <source
+                      src={convertMediaUrl(selectedImage)}
+                      type='video/webm'
+                    />
                   </video>
                 ) : (
                   <picture>
@@ -598,7 +615,7 @@ export default function SingleProduct() {
           ref={reviewSection}
           className='review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-marcellus lg:w-10/12 lg:pt-10'
         >
-          <h2 className='self-start font-gayathri font-semibold text-[3rem]  '>
+          <h2 className='self-start font-gayathri text-[3rem] font-semibold  '>
             REVIEWS
           </h2>
           <div className='review-subtitle-container flex flex-col items-center justify-between'>
@@ -622,7 +639,7 @@ export default function SingleProduct() {
                   No reviews yet...be the first to leave one!
                 </p>
                 <button
-                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana  uppercase lg:px-8  text-sm lg:text-base xl:rounded 2xl:px-10 2xl:py-3 '
+                  className='rounded-sm border border-charcoal px-6 py-2 font-italiana  text-sm uppercase  lg:px-8 lg:text-base xl:rounded 2xl:px-10 2xl:py-3 '
                   onClick={() => setShowReviewForm((prev) => !prev)}
                 >
                   write a review

@@ -97,7 +97,7 @@ function App() {
     },
     {
       path: 'product/:productId',
-      element: <SingleProduct />,
+      element: <SingleProduct mobileMenu={mobileMenu} />,
     },
     {
       path: 'user/:userId',
@@ -109,7 +109,7 @@ function App() {
     },
     {
       path: '/checkout/success',
-      element: <Suspense fallback={<h1>Loading</h1>}><Success /></Suspense>,
+      element: <Suspense fallback={<h1>Loading</h1>}><Success mobileMenu={mobileMenu} /></Suspense>,
     },
     {
       path: '/admin',
