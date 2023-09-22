@@ -4,9 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "server": "nodemon ./dist/index.js",
+        "server": "npx tsc -w & nodemon ./dist/index.js",
         "deployed-server": "tsc && node ./dist/index.js",
-        "compiler": "npx tsc -w",
         "seed": "node ./dist/database/seeding/seed.js",
         "prep_products": "node ./dist/database/seeding/combineProductInfo.js",
         "dl_images": "node ./dist/database/seeding/imageDownloader.js"
