@@ -133,7 +133,7 @@ export default function ShopByCategoryListItem({
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className="flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]"
+          className="flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] pl-12 text-[min(2vw,_3vh)] portrait:text-[2rem] leading-tight text-[#51524b]"
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
