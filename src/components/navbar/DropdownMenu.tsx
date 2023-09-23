@@ -63,7 +63,7 @@ export default function DropdownMenu({
       });
 
       tl.to(menuWrapper.current, {
-        height: '100vh',
+        height: '100svh',
         ease: 'expo.inOut',
         duration: 1.5,
         overflow: 'hidden',
@@ -161,11 +161,11 @@ export default function DropdownMenu({
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
 
   // text-[#bbbcbee0
-  // bg-[#8c8c7f] 
+  // bg-[#8c8c7f]
   return (
     <section
       ref={menuWrapper}
-      className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] "
+      className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%]"
     >
       {/* Logo section (absolute) */}
       <div
@@ -193,7 +193,7 @@ export default function DropdownMenu({
       />
 
       {/* Menu options */}
-      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)] portrait:text-[2.5rem]">
+      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)] portrait:text-[2.7rem]">
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
@@ -209,10 +209,11 @@ export default function DropdownMenu({
           </button>
         </div>
 
+        {/**Mobile options only */}
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } menu-option-container txt-stroke text-start my-auto flex flex-col text-transparent text-white`}
+          } menu-option-container   flex flex-col justify-start items-start  leading-[1] pl-[20%] text-transparent text-white `}
         >
           <button
             onClick={() =>
@@ -224,18 +225,17 @@ export default function DropdownMenu({
           </button>
 
           <button
-            onClick={() =>
-              closeMenu()?.then(() => navigate('/new-in', {}))
-            }
+            onClick={() => closeMenu()?.then(() => navigate('/new-in', {}))}
             className={textRevealClasses}
           >
             NEW IN
           </button>
         </div>
-        <div className="menu-option relative pl-[15%]">
+
+        <div className={` ${mobileMenu ? 'pl-[8%]' : 'pl-[15%]'} menu-option relative `}>
           <div className="chevron-container relative w-fit">
             <button
-              className={'relative h-full uppercase ' + textRevealClasses}
+              className={'relative h-full uppercase whitespace-nowrap' + textRevealClasses}
               onClick={() => toggleMenu('category')}
             >
               shop by category
@@ -254,6 +254,7 @@ export default function DropdownMenu({
 
           {menuMode === 'category' && (
             <ShopByCategoryListItem
+            mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />
@@ -276,7 +277,7 @@ export default function DropdownMenu({
         <div className="menu-option relative pl-[30%]">
           <div className="chevron-container">
             <button
-              className={'relative h-full uppercase' + textRevealClasses}
+              className={'relative h-full uppercase portrait:text-white' + textRevealClasses}
               onClick={(e) => {
                 e.preventDefault();
                 toggleMenu('face');
@@ -299,6 +300,7 @@ export default function DropdownMenu({
           </div>
           {menuMode === 'face' && (
             <FaceItem
+            mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />
