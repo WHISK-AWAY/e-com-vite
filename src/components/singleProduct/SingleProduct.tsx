@@ -84,15 +84,15 @@ export default function SingleProduct({
   const prodImgWrapper = useRef(null);
   const prodInfoWrapper = useRef(null);
 
-  const changeImage = useRef<((newImage: string) => void) | null>(null);
+  // const changeImage = useRef<(newImage: string) => void>(imageChanger);
 
   // const isPresent = useIsPresent();
 
-  function imageChanger(newImage: string) {
+  function changeImage(newImage: string) {
     gsap
       .to('.fader', {
         opacity: 0,
-        duration: 0.05,
+        duration: 0.25,
         ease: 'expo.inOut',
       })
       .then(() => {
@@ -107,7 +107,7 @@ export default function SingleProduct({
   //   img.onload = () => console.log(`loaded ${img.src}`)
   // }, [selectedImage])
 
-  changeImage.current = imageChanger;
+  // changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
     // Fade in animation - triggered upon new image load
@@ -128,7 +128,7 @@ export default function SingleProduct({
   const pinSpacerToggler =
     window.matchMedia('(orientation: portrait)').matches || mobileMenu;
 
-  console.log(pinSpacerToggler);
+  // console.log(pinSpacerToggler);
   useLayoutEffect(() => {
     // Animation: pin ingredients image while ingredients list scrolls
     if (
@@ -503,14 +503,12 @@ export default function SingleProduct({
                   />
                 )}
               </div>
-              {changeImage?.current && (
-                <ImageCarousel
-                  num={3}
-                  product={singleProduct}
-                  changeImage={changeImage.current}
-                  mobileMenu={mobileMenu}
-                />
-              )}
+              <ImageCarousel
+                num={3}
+                product={singleProduct}
+                changeImage={changeImage}
+                mobileMenu={mobileMenu}
+              />
             </div>
           </section>
 
