@@ -6,8 +6,8 @@ export type BestsellersHeaderProps = {};
 export default function BestsellersHeader({ }: BestsellersHeaderProps) {
   return (
     <>
-      <section className='mb-40 w-screen '>
-        <div className='video-wrapper  relative flex h-[calc(100vh_-_164px)] w-full items-start 4xl:w-[1500px] 5xl:w-[1900px] 6xl:w-[2600px] portrait:h-[50svh]'>
+      <section className='mb-40 w-screen portrait:w-[100svw]'>
+        <div className='video-wrapper  relative flex h-[calc(100vh_-_164px)] w-full items-start 4xl:w-[1500px] 5xl:w-[1900px] 6xl:w-[2600px] portrait:h-[40svh]'>
           <video
             loop
             autoPlay
