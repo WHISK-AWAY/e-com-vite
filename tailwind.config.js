@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 
-
 const plugin = require('tailwindcss/plugin');
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -35,7 +34,7 @@ export default {
       garamond: ['EB Garamond', 'serif'],
       bodoni: ['Bodoni Moda', 'serif'],
       antonio: ['Antonio', 'sans-serif'],
-      jost: ['Jost', 'monospace']
+      jost: ['Jost', 'monospace'],
     },
     fontWeight: {
       thin: 100,
@@ -53,6 +52,7 @@ export default {
         charcoal: '#4A4A4A',
         'light-brick': '#DA8E61',
         'primary-gray': '#262626',
+        transition: '#0F0F0F',
       },
       screens: {
         xxs: '360px',

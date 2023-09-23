@@ -57,6 +57,7 @@ const UserProfile = React.lazy(
 );
 
 import '../src/index.css';
+import TransitionScreen from './components/UI/TransitionScreen.tsx';
 
 function App() {
   const location = useLocation();
@@ -281,14 +282,16 @@ function App() {
   if (!element) return <main>Route location not found...</main>;
 
   return (
-    <div
-      data-lenis-prevent
-      className="data-scroll-container mx-auto min-h-screen text-charcoal"
+    <AnimatePresence
+      mode="wait"
+      initial={false}
     >
-      <AnimatePresence
-        mode="wait"
-        initial={false}
+      <div
+        key={location.pathname}
+        data-lenis-prevent
+        className="data-scroll-container mx-auto min-h-screen text-charcoal"
       >
+        <TransitionScreen />
         <Navbar
           key="navbar"
           setIsSearchHidden={setIsSearchHidden}
@@ -302,10 +305,10 @@ function App() {
           mobileMenu={mobileMenu}
           setMobileMenu={setMobileMenu}
         />
-        {React.cloneElement(element, { key: location.pathname }, element)}
+        {element}
         <Footer key="footer" />
-      </AnimatePresence>
-    </div>
+      </div>
+    </AnimatePresence>
   );
 }
 

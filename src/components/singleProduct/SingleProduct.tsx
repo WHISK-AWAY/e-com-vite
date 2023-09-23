@@ -30,7 +30,6 @@ import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
 
 import 'lazysizes';
-import { motion } from 'framer-motion';
 import { toastGuestFavorite } from '../../utilities/toast';
 import convertMediaUrl from '../../utilities/convertMediaUrl';
 import { getMaxQty } from '../../utilities/helpers';
@@ -355,34 +354,6 @@ export default function SingleProduct({
    */
   return (
     <>
-      <motion.div
-        className="slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#131313]"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      />
-      {/* <motion.span
-        className='hidden font-notable  text-red-600 fixed top-1/2 right-0 h-[10vh] w-[20vw]  z-[60]'
-        initial={{ opacity: 0,  display: 'hidden' }}
-        animate={{ opacity: 100, display: 'block', }}
-        exit={{ display: 'hidden'}}
-        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-      >
-        astoria
-      </motion.span> */}
-      <motion.div
-        className="slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#131313]"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 1,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      />
-
       {mobileMenu &&
         isCartFavWrapperHidden &&
         isSearchHidden &&
@@ -790,18 +761,6 @@ export default function SingleProduct({
           </div>
         </section>
       </main>
-      {/**
-       * 
-       * 
-      <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        style={{ originY: isPresent ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      />
-       */}
     </>
   );
 }
