@@ -325,6 +325,7 @@ export default function DropdownMenu({
           </button>
           {menuMode === 'body' && (
             <BodyItem
+            mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />
