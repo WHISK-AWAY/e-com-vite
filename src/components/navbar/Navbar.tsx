@@ -56,10 +56,10 @@ export default function Navbar({
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
+    else dispatch(getUserId());
   }, [userId]);
 
   useEffect(() => {
-    dispatch(getUserId());
     dispatch(searchProducts());
     dispatch(fetchAllTags());
   }, []);
