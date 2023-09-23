@@ -161,13 +161,14 @@ export default function DropdownMenu({
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
 
   // text-[#bbbcbee0
+  // bg-[#8c8c7f] 
   return (
     <section
       ref={menuWrapper}
-      className="menu-wrapper absolute right-0 top-0 z-40 flex w-screen flex-col bg-[#8c8c7f] font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] "
+      className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] "
     >
       {/* Logo section (absolute) */}
-      <div className="logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center">
+      <div className={` ${mobileMenu ? 'hidden' : ''} logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center`}>
         <Link
           to="/"
           className="flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]"
@@ -183,12 +184,12 @@ export default function DropdownMenu({
       <img
         src={x}
         alt="x-icon"
-        className="x-icon absolute left-10 top-10 h-[min(2vw,_3vh)] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[min(1.6vw,_3vh)]"
+        className="x-icon absolute left-10 top-10 h-[min(2vw,_3vh)] cursor-pointer 3xl:left-[2.6vw] 3xl:top-[2.6vw]  3xl:h-[min(1.6vw,_3vh)] portrait:h-6"
         onClick={closeMenu}
       />
 
       {/* Menu options */}
-      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)]">
+      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)] portrait:text-[2.5rem]">
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
@@ -207,11 +208,12 @@ export default function DropdownMenu({
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } txt-stroke ml-[20%] flex flex-col text-transparent text-white`}
+          } menu-option-container txt-stroke ml-[20%] flex flex-col text-transparent text-white`}
         >
           <NavLink
             to="/shop-all/bestsellers"
             state={{ sortKey: 'saleCount' }}
+            className='menu-option'
           >
             BESTSELLERS
           </NavLink>
