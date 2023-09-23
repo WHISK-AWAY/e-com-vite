@@ -10,11 +10,13 @@ const bodyitems = ['moisturizers', 'creams', 'spf'] as const;
 export type BodyItemProps = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
+  mobileMenu: boolean
 };
 
 export default function BodyItem({
   setMenuMode,
   closeOuterMenu,
+  mobileMenu
 }: BodyItemProps) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
@@ -103,7 +105,9 @@ export default function BodyItem({
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
-          className="flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden bg-[#FBFBFB]  py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]"
+          className={` ${
+            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden bg-[#FBFBFB]  py-[2%]  text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
@@ -113,7 +117,9 @@ export default function BodyItem({
                 to="/shop-all"
                 onClick={() => closeLocalMenu(true)}
                 state={{ filterKey: name }}
-                className="submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300"
+                className={` ${
+                  mobileMenu ? 'text-[1.4rem] text-start' : 'odd:text-[min(3vw,_4.5vh)] text-center'
+                } submenu-item ease hover:offsetX   hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
                 key={tag._id}
               >
                 {name}
