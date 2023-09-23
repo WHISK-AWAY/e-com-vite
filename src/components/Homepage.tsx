@@ -33,7 +33,7 @@ import '../index.css';
 import { motion, useIsPresent } from 'framer-motion';
 import Preloader from './Preloader';
 
-export default function Homepage() {
+export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
@@ -692,7 +692,7 @@ export default function Homepage() {
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  self-center px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -701,7 +701,9 @@ export default function Homepage() {
             autoPlay
             muted
             controls={false}
-            className="hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover"
+            className={` ${
+              mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
+            } hands -z-10 aspect-[1/2] h-full   items-center justify-center object-cover`}
           />
           <video
             ref={leavesRef}
@@ -711,25 +713,45 @@ export default function Homepage() {
             controls={false}
             autoPlay
             muted
-            className="leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left"
+            className={` ${
+              mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
           />
 
           <div className=" absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference">
-            <h1 className=" font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50 md:text-8xl lg:text-[9rem] xl:text-[10rem] 2xl:text-[12rem] 4xl:text-[15rem] 4xl:tracking-[1.5rem] 6xl:text-[20rem] 6xl:tracking-[3rem]">
+            <h1
+              className={` ${
+                mobileMenu
+                  ? '-translate-y-[90%] text-[4rem]'
+                  : 'md:text-8xl lg:text-[9rem] xl:text-[10rem] 2xl:text-[10rem] 4xl:text-[12rem]  5xl:text-[16rem] 6xl:text-[19rem]'
+              } font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50  4xl:tracking-[1.5rem] 5xl:tracking-[3.3rem] `}
+            >
               discover
             </h1>
           </div>
           <div className=" absolute right-1/2 top-[45%] flex -translate-y-[5%] translate-x-[55%] flex-col items-center justify-center leading-none">
-            <h2 className="  items-center self-center font-raleway font-regular uppercase text-white md:text-4xl md:tracking-[3rem] lg:text-5xl lg:tracking-[5rem] xl:text-6xl xl:tracking-[5rem] 2xl:text-8xl 2xl:tracking-[7rem] 4xl:text-[9rem] 5xl:tracking-[11rem] 6xl:tracking-[15rem]">
+            <h2
+              className={` ${
+                mobileMenu
+                  ? '-translate-x-[2%] -translate-y-[90%] text-[2.3rem] tracking-[1.6rem]'
+                  : 'md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl 5xl:text-[8rem]'
+              }  items-center self-center font-raleway font-regular uppercase text-white  md:tracking-[3rem]  lg:tracking-[5rem]  xl:tracking-[5rem]  2xl:tracking-[7rem]  5xl:tracking-[11rem] 6xl:tracking-[15rem]`}
+            >
               skincare
             </h2>
-            <h3 className=" absolute top-[120%] translate-x-[80%] font-aurora font-bold tracking-[.5rem] text-white lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:tracking-[1rem] 4xl:text-4xl 5xl:tracking-[1.5rem] 6xl:text-5xl 6xl:tracking-[1.9rem]">
+            <h3
+              className={` ${
+                mobileMenu
+                  ? 'top-[50%] translate-x-[50%] text-[1.2rem] tracking-[.1rem]'
+                  : 'top-[120%] translate-x-[80%] tracking-[.5rem] lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:tracking-[1rem] 4xl:text-4xl 5xl:tracking-[1.5rem]  6xl:text-5xl  6xl:tracking-[1.9rem]'
+              } absolute   font-aurora font-bold  text-white `}
+            >
               your skin loves
             </h3>
           </div>
           <Link
             to="/shop-all"
-            className="group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white px-[4%] 5xl:py-2 6xl:py-3 py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg"
+            className={` ${ mobileMenu ? 'px-8' : 'px-[4%]'} group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
             <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
