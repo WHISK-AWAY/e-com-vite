@@ -113,7 +113,7 @@ function App() {
   const element = useRoutes([
     {
       path: '/',
-      element: <Homepage />,
+      element: <Homepage mobileMenu={mobileMenu}/>,
     },
     {
       path: '/shop-all',
