@@ -168,7 +168,11 @@ export default function DropdownMenu({
       className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%] "
     >
       {/* Logo section (absolute) */}
-      <div className={` ${mobileMenu ? 'hidden' : ''} logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center`}>
+      <div
+        className={` ${
+          mobileMenu ? 'hidden' : ''
+        } logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center`}
+      >
         <Link
           to="/"
           className="flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]"
@@ -208,16 +212,25 @@ export default function DropdownMenu({
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } menu-option-container txt-stroke ml-[20%] flex flex-col text-transparent text-white`}
+          } menu-option-container txt-stroke text-start my-auto flex flex-col text-transparent text-white`}
         >
-          <NavLink
-            to="/shop-all/bestsellers"
-            state={{ sortKey: 'saleCount' }}
-            className='menu-option'
+          <button
+            onClick={() =>
+              closeMenu()?.then(() => navigate('/shop-all/bestsellers', {}))
+            }
+            className={textRevealClasses }
           >
             BESTSELLERS
-          </NavLink>
-          <NavLink to={'/new-in'}>NEW IN</NavLink>
+          </button>
+
+          <button
+            onClick={() =>
+              closeMenu()?.then(() => navigate('/new-in', {}))
+            }
+            className={textRevealClasses}
+          >
+            NEW IN
+          </button>
         </div>
         <div className="menu-option relative pl-[15%]">
           <div className="chevron-container relative w-fit">
