@@ -25,11 +25,13 @@ const faceitems = [
 export type FaceItemProps = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
+  mobileMenu: boolean
 };
 
 export default function FaceItem({
   setMenuMode,
   closeOuterMenu,
+  mobileMenu
 }: FaceItemProps) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
@@ -114,20 +116,26 @@ export default function FaceItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className='absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin'
+      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
     >
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
-          className='flex h-screen w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#FBFBFB] py-[2%] pl-12 text-[min(2vw,_3vh)] leading-tight text-[#51524b]'
+          className={` ${
+            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#FBFBFB] py-[2%]  text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
             return (
               <Link
-                to='/shop-all'
+                to="/shop-all"
                 state={{ filterKey: name }}
-                className='submenu-item  ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300'
+                className={`  ${
+                  mobileMenu
+                    ? 'text-start text-[1.4rem]'
+                    : ' text-center odd:text-[min(3vw,_4.5vh)]'
+                } submenu-item  ease hover:offsetX hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
                 onClick={() => closeLocalMenu(true)}
                 key={tag._id}
               >

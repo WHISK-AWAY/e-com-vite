@@ -8,11 +8,13 @@ import type { MenuOption } from './DropdownMenu';
 export type ShopByCategoryListItem = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
+  mobileMenu: boolean
 };
 
 export default function ShopByCategoryListItem({
   setMenuMode,
   closeOuterMenu,
+  mobileMenu
 }: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
@@ -133,7 +135,9 @@ export default function ShopByCategoryListItem({
       {menuHeight > 0 && (
         <section
           // ref={catRef}
-          className="flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start gap-x-[3vw] self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] pl-12 text-[min(2vw,_3vh)] portrait:text-[2rem] leading-tight text-[#51524b]"
+          className={` ${
+            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+          } flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
         >
           {tagList.map((tag) => {
             const name = tag.tagName;
@@ -145,7 +149,11 @@ export default function ShopByCategoryListItem({
                   closeLocalMenu(true);
                 }}
                 state={{ filterKey: name }}
-                className="submenu-item ease hover:offsetX text-center odd:text-[min(3vw,_4.5vh)] hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300"
+                className={` ${
+                  mobileMenu
+                    ? 'text-start text-[1.4rem]'
+                    : ' text-center odd:text-[min(3vw,_4.5vh)] '
+                } submenu-item ease hover:offsetX  hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
               >
                 {name}
               </Link>
