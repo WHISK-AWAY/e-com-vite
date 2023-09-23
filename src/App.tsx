@@ -282,33 +282,34 @@ function App() {
   if (!element) return <main>Route location not found...</main>;
 
   return (
-    <AnimatePresence
-      mode="wait"
-      initial={false}
+    <div
+      data-lenis-prevent
+      className="data-scroll-container mx-auto min-h-screen text-charcoal"
     >
-      <div
-        key={location.pathname}
-        data-lenis-prevent
-        className="data-scroll-container mx-auto min-h-screen text-charcoal"
+      <Navbar
+        key="navbar"
+        setIsSearchHidden={setIsSearchHidden}
+        isSearchHidden={isSearchHidden}
+        setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+        isCartFavWrapperHidden={isCartFavWrapperHidden}
+        setIsSignFormHidden={setIsSignFormHidden}
+        isSignFormHidden={isSignFormHidden}
+        setIsMenuHidden={setIsMenuHidden}
+        isMenuHidden={isMenuHidden}
+        mobileMenu={mobileMenu}
+        setMobileMenu={setMobileMenu}
+      />
+      <AnimatePresence
+        mode="wait"
+        initial={false}
       >
-        <TransitionScreen />
-        <Navbar
-          key="navbar"
-          setIsSearchHidden={setIsSearchHidden}
-          isSearchHidden={isSearchHidden}
-          setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-          isCartFavWrapperHidden={isCartFavWrapperHidden}
-          setIsSignFormHidden={setIsSignFormHidden}
-          isSignFormHidden={isSignFormHidden}
-          setIsMenuHidden={setIsMenuHidden}
-          isMenuHidden={isMenuHidden}
-          mobileMenu={mobileMenu}
-          setMobileMenu={setMobileMenu}
-        />
-        {element}
-        <Footer key="footer" />
-      </div>
-    </AnimatePresence>
+        <div key={location.pathname}>
+          <TransitionScreen />
+          {element}
+        </div>
+      </AnimatePresence>
+      <Footer key="footer" />
+    </div>
   );
 }
 
