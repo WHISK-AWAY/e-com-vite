@@ -751,7 +751,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
           </div>
           <Link
             to="/shop-all"
-            className={` ${ mobileMenu ? 'px-8' : 'px-[4%]'} group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
+            className={` ${
+              mobileMenu ? 'px-8' : 'px-[4%]'
+            } group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
             <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
@@ -760,8 +762,12 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
           </Link>
         </div>
 
-        <div className="philosophy-section-content relative flex flex-col bg-white pb-[18%] pt-[20%] ">
-          <p className="philosophy-text self-center px-[11%] text-center font-aurora text-[1.5vw] text-charcoal ">
+        <div className={` ${mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'} philosophy-section-content relative flex flex-col bg-white `}>
+          <p
+            className={` ${
+              mobileMenu ? 'text--[1.3rem]' : 'text-[1.5vw]'
+            } philosophy-text self-center px-[11%] text-center font-aurora  text-charcoal `}
+          >
             our philosophy is not to add anything to our products to make them
             stand out; instead we pare them back and distill each formula down
             to the most-essential, natural active ingredients.
