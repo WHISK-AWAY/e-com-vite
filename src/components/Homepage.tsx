@@ -1144,9 +1144,7 @@ console.log(maskProdId)
               <Link
                 to={'/product/' + maskProdId}
                 className={` ${
-                  mobileMenu
-                    ? 'w-[75%] '
-                    : 'w-[70%]'
+                  mobileMenu ? 'w-[75%] ' : 'w-[70%]'
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
@@ -1171,7 +1169,7 @@ console.log(maskProdId)
                 to="/shop-all"
                 state={{ filterKey: 'masks' }}
                 className={` ${
-                  mobileMenu ? 'text-[.7rem] w-[70%]' : 'text-[1.1vw] w-[60%]'
+                  mobileMenu ? 'w-[70%] text-[.7rem]' : 'w-[60%] text-[1.1vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1183,9 +1181,22 @@ console.log(maskProdId)
           </div>
         </div>
 
+        {/**facewash section */}
         <div className="facewash-section-content relative z-10 flex  flex-col items-center justify-center pt-[25%]">
-          <div className="absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] ">
-            <p className="facewash-section-text-top z-20 w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]">
+          <div
+            className={` ${
+              mobileMenu
+                ? 'w-[85%] translate-x-0 translate-y-[30%]'
+                : 'w-[45%] -translate-x-[50%] translate-y-[55%]'
+            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] `}
+          >
+            <p
+              className={` ${
+                mobileMenu
+                  ? ' -translate-x-[10%] text-[.8rem] leading-none'
+                  : '-translate-x-[20%] text-[1.5vw]'
+              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626]`}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
               of summer and don't provide adequate
@@ -1193,10 +1204,14 @@ console.log(maskProdId)
 
             <Link
               to={'/product/' + randomProd06!._id}
-              className="facewash-rp z-50 flex w-full"
+              className={` ${
+                mobileMenu ? 'w-44' : 'w-full'
+              } facewash-rp z-50 flex `}
             >
               <img
-                className="lazyload aspect-[7/9] w-full transform object-cover transition  duration-300 hover:scale-110"
+                className={` ${
+                  mobileMenu ? 'aspect-[4/5] -translate-x-[20%]' : 'aspect-[7/9]'
+                } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -1212,9 +1227,15 @@ console.log(maskProdId)
               data-src={ladyFacewash}
               data-sizes="auto"
               alt="lady washing her face in the bathroom with white towel on her head"
-              className="facewash-lady-img lazyload aspect-[4/6] h-screen self-center"
+              className={` ${
+                mobileMenu ? 'h-[50svh]' : 'h-screen'
+              } facewash-lady-img lazyload aspect-[4/6] self-center`}
             />
-            <p className="facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%] w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw]  text-[#262626]">
+            <p
+              className={` ${
+                mobileMenu ? 'w-[25%]' : 'w-[17%]'
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw]  text-[#262626]`}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
               of summer and don't provide adequate
@@ -1222,6 +1243,9 @@ console.log(maskProdId)
           </div>
         </div>
 
+
+
+{/**ingreient section */}
         <div className="ingredient-section-content flex w-[90%] max-w-[1440px] self-center ">
           <div className="flex h-screen  w-[65%] border ">
             <img
