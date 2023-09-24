@@ -1247,7 +1247,7 @@ console.log(maskProdId)
 
 {/**ingreient section */}
         <div className="ingredient-section-content flex w-[90%] max-w-[1440px] self-center ">
-          <div className="flex h-screen  w-[65%] border ">
+          <div className={` ${mobileMenu ? 'h-[60svh]' : 'h-screen' } flex   w-[65%] border `}>
             <img
               data-src={papaya}
               data-sizes="auto"
@@ -1267,7 +1267,7 @@ console.log(maskProdId)
           </div>
 
           <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] ">
-            <p className="ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] ">
+            <p className={` ${mobileMenu ? 'text-sm tracking-none whitespace-break-spaces' : 'text-[1.3vw]' } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}>
               only best ingredients for best results
             </p>
             <Link
@@ -1283,14 +1283,14 @@ console.log(maskProdId)
                 }
                 data-sizes="auto"
               />
-              <p className="pt-[4%] text-center font-hubbali text-[1vw] uppercase text-charcoal">
+              <p className={` ${mobileMenu ? 'text-[.7rem]' : 'text-[1vw]' } pt-[4%] text-center font-hubbali uppercase text-charcoal`}>
                 {randomProd05?.productName}
               </p>
             </Link>
           </div>
         </div>
-        <div className="ingredient-section-closer flex w-[70%] items-center justify-center self-center pb-[6%] pt-[15%] leading-loose">
-          <p className="text-center font-aurora text-[1.4vw]">
+        <div className={` ${mobileMenu ? 'w-[85%]' : 'w-[70%]' } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}>
+          <p className={` ${mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]' } text-center font-aurora`}>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate hydration
