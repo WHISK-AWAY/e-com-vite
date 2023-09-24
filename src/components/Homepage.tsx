@@ -15,7 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves-compressed-31.mp4';
+import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
@@ -73,9 +73,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
 
   const isPresent = useIsPresent();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0 });
+  // }, []);
 
   useEffect(() => {
     if (!allProducts.products.length) {
@@ -695,21 +695,6 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   if (!randomProd) return <p>...loading</p>;
   return (
     <>
-      {/* <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
-
-      <motion.div
-        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      /> */}
       <div
         data-scroll-section
         className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden "
@@ -837,7 +822,7 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
             <p
               className={` ${
                 mobileMenu
-                  ? 'left-[1%] text-[1.5rem] portrait:sm:text-[1.7rem] top-[10%]'
+                  ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
                   : 'left-[4%] top-[12%] md:text-4xl  lg:text-[4rem] 2xl:text-[6vw]'
               } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 `}
             >
@@ -850,7 +835,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               <Link to={'/product/' + spfProdId!}>
                 <img
                   className={` ${
-                    mobileMenu ? 'pt-[80%] portrait:xs:pt-[100%] portrait:xs:h-[350px] portrait:sm:h-[450px] pr-4 h-[280px]' : 'pt-[70%] h-full'
+                    mobileMenu
+                      ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
+                      : 'h-full pt-[70%]'
                   } rainbow-lady-rp  aspect-[1/2]  object-cover`}
                   src={
                     singleProduct?.images.find(
@@ -863,7 +850,7 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               <p
                 className={` ${
                   mobileMenu
-                    ? 'text-[.8rem] pr-4'
+                    ? 'pr-4 text-[.8rem]'
                     : 'text-[1rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
                 } rainbow-lady-rp pt-1  text-center font-grotesque uppercase `}
               >
@@ -873,22 +860,24 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
             <p
               className={` ${
                 mobileMenu
-                  ? 'bottom-4 portrait:sm:bottom-11 left-5 w-[87svw] text-[.9rem] leading-tight'
+                  ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
                   : 'bottom-[4%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
-              {mobileMenu ? `during the summer months, it's essential to keep your skin
-              moisturized and hydrated wherever possible` : `during the summer months, it's essential to keep your skin
+              {mobileMenu
+                ? `during the summer months, it's essential to keep your skin
+              moisturized and hydrated wherever possible`
+                : `during the summer months, it's essential to keep your skin
               moisturized and hydrated wherever possible. however, it's
               important to switch high-intensity heavy creams in favor of
               lighter formulations at this time of year.`}
-              
             </p>
           </div>
         </div>
 
-        <div className="beach-section-content-top relative flex w-full flex-col items-center">
-          <div className="beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-[#383838]">
+        {/**beach section */}
+        <div className="beach-section-content-top relative flex w-full flex-col items-center bg-primary-gray">
+          <div className="beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-primary-gray">
             <p className="absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen">
               beach
             </p>
@@ -896,7 +885,11 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               ready
             </p>
 
-            <div className="beach-section-rp relative flex w-[45%] justify-center self-center pt-[10%]">
+            <div
+              className={` ${
+                mobileMenu ? 'w-[65%] pt-[13%]' : 'w-[45%] pt-[10%]'
+              } beach-section-rp relative flex  justify-center self-center `}
+            >
               <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd01!._id}
@@ -931,7 +924,13 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                 </Link>
               </div>
             </div>
-            <p className="absolute top-0 z-10 flex w-[25%] translate-y-[144%] flex-col text-center font-aurora text-[2vw] text-black ">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'w-[49%] translate-y-36 text-[.8rem] portrait:translate-y-40 portrait:sm:translate-y-48'
+                  : 'w-[25%] translate-y-[144%] text-[2vw]'
+              } absolute top-0 z-10 flex   flex-col text-center font-aurora  text-black `}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when
               <span className="text-white">
@@ -940,7 +939,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               </span>
             </p>
 
-            <div className="w-[80%] pt-[2%]">
+            <div
+              className={`${mobileMenu ? 'w-[100svw]' : 'w-[80%]'}  pt-[2%]`}
+            >
               <img
                 src={beachLady}
                 // data-sizes='auto'
@@ -949,10 +950,26 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               />
             </div>
 
-            <div className=" 2xl: relative flex  h-full  w-[80%] justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]">
+            <div
+              className={`${
+                mobileMenu ? 'w-[90svw]' : 'w-[80%] '
+              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]`}
+            >
               <div className="text-container flex w-full flex-col">
-                <div className="beach-oval-container absolute left-0 top-0 h-[75%] w-[22%] -translate-y-[15%] translate-x-[40%] rounded-full bg-black/20">
-                  <p className="beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[120%] text-start font-aurora text-[1.4vw] leading-relaxed text-white">
+                <div
+                  className={` ${
+                    mobileMenu
+                      ? 'h-[96%] w-[30%] translate-x-[10%]'
+                      : 'h-[75%] w-[22%] translate-x-[40%] '
+                  } beach-oval-container absolute left-0 top-0  -translate-y-[15%] rounded-full bg-black/20`}
+                >
+                  <p
+                    className={` ${
+                      mobileMenu
+                        ? 'translate-y-[90%] text-[.5rem]'
+                        : 'translate-y-[120%] text-[1.4vw] '
+                    } beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] text-start font-aurora  leading-relaxed text-white`}
+                  >
                     heavy moisturizers are ideal for cold climates or during
                     winter when the air is dryer but they can be too cloying
                     during the heat of summer and don't provide adequate
@@ -971,14 +988,16 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
                 />
               </div>
-              <div className="product-section absolute right-0 top-2 w-[50%] translate-x-[5%] pl-[8%]">
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%]">
                 {' '}
                 <Link
                   to={'/product/' + randomProd03!._id}
-                  className="beach-rp-right flex  flex-col items-center"
+                  className={` beach-rp-right flex w-[70%]  flex-col items-center `}
                 >
                   <img
-                    className="aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105"
+                    className={` ${
+                      mobileMenu ? 'w-full' : 'w-[60%]'
+                    } aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -986,14 +1005,22 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                     }
                     // data-sizes='auto'
                   />
-                  <p className="w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white">
+                  <p
+                    className={` ${
+                      mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
+                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white`}
+                  >
                     {randomProd03?.productName}
                   </p>
                 </Link>
               </div>
             </div>
 
-            <div className="beach-text-closer w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white">
+            <div
+              className={` ${
+                mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
+              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white`}
+            >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
                 when the air is dryer but they can be too cloying during the
@@ -1001,7 +1028,11 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               </p>
             </div>
           </div>
-          <div className="z-10 flex w-full  flex-col  items-center bg-[#383838] pb-[7%]">
+
+
+
+          {/**grapefruit butt section */}
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%]">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
@@ -1228,14 +1259,6 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
         </div>
         {/* <div className='pb-96'></div> */}
       </div>
-      <motion.div
-        className="slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        style={{ originY: isPresent ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      />
     </>
   );
 }
