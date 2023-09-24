@@ -3,7 +3,9 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   TProduct,
   fetchAllProducts,
+  fetchSingleProduct,
   selectAllProducts,
+  selectSingleProduct,
 } from '../redux/slices/allProductSlice';
 import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
@@ -32,6 +34,7 @@ gsap.registerPlugin(CSSPlugin);
 import '../index.css';
 import { motion, useIsPresent } from 'framer-motion';
 import Preloader from './Preloader';
+import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
 export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const dispatch = useAppDispatch();
@@ -49,13 +52,32 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
 
+
+  const tagSelector = useAppSelector(selectTagState);
+  const singleProduct = useAppSelector(selectSingleProduct);
+  const spfProdId = tagSelector.tags.find((tag: TTag) => tag.tagName === 'spf')
+    ?.products[0]._id;
+
+
+  useEffect(() => {
+
+    if(spfProdId) {
+
+      dispatch(fetchAllTags);
+      dispatch(fetchSingleProduct(spfProdId!))
+    }
+  }, [spfProdId]);
+
+
+
+
   const isPresent = useIsPresent();
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!allProducts.products.length) {
       dispatch(
         fetchAllProducts({
@@ -637,6 +659,8 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   });
   //lenis smooth scroll setup
 
+
+
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -762,7 +786,11 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
           </Link>
         </div>
 
-        <div className={` ${mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'} philosophy-section-content relative flex flex-col bg-white `}>
+        <div
+          className={` ${
+            mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
+          } philosophy-section-content relative flex flex-col bg-white `}
+        >
           <p
             className={` ${
               mobileMenu ? 'text--[1.3rem]' : 'text-[1.5vw]'
@@ -774,44 +802,87 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
           </p>
         </div>
 
-        <div className=" rainbow-wrapper relative mb-[95%]  flex h-full w-screen items-start bg-white">
+        <div
+          className={` ${
+            mobileMenu ? 'h-[60svh]' : 'h-full'
+          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-white `}
+        >
           <img
             data-src={rainbowLady}
             data-sizes="auto"
             alt="red haired ladys profile with reflection of a rainbow on her face"
-            className="rainbow-lady lazyload w-[60%] -translate-x-[15%]  "
+            className={` ${
+              mobileMenu ? 'h-full object-cover' : ''
+            } rainbow-lady lazyload w-[60%]  -translate-x-[15%]  `}
           />
           <div className="">
-            <p className="absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'text-[2.8rem] portrait:xs:text-[3rem]'
+                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'
+              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge `}
+            >
               protect
             </p>
-            <p className="your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'text-[1.2rem]'
+                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'
+              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  `}
+            >
               your skin
             </p>
-            <p className="uv-rays-text absolute left-[4%] top-[10%] whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 md:text-5xl lg:text-[4rem] xl:text-[5rem] 2xl:text-[6vw]">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'left-[1%] text-[1.5rem] portrait:sm:text-[1.7rem] top-[10%]'
+                  : 'left-[4%] top-[12%] md:text-4xl  lg:text-[4rem] 2xl:text-[6vw]'
+              } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 `}
+            >
               from harmful uva & uvb rays
             </p>
           </div>
 
-          <div className="flex w-[40%] flex-col ">
-            <div className=" flex  w-[90%] flex-col items-center justify-center">
-              <Link to={'/product/' + randomProd!._id}>
+          <div className="flex w-[40%] flex-col  ">
+            <div className="  flex h-full w-[90%] flex-col items-center justify-center">
+              <Link to={'/product/' + spfProdId!}>
                 <img
-                  className=" rainbow-lady-rp  aspect-[1/2] object-cover pt-[70%]"
+                  className={` ${
+                    mobileMenu ? 'pt-[80%] portrait:xs:pt-[100%] portrait:xs:h-[350px] portrait:sm:h-[450px] pr-4 h-[280px]' : 'pt-[70%] h-full'
+                  } rainbow-lady-rp  aspect-[1/2]  object-cover`}
                   src={
-                    randomProd!.images.find(
+                    singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd!.images[0].imageURL
+                    )?.imageURL || singleProduct?.images[0].imageURL
                   }
                   // data-sizes='auto'
                 />
               </Link>
+              <p
+                className={` ${
+                  mobileMenu
+                    ? 'text-[.8rem] pr-4'
+                    : 'text-[1rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
+                } rainbow-lady-rp pt-1  text-center font-grotesque uppercase `}
+              >
+                {singleProduct?.productName}
+              </p>
             </div>
-            <p className="rainbow-lady-text absolute bottom-[5%] right-[9%] w-[50vw] font-aurora text-[1.5vw] leading-loose text-[#262625]">
-              during the summer months, it's essential to keep your skin
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'bottom-4 portrait:sm:bottom-11 left-5 w-[87svw] text-[.9rem] leading-tight'
+                  : 'bottom-[4%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
+              } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
+            >
+              {mobileMenu ? `during the summer months, it's essential to keep your skin
+              moisturized and hydrated wherever possible` : `during the summer months, it's essential to keep your skin
               moisturized and hydrated wherever possible. however, it's
               important to switch high-intensity heavy creams in favor of
-              lighter formulations at this time of year.
+              lighter formulations at this time of year.`}
+              
             </p>
           </div>
         </div>
