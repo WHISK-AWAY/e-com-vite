@@ -1074,7 +1074,7 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               ref={shopBodyRef}
               state={{ filterKey: 'body' }}
               className={` ${
-                mobileMenu ? 'text-[1rem] mb-12' : 'text-[1vw]'
+                mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1085,36 +1085,67 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
           </div>
         </div>
 
+        {/**unleash section */}
         <div className="unleash-section-content flex w-full flex-col items-center">
-          <p className=" z-10 -translate-y-[50%] font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference">
+          <p
+            className={` ${
+              mobileMenu ? 'text-[3.5rem]' : 'text-[10vw]'
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference`}
+          >
             unleash{' '}
           </p>
-          <p className="-translate-y-[550%] font-raleway text-[2vw] font-thin leading-none tracking-wide">
+          <p
+            className={` ${
+              mobileMenu
+                ? '-translate-y-16 text-[1.1rem]'
+                : '-translate-y-[550%] text-[2vw]'
+            }  font-raleway font-thin leading-none tracking-wide`}
+          >
             the power of
           </p>
         </div>
 
-        <div className="flex w-[90%] max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center ">
+        <div
+          className={` ${
+            mobileMenu ? '' : 'w-[90%]'
+          } flex  max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center `}
+        >
           <div className="flex w-full flex-row-reverse justify-center ">
             <img
               data-src={ladyMask}
               data-sizes="auto"
               alt="woman applying mask to her face"
-              className="unleash-lady-img lazyload h-screen  w-[3/5] object-cover "
+              className={`${
+                mobileMenu
+                  ? 'h-[80svh] w-[60%] object-cover'
+                  : ' h-screen w-3/5 object-cover'
+              } unleash-lady-img lazyload   `}
             />
 
             <div className=" relative flex w-2/5  flex-col justify-end gap-10">
               <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
-                <span className="hyd-text-left absolute -right-4 top-0 translate-y-[60%]  tracking-[2.9rem] text-[#262626] 2xl:translate-y-0">
+                <span
+                  className={` ${
+                    mobileMenu ? 'tracking-[1.6rem]' : 'tracking-[2.9rem]'
+                  } hyd-text-left absolute -right-4 top-0 translate-y-[60%]  text-[#262626] 2xl:translate-y-0`}
+                >
                   hyd
                 </span>
-                <span className="absolute right-0 top-0 translate-x-[102%] translate-y-[60%] tracking-[1rem] text-white  2xl:translate-y-0">
+                <span
+                  className={` ${
+                    mobileMenu ? 'tracking-[.5rem]' : 'tracking-[1rem]'
+                  } absolute right-0 top-0 translate-x-[102%] translate-y-[60%] text-white  2xl:translate-y-0`}
+                >
                   ration
                 </span>
               </p>
               <Link
                 to={'/product/' + randomProd04!._id}
-                className="unleash-rp flex w-[70%] flex-col  items-center self-end pr-[15%]"
+                className={` ${
+                  mobileMenu
+                    ? 'w-[90%] -translate-y-20 sm:-translate-y-56'
+                    : 'w-[70%]'
+                } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
                   className="lazyload min-[1600px]:h-[800px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[450px] 2xl:h-[650px]"
@@ -1125,7 +1156,11 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                   }
                   data-sizes="auto"
                 />
-                <p className="w-[90%] pt-4 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal">
+                <p
+                  className={` ${
+                    mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw]'
+                  } w-[90%] pt-4 text-center font-hubbali   uppercase text-charcoal`}
+                >
                   {randomProd04?.productName}
                 </p>
               </Link>
@@ -1133,7 +1168,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               <Link
                 to="/shop-all"
                 state={{ filterKey: 'body' }}
-                className="group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]"
+                className={` ${
+                  mobileMenu ? 'text-[.7rem] w-[80%] -translate-y-28' : 'text-[1.1vw] w-[60%]'
+                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
                 <span className="relative group-hover:text-white">
