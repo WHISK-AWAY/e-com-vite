@@ -20,7 +20,6 @@ import 'lazysizes';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { motion, useIsPresent } from 'framer-motion';
 import ProductCard from './ProductCard';
 
 const PRODS_PER_PAGE = 9;
@@ -75,8 +74,6 @@ export default function AllProducts({
   });
 
   const topElement = useRef<HTMLHeadingElement | null>(null);
-
-  const isPresent = useIsPresent(); // framer
 
   useEffect(() => {
     if (state?.filterKey) setFilter(state.filterKey);
@@ -315,14 +312,6 @@ export default function AllProducts({
           </div>
         )}
       </section>
-      <motion.div
-        className="slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        style={{ originY: isPresent ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      />
     </>
   );
 }

@@ -20,7 +20,6 @@ import searchIcon from '../../assets/icons/search.svg';
 import { fetchAllTags } from '../../redux/slices/tagSlice';
 import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 
 import MobileNav from './MobileNav';
 
@@ -57,10 +56,10 @@ export default function Navbar({
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
+    else dispatch(getUserId());
   }, [userId]);
 
   useEffect(() => {
-    dispatch(getUserId());
     dispatch(searchProducts());
     dispatch(fetchAllTags());
   }, []);
@@ -85,25 +84,6 @@ export default function Navbar({
 
   return (
     <>
-      <motion.div
-        className="slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]"
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1.7, ease: [0.22, 1, 0.36, 1] }}
-      />
-
-      <motion.div
-        className="slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]"
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{
-          delay: 0.6,
-          duration: 1.7,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      />
       <Toaster
         position="top-right"
         toastOptions={{

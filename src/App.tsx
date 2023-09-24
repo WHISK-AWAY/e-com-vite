@@ -57,6 +57,7 @@ const UserProfile = React.lazy(
 );
 
 import '../src/index.css';
+import TransitionScreen from './components/UI/TransitionScreen.tsx';
 
 function App() {
   const location = useLocation();
@@ -285,26 +286,29 @@ function App() {
       data-lenis-prevent
       className="data-scroll-container mx-auto min-h-screen text-charcoal"
     >
+      <Navbar
+        key="navbar"
+        setIsSearchHidden={setIsSearchHidden}
+        isSearchHidden={isSearchHidden}
+        setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+        isCartFavWrapperHidden={isCartFavWrapperHidden}
+        setIsSignFormHidden={setIsSignFormHidden}
+        isSignFormHidden={isSignFormHidden}
+        setIsMenuHidden={setIsMenuHidden}
+        isMenuHidden={isMenuHidden}
+        mobileMenu={mobileMenu}
+        setMobileMenu={setMobileMenu}
+      />
       <AnimatePresence
         mode="wait"
         initial={false}
       >
-        <Navbar
-          key="navbar"
-          setIsSearchHidden={setIsSearchHidden}
-          isSearchHidden={isSearchHidden}
-          setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-          isCartFavWrapperHidden={isCartFavWrapperHidden}
-          setIsSignFormHidden={setIsSignFormHidden}
-          isSignFormHidden={isSignFormHidden}
-          setIsMenuHidden={setIsMenuHidden}
-          isMenuHidden={isMenuHidden}
-          mobileMenu={mobileMenu}
-          setMobileMenu={setMobileMenu}
-        />
-        {React.cloneElement(element, { key: location.pathname }, element)}
-        <Footer key="footer" />
+        <div key={location.pathname}>
+          <TransitionScreen />
+          {element}
+        </div>
       </AnimatePresence>
+      <Footer key="footer" />
     </div>
   );
 }
