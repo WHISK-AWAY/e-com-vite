@@ -52,7 +52,7 @@ export default {
         charcoal: '#4A4A4A',
         'light-brick': '#DA8E61',
         'primary-gray': '#262626',
-        transition: '#0F0F0F',
+        transition: '#4a4a4a',
       },
       screens: {
         xxs: '360px',
