@@ -57,14 +57,16 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const singleProduct = useAppSelector(selectSingleProduct);
   const spfProdId = tagSelector.tags.find((tag: TTag) => tag.tagName === 'spf')
     ?.products[0]._id;
+  const maskProdId = tagSelector.tags.find((tag:TTag) => tag.tagName === 'masks')?.products[0]._id;
 
-
+console.log(maskProdId)
   useEffect(() => {
 
     if(spfProdId) {
 
       dispatch(fetchAllTags);
       dispatch(fetchSingleProduct(spfProdId!))
+      dispatch(fetchSingleProduct(maskProdId!))
     }
   }, [spfProdId]);
 
@@ -1117,7 +1119,7 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               alt="woman applying mask to her face"
               className={`${
                 mobileMenu
-                  ? 'h-[80svh] w-[60%] object-cover'
+                  ? 'h-[60svh] w-[60%] object-cover'
                   : ' h-screen w-3/5 object-cover'
               } unleash-lady-img lazyload   `}
             />
@@ -1140,19 +1142,19 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                 </span>
               </p>
               <Link
-                to={'/product/' + randomProd04!._id}
+                to={'/product/' + maskProdId}
                 className={` ${
                   mobileMenu
-                    ? 'w-[90%] -translate-y-20 sm:-translate-y-56'
+                    ? 'w-[75%] '
                     : 'w-[70%]'
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
                   className="lazyload min-[1600px]:h-[800px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[450px] 2xl:h-[650px]"
                   data-src={
-                    randomProd04!.images.find(
+                    singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd04!.images[0].imageURL
+                    )?.imageURL || singleProduct?.images[0].imageURL
                   }
                   data-sizes="auto"
                 />
@@ -1161,15 +1163,15 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
                     mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw]'
                   } w-[90%] pt-4 text-center font-hubbali   uppercase text-charcoal`}
                 >
-                  {randomProd04?.productName}
+                  {singleProduct?.productName}
                 </p>
               </Link>
 
               <Link
                 to="/shop-all"
-                state={{ filterKey: 'body' }}
+                state={{ filterKey: 'masks' }}
                 className={` ${
-                  mobileMenu ? 'text-[.7rem] w-[80%] -translate-y-28' : 'text-[1.1vw] w-[60%]'
+                  mobileMenu ? 'text-[.7rem] w-[70%]' : 'text-[1.1vw] w-[60%]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
