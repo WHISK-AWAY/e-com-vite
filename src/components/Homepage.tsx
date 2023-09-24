@@ -627,7 +627,7 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
         // pinReparent: true,
-        // markers: true,
+        markers: true,
         start: 'center center',
         scrub: 4.9,
         // pinSpacing: 'padding',
@@ -1029,8 +1029,6 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
             </div>
           </div>
 
-
-
           {/**grapefruit butt section */}
           <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%]">
             <div
@@ -1039,7 +1037,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
             >
               <div
                 ref={grapefruitButtRef}
-                className="grapefruit-butt-img  z-10 h-fit w-[30%] self-center "
+                className={` ${
+                  mobileMenu ? 'w-[50%]' : 'w-[30%]'
+                } grapefruit-butt-img  z-10 h-fit  self-center `}
               >
                 <img
                   // onLoad={() => ScrollTrigger.refresh()}
@@ -1073,7 +1073,9 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
               to="/shop-all"
               ref={shopBodyRef}
               state={{ filterKey: 'body' }}
-              className="group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white "
+              className={` ${
+                mobileMenu ? 'text-[1rem] mb-12' : 'text-[1vw]'
+              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
               <span className="relative group-hover:text-charcoal">
