@@ -432,7 +432,7 @@ console.log(maskProdId)
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          markers: true,
+          // markers: true,
           trigger: '.beach-oval-container',
           start: 'center center',
           end: 'bottom center',
@@ -472,9 +472,9 @@ console.log(maskProdId)
         ease: 'sine',
         scrollTrigger: {
           trigger: '.facewash-section-content',
-          start: 'top 90%',
-          // markers: true,
-          end: 'top 40%',
+          start: 'top 10%',
+          end: 'top 20%',
+          markers: true,
           scrub: 3.4,
         },
       });
@@ -1032,7 +1032,7 @@ console.log(maskProdId)
           </div>
 
           {/**grapefruit butt section */}
-          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%]">
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[6%]">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
