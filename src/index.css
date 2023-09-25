@@ -10,92 +10,96 @@
 
 textarea:focus,
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 .clicked {
-    background-color: #ff0000; /* Change this to the desired clicked color */
-    transition: background-color 0.5s ease; /* Adjust the duration and easing function as needed */
+  background-color: #ff0000; /* Change this to the desired clicked color */
+  transition: background-color 0.5s ease; /* Adjust the duration and easing function as needed */
 }
 
 *:focus {
-    outline: none;
+  outline: none;
 }
 
 .target {
-    font-kerning: none;
+  font-kerning: none;
 }
 
 .navbar {
-    background-color: #ffffff;
-    /* transition: background-color 7000ms linear; */
-    transition-delay: 200ms;
+  background-color: #ffffff;
+  /* transition: background-color 7000ms linear; */
+  transition-delay: 200ms;
 }
 
 .navbar-scrolled {
-    background-color: #26262667;
-    transition: background-color 400ms linear;
-    transition-delay: 10ms;
-    /* opacity: '20', */
-    color: #ffffff;
+  background-color: #26262667;
+  transition: background-color 400ms linear;
+  transition-delay: 10ms;
+  /* opacity: '20', */
+  color: #ffffff;
 }
 
 .focus-no-ring {
-    @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal;
+  @apply focus:outline-none focus:outline-1 focus:outline-offset-0 focus:outline-charcoal;
 }
 
 .input-ring-charcoal {
-    @apply border border-charcoal/50 bg-white/40;
+  @apply border border-charcoal/50 bg-white/40;
 }
 
 .input-ring-white {
-    @apply border border-white bg-white/50;
+  @apply border border-white bg-white/50;
 }
 
 .focus-ring-white {
-    @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white;
+  @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-white;
 }
 
 .address-no-focus {
-    @apply focus:border-charcoal   focus:ring-1 focus:ring-current;
+  @apply focus:border-charcoal   focus:ring-1 focus:ring-current;
 }
 
 .checkbox-focus {
-    @apply border-charcoal bg-white text-charcoal focus:ring-0;
+  @apply border-charcoal bg-white text-charcoal focus:ring-0;
 }
 
 .text-placeholder {
-    @apply placeholder:text-xs;
+  @apply placeholder:text-xs;
 }
 
 .address-autofill {
-    @apply autofill:border-charcoal autofill:bg-white;
+  @apply autofill:border-charcoal autofill:bg-white;
 }
 
 @layer utilities {
-    /* Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-    .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-    }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 
-    .inset-clip {
-        clip-path: inset(0 0 0 0);
-    }
+  .inset-clip {
+    clip-path: inset(0 0 0 0);
+  }
 
-    .poly-clip {
-        clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-    }
+  .poly-clip {
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  }
 
-    .txt-stroke {
-        -webkit-text-stroke: 2px #fff;
-    }
+  .txt-stroke {
+    -webkit-text-stroke: 2px #fff;
+  }
 
-    /* input:-webkit-autofill {
+  .txt-stroke-none {
+    -webkit-text-stroke: initial;
+  }
+
+  /* input:-webkit-autofill {
   border: 3px solid white;
   outline-color: white;
   background: rgba(128, 35, 35, 0.515);
@@ -107,7 +111,7 @@ input:autofill {
   background: rgba(128, 35, 35, 0.515); 
 
 }  */
-    /* .address-fill {
+  /* .address-fill {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -125,7 +129,7 @@ select:-webkit-autofill:focus {
 
 } */
 
-    input:-webkit-autofill,
+  input:-webkit-autofill,
 /* input:-webkit-autofill:hover, */
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
@@ -134,11 +138,11 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-        border: 1px solid white;
-        -webkit-text-fill-color: #4a4a4a;
-        transition: background-color 5000s ease-in-out 0s;
-        color: white;
-    }
+    border: 1px solid white;
+    -webkit-text-fill-color: #4a4a4a;
+    transition: background-color 5000s ease-in-out 0s;
+    color: white;
+  }
 }
 
 /* :root {
@@ -212,31 +216,31 @@ button:focus-visible {
 } */
 
 html.lenis {
-    height: auto;
+  height: auto;
 }
 
 .lenis.lenis-smooth {
-    scroll-behavior: auto;
+  scroll-behavior: auto;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+  overscroll-behavior: contain;
 }
 
 .lenis.lenis-stopped {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .lenis.lenis-scrolling iframe {
-    pointer-events: none;
+  pointer-events: none;
 }
 .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
+  overscroll-behavior: contain;
 }
 
 @media screen and not (orientation: portrait) {
-    /* select first four product cards in all prods view */
-    .first-row-top-border:nth-of-type(n + 1):nth-of-type(-n + 4) {
-        border-top-width: 1px;
-    }
+  /* select first four product cards in all prods view */
+  .first-row-top-border:nth-of-type(n + 1):nth-of-type(-n + 4) {
+    border-top-width: 1px;
+  }
 }

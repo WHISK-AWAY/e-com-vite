@@ -116,7 +116,7 @@ export default function FaceItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
+      className="txt-stroke-none absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
     >
       {menuHeight > 0 && (
         <section
