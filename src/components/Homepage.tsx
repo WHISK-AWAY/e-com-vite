@@ -1037,7 +1037,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'w-[50%] aspect-square' : 'w-[30%]'
-                } grapefruit-butt-img  z-10 h-fit  self-center `}
+                } grapefruit-butt-img  z-10  self-center `}
               >
                 <img
                   // onLoad={() => ScrollTrigger.refresh()}
