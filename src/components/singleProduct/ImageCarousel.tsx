@@ -7,6 +7,7 @@ import arrowLeft from '../../assets/icons/arrowLeft.svg';
 import arrowRight from '../../assets/icons/arrowRight.svg';
 import { ImageData } from '../../../server/database';
 import convertMediaUrl from '../../utilities/convertMediaUrl';
+import { preloadImages } from '../../utilities/preloadImages';
 
 export type ImageCarouselProps = {
   product: TProduct;
@@ -40,6 +41,12 @@ export default function ImageCarousel({
   //   console.log('autoincrement running');
   //   incrementor();
   // }
+
+  useEffect(() => {
+    preloadImages(product.images.map((image) => image.imageURL)).catch((err) =>
+      console.log('err:', err)
+    );
+  }, [product._id]);
 
   useEffect(() => {
     setProdImagesCopy([...product.images]);
