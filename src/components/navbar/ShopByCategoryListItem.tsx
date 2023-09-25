@@ -8,13 +8,13 @@ import type { MenuOption } from './DropdownMenu';
 export type ShopByCategoryListItem = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function ShopByCategoryListItem({
   setMenuMode,
   closeOuterMenu,
-  mobileMenu
+  mobileMenu,
 }: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
@@ -136,7 +136,7 @@ export default function ShopByCategoryListItem({
         <section
           // ref={catRef}
           className={` ${
-            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+            mobileMenu ? 'gap-x-3 px-3' : 'gap-x-[3vw] pl-12'
           } flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
         >
           {tagList.map((tag) => {
@@ -144,11 +144,11 @@ export default function ShopByCategoryListItem({
             return (
               <Link
                 key={tag._id}
-                to="/shop-all"
+                to={`/shop-all?filter=${name}`}
                 onClick={() => {
                   closeLocalMenu(true);
                 }}
-                state={{ filterKey: name }}
+                // state={{ filterKey: name }}
                 className={` ${
                   mobileMenu
                     ? 'text-start text-[1.4rem]'

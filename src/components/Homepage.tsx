@@ -27,7 +27,6 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
-
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -36,7 +35,7 @@ import { motion, useIsPresent } from 'framer-motion';
 import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
-export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
+export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
@@ -52,26 +51,22 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
 
-
   const tagSelector = useAppSelector(selectTagState);
   const singleProduct = useAppSelector(selectSingleProduct);
   const spfProdId = tagSelector.tags.find((tag: TTag) => tag.tagName === 'spf')
     ?.products[0]._id;
-  const maskProdId = tagSelector.tags.find((tag:TTag) => tag.tagName === 'masks')?.products[0]._id;
+  const maskProdId = tagSelector.tags.find(
+    (tag: TTag) => tag.tagName === 'masks'
+  )?.products[0]._id;
 
-console.log(maskProdId)
+  console.log(maskProdId);
   useEffect(() => {
-
-    if(spfProdId) {
-
+    if (spfProdId) {
       dispatch(fetchAllTags);
-      dispatch(fetchSingleProduct(spfProdId!))
-      dispatch(fetchSingleProduct(maskProdId!))
+      dispatch(fetchSingleProduct(spfProdId!));
+      dispatch(fetchSingleProduct(maskProdId!));
     }
   }, [spfProdId]);
-
-
-
 
   const isPresent = useIsPresent();
 
@@ -661,8 +656,6 @@ console.log(maskProdId)
   });
   //lenis smooth scroll setup
 
-
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -1072,9 +1065,9 @@ console.log(maskProdId)
             </div>
             <Link
               // ref={shopBodyButtonRef}
-              to="/shop-all"
+              to="/shop-all?filter=body"
               ref={shopBodyRef}
-              state={{ filterKey: 'body' }}
+              // state={{ filterKey: 'body' }}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
@@ -1166,8 +1159,8 @@ console.log(maskProdId)
               </Link>
 
               <Link
-                to="/shop-all"
-                state={{ filterKey: 'masks' }}
+                to="/shop-all?filter=masks"
+                // state={{ filterKey: 'masks' }}
                 className={` ${
                   mobileMenu ? 'w-[70%] text-[.7rem]' : 'w-[60%] text-[1.1vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
@@ -1210,7 +1203,9 @@ console.log(maskProdId)
             >
               <img
                 className={` ${
-                  mobileMenu ? 'aspect-[4/5] -translate-x-[20%]' : 'aspect-[7/9]'
+                  mobileMenu
+                    ? 'aspect-[4/5] -translate-x-[20%]'
+                    : 'aspect-[7/9]'
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
@@ -1243,11 +1238,13 @@ console.log(maskProdId)
           </div>
         </div>
 
-
-
-{/**ingreient section */}
+        {/**ingreient section */}
         <div className="ingredient-section-content flex w-[90%] max-w-[1440px] self-center ">
-          <div className={` ${mobileMenu ? 'h-[60svh]' : 'h-screen' } flex   w-[65%] border `}>
+          <div
+            className={` ${
+              mobileMenu ? 'h-[60svh]' : 'h-screen'
+            } flex   w-[65%] border `}
+          >
             <img
               data-src={papaya}
               data-sizes="auto"
@@ -1267,7 +1264,13 @@ console.log(maskProdId)
           </div>
 
           <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] ">
-            <p className={` ${mobileMenu ? 'text-sm tracking-none whitespace-break-spaces' : 'text-[1.3vw]' } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}>
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'tracking-none whitespace-break-spaces text-sm'
+                  : 'text-[1.3vw]'
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
+            >
               only best ingredients for best results
             </p>
             <Link
@@ -1283,14 +1286,26 @@ console.log(maskProdId)
                 }
                 data-sizes="auto"
               />
-              <p className={` ${mobileMenu ? 'text-[.7rem]' : 'text-[1vw]' } pt-[4%] text-center font-hubbali uppercase text-charcoal`}>
+              <p
+                className={` ${
+                  mobileMenu ? 'text-[.7rem]' : 'text-[1vw]'
+                } pt-[4%] text-center font-hubbali uppercase text-charcoal`}
+              >
                 {randomProd05?.productName}
               </p>
             </Link>
           </div>
         </div>
-        <div className={` ${mobileMenu ? 'w-[85%]' : 'w-[70%]' } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}>
-          <p className={` ${mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]' } text-center font-aurora`}>
+        <div
+          className={` ${
+            mobileMenu ? 'w-[85%]' : 'w-[70%]'
+          } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}
+        >
+          <p
+            className={` ${
+              mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]'
+            } text-center font-aurora`}
+          >
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate hydration

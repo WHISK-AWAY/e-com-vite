@@ -10,13 +10,13 @@ const bodyitems = ['moisturizers', 'creams', 'spf'] as const;
 export type BodyItemProps = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function BodyItem({
   setMenuMode,
   closeOuterMenu,
-  mobileMenu
+  mobileMenu,
 }: BodyItemProps) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
@@ -106,7 +106,7 @@ export default function BodyItem({
         <section
           onMouseLeave={() => closeLocalMenu()}
           className={` ${
-            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+            mobileMenu ? 'gap-x-3 px-3' : 'gap-x-[3vw] pl-12'
           } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden bg-[#FBFBFB]  py-[2%]  text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
         >
           {filteredTags.map((tag) => {
@@ -114,11 +114,13 @@ export default function BodyItem({
 
             return (
               <Link
-                to="/shop-all"
+                to={`/shop-all?filter=${name}`}
                 onClick={() => closeLocalMenu(true)}
-                state={{ filterKey: name }}
+                // state={{ filterKey: name }}
                 className={` ${
-                  mobileMenu ? 'text-[1.4rem] text-start' : 'odd:text-[min(3vw,_4.5vh)] text-center'
+                  mobileMenu
+                    ? 'text-start text-[1.4rem]'
+                    : 'text-center odd:text-[min(3vw,_4.5vh)]'
                 } submenu-item ease hover:offsetX   hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
                 key={tag._id}
               >

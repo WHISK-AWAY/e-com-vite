@@ -61,7 +61,7 @@ export default function Search({
       products: [],
       tags: [],
     });
-    navigate(`/shop-all?page=1`, { state: { filterKey: tagName } });
+    navigate(`/shop-all?page=1?filter=${tagName}`);
   };
 
   //animated slider
@@ -134,8 +134,6 @@ export default function Search({
         <article className="tag-name-search z-[90]  flex h-20 w-20 ">
           {searchResults.tags.map((tag) => {
             return (
-              // <Link to={`/shop-all?page=1`} state={{ filterKey: tag.tagName }}>
-
               <div
                 onClick={(e) => handleTagNameSearch(e, tag.tagName)}
                 key={tag.tagId}

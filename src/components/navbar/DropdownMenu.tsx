@@ -198,8 +198,8 @@ export default function DropdownMenu({
           <button
             onClick={() =>
               closeMenu()?.then(() =>
-                navigate('/shop-all', {
-                  state: { filterKey: 'all' },
+                navigate('/shop-all?filter=all', {
+                  // state: { filterKey: 'all' },
                 })
               )
             }
@@ -213,13 +213,13 @@ export default function DropdownMenu({
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } menu-option-container   flex flex-col justify-start items-start  leading-[1] pl-[20%] text-transparent text-white `}
+          } menu-option-container   flex flex-col items-start justify-start  pl-[20%] leading-[1] text-transparent text-white `}
         >
           <button
             onClick={() =>
               closeMenu()?.then(() => navigate('/shop-all/bestsellers', {}))
             }
-            className={textRevealClasses }
+            className={textRevealClasses}
           >
             BESTSELLERS
           </button>
@@ -232,10 +232,17 @@ export default function DropdownMenu({
           </button>
         </div>
 
-        <div className={` ${mobileMenu ? 'pl-[8%]' : 'pl-[15%]'} menu-option relative `}>
+        <div
+          className={` ${
+            mobileMenu ? 'pl-[8%]' : 'pl-[15%]'
+          } menu-option relative `}
+        >
           <div className="chevron-container relative w-fit">
             <button
-              className={'relative h-full uppercase whitespace-nowrap' + textRevealClasses}
+              className={
+                'relative h-full whitespace-nowrap uppercase' +
+                textRevealClasses
+              }
               onClick={() => toggleMenu('category')}
             >
               shop by category
@@ -254,7 +261,7 @@ export default function DropdownMenu({
 
           {menuMode === 'category' && (
             <ShopByCategoryListItem
-            mobileMenu={mobileMenu}
+              mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />
@@ -264,8 +271,8 @@ export default function DropdownMenu({
           <button
             onClick={() =>
               closeMenu()?.then(() =>
-                navigate('/shop-all', {
-                  state: { filterKey: 'spf' },
+                navigate('/shop-all?filter=spf', {
+                  // state: { filterKey: 'spf' },
                 })
               )
             }
@@ -277,7 +284,10 @@ export default function DropdownMenu({
         <div className="menu-option relative pl-[30%]">
           <div className="chevron-container">
             <button
-              className={'relative h-full uppercase portrait:text-white' + textRevealClasses}
+              className={
+                'relative h-full uppercase portrait:text-white' +
+                textRevealClasses
+              }
               onClick={(e) => {
                 e.preventDefault();
                 toggleMenu('face');
@@ -300,7 +310,7 @@ export default function DropdownMenu({
           </div>
           {menuMode === 'face' && (
             <FaceItem
-            mobileMenu={mobileMenu}
+              mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />
@@ -325,7 +335,7 @@ export default function DropdownMenu({
           </button>
           {menuMode === 'body' && (
             <BodyItem
-            mobileMenu={mobileMenu}
+              mobileMenu={mobileMenu}
               setMenuMode={setMenuMode}
               closeOuterMenu={closeMenu}
             />

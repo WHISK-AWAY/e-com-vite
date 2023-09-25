@@ -165,8 +165,8 @@ export default function SearchContainer({
     setSearch('');
 
     if (searchResults.tags.length === 1) {
-      navigate(`/shop-all?page=1`, {
-        state: { filterKey: searchResults.tags[0].tagName },
+      navigate(`/shop-all?page=1&filter=${searchResults.tags[0].tagName}`, {
+        // state: { filterKey: searchResults.tags[0].tagName },
       });
     }
 
