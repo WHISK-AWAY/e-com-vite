@@ -702,7 +702,7 @@ console.log(maskProdId)
     <>
       <div
         data-scroll-section
-        className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
+        className=" relative flex h-fit w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
@@ -1051,7 +1051,7 @@ console.log(maskProdId)
                   src={grapefruitButt}
                   // data-sizes='auto'
                   alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className=" aspect-square object-cover"
+                  className={` ${mobileMenu ? 'aspect-[1/1]' : 'aspect-square' } object-cover`}
                 />
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
