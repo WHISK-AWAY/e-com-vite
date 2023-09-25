@@ -88,6 +88,8 @@ export default function SingleProduct({
   // const isPresent = useIsPresent();
 
   function changeImage(newImage: string) {
+    if (selectedImage === newImage) return;
+
     gsap
       .to('.fader', {
         opacity: 0,
@@ -98,15 +100,6 @@ export default function SingleProduct({
         setSelectedImage(newImage);
       });
   }
-
-  // useEffect(() => {
-  // ! debug
-  //   const img = new Image();
-  //   img.src = convertMediaUrl(selectedImage);
-  //   img.onload = () => console.log(`loaded ${img.src}`)
-  // }, [selectedImage])
-
-  // changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
     // Fade in animation - triggered upon new image load
