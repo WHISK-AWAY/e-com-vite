@@ -468,8 +468,9 @@ console.log(maskProdId)
       });
 
       gsap.from('.facewash-rp', {
-        xPercent: 200,
-        ease: 'sine',
+        xPercent: 100,
+        ease: 'power4',
+        opacity: 0,
         scrollTrigger: {
           trigger: '.facewash-section-content',
           start: 'top 10%',
