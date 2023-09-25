@@ -73,11 +73,11 @@ export default function DropdownMenu({
       tl.from(
         '.text-reveal',
         {
-          duration: 0.7,
+          duration: .7,
           overflow: 'hidden',
           ease: 'power1.inOut',
           height: 0,
-          stagger: 0.05,
+          stagger: 0.07,
           // opacity: .7,
         },
         'menuWrapper.current-=.5'
@@ -213,7 +213,7 @@ export default function DropdownMenu({
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } menu-option-container   flex flex-col justify-start items-start  leading-[1] pl-[20%] text-transparent text-white `}
+          } menu-option-container  flex flex-col justify-start items-start  leading-[1] pl-[20%] text-transparent text-white `}
         >
           <button
             onClick={() =>
@@ -224,13 +224,21 @@ export default function DropdownMenu({
             BESTSELLERS
           </button>
 
+        </div>
+
+         <div
+          className={`${
+            mobileMenu ? '' : 'hidden'
+          } menu-option-container   flex flex-col justify-start items-start  leading-[1] pl-[20%] text-transparent text-white `}
+        >
+
           <button
             onClick={() => closeMenu()?.then(() => navigate('/new-in', {}))}
             className={textRevealClasses}
-          >
+            >
             NEW IN
           </button>
-        </div>
+            </div>
 
         <div className={` ${mobileMenu ? 'pl-[8%]' : 'pl-[15%]'} menu-option relative `}>
           <div className="chevron-container relative w-fit">
