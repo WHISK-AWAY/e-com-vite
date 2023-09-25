@@ -1043,7 +1043,7 @@ console.log(maskProdId)
               <div
                 ref={grapefruitButtRef}
                 className={` ${
-                  mobileMenu ? 'w-[50%]' : 'w-[30%]'
+                  mobileMenu ? 'w-[50%] aspect-square' : 'w-[30%]'
                 } grapefruit-butt-img  z-10 h-fit  self-center `}
               >
                 <img
@@ -1051,7 +1051,7 @@ console.log(maskProdId)
                   src={grapefruitButt}
                   // data-sizes='auto'
                   alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className={` ${mobileMenu ? 'aspect-[1/1]' : 'aspect-square' } object-cover`}
+                  className={` aspect-square object-cover`}
                 />
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
