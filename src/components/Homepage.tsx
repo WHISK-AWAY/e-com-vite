@@ -468,14 +468,14 @@ console.log(maskProdId)
       });
 
       gsap.from('.facewash-rp', {
-        xPercent: 100,
+        xPercent: 50,
         ease: 'power4',
         opacity: 0,
         scrollTrigger: {
           trigger: '.facewash-section-content',
           start: 'top 10%',
           end: 'top 20%',
-          markers: true,
+          // markers: true,
           scrub: 3.4,
         },
       });
@@ -508,11 +508,12 @@ console.log(maskProdId)
 
       gsap.from('.papaya-img', {
         ease: 'sine',
-        xPercent: -100,
+        opacity: 0,
+        xPercent: -20,
         scrollTrigger: {
           trigger: '.facewash-lady-img',
-          start: 'top center',
-          end: 'top center',
+          start: 'bottom center',
+          end: 'bottom 90%',
           // markers:true,
           scrub: 2.4,
         },
@@ -533,12 +534,13 @@ console.log(maskProdId)
 
       gsap.from('.ingredient-rp', {
         ease: 'slow.inOut',
-        xPercent: 100,
+        xPercent: 30,
+        opacity: 0,
         scrollTrigger: {
           trigger: '.papaya-img',
-          start: 'top bottom',
-          end: 'top top',
-          // markers: true,
+          start: 'top center',
+          end: 'top bottom',
+          markers: true,
           scrub: 2.2,
         },
       });
@@ -1320,7 +1322,7 @@ console.log(maskProdId)
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[6%]">
+        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
           <div className="flex h-[40dvh] gap-9 2xl:h-[50dvh]">
             <img
               data-src={coconutHand}
