@@ -390,11 +390,11 @@ console.log(maskProdId)
         // opacity: 0,
         duration: 1,
         scrollTrigger: {
-          trigger: '.beach-section-rp',
-          start: 'top 80%',
-          end: 'bottom top',
+          trigger: '.beach-section-content',
+          start: '-20% top',
+          end: '10% center',
           scrub: 1.4,
-          // markers: true,
+          markers: true,
         },
       });
 
@@ -629,7 +629,7 @@ console.log(maskProdId)
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
         // pinReparent: true,
-        markers: true,
+        // markers: true,
         start: 'center center',
         scrub: 4.9,
         // pinSpacing: 'padding',
@@ -763,8 +763,10 @@ console.log(maskProdId)
           <Link
             to="/shop-all"
             className={` ${
-              mobileMenu ? 'px-8' : 'px-[4%]'
-            } group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
+              mobileMenu
+                ? '-translate-y-[210%]  px-8 font-regular'
+                : '-translate-y-[60%] px-[4%] font-thin'
+            } group absolute bottom-0 right-[6%]  rounded-sm border border-white  py-1 font-raleway  text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
             <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
@@ -1210,7 +1212,9 @@ console.log(maskProdId)
             >
               <img
                 className={` ${
-                  mobileMenu ? 'aspect-[4/5] -translate-x-[20%]' : 'aspect-[7/9]'
+                  mobileMenu
+                    ? 'aspect-[4/5] -translate-x-[20%]'
+                    : 'aspect-[7/9]'
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
@@ -1243,11 +1247,13 @@ console.log(maskProdId)
           </div>
         </div>
 
-
-
-{/**ingreient section */}
+        {/**ingreient section */}
         <div className="ingredient-section-content flex w-[90%] max-w-[1440px] self-center ">
-          <div className={` ${mobileMenu ? 'h-[60svh]' : 'h-screen' } flex   w-[65%] border `}>
+          <div
+            className={` ${
+              mobileMenu ? 'h-[60svh]' : 'h-screen'
+            } flex   w-[65%] border `}
+          >
             <img
               data-src={papaya}
               data-sizes="auto"
@@ -1267,7 +1273,13 @@ console.log(maskProdId)
           </div>
 
           <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] ">
-            <p className={` ${mobileMenu ? 'text-sm tracking-none whitespace-break-spaces' : 'text-[1.3vw]' } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}>
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'tracking-none whitespace-break-spaces text-sm'
+                  : 'text-[1.3vw]'
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
+            >
               only best ingredients for best results
             </p>
             <Link
@@ -1283,14 +1295,26 @@ console.log(maskProdId)
                 }
                 data-sizes="auto"
               />
-              <p className={` ${mobileMenu ? 'text-[.7rem]' : 'text-[1vw]' } pt-[4%] text-center font-hubbali uppercase text-charcoal`}>
+              <p
+                className={` ${
+                  mobileMenu ? 'text-[.7rem]' : 'text-[1vw]'
+                } pt-[4%] text-center font-hubbali uppercase text-charcoal`}
+              >
                 {randomProd05?.productName}
               </p>
             </Link>
           </div>
         </div>
-        <div className={` ${mobileMenu ? 'w-[85%]' : 'w-[70%]' } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}>
-          <p className={` ${mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]' } text-center font-aurora`}>
+        <div
+          className={` ${
+            mobileMenu ? 'w-[85%]' : 'w-[70%]'
+          } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}
+        >
+          <p
+            className={` ${
+              mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]'
+            } text-center font-aurora`}
+          >
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate hydration
