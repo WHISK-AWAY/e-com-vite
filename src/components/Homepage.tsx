@@ -385,9 +385,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         // opacity: 0,
         duration: 1,
         scrollTrigger: {
-          trigger: '.beach-section-rp',
-          start: 'top 80%',
-          end: 'bottom top',
+          trigger: '.beach-section-content',
+          start: '-20% top',
+          end: '10% center',
           scrub: 1.4,
           // markers: true,
         },
@@ -401,9 +401,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         stagger: 0.8,
         scrollTrigger: {
           // markers: true,
-          trigger: '.beach-section-rp',
-          start: 'top bottom',
-          end: 'center center',
+          trigger: '.beach-lady-img',
+          start: 'bottom bottom',
+          end: 'bottom 80%',
           scrub: 2.5,
         },
       });
@@ -429,7 +429,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         scrollTrigger: {
           // markers: true,
           trigger: '.beach-oval-container',
-          start: 'center top',
+          start: 'center center',
           end: 'bottom center',
           scrub: 1.7,
         },
@@ -463,13 +463,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
       });
 
       gsap.from('.facewash-rp', {
-        xPercent: 200,
-        ease: 'sine',
+        xPercent: 50,
+        ease: 'power4',
+        opacity: 0,
         scrollTrigger: {
           trigger: '.facewash-section-content',
-          start: 'top 90%',
+          start: 'top 10%',
+          end: 'top 20%',
           // markers: true,
-          end: 'top 40%',
           scrub: 3.4,
         },
       });
@@ -502,11 +503,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
       gsap.from('.papaya-img', {
         ease: 'sine',
-        xPercent: -100,
+        opacity: 0,
+        xPercent: -20,
         scrollTrigger: {
           trigger: '.facewash-lady-img',
-          start: 'top center',
-          end: 'top center',
+          start: 'center center',
+          end: 'bottom 90%',
           // markers:true,
           scrub: 2.4,
         },
@@ -527,11 +529,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
       gsap.from('.ingredient-rp', {
         ease: 'slow.inOut',
-        xPercent: 100,
+        xPercent: 30,
+        opacity: 0,
         scrollTrigger: {
           trigger: '.papaya-img',
-          start: 'top bottom',
-          end: 'top top',
+          start: 'top center',
+          end: 'top bottom',
           // markers: true,
           scrub: 2.2,
         },
@@ -624,7 +627,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
         // pinReparent: true,
-        markers: true,
+        // markers: true,
         start: 'center center',
         scrub: 4.9,
         // pinSpacing: 'padding',
@@ -756,8 +759,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <Link
             to="/shop-all"
             className={` ${
-              mobileMenu ? 'px-8' : 'px-[4%]'
-            } group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
+              mobileMenu
+                ? '-translate-y-[210%]  px-8 font-regular'
+                : '-translate-y-[60%] px-[4%] font-thin'
+            } group absolute bottom-0 right-[6%]  rounded-sm border border-white  py-1 font-raleway  text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
             <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
@@ -891,7 +896,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   className=" flex justify-center"
                 >
                   <img
-                    className="aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
+                    className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -902,7 +907,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 </Link>
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center ">
                 <Link
                   to={'/product/' + randomProd02!._id}
                   className=" flex transform justify-center transition  duration-300 hover:scale-105"
@@ -948,7 +953,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <div
               className={`${
                 mobileMenu ? 'w-[90svw]' : 'w-[80%] '
-              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]`}
+              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%] `}
             >
               <div className="text-container flex w-full flex-col">
                 <div
@@ -983,16 +988,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
                 />
               </div>
-              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%]">
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] ">
                 {' '}
                 <Link
                   to={'/product/' + randomProd03!._id}
                   className={` beach-rp-right flex w-[70%]  flex-col items-center `}
                 >
                   <img
-                    className={` ${
-                      mobileMenu ? 'w-full' : 'w-[60%]'
-                    } aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
+                    className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -1025,7 +1028,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           {/**grapefruit butt section */}
-          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%]">
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[6%]">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
@@ -1228,8 +1231,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             />
             <p
               className={` ${
-                mobileMenu ? 'w-[25%]' : 'w-[17%]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw]  text-[#262626]`}
+                mobileMenu ? 'w-[55%] text-[1rem] leading-none -translate-x-[13%] -translate-y-[60%]' : 'w-[17%] text-[1.5vw]'
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1312,7 +1315,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[6%]">
+        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
           <div className="flex h-[40dvh] gap-9 2xl:h-[50dvh]">
             <img
               data-src={coconutHand}

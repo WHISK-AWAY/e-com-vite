@@ -53,7 +53,7 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
   return (
     <section
       className={` ${
-        mobileMenu ? 'h-[16svh]' : 'h-[300px]'
+        mobileMenu ? 'h-[16svh]' : 'h-[250px]'
       } footer-section max-w-screen flex  bg-[#262626] text-white`}
     >
       <div className="flex w-4/12 flex-col items-start justify-start self-start md:w-8/12 2xl:w-3/12">
@@ -92,7 +92,7 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
                 className={`${
                   mobileMenu
                     ? 'h-[16svh] object-contain'
-                    : 'h-[300px] object-cover'
+                    : 'h-[250px] object-cover'
                 } aspect-[3/4] w-full border-r-[1.5px] border-white object-cover`}
               />
             </picture>
@@ -168,7 +168,7 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
           </div>
         </section>
 
-        <p className="flex flex-col px-5 text-end  align-bottom font-marcellus text-[10px] font-light">
+        <p className=" px-5    self-end -translate-y-[100%]  font-poiret text-[10px] text-white font-light">
           &copy; ASTORIA - 2023
         </p>
       </div>

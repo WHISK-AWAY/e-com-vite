@@ -55,12 +55,12 @@ export default function DropdownMenu({
         height: 0,
         transformOrigin: 'left',
       });
-      tl.from(menuWrapper.current, {
-        backgroundColor: 'white',
-        duration: 0.2,
-        // width: 0,
-        opacity: 0,
-      });
+      // tl.from(menuWrapper.current, {
+      //   backgroundColor: 'white',
+      //   duration: 0.2,
+      //   // width: 0,
+      //   opacity: 0,
+      // });
 
       tl.to(menuWrapper.current, {
         height: '100svh',
@@ -77,7 +77,7 @@ export default function DropdownMenu({
           overflow: 'hidden',
           ease: 'power1.inOut',
           height: 0,
-          stagger: 0.05,
+          stagger: 0.07,
           // opacity: .7,
         },
         'menuWrapper.current-=.5'
@@ -165,7 +165,7 @@ export default function DropdownMenu({
   return (
     <section
       ref={menuWrapper}
-      className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%]"
+      className="menu-wrapper absolute right-0 top-0 z-40  w-[100svw] flex-col bg-primary-gray font-antonio  font-bold  uppercase text-[#bbbcbee0] "
     >
       {/* Logo section (absolute) */}
       <div
@@ -213,7 +213,7 @@ export default function DropdownMenu({
         <div
           className={`${
             mobileMenu ? '' : 'hidden'
-          } menu-option-container   flex flex-col items-start justify-start  pl-[20%] leading-[1] text-transparent text-white `}
+          } menu-option-container  flex flex-col items-start justify-start  pl-[20%] leading-[1] text-transparent text-white `}
         >
           <button
             onClick={() =>
@@ -223,7 +223,13 @@ export default function DropdownMenu({
           >
             BESTSELLERS
           </button>
+        </div>
 
+        <div
+          className={`${
+            mobileMenu ? '' : 'hidden'
+          } menu-option-container   flex flex-col items-start justify-start  pl-[20%] leading-[1] text-transparent text-white `}
+        >
           <button
             onClick={() => closeMenu()?.then(() => navigate('/new-in', {}))}
             className={textRevealClasses}
