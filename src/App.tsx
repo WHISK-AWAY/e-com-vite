@@ -308,7 +308,7 @@ function App() {
           {element}
         </div>
       </AnimatePresence>
-      <Footer key="footer" />
+      <Footer key="footer" mobileMenu={mobileMenu}/>
     </div>
   );
 }
