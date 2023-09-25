@@ -512,7 +512,7 @@ console.log(maskProdId)
         xPercent: -20,
         scrollTrigger: {
           trigger: '.facewash-lady-img',
-          start: 'bottom center',
+          start: 'center center',
           end: 'bottom 90%',
           // markers:true,
           scrub: 2.4,
@@ -540,7 +540,7 @@ console.log(maskProdId)
           trigger: '.papaya-img',
           start: 'top center',
           end: 'top bottom',
-          markers: true,
+          // markers: true,
           scrub: 2.2,
         },
       });
@@ -1002,7 +1002,7 @@ console.log(maskProdId)
                   className={` beach-rp-right flex w-[70%]  flex-col items-center `}
                 >
                   <img
-                    className={`w-full aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
+                    className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -1238,8 +1238,8 @@ console.log(maskProdId)
             />
             <p
               className={` ${
-                mobileMenu ? 'w-[25%]' : 'w-[17%]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw]  text-[#262626]`}
+                mobileMenu ? 'w-[55%] text-[1rem] leading-none -translate-x-[13%] -translate-y-[60%]' : 'w-[17%] text-[1.5vw]'
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
