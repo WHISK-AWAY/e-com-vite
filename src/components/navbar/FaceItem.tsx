@@ -123,7 +123,7 @@ export default function FaceItem({
           onMouseLeave={() => closeLocalMenu()}
           className={` ${
             mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
-          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#FBFBFB] py-[2%]  text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
+          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#FBFBFB] py-[2%]  text-[min(2vw,_3vh)] leading-tight `}
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
@@ -134,8 +134,8 @@ export default function FaceItem({
                 className={`  ${
                   mobileMenu
                     ? 'text-start text-[1.4rem]'
-                    : ' text-center odd:text-[min(3vw,_4.5vh)]'
-                } submenu-item  ease hover:offsetX hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
+                    : ' text-center tracking-widest odd:text-[min(3.5vw,_5.5vh)] even:tracking-[.3rem]'
+                } submenu-item  ease hover:offsetX text-primary-gray   hover:scale-105 hover:underline hover:underline-offset-4 hover:duration-300`}
                 onClick={() => closeLocalMenu(true)}
                 key={tag._id}
               >

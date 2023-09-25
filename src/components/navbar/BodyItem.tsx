@@ -100,14 +100,14 @@ export default function BodyItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
+      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-light"
     >
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
           className={` ${
             mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
-          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden bg-[#FBFBFB]  py-[2%]  text-[min(2vw,_3vh)] leading-tight text-[#51524b]`}
+          } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden bg-[#FBFBFB]  py-[2%]  text-[min(2vw,_3vh)] leading-tight `}
         >
           {filteredTags.map((tag) => {
             const name = tag.tagName;
@@ -118,8 +118,10 @@ export default function BodyItem({
                 onClick={() => closeLocalMenu(true)}
                 state={{ filterKey: name }}
                 className={` ${
-                  mobileMenu ? 'text-[1.4rem] text-start' : 'odd:text-[min(3vw,_4.5vh)] text-center'
-                } submenu-item ease hover:offsetX   hover:scale-105   hover:underline hover:underline-offset-4 hover:duration-300`}
+                  mobileMenu
+                    ? 'text-start text-[1.4rem]'
+                    : 'text-center tracking-widest odd:text-[min(3.5vw,_5.5vh)] even:tracking-[.3rem]'
+                } submenu-item ease hover:offsetX   text-primary-gray hover:scale-105  hover:underline hover:underline-offset-4 hover:duration-300`}
                 key={tag._id}
               >
                 {name}
