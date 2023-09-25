@@ -695,7 +695,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     <>
       <div
         data-scroll-section
-        className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden "
+        className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
