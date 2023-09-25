@@ -55,12 +55,12 @@ export default function DropdownMenu({
         height: 0,
         transformOrigin: 'left',
       });
-      tl.from(menuWrapper.current, {
-        backgroundColor: 'white',
-        duration: 0.2,
-        // width: 0,
-        opacity: 0,
-      });
+      // tl.from(menuWrapper.current, {
+      //   backgroundColor: 'white',
+      //   duration: 0.2,
+      //   // width: 0,
+      //   opacity: 0,
+      // });
 
       tl.to(menuWrapper.current, {
         height: '100svh',
@@ -165,7 +165,7 @@ export default function DropdownMenu({
   return (
     <section
       ref={menuWrapper}
-      className="menu-wrapper absolute right-0 top-0 z-40 flex w-[100svw] flex-col bg-primary-gray font-antonio font-bold  uppercase text-[#bbbcbee0] 3xl:pt-[4%]"
+      className="menu-wrapper absolute right-0 top-0 z-40  w-[100svw] flex-col bg-primary-gray font-antonio  font-bold  uppercase text-[#bbbcbee0] "
     >
       {/* Logo section (absolute) */}
       <div
