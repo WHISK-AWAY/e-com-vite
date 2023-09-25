@@ -699,7 +699,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  self-center px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  self-center px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -1316,7 +1316,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
-          <div className="flex h-[40dvh] gap-9 2xl:h-[50dvh]">
+          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex  gap-9 2xl:h-[50dvh]`}>
             <img
               data-src={coconutHand}
               data-sizes="auto"
