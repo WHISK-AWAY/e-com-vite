@@ -1044,7 +1044,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   src={grapefruitButt}
                   // data-sizes='auto'
                   alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className={` aspect-square object-cover`}
+                  className={` h-full  aspect-square object-cover`}
                 />
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
