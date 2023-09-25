@@ -77,8 +77,7 @@ export default function AllProducts({
   const topElement = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
-    // ! debug
-    console.log('filter:', filter);
+    // set title according to category name
     if (filter && filter !== 'all') {
       document.title = ('astoria: ' + filter).toUpperCase();
     }
