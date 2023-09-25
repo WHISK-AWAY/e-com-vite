@@ -165,6 +165,7 @@ export default function MobileNav({
             <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
               <img
                 src={user}
+                alt="sign in / sign up"
                 className="h-6"
               />
             </button>
