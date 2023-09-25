@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, Key } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {
   TProduct,
   fetchAllProducts,
@@ -53,21 +53,22 @@ export default function AllProducts({
 }: AllProductsProps) {
   const dispatch = useAppDispatch();
 
-  let { state } = useLocation();
+  // TODO: replace this with query params
+  // let { state } = useLocation();
   if (sortKey === 'saleCount') sortDir = 'desc';
 
   const allProducts = useAppSelector(selectAllProducts);
   const tagState = useAppSelector(selectTagState);
 
   const [params, setParams] = useSearchParams();
-  let curPage = Number(params.get('page'));
+  let curPage = Number(params.get('page')) || 1;
+  let filter = params.get('filter') || 'all';
 
   const [filterMenuIsOpen, setFilterMenuIsOpen] = useState(false);
   const [randomProd, setRandomProd] = useState<TProduct>();
-  const [pageNum, setPageNum] = useState<number | undefined>();
+  // const [pageNum, setPageNum] = useState<number | undefined>();
   const [bestsellers, setBestsellers] = useState(false);
-  const [filter, setFilter] = useState('all');
-  const [prevFilter, setPrevFilter] = useState('all');
+  const [prevFilter, setPrevFilter] = useState(filter || 'all');
   const [sort, setSort] = useState<TSort>({
     key: sortKey,
     direction: sortDir,
@@ -76,8 +77,16 @@ export default function AllProducts({
   const topElement = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
-    if (state?.filterKey) setFilter(state.filterKey);
-  }, [state?.filterKey]);
+    // ! debug
+    console.log('filter:', filter);
+    if (filter && filter !== 'all') {
+      document.title = ('astoria: ' + filter).toUpperCase();
+    }
+
+    return () => {
+      document.title = 'ASTORIA SKINCARE';
+    };
+  }, [filter]);
 
   useEffect(() => {
     if (topElement?.current) topElement.current.scrollIntoView(true);
@@ -99,27 +108,33 @@ export default function AllProducts({
 
   useEffect(() => {
     if (!curPage) {
-      setParams({ page: '1' });
+      curPage = 1;
+      // setParams((prev) => ({ filter: prev.get('filter') || 'all', page: '1' }));
     }
     // else if (curPage > maxPages) setParams({ page: maxPages.toString() });
-    else setPageNum(Number(params.get('page')));
+    // else setPageNum(Number(params.get('page')));
   }, [curPage]);
 
   useEffect(() => {
-    if (pageNum && pageNum > 0)
-      dispatch(fetchAllProducts({ page: pageNum, sort, filter }));
+    if (curPage && curPage > 0)
+      dispatch(
+        fetchAllProducts({ page: curPage, sort, filter: filter || 'all' })
+      );
     const pathname = window.location.pathname.split('/');
 
     // Set bestsellers to true if we're in the bestsellers route
     setBestsellers(
       pathname[pathname.length - 1].toLowerCase() === 'bestsellers'
     );
-  }, [pageNum, sort.key, sort.direction, filter]);
+  }, [curPage, sort.key, sort.direction, filter]);
 
   useEffect(() => {
     if (filter !== prevFilter) {
-      setParams({ page: '1' });
-      setPrevFilter(filter); // attempts to prevent resetting page # when reloading page
+      setParams((prev) => ({
+        page: '1',
+        filter: filter || prev.get('filter') || 'all',
+      }));
+      setPrevFilter(filter || 'all'); // attempts to prevent resetting page # when reloading page
       window.scroll({
         top: 0,
         behavior: 'smooth',
@@ -135,7 +150,7 @@ export default function AllProducts({
   const pageIncrementor = () => {
     const nextPage = curPage + 1;
     if (nextPage > maxPages) return;
-    setParams({ page: String(nextPage) });
+    setParams({ filter: filter!, page: String(nextPage) });
     topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -143,7 +158,7 @@ export default function AllProducts({
     const prevPage = curPage - 1;
 
     if (prevPage < 1) return;
-    setParams({ page: String(prevPage) });
+    setParams({ filter: filter!, page: String(prevPage) });
     topElement.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -213,7 +228,7 @@ export default function AllProducts({
             <AllProductsHeader
               // allProdsBg={allProdsBg}
               mobileMenu={mobileMenu}
-              filter={filter}
+              filter={filter || 'all'}
               randomProd={randomProd}
             />
           )}
@@ -249,9 +264,7 @@ export default function AllProducts({
             </div>
             <SortFilterAllProds
               setSort={setSort}
-              // sort={sort}
-              filter={filter}
-              setFilter={setFilter}
+              filter={filter || 'all'}
               allProducts={allProducts}
               sortKey={sortKey}
               sortDir={sortDir}
@@ -286,14 +299,14 @@ export default function AllProducts({
                 onClick={pageDecrementor}
               />
               {pageFlipper().firstPage}
-              {pageNum! !== 1 && pageNum! !== maxPages && (
+              {curPage! !== 1 && curPage! !== maxPages && (
                 <img
                   src={dots}
                   alt=""
                   className="flex h-6 w-8 translate-y-[30%] cursor-pointer"
                 />
               )}
-              {pageNum! !== 1 && pageNum! !== maxPages && (
+              {curPage! !== 1 && curPage! !== maxPages && (
                 <p>{pageFlipper().currentPage}</p>
               )}
               <img
