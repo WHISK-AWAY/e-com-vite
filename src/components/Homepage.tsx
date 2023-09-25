@@ -3,7 +3,9 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import {
   TProduct,
   fetchAllProducts,
+  fetchSingleProduct,
   selectAllProducts,
+  selectSingleProduct,
 } from '../redux/slices/allProductSlice';
 import { randomProduct } from './AllProducts/AllProducts';
 import { useEffect, useState, useRef, useLayoutEffect } from 'react';
@@ -13,7 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import 'lazysizes';
 
 import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves-compressed-31.mp4';
+import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
 import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
 import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
 import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
@@ -31,8 +33,10 @@ import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
 import '../index.css';
 import { motion, useIsPresent } from 'framer-motion';
+import Preloader from './Preloader';
+import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
-export default function Homepage() {
+export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
@@ -48,13 +52,34 @@ export default function Homepage() {
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
 
+
+  const tagSelector = useAppSelector(selectTagState);
+  const singleProduct = useAppSelector(selectSingleProduct);
+  const spfProdId = tagSelector.tags.find((tag: TTag) => tag.tagName === 'spf')
+    ?.products[0]._id;
+  const maskProdId = tagSelector.tags.find((tag:TTag) => tag.tagName === 'masks')?.products[0]._id;
+
+console.log(maskProdId)
+  useEffect(() => {
+
+    if(spfProdId) {
+
+      dispatch(fetchAllTags);
+      dispatch(fetchSingleProduct(spfProdId!))
+      dispatch(fetchSingleProduct(maskProdId!))
+    }
+  }, [spfProdId]);
+
+
+
+
   const isPresent = useIsPresent();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0 });
+  // }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!allProducts.products.length) {
       dispatch(
         fetchAllProducts({
@@ -604,7 +629,7 @@ export default function Homepage() {
         trigger: grapefruitButtRef.current,
         pin: grapefruitButtRef.current,
         // pinReparent: true,
-        // markers: true,
+        markers: true,
         start: 'center center',
         scrub: 4.9,
         // pinSpacing: 'padding',
@@ -635,6 +660,8 @@ export default function Homepage() {
     };
   });
   //lenis smooth scroll setup
+
+
 
   const lenis = new Lenis({
     duration: 2.2,
@@ -670,28 +697,13 @@ export default function Homepage() {
   if (!randomProd) return <p>...loading</p>;
   return (
     <>
-      {/* <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen origin-bottom bg-[#0f0f0f]'
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      />
-
-      <motion.div
-        className='slide-out  fixed left-0 top-0 z-50 h-screen w-screen origin-top bg-[#0f0f0f]'
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 0 }}
-        transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-      /> */}
       <div
         data-scroll-section
-        className=' relative flex h-full w-screen flex-col justify-center overflow-hidden '
+        className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden "
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className='landing-section-content relative flex h-[calc(100dvh_-_64px)] w-full justify-center  self-center px-5 lg:px-10'>
+        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  self-center px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -700,7 +712,9 @@ export default function Homepage() {
             autoPlay
             muted
             controls={false}
-            className='hands -z-10 aspect-[1/2] h-full w-[40vw] translate-x-1 items-center justify-center object-cover'
+            className={` ${
+              mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
+            } hands -z-10 aspect-[1/2] h-full   items-center justify-center object-cover`}
           />
           <video
             ref={leavesRef}
@@ -710,156 +724,261 @@ export default function Homepage() {
             controls={false}
             autoPlay
             muted
-            className='leaves -z-10 aspect-[1/2] h-full w-full -translate-x-1  items-center justify-center object-cover object-left'
+            className={` ${
+              mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
           />
 
-          <div className=' absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference'>
-            <h1 className=' font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50 md:text-8xl lg:text-[9rem] xl:text-[10rem] 2xl:text-[12rem]  '>
+          <div className=" absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference">
+            <h1
+              className={` ${
+                mobileMenu
+                  ? '-translate-y-[90%] text-[4rem]'
+                  : 'md:text-8xl lg:text-[9rem] xl:text-[10rem] 2xl:text-[10rem] 4xl:text-[12rem]  5xl:text-[16rem] 6xl:text-[19rem]'
+              } font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50  4xl:tracking-[1.5rem] 5xl:tracking-[3.3rem] `}
+            >
               discover
             </h1>
           </div>
-          <div className=' absolute right-1/2 top-[45%] flex -translate-y-[5%] translate-x-[55%] flex-col items-center justify-center leading-none'>
-            <h2 className='  items-center self-center font-raleway font-light uppercase text-white md:text-4xl md:tracking-[3rem] lg:text-5xl lg:tracking-[5rem] xl:text-6xl xl:tracking-[5rem] 2xl:text-8xl 2xl:tracking-[7rem]'>
+          <div className=" absolute right-1/2 top-[45%] flex -translate-y-[5%] translate-x-[55%] flex-col items-center justify-center leading-none">
+            <h2
+              className={` ${
+                mobileMenu
+                  ? '-translate-x-[2%] -translate-y-[90%] text-[2.3rem] tracking-[1.6rem]'
+                  : 'md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl 5xl:text-[8rem]'
+              }  items-center self-center font-raleway font-regular uppercase text-white  md:tracking-[3rem]  lg:tracking-[5rem]  xl:tracking-[5rem]  2xl:tracking-[7rem]  5xl:tracking-[11rem] 6xl:tracking-[15rem]`}
+            >
               skincare
             </h2>
-            <h3 className=' absolute top-[120%] translate-x-[80%] font-raleway font-thin text-white lg:text-lg xl:text-xl 2xl:text-3xl'>
+            <h3
+              className={` ${
+                mobileMenu
+                  ? 'top-[50%] translate-x-[50%] text-[1.2rem] tracking-[.1rem]'
+                  : 'top-[120%] translate-x-[80%] tracking-[.5rem] lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:tracking-[1rem] 4xl:text-4xl 5xl:tracking-[1.5rem]  6xl:text-5xl  6xl:tracking-[1.9rem]'
+              } absolute   font-aurora font-bold  text-white `}
+            >
               your skin loves
             </h3>
           </div>
           <Link
-            to='/shop-all'
-            className='group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white px-[4%]  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg'
+            to="/shop-all"
+            className={` ${
+              mobileMenu ? 'px-8' : 'px-[4%]'
+            } group absolute bottom-0 right-[6%] -translate-y-[60%] rounded-sm border border-white  py-1 font-raleway font-thin text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
-            <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full'></span>
-            <span className='relative  group-hover:text-emerald-900'>
+            <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
+            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
               shop now
             </span>
           </Link>
         </div>
 
-        <div className='philosophy-section-content relative flex flex-col bg-white pb-[18%] pt-[20%] '>
-          <p className='philosophy-text self-center px-[11%] text-center font-aurora text-[1.5vw] text-charcoal '>
+        <div
+          className={` ${
+            mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
+          } philosophy-section-content relative flex flex-col bg-white `}
+        >
+          <p
+            className={` ${
+              mobileMenu ? 'text--[1.3rem]' : 'text-[1.5vw]'
+            } philosophy-text self-center px-[11%] text-center font-aurora  text-charcoal `}
+          >
             our philosophy is not to add anything to our products to make them
             stand out; instead we pare them back and distill each formula down
             to the most-essential, natural active ingredients.
           </p>
         </div>
 
-        <div className=' rainbow-wrapper relative mb-[95%]  flex h-full w-screen items-start bg-white'>
+        <div
+          className={` ${
+            mobileMenu ? 'h-[60svh]' : 'h-full'
+          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-white `}
+        >
           <img
             data-src={rainbowLady}
-            data-sizes='auto'
-            alt='red haired ladys profile with reflection of a rainbow on her face'
-            className='rainbow-lady lazyload w-[60%] -translate-x-[15%]  '
+            data-sizes="auto"
+            alt="red haired ladys profile with reflection of a rainbow on her face"
+            className={` ${
+              mobileMenu ? 'h-full object-cover' : ''
+            } rainbow-lady lazyload w-[60%]  -translate-x-[15%]  `}
           />
-          <div className=''>
-            <p className='absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'>
+          <div className="">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'text-[2.8rem] portrait:xs:text-[3rem]'
+                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'
+              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge `}
+            >
               protect
             </p>
-            <p className='your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'>
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'text-[1.2rem]'
+                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'
+              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  `}
+            >
               your skin
             </p>
-            <p className='uv-rays-text absolute left-[4%] top-[10%] whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 md:text-5xl lg:text-[4rem] xl:text-[5rem] 2xl:text-[6vw]'>
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
+                  : 'left-[4%] top-[12%] md:text-4xl  lg:text-[4rem] 2xl:text-[6vw]'
+              } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 `}
+            >
               from harmful uva & uvb rays
             </p>
           </div>
 
-          <div className='flex w-[40%] flex-col '>
-            <div className=' flex  w-[90%] flex-col items-center justify-center'>
-              <Link to={'/product/' + randomProd!._id}>
+          <div className="flex w-[40%] flex-col  ">
+            <div className="  flex h-full w-[90%] flex-col items-center justify-center">
+              <Link to={'/product/' + spfProdId!}>
                 <img
-                  className=' rainbow-lady-rp  aspect-[1/2] object-cover pt-[70%]'
+                  className={` ${
+                    mobileMenu
+                      ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
+                      : 'h-full pt-[70%]'
+                  } rainbow-lady-rp  aspect-[1/2]  object-cover`}
                   src={
-                    randomProd!.images.find(
+                    singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd!.images[0].imageURL
+                    )?.imageURL || singleProduct?.images[0].imageURL
                   }
-                // data-sizes='auto'
+                  // data-sizes='auto'
                 />
               </Link>
+              <p
+                className={` ${
+                  mobileMenu
+                    ? 'pr-4 text-[.8rem]'
+                    : 'text-[1rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
+                } rainbow-lady-rp pt-1  text-center font-grotesque uppercase `}
+              >
+                {singleProduct?.productName}
+              </p>
             </div>
-            <p className='rainbow-lady-text absolute bottom-[5%] right-[9%] w-[50vw] font-aurora text-[1.5vw] leading-loose text-[#262625]'>
-              during the summer months, it's essential to keep your skin
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
+                  : 'bottom-[4%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
+              } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
+            >
+              {mobileMenu
+                ? `during the summer months, it's essential to keep your skin
+              moisturized and hydrated wherever possible`
+                : `during the summer months, it's essential to keep your skin
               moisturized and hydrated wherever possible. however, it's
               important to switch high-intensity heavy creams in favor of
-              lighter formulations at this time of year.
+              lighter formulations at this time of year.`}
             </p>
           </div>
         </div>
 
-        <div className='beach-section-content-top relative flex w-full flex-col items-center'>
-          <div className='beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-[#383838]'>
-            <p className='absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen'>
+        {/**beach section */}
+        <div className="beach-section-content-top relative flex w-full flex-col items-center bg-primary-gray">
+          <div className="beach-section-content relative -mb-[80%] flex w-full flex-col items-center bg-primary-gray">
+            <p className="absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen">
               beach
             </p>
-            <p className='ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white '>
+            <p className="ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white ">
               ready
             </p>
 
-            <div className='beach-section-rp relative flex w-[45%] justify-center self-center pt-[10%]'>
-              <div className='flex justify-center'>
+            <div
+              className={` ${
+                mobileMenu ? 'w-[65%] pt-[13%]' : 'w-[45%] pt-[10%]'
+              } beach-section-rp relative flex  justify-center self-center `}
+            >
+              <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd01!._id}
-                  className=' flex justify-center'
+                  className=" flex justify-center"
                 >
                   <img
-                    className='aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    className="aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd01!.images[0].imageURL
                     }
-                  // data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
 
-              <div className='flex justify-center'>
+              <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd02!._id}
-                  className=' flex transform justify-center transition  duration-300 hover:scale-105'
+                  className=" flex transform justify-center transition  duration-300 hover:scale-105"
                 >
                   <img
-                    className='aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105'
+                    className="aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     src={
                       randomProd02!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd02!.images[0].imageURL
                     }
-                  // data-sizes='auto'
+                    // data-sizes='auto'
                   />
                 </Link>
               </div>
             </div>
-            <p className='absolute top-0 z-10 flex w-[25%] translate-y-[144%] flex-col text-center font-aurora text-[2vw] text-black '>
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'w-[49%] translate-y-36 text-[.8rem] portrait:translate-y-40 portrait:sm:translate-y-48'
+                  : 'w-[25%] translate-y-[144%] text-[2vw]'
+              } absolute top-0 z-10 flex   flex-col text-center font-aurora  text-black `}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when
-              <span className='text-white'>
+              <span className="text-white">
                 the air is dryer but they can be too cloying during the heat of
                 summer and don't provide adequate
               </span>
             </p>
 
-            <div className='w-[80%] pt-[2%]'>
+            <div
+              className={`${mobileMenu ? 'w-[100svw]' : 'w-[80%]'}  pt-[2%]`}
+            >
               <img
                 src={beachLady}
                 // data-sizes='auto'
-                alt='lady with a big white hat is laying on the beach'
-                className='beach-lady-img aspect-auto h-3/4 w-full object-cover'
+                alt="lady with a big white hat is laying on the beach"
+                className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
               />
             </div>
 
-            <div className=' 2xl: relative flex  h-full  w-[80%] justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]'>
-              <div className='text-container flex w-full flex-col'>
-                <div className='beach-oval-container absolute left-0 top-0 h-[75%] w-[22%] -translate-y-[15%] translate-x-[40%] rounded-full bg-black/20'>
-                  <p className='beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] translate-y-[120%] text-start font-aurora text-[1.4vw] leading-relaxed text-white'>
+            <div
+              className={`${
+                mobileMenu ? 'w-[90svw]' : 'w-[80%] '
+              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]`}
+            >
+              <div className="text-container flex w-full flex-col">
+                <div
+                  className={` ${
+                    mobileMenu
+                      ? 'h-[96%] w-[30%] translate-x-[10%]'
+                      : 'h-[75%] w-[22%] translate-x-[40%] '
+                  } beach-oval-container absolute left-0 top-0  -translate-y-[15%] rounded-full bg-black/20`}
+                >
+                  <p
+                    className={` ${
+                      mobileMenu
+                        ? 'translate-y-[90%] text-[.5rem]'
+                        : 'translate-y-[120%] text-[1.4vw] '
+                    } beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] text-start font-aurora  leading-relaxed text-white`}
+                  >
                     heavy moisturizers are ideal for cold climates or during
                     winter when the air is dryer but they can be too cloying
                     during the heat of summer and don't provide adequate
                   </p>
                 </div>
               </div>
-              <div className='video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center'>
+              <div className="video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center">
                 <video
                   src={bwSeizure}
                   // data-sizes='auto'
@@ -868,32 +987,42 @@ export default function Homepage() {
                   loop
                   playsInline
                   controls={false}
-                  className='bw-seizure-vid aspect-[4/6] w-[70%]'
+                  className="bw-seizure-vid aspect-[4/6] w-[70%]"
                 />
               </div>
-              <div className='product-section absolute right-0 top-2 w-[50%] translate-x-[5%] pl-[8%]'>
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%]">
                 {' '}
                 <Link
                   to={'/product/' + randomProd03!._id}
-                  className='beach-rp-right flex  flex-col items-center'
+                  className={` beach-rp-right flex w-[70%]  flex-col items-center `}
                 >
                   <img
-                    className='aspect-[5/6] w-[60%] transform object-cover pt-[2%] transition  duration-300 hover:scale-105'
+                    className={` ${
+                      mobileMenu ? 'w-full' : 'w-[60%]'
+                    } aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd03!.images[0].imageURL
                     }
-                  // data-sizes='auto'
+                    // data-sizes='auto'
                   />
-                  <p className='w-fit flex-wrap self-center pt-2 text-center font-hubbali text-[1.2vw] uppercase text-white'>
+                  <p
+                    className={` ${
+                      mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
+                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white`}
+                  >
                     {randomProd03?.productName}
                   </p>
                 </Link>
               </div>
             </div>
 
-            <div className='beach-text-closer w-[55%] pb-[7%] text-center font-aurora text-[1.2vw] leading-loose text-white'>
+            <div
+              className={` ${
+                mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
+              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white`}
+            >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
                 when the air is dryer but they can be too cloying during the
@@ -901,109 +1030,150 @@ export default function Homepage() {
               </p>
             </div>
           </div>
-          <div className='z-10 flex w-full  flex-col  items-center bg-[#383838] pb-[7%]'>
+
+          {/**grapefruit butt section */}
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%]">
             <div
               ref={treatRef}
-              className=' flex h-full flex-col self-center text-center'
+              className=" flex h-full flex-col self-center text-center"
             >
               <div
                 ref={grapefruitButtRef}
-                className='grapefruit-butt-img  z-10 h-fit w-[30%] self-center '
+                className={` ${
+                  mobileMenu ? 'w-[50%]' : 'w-[30%]'
+                } grapefruit-butt-img  z-10 h-fit  self-center `}
               >
                 <img
                   // onLoad={() => ScrollTrigger.refresh()}
                   src={grapefruitButt}
                   // data-sizes='auto'
-                  alt='lady wearing nude leotard holding  grapefruit cut in half pressed to her hips'
-                  className=' aspect-square object-cover'
+                  alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
+                  className=" aspect-square object-cover"
                 />
               </div>
-              <p className='anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white '>
+              <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
                 treat
               </p>
-              <p className='anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white'>
+              <p className="anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white">
                 your skin
               </p>
-              <p className='anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40'>
+              <p className="anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40">
                 to
               </p>
-              <p className='anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white'>
+              <p className="anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white">
                 something
               </p>
               <p
                 ref={specialRef}
-                className='anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white'
+                className="anim-text -translate-y-[105%] font-roboto text-[17vw] font-bold uppercase leading-none text-white"
               >
                 special
               </p>
             </div>
             <Link
               // ref={shopBodyButtonRef}
-              to='/shop-all'
+              to="/shop-all"
               ref={shopBodyRef}
               state={{ filterKey: 'body' }}
-              className='group relative z-20 inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw] font-raleway text-[1vw] font-light text-white '
+              className={` ${
+                mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
+              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
             >
-              <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full '></span>
-              <span className='relative group-hover:text-charcoal'>
+              <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
+              <span className="relative group-hover:text-charcoal">
                 shop body
               </span>
             </Link>
           </div>
         </div>
 
-        <div className='unleash-section-content flex w-full flex-col items-center'>
-          <p className=' z-10 -translate-y-[50%] font-yantramanav text-[10vw] font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference'>
+        {/**unleash section */}
+        <div className="unleash-section-content flex w-full flex-col items-center">
+          <p
+            className={` ${
+              mobileMenu ? 'text-[3.5rem]' : 'text-[10vw]'
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference`}
+          >
             unleash{' '}
           </p>
-          <p className='-translate-y-[550%] font-raleway text-[2vw] font-thin leading-none tracking-wide'>
+          <p
+            className={` ${
+              mobileMenu
+                ? '-translate-y-16 text-[1.1rem]'
+                : '-translate-y-[550%] text-[2vw]'
+            }  font-raleway font-thin leading-none tracking-wide`}
+          >
             the power of
           </p>
         </div>
 
-        <div className='flex w-[90%] max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center '>
-          <div className='flex w-full flex-row-reverse justify-center '>
+        <div
+          className={` ${
+            mobileMenu ? '' : 'w-[90%]'
+          } flex  max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center `}
+        >
+          <div className="flex w-full flex-row-reverse justify-center ">
             <img
               data-src={ladyMask}
-              data-sizes='auto'
-              alt='woman applying mask to her face'
-              className='unleash-lady-img lazyload h-screen  w-[3/5] object-cover '
+              data-sizes="auto"
+              alt="woman applying mask to her face"
+              className={`${
+                mobileMenu
+                  ? 'h-[60svh] w-[60%] object-cover'
+                  : ' h-screen w-3/5 object-cover'
+              } unleash-lady-img lazyload   `}
             />
 
-            <div className=' relative flex w-2/5  flex-col justify-end gap-10'>
-              <p className=' font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]'>
-                <span className='hyd-text-left absolute -right-4 top-0 translate-y-[60%]  tracking-[2.9rem] text-[#262626] 2xl:translate-y-0'>
+            <div className=" relative flex w-2/5  flex-col justify-end gap-10">
+              <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
+                <span
+                  className={` ${
+                    mobileMenu ? 'tracking-[1.6rem]' : 'tracking-[2.9rem]'
+                  } hyd-text-left absolute -right-4 top-0 translate-y-[60%]  text-[#262626] 2xl:translate-y-0`}
+                >
                   hyd
                 </span>
-                <span className='absolute right-0 top-0 translate-x-[102%] translate-y-[60%] tracking-[1rem] text-white  2xl:translate-y-0'>
+                <span
+                  className={` ${
+                    mobileMenu ? 'tracking-[.5rem]' : 'tracking-[1rem]'
+                  } absolute right-0 top-0 translate-x-[102%] translate-y-[60%] text-white  2xl:translate-y-0`}
+                >
                   ration
                 </span>
               </p>
               <Link
-                to={'/product/' + randomProd04!._id}
-                className='unleash-rp flex w-[70%] flex-col  items-center self-end pr-[15%]'
+                to={'/product/' + maskProdId}
+                className={` ${
+                  mobileMenu ? 'w-[75%] ' : 'w-[70%]'
+                } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
-                  className='lazyload aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px] xl:h-[450px]  2xl:h-[650px] min-[1600px]:h-[800px]'
+                  className="lazyload min-[1600px]:h-[800px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[450px] 2xl:h-[650px]"
                   data-src={
-                    randomProd04!.images.find(
+                    singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || randomProd04!.images[0].imageURL
+                    )?.imageURL || singleProduct?.images[0].imageURL
                   }
-                  data-sizes='auto'
+                  data-sizes="auto"
                 />
-                <p className='w-[90%] pt-4 text-center font-hubbali text-[1.2vw]  uppercase text-charcoal'>
-                  {randomProd04?.productName}
+                <p
+                  className={` ${
+                    mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw]'
+                  } w-[90%] pt-4 text-center font-hubbali   uppercase text-charcoal`}
+                >
+                  {singleProduct?.productName}
                 </p>
               </Link>
 
               <Link
-                to='/shop-all'
-                state={{ filterKey: 'body' }}
-                className='group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway text-[1.1vw] font-light text-[#262626]'
+                to="/shop-all"
+                state={{ filterKey: 'masks' }}
+                className={` ${
+                  mobileMenu ? 'w-[70%] text-[.7rem]' : 'w-[60%] text-[1.1vw]'
+                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
               >
-                <span className='absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full '></span>
-                <span className='relative group-hover:text-white'>
+                <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
+                <span className="relative group-hover:text-white">
                   shop masks
                 </span>
               </Link>
@@ -1011,9 +1181,22 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='facewash-section-content relative z-10 flex  flex-col items-center justify-center pt-[25%]'>
-          <div className='absolute right-0 top-0  flex w-[45%] -translate-x-[50%] translate-y-[55%] items-center justify-between gap-[10%] '>
-            <p className='facewash-section-text-top z-20 w-full -translate-x-[20%] text-center font-aurora text-[1.5vw] text-[#262626]'>
+        {/**facewash section */}
+        <div className="facewash-section-content relative z-10 flex  flex-col items-center justify-center pt-[25%]">
+          <div
+            className={` ${
+              mobileMenu
+                ? 'w-[85%] translate-x-0 translate-y-[30%]'
+                : 'w-[45%] -translate-x-[50%] translate-y-[55%]'
+            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] `}
+          >
+            <p
+              className={` ${
+                mobileMenu
+                  ? ' -translate-x-[10%] text-[.8rem] leading-none'
+                  : '-translate-x-[20%] text-[1.5vw]'
+              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626]`}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
               of summer and don't provide adequate
@@ -1021,28 +1204,38 @@ export default function Homepage() {
 
             <Link
               to={'/product/' + randomProd06!._id}
-              className='facewash-rp z-50 flex w-full'
+              className={` ${
+                mobileMenu ? 'w-44' : 'w-full'
+              } facewash-rp z-50 flex `}
             >
               <img
-                className='lazyload aspect-[7/9] w-full transform object-cover transition  duration-300 hover:scale-110'
+                className={` ${
+                  mobileMenu ? 'aspect-[4/5] -translate-x-[20%]' : 'aspect-[7/9]'
+                } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd06!.images[0].imageURL
                 }
-                data-sizes='auto'
+                data-sizes="auto"
               />
             </Link>
           </div>
 
-          <div className='-z-10 flex w-full flex-col'>
+          <div className="-z-10 flex w-full flex-col">
             <img
               data-src={ladyFacewash}
-              data-sizes='auto'
-              alt='lady washing her face in the bathroom with white towel on her head'
-              className='facewash-lady-img lazyload aspect-[4/6] h-screen self-center'
+              data-sizes="auto"
+              alt="lady washing her face in the bathroom with white towel on her head"
+              className={` ${
+                mobileMenu ? 'h-[50svh]' : 'h-screen'
+              } facewash-lady-img lazyload aspect-[4/6] self-center`}
             />
-            <p className='facewash-section-text-right w-[17%] -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw] text-[#262626] min-[1600px]:-translate-x-[155%]  min-[1600px]:-translate-y-[125%]'>
+            <p
+              className={` ${
+                mobileMenu ? 'w-[25%]' : 'w-[17%]'
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[1.5vw]  text-[#262626]`}
+            >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
               of summer and don't provide adequate
@@ -1050,70 +1243,73 @@ export default function Homepage() {
           </div>
         </div>
 
-        <div className='ingredient-section-content flex w-[90%] max-w-[1440px] self-center '>
-          <div className='flex h-screen  w-[65%] border '>
+
+
+{/**ingreient section */}
+        <div className="ingredient-section-content flex w-[90%] max-w-[1440px] self-center ">
+          <div className={` ${mobileMenu ? 'h-[60svh]' : 'h-screen' } flex   w-[65%] border `}>
             <img
               data-src={papaya}
-              data-sizes='auto'
-              alt='ripe papaya cut in half'
-              className='papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover '
+              data-sizes="auto"
+              alt="ripe papaya cut in half"
+              className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
             />
-            <div className='relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap '>
-              <p className='relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]'>
-                <span className='absolute left-0 top-0 -translate-x-[100%] text-white'>
+            <div className="relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap ">
+              <p className="relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]">
+                <span className="absolute left-0 top-0 -translate-x-[100%] text-white">
                   we u
                 </span>
-                <span className='ingredient-header-right absolute left-0 top-0  text-[#262626]'>
+                <span className="ingredient-header-right absolute left-0 top-0  text-[#262626]">
                   se
                 </span>
               </p>
             </div>
           </div>
 
-          <div className=' relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] '>
-            <p className='ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] '>
+          <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] ">
+            <p className={` ${mobileMenu ? 'text-sm tracking-none whitespace-break-spaces' : 'text-[1.3vw]' } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}>
               only best ingredients for best results
             </p>
             <Link
               to={'/product/' + randomProd05!._id}
-              className='ingredient-rp flex h-3/4 w-full flex-col  pt-[13%] min-[2500px]:pt-[200px] '
+              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] "
             >
               <img
-                className='lazyload aspect-[3/5] transform object-cover pl-[8%] transition duration-300  hover:scale-105 min-[2500px]:max-h-[750px]'
+                className="lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105"
                 data-src={
                   randomProd05!.images.find(
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd05!.images[0].imageURL
                 }
-                data-sizes='auto'
+                data-sizes="auto"
               />
-              <p className='pt-[4%] text-center font-hubbali text-[1vw] uppercase text-charcoal'>
+              <p className={` ${mobileMenu ? 'text-[.7rem]' : 'text-[1vw]' } pt-[4%] text-center font-hubbali uppercase text-charcoal`}>
                 {randomProd05?.productName}
               </p>
             </Link>
           </div>
         </div>
-        <div className='ingredient-section-closer flex w-[70%] items-center justify-center self-center pb-[6%] pt-[15%] leading-loose'>
-          <p className='text-center font-aurora text-[1.4vw]'>
+        <div className={` ${mobileMenu ? 'w-[85%]' : 'w-[70%]' } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}>
+          <p className={` ${mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]' } text-center font-aurora`}>
             heavy moisturizers are ideal for cold climates or during winter when
             the air is dryer but they can be too cloying during the heat of
             summer and don't provide adequate hydration
           </p>
         </div>
 
-        <div className='landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[6%]'>
-          <div className='flex h-[40dvh] gap-9 2xl:h-[50dvh]'>
+        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[6%]">
+          <div className="flex h-[40dvh] gap-9 2xl:h-[50dvh]">
             <img
               data-src={coconutHand}
-              data-sizes='auto'
-              alt='hand is reaching for a coconut cut in half'
-              className='lazyload aspect-[1/2] w-[30%] object-cover'
+              data-sizes="auto"
+              alt="hand is reaching for a coconut cut in half"
+              className="lazyload aspect-[1/2] w-[30%] object-cover"
             />
             <img
               data-src={melon}
-              data-sizes='auto'
-              alt='melon cut in half'
-              className='melon-img lazyload aspect-[1/2] w-[30%] object-cover'
+              data-sizes="auto"
+              alt="melon cut in half"
+              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
             />
             <video
               src={legBrush}
@@ -1122,20 +1318,12 @@ export default function Homepage() {
               autoPlay
               playsInline
               controls={false}
-              className='leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover'
+              className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
             />
           </div>
         </div>
         {/* <div className='pb-96'></div> */}
       </div>
-      <motion.div
-        className='slide-in fixed left-0 top-0 z-50 h-screen w-screen bg-[#0f0f0f]'
-        initial={{ scaleY: 1 }}
-        animate={{ scaleY: 0 }}
-        exit={{ scaleY: 1 }}
-        style={{ originY: isPresent ? 1 : 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      />
     </>
   );
 }

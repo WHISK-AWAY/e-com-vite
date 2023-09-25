@@ -114,7 +114,7 @@ function App() {
   const element = useRoutes([
     {
       path: '/',
-      element: <Homepage />,
+      element: <Homepage mobileMenu={mobileMenu}/>,
     },
     {
       path: '/shop-all',
@@ -308,7 +308,7 @@ function App() {
           {element}
         </div>
       </AnimatePresence>
-      <Footer key="footer" />
+      <Footer key="footer" mobileMenu={mobileMenu}/>
     </div>
   );
 }

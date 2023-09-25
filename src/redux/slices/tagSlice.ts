@@ -58,6 +58,7 @@ const tagSlice = createSlice({
 export type TTag = {
   tagName: string;
   _id: string;
+  products: {_id: string}[]
 };
 
 export type TagState = {
