@@ -394,7 +394,7 @@ console.log(maskProdId)
           start: '-20% top',
           end: '10% center',
           scrub: 1.4,
-          markers: true,
+          // markers: true,
         },
       });
 
@@ -406,9 +406,9 @@ console.log(maskProdId)
         stagger: 0.8,
         scrollTrigger: {
           // markers: true,
-          trigger: '.beach-section-rp',
-          start: 'top bottom',
-          end: 'center center',
+          trigger: '.beach-lady-img',
+          start: 'bottom bottom',
+          end: 'bottom 80%',
           scrub: 2.5,
         },
       });
@@ -432,9 +432,9 @@ console.log(maskProdId)
         opacity: 0,
         duration: 1.9,
         scrollTrigger: {
-          // markers: true,
+          markers: true,
           trigger: '.beach-oval-container',
-          start: 'center top',
+          start: 'center center',
           end: 'bottom center',
           scrub: 1.7,
         },
@@ -900,7 +900,7 @@ console.log(maskProdId)
                   className=" flex justify-center"
                 >
                   <img
-                    className="aspect-[4/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
+                    className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -911,7 +911,7 @@ console.log(maskProdId)
                 </Link>
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center ">
                 <Link
                   to={'/product/' + randomProd02!._id}
                   className=" flex transform justify-center transition  duration-300 hover:scale-105"
@@ -957,7 +957,7 @@ console.log(maskProdId)
             <div
               className={`${
                 mobileMenu ? 'w-[90svw]' : 'w-[80%] '
-              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%]`}
+              } relative flex  h-full  justify-center gap-[7%] md:gap-[10%] lg:gap-[8%] `}
             >
               <div className="text-container flex w-full flex-col">
                 <div
@@ -992,16 +992,14 @@ console.log(maskProdId)
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
                 />
               </div>
-              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%]">
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] ">
                 {' '}
                 <Link
                   to={'/product/' + randomProd03!._id}
                   className={` beach-rp-right flex w-[70%]  flex-col items-center `}
                 >
                   <img
-                    className={` ${
-                      mobileMenu ? 'w-full' : 'w-[60%]'
-                    } aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
+                    className={`w-full aspect-[5/6] transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
