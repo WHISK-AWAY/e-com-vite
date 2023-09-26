@@ -1149,7 +1149,7 @@ console.log(maskProdId)
                 to={'/product/' + maskProdId}
                 className={` ${
                   mobileMenu ? 'w-[75%] ' : 'w-[70%]'
-                } unleash-rp flex  flex-col  items-center self-end pr-[15%] border border-black`}
+                } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
                   className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 6xl:h-[850px] landscape:short:h-[410px] 4xl:h-[600px]"
@@ -1324,7 +1324,7 @@ console.log(maskProdId)
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
-          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex  gap-9 2xl:h-[50dvh]`}>
+          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex justify-center items-center gap-9 2xl:h-[50dvh]`}>
             <img
               data-src={coconutHand}
               data-sizes="auto"
