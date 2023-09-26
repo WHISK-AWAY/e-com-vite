@@ -96,6 +96,7 @@ export default function Search({
                   to={`/product/${result.productId}`}
                   onClick={closeSlider}
                   key={result.productId}
+                  aria-label={`product: ${result.productName}`}
                 >
                   <div
                     className="flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start portrait:h-64 portrait:w-96"

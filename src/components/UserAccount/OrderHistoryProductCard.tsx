@@ -18,7 +18,10 @@ export default function OrderHistoryProductCard({
   return (
     <div className="order-history-product-card flex w-full justify-center gap-5">
       <div className="image-container basis-1/5">
-        <Link to={`/product/${product.productId}`}>
+        <Link
+          to={`/product/${product.productId}`}
+          aria-label={`product: ${product.productName}`}
+        >
           <img
             className="lazyload aspect-[3/4] w-full border border-charcoal object-cover"
             data-src={product.imageURL}
