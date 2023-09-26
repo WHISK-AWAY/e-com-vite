@@ -702,7 +702,7 @@ console.log(maskProdId)
     <>
       <div
         data-scroll-section
-        className=" relative flex h-fit w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
+        className=" relative flex w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
@@ -1253,7 +1253,7 @@ console.log(maskProdId)
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex   w-[65%] border `}
+            } flex   w-[65%]  `}
           >
             <img
               data-src={papaya}
