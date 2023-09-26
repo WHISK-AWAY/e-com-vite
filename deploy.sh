@@ -13,15 +13,15 @@ if [ $flag = b ]
 	then
 		echo "Pulling branch...";
 		branch_name=${OPTARG};
-		git pull origin $branch_name 2>> build_git_err.log;
+		git pull origin $branch_name;
 		echo $branch_name;
 fi
 
 echo "Running npm install...";
-npm install  2>> build_err.log;
+npm install;
 
 echo "Building...";
-npm run build  2>> build_err.log;
+npm run build;
 
 echo "Restarting nginx...";
 sudo nginx -s reload  2>> build_err.log;
