@@ -128,13 +128,13 @@ export default function UserProfile() {
             <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
         </div>
-        <div className="user-settings-main shrink-1 flex h-[90%] grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44 portrait:absolute portrait:top-1/4 portrait:h-fit portrait:px-1 landscape:short:pb-10">
-          <div className="relative flex h-fit  w-fit flex-col items-center justify-start pt-[4%]">
+        <div className="user-settings-main shrink-1 flex h-[90%] grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44 portrait:absolute portrait:top-1/4 portrait:h-full portrait:max-h-[50svh] portrait:px-1 landscape:short:pb-10">
+          <div className="relative flex h-full max-h-full w-fit flex-col items-center justify-start pt-[4%]">
             <h2 className="w-3/4 border border-b-0 border-charcoal bg-white py-[1%] text-center font-poiret text-sm uppercase lg:text-base 2xl:text-lg portrait:md:text-lg">
               {viewMap[view]}
             </h2>
             <div
-              className={`user-profile-edit-section shrink-1 no-scrollbar h-fit w-fit grow-0 overflow-auto border border-charcoal bg-white`}
+              className={`user-profile-edit-section shrink-1 no-scrollbar h-fit max-h-full w-fit grow-0 overflow-auto border border-charcoal bg-white`}
             >
               <div className="h-fit w-[40svw] xl:w-[32svw] 4xl:w-[30svw] 5xl:w-[20svw] 6xl:w-[15svw] portrait:w-[90svw] portrait:md:max-w-[60svw]">
                 {view === 'account' && <EditAccountInfo user={user.user} />}
