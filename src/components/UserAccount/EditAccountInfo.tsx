@@ -154,7 +154,7 @@ export default function EditAccountInfo({ user }: AccountProps) {
           </div>
         </div>
 
-        <div className="button-wrapper absolute -bottom-[20%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%] font-poiret text-[.5rem] lg:text-[.8rem] 2xl:text-[1rem] portrait:bottom-[5%] ">
+        <div className="button-wrapper absolute -bottom-[20%] right-1/2 flex w-full translate-x-[50%] justify-center gap-[3%] font-poiret text-[.5rem] lg:text-[.8rem] 2xl:text-[1rem]">
           <button
             className="self-end rounded-sm border border-charcoal bg-white/30 px-4 uppercase text-charcoal disabled:border-charcoal/50 disabled:text-charcoal/50"
             onClick={cancelEdits}
