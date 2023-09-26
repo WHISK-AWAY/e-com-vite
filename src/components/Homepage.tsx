@@ -27,7 +27,6 @@ import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
 import melon from '../assets/bg-img/homepage/melon.jpg';
 import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
-
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
@@ -36,7 +35,7 @@ import { motion, useIsPresent } from 'framer-motion';
 import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
-export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
+export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
   const [randomProd, setRandomProd] = useState<TProduct>();
@@ -52,26 +51,22 @@ export default function Homepage({mobileMenu}: {mobileMenu: boolean}) {
   const shopBodyRef = useRef<HTMLAnchorElement>(null);
   // const shopBodyButtonRef = useRef(null)
 
-
   const tagSelector = useAppSelector(selectTagState);
   const singleProduct = useAppSelector(selectSingleProduct);
   const spfProdId = tagSelector.tags.find((tag: TTag) => tag.tagName === 'spf')
     ?.products[0]._id;
-  const maskProdId = tagSelector.tags.find((tag:TTag) => tag.tagName === 'masks')?.products[0]._id;
+  const maskProdId = tagSelector.tags.find(
+    (tag: TTag) => tag.tagName === 'masks'
+  )?.products[0]._id;
 
-console.log(maskProdId)
+  console.log(maskProdId);
   useEffect(() => {
-
-    if(spfProdId) {
-
+    if (spfProdId) {
       dispatch(fetchAllTags);
-      dispatch(fetchSingleProduct(spfProdId!))
-      dispatch(fetchSingleProduct(maskProdId!))
+      dispatch(fetchSingleProduct(spfProdId!));
+      dispatch(fetchSingleProduct(maskProdId!));
     }
   }, [spfProdId]);
-
-
-
 
   const isPresent = useIsPresent();
 
@@ -665,8 +660,6 @@ console.log(maskProdId)
   });
   //lenis smooth scroll setup
 
-
-
   const lenis = new Lenis({
     duration: 2.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -703,7 +696,7 @@ console.log(maskProdId)
     <>
       <div
         data-scroll-section
-        className=" relative flex w-[100svw] flex-col h-full overflow-hidden bg-pink-300"
+        className=" relative flex h-full w-[100svw] flex-col overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
@@ -779,6 +772,7 @@ console.log(maskProdId)
           </Link>
         </div>
 
+        {/**our phyloaophy section */}
         <div
           className={` ${
             mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
@@ -795,6 +789,7 @@ console.log(maskProdId)
           </p>
         </div>
 
+        {/**rainbow lady section */}
         <div
           className={` ${
             mobileMenu ? 'h-[70svh]' : 'h-full'
@@ -859,7 +854,7 @@ console.log(maskProdId)
                 className={` ${
                   mobileMenu
                     ? 'pr-4 text-[.8rem]'
-                    : 'text-[1rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
+                    : 'text-[.8rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
                 } rainbow-lady-rp pt-1  text-center font-grotesque uppercase `}
               >
                 {singleProduct?.productName}
@@ -869,7 +864,7 @@ console.log(maskProdId)
               className={` ${
                 mobileMenu
                   ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
-                  : 'bottom-[4%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
+                  : 'bottom-[3%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
               {mobileMenu
@@ -948,7 +943,7 @@ console.log(maskProdId)
             </p>
 
             <div
-              className={`${mobileMenu ? 'w-[100svw]' : 'w-[80%]'}  pt-[2%]`}
+              className={`${mobileMenu ? 'w-[100svw]' : 'w-[80%] 4xl:w-[70%] 5xl:w-[60%]'}  pt-[2%]`}
             >
               <img
                 src={beachLady}
@@ -1044,7 +1039,7 @@ console.log(maskProdId)
               <div
                 ref={grapefruitButtRef}
                 className={` ${
-                  mobileMenu ? 'w-[50%] aspect-square' : 'w-[30%]'
+                  mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%]'
                 } grapefruit-butt-img  z-10  self-center `}
               >
                 <img
@@ -1052,7 +1047,7 @@ console.log(maskProdId)
                   src={grapefruitButt}
                   // data-sizes='auto'
                   alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className={` h-full  aspect-square object-cover`}
+                  className={` aspect-square  h-full object-cover`}
                 />
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
@@ -1128,11 +1123,13 @@ console.log(maskProdId)
               } unleash-lady-img lazyload  3xl:object-top `}
             />
 
-            <div className=" relative flex w-2/5 flex-col justify-end gap-10">
+            <div className=" relative flex w-2/5 flex-col justify-end gap-7">
               <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
                 <span
                   className={` ${
-                    mobileMenu ? 'tracking-[1.6rem]' : 'tracking-[2.9rem] xl:tracking-[3.4rem] 4xl:tracking-[6rem] 6xl:tracking-[8rem]'
+                    mobileMenu
+                      ? 'tracking-[1.6rem]'
+                      : 'tracking-[2.9rem] xl:tracking-[3.4rem] 4xl:tracking-[6rem] 6xl:tracking-[8rem]'
                   } hyd-text-left absolute -right-4 top-0 translate-y-[60%]  text-[#262626] 2xl:translate-y-0`}
                 >
                   hyd
@@ -1152,7 +1149,7 @@ console.log(maskProdId)
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
-                  className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 6xl:h-[850px] landscape:short:h-[410px] 4xl:h-[600px]"
+                  className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
                   data-src={
                     singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -1162,7 +1159,9 @@ console.log(maskProdId)
                 />
                 <p
                   className={` ${
-                    mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw] 5xl:text-[.9vw]'
+                    mobileMenu
+                      ? 'text-[.7rem] leading-[1]'
+                      : 'text-[1.2vw] 5xl:text-[.9vw]'
                   } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal`}
                 >
                   {singleProduct?.productName}
@@ -1216,7 +1215,7 @@ console.log(maskProdId)
                 className={` ${
                   mobileMenu
                     ? 'aspect-[4/5] -translate-x-[20%]'
-                    : 'aspect-[7/9]'
+                    : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11]'
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
@@ -1239,8 +1238,10 @@ console.log(maskProdId)
             />
             <p
               className={` ${
-                mobileMenu ? 'w-[55%] text-[1rem] leading-none -translate-x-[13%] -translate-y-[60%]' : 'w-[17%] text-[1.5vw]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626]`}
+                mobileMenu
+                  ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
+                  : 'w-[17%] text-[1.5vw]'
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626] 5xl:-translate-y-[90%] 5xl:-translate-x-[150%]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1274,7 +1275,7 @@ console.log(maskProdId)
             </div>
           </div>
 
-          <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] ">
+          <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] 3xl:pl-0">
             <p
               className={` ${
                 mobileMenu
@@ -1284,12 +1285,14 @@ console.log(maskProdId)
             >
               only best ingredients for best results
             </p>
+
+
             <Link
               to={'/product/' + randomProd05!._id}
-              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] "
+              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28"
             >
               <img
-                className="lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105"
+                className="lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0"
                 data-src={
                   randomProd05!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -1299,8 +1302,8 @@ console.log(maskProdId)
               />
               <p
                 className={` ${
-                  mobileMenu ? 'text-[.7rem]' : 'text-[1vw]'
-                } pt-[4%] text-center font-hubbali uppercase text-charcoal`}
+                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw]'
+                } pt-[4%] text-center font-grotesque uppercase text-charcoal`}
               >
                 {randomProd05?.productName}
               </p>
@@ -1314,7 +1317,7 @@ console.log(maskProdId)
         >
           <p
             className={` ${
-              mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw]'
+              mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw] pb-20'
             } text-center font-aurora`}
           >
             heavy moisturizers are ideal for cold climates or during winter when
@@ -1323,8 +1326,12 @@ console.log(maskProdId)
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
-          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex justify-center items-center gap-9 2xl:h-[50dvh]`}>
+        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] ">
+          <div
+            className={` ${
+              mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
+            } flex items-center justify-center gap-9 2xl:h-[50dvh] `}
+          >
             <img
               data-src={coconutHand}
               data-sizes="auto"
