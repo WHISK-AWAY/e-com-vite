@@ -56,12 +56,12 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
         mobileMenu ? 'h-[16svh]' : 'h-[250px]'
       } footer-section max-w-screen flex  bg-[#262626] text-white`}
     >
-      <div className="flex w-4/12 flex-col items-start justify-start self-start md:w-8/12 2xl:w-3/12">
+      <div className="flex w-4/12 flex-col items-start justify-start self-start md:w-8/12 2xl:w-6/12">
         <div className=" flex  w-full">
           <div
             className={` ${
               mobileMenu ? 'hidden' : 'px-6'
-            } flex w-full flex-col pt-4  md:justify-center md:px-3 2xl:px-9 2xl:pt-9`}
+            } flex w-full flex-col pt-4  md:justify-center md:px-3 2xl:px-9 2xl:pt-2`}
           >
             <h2
               className={` ${
@@ -92,8 +92,8 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
                 className={`${
                   mobileMenu
                     ? 'h-[16svh] object-contain'
-                    : 'h-[250px] object-cover'
-                } aspect-[3/4] w-full border-r-[1.5px] border-white object-cover`}
+                    : 'h-[250px] object-cover '
+                } aspect-[3/4] w-full border-r-[1.5px] border-white `}
               />
             </picture>
           </div>
@@ -139,36 +139,40 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
           </form>
         </div>
 
-        <section className={` ${mobileMenu ? 'hidden' : '' } flex  w-full items-start  py-8 font-poiret md:justify-around lg:justify-center`}>
+        <section
+          className={` ${
+            mobileMenu ? 'hidden' : ''
+          } flex  w-full items-start  py-8 font-poiret md:justify-around lg:justify-center xl:py-3`}
+        >
           <div className="explore text-center lg:pr-16">
-            <div className="pb-4 text-[.7rem] uppercase  md:text-sm lg:text-lg">
+            <div className="pb-4 text-[.7rem] uppercase  md:text-sm lg:text-lg ">
               explore
             </div>
-            <p className="text-sm md:text-xs">shop all</p>
-            <p className="text-sm md:text-xs">bestsellers</p>
-            <p className="text-sm md:text-xs">new in</p>
-            <p className="text-sm md:text-xs">shop kits</p>
-            <p className="text-sm md:text-xs">face</p>
-            <p className="text-sm md:text-xs">body</p>
+            <p className="text-sm md:text-xs xl:text-sm">shop all</p>
+            <p className="text-sm md:text-xs xl:text-sm">bestsellers</p>
+            <p className="text-sm md:text-xs xl:text-sm">new in</p>
+            <p className="text-sm md:text-xs xl:text-sm">shop kits</p>
+            <p className="text-sm md:text-xs xl:text-sm">face</p>
+            <p className="text-sm md:text-xs xl:text-sm">body</p>
           </div>
           <div className="customer-service text-center lg:pr-16">
             <div className="pb-4 text-[.7rem] uppercase md:text-sm lg:text-lg">
               customer service
             </div>
-            <p className="text-sm md:text-xs">faq</p>
-            <p className="text-sm md:text-xs">shopping & delivery</p>
+            <p className="text-sm md:text-xs xl:text-sm">faq</p>
+            <p className="text-sm md:text-xs xl:text-sm">shopping & delivery</p>
           </div>
           <div className="legal text-center">
             <div className="pb-4 text-[.7rem] uppercase md:text-sm lg:text-lg">
               legal
             </div>
-            <p className="text-sm md:text-xs">delievry & returns</p>
-            <p className="text-sm md:text-xs">terms & conditions</p>
-            <p className="text-sm md:text-xs">privacy policy</p>
+            <p className="text-sm md:text-xs xl:text-sm">delievry & returns</p>
+            <p className="text-sm md:text-xs xl:text-sm">terms & conditions</p>
+            <p className="text-sm md:text-xs xl:text-sm">privacy policy</p>
           </div>
         </section>
 
-        <p className=" px-5    self-end -translate-y-[100%]  font-poiret text-[10px] text-white font-light">
+        <p className=" -translate-y-[100%]    self-end px-5  font-poiret text-[10px] font-light text-red-600 2xl:-translate-y-[200%]">
           &copy; ASTORIA - 2023
         </p>
       </div>
