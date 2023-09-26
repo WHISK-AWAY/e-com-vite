@@ -695,11 +695,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     <>
       <div
         data-scroll-section
-        className=" relative flex w-[100svw] flex-col  overflow-hidden bg-pink-300"
+        className=" relative flex w-[100svw] flex-col h-full overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -710,7 +710,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10  h-full   items-center justify-center object-cover`}
+            } hands -z-10 aspect-[1/2] h-full   items-center justify-center object-cover`}
           />
           <video
             ref={leavesRef}
@@ -722,7 +722,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             muted
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
-            } leaves -z-10  h-full   items-center justify-center object-cover object-left`}
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
           />
 
           <div className=" absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference">
