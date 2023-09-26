@@ -780,7 +780,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <p
             className={` ${
-              mobileMenu ? 'text--[1.3rem]' : 'text-[1.5vw]'
+              mobileMenu ? 'text-[1.3rem]' : 'text-[1.5vw]'
             } philosophy-text self-center px-[11%] text-center font-aurora  text-charcoal `}
           >
             our philosophy is not to add anything to our products to make them
@@ -792,7 +792,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         {/**rainbow lady section */}
         <div
           className={` ${
-            mobileMenu ? 'h-[70svh]' : 'h-full'
+            mobileMenu ? 'h-[70svh]' : 'h-full '
           } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-sky-200 `}
         >
           <img
@@ -800,16 +800,18 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             data-sizes="auto"
             alt="red haired ladys profile with reflection of a rainbow on her face"
             className={` ${
-              mobileMenu ? 'h-full object-cover' : ''
-            } rainbow-lady lazyload w-[60%]  -translate-x-[15%]  `}
+              mobileMenu
+                ? 'h-full object-cover'
+                : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
+            } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
           />
           <div className="">
             <p
               className={` ${
                 mobileMenu
                   ? 'text-[2.8rem] portrait:xs:text-[3rem]'
-                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw]'
-              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge `}
+                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw] 3xl:text-[9vw] 5xl:text-[7.8vw]'
+              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge 3xl:left-[19%] 5xl:left-[21%] `}
             >
               protect
             </p>
@@ -817,8 +819,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'text-[1.2rem]'
-                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw]'
-              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light  `}
+                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw] 3xl:text-[2.5vw] 5xl:text-[2.2vw]'
+              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light 3xl:left-[56%] 3xl:top-[8%] 5xl:left-[53%] `}
             >
               your skin
             </p>
@@ -826,22 +828,23 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
-                  : 'left-[4%] top-[12%] md:text-4xl  lg:text-[4rem] 2xl:text-[6vw]'
-              } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80 `}
+                  : 'left-[14%] lg:left-[2%] top-[12%] md:text-4xl lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[4.1vw]'
+              } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80`}
             >
-              from harmful uva & uvb rays
+              <span className="text-white/40 mix-blend-difference">from</span>{' '}
+              harmful uva & uvb rays
             </p>
           </div>
 
-          <div className="flex w-[40%] flex-col  ">
-            <div className="  flex w-[90%] flex-col items-center justify-center">
+          <div className="flex w-[40%] flex-col 3xl:-translate-x-[38%]">
+            <div className="  flex w-[90%] flex-col items-center justify-center 3xl:w-[70%] 5xl:w-[60%] 5xl:-translate-x-[15%]">
               <Link to={'/product/' + spfProdId!}>
                 <img
                   className={` ${
                     mobileMenu
                       ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
-                      : 'h-full pt-[70%]'
-                  } rainbow-lady-rp  aspect-[1/2]  object-cover`}
+                      : 'h-full pt-[70%] '
+                  } rainbow-lady-rp  object-cover]  aspect-[1/2]`}
                   src={
                     singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -864,7 +867,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
-                  : 'bottom-[3%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose'
+                  : 'bottom-[3%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%] 5xl:-bottom-[18%] 5xl:text-[1vw]'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
               {mobileMenu
@@ -943,7 +946,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </p>
 
             <div
-              className={`${mobileMenu ? 'w-[100svw]' : 'w-[80%] 4xl:w-[70%] 5xl:w-[60%]'}  pt-[2%]`}
+              className={`${
+                mobileMenu ? 'w-[100svw]' : 'w-[80%] 4xl:w-[70%] 5xl:w-[60%]'
+              }  pt-[2%]`}
             >
               <img
                 src={beachLady}
@@ -1241,7 +1246,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
                   : 'w-[17%] text-[1.5vw]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626] 5xl:-translate-y-[90%] 5xl:-translate-x-[150%]`}
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626] 5xl:-translate-x-[150%] 5xl:-translate-y-[90%]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1286,7 +1291,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               only best ingredients for best results
             </p>
 
-
             <Link
               to={'/product/' + randomProd05!._id}
               className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28"
@@ -1317,7 +1321,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <p
             className={` ${
-              mobileMenu ? 'text-[1rem] leading-none' : 'text-[1.4vw] pb-20'
+              mobileMenu ? 'text-[1rem] leading-none' : 'pb-20 text-[1.4vw]'
             } text-center font-aurora`}
           >
             heavy moisturizers are ideal for cold climates or during winter when
