@@ -796,7 +796,7 @@ console.log(maskProdId)
 
         <div
           className={` ${
-            mobileMenu ? 'h-[60svh]' : 'h-full'
+            mobileMenu ? 'h-[70svh]' : 'h-full'
           } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-sky-200 `}
         >
           <img
