@@ -96,6 +96,7 @@ export default function Search({
                   to={`/product/${result.productId}`}
                   onClick={closeSlider}
                   key={result.productId}
+                  aria-label={`product: ${result.productName}`}
                 >
                   <div
                     className="flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start portrait:h-64 portrait:w-96"
@@ -106,6 +107,7 @@ export default function Search({
                   >
                     <img
                       className=" aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4 portrait:basis-3/4"
+                      alt={`product image: ${result.productName}`}
                       src={
                         result.images.find(
                           (image) => image.imageDesc === 'product-front'

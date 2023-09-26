@@ -24,47 +24,48 @@ export default function StarsBar({
   const emptyStars = 5 - filledStars - halfStars;
 
   return (
-      <div className="relative mb-10 flex w-fit flex-col">
-          <div className="star-container flex flex-row">
-              {Array(Math.floor(filledStars))
-                  .fill(true)
-                  .map((_, idx) => (
-                      <img
-                          key={idx}
-                          src={starFilled}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
-                      />
-                  ))}
-              {Array(halfStars)
-                  .fill(true)
-                  .map((_, idx) => (
-                      <img
-                          key={idx}
-                          src={starHalf}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
-                      />
-                  ))}
-              {Array(emptyStars)
-                  .fill(true)
-                  .map((_, idx) => (
-                      <img
-                          key={idx}
-                          src={starBlank}
-                          className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
-                      />
-                  ))}
-          </div>
-          <h4
-              className={
-                  'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base portrait:text-[.8rem] portrait:lg:text-lg' +
-                  (option === 'count'
-                      ? ' translate-x-[150%]'
-                      : ' translate-x-full')
-              }
-          >
-              {option === 'count' && `${score.toFixed(1)} (${reviewCount})`}
-              {option === 'date' && dayjs().to(dayjs(date))}
-          </h4>
+    <div className="relative mb-10 flex w-fit flex-col">
+      <div className="star-container flex flex-row">
+        {Array(Math.floor(filledStars))
+          .fill(true)
+          .map((_, idx) => (
+            <img
+              key={idx}
+              src={starFilled}
+              className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
+              alt=""
+            />
+          ))}
+        {Array(halfStars)
+          .fill(true)
+          .map((_, idx) => (
+            <img
+              key={idx}
+              src={starHalf}
+              className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
+              alt=""
+            />
+          ))}
+        {Array(emptyStars)
+          .fill(true)
+          .map((_, idx) => (
+            <img
+              key={idx}
+              src={starBlank}
+              className="aspect-square h-2 lg:h-3 xl:h-4 portrait:h-4 portrait:lg:h-5"
+              alt=""
+            />
+          ))}
       </div>
+      <h4
+        className={
+          'absolute top-4 whitespace-nowrap font-grotesque text-xs leading-none lg:text-sm xl:text-base portrait:text-[.8rem] portrait:lg:text-lg' +
+          (option === 'count' ? ' translate-x-[150%]' : ' translate-x-full')
+        }
+      >
+        {option === 'count' && `${score.toFixed(1)} (${reviewCount})`}
+        {option === 'date' && dayjs().to(dayjs(date))}
+      </h4>
+    </div>
   );
 }

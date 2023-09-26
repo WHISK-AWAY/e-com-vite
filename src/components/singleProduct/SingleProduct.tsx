@@ -88,6 +88,8 @@ export default function SingleProduct({
   // const isPresent = useIsPresent();
 
   function changeImage(newImage: string) {
+    if (selectedImage === newImage) return;
+
     gsap
       .to('.fader', {
         opacity: 0,
@@ -98,15 +100,6 @@ export default function SingleProduct({
         setSelectedImage(newImage);
       });
   }
-
-  // useEffect(() => {
-  // ! debug
-  //   const img = new Image();
-  //   img.src = convertMediaUrl(selectedImage);
-  //   img.onload = () => console.log(`loaded ${img.src}`)
-  // }, [selectedImage])
-
-  // changeImage.current = imageChanger;
 
   useLayoutEffect(() => {
     // Fade in animation - triggered upon new image load
@@ -528,6 +521,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={minus}
+                        alt={`reduce quantity (currently ${count})`}
                         className="w-4 duration-100 ease-in-out active:scale-125 2xl:w-5 portrait:w-5 portrait:md:w-6 portrait:lg:w-8"
                       />
                     </div>
@@ -541,6 +535,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={plus}
+                        alt={`increase quantity (currently ${count})`}
                         className="w-4 duration-100 ease-in-out active:scale-125 2xl:w-5 portrait:w-5 portrait:md:w-6 portrait:lg:w-8"
                       />
                     </div>
@@ -563,6 +558,7 @@ export default function SingleProduct({
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
                   className="hover:duration-00 group relative mt-[6%] w-4/5 max-w-full overflow-hidden  rounded-sm border-charcoal bg-charcoal py-[2%] font-poiret text-[2vw] font-medium  uppercase text-white  transition-all hover:scale-[1.01] active:bg-red-300 active:ease-in-out disabled:bg-charcoal/40 5xl:text-[1.1vw] portrait:w-full portrait:py-2 portrait:text-[1.6rem] portrait:lg:py-4 portrait:lg:text-[2.3rem]"
+                  aria-label="add to cart"
                 >
                   <span className="ease absolute left-0 top-0 h-0 w-0 border-t-4 border-white transition-all duration-1000  group-hover:w-full "></span>
                   <span className="ease absolute bottom-0 right-0 h-0 w-0 border-b-4 border-white transition-all duration-500  group-hover:w-full"></span>
@@ -645,6 +641,7 @@ export default function SingleProduct({
                 />
                 <img
                   src={bgImg}
+                  alt=""
                   className={`${
                     mobileMenu ? 'h-[40svh]' : 'h-screen'
                   }  w-full object-cover portrait:md:h-full `}

@@ -113,6 +113,7 @@ export default function AllProductsHeader({
             <Link
               to={`/product/${randomProd._id}`}
               className="transform transition duration-300 group-hover:scale-110 group-hover:ease-in-out"
+              aria-label={`product: ${randomProd.productName}`}
             >
               <picture>
                 {randomProd && randomProdImage && (
@@ -169,10 +170,11 @@ export default function AllProductsHeader({
               )}
             </Link>
           </div>
-          <Link to={'/product/' + randomProd._id}>
-            <p className="text-md pb-1  pt-7 text-center font-grotesque text-sm uppercase md:pt-5 md:text-xs lg:text-base 3xl:text-lg portrait:md:text-[1.1rem]">
-              {randomProd!.productName}
-            </p>
+          <Link
+            to={'/product/' + randomProd._id}
+            className="text-md pb-1  pt-7 text-center font-grotesque text-sm uppercase md:pt-5 md:text-xs lg:text-base 3xl:text-lg portrait:md:text-[1.1rem]"
+          >
+            {randomProd!.productName}
           </Link>
           <p className="text-center font-grotesque text-sm lg:text-base  3xl:text-lg portrait:md:text-[1.1rem]">
             ${randomProd!.price}

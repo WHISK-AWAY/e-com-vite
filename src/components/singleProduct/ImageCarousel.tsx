@@ -192,6 +192,7 @@ export default function ImageCarousel({
         className={` ${
           mobileMenu ? '-left-1 top-7' : '-left-7'
         } absolute shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20`}
+        aria-label="previous image"
       >
         <img
           src={arrowLeft}
@@ -257,6 +258,7 @@ export default function ImageCarousel({
         className={` ${
           mobileMenu ? '-right-1 top-6' : '-right-7'
         } absolute shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20`}
+        aria-label="next image"
       >
         <img
           src={arrowRight}

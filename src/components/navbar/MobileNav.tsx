@@ -79,6 +79,7 @@ export default function MobileNav({
         <Link
           to={'/'}
           className="pb-3 font-notable text-[2.5rem] leading-none text-primary-gray"
+          aria-label="logo (home)"
         >
           A
         </Link>
@@ -162,9 +163,13 @@ export default function MobileNav({
           </Link>
         ) : (
           <>
-            <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
+            <button
+              onClick={() => setIsSignFormHidden((prev) => !prev)}
+              aria-label="sign in / sign up"
+            >
               <img
                 src={user}
+                alt="sign in / sign up"
                 className="h-6"
               />
             </button>

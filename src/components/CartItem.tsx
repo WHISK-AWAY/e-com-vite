@@ -53,51 +53,52 @@ export default function CartItem({
   }
 
   return (
-    <div className='cart-item-container w-9/10 relative flex h-fit items-center justify-center gap-2 pt-3 lg:gap-4'>
-      <div className='image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center'>
+    <div className="cart-item-container w-9/10 relative flex h-fit items-center justify-center gap-2 pt-3 lg:gap-4">
+      <div className="image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center">
         <img
-          className='lazyload aspect-[3/4] cursor-pointer object-cover'
+          className="lazyload aspect-[3/4] cursor-pointer object-cover"
           onClick={goToProduct}
+          alt={`product image: ${product.productName}`}
           data-src={
             images.find((image) => image.imageDesc === 'product-front')
               ?.imageURL || images[0].imageURL
           }
-          data-sizes='auto'
+          data-sizes="auto"
         />
       </div>
-      <div className='flex h-full basis-2/3 flex-col items-center justify-center gap-1'>
+      <div className="flex h-full basis-2/3 flex-col items-center justify-center gap-1">
         <img
           src={x}
-          alt='x-icon'
+          alt="remove item from cart"
           onClick={() => handleRemove(_id, qty)}
-          className='absolute right-0 top-0 h-2 w-3 cursor-pointer lg:h-3 lg:w-3 portrait:h-4'
+          className="absolute right-0 top-0 h-2 w-3 cursor-pointer lg:h-3 lg:w-3 portrait:h-4"
         />
-        <div className='upper-wrapper flex w-full flex-col items-center'>
+        <div className="upper-wrapper flex w-full flex-col items-center">
           <h2
             onClick={goToProduct}
-            className='cursor-pointer text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem] landscape:short:text-sm'
+            className="cursor-pointer text-center font-grotesque text-xs uppercase  xl:text-base  portrait:text-[1rem] landscape:short:text-sm"
           >
             {product.productName}
           </h2>
-          <div className='text-center font-grotesque text-sm lg:text-base  portrait:pt-1 portrait:text-[1rem] landscape:short:text-sm'>
+          <div className="text-center font-grotesque text-sm lg:text-base  portrait:pt-1 portrait:text-[1rem] landscape:short:text-sm">
             ${price}
           </div>
         </div>
-        <div className='align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-16'>
+        <div className="align-center flex  h-fit w-14 items-center justify-around self-center rounded-full border border-charcoal/70 lg:w-16  xl:w-24 portrait:mt-3 portrait:w-20 portrait:md:py-1 landscape:short:w-16">
           <img
             src={minus}
-            alt='minus-icon'
+            alt={`reduce quantity (currently ${count})`}
             onClick={handleDecrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
+            className="h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4"
           />
-          <span className='py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-sm'>
+          <span className="py-1 font-grotesque  text-sm leading-none  lg:px-2 lg:py-0 lg:text-sm xl:pb-1 xl:text-lg portrait:pb-1 portrait:text-[1.1rem] landscape:short:py-0 landscape:short:text-sm">
             {count}
           </span>
           <img
             src={plus}
-            alt='plus-icon'
+            alt={`increase quantity (currently ${count})`}
             onClick={handleIncrement}
-            className='h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4'
+            className="h-3 cursor-pointer duration-100 ease-in-out active:scale-125 lg:h-3 xl:h-5 portrait:h-5 landscape:short:h-4"
           />
         </div>
       </div>

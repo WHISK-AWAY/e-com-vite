@@ -167,10 +167,11 @@ export default function ProductCarousel({
         className={` ${
           mobileMenu ? '-left-16' : '-left-24'
         } absolute  top-[75px] shrink-0 grow-0 self-center xl:-left-32 xl:top-[125px] 2xl:-left-40`}
+        aria-label="show more products to the left"
       >
         <img
           src={arrowLeft}
-          alt="left-arrow-icon"
+          alt="show more products to the left"
           className="active: group h-3 transform transition-all duration-150 hover:scale-150 hover:ease-in-out active:scale-50 active:bg-red-800 active:duration-700 active:ease-in xl:h-5 portrait:h-5 portrait:lg:h-7"
         />
       </button>
@@ -189,10 +190,11 @@ export default function ProductCarousel({
         className={` ${
           mobileMenu ? '-right-16' : '-right-24'
         } absolute  top-[75px] shrink-0 grow-0 self-center xl:-right-32 xl:top-[125px] 2xl:-right-40 `}
+        aria-label="show more products to the right"
       >
         <img
           src={arrowRight}
-          alt="right-arrow-icon"
+          alt="show more products to the right"
           className="h-3 rotate-180 transform transition-all duration-150 hover:scale-150  hover:ease-in-out active:scale-50 xl:h-5 portrait:h-5 portrait:lg:h-7"
         />
       </button>
