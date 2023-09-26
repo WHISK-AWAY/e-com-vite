@@ -457,7 +457,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         ease: 'slow',
         scrollTrigger: {
           trigger: '.facewash-section-content',
-          start: 'top 90%',
+          start: 'top 60%',
           end: 'center 60%',
           scrub: 2,
         },
@@ -471,7 +471,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           trigger: '.facewash-section-content',
           start: 'top 10%',
           end: 'top 20%',
-          // markers: true,
+          markers: true,
           scrub: 3.4,
         },
       });
@@ -696,11 +696,15 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     <>
       <div
         data-scroll-section
-        className=" relative flex h-full w-[100svw] flex-col overflow-hidden bg-pink-300"
+        className=" relative flex h-full w-[100svw] flex-col overflow-hidden bg-white"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className={` ${mobileMenu ? '-translate-y-[10%]' : '' } landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10 `}>
+        <div
+          className={` ${
+            mobileMenu ? '-translate-y-[10%]' : ''
+          } landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10 `}
+        >
           <video
             ref={handsRef}
             src={handLotion}
@@ -763,7 +767,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-[210%]  px-8 font-regular'
                 : '-translate-y-[60%] px-[4%] font-thin'
-            } group absolute bottom-0 right-[6%]  rounded-sm border border-white  py-1 font-raleway  text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
+            } group absolute bottom-0 right-[6%]  whitespace-nowrap rounded-sm border  border-white py-1 font-raleway  text-white md:text-xs 2xl:text-lg 5xl:py-2 6xl:py-3`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
             <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
@@ -801,7 +805,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             alt="red haired ladys profile with reflection of a rainbow on her face"
             className={` ${
               mobileMenu
-                ? 'h-full object-cover'
+                ? 'h-full object-cover object-right'
                 : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
             } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
           />
@@ -1219,7 +1223,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <Link
               to={'/product/' + randomProd06!._id}
               className={` ${
-                mobileMenu ? 'w-44' : 'w-full 6xl:w-[50%] 6xl:translate-y-[90%] 6xl:-translate-x-[40%]'
+                mobileMenu
+                  ? 'w-44'
+                  : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%]'
               } facewash-rp z-50 flex `}
             >
               <img
@@ -1290,7 +1296,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <p
               className={` ${
                 mobileMenu
-                  ? 'tracking-none whitespace-break-spaces text-sm'
+                  ? 'tracking-none whitespace-break-spaces text-xs'
                   : 'text-[1.3vw] 5xl:text-[1.1vw]'
               } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
             >
@@ -1299,10 +1305,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <Link
               to={'/product/' + randomProd05!._id}
-              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
+              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full   flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
             >
               <img
-                className="lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0"
+                className={` ${
+                  mobileMenu ? 'h-[70%]' : ''
+                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0`}
                 data-src={
                   randomProd05!.images.find(
                     (image) => image.imageDesc === 'product-front'
