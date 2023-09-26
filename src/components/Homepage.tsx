@@ -700,7 +700,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10">
+        <div className={` ${mobileMenu ? '-translate-y-[10%]' : '' } landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10 `}>
           <video
             ref={handsRef}
             src={handLotion}
@@ -780,7 +780,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <p
             className={` ${
-              mobileMenu ? 'text-[1.3rem]' : 'text-[1.5vw]'
+              mobileMenu ? 'text-[1rem]' : 'text-[1.5vw]'
             } philosophy-text self-center px-[11%] text-center font-aurora  text-charcoal `}
           >
             our philosophy is not to add anything to our products to make them
@@ -793,7 +793,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'h-[70svh]' : 'h-full '
-          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-sky-200 `}
+          } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
           <img
             data-src={rainbowLady}
@@ -828,10 +828,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
-                  : 'left-[14%] lg:left-[2%] top-[12%] md:text-4xl lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[4.1vw]'
+                  : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.5vw]'
               } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80`}
             >
-              <span className="text-white/40 mix-blend-difference">from</span>{' '}
+              <span className=" mix-blend-difference 3xl:text-white/40">
+                from
+              </span>{' '}
               harmful uva & uvb rays
             </p>
           </div>
@@ -867,7 +869,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
-                  : 'bottom-[3%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%] 5xl:-bottom-[18%] 5xl:text-[1vw]'
+                  : 'bottom-[3%] right-[9%]  w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%] 5xl:-bottom-[25%] 5xl:w-[40vw] 5xl:text-[1vw]'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
               {mobileMenu
@@ -887,13 +889,13 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <p className="absolute right-1/2 top-0 -translate-y-[70%] translate-x-[50%] font-yantramanav text-[15vw] font-bold uppercase leading-none tracking-[.5rem] text-light-brick mix-blend-screen">
               beach
             </p>
-            <p className="ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white ">
+            <p className="ready-text absolute right-1/2 top-0 flex -translate-y-[9%] translate-x-[50%] flex-col font-yantramanav text-[4vw] font-thin uppercase tracking-[.7rem] text-white 4xl:text-[3.5vw] ">
               ready
             </p>
 
             <div
               className={` ${
-                mobileMenu ? 'w-[65%] pt-[13%]' : 'w-[45%] pt-[10%]'
+                mobileMenu ? 'w-[65%] pt-[13%]' : 'w-[45%] pt-[10%] 5xl:w-[30%]'
               } beach-section-rp relative flex  justify-center self-center `}
             >
               <div className="flex justify-center">
@@ -934,7 +936,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'w-[49%] translate-y-36 text-[.8rem] portrait:translate-y-40 portrait:sm:translate-y-48'
-                  : 'w-[25%] translate-y-[144%] text-[2vw]'
+                  : 'w-[25%] translate-y-[144%] text-[2vw] 5xl:top-52 5xl:text-[1.6vw]'
               } absolute top-0 z-10 flex   flex-col text-center font-aurora  text-black `}
             >
               heavy moisturizers are ideal for cold climates or during winter
@@ -947,7 +949,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <div
               className={`${
-                mobileMenu ? 'w-[100svw]' : 'w-[80%] 4xl:w-[70%] 5xl:w-[60%]'
+                mobileMenu
+                  ? 'w-[100svw]'
+                  : 'w-[80%] 3xl:w-[70%] 4xl:w-[60%] 5xl:w-[50%]'
               }  pt-[2%]`}
             >
               <img
@@ -975,7 +979,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     className={` ${
                       mobileMenu
                         ? 'translate-y-[90%] text-[.5rem]'
-                        : 'translate-y-[120%] text-[1.4vw] '
+                        : 'translate-y-[120%] text-[1.4vw] 5xl:text-[1.1vw]'
                     } beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] text-start font-aurora  leading-relaxed text-white`}
                   >
                     heavy moisturizers are ideal for cold climates or during
@@ -996,11 +1000,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
                 />
               </div>
-              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] ">
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%] ">
                 {' '}
                 <Link
                   to={'/product/' + randomProd03!._id}
-                  className={` beach-rp-right flex w-[70%]  flex-col items-center `}
+                  className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
                 >
                   <img
                     className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
@@ -1025,7 +1029,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <div
               className={` ${
                 mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
-              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white`}
+              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[11%] 5xl:pb-[20%]`}
             >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
@@ -1177,7 +1181,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 to="/shop-all"
                 state={{ filterKey: 'masks' }}
                 className={` ${
-                  mobileMenu ? 'w-[70%] text-[.7rem]' : 'w-[60%] text-[1.1vw]'
+                  mobileMenu
+                    ? 'w-[70%] text-[.7rem]'
+                    : 'w-[60%] text-[1.1vw] 6xl:text-[.9vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1202,7 +1208,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? ' -translate-x-[10%] text-[.8rem] leading-none'
-                  : '-translate-x-[20%] text-[1.5vw]'
+                  : '-translate-x-[20%] text-[1.5vw] 6xl:translate-y-[300%] 6xl:text-[1vw]'
               } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
@@ -1213,14 +1219,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <Link
               to={'/product/' + randomProd06!._id}
               className={` ${
-                mobileMenu ? 'w-44' : 'w-full'
+                mobileMenu ? 'w-44' : 'w-full 6xl:w-[50%] 6xl:translate-y-[90%] 6xl:-translate-x-[40%]'
               } facewash-rp z-50 flex `}
             >
               <img
                 className={` ${
                   mobileMenu
-                    ? 'aspect-[4/5] -translate-x-[20%]'
-                    : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11]'
+                    ? 'aspect-[4/5] -translate-x-[20%] '
+                    : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 data-src={
                   randomProd06!.images.find(
@@ -1245,7 +1251,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
-                  : 'w-[17%] text-[1.5vw]'
+                  : 'w-[17%] text-[1.5vw] 6xl:-translate-y-[79%] 6xl:text-[1vw]'
               } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora   text-[#262626] 5xl:-translate-x-[150%] 5xl:-translate-y-[90%]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
@@ -1285,7 +1291,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-sm'
-                  : 'text-[1.3vw]'
+                  : 'text-[1.3vw] 5xl:text-[1.1vw]'
               } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
             >
               only best ingredients for best results
@@ -1293,7 +1299,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <Link
               to={'/product/' + randomProd05!._id}
-              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28"
+              className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full  flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
             >
               <img
                 className="lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0"
@@ -1306,7 +1312,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               />
               <p
                 className={` ${
-                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw]'
+                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
                 } pt-[4%] text-center font-grotesque uppercase text-charcoal`}
               >
                 {randomProd05?.productName}
@@ -1321,7 +1327,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <p
             className={` ${
-              mobileMenu ? 'text-[1rem] leading-none' : 'pb-20 text-[1.4vw]'
+              mobileMenu
+                ? 'text-[.8rem] leading-none'
+                : 'pb-20 text-[1.4vw] 5xl:text-[1.1vw]'
             } text-center font-aurora`}
           >
             heavy moisturizers are ideal for cold climates or during winter when
@@ -1330,7 +1338,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] ">
+        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
           <div
             className={` ${
               mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
