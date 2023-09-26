@@ -91,7 +91,8 @@ export default function Checkout() {
           <button
             disabled={isLoading || !stripe || !elements}
             id="submit"
-            className=" flex "
+            className="flex"
+            aria-label="pay now"
           >
             <span
               id="button-text"

@@ -18,12 +18,10 @@ export default function Counter({
 }) {
   const [counter, setCounter] = useState(qty);
   const dispatch = useAppDispatch();
-  
 
   useEffect(() => {
-    setCounter(qty)
-  }, [qty])
-
+    setCounter(qty);
+  }, [qty]);
 
   const incrementor = () => {
     if (totalQty < 1) return;
@@ -44,18 +42,20 @@ export default function Counter({
   };
 
   return (
-    <div className='flex w-fit items-center gap-3 rounded-full border border-charcoal px-1'>
+    <div className="flex w-fit items-center gap-3 rounded-full border border-charcoal px-1">
       <img
         src={minus}
-        alt='minus-icon'
-        className='h-3 lg:h-4 xl:h-5 portrait:h-5'
+        alt={`reduce quantity (currently ${counter})`}
+        className="h-3 lg:h-4 xl:h-5 portrait:h-5"
         onClick={decrementor}
       />
-      <p className='font-grotesque text-sm lg:text-base portrait:text-[1rem] portrait:py-1'>{counter}</p>
+      <p className="font-grotesque text-sm lg:text-base portrait:py-1 portrait:text-[1rem]">
+        {counter}
+      </p>
       <img
         src={plus}
-        alt='plus-icon'
-        className='h-3 lg:h-4 xl:h-5 portrait:h-5'
+        alt={`increase quantity (currently ${counter})`}
+        className="h-3 lg:h-4 xl:h-5 portrait:h-5"
         onClick={incrementor}
       />
     </div>

@@ -61,7 +61,7 @@ export default function Search({
       products: [],
       tags: [],
     });
-    navigate(`/shop-all?page=1`, { state: { filterKey: tagName } });
+    navigate(`/shop-all?page=1?filter=${tagName}`);
   };
 
   //animated slider
@@ -96,6 +96,7 @@ export default function Search({
                   to={`/product/${result.productId}`}
                   onClick={closeSlider}
                   key={result.productId}
+                  aria-label={`product: ${result.productName}`}
                 >
                   <div
                     className="flex w-[14vw] max-w-[230px] flex-col justify-between 3xl:justify-start portrait:h-64 portrait:w-96"
@@ -106,6 +107,7 @@ export default function Search({
                   >
                     <img
                       className=" aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4 portrait:basis-3/4"
+                      alt={`product image: ${result.productName}`}
                       src={
                         result.images.find(
                           (image) => image.imageDesc === 'product-front'
@@ -134,8 +136,6 @@ export default function Search({
         <article className="tag-name-search z-[90]  flex h-20 w-20 ">
           {searchResults.tags.map((tag) => {
             return (
-              // <Link to={`/shop-all?page=1`} state={{ filterKey: tag.tagName }}>
-
               <div
                 onClick={(e) => handleTagNameSearch(e, tag.tagName)}
                 key={tag.tagId}

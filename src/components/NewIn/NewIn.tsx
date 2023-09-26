@@ -103,8 +103,8 @@ export default function NewIn() {
           </div>
           <div className="middle-section-button-container flex basis-1/4 flex-col items-center justify-center">
             <Link
-              to="/shop-all"
-              state={{ filterKey: 'tint' }}
+              to="/shop-all?filter=tint"
+              // state={{ filterKey: 'tint' }}
               className="relative border-2 border-white bg-transparent px-[9vw] py-[1.4vw] font-raleway text-[2.5vw] font-light text-white"
             >
               shop now

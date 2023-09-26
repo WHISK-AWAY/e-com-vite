@@ -85,7 +85,7 @@ export default function Navbar({
   return (
     <>
       <Toaster
-        position="top-right"
+        position={mobileMenu ? 'top-center' : 'top-right'}
         toastOptions={{
           duration: 5000,
         }}
@@ -148,6 +148,7 @@ export default function Navbar({
           <div className="user-section shrink-1 flex h-full w-1/2 items-center justify-end gap-2 portrait:md:gap-4">
             <img
               src={searchIcon}
+              alt="search"
               className="h-3 cursor-pointer lg:h-[18px] xl:h-[21px] portrait:md:h-6"
               onClick={() => setIsSearchHidden((prev) => !prev)}
             />
@@ -160,6 +161,7 @@ export default function Navbar({
                 <img
                   src={bag}
                   className="w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px] portrait:md:w-6"
+                  alt="your cart"
                   onClick={() => {
                     setMode('cart');
                     setIsCartFavWrapperHidden(false);
@@ -190,6 +192,7 @@ export default function Navbar({
                       ? heartFilled
                       : heartBlanc
                   }
+                  alt="your favorites"
                   // style={{strokeWidth: '2'}}
                   className="w-3 cursor-pointer lg:w-[16px] xl:w-5 portrait:md:w-6"
                   onClick={() => {
@@ -201,17 +204,25 @@ export default function Navbar({
             }
 
             {userId ? (
-              <NavLink to={`/user/${userId}`}>
+              <NavLink
+                to={`/user/${userId}`}
+                aria-label="your account"
+              >
                 <img
                   src={user}
+                  alt="your account"
                   className="w-3 lg:w-4 xl:w-5 portrait:md:w-6"
                 />
               </NavLink>
             ) : (
               <>
-                <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
+                <button
+                  onClick={() => setIsSignFormHidden((prev) => !prev)}
+                  aria-label="sign in / sign up"
+                >
                   <img
                     src={user}
+                    alt="sign in / sign up"
                     className="w-3 lg:w-4 xl:w-5 portrait:md:w-6"
                   />
                 </button>

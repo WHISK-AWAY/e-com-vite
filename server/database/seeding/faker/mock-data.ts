@@ -271,9 +271,62 @@ export const generatePromo = (count: number): IPromo[] => {
 export const generateReview = (count: number): Partial<IReview>[] => {
   const reviews = [];
 
+  const reviewTitles = [
+    'Radiant Skin Achieved!',
+    'The Ultimate Skincare Solution',
+    'Youthful Glow Restored',
+    'Skin Transformation Delight',
+    "My Skin's Best Friend",
+    'Surprisingly Effective!',
+    'A Skincare Game Changer',
+    'Wrinkles Be Gone!',
+    'Glowing Complexion Unlocked',
+    'Flawless Skin at Last',
+    'Skin So Smooth and Soft',
+    'Luxurious Texture and Feel',
+    'Must-Have for Beautiful Skin',
+    'Skin Feels Renewed',
+    'Impressive Age-Defying Results',
+    'Refreshing and Rejuvenating',
+    'Daily Ritual Bliss',
+    'Revived and Revitalized',
+    'Youth in a Bottle!',
+    'Incredible Skincare Discovery',
+    'Blemish-Free Confidence',
+    'Healthy Skin, Happy Me',
+    'Beautiful Inside and Out',
+    'Timeless Beauty Secret',
+    'Unveiling My Best Skin',
+    'Skincare Magic Happened!',
+    'Elevated Skincare Experience',
+    'Flawless Complexion Achieved',
+    'Daily Skincare Joy',
+    'Skin Perfection Achieved',
+    'Luminous and Glowing!',
+    'Skin Love in a Bottle',
+    'Revitalized and Radiant',
+    'The Perfect Skincare Companion',
+    'Youthful Radiance Restored',
+    'A Skincare Revelation',
+    'Skin Bliss Guaranteed',
+    'Confidence Booster Extraordinaire',
+    'Skin Dreams Come True',
+    'Pure Skincare Euphoria',
+    'Skincare Bliss Unleashed',
+    'The Secret to Ageless Beauty',
+    'Everyday Skincare Delight',
+    'The Fountain of Youth',
+    'My Skincare Sanctuary',
+    'Skincare Perfection Attained',
+    'Skin Transformation Magic',
+    'The Ultimate Skin Treat',
+    'Flawless Beauty Unveiled',
+    'Youthful Radiance Captured',
+  ];
+
   for (let i = 0; i < count; i++) {
     const product = new Types.ObjectId();
-    const title = faker.word.conjunction();
+    const title = reviewTitles[Math.floor(Math.random() * reviewTitles.length)];
     const content = faker.lorem.sentence();
     const date = faker.date.recent();
     const rating = {

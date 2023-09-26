@@ -15,7 +15,7 @@ const ZFormData = z.object({
   email: z.string().email({ message: 'please enter a valid e-mail address' }),
 });
 
-export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
+export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   const FORM_ID = '5294841';
   const { mutate } = useSubscribe(FORM_ID);
   const defaultValues: FormData = {
@@ -89,6 +89,7 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
               <source srcSet="/assets/bg-img/footer.webp" />
               <img
                 src="/assets/bg-img/footer.jpg"
+                alt=""
                 className={`${
                   mobileMenu
                     ? 'h-[16svh] object-contain'
@@ -142,7 +143,11 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
         <section
           className={` ${
             mobileMenu ? 'hidden' : ''
+<<<<<<< HEAD
           } flex  w-full items-start  py-8 font-poiret md:justify-around lg:justify-center xl:py-3`}
+=======
+          } flex  w-full items-start  py-8 font-poiret md:justify-around lg:justify-center`}
+>>>>>>> 13efbd13d27f67a95a3dc4ced38e9410c574a16e
         >
           <div className="explore text-center lg:pr-16">
             <div className="pb-4 text-[.7rem] uppercase  md:text-sm lg:text-lg ">

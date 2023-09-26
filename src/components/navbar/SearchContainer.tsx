@@ -165,8 +165,8 @@ export default function SearchContainer({
     setSearch('');
 
     if (searchResults.tags.length === 1) {
-      navigate(`/shop-all?page=1`, {
-        state: { filterKey: searchResults.tags[0].tagName },
+      navigate(`/shop-all?page=1&filter=${searchResults.tags[0].tagName}`, {
+        // state: { filterKey: searchResults.tags[0].tagName },
       });
     }
 
@@ -195,7 +195,7 @@ export default function SearchContainer({
         <div className="logo-wrapper fixed top-0 mx-auto flex h-16 w-full items-center justify-center">
           <img
             src={x}
-            alt="x-icon"
+            alt="close search"
             className="absolute left-[5%] top-12 h-[2vw] cursor-pointer 4xl:top-20 4xl:h-[1.5vw] 5xl:top-32 portrait:top-5 portrait:h-6"
             onClick={closeSlider}
           />

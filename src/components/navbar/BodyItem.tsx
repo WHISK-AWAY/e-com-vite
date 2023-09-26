@@ -10,13 +10,13 @@ const bodyitems = ['moisturizers', 'creams', 'spf'] as const;
 export type BodyItemProps = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function BodyItem({
   setMenuMode,
   closeOuterMenu,
-  mobileMenu
+  mobileMenu,
 }: BodyItemProps) {
   const tagState = useAppSelector(selectTagState);
   const tagList = tagState.tags;
@@ -100,13 +100,13 @@ export default function BodyItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className="absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-light"
+      className="txt-stroke-none absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-light"
     >
       {menuHeight > 0 && (
         <section
           onMouseLeave={() => closeLocalMenu()}
           className={` ${
-            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+            mobileMenu ? 'gap-x-3 px-3' : 'gap-x-[3vw] pl-12'
           } flex h-screen w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden bg-[#FBFBFB]  py-[2%]  text-[min(2vw,_3vh)] leading-tight `}
         >
           {filteredTags.map((tag) => {
@@ -114,9 +114,9 @@ export default function BodyItem({
 
             return (
               <Link
-                to="/shop-all"
+                to={`/shop-all?filter=${name}`}
                 onClick={() => closeLocalMenu(true)}
-                state={{ filterKey: name }}
+                // state={{ filterKey: name }}
                 className={` ${
                   mobileMenu
                     ? 'text-start text-[1.4rem]'

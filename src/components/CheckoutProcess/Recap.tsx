@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import 'lazysizes'
+import 'lazysizes';
 
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
@@ -234,22 +234,26 @@ export default function Recap() {
   //   return <h1>Loading address book...</h1>;
 
   return (
-    <div className='recap-container m-[5%] mx-auto flex h-full w-[80%] flex-col portrait:w-[95svw]'>
-      <section className='order-recap flex flex-col items-center'>
+    <div className="recap-container m-[5%] mx-auto flex h-full w-[80%] flex-col portrait:w-[95svw]">
+      <section className="order-recap flex flex-col items-center">
         {/* PRODUCTS RECAP */}
 
-        <div className='header-section w-[80%] border-l border-r border-t border-charcoal py-2 text-center font-poiret text-xl'>
+        <div className="header-section w-[80%] border-l border-r border-t border-charcoal py-2 text-center font-poiret text-xl">
           <h1>ORDER CONFIRMATION</h1>
         </div>
 
-        <div className='product-recap flex  w-full justify-between gap-10 border border-charcoal p-10 portrait:p-5'>
-          <div className='flex w-3/5 flex-col portrait:w-full'>
+        <div className="product-recap flex  w-full justify-between gap-10 border border-charcoal p-10 portrait:p-5">
+          <div className="flex w-3/5 flex-col portrait:w-full">
             {cart.products.map((item) => {
               return (
-                <div key={item._id} className='flex h-56 portrait:gap-5 '>
+                <div
+                  key={item._id}
+                  className="flex h-56 portrait:gap-5 "
+                >
                   <img
                     src={x}
-                    className='h-3 w-5 pr-3 portrait:h-6 '
+                    className="h-3 w-5 pr-3 portrait:h-6 "
+                    alt="remove item from cart"
                     onClick={async () => {
                       await dispatch(
                         removeFromCart({
@@ -261,22 +265,23 @@ export default function Recap() {
                       dispatch(fetchSingleUser(userId?.toString()!));
                     }}
                   />
-                  <div className='w-28 lg:w-40'>
+                  <div className="w-28 lg:w-40">
                     <img
-                      className='lazyload aspect-[3/4]  object-cover'
+                      className="lazyload aspect-[3/4]  object-cover"
+                      alt={`product image: ${item.product.productName}`}
                       data-src={
                         item.product.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || item.product.images[0].imageURL
                       }
-                      data-sizes='auto'
+                      data-sizes="auto"
                     />
                   </div>
-                  <div className='flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]'>
-                    <p className='pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:pb-0 portrait:text-[1rem]'>
+                  <div className="flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]">
+                    <p className="pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:pb-0 portrait:text-[1rem]">
                       {item.product.productName}
                     </p>
-                    <p className='pb-2 font-grotesque text-base lg:text-lg xl:text-lg portrait:text-[1rem]'>
+                    <p className="pb-2 font-grotesque text-base lg:text-lg xl:text-lg portrait:text-[1rem]">
                       ${item.product.price}
                     </p>
                     <Counter
@@ -291,61 +296,61 @@ export default function Recap() {
             })}
           </div>
 
-          <div className='bg-img-container relative flex w-2/5 flex-col portrait:hidden'>
+          <div className="bg-img-container relative flex w-2/5 flex-col portrait:hidden">
             <img
               data-src={oceanBg}
-              data-sizes='auto'
-              alt='ocean waves and rocks'
-              className='lazyload'
+              data-sizes="auto"
+              alt=""
+              className="lazyload"
             />
             <img
               data-src={sandLady}
-              alt='lady rubbing sand on her lips'
-              className='lazyload absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]'
+              alt=""
+              className="lazyload absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]"
             />
           </div>
         </div>
 
-        <div className='flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-72 portrait:w-[90svw]'>
-          <h2 className='pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:text-[1.2rem]'>
+        <div className="flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-72 portrait:w-[90svw]">
+          <h2 className="pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:text-[1.2rem]">
             order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
-            <section className='promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10 '>
+            <section className="promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10 ">
               <form
-                className='mx-5 flex  h-10 flex-nowrap md:items-center   portrait:first:flex-wrap'
+                className="mx-5 flex  h-10 flex-nowrap md:items-center   portrait:first:flex-wrap"
                 onSubmit={(e) => handlePromoSubmit(e)}
               >
                 <label
-                  htmlFor='promo-code'
-                  className='h-full border border-white portrait:border-none px-2 py-2 font-grotesque text-sm lg:px-16 lg:text-base portrait:text-[.7rem] '
+                  htmlFor="promo-code"
+                  className="h-full border border-white px-2 py-2 font-grotesque text-sm lg:px-16 lg:text-base portrait:border-none portrait:text-[.7rem] "
                 >
                   enter your promo code:
                 </label>
 
                 <input
-                  id='promo-code'
-                  type='text'
+                  id="promo-code"
+                  type="text"
                   value={promo}
                   placeholder={promoErrors.status ? 'invalid promo code' : ''}
                   onChange={(e) => setPromo(e.target.value)}
-                  className='address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50'
+                  className="address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50"
                 ></input>
-                <button className='h-full border border-white px-10  font-poiret text-sm uppercase lg:text-lg portrait:text-[1rem] portrait:py-2 portrait:w-[50%] portrait:ml-20'>
+                <button className="h-full border border-white px-10  font-poiret text-sm uppercase lg:text-lg portrait:ml-20 portrait:w-[50%] portrait:py-2 portrait:text-[1rem]">
                   verify
                 </button>
               </form>
             </section>
           ) : (
-            <div className='flex flex-col gap-2 pl-5 pt-2'>
-              <p className='font-italiana text-base text-white lg:text-xl'>
-                <span className='uppercase '>discount:</span> (promo code '
+            <div className="flex flex-col gap-2 pl-5 pt-2">
+              <p className="font-italiana text-base text-white lg:text-xl">
+                <span className="uppercase ">discount:</span> (promo code '
                 {verifyPromo.promoCodeName}
                 '): - ${(cart.subtotal * verifyPromo.promoRate).toFixed(2)}
               </p>
-              <p className='font-italiana text-base text-white lg:text-3xl '>
-                <span className='uppercase'>order total:</span> $
+              <p className="font-italiana text-base text-white lg:text-3xl ">
+                <span className="uppercase">order total:</span> $
                 {(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
               </p>
             </div>
@@ -354,16 +359,16 @@ export default function Recap() {
       </section>
 
       {/* PLAIN TEXT USER ADDRESS */}
-      <section className='flex w-[100%] flex-col  border border-charcoal'>
-        <div className='relative flex place-content-center place-items-center border-b  border-charcoal font-poiret'>
-          <h1 className='items-center py-3 text-center text-xl'>
+      <section className="flex w-[100%] flex-col  border border-charcoal">
+        <div className="relative flex place-content-center place-items-center border-b  border-charcoal font-poiret">
+          <h1 className="items-center py-3 text-center text-xl">
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
           </h1>
           {!clientSecret && (
-            <div className='absolute right-3 flex'>
+            <div className="absolute right-3 flex">
               {!manageShippingAddress ? (
                 <button
-                  className=' rounded-sm bg-charcoal px-4 py-1 text-white  lg:px-10 '
+                  className=" rounded-sm bg-charcoal px-4 py-1 text-white  lg:px-10 "
                   onClick={handleManageShippingAddress}
                 >
                   MANAGE ADDRESSES
@@ -371,7 +376,7 @@ export default function Recap() {
               ) : addresses.length > 0 ? (
                 <button
                   onClick={() => setManageShippingAddress(false)}
-                  className='rounded-sm bg-charcoal px-6 py-1 text-sm text-white  lg:px-10'
+                  className="rounded-sm bg-charcoal px-6 py-1 text-sm text-white  lg:px-10"
                 >
                   CANCEL
                 </button>
@@ -382,10 +387,10 @@ export default function Recap() {
           )}
         </div>
 
-        <div className='shipping-detail m-20 flex h-full w-[80%] portrait:w-[95%] flex-col items-center justify-center self-center'>
+        <div className="shipping-detail m-20 flex h-full w-[80%] flex-col items-center justify-center self-center portrait:w-[95%]">
           {!clientSecret && (
-            <div className='flex h-full w-[100%] flex-col items-center lg:w-[60%] xl:w-[110%] 2xl:w-[80%]'>
-              <h2 className='h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-poiret text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12'>
+            <div className="flex h-full w-[100%] flex-col items-center lg:w-[60%] xl:w-[110%] 2xl:w-[80%]">
+              <h2 className="h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-poiret text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12">
                 {manageShippingAddress
                   ? userId
                     ? 'address book'
@@ -395,12 +400,12 @@ export default function Recap() {
             </div>
           )}
           {!clientSecret ? (
-            <div className='relative flex h-full  w-full max-w-[800px] border border-charcoal font-grotesque portrait:text-[1.2rem] text-sm md:w-5/6  lg:w-4/6 lg:text-base xl:w-4/6 2xl:w-3/6 '>
+            <div className="relative flex h-full  w-full max-w-[800px] border border-charcoal font-grotesque text-sm md:w-5/6 lg:w-4/6  lg:text-base xl:w-4/6 2xl:w-3/6 portrait:text-[1.2rem] ">
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
-                  <div className='form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose '>
-                    <div className='flex flex-col self-center'>
-                      <p className=''>full name</p>
+                  <div className="form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose ">
+                    <div className="flex flex-col self-center">
+                      <p className="">full name</p>
 
                       <p>email</p>
                       <p>address 1</p>
@@ -410,8 +415,8 @@ export default function Recap() {
                       <p>zip</p>
                     </div>
                   </div>
-                  <div className='form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose'>
-                    <div className='flex flex-col self-center'>
+                  <div className="form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose">
+                    <div className="flex flex-col self-center">
                       <p>
                         {addresses[addressIndex].shipToAddress.firstName}{' '}
                         {addresses[addressIndex].shipToAddress.lastName}
@@ -446,14 +451,17 @@ export default function Recap() {
 
           {/* STRIPE PAYMENT SECTION */}
           {!manageShippingAddress && (
-            <div className='flex flex-col  justify-end self-center pt-3 lg:w-4/6'>
+            <div className="flex flex-col  justify-end self-center pt-3 lg:w-4/6">
               {clientSecret ? (
-                <Elements stripe={stripePromise} options={options}>
+                <Elements
+                  stripe={stripePromise}
+                  options={options}
+                >
                   <Checkout />
                 </Elements>
               ) : (
                 <button
-                  className='w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6'
+                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6"
                   onClick={(e) => handleCheckout(e)}
                 >
                   confirm&proceed
@@ -463,14 +471,14 @@ export default function Recap() {
           )}
           {clientSecret && (
             <button
-              className='rounded-sm border border-charcoal px-8 py-1 font-grotesque text-base text-charcoal'
+              className="rounded-sm border border-charcoal px-8 py-1 font-grotesque text-base text-charcoal"
               onClick={handleCancel}
             >
               cancel
             </button>
           )}
           {isCheckoutCancel && (
-            <span className='mt-5 font-poiret'>checkout cancelled</span>
+            <span className="mt-5 font-poiret">checkout cancelled</span>
           )}
         </div>
       </section>

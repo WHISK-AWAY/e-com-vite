@@ -1080,9 +1080,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </div>
             <Link
               // ref={shopBodyButtonRef}
-              to="/shop-all"
+              to="/shop-all?filter=body"
               ref={shopBodyRef}
-              state={{ filterKey: 'body' }}
+              // state={{ filterKey: 'body' }}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
@@ -1178,8 +1178,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </Link>
 
               <Link
-                to="/shop-all"
-                state={{ filterKey: 'masks' }}
+                to="/shop-all?filter=masks"
+                // state={{ filterKey: 'masks' }}
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'

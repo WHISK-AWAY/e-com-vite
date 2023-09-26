@@ -8,13 +8,13 @@ import type { MenuOption } from './DropdownMenu';
 export type ShopByCategoryListItem = {
   setMenuMode: React.Dispatch<React.SetStateAction<MenuOption>>;
   closeOuterMenu: () => void;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
 export default function ShopByCategoryListItem({
   setMenuMode,
   closeOuterMenu,
-  mobileMenu
+  mobileMenu,
 }: ShopByCategoryListItem) {
   const localParent = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(0);
@@ -130,13 +130,13 @@ export default function ShopByCategoryListItem({
     <div
       ref={localParent}
       onMouseLeave={() => closeLocalMenu()}
-      className="group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
+      className="txt-stroke-none group absolute left-0 top-[75%] z-10 flex h-0 w-screen flex-col flex-wrap font-thin"
     >
       {menuHeight > 0 && (
         <section
           // ref={catRef}
           className={` ${
-            mobileMenu ? 'px-3 gap-x-3' : 'gap-x-[3vw] pl-12'
+            mobileMenu ? 'gap-x-3 px-3' : 'gap-x-[3vw] pl-12'
           } flex  h-screen  w-screen flex-col flex-wrap place-content-start justify-start  self-center overflow-hidden  bg-[#fbfbfb]  py-[2%] text-[min(2vw,_3vh)] leading-tight `}
         >
           {tagList.map((tag) => {
@@ -144,16 +144,16 @@ export default function ShopByCategoryListItem({
             return (
               <Link
                 key={tag._id}
-                to="/shop-all"
+                to={`/shop-all?filter=${name}`}
                 onClick={() => {
                   closeLocalMenu(true);
                 }}
-                state={{ filterKey: name }}
+                // state={{ filterKey: name }}
                 className={` ${
                   mobileMenu
                     ? 'text-start text-[1.4rem]'
-                    : ' text-center odd:text-[min(3.5vw,_5.5vh)] tracking-widest even:tracking-[.3rem]'
-                } submenu-item ease hover:offsetX  hover:scale-105 text-primary-gray hover:underline hover:underline-offset-4 hover:duration-300`}
+                    : ' text-center tracking-widest odd:text-[min(3.5vw,_5.5vh)] even:tracking-[.3rem]'
+                } submenu-item ease hover:offsetX  text-primary-gray hover:scale-105 hover:underline hover:underline-offset-4 hover:duration-300`}
               >
                 {name}
               </Link>

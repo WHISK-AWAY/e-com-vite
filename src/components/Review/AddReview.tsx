@@ -173,7 +173,7 @@ export default function AddReview({
               )?.imageURL || product.images[0].imageURL
             }
             className="aspect-[4/5]  object-cover "
-            alt="product image"
+            alt={`product image: ${product.productName}`}
           />
         </div>
         <div
