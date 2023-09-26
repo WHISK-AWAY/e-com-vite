@@ -172,7 +172,7 @@ export default function Footer({mobileMenu}: {mobileMenu: boolean}) {
           </div>
         </section>
 
-        <p className=" -translate-y-[100%]    self-end px-5  font-poiret text-[10px] font-light text-red-600 2xl:-translate-y-[200%]">
+        <p className=" -translate-y-[100%]    self-end px-5  font-poiret text-[10px] font-light text-white 2xl:-translate-y-[200%]">
           &copy; ASTORIA - 2023
         </p>
       </div>
