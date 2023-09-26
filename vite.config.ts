@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   publicDir: 'src/public',
   build: {
-    outDir: '/var/www/astoria/html/test',
+    outDir: '/var/www/astoria/html',
     emptyOutDir: true,
   }
 });
