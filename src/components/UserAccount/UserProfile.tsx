@@ -48,7 +48,7 @@ export default function UserProfile() {
 
   if (!user) return <h1>Loading...</h1>;
   return (
-    <section className="user-profile-container relative mx-auto flex h-[calc(100svh_-_64px)] w-[100svw] flex-col items-center gap-2 font-grotesque ">
+    <section className="user-profile-container max-w-screen relative mx-auto flex h-fit min-h-[calc(100svh_-_64px)] w-[100svw] flex-col items-center gap-2 overflow-x-clip font-grotesque">
       <div className="user-settings-wrapper flex h-[calc(100svh_-_64px)] min-h-[390px] w-full items-start justify-center pb-12 text-base lg:min-h-[450px] lg:pb-16 lg:text-lg xl:min-h-[500px] xl:pb-20 xl:text-xl 2xl:min-h-[600px] 2xl:pb-24 2xl:text-[1.75rem]">
         <div
           className={`user-profile-menu-section relative flex h-full shrink-0 grow-0 basis-2/5 flex-col items-end justify-start px-[8%] portrait:basis-full portrait:px-3`}
@@ -128,7 +128,7 @@ export default function UserProfile() {
             <div> {userId && <button onClick={signOut}>sign out</button>}</div>
           </div>
         </div>
-        <div className="user-settings-main shrink-1 flex h-[90%] grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44 portrait:absolute portrait:top-1/2 portrait:h-fit portrait:-translate-y-1/2 portrait:px-1 landscape:short:pb-10">
+        <div className="user-settings-main shrink-1 flex h-[90%] grow-0 basis-3/5 flex-col items-center justify-center pl-3 pr-7 lg:pb-20 2xl:pb-36 6xl:pb-44 portrait:absolute portrait:top-1/4 portrait:h-fit portrait:px-1 landscape:short:pb-10">
           <div className="relative flex h-fit  w-fit flex-col items-center justify-start pt-[4%]">
             <h2 className="w-3/4 border border-b-0 border-charcoal bg-white py-[1%] text-center font-poiret text-sm uppercase lg:text-base 2xl:text-lg portrait:md:text-lg">
               {viewMap[view]}
