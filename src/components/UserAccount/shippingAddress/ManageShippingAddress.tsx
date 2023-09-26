@@ -93,6 +93,7 @@ export default function ManageShippingAddress({
             <button
               className="absolute right-[3%] top-[5%]"
               onClick={handleShippingAddressDelete}
+              aria-label="delete address"
             >
               <img
                 src={x}
@@ -113,6 +114,7 @@ export default function ManageShippingAddress({
                   setSelectorIdx(selectorIdx - 1);
                 }
               }}
+              aria-label="previous entry"
             >
               <img
                 src={arrowLeft}
@@ -133,6 +135,7 @@ export default function ManageShippingAddress({
                   setSelectorIdx(0);
                 }
               }}
+              aria-label="next entry"
             >
               <img
                 src={arrowRight}

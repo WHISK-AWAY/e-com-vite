@@ -204,7 +204,10 @@ export default function Navbar({
             }
 
             {userId ? (
-              <NavLink to={`/user/${userId}`}>
+              <NavLink
+                to={`/user/${userId}`}
+                aria-label="your account"
+              >
                 <img
                   src={user}
                   alt="your account"
@@ -213,7 +216,10 @@ export default function Navbar({
               </NavLink>
             ) : (
               <>
-                <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
+                <button
+                  onClick={() => setIsSignFormHidden((prev) => !prev)}
+                  aria-label="sign in / sign up"
+                >
                   <img
                     src={user}
                     alt="sign in / sign up"

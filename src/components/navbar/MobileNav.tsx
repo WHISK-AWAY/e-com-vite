@@ -162,7 +162,10 @@ export default function MobileNav({
           </Link>
         ) : (
           <>
-            <button onClick={() => setIsSignFormHidden((prev) => !prev)}>
+            <button
+              onClick={() => setIsSignFormHidden((prev) => !prev)}
+              aria-label="sign in / sign up"
+            >
               <img
                 src={user}
                 alt="sign in / sign up"
