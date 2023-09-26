@@ -85,7 +85,7 @@ export default function Navbar({
   return (
     <>
       <Toaster
-        position="top-right"
+        position={mobileMenu ? 'top-center' : 'top-right'}
         toastOptions={{
           duration: 5000,
         }}

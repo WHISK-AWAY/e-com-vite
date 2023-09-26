@@ -14,13 +14,14 @@ export default function ToastBody({ message, toastInstance }: ToastBodyProps) {
           .to(e.target, {
             opacity: 0,
             x: '+= 200%',
-            duration: .5,
+            duration: 0.5,
           })
           .then(() => {
             toast.remove(toastInstance.id);
           });
       }}
-      className='max-w-[700px] cursor-pointer rounded-sm border border-charcoal/60 bg-white p-[2%]  text-center font-grotesque text-[1vw] uppercase text-[#262626] shadow-none 2xl:text-[1rem] mt-12 translate-x-[10%] 5xl:p-[1%] portrait:text-[1.3rem]'
+      // killed classes: translate-x-[10%]
+      className="mt-12 max-w-[700px] cursor-pointer rounded-sm border border-charcoal/60 bg-white  p-[2%] text-center font-grotesque text-[1vw] uppercase text-[#262626] shadow-none 2xl:text-[1rem] 5xl:p-[1%] portrait:text-[1.3rem]"
     >
       {message}
     </article>
