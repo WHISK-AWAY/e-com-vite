@@ -797,7 +797,7 @@ console.log(maskProdId)
         <div
           className={` ${
             mobileMenu ? 'h-[60svh]' : 'h-full'
-          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-white `}
+          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-sky-200 `}
         >
           <img
             data-src={rainbowLady}
@@ -838,7 +838,7 @@ console.log(maskProdId)
           </div>
 
           <div className="flex w-[40%] flex-col  ">
-            <div className="  flex h-full w-[90%] flex-col items-center justify-center">
+            <div className="  flex w-[90%] flex-col items-center justify-center">
               <Link to={'/product/' + spfProdId!}>
                 <img
                   className={` ${
