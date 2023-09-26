@@ -695,11 +695,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     <>
       <div
         data-scroll-section
-        className=" relative flex w-[100svw] flex-col justify-center overflow-hidden bg-pink-300"
+        className=" relative flex w-[100svw] flex-col  overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  self-center px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
