@@ -91,17 +91,21 @@ export default function ManageShippingAddress({
         <>
           {user._id && (
             <button
-              className='absolute right-[3%] top-[5%]'
+              className="absolute right-[3%] top-[5%]"
               onClick={handleShippingAddressDelete}
             >
-              <img src={x} className='h-3' />
+              <img
+                src={x}
+                className="h-3"
+                alt="delete address"
+              />
             </button>
           )}
 
           {/* previous address button */}
           {selectorIdx > 0 && (
             <button
-              className='absolute -left-[10%] top-[40%] h-4 w-4'
+              className="absolute -left-[10%] top-[40%] h-4 w-4"
               onClick={() => {
                 if (selectorIdx === 0) {
                   setSelectorIdx(addresses.length - 1);
@@ -110,14 +114,18 @@ export default function ManageShippingAddress({
                 }
               }}
             >
-              <img src={arrowLeft} className='h-5' />
+              <img
+                src={arrowLeft}
+                className="h-5"
+                alt="previous entry"
+              />
             </button>
           )}
 
           {/* next address button */}
           {selectorIdx < addresses.length - 1 && (
             <button
-              className=''
+              className=""
               onClick={() => {
                 if (selectorIdx < addresses.length - 1) {
                   setSelectorIdx(selectorIdx + 1);
@@ -128,16 +136,17 @@ export default function ManageShippingAddress({
             >
               <img
                 src={arrowRight}
-                className='absolute  -right-[10%] top-[40%] h-4 rotate-180'
+                className="absolute  -right-[10%] top-[40%] h-4 rotate-180"
+                alt="next entry"
               />
             </button>
           )}
         </>
       )}
 
-      <div className='w-full'>
+      <div className="w-full">
         {/* CURRENT SHIPPING ADDRESS */}
-        <section className=' w-full'>
+        <section className=" w-full">
           {isFormEdit ? (
             <EditShippingAddress
               user={user}
@@ -151,9 +160,9 @@ export default function ManageShippingAddress({
               setAddresses={setAddresses}
             />
           ) : (
-            <div className='flex w-full justify-center '>
-              <div className='flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center portrait:w-[25%]'>
-                <div className='form-keys flex h-full  flex-col  py-9  text-start  font-grotesque leading-loose  portrait:text-[1.1rem]'>
+            <div className="flex w-full justify-center ">
+              <div className="flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center portrait:w-[25%]">
+                <div className="form-keys flex h-full  flex-col  py-9  text-start  font-grotesque leading-loose  portrait:text-[1.1rem]">
                   <p>full name</p>
                   <p>last name</p>
                   <p>email</p>
@@ -165,8 +174,8 @@ export default function ManageShippingAddress({
                 </div>
               </div>
 
-              <div className='flex w-5/6 flex-col items-start  portrait:w-4/5'>
-                <div className='form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose portrait:px-8 portrait:text-[1rem]'>
+              <div className="flex w-5/6 flex-col items-start  portrait:w-4/5">
+                <div className="form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose portrait:px-8 portrait:text-[1rem]">
                   <p>{addresses[selectorIdx!]?.shipToAddress.firstName}</p>
                   <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
                   <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
@@ -187,21 +196,21 @@ export default function ManageShippingAddress({
         </section>
 
         {!isFormEdit && (
-          <div className=' btn-section wrap-nowrap relative flex  w-full items-center justify-center font-poiret text-sm text-white '>
-            <div className='absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-6'>
+          <div className=" btn-section wrap-nowrap relative flex  w-full items-center justify-center font-poiret text-sm text-white ">
+            <div className="absolute top-5 flex justify-center gap-4 lg:w-11/12  lg:gap-6">
               <button
                 onClick={() => {
                   setIsFormEdit(true);
                   setAddressFormMode('edit');
                 }}
-                className='rounded-sm bg-charcoal px-5 py-1  lg:px-8  lg:py-2 xl:px-10'
+                className="rounded-sm bg-charcoal px-5 py-1  lg:px-8  lg:py-2 xl:px-10"
               >
                 EDIT
               </button>
 
               <button
                 onClick={selectAddress}
-                className='rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-6'
+                className="rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-6"
               >
                 USE THIS ADDRESS
               </button>
@@ -212,7 +221,7 @@ export default function ManageShippingAddress({
                     setIsFormEdit(true);
                     setAddressFormMode('new');
                   }}
-                  className='rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-8'
+                  className="rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-8"
                 >
                   ADD NEW
                 </button>

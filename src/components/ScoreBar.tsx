@@ -55,39 +55,95 @@ export default function ScoreBar({ score, maxScore = 5 }: ScoreBarProps) {
   else hollowLastSection = 1;
 
   return (
-    <div className='bar-container flex flex-nowrap justify-center'>
+    <div className="bar-container flex flex-nowrap justify-center">
       {filledFirstSection > 0 && (
-        <img src={barEndcapFilledLeft} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapFilledLeft}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
       {halfFirstSection > 0 && (
-        <img src={barEndcapHalfLeft} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapHalfLeft}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
       {hollowFirstSection > 0 && (
-        <img src={barEndcapHollowLeft} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapHollowLeft}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
 
       {Array(filledMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionFilled} className={BAR_STYLES} key={idx} width="34" height="9" />
+          <img
+            src={barSectionFilled}
+            className={BAR_STYLES}
+            key={idx}
+            width="34"
+            height="9"
+            alt=""
+          />
         ))}
       {halfMidsection > 0 && (
-        <img src={barSectionHalf} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barSectionHalf}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
       {Array(hollowMidsection)
         .fill(true)
         .map((_, idx) => (
-          <img src={barSectionHollow} className={BAR_STYLES} key={idx} width="34" height="9" />
+          <img
+            src={barSectionHollow}
+            className={BAR_STYLES}
+            key={idx}
+            width="34"
+            height="9"
+            alt=""
+          />
         ))}
 
       {filledLastSection > 0 && (
-        <img src={barEndcapFilledRight} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapFilledRight}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
       {halfLastSection > 0 && (
-        <img src={barEndcapHalfRight} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapHalfRight}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
       {hollowLastSection > 0 && (
-        <img src={barEndcapHollowRight} className={BAR_STYLES} width="34" height="9" />
+        <img
+          src={barEndcapHollowRight}
+          className={BAR_STYLES}
+          width="34"
+          height="9"
+          alt=""
+        />
       )}
     </div>
   );

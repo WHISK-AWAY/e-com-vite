@@ -521,6 +521,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={minus}
+                        alt={`reduce quantity (currently ${count})`}
                         className="w-4 duration-100 ease-in-out active:scale-125 2xl:w-5 portrait:w-5 portrait:md:w-6 portrait:lg:w-8"
                       />
                     </div>
@@ -534,6 +535,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={plus}
+                        alt={`increase quantity (currently ${count})`}
                         className="w-4 duration-100 ease-in-out active:scale-125 2xl:w-5 portrait:w-5 portrait:md:w-6 portrait:lg:w-8"
                       />
                     </div>
@@ -638,6 +640,7 @@ export default function SingleProduct({
                 />
                 <img
                   src={bgImg}
+                  alt=""
                   className={`${
                     mobileMenu ? 'h-[40svh]' : 'h-screen'
                   }  w-full object-cover portrait:md:h-full `}

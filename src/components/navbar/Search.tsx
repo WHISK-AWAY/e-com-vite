@@ -106,6 +106,7 @@ export default function Search({
                   >
                     <img
                       className=" aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4 portrait:basis-3/4"
+                      alt={`product image: ${result.productName}`}
                       src={
                         result.images.find(
                           (image) => image.imageDesc === 'product-front'

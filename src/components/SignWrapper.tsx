@@ -96,7 +96,7 @@ export default function SignWrapper({
           {mode === 'sign-in' ? (
             <img
               src={x}
-              alt="x-icon"
+              alt="close sign in slider"
               className={`${
                 mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
               }`}
@@ -104,7 +104,7 @@ export default function SignWrapper({
           ) : (
             <img
               src={whiteX}
-              alt="x-icon"
+              alt="close sign up slider"
               className={`${
                 mobileMenu ? 'w-4' : 'w-1 lg:w-2 portrait:md:w-full'
               }`}
