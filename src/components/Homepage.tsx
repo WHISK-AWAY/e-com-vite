@@ -341,8 +341,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         scrollTrigger: {
           scrub: 2,
           trigger: '.unleash-section-content',
-          start: 'top top',
+          start: 'top 50%',
           end: 'bottom 70%',
+          // markers:true
           //  pin: true
         },
       });
@@ -388,7 +389,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           trigger: '.beach-section-content',
           start: '-20% top',
           end: '10% center',
-          scrub: 1.4,
+          scrub: 4.4,
           // markers: true,
         },
       });
@@ -398,13 +399,13 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         ease: 'slow.inOut',
         duration: 2,
         opacity: 0,
-        stagger: 0.8,
+        stagger: 1.3,
         scrollTrigger: {
           // markers: true,
           trigger: '.beach-lady-img',
           start: 'bottom bottom',
           end: 'bottom 80%',
-          scrub: 2.5,
+          scrub: 3.5,
         },
       });
 
@@ -699,7 +700,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[85svh] w-full justify-center  px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[100svh] w-full justify-center  px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -1116,15 +1117,15 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={`${
                 mobileMenu
                   ? 'h-[60svh] w-[60%] object-cover'
-                  : ' h-screen w-3/5 object-cover'
-              } unleash-lady-img lazyload   `}
+                  : ' h-screen w-3/5 object-cover '
+              } unleash-lady-img lazyload  3xl:object-top `}
             />
 
-            <div className=" relative flex w-2/5  flex-col justify-end gap-10">
+            <div className=" relative flex w-2/5 flex-col justify-end gap-10">
               <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
                 <span
                   className={` ${
-                    mobileMenu ? 'tracking-[1.6rem]' : 'tracking-[2.9rem]'
+                    mobileMenu ? 'tracking-[1.6rem]' : 'tracking-[2.9rem] xl:tracking-[3.4rem] 4xl:tracking-[6rem] 6xl:tracking-[8rem]'
                   } hyd-text-left absolute -right-4 top-0 translate-y-[60%]  text-[#262626] 2xl:translate-y-0`}
                 >
                   hyd
@@ -1144,7 +1145,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
               >
                 <img
-                  className="lazyload min-[1600px]:h-[800px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[450px] 2xl:h-[650px]"
+                  className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 6xl:h-[850px] landscape:short:h-[410px] 4xl:h-[600px]"
                   data-src={
                     singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -1154,8 +1155,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 />
                 <p
                   className={` ${
-                    mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw]'
-                  } w-[90%] pt-4 text-center font-hubbali   uppercase text-charcoal`}
+                    mobileMenu ? 'text-[.7rem] leading-[1]' : 'text-[1.2vw] 5xl:text-[.9vw]'
+                  } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal`}
                 >
                   {singleProduct?.productName}
                 </p>
@@ -1316,7 +1317,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
-          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex  gap-9 2xl:h-[50dvh]`}>
+          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex justify-center items-center gap-9 2xl:h-[50dvh]`}>
             <img
               data-src={coconutHand}
               data-sizes="auto"
