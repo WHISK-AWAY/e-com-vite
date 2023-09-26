@@ -695,11 +695,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     <>
       <div
         data-scroll-section
-        className=" relative flex h-full w-[100svw] flex-col justify-center overflow-hidden "
+        className=" relative flex w-[100svw] flex-col h-full overflow-hidden bg-pink-300"
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  self-center px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[85svh] w-full justify-center  px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -710,7 +710,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full   items-center justify-center object-cover`}
+            } hands -z-10 aspect-[1/2] h-full    object-cover`}
           />
           <video
             ref={leavesRef}
@@ -789,8 +789,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
         <div
           className={` ${
-            mobileMenu ? 'h-[60svh]' : 'h-full'
-          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-white `}
+            mobileMenu ? 'h-[70svh]' : 'h-full'
+          } rainbow-wrapper relative mb-[115%]  flex  w-[100svw] items-start bg-sky-200 `}
         >
           <img
             data-src={rainbowLady}
@@ -831,7 +831,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           <div className="flex w-[40%] flex-col  ">
-            <div className="  flex h-full w-[90%] flex-col items-center justify-center">
+            <div className="  flex w-[90%] flex-col items-center justify-center">
               <Link to={'/product/' + spfProdId!}>
                 <img
                   className={` ${
@@ -1036,15 +1036,15 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <div
                 ref={grapefruitButtRef}
                 className={` ${
-                  mobileMenu ? 'w-[50%]' : 'w-[30%]'
-                } grapefruit-butt-img  z-10 h-fit  self-center `}
+                  mobileMenu ? 'w-[50%] aspect-square' : 'w-[30%]'
+                } grapefruit-butt-img  z-10  self-center `}
               >
                 <img
                   // onLoad={() => ScrollTrigger.refresh()}
                   src={grapefruitButt}
                   // data-sizes='auto'
                   alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className=" aspect-square object-cover"
+                  className={` h-full  aspect-square object-cover`}
                 />
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
@@ -1246,7 +1246,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex   w-[65%] border `}
+            } flex   w-[65%]  `}
           >
             <img
               data-src={papaya}
@@ -1316,7 +1316,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[12%]">
-          <div className="flex h-[40dvh] gap-9 2xl:h-[50dvh]">
+          <div className={` ${mobileMenu ? 'h-[20dvh] mb-12' : 'h-[40dvh]' } flex  gap-9 2xl:h-[50dvh]`}>
             <img
               data-src={coconutHand}
               data-sizes="auto"
