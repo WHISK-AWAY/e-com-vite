@@ -706,7 +706,7 @@ console.log(maskProdId)
         onLoad={() => ScrollTrigger.refresh()}
       >
         {/* <Preloader/> */}
-        <div className="landing-section-content relative flex h-[calc(100svh_-_64px)] w-full justify-center  px-5 lg:px-10">
+        <div className="landing-section-content relative flex h-[85svh] w-full justify-center  px-5 lg:px-10">
           <video
             ref={handsRef}
             src={handLotion}
@@ -717,7 +717,7 @@ console.log(maskProdId)
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full   items-center justify-center object-cover`}
+            } hands -z-10 aspect-[1/2] h-full    object-cover`}
           />
           <video
             ref={leavesRef}
