@@ -146,55 +146,73 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
 
         <section
           className={` ${
-            mobileMenu ? 'py-2 leading-none portrait:xs:pl-4 portrait:sm:translate-x-[5%]' : 'py-8 xl:py-3'
+            mobileMenu
+              ? ' py-2 leading-none  portrait:sm:pl-6 '
+              : 'py-8 xl:py-3'
           } flex  w-full items-start  font-poiret md:justify-around lg:justify-center `}
         >
           <div
             className={` ${
-              mobileMenu ? 'pr-4' : ''
+              mobileMenu ? 'pr-3 pl-4 portrait:sm:pl-0' : ''
             } explore text-center lg:pr-16`}
           >
-            <div className={` ${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase  md:text-sm lg:text-lg `}>
+            <div
+              className={` ${
+                mobileMenu ? 'pb-2' : 'pb-4'
+              } text-[.7rem] uppercase  md:text-sm lg:text-lg `}
+            >
               explore
             </div>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               shop all
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               bestsellers
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               new in
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               shop kits
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               face
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               body
@@ -202,48 +220,66 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
           <div
             className={` ${
-              mobileMenu ? 'pr-4' : ''
+              mobileMenu ? 'pr-3' : ''
             } customer-service text-center lg:pr-16`}
           >
-            <div className={`${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase md:text-sm lg:text-lg`}>
+            <div
+              className={`${
+                mobileMenu ? 'pb-2' : 'pb-4'
+              } text-[.7rem] uppercase md:text-sm lg:text-lg`}
+            >
               customer service
             </div>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               faq
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               shopping & delivery
             </p>
           </div>
           <div className="legal text-center">
-            <div className={` ${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase md:text-sm lg:text-lg`}>
+            <div
+              className={` ${
+                mobileMenu ? 'pb-2' : 'pb-4'
+              } text-[.7rem] uppercase md:text-sm lg:text-lg`}
+            >
               legal
             </div>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               delievry & returns
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               terms & conditions
             </p>
             <p
               className={` ${
-                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+                mobileMenu
+                  ? 'text-[.7rem] portrait:sm:text-[.8rem]'
+                  : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
               privacy policy
