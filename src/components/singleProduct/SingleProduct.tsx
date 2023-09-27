@@ -37,7 +37,6 @@ import {
   getRandomBackgroundImage,
   getRandomBackgroundVideo,
 } from './randomBackground';
-import MobileNav from '../navbar/MobileNav';
 import MobileAddToCartHelper from './MobileAddToCartHelper';
 
 export type SingleProductProps = {
@@ -550,10 +549,10 @@ export default function SingleProduct({
                 <button
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
-                  className="group relative mt-[6%] inline-block w-4/5  max-w-full  font-medium text-white focus:outline-none "
+                  className={` ${mobileMenu ? 'w-full' : 'w-4/5'} group relative mt-[6%] inline-block  max-w-full  font-medium text-white focus:outline-none `}
                 >
                   <span className="absolute inset-0  border group-disabled:border-none border-primary-gray group-active:border-charcoal"></span>
-                  <span className="ease block rounded-sm border border-charcoal bg-charcoal px-12 py-3 4xl:py-4 5xl:text-[1.3vw] 6xl:text-[1.1vw] font-poiret text-[2vw] font-medium uppercase transition-transform duration-300 active:rounded-sm active:border-charcoal/90 active:bg-charcoal/90 group-disabled:bg-charcoal/40 group-hover:-translate-x-1 group-disabled:-translate-x-0 group-disabled:-translate-y-0 group-hover:-translate-y-1 group-disabled:border-none">
+                  <span className={` ${mobileMenu ? 'text-[1.2rem] py-1' : 'text-[2vw] py-3' } ease block rounded-sm border border-charcoal bg-charcoal px-12  4xl:py-4 5xl:text-[1.3vw] 6xl:text-[1.1vw] font-poiret font-medium uppercase transition-transform duration-300 active:rounded-sm active:border-charcoal/90 active:bg-charcoal/90 group-disabled:bg-charcoal/40 group-hover:-translate-x-1 group-disabled:-translate-x-0 group-disabled:-translate-y-0 group-hover:-translate-y-1 group-disabled:border-none `}>
                     add to cart
                   </span>
                 </button>
