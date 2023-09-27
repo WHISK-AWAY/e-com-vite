@@ -23,9 +23,9 @@ import 'lazysizes';
 // import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
 // import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
 // import papaya from '../assets/bg-img/homepage/papaya.jpg';
-// import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
-// import melon from '../assets/bg-img/homepage/melon.jpg';
-// import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
+import melon from '../assets/bg-img/homepage/melon.jpg';
+import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
@@ -1405,12 +1405,54 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
+          {/*
+            <img
+              data-src={coconutHand}
+              data-sizes="auto"
+              alt="hand is reaching for a coconut cut in half"
+              className="lazyload aspect-[1/2] w-[30%] object-cover"
+            />
+            <img
+              data-src={melon}
+              data-sizes="auto"
+              alt="melon cut in half"
+              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
+            />
+            */}
+
           <div
             className={` ${
               mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
             } flex items-center justify-center gap-9 2xl:h-[50dvh] `}
           >
-            <picture className="lazyload aspect-[1/2] w-[30%] object-cover">
+            <img
+              data-src={coconutHand}
+              data-sizes="auto"
+              alt="hand is reaching for a coconut cut in half"
+              className="lazyload aspect-[1/2] w-[30%] object-cover"
+            />
+            <img
+              data-src={melon}
+              data-sizes="auto"
+              alt="melon cut in half"
+              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
+            />
+            <video
+              src={legBrush}
+              muted
+              loop
+              autoPlay
+              playsInline
+              controls={false}
+              className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
+            />
+          </div>
+          {/*  <div
+            className={` ${
+              mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
+            } flex items-center justify-center gap-4 2xl:h-[50dvh] `}
+          >
+          <picture className="h-full basis-1/3 border border-green-500 object-cover">
               <source
                 srcSet="/assets/homepage/images/coconut-hand.webp"
                 type="image/webp"
@@ -1418,10 +1460,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/coconut-hand.jpg"
                 alt="hand is reaching for a coconut cut in half"
-                className="h-full w-full object-cover"
+                className="aspect-[1/2] h-full border border-red-500 object-cover"
               />
             </picture>
-            <picture className="melon-img lazyload aspect-[1/2] w-[30%] object-cover">
+            <picture className="melon-img lazyload h-full basis-1/3 object-cover">
               <source
                 srcSet="/assets/homepage/images/melon.webp"
                 type="image/webp"
@@ -1429,7 +1471,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/melon.jpg"
                 alt="melon cut in half"
-                className="h-full w-full object-cover"
+                className="aspect-[1/2] h-full object-cover"
               />
             </picture>
             <video
@@ -1438,12 +1480,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               autoPlay
               playsInline
               controls={false}
-              className="leg-brush-vid aspect-[1/2] w-[30%] items-center justify-center object-cover"
+              className="leg-brush-vid h-full basis-1/3 object-cover"
             >
               <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
               <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
             </video>
-          </div>
+          </div> */}
         </div>
         {/* <div className='pb-96'></div> */}
       </div>
