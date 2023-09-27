@@ -31,8 +31,8 @@ export default function TransitionScreen() {
         animate={{ scaleY: 0, scaleX: 0 }}
         exit={{ scaleY: 0, scaleX: 0 }}
         transition={{
-          delay: 0.25,
-          duration: .7,
+          delay: 0.35,
+          duration: 1,
           ease,
         }}
       />
