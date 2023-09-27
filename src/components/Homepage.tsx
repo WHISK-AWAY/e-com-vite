@@ -1404,7 +1404,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[92%] justify-center self-center border border-blue-500 pb-[10%] xl:w-[80%] 4xl:w-[75%] 5xl:w-[55%] 5xl:pb-0 portrait:pb-[5%]">
+        <div className="landing-page-closer-container flex h-full w-[92%] justify-center self-center pb-[10%] xl:w-[80%] 4xl:w-[75%] 5xl:w-[55%] 5xl:pb-0 portrait:pb-[5%]">
           {/*
             <img
               data-src={coconutHand}
