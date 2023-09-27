@@ -396,7 +396,7 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
         <div
           className={`${
             mobileMenu && addresses.length > 0 ? ' justify-between pl-3' : ''
-          } relative flex  place-items-center border-b  border-charcoal font-poiret`}
+          } relative flex  place-items-center border-b justify-center border-charcoal font-poiret`}
         >
           <h1 className="items-center py-3 text-center text-xl">
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
@@ -515,7 +515,7 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
                 </Elements>
               ) : (
                 <button
-                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase tracking-widest  text-white lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6"
+                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase tracking-widest whitespace-nowrap  text-white lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-3/6"
                   onClick={(e) => handleCheckout(e)}
                 >
                   confirm & proceed
