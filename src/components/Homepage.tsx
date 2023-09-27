@@ -868,13 +868,17 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
           <div className="flex w-[40%] flex-col 3xl:-translate-x-[38%]">
             <div className="  flex w-[90%] flex-col items-center justify-center 3xl:w-[70%] 5xl:w-[60%] 5xl:-translate-x-[15%]">
-              <Link to={'/product/' + spfProdId!}>
+              <Link
+                to={'/product/' + spfProdId!}
+                aria-label={`product: ${singleProduct?.productName}`}
+              >
                 <img
                   className={` ${
                     mobileMenu
                       ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
                       : 'h-full pt-[70%] '
                   } rainbow-lady-rp  object-cover]  aspect-[1/2]`}
+                  alt={`product: ${singleProduct?.productName}`}
                   src={
                     singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -929,9 +933,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 <Link
                   to={'/product/' + randomProd01!._id}
                   className=" flex justify-center"
+                  aria-label={`product: ${randomProd01?.productName}`}
                 >
                   <img
                     className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
+                    alt={`product: ${randomProd01?.productName}`}
                     src={
                       randomProd01!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -941,13 +947,15 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 </Link>
               </div>
 
-              <div className="flex justify-center ">
+              <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd02!._id}
                   className=" flex transform justify-center transition  duration-300 hover:scale-105"
+                  aria-label={`product: ${randomProd02?.productName}`}
                 >
                   <img
                     className="aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105"
+                    alt={`product: ${randomProd01?.productName}`}
                     src={
                       randomProd02!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -1043,9 +1051,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 <Link
                   to={'/product/' + randomProd03!._id}
                   className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
+                  aria-label={`product: ${randomProd03?.productName}`}
                 >
                   <img
                     className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
+                    alt={`product: ${randomProd03?.productName}`}
                     src={
                       randomProd03!.images.find(
                         (image) => image.imageDesc === 'product-front'
@@ -1203,9 +1213,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu ? 'w-[75%] ' : 'w-[70%]'
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
+                aria-label={`product: ${singleProduct?.productName}`}
               >
                 <img
                   className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
+                  alt={`product: ${singleProduct?.productName}`}
                   data-src={
                     singleProduct?.images.find(
                       (image) => image.imageDesc === 'product-front'
@@ -1264,6 +1276,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <Link
               to={'/product/' + randomProd06!._id}
+              aria-label={`product: ${randomProd06?.productName}`}
               className={` ${
                 mobileMenu
                   ? 'w-44'
@@ -1276,6 +1289,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     ? 'aspect-[4/5] -translate-x-[20%] '
                     : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
+                alt={`product: ${randomProd06?.productName}`}
                 data-src={
                   randomProd06!.images.find(
                     (image) => image.imageDesc === 'product-front'
@@ -1364,6 +1378,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <Link
               to={'/product/' + randomProd05!._id}
               className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full   flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
+              aria-label={`product: ${randomProd05?.productName}`}
             >
               <img
                 className={` ${
@@ -1374,6 +1389,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     (image) => image.imageDesc === 'product-front'
                   )?.imageURL || randomProd05!.images[0].imageURL
                 }
+                alt={`product: ${randomProd05?.productName}`}
                 data-sizes="auto"
               />
               <p
@@ -1405,48 +1421,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         </div>
 
         <div className="landing-page-closer-container flex h-full w-[92%] justify-center self-center pb-[10%] xl:w-[80%] 4xl:w-[75%] 5xl:w-[55%] 5xl:pb-0 portrait:pb-[5%]">
-          {/*
-            <img
-              data-src={coconutHand}
-              data-sizes="auto"
-              alt="hand is reaching for a coconut cut in half"
-              className="lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <img
-              data-src={melon}
-              data-sizes="auto"
-              alt="melon cut in half"
-              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            */}
-
-          {/* <div
-            className={` ${
-              mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
-            } flex items-center justify-center gap-9 border border-blue-500 2xl:h-[50dvh]`}
-          >
-            <img
-              data-src={coconutHand}
-              data-sizes="auto"
-              alt="hand is reaching for a coconut cut in half"
-              className="lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <img
-              data-src={melon}
-              data-sizes="auto"
-              alt="melon cut in half"
-              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <video
-              src={legBrush}
-              muted
-              loop
-              autoPlay
-              playsInline
-              controls={false}
-              className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
-            />
-          </div> */}
           <div
             className={` ${
               mobileMenu ? 'mb-10 h-[28dvh] ' : ' h-[85dvh] '
