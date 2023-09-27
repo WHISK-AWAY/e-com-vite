@@ -54,7 +54,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
     <section
       className={` ${
         mobileMenu ? 'h-[25vh] portrait:xs:h-[20vh]' : 'h-[250px]'
-      } footer-section max-w-screen flex  bg-[#262626] text-white`}
+      } footer-section max-w-screen flex  bg-primary-gray text-white`}
     >
       <div
         className={` ${
@@ -137,7 +137,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-32 whitespace-nowrap px-4 text-[.7rem]'
                   : 'w-52 px-8 md:text-xs  lg:text-xs 2xl:text-base'
-              }  border-x-[1.5px] border-b-[1.5px] border-white bg-[#232323] font-poiret uppercase `}
+              }  border-x-[1.5px] border-b-[1.5px] border-white bg-[#262626] font-poiret uppercase `}
             >
               sign me up
             </button>
