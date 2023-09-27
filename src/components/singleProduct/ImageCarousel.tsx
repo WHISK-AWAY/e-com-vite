@@ -190,7 +190,7 @@ export default function ImageCarousel({
       <button
         onClick={decrementor}
         className={` ${
-          mobileMenu ? '-left-1 top-7' : '-left-7'
+          mobileMenu ? '-left-1 top-7' : '-left-7 top-5 lg:top-10 xl:top-14 2xl:top-16'
         } absolute shrink-0 grow-0 self-center xl:-left-14 2xl:-left-20`}
         aria-label="previous image"
       >
@@ -256,7 +256,7 @@ export default function ImageCarousel({
       <button
         onClick={incrementor}
         className={` ${
-          mobileMenu ? '-right-1 top-6' : '-right-7'
+          mobileMenu ? '-right-1 top-6' : '-right-7 top-5 lg:top-10 xl:top-14 2xl:top-16'
         } absolute shrink-0 grow-0 self-center xl:-right-14 2xl:-right-20`}
         aria-label="next image"
       >
