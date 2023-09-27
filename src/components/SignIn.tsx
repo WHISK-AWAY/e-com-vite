@@ -132,7 +132,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
         />
       </video>
 
-      <div className="absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret portrait:translate-y-[40%]">
+      <div className="absolute z-40 flex w-full flex-col items-center px-[13%] font-poiret portrait:translate-y-[20%]">
         <h1 className="pb-[8%] pt-[30%] text-xl lg:text-xl xl:text-2xl 2xl:text-2xl portrait:text-[2rem]">
           {/* pb-20 2xl:pb-20 md:pb-10 text-base md:pt-16 lg:pt-20 lg:text-xl xl:pt-20 xl:text-2xl 2xl:pt-20 2xl:text-3xl */}
           SIGN IN
@@ -149,7 +149,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               email
             </label>
             <input
-              className="input-ring-charcoal appearance-none rounded-sm p-2 font-federo text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
+              className="input-ring-charcoal appearance-none rounded-sm p-2 font-poiret  text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
               type="email"
               id="user-email"
               autoComplete="email"
@@ -168,7 +168,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               password
             </label>
             <input
-              className="input-ring-charcoal flex appearance-none rounded-sm p-2 text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-1 focus:outline-offset-0 focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
+              className="input-ring-charcoal flex appearance-none rounded-sm p-2 font-poiret text-xs placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-1 focus:outline-offset-0 focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
               type="password"
               id="password"
               autoComplete="current-password"
