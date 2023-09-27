@@ -95,6 +95,7 @@ export default function Navbar({
           setIsMenuHidden={setIsMenuHidden}
           isMenuHidden={isMenuHidden}
           mobileMenu={mobileMenu}
+          cartQty={cartQty}
         />
       ) : (
         <nav
