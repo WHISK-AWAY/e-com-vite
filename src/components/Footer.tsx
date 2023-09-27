@@ -97,7 +97,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
                 src="/assets/bg-img/footer.jpg"
                 alt=""
                 className={`${
-                  mobileMenu ? 'h-[25svh] portrait:xs:h-[18svh]' : 'h-[250px]  '
+                  mobileMenu ? 'h-[25vh] portrait:xs:h-[18vh]' : 'h-[250px]  '
                 } aspect-[3/4] w-full border-r-[1.5px] border-white object-cover `}
               />
             </picture>
@@ -147,7 +147,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
         <section
           className={` ${
             mobileMenu
-              ? ' py-2 leading-none  portrait:sm:pl-6 '
+              ? ' py-2 leading-none  portrait:sm:pl-6 pb-5'
               : 'py-8 xl:py-3'
           } flex  w-full items-start  font-poiret md:justify-around lg:justify-center `}
         >
@@ -289,7 +289,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
 
         <p
           className={`${
-            mobileMenu ? 'text-[.5rem]' : 'text-[10px]'
+            mobileMenu ? 'text-[.5rem] pr-10 pb-1' : 'text-[10px]'
           } -translate-y-[100%]    self-end px-5  font-poiret  font-light text-white 2xl:-translate-y-[200%]`}
         >
           &copy; ASTORIA - 2023
