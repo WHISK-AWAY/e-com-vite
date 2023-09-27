@@ -1,11 +1,10 @@
-// import { useAccountInfo } from '../utilities/convertKitAccInfo';
-// import { useSubscribers } from '../utilities/subscribers';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
-import { useEffect } from 'react';
-// import 'lazysizes'
+import { useEffect, useLayoutEffect } from 'react';
+import { gsap } from 'gsap/gsap-core';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type FormData = {
   email: string;
@@ -42,7 +41,6 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   const handleSubscribe = async (email: FormData) => {
     await mutate(email);
 
-    // console.log('emaiol', email)
     if (dirtyFields.email) {
       reset({
         email: 'thank you',
@@ -50,11 +48,41 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
     }
   };
 
+    //  const [ref, isVisible] = useInView({
+    //    threshold: 1,
+    //  });
+  // useLayoutEffect(() => {
+  //   const ctx = gsap.context(() => {
+  //     gsap.from('.footer-section', {
+  //       yPercent: 100,
+  //       opacity: 0,
+  //       display: 'hidden',
+  //       height: 0,
+  //       // delay: 1.5,
+  //       duration: 0.9,
+  //       ease: 'expo.inOut',
+  //       scrollTrigger: {
+  //         markers: true,
+  //         trigger: '.footer-section',
+  //         start: 'top 80%',
+  //         // end:'center center'
+  //       }
+  //     });
+  //   })
+
+
+  //   return () => {
+  //     ctx.revert()
+  //   }
+  // }, [])
+
+
+
   return (
     <section
       className={` ${
         mobileMenu ? 'h-[25vh] portrait:xs:h-[20vh]' : 'h-[250px]'
-      } footer-section max-w-screen flex  bg-primary-gray text-white`}
+      } footer-section max-w-screen flex bg-primary-gray text-white`}
     >
       <div
         className={` ${
@@ -147,13 +175,13 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
         <section
           className={` ${
             mobileMenu
-              ? ' py-2 leading-none  portrait:sm:pl-6 pb-5'
+              ? ' py-2 pb-5  leading-none portrait:sm:pl-6'
               : 'py-8 xl:py-3'
           } flex  w-full items-start  font-poiret md:justify-around lg:justify-center `}
         >
           <div
             className={` ${
-              mobileMenu ? 'pr-3 pl-4 portrait:sm:pl-0' : ''
+              mobileMenu ? 'pl-4 pr-3 portrait:sm:pl-0' : ''
             } explore text-center lg:pr-16`}
           >
             <div
@@ -289,7 +317,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
 
         <p
           className={`${
-            mobileMenu ? 'text-[.5rem] pr-10 pb-1' : 'text-[10px]'
+            mobileMenu ? 'pb-1 pr-10 text-[.5rem]' : 'text-[10px]'
           } -translate-y-[100%]    self-end px-5  font-poiret  font-light text-white 2xl:-translate-y-[200%]`}
         >
           &copy; ASTORIA - 2023
