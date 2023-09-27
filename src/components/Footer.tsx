@@ -53,7 +53,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   return (
     <section
       className={` ${
-        mobileMenu ? 'h-[25vh] portrait:xs:h-[18vh]' : 'h-[250px]'
+        mobileMenu ? 'h-[25vh] portrait:xs:h-[20vh]' : 'h-[250px]'
       } footer-section max-w-screen flex  bg-[#262626] text-white`}
     >
       <div
@@ -97,7 +97,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
                 src="/assets/bg-img/footer.jpg"
                 alt=""
                 className={`${
-                  mobileMenu ? 'h-[25vh] portrait:xs:h-[18vh]' : 'h-[250px]  '
+                  mobileMenu ? 'h-[25vh] portrait:xs:h-[20vh]' : 'h-[250px]  '
                 } aspect-[3/4] w-full border-r-[1.5px] border-white object-cover `}
               />
             </picture>
@@ -264,7 +264,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
                   : 'text-sm md:text-xs xl:text-sm'
               } `}
             >
-              delievry & returns
+              delivery & returns
             </p>
             <p
               className={` ${
