@@ -10,11 +10,13 @@ export default function Counter({
   productId,
   userId,
   totalQty,
+  mobileMenu
 }: {
   qty: number;
   productId: string;
   userId: string;
   totalQty: number;
+  mobileMenu: boolean
 }) {
   const [counter, setCounter] = useState(qty);
   const dispatch = useAppDispatch();
@@ -46,16 +48,20 @@ export default function Counter({
       <img
         src={minus}
         alt={`reduce quantity (currently ${counter})`}
-        className="h-3 lg:h-4 xl:h-5 portrait:h-5"
+        className={`${
+          mobileMenu ? 'h-5' : 'h-3'
+        } lg:h-4 xl:h-5 portrait:md:h-6`}
         onClick={decrementor}
       />
-      <p className="font-grotesque text-sm lg:text-base portrait:py-1 portrait:text-[1rem]">
+      <p className={` ${mobileMenu ? 'text-[1rem] py-1' : '' } font-grotesque text-sm lg:text-base portrait:md:py-2 portrait:md:text-[1.3rem]`}>
         {counter}
       </p>
       <img
         src={plus}
         alt={`increase quantity (currently ${counter})`}
-        className="h-3 lg:h-4 xl:h-5 portrait:h-5"
+        className={`${
+          mobileMenu ? 'h-5' : 'h-3'
+        } lg:h-4 xl:h-5 portrait:md:h-6`}
         onClick={incrementor}
       />
     </div>
