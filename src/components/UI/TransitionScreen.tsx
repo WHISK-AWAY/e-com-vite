@@ -22,7 +22,7 @@ export default function TransitionScreen() {
         initial={{ scaleY: 0, scaleX: 0 }}
         animate={{ scaleY: 0, scaleX: 0 }}
         exit={{ scaleY: 1, scaleX: 1 }}
-        transition={{ delay: 0.15, duration, ease }}
+        transition={{ delay: 0.25, duration, ease }}
       />
 
       <motion.div
@@ -32,7 +32,7 @@ export default function TransitionScreen() {
         exit={{ scaleY: 0, scaleX: 0 }}
         transition={{
           delay: 0.25,
-          duration: 0.8,
+          duration: .7,
           ease,
         }}
       />
@@ -43,7 +43,7 @@ export default function TransitionScreen() {
         exit={{ scaleY: 0, scaleX: 0 }}
         transition={{
           // delay: 0.25,
-          duration: 1,
+          duration: 1.2,
           ease,
         }}
       />
