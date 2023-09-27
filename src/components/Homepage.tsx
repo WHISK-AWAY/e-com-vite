@@ -1162,7 +1162,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'h-[60svh] w-[60%] object-cover'
                   : ' h-screen w-3/5 object-cover '
-              } unleash-lady-img lazyload  3xl:object-top `}
+              } unleash-lady-img 3xl:object-top `}
             >
               <source
                 srcSet="/assets/homepage/images/lady-mask.webp"
