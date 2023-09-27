@@ -40,6 +40,7 @@ export type EditShippingAddressProps = {
   addresses: TShippingAddress[];
   setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
   addressIndex: number;
+  mobileMenu: boolean
 };
 
 export default function EditShippingAddress({
@@ -51,6 +52,7 @@ export default function EditShippingAddress({
   setAddressIndex,
   addresses,
   setAddresses,
+  mobileMenu
 }: EditShippingAddressProps) {
   const dispatch = useAppDispatch();
 
@@ -234,7 +236,7 @@ export default function EditShippingAddress({
       <>
         {/* {defaultValues.shipToAddress === undefined} */}
         <form onSubmit={handleSubmit(submitNewAddress)}>
-          <div className='flex justify-center  pt-5 font-italiana text-lg'>
+          <div className='flex justify-center  pt-5 font-poiret text-lg'>
             {user._id &&
               (addressFormMode === 'edit' ? (
                 <h1>EDIT SHIPPING INFO</h1>
@@ -384,14 +386,14 @@ export default function EditShippingAddress({
           <div className='btn-section flex justify-center gap-6 pb-5'>
             <button
               type='submit'
-              className='rounded-sm bg-charcoal px-6 py-1 font-poiret portrait:py-2 text-white lg:px-7'
+              className={`${mobileMenu ? 'px-2' : 'px-6' } rounded-sm bg-charcoal py-1 font-poiret portrait:py-2 text-white lg:px-7 whitespace-nowrap`}
             >
               SAVE CHANGES
             </button>
             {addresses.length > 0 && (
               <button
                 type='button'
-                className='rounded-sm bg-charcoal px-9  py-1 font-poiret text-white lg:px-11'
+                className={` ${mobileMenu ? 'px-3' : 'px-9' } rounded-sm bg-charcoal py-1 font-poiret text-white lg:px-11`}
                 onClick={() => {
                   setIsFormEdit(false);
                   setAddressFormMode('edit');
