@@ -53,7 +53,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   return (
     <section
       className={` ${
-        mobileMenu ? 'h-[25svh] portrait:xs:h-[18svh]' : 'h-[250px]'
+        mobileMenu ? 'h-[25vh] portrait:xs:h-[18vh]' : 'h-[250px]'
       } footer-section max-w-screen flex  bg-[#262626] text-white`}
     >
       <div

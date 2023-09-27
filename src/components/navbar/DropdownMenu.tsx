@@ -63,7 +63,7 @@ export default function DropdownMenu({
       // });
 
       tl.to(menuWrapper.current, {
-        height: '100svh',
+        height: '100vh',
         ease: 'expo.inOut',
         duration: 1.5,
         overflow: 'hidden',
