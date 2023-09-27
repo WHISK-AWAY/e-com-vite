@@ -14,25 +14,25 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import 'lazysizes';
 
-import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
-import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
-import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
-import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
-import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
-import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
-import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
-import papaya from '../assets/bg-img/homepage/papaya.jpg';
-import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
-import melon from '../assets/bg-img/homepage/melon.jpg';
-import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+// import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
+// import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
+// import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
+// import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
+// import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
+// import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
+// import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
+// import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
+// import papaya from '../assets/bg-img/homepage/papaya.jpg';
+// import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
+// import melon from '../assets/bg-img/homepage/melon.jpg';
+// import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
 import '../index.css';
-import { motion, useIsPresent } from 'framer-motion';
-import Preloader from './Preloader';
+// import { motion, useIsPresent } from 'framer-motion';
+// import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
 export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
@@ -59,7 +59,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     (tag: TTag) => tag.tagName === 'masks'
   )?.products[0]._id;
 
-  console.log(maskProdId);
+  // console.log(maskProdId);
   useEffect(() => {
     if (spfProdId) {
       dispatch(fetchAllTags);
@@ -68,11 +68,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     }
   }, [spfProdId]);
 
-  const isPresent = useIsPresent();
+  // const isPresent = useIsPresent();
 
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0 });
-  // }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   useEffect(() => {
     if (!allProducts.products.length) {
@@ -471,7 +471,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           trigger: '.facewash-section-content',
           start: 'top 10%',
           end: 'top 20%',
-          markers: true,
           scrub: 3.4,
         },
       });
@@ -707,7 +706,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <video
             ref={handsRef}
-            src={handLotion}
             playsInline
             loop
             autoPlay
@@ -715,11 +713,19 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full    object-cover`}
-          />
+            } hands -z-10 aspect-[1/2] h-full object-cover`}
+          >
+            <source
+              src="/assets/homepage/vid/hand-lotion-trimmed.webm"
+              type="video/webm"
+            />
+            <source
+              src="/assets/homepage/vid/hand-lotion-trimmed.mp4"
+              type="video/mp4"
+            />
+          </video>
           <video
             ref={leavesRef}
-            src={rainLeaves}
             playsInline
             loop
             controls={false}
@@ -728,7 +734,16 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
             } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
-          />
+          >
+            <source
+              src="/assets/homepage/vid/leaves-trimmed.webm"
+              type="video/webm"
+            />
+            <source
+              src="/assets/homepage/vid/leaves-trimmed.mp4"
+              type="video/mp4"
+            />
+          </video>
 
           <div className=" absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference">
             <h1
@@ -776,7 +791,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </Link>
         </div>
 
-        {/**our phyloaophy section */}
+        {/**our philosophy section */}
         <div
           className={` ${
             mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
@@ -799,16 +814,23 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             mobileMenu ? 'h-[70svh]' : 'h-full '
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
-          <img
-            data-src={rainbowLady}
-            data-sizes="auto"
-            alt="red haired ladys profile with reflection of a rainbow on her face"
+          <picture
             className={` ${
               mobileMenu
                 ? 'h-full object-cover object-right'
                 : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
             } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
-          />
+          >
+            <img
+              src="/assets/homepage/images/rainbow-lady.jpg"
+              alt="red haired ladys profile with reflection of a rainbow on her face"
+              className={` ${
+                mobileMenu
+                  ? 'h-full object-cover object-right'
+                  : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
+              } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+            />
+          </picture>
           <div className="">
             <p
               className={` ${
@@ -856,7 +878,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || singleProduct?.images[0].imageURL
                   }
-                  // data-sizes='auto'
                 />
               </Link>
               <p
@@ -914,7 +935,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd01!.images[0].imageURL
                     }
-                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -931,7 +951,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd02!.images[0].imageURL
                     }
-                    // data-sizes='auto'
                   />
                 </Link>
               </div>
@@ -958,12 +977,17 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   : 'w-[80%] 3xl:w-[70%] 4xl:w-[60%] 5xl:w-[50%]'
               }  pt-[2%]`}
             >
-              <img
-                src={beachLady}
-                // data-sizes='auto'
-                alt="lady with a big white hat is laying on the beach"
-                className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
-              />
+              <picture>
+                <source
+                  srcSet="/assets/homepage/images/beach-lady.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="/assets/homepage/images/beach-lady.jpg"
+                  alt="lady with a big white hat is laying on the beach"
+                  className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
+                />
+              </picture>
             </div>
 
             <div
@@ -994,15 +1018,23 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </div>
               <div className="video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center">
                 <video
-                  src={bwSeizure}
-                  // data-sizes='auto'
+                  // src={bwSeizure}
                   autoPlay
                   muted
                   loop
                   playsInline
                   controls={false}
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
-                />
+                >
+                  <source
+                    src="/assets/homepage/vid/bw-seizure.webm"
+                    type="video/webm"
+                  />
+                  <source
+                    src="/assets/homepage/vid/bw-seizure.mp4"
+                    type="video/mp4"
+                  />
+                </video>
               </div>
               <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%] ">
                 {' '}
@@ -1017,7 +1049,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || randomProd03!.images[0].imageURL
                     }
-                    // data-sizes='auto'
                   />
                   <p
                     className={` ${
@@ -1053,15 +1084,16 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%]'
-                } grapefruit-butt-img  z-10  self-center `}
+                } grapefruit-butt-img  z-10  self-center`}
               >
-                <img
-                  // onLoad={() => ScrollTrigger.refresh()}
-                  src={grapefruitButt}
-                  // data-sizes='auto'
-                  alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className={` aspect-square  h-full object-cover`}
-                />
+                <picture>
+                  <source srcSet="/assets/homepage/images/grapefruit-butt.webp" />
+                  <img
+                    src="/assets/homepage/images/grapefruit-butt.jpg"
+                    alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
+                    className={`aspect-square h-full object-cover`}
+                  />
+                </picture>
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
                 treat
@@ -1083,10 +1115,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </p>
             </div>
             <Link
-              // ref={shopBodyButtonRef}
               to="/shop-all?filter=body"
               ref={shopBodyRef}
-              // state={{ filterKey: 'body' }}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
@@ -1125,17 +1155,28 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           } flex  max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center `}
         >
           <div className="flex w-full flex-row-reverse justify-center ">
-            <img
-              data-src={ladyMask}
-              data-sizes="auto"
-              alt="woman applying mask to her face"
+            <picture
               className={`${
                 mobileMenu
                   ? 'h-[60svh] w-[60%] object-cover'
                   : ' h-screen w-3/5 object-cover '
               } unleash-lady-img lazyload  3xl:object-top `}
-            />
-
+            >
+              <source
+                srcSet="/assets/homepage/images/lady-mask.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/lady-mask.jpg"
+                alt="woman applying mask to her face"
+                className="h-full w-full object-cover 3xl:object-top"
+                // className={`${
+                //   mobileMenu
+                //     ? 'h-[60svh] w-[60%] object-cover'
+                //     : ' h-screen w-3/5 object-cover '
+                // } unleash-lady-img lazyload  3xl:object-top `}
+              />
+            </picture>
             <div className=" relative flex w-2/5 flex-col justify-end gap-7">
               <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
                 <span
@@ -1183,7 +1224,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
               <Link
                 to="/shop-all?filter=masks"
-                // state={{ filterKey: 'masks' }}
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
@@ -1245,14 +1285,24 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           <div className="-z-10 flex w-full flex-col">
-            <img
-              data-src={ladyFacewash}
-              data-sizes="auto"
-              alt="lady washing her face in the bathroom with white towel on her head"
+            <picture
               className={` ${
                 mobileMenu ? 'h-[50svh]' : 'h-screen'
               } facewash-lady-img lazyload aspect-[4/6] self-center`}
-            />
+            >
+              <source
+                srcSet="/assets/homepage/images/lady-facewash.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/lady-facewash.jpg"
+                data-sizes="auto"
+                alt="lady washing her face in the bathroom with white towel on her head"
+                className={` ${
+                  mobileMenu ? 'h-[50svh]' : 'h-screen'
+                } facewash-lady-img lazyload aspect-[4/6] self-center`}
+              />
+            </picture>
             <p
               className={` ${
                 mobileMenu
@@ -1272,14 +1322,20 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex   w-[65%]  `}
+            } flex w-[65%]  `}
           >
-            <img
-              data-src={papaya}
-              data-sizes="auto"
-              alt="ripe papaya cut in half"
-              className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
-            />
+            <picture className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0 object-cover">
+              <source
+                srcSet="/assets/homepage/images/papaya.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/papaya.jpg"
+                alt="ripe papaya cut in half"
+                className="h-full w-full object-cover"
+                // className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
+              />
+            </picture>
             <div className="relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap ">
               <p className="relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]">
                 <span className="absolute left-0 top-0 -translate-x-[100%] text-white">
@@ -1292,7 +1348,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </div>
           </div>
 
-          <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] 3xl:pl-0">
+          <div className="relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] 3xl:pl-0">
             <p
               className={` ${
                 mobileMenu
@@ -1352,27 +1408,39 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
             } flex items-center justify-center gap-9 2xl:h-[50dvh] `}
           >
-            <img
-              data-src={coconutHand}
-              data-sizes="auto"
-              alt="hand is reaching for a coconut cut in half"
-              className="lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <img
-              data-src={melon}
-              data-sizes="auto"
-              alt="melon cut in half"
-              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
-            />
+            <picture className="lazyload aspect-[1/2] w-[30%] object-cover">
+              <source
+                srcSet="/assets/homepage/images/coconut-hand.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/coconut-hand.jpg"
+                alt="hand is reaching for a coconut cut in half"
+                className="h-full w-full object-cover"
+              />
+            </picture>
+            <picture className="melon-img lazyload aspect-[1/2] w-[30%] object-cover">
+              <source
+                srcSet="/assets/homepage/images/melon.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/melon.jpg"
+                alt="melon cut in half"
+                className="h-full w-full object-cover"
+              />
+            </picture>
             <video
-              src={legBrush}
               muted
               loop
               autoPlay
               playsInline
               controls={false}
-              className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
-            />
+              className="leg-brush-vid aspect-[1/2] w-[30%] items-center justify-center object-cover"
+            >
+              <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
+              <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
+            </video>
           </div>
         </div>
         {/* <div className='pb-96'></div> */}
