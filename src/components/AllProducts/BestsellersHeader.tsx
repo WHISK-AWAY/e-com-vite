@@ -17,7 +17,7 @@ export default function BestsellersHeader({ }: BestsellersHeaderProps) {
             src={purpleBlob}
             className='aspect-[1/2] h-full w-full object-cover'
           />
-          <h1 className='absolute bottom-0 right-0 w-full translate-y-[45%] text-center font-archivo text-[8vw] font-xxbold uppercase leading-none tracking-widest text-charcoal/80 mix-blend-color-burn portrait:text-[2.4rem]'>
+          <h1 className='absolute bottom-0 z-50 right-0 w-full translate-y-[45%] text-center font-archivo text-[8vw] font-xxbold uppercase leading-none tracking-widest text-charcoal mix-blend-color-burn portrait:text-[2.4rem]'>
             bestsellers
           </h1>
         </div>
