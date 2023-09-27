@@ -44,7 +44,7 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
       } review-details  w-full justify-center border-b border-charcoal pb-4 font-grotesque text-sm last:border-b-0 last:pb-0 lg:pb-6 lg:text-lg lg:leading-5 xl:pb-8`}
     >
       <div className="review-left flex basis-2/5 flex-col justify-center gap-3 text-xs xl:text-base xl:leading-5 ">
-        <div className="monogram aspect-square w-fit rounded-[100%] bg-charcoal p-3 px-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem] portrait:md:text-[1.5rem]">
+        <div className="monogram  w-fit rounded-[100%] bg-charcoal p-3 px-4 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem] portrait:md:text-[1.5rem]">
           {review.nickname![0].toUpperCase()}
         </div>
         <p className="font-grotesque text-sm font-semibold lg:text-base xl:text-lg 2xl:text-xl portrait:text-[1.2rem] portrait:md:text-[1.4rem]">
