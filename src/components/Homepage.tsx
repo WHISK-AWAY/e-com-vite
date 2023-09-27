@@ -1404,7 +1404,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[95%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
+        <div className="landing-page-closer-container flex h-full w-[92%] justify-center self-center pb-[5%] xl:w-[80%] 4xl:w-[75%] 5xl:w-[50%] ">
           {/*
             <img
               data-src={coconutHand}
@@ -1449,8 +1449,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div> */}
           <div
             className={` ${
-              mobileMenu ? ' mb-4 h-[22dvh] ' : ' h-[45dvh] '
-            } flex items-center justify-center gap-9 border border-blue-500 2xl:h-[75dvh] `}
+              mobileMenu ? 'mb-10 h-[28dvh] ' : ' h-[85dvh] '
+            } flex w-full items-center justify-center gap-8 border border-blue-500 2xl:h-[75dvh] `}
           >
             <picture className="h-full w-[30%] object-cover">
               <source
@@ -1460,7 +1460,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/coconut-hand.jpg"
                 alt="hand is reaching for a coconut cut in half"
-                className="h-full w-full object-cover"
+                className="aspect-[1/2] w-full object-cover"
               />
             </picture>
             <picture className="melon-img h-full w-[30%] object-cover">
@@ -1471,7 +1471,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/melon.jpg"
                 alt="melon cut in half"
-                className="h-full w-full object-cover"
+                className="aspect-[1/2] w-full object-cover"
               />
             </picture>
             <div className="h-full w-[30%] object-cover">
@@ -1481,7 +1481,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 autoPlay
                 playsInline
                 controls={false}
-                className="leg-brush-vid h-full w-full object-cover"
+                className="leg-brush-vid aspect-[1/2] w-full object-cover"
               >
                 <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
                 <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
