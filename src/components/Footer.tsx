@@ -53,10 +53,16 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   return (
     <section
       className={` ${
-        mobileMenu ? 'h-[16svh]' : 'h-[250px]'
+        mobileMenu ? 'h-[25svh] portrait:xs:h-[18svh]' : 'h-[250px]'
       } footer-section max-w-screen flex  bg-[#262626] text-white`}
     >
-      <div className="flex w-4/12 flex-col items-start justify-start self-start md:w-8/12 2xl:w-6/12">
+      <div
+        className={` ${
+          mobileMenu
+            ? 'items-center justify-center'
+            : 'items-start justify-start'
+        } flex w-4/12 flex-col   self-start md:w-8/12 2xl:w-6/12`}
+      >
         <div className=" flex  w-full">
           <div
             className={` ${
@@ -84,17 +90,15 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
               formulations along the way.`}
             </p>
           </div>
-          <div className={` ${mobileMenu ? 'h-[15svh]' : ''} w-full`}>
+          <div className={` ${mobileMenu ? '' : ''} w-full`}>
             <picture>
               <source srcSet="/assets/bg-img/footer.webp" />
               <img
                 src="/assets/bg-img/footer.jpg"
                 alt=""
                 className={`${
-                  mobileMenu
-                    ? 'h-[16svh] object-contain'
-                    : 'h-[250px] object-cover '
-                } aspect-[3/4] w-full border-r-[1.5px] border-white `}
+                  mobileMenu ? 'h-[25svh] portrait:xs:h-[18svh]' : 'h-[250px]  '
+                } aspect-[3/4] w-full border-r-[1.5px] border-white object-cover `}
               />
             </picture>
           </div>
@@ -142,38 +146,116 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
 
         <section
           className={` ${
-            mobileMenu ? 'hidden' : ''
-          } flex  w-full items-start  py-8 font-poiret md:justify-around lg:justify-center xl:py-3`}
+            mobileMenu ? 'py-2 leading-none portrait:xs:pl-4 portrait:sm:translate-x-[5%]' : 'py-8 xl:py-3'
+          } flex  w-full items-start  font-poiret md:justify-around lg:justify-center `}
         >
-          <div className="explore text-center lg:pr-16">
-            <div className="pb-4 text-[.7rem] uppercase  md:text-sm lg:text-lg ">
+          <div
+            className={` ${
+              mobileMenu ? 'pr-4' : ''
+            } explore text-center lg:pr-16`}
+          >
+            <div className={` ${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase  md:text-sm lg:text-lg `}>
               explore
             </div>
-            <p className="text-sm md:text-xs xl:text-sm">shop all</p>
-            <p className="text-sm md:text-xs xl:text-sm">bestsellers</p>
-            <p className="text-sm md:text-xs xl:text-sm">new in</p>
-            <p className="text-sm md:text-xs xl:text-sm">shop kits</p>
-            <p className="text-sm md:text-xs xl:text-sm">face</p>
-            <p className="text-sm md:text-xs xl:text-sm">body</p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              shop all
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              bestsellers
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              new in
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              shop kits
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              face
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              body
+            </p>
           </div>
-          <div className="customer-service text-center lg:pr-16">
-            <div className="pb-4 text-[.7rem] uppercase md:text-sm lg:text-lg">
+          <div
+            className={` ${
+              mobileMenu ? 'pr-4' : ''
+            } customer-service text-center lg:pr-16`}
+          >
+            <div className={`${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase md:text-sm lg:text-lg`}>
               customer service
             </div>
-            <p className="text-sm md:text-xs xl:text-sm">faq</p>
-            <p className="text-sm md:text-xs xl:text-sm">shopping & delivery</p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              faq
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              shopping & delivery
+            </p>
           </div>
           <div className="legal text-center">
-            <div className="pb-4 text-[.7rem] uppercase md:text-sm lg:text-lg">
+            <div className={` ${mobileMenu ? 'pb-2' : 'pb-4' } text-[.7rem] uppercase md:text-sm lg:text-lg`}>
               legal
             </div>
-            <p className="text-sm md:text-xs xl:text-sm">delievry & returns</p>
-            <p className="text-sm md:text-xs xl:text-sm">terms & conditions</p>
-            <p className="text-sm md:text-xs xl:text-sm">privacy policy</p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              delievry & returns
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              terms & conditions
+            </p>
+            <p
+              className={` ${
+                mobileMenu ? 'text-[.7rem]' : 'text-sm md:text-xs xl:text-sm'
+              } `}
+            >
+              privacy policy
+            </p>
           </div>
         </section>
 
-        <p className=" -translate-y-[100%]    self-end px-5  font-poiret text-[10px] font-light text-white 2xl:-translate-y-[200%]">
+        <p
+          className={`${
+            mobileMenu ? 'text-[.5rem]' : 'text-[10px]'
+          } -translate-y-[100%]    self-end px-5  font-poiret  font-light text-white 2xl:-translate-y-[200%]`}
+        >
           &copy; ASTORIA - 2023
         </p>
       </div>
