@@ -23,15 +23,14 @@ import 'lazysizes';
 // import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
 // import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
 // import papaya from '../assets/bg-img/homepage/papaya.jpg';
-import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
-import melon from '../assets/bg-img/homepage/melon.jpg';
-import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+// import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
+// import melon from '../assets/bg-img/homepage/melon.jpg';
+// import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
-import '../index.css';
-// import { motion, useIsPresent } from 'framer-motion';
+import '../index.css'; // ? this is already imported in main -- is it needed here also?
 // import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
 
@@ -42,7 +41,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const [randomProd01, setRandomProd01] = useState<TProduct>();
   const [randomProd02, setRandomProd02] = useState<TProduct>();
   const [randomProd03, setRandomProd03] = useState<TProduct>();
-  const [randomProd04, setRandomProd04] = useState<TProduct>();
+  // const [randomProd04, setRandomProd04] = useState<TProduct>();
   const [randomProd05, setRandomProd05] = useState<TProduct>();
   const [randomProd06, setRandomProd06] = useState<TProduct>();
   const grapefruitButtRef = useRef(null);
@@ -88,7 +87,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
       setRandomProd01(randomProduct(allProducts));
       setRandomProd02(randomProduct(allProducts));
       setRandomProd03(randomProduct(allProducts));
-      setRandomProd04(randomProduct(allProducts));
+      // setRandomProd04(randomProduct(allProducts));
       setRandomProd05(randomProduct(allProducts));
       setRandomProd06(randomProduct(allProducts));
     }
@@ -657,7 +656,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
       ctx.revert();
     };
   });
-  //lenis smooth scroll setup
+  //lenis smooth scroll setup // ? should this be inside a useeffect? done this way, it'll create a new instance & listeners per-render
 
   const lenis = new Lenis({
     duration: 2.2,
@@ -690,7 +689,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
-  if (!randomProd) return <p>...loading</p>;
+  // if (!randomProd) return <p>...loading</p>;
+
   return (
     <>
       <div
@@ -869,7 +869,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div className="flex w-[40%] flex-col 3xl:-translate-x-[38%]">
             <div className="  flex w-[90%] flex-col items-center justify-center 3xl:w-[70%] 5xl:w-[60%] 5xl:-translate-x-[15%]">
               <Link
-                to={'/product/' + spfProdId!}
+                to={'/product/' + spfProdId}
                 aria-label={`product: ${singleProduct?.productName}`}
               >
                 <img
@@ -931,7 +931,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             >
               <div className="flex justify-center">
                 <Link
-                  to={'/product/' + randomProd01!._id}
+                  to={'/product/' + randomProd01?._id}
                   className=" flex justify-center"
                   aria-label={`product: ${randomProd01?.productName}`}
                 >
@@ -939,9 +939,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     alt={`product: ${randomProd01?.productName}`}
                     src={
-                      randomProd01!.images.find(
+                      randomProd01?.images.find(
                         (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd01!.images[0].imageURL
+                      )?.imageURL || randomProd01?.images[0].imageURL
                     }
                   />
                 </Link>
@@ -949,7 +949,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
               <div className="flex justify-center">
                 <Link
-                  to={'/product/' + randomProd02!._id}
+                  to={'/product/' + randomProd02?._id}
                   className=" flex transform justify-center transition  duration-300 hover:scale-105"
                   aria-label={`product: ${randomProd02?.productName}`}
                 >
@@ -957,9 +957,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     className="aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105"
                     alt={`product: ${randomProd01?.productName}`}
                     src={
-                      randomProd02!.images.find(
+                      randomProd02?.images.find(
                         (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd02!.images[0].imageURL
+                      )?.imageURL || randomProd02?.images[0].imageURL
                     }
                   />
                 </Link>
@@ -1049,7 +1049,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%] ">
                 {' '}
                 <Link
-                  to={'/product/' + randomProd03!._id}
+                  to={'/product/' + randomProd03?._id}
                   className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
                   aria-label={`product: ${randomProd03?.productName}`}
                 >
@@ -1057,9 +1057,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
                     alt={`product: ${randomProd03?.productName}`}
                     src={
-                      randomProd03!.images.find(
+                      randomProd03?.images.find(
                         (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd03!.images[0].imageURL
+                      )?.imageURL || randomProd03?.images[0].imageURL
                     }
                   />
                   <p
@@ -1275,7 +1275,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </p>
 
             <Link
-              to={'/product/' + randomProd06!._id}
+              to={'/product/' + randomProd06?._id}
               aria-label={`product: ${randomProd06?.productName}`}
               className={` ${
                 mobileMenu
@@ -1291,9 +1291,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
                 alt={`product: ${randomProd06?.productName}`}
                 data-src={
-                  randomProd06!.images.find(
+                  randomProd06?.images.find(
                     (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd06!.images[0].imageURL
+                  )?.imageURL || randomProd06?.images[0].imageURL
                 }
                 data-sizes="auto"
               />
@@ -1376,7 +1376,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </p>
 
             <Link
-              to={'/product/' + randomProd05!._id}
+              to={'/product/' + randomProd05?._id}
               className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full   flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
               aria-label={`product: ${randomProd05?.productName}`}
             >
@@ -1385,9 +1385,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   mobileMenu ? 'h-[70%]' : ''
                 } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0`}
                 data-src={
-                  randomProd05!.images.find(
+                  randomProd05?.images.find(
                     (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd05!.images[0].imageURL
+                  )?.imageURL || randomProd05?.images[0].imageURL
                 }
                 alt={`product: ${randomProd05?.productName}`}
                 data-sizes="auto"
