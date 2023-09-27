@@ -1450,7 +1450,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'mb-10 h-[28dvh] ' : ' h-[85dvh] '
-            } flex w-full items-center justify-center gap-8 border border-blue-500 2xl:h-[75dvh] `}
+            } flex w-full items-center justify-center gap-8 2xl:h-[75dvh] `}
           >
             <picture className="h-full w-[30%] object-cover">
               <source
