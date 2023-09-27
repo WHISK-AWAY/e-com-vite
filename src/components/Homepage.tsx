@@ -815,20 +815,22 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
           <picture
-            className={` ${
-              mobileMenu
-                ? 'h-full object-cover object-right'
-                : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
-            } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+            // className={` ${
+            //   mobileMenu
+            //     ? 'h-full object-cover object-right'
+            //     : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
+            // } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+            className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]"
           >
             <img
               src="/assets/homepage/images/rainbow-lady.jpg"
               alt="red haired ladys profile with reflection of a rainbow on her face"
+              // className="h-full w-full object-cover object-right"
               className={` ${
                 mobileMenu
                   ? 'h-full object-cover object-right'
                   : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
-              } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+              } rainbow-lady lazyload w-full`}
             />
           </picture>
           <div className="">
