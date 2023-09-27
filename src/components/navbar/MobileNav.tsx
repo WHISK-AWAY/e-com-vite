@@ -20,6 +20,7 @@ import SignWrapper from '../SignWrapper';
 import DropdownMenu from './DropdownMenu';
 import CartFavWrapper from '../CartFavWrapper';
 import SearchContainer from './SearchContainer';
+import CartQtyIndicator from './CartQtyIndicator';
 
 export type NavbarProps = {
   setIsSearchHidden: React.Dispatch<React.SetStateAction<boolean>>;
@@ -33,6 +34,7 @@ export type NavbarProps = {
   setIsMenuHidden: React.Dispatch<React.SetStateAction<boolean>>;
   isMenuHidden: boolean;
   mobileMenu: boolean;
+  cartQty: number;
 };
 
 export default function MobileNav({
@@ -47,6 +49,7 @@ export default function MobileNav({
   setIsMenuHidden,
   isMenuHidden,
   mobileMenu,
+  cartQty
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
@@ -103,6 +106,12 @@ export default function MobileNav({
 
         {/**cart section */}
         <>
+          <CartQtyIndicator
+            cartItemsQty={cartQty}
+            setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+            setMode={setMode}
+            mobileMenu={mobileMenu}
+          />
           <img
             src={bag}
             alt="Cart"
