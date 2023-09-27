@@ -288,12 +288,12 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
                     <p
                       className={` ${
                         mobileMenu ? 'text-[1rem]' : 'text-base'
-                      } pb-2 font-grotesque portrait:md:text-[1.3rem] lg:text-lg xl:text-lg `}
+                      } pb-2 font-grotesque lg:text-lg xl:text-lg portrait:md:text-[1.3rem] `}
                     >
                       ${item.product.price}
                     </p>
                     <Counter
-                    mobileMenu={mobileMenu}
+                      mobileMenu={mobileMenu}
                       qty={item.qty}
                       productId={item.product._id}
                       userId={user._id}
@@ -321,7 +321,11 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
         </div>
 
         <div className="flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-80 portrait:w-[90svw]">
-          <h2 className="pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:text-[1.2rem]">
+          <h2
+            className={`${
+              mobileMenu ? 'text-[1.2rem]' : ''
+            } pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:md:text-[1.4rem]`}
+          >
             order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
@@ -365,14 +369,18 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
             </section>
           ) : (
             <div className="flex flex-col gap-2 pl-5 pt-2">
-              <p className="font-poiret text-base text-white lg:text-xl">
-                <span className="uppercase ">discount:</span> (promo code '
-                {verifyPromo.promoCodeName}
+              <p className="font-poiret text-base text-white lg:text-xl portrait:md:text-[1.2rem]">
+                <span className="uppercase portrait:md:text-[1.4rem]">
+                  discount:
+                </span>{' '}
+                (promo code '{verifyPromo.promoCodeName}
                 '): - ${(cart.subtotal * verifyPromo.promoRate).toFixed(2)}
               </p>
-              <p className="font-poiret text-base text-white lg:text-3xl ">
-                <span className="uppercase">order total:</span> $
-                {(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
+              <p className="font-poiret text-base text-white lg:text-3xl portrait:md:text-[1.3rem]">
+                <span className="uppercase portrait:md:text-[1.4rem]">
+                  order total:
+                </span>{' '}
+                ${(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
               </p>
             </div>
           )}
