@@ -222,7 +222,7 @@ export default function AllProducts({
           } header-section relative  w-full justify-center `}
         >
           {bestsellers ? (
-            <BestsellersHeader />
+            <BestsellersHeader mobileMenu={mobileMenu}/>
           ) : (
             <AllProductsHeader
               // allProdsBg={allProdsBg}
