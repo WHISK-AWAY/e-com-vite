@@ -25,6 +25,10 @@ const viewMap = {
   password: 'update password',
 };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
+
 export default function UserProfile() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
