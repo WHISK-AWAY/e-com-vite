@@ -707,7 +707,7 @@ export default function SingleProduct({
                 setShowReviewForm={setShowReviewForm}
               />
             ) : allReviews.reviews?.length < 1 ? (
-              <>
+              <div className='self-end'>
                 <p className="mb-7 text-sm">
                   No reviews yet...be the first to leave one!
                 </p>
@@ -717,7 +717,7 @@ export default function SingleProduct({
                 >
                   write a review
                 </button>
-              </>
+              </div>
             ) : userHasReviewed ? (
               ''
             ) : (
