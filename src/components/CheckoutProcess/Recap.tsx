@@ -242,7 +242,11 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
           <h1>ORDER CONFIRMATION</h1>
         </div>
 
-        <div className="product-recap flex  w-full justify-between gap-10 border border-charcoal p-10 portrait:p-5">
+        <div
+          className={` ${
+            mobileMenu ? 'p-5' : 'p-10 '
+          } product-recap flex  w-full justify-between gap-10 border border-charcoal portrait:md:p-10`}
+        >
           <div className="flex w-3/5 flex-col portrait:w-full">
             {cart.products.map((item) => {
               return (
