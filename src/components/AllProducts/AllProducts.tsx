@@ -277,7 +277,9 @@ export default function AllProducts({
         <div
           id="product-card-container"
           //  landscape:border-t
-          className="test-class-name grid grid-cols-4 border-primary-gray portrait:grid-cols-2"
+          className={`test-class-name grid grid-cols-4 border-primary-gray portrait:grid-cols-2 ${
+            allProducts.products.length % 2 !== 0 ? 'border-b' : ''
+          }`}
         >
           {allProducts?.products?.map((product) => (
             <ProductCard
