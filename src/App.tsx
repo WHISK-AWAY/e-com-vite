@@ -95,7 +95,6 @@ function App() {
 
   useEffect(() => {
     const checkDimensions = () => {
-      // const isPortrait = window.matchMedia('(orientation: portrait)').matches;
       if (window.innerWidth < 650 || window.innerHeight < 450) {
         setMobileMenu(true);
       } else {

@@ -105,7 +105,7 @@ export default function AllProductsHeader({
           with only the ingredients essential to their function.
         </div>
         <div
-          className={`relative flex w-3/5 flex-col justify-center lg:w-4/5 portrait:hidden portrait:md:flex portrait:md:w-4/5  ${
+          className={`relative flex w-8/12 flex-col justify-center lg:w-8/12 portrait:hidden xl:w-10/12 portrait:md:flex portrait:md:w-4/5 3xl:w-7/12 4xl:w-10/12 landscape:short:w-3/6  ${
             randomProdGif || backupImage ? 'group' : ''
           }`}
         >
@@ -172,11 +172,11 @@ export default function AllProductsHeader({
           </div>
           <Link
             to={'/product/' + randomProd._id}
-            className="text-md pb-1  pt-7 text-center font-grotesque text-sm uppercase md:pt-5 md:text-xs lg:text-base 3xl:text-lg portrait:md:text-[1.1rem]"
+            className="text-md   pt-7 text-center font-grotesque text-sm uppercase md:pt-3 md:text-xs lg:text-base 3xl:text-lg portrait:md:text-[1.1rem]"
           >
             {randomProd!.productName}
           </Link>
-          <p className="text-center font-grotesque text-sm lg:text-base  3xl:text-lg portrait:md:text-[1.1rem]">
+          <p className="text-center  font-grotesque text-sm lg:text-base  3xl:text-lg portrait:md:text-[1.1rem]">
             ${randomProd!.price}
           </p>
         </div>

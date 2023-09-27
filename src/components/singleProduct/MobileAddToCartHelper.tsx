@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import minus from '../../assets/icons/circleMinus.svg';
 import plus from '../../assets/icons/circlePlus.svg';
 
@@ -23,24 +23,57 @@ export default function MobileAddToCartHelper({
   handleAddToCart,
   maxQty,
 }: mobileAddToCartHelperProps) {
+  const [isFixed, setIsFixed] = useState(true);
+
   useEffect(() => {
-    if (!'.mobile-helper-wrapper') return;
-    const ctx = gsap.context(() => {
-      gsap.from('.mobile-helper-wrapper', {
-        yPercent: 200,
-        delay: 1.5,
-        duration: 0.9,
-        ease: 'expo.inOut',
-      });
-    });
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight; 
+      const fullHeight = document.body.scrollHeight; 
+      const footerHeight = 0.02 * fullHeight;
+      
+
+      const triggerScrollPos = fullHeight - footerHeight - windowHeight;
+
+      if (window.scrollY > triggerScrollPos) {
+        setIsFixed(false);
+      } else {
+        setIsFixed(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
-      ctx.revert();
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
+  useEffect(() => {
+    if (!'.mobile-helper-wrapper') return;
+
+    if(isFixed) {
+
+      const ctx = gsap.context(() => {
+        gsap.from('.mobile-helper-wrapper', {
+          yPercent: 200,
+          delay: 1.5,
+          duration: 0.9,
+          ease: 'expo.inOut',
+        });
+      });
+      
+      return () => {
+        ctx.revert();
+      };
+    }
+  }, []);
+
+  const mobileHelperWrapperClass = isFixed
+    ? 'mobile-helper-wrapper fixed'
+    : 'mobile-helper-wrapper absolute';
+
   return (
-    <section className="mobile-helper-wrapper fixed bottom-0 z-40 flex h-[13svh] min-h-[10svh] w-[100svw] flex-col items-center justify-around  border-t border-primary-gray bg-white pb-2">
+    <section className={mobileHelperWrapperClass +  " bottom-0 z-40 flex h-[13svh] min-h-[10svh] w-[100svw] flex-col items-center justify-around  border-t border-primary-gray bg-white pb-2"}>
       <div className="self-start">
         <p className="pb-1 pl-6  font-grotesque text-[1.1rem] font-medium leading-none">
           {productName}
