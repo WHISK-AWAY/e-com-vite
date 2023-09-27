@@ -149,7 +149,7 @@ export default function SignIn({ setMode, closeSlider }: SignInProps) {
               email
             </label>
             <input
-              className="input-ring-charcoal appearance-none rounded-sm p-2 font-poiret  text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
+              className="input-ring-charcoal appearance-none rounded-sm p-2 font-grotesque font-medium  text-xs text-charcoal placeholder:text-xs placeholder:text-charcoal autofill:border-charcoal focus:border-charcoal focus:outline-none focus:outline-1 focus:outline-offset-0  focus:outline-charcoal md:h-9 lg:h-12 lg:text-base 2xl:h-14 portrait:py-3 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-6 portrait:md:text-lg portrait:md:placeholder:text-lg"
               type="email"
               id="user-email"
               autoComplete="email"
