@@ -1389,7 +1389,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'w-[85%]' : 'w-[70%]'
-          } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}
+          } ingredient-section-closer flex  items-center justify-center self-center pb-[4%] pt-[15%] leading-loose`}
         >
           <p
             className={` ${
@@ -1404,7 +1404,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
+        <div className="landing-page-closer-container flex h-full w-[95%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
           {/*
             <img
               data-src={coconutHand}
@@ -1420,10 +1420,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             />
             */}
 
-          <div
+          {/* <div
             className={` ${
               mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
-            } flex items-center justify-center gap-9 2xl:h-[50dvh] `}
+            } flex items-center justify-center gap-9 border border-blue-500 2xl:h-[50dvh]`}
           >
             <img
               data-src={coconutHand}
@@ -1446,13 +1446,13 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               controls={false}
               className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
             />
-          </div>
-          {/*  <div
+          </div> */}
+          <div
             className={` ${
-              mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
-            } flex items-center justify-center gap-4 2xl:h-[50dvh] `}
+              mobileMenu ? ' mb-4 h-[22dvh] ' : ' h-[45dvh] '
+            } flex items-center justify-center gap-9 border border-blue-500 2xl:h-[75dvh] `}
           >
-          <picture className="h-full basis-1/3 border border-green-500 object-cover">
+            <picture className="h-full w-[30%] object-cover">
               <source
                 srcSet="/assets/homepage/images/coconut-hand.webp"
                 type="image/webp"
@@ -1460,10 +1460,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/coconut-hand.jpg"
                 alt="hand is reaching for a coconut cut in half"
-                className="aspect-[1/2] h-full border border-red-500 object-cover"
+                className="h-full w-full object-cover"
               />
             </picture>
-            <picture className="melon-img lazyload h-full basis-1/3 object-cover">
+            <picture className="melon-img h-full w-[30%] object-cover">
               <source
                 srcSet="/assets/homepage/images/melon.webp"
                 type="image/webp"
@@ -1471,21 +1471,23 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <img
                 src="/assets/homepage/images/melon.jpg"
                 alt="melon cut in half"
-                className="aspect-[1/2] h-full object-cover"
+                className="h-full w-full object-cover"
               />
             </picture>
-            <video
-              muted
-              loop
-              autoPlay
-              playsInline
-              controls={false}
-              className="leg-brush-vid h-full basis-1/3 object-cover"
-            >
-              <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
-              <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
-            </video>
-          </div> */}
+            <div className="h-full w-[30%] object-cover">
+              <video
+                muted
+                loop
+                autoPlay
+                playsInline
+                controls={false}
+                className="leg-brush-vid h-full w-full object-cover"
+              >
+                <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
+                <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
+              </video>
+            </div>
+          </div>
         </div>
         {/* <div className='pb-96'></div> */}
       </div>
