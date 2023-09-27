@@ -1,27 +1,49 @@
 import { motion } from 'framer-motion';
+import { cubicBezier } from 'framer-motion';
 
 export default function TransitionScreen() {
-  const ease = [0.22, 1, 0.36, 1];
-  const duration = 1;
+  // const ease = [0.22, 1, 0.36, 1];
+  const ease = cubicBezier(0.16, 0.72, 0.68, 0.99);
+  const duration = .7;
+  // cubic - bezier(0.32, 0.76, 0.43, 1.01);
+  // cubic - bezier(0.16, 0.72, 0.68, 0.99);
 
   return (
     <>
       <motion.div
-        className="slide-in fixed right-0 top-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-top-right rounded-none rounded-bl-full border-b border-l border-black bg-transition"
+        className="slide-in fixed right-0 top-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-top-right rounded-none rounded-bl-full  bg-[#edede9]"
         initial={{ scaleY: 0, scaleX: 0 }}
         animate={{ scaleY: 0, scaleX: 0 }}
         exit={{ scaleY: 1, scaleX: 1 }}
         transition={{ duration, ease }}
       />
+      <motion.div
+        className="slide-in fixed right-0 top-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-top-right rounded-none rounded-bl-full  bg-[#eaeae5]"
+        initial={{ scaleY: 0, scaleX: 0 }}
+        animate={{ scaleY: 0, scaleX: 0 }}
+        exit={{ scaleY: 1, scaleX: 1 }}
+        transition={{ delay: 0.15, duration, ease }}
+      />
 
       <motion.div
-        className="slide-out fixed bottom-0 left-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-bottom-left rounded-none rounded-tr-full border-r border-t border-black bg-transition"
+        className="slide-out fixed bottom-0 left-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-bottom-left rounded-none rounded-tr-full  bg-[#edede9]"
         initial={{ scaleY: 1, scaleX: 1 }}
         animate={{ scaleY: 0, scaleX: 0 }}
         exit={{ scaleY: 0, scaleX: 0 }}
         transition={{
           delay: 0.25,
-          duration,
+          duration: 0.8,
+          ease,
+        }}
+      />
+      <motion.div
+        className="slide-out fixed bottom-0 left-0 z-50 aspect-square h-[calc(max(150vh,_150vw))] origin-bottom-left rounded-none rounded-tr-full  bg-[#eaeae5]"
+        initial={{ scaleY: 1, scaleX: 1 }}
+        animate={{ scaleY: 0, scaleX: 0 }}
+        exit={{ scaleY: 0, scaleX: 0 }}
+        transition={{
+          // delay: 0.25,
+          duration: 1,
           ease,
         }}
       />
