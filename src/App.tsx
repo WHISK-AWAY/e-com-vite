@@ -150,7 +150,7 @@ function App() {
     },
     {
       path: 'checkout',
-      element: <Recap />,
+      element: <Recap mobileMenu={mobileMenu}/>,
     },
     {
       path: '/checkout/success',
