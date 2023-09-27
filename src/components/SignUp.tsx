@@ -227,7 +227,7 @@ export default function SignUp({
               autoComplete="new-password"
               placeholder={errors.confirmPassword?.message || ''}
               {...register('confirmPassword')}
-              className="input-ring-white focus-ring-white  font-mediumtext-xs rounded-sm p-2 font-grotesque text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg"
+              className="input-ring-white focus-ring-white  font-medium text-xs rounded-sm p-2 font-grotesque text-charcoal placeholder:text-xs placeholder:text-charcoal md:h-9 lg:h-10 lg:text-base xl:h-11 2xl:h-12 portrait:mb-2 portrait:text-[1rem] portrait:placeholder:text-sm portrait:md:py-5 portrait:md:text-lg portrait:md:placeholder:text-lg"
             ></input>
             {/* {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>} */}
           </div>
