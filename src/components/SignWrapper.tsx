@@ -90,7 +90,7 @@ export default function SignWrapper({
           ref={xIconRef}
           onClick={closeSlider}
           className={` ${
-            mobileMenu ? ' w-9 ' : ' w-3'
+            mobileMenu ? ' w-3 ' : ' w-3'
           } absolute right-5 top-5 z-50 h-10  cursor-pointer`}
         >
           {mode === 'sign-in' ? (

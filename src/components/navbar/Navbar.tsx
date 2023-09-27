@@ -64,24 +64,6 @@ export default function Navbar({
     dispatch(fetchAllTags());
   }, []);
 
-  useEffect(() => {
-    const checkDimensions = () => {
-      // const isPortrait = window.matchMedia('(orientation: portrait)').matches;
-      if (window.innerWidth < 650 || window.innerHeight < 450) {
-        setMobileMenu(true);
-      } else {
-        setMobileMenu(false);
-      }
-    };
-
-    window.addEventListener('resize', checkDimensions);
-    checkDimensions();
-
-    return () => {
-      window.removeEventListener('resize', checkDimensions);
-    };
-  }, []);
-
   return (
     <>
       <Toaster
