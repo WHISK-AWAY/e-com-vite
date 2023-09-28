@@ -36,7 +36,7 @@ import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 import x from '../../../src/assets/icons/x.svg';
 const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
-export default function Recap() {
+export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectAuthUserId);
@@ -242,7 +242,11 @@ export default function Recap() {
           <h1>ORDER CONFIRMATION</h1>
         </div>
 
-        <div className="product-recap flex  w-full justify-between gap-10 border border-charcoal p-10 portrait:p-5">
+        <div
+          className={` ${
+            mobileMenu ? 'p-5' : 'p-10 '
+          } product-recap flex  w-full justify-between gap-10 border border-charcoal portrait:md:p-10`}
+        >
           <div className="flex w-3/5 flex-col portrait:w-full">
             {cart.products.map((item) => {
               return (
@@ -267,7 +271,7 @@ export default function Recap() {
                   />
                   <div className="w-28 lg:w-40">
                     <img
-                      className="lazyload aspect-[3/4]  object-cover"
+                      className="lazyload aspect-[3/4] object-cover  portrait:md:aspect-[2/4]"
                       alt={`product image: ${item.product.productName}`}
                       data-src={
                         item.product.images.find(
@@ -278,13 +282,22 @@ export default function Recap() {
                     />
                   </div>
                   <div className="flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]">
-                    <p className="pb-2 text-center font-hubbali text-sm uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:pb-0 portrait:text-[1rem]">
+                    <p
+                      className={`${
+                        mobileMenu ? 'pb-0 text-[1rem]' : 'text-sm'
+                      } pb-2 text-center font-hubbali uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:md:text-[1.3rem] `}
+                    >
                       {item.product.productName}
                     </p>
-                    <p className="pb-2 font-grotesque text-base lg:text-lg xl:text-lg portrait:text-[1rem]">
+                    <p
+                      className={` ${
+                        mobileMenu ? 'text-[1rem]' : 'text-base'
+                      } pb-2 font-grotesque lg:text-lg xl:text-lg portrait:md:text-[1.3rem] `}
+                    >
                       ${item.product.price}
                     </p>
                     <Counter
+                      mobileMenu={mobileMenu}
                       qty={item.qty}
                       productId={item.product._id}
                       userId={user._id}
@@ -311,20 +324,30 @@ export default function Recap() {
           </div>
         </div>
 
-        <div className="flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-72 portrait:w-[90svw]">
-          <h2 className="pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:text-[1.2rem]">
+        <div className="flex h-40 w-[85%] flex-col justify-center  bg-[#31333A] portrait:h-80 portrait:w-[90svw]">
+          <h2
+            className={`${
+              mobileMenu ? 'text-[1.2rem]' : ''
+            } pl-5 font-poiret text-base uppercase tracking-wide text-white lg:text-xl portrait:md:text-[1.4rem]`}
+          >
             order subtotal: ${cart.subtotal}
           </h2>
           {/* PROMO CODE SECTION */}
           {verifyPromo && !verifyPromo.promoRate ? (
-            <section className="promo-section flex self-start  pt-6 text-white md:items-center md:justify-center lg:pl-10 ">
+            <section
+              className={` ${
+                mobileMenu ? 'self-center pt-3' : 'self-start pt-6'
+              } promo-section flex text-white md:items-center md:justify-center lg:pl-10 `}
+            >
               <form
-                className="mx-5 flex  h-10 flex-nowrap md:items-center   portrait:first:flex-wrap"
+                className={` ${
+                  mobileMenu ? 'flex-col items-center' : ''
+                } mx-5 flex h-10 flex-nowrap md:items-center   `}
                 onSubmit={(e) => handlePromoSubmit(e)}
               >
                 <label
                   htmlFor="promo-code"
-                  className="h-full border border-white px-2 py-2 font-grotesque text-sm lg:px-16 lg:text-base portrait:border-none portrait:text-[.7rem] "
+                  className="h-full border border-white px-2 py-2 font-grotesque text-sm lg:px-16 lg:text-base portrait:border-none portrait:text-[1.3rem] "
                 >
                   enter your promo code:
                 </label>
@@ -337,21 +360,31 @@ export default function Recap() {
                   onChange={(e) => setPromo(e.target.value)}
                   className="address-no-focus text-placeholder mx-2 border-2 border-white text-sm text-charcoal focus:border-charcoal/50"
                 ></input>
-                <button className="h-full border border-white px-10  font-poiret text-sm uppercase lg:text-lg portrait:ml-20 portrait:w-[50%] portrait:py-2 portrait:text-[1rem]">
+                <button
+                  className={` ${
+                    mobileMenu
+                      ? 'mt-3 w-[90%] py-2 text-[1rem]'
+                      : 'text-sm lg:text-lg'
+                  } h-full border border-white px-10  font-poiret uppercase `}
+                >
                   verify
                 </button>
               </form>
             </section>
           ) : (
             <div className="flex flex-col gap-2 pl-5 pt-2">
-              <p className="font-italiana text-base text-white lg:text-xl">
-                <span className="uppercase ">discount:</span> (promo code '
-                {verifyPromo.promoCodeName}
+              <p className="font-poiret text-base text-white lg:text-xl portrait:md:text-[1.2rem]">
+                <span className="uppercase portrait:md:text-[1.4rem]">
+                  discount:
+                </span>{' '}
+                (promo code '{verifyPromo.promoCodeName}
                 '): - ${(cart.subtotal * verifyPromo.promoRate).toFixed(2)}
               </p>
-              <p className="font-italiana text-base text-white lg:text-3xl ">
-                <span className="uppercase">order total:</span> $
-                {(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
+              <p className="font-poiret text-base text-white lg:text-3xl portrait:md:text-[1.3rem]">
+                <span className="uppercase portrait:md:text-[1.4rem]">
+                  order total:
+                </span>{' '}
+                ${(cart.subtotal * (1 - verifyPromo.promoRate)).toFixed(2)}
               </p>
             </div>
           )}
@@ -360,7 +393,11 @@ export default function Recap() {
 
       {/* PLAIN TEXT USER ADDRESS */}
       <section className="flex w-[100%] flex-col  border border-charcoal">
-        <div className="relative flex place-content-center place-items-center border-b  border-charcoal font-poiret">
+        <div
+          className={`${
+            mobileMenu && addresses.length > 0 ? ' justify-between pl-3' : ''
+          } relative flex  place-items-center border-b justify-center border-charcoal font-poiret`}
+        >
           <h1 className="items-center py-3 text-center text-xl">
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
           </h1>
@@ -368,7 +405,7 @@ export default function Recap() {
             <div className="absolute right-3 flex">
               {!manageShippingAddress ? (
                 <button
-                  className=" rounded-sm bg-charcoal px-4 py-1 text-white  lg:px-10 "
+                  className=" rounded-sm bg-charcoal px-4 py-1 text-white  lg:px-10"
                   onClick={handleManageShippingAddress}
                 >
                   MANAGE ADDRESSES
@@ -387,10 +424,14 @@ export default function Recap() {
           )}
         </div>
 
-        <div className="shipping-detail m-20 flex h-full w-[80%] flex-col items-center justify-center self-center portrait:w-[95%]">
+        <div className="shipping-detail m-20 flex h-full w-[80%] flex-col items-center justify-center self-center portrait:w-[85%]">
           {!clientSecret && (
             <div className="flex h-full w-[100%] flex-col items-center lg:w-[60%] xl:w-[110%] 2xl:w-[80%]">
-              <h2 className="h-full w-[80%] border-l border-r border-t border-charcoal py-2  text-center font-poiret text-lg uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12">
+              <h2
+                className={` ${
+                  mobileMenu ? 'text-[1rem]' : 'text-lg'
+                } h-full w-[80%] whitespace-nowrap border-l border-r border-t border-charcoal  py-2 text-center  font-poiret uppercase  md:w-4/6 lg:w-5/6 xl:w-3/6 2xl:w-5/12`}
+              >
                 {manageShippingAddress
                   ? userId
                     ? 'address book'
@@ -403,8 +444,16 @@ export default function Recap() {
             <div className="relative flex h-full  w-full max-w-[800px] border border-charcoal font-grotesque text-sm md:w-5/6 lg:w-4/6  lg:text-base xl:w-4/6 2xl:w-3/6 portrait:text-[1.2rem] ">
               {!manageShippingAddress && addresses.length > 0 ? (
                 <>
-                  <div className="form-key flex h-full w-2/5 flex-col items-start border-r border-charcoal py-9  leading-loose ">
-                    <div className="flex flex-col self-center">
+                  <div
+                    className={`${
+                      mobileMenu ? 'w-2/6' : 'w-2/5'
+                    } form-key flex h-full flex-col items-start border-r border-charcoal py-9  leading-loose `}
+                  >
+                    <div
+                      className={` ${
+                        mobileMenu ? 'text-[1rem]' : ''
+                      } flex flex-col self-center`}
+                    >
                       <p className="">full name</p>
 
                       <p>email</p>
@@ -416,7 +465,11 @@ export default function Recap() {
                     </div>
                   </div>
                   <div className="form-value flex w-4/5 flex-col pt-9 text-start uppercase leading-loose">
-                    <div className="flex flex-col self-center">
+                    <div
+                      className={`${
+                        mobileMenu ? 'text-[1rem] ' : ''
+                      } flex flex-col self-center`}
+                    >
                       <p>
                         {addresses[addressIndex].shipToAddress.firstName}{' '}
                         {addresses[addressIndex].shipToAddress.lastName}
@@ -436,6 +489,7 @@ export default function Recap() {
                 </>
               ) : (
                 <ManageShippingAddress
+                  mobileMenu={mobileMenu}
                   user={user}
                   setManageShippingAddress={setManageShippingAddress}
                   addresses={addresses}
@@ -461,10 +515,10 @@ export default function Recap() {
                 </Elements>
               ) : (
                 <button
-                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase text-white  lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-2/6"
+                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase tracking-widest whitespace-nowrap  text-white lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-3/6"
                   onClick={(e) => handleCheckout(e)}
                 >
-                  confirm&proceed
+                  confirm & proceed
                 </button>
               )}
             </div>

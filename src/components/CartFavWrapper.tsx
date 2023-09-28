@@ -7,11 +7,11 @@ import { gsap } from 'gsap';
 export default function CartFavWrapper({
   mode,
   setIsCartFavWrapperHidden,
-  mobileMenu
+  mobileMenu,
 }: {
   mode: TCFMode;
   setIsCartFavWrapperHidden: React.Dispatch<React.SetStateAction<boolean>>;
-  mobileMenu: boolean
+  mobileMenu: boolean;
 }) {
   const wrapper = useRef(null);
   const blurBg = useRef(null);

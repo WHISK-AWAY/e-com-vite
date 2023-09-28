@@ -47,6 +47,7 @@ export type ManageShippingAddressProps = {
   addresses: TShippingAddress[];
   setAddresses: React.Dispatch<React.SetStateAction<TShippingAddress[]>>;
   setManageShippingAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  mobileMenu: boolean
 };
 
 export default function ManageShippingAddress({
@@ -56,6 +57,7 @@ export default function ManageShippingAddress({
   setAddressIndex,
   addresses,
   setAddresses,
+  mobileMenu
 }: ManageShippingAddressProps) {
   const dispatch = useAppDispatch();
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
@@ -106,7 +108,9 @@ export default function ManageShippingAddress({
           {/* previous address button */}
           {selectorIdx > 0 && (
             <button
-              className="absolute -left-[10%] top-[40%] h-4 w-4"
+              className={` ${
+                mobileMenu ? '-left-[7%]' : '-left-[10%]'
+              } absolute  top-[40%] h-4 w-4`}
               onClick={() => {
                 if (selectorIdx === 0) {
                   setSelectorIdx(addresses.length - 1);
@@ -139,7 +143,9 @@ export default function ManageShippingAddress({
             >
               <img
                 src={arrowRight}
-                className="absolute  -right-[10%] top-[40%] h-4 rotate-180"
+                className={` ${
+                  mobileMenu ? '-right-[7%]' : '-right-[10%]'
+                } absolute   top-[40%] h-4 rotate-180`}
                 alt="next entry"
               />
             </button>
@@ -161,11 +167,12 @@ export default function ManageShippingAddress({
               addressIndex={addressIndex}
               addresses={addresses}
               setAddresses={setAddresses}
+              mobileMenu={mobileMenu}
             />
           ) : (
             <div className="flex w-full justify-center ">
               <div className="flex w-[40%] flex-col items-center border-r border-charcoal lg:w-[40%] lg:items-center xl:w-2/6 2xl:w-[30%] 2xl:items-center portrait:w-[25%]">
-                <div className="form-keys flex h-full  flex-col  py-9  text-start  font-grotesque leading-loose  portrait:text-[1.1rem]">
+                <div className={`${mobileMenu ? '' : 'leading-loose' } form-keys flex h-full flex-col py-9  text-start  font-grotesque  portrait:text-[1.1rem]`}>
                   <p>full name</p>
                   <p>last name</p>
                   <p>email</p>
@@ -177,8 +184,16 @@ export default function ManageShippingAddress({
                 </div>
               </div>
 
-              <div className="flex w-5/6 flex-col items-start  portrait:w-4/5">
-                <div className="form-values flex w-full flex-col whitespace-nowrap px-12 pt-9 text-start uppercase leading-loose portrait:px-8 portrait:text-[1rem]">
+              <div
+                className={` ${
+                  mobileMenu ? 'w-4/5 items-center justify-center' : 'w-5/6 items-start'
+                } flex flex-col  portrait:w-4/5`}
+              >
+                <div
+                  className={` ${
+                    mobileMenu ? 'px-2 text-[1rem]' : 'px-12 pt-9 leading-loose'
+                  } form-values flex w-full flex-col whitespace-nowrap text-start uppercase `}
+                >
                   <p>{addresses[selectorIdx!]?.shipToAddress.firstName}</p>
                   <p>{addresses[selectorIdx!]?.shipToAddress.lastName}</p>
                   <p> {addresses[selectorIdx!]?.shipToAddress.email}</p>
@@ -213,7 +228,7 @@ export default function ManageShippingAddress({
 
               <button
                 onClick={selectAddress}
-                className="rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-6"
+                className="whitespace-nowrap rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-6"
               >
                 USE THIS ADDRESS
               </button>
@@ -224,7 +239,7 @@ export default function ManageShippingAddress({
                     setIsFormEdit(true);
                     setAddressFormMode('new');
                   }}
-                  className="rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-8"
+                  className="whitespace-nowrap rounded-sm bg-charcoal px-5 py-1 lg:px-4 lg:py-2 xl:px-8"
                 >
                   ADD NEW
                 </button>

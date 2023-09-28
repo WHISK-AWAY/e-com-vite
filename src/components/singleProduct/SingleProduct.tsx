@@ -435,7 +435,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={heartFilled}
-                        className="fader absolute right-[5%] top-[5%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6 portrait:w-6"
+                        className="fader absolute right-[5%] top-[4%] w-4  lg:w-5 x xl:w-6 portrait:w-6"
                         height="17"
                         width="20"
                         alt="remove from favorites"
@@ -448,7 +448,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={heartBlanc}
-                        className="fader absolute right-[5%] top-[5%] w-4 lg:top-[8%] lg:w-5 xl:top-[7%] xl:w-6 portrait:w-6"
+                        className="fader absolute right-[5%] top-[4%] w-4  lg:w-5 xl:w-6 portrait:w-6"
                         height="17"
                         width="20"
                         alt="add to favorites"

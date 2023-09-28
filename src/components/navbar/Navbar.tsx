@@ -10,6 +10,7 @@ import { searchProducts } from '../../redux/slices/allProductSlice';
 import SignWrapper from '../SignWrapper';
 import CartFavWrapper from '../CartFavWrapper';
 import DropDownMenu from './DropdownMenu';
+import CartQtyIndicator from './CartQtyIndicator';
 
 import heartBlanc from '../../assets/icons/heart-blanc.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
@@ -22,6 +23,7 @@ import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
 
 import MobileNav from './MobileNav';
+import { selectCart } from '../../redux/slices/cartSlice';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -53,6 +55,13 @@ export default function Navbar({
   const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
   const [mode, setMode] = useState<TCFMode>('cart');
+  const cart = useAppSelector(selectCart)
+
+  
+  const cartQty = cart.cart?.products?.reduce((accum, prod) => {
+    return accum+ prod.qty
+  }, 0)
+
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
@@ -88,6 +97,7 @@ export default function Navbar({
           setIsMenuHidden={setIsMenuHidden}
           isMenuHidden={isMenuHidden}
           mobileMenu={mobileMenu}
+          cartQty={cartQty}
         />
       ) : (
         <nav
@@ -142,6 +152,12 @@ export default function Navbar({
 
             {
               <div>
+                <CartQtyIndicator
+                  cartItemsQty={cartQty}
+                  setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                  setMode={setMode}
+                  mobileMenu={mobileMenu}
+                />
                 <img
                   src={bag}
                   className="w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px] portrait:md:w-6"
@@ -152,11 +168,13 @@ export default function Navbar({
                   }}
                 />
                 {!isCartFavWrapperHidden && mode === 'cart' && (
-                  <CartFavWrapper
-                    setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-                    mode={mode}
-                    mobileMenu={mobileMenu}
-                  />
+                  <>
+                    <CartFavWrapper
+                      setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                      mode={mode}
+                      mobileMenu={mobileMenu}
+                    />
+                  </>
                 )}
               </div>
             }
