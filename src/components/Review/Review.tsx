@@ -99,7 +99,7 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
             )}
           </div>
         </div>
-        <h3 className="review-title font-raleway text-lg font-semibold uppercase lg:text-[1.3rem] 2xl:text-[1.5rem]">
+        <h3 className="review-title font-grotesque text-sm font-semibold uppercase lg:text-[1rem] xl:text-[1.2rem] 2xl:text-[1.3rem]">
           {review.title}
         </h3>
         <div className="review-content font-grotesque text-sm xl:text-sm 2xl:text-base 2xl:leading-5 portrait:text-[1rem] portrait:md:text-[1.2rem]">
