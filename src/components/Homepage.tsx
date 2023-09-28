@@ -763,9 +763,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? '-translate-x-[2%] -translate-y-[90%] text-[2.3rem] tracking-[1.6rem]'
                   : 'md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl 5xl:text-[8rem]'
-              }  items-center self-center font-raleway font-regular uppercase text-white  md:tracking-[3rem]  lg:tracking-[5rem]  xl:tracking-[5rem]  2xl:tracking-[7rem]  5xl:tracking-[11rem] 6xl:tracking-[15rem]`}
+              }  items-center self-center font-grotesque font-regular  text-white  md:tracking-[3rem]  lg:tracking-[5rem]  xl:tracking-[5rem]  2xl:tracking-[7rem]  5xl:tracking-[11rem] 6xl:tracking-[15rem]`}
             >
-              skincare
+              SKlNCARE
             </h2>
             <h3
               className={` ${
@@ -783,10 +783,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-[210%]  px-8 font-regular'
                 : '-translate-y-[60%] px-[4%] font-thin'
-            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 font-raleway text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
+            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 pb-2 font-grotesque text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
           >
-            <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
-            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem]">
+            <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full"></span>
+            <span className="relative  text-base group-hover:text-emerald-900 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem] ">
               shop now
             </span>
           </Link>
@@ -1150,7 +1150,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <p className="anim-text relative z-20 -translate-y-[60%] font-bodoni text-[17vw] font-thin uppercase leading-none  text-white">
                 your skin
               </p>
-              <p className="anim-text -translate-y-[400%] font-raleway text-[3vw] font-light uppercase leading-none  text-white/40">
+              <p className="anim-text -translate-y-[400%] font-grotesque text-[3vw] font-light uppercase leading-none  text-white/40">
                 to
               </p>
               <p className="anim-text right-1/2 -translate-y-[85%] whitespace-nowrap font-roboto text-[17vw] font-xbold uppercase leading-none  text-white">
@@ -1168,7 +1168,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               ref={shopBodyRef}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
-              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white portrait:md:text-[1.1rem]`}
+              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-grotesque font-light text-white portrait:md:text-[1.1rem]`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
               <span className="relative group-hover:text-charcoal">
@@ -1192,7 +1192,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-16 text-[1.1rem]'
                 : '-translate-y-[550%] text-[2vw]'
-            }  font-raleway font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
+            }  font-grotesque font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
           >
             the power of
           </p>
@@ -1288,7 +1288,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
                     : 'w-[60%] text-[1.1vw] 6xl:text-[.9vw]'
-                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626] portrait:md:text-[.9rem]`}
+                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-grotesque  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
                 <span className="relative group-hover:text-white">
@@ -1424,7 +1424,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-xs'
                   : 'text-[1.3vw] 5xl:text-[1.1vw]'
-              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-grotesque text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
             >
               only best ingredients for best results
             </p>

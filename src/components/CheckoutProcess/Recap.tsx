@@ -285,7 +285,7 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
                     <p
                       className={`${
                         mobileMenu ? 'pb-0 text-[1rem]' : 'text-sm'
-                      } pb-2 text-center font-hubbali uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:md:text-[1.3rem] `}
+                      } pb-2 text-center font-grotesque uppercase md:pl-5 lg:pb-5 lg:pr-5 lg:text-base xl:text-xl portrait:md:text-[1.3rem] `}
                     >
                       {item.product.productName}
                     </p>

@@ -47,7 +47,7 @@ export default function Review({ review, mobileMenu }: ReviewProps) {
         <div
           className={` ${
             mobileMenu ? 'px-5 ' : 'aspect-square'
-          } monogram  w-fit rounded-[100%] bg-charcoal p-3 text-center font-federo text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem] portrait:md:text-[1.5rem]`}
+          } monogram  w-fit rounded-[100%] bg-charcoal p-3 text-center font-poiret text-xl text-white lg:text-[1.5rem] xl:text-[2rem] 2xl:text-[2.25rem] portrait:md:text-[1.5rem]`}
         >
           {review.nickname![0].toUpperCase()}
         </div>
