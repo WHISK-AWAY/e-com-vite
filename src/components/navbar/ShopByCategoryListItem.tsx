@@ -144,7 +144,7 @@ export default function ShopByCategoryListItem({
             return (
               <Link
                 key={tag._id}
-                to={`/shop-all?filter=${name}`}
+                to={`/shop-all?filter=${name.replace('&', '%26')}`}
                 onClick={() => {
                   closeLocalMenu(true);
                 }}
