@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSubscribe } from '../utilities/subscribe';
-import { useEffect, useLayoutEffect } from 'react';
-import { gsap } from 'gsap/gsap-core';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect } from 'react';
+// import { gsap } from 'gsap/gsap-core';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type FormData = {
   email: string;
@@ -48,9 +48,9 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
     }
   };
 
-    //  const [ref, isVisible] = useInView({
-    //    threshold: 1,
-    //  });
+  //  const [ref, isVisible] = useInView({
+  //    threshold: 1,
+  //  });
   // useLayoutEffect(() => {
   //   const ctx = gsap.context(() => {
   //     gsap.from('.footer-section', {
@@ -70,13 +70,10 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
   //     });
   //   })
 
-
   //   return () => {
   //     ctx.revert()
   //   }
   // }, [])
-
-
 
   return (
     <section
