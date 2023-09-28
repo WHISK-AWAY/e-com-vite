@@ -26,8 +26,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
           <video
             src={roseLady}
             className={` ${
-              mobileMenu ? 'h-[50vh]' : 'h-screen'
-            } relative z-30 w-11/12 object-cover object-center`}
+              mobileMenu ? 'h-[50vh]' : 'h-screen '
+            } relative z-30 w-11/12 object-cover object-center portrait:md:h-[60vh]`}
             loop
             autoPlay
             muted
@@ -46,7 +46,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
             <div
               className={` ${
                 mobileMenu ? 'w-2/4' : 'w-1/4'
-              } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%]`}
+              } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%] portrait:md:w-2/5`}
             >
               <img
                 data-src={tintImageURL}
@@ -69,8 +69,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
                 className={` ${
                   mobileMenu
                     ? 'aspect-[2/5]  translate-y-[15%]'
-                    : 'aspect-[1/4]'
-                }  w-full rounded-sm object-cover object-top 5xl:w-[70%] 5xl:translate-x-[40%]`}
+                    : 'aspect-[1/4] '
+                }  w-full rounded-sm object-cover object-top 5xl:w-[70%] 5xl:translate-x-[40%] portrait:md:aspect-[2/4] portrait:md:translate-y-[14%]`}
                 src={redBlobs}
                 loop
                 autoPlay
@@ -82,8 +82,10 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
             <div className="mid-right relative z-10 basis-1/2">
               <video
                 className={` ${
-                  mobileMenu ? 'aspect-[2/5] translate-y-[15%]' : 'aspect-[4/5]'
-                }  w-full object-cover object-top 5xl:w-[70%]`}
+                  mobileMenu
+                    ? 'aspect-[2/5] translate-y-[15%]'
+                    : ' aspect-[4/5]'
+                }  w-full object-cover object-top 5xl:w-[70%] portrait:md:aspect-[2/4] portrait:md:translate-y-[14%]`}
                 src={redLady}
                 loop
                 autoPlay
@@ -113,7 +115,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
                 <p
                   className={` ${
                     mobileMenu ? 'w-[90svw] text-[.8rem]' : 'text-[1.1vw]'
-                  } font-roboto-mono  font-thin lowercase tracking-[0.3em] 5xl:w-[90%] 5xl:text-[.8vw]`}
+                  } font-roboto-mono  font-thin lowercase tracking-[0.3em] 5xl:w-[90%] 5xl:text-[.8vw] portrait:md:text-[.9rem]`}
                 >
                   Our tinted-care hybrids combine active ingredients like
                   hyaluronic acid with natural pigments for long-term skincare
@@ -140,7 +142,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
         <section
           className={` ${
             mobileMenu ? 'h-[70svh] pt-2' : 'min-h-screen pt-4'
-          } bottom-section relative z-10 flex  w-full flex-col items-center bg-white px-8 pb-12  text-[#f6fff8]`}
+          } bottom-section relative z-10 flex  w-full flex-col items-center bg-white px-8 pb-12  text-[#f6fff8] `}
         >
           <h2
             className={` ${
@@ -174,7 +176,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
                 mobileMenu
                   ? 'text-[.9rem] leading-normal'
                   : 'text-[1.4vw] tracking-[0.3rem]'
-              } font-roboto-mono  font-light lowercase  lg:text-[1.2vw] 5xl:text-[1vw]`}
+              } font-roboto-mono  font-light lowercase  lg:text-[1.2vw] 5xl:text-[1vw] portrait:text-[1rem]`}
             >
               We've infused Latin America's most legendary serum, Rosa Mosqueta,
               into a luxuriously glossy Lip Oil. Our fragrance-free lip oil
