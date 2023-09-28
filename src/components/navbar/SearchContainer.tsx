@@ -218,7 +218,7 @@ export default function SearchContainer({
             placeholder="search..."
             onChange={(e) => handleSearch(e)}
           ></input>
-          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] uppercase text-white portrait:px-4 portrait:text-[.8rem]">
+          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] short:text-[1.2vw] uppercase text-white portrait:px-4 portrait:text-[.8rem]">
             search
           </button>
         </div>
