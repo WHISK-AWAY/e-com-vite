@@ -9,7 +9,6 @@ import { gsap } from 'gsap';
 type SortFilterAllProdsProps = {
   setSort: React.Dispatch<React.SetStateAction<TSort>>;
   filter: string;
-  // setFilter: React.Dispatch<React.SetStateAction<string>>;
   sortKey: SortKey;
   sortDir: SortDir;
   allProducts: {
@@ -21,10 +20,8 @@ type SortFilterAllProdsProps = {
 };
 
 export default function SortFilterAllProds({
-  // sort,
   setSort,
   filter,
-  // setFilter,
   allProducts,
   sortKey,
   sortDir,
