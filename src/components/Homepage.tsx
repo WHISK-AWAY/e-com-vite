@@ -1167,7 +1167,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               to="/shop-all?filter=body"
               ref={shopBodyRef}
               className={` ${
-                mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
+                mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1.6vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-grotesque font-light text-white portrait:md:text-[1.1rem]`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1182,8 +1182,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div className="unleash-section-content flex w-full flex-col items-center">
           <p
             className={` ${
-              mobileMenu ? 'text-[3.5rem]' : 'text-[10vw]'
-            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference portrait:md:text-[6rem]`}
+              mobileMenu ? 'text-[3.5rem]' : 'text-[10vw] pb-4'
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/80 mix-blend-difference portrait:md:text-[6rem]`}
           >
             unleash{' '}
           </p>
@@ -1191,7 +1191,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             className={` ${
               mobileMenu
                 ? '-translate-y-16 text-[1.1rem]'
-                : '-translate-y-[550%] text-[2vw]'
+                : '-translate-y-[550%] text-[2.8vw] '
             }  font-grotesque font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
           >
             the power of
@@ -1287,7 +1287,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
-                    : 'w-[60%] text-[1.1vw] 6xl:text-[.9vw]'
+                    : 'w-[60%] text-[1.5vw] 6xl:text-[.9vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-grotesque  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1423,7 +1423,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-xs'
-                  : 'text-[1.3vw] 5xl:text-[1.1vw]'
+                  : 'text-[1.7vw] 5xl:text-[1.1vw]'
               } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-grotesque text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
             >
               only best ingredients for best results
