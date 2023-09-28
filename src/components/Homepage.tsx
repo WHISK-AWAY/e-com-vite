@@ -1359,7 +1359,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <picture
               className={` ${
                 mobileMenu ? 'h-[50svh]' : 'h-screen'
-              } facewash-lady-img lazyload aspect-[4/6] self-center  portrait:md:aspect-[10/11]`}
+              } facewash-lady-img aspect-[4/6] self-center  portrait:md:aspect-[10/11]`}
             >
               <source
                 data-srcset="/assets/homepage/images/lady-facewash.webp"
@@ -1394,7 +1394,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu ? 'h-[60svh]' : 'h-screen'
             } flex w-[65%] portrait:md:h-[60svh] `}
           >
-            <picture className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0 object-cover">
+            <picture className="papaya-img grow-1 aspect-[2/3] w-full shrink-0 object-cover">
               <source
                 data-srcset="/assets/homepage/images/papaya.webp"
                 type="image/webp"
@@ -1437,7 +1437,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <picture
                 className={`${
                   mobileMenu ? 'h-[70%]' : ''
-                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition duration-300 hover:scale-105 3xl:pl-0 short:pt-16`}
+                } min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition duration-300 hover:scale-105 3xl:pl-0 short:pt-16`}
               >
                 <source
                   data-srcset={convertMediaUrl(
