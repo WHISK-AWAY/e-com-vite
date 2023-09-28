@@ -222,7 +222,7 @@ export default function AllProducts({
           } header-section relative  w-full justify-center `}
         >
           {bestsellers ? (
-            <BestsellersHeader mobileMenu={mobileMenu}/>
+            <BestsellersHeader mobileMenu={mobileMenu} />
           ) : (
             <AllProductsHeader
               // allProdsBg={allProdsBg}
@@ -277,8 +277,11 @@ export default function AllProducts({
         <div
           id="product-card-container"
           //  landscape:border-t
-          className={`test-class-name grid grid-cols-4 border-primary-gray portrait:grid-cols-2 ${
-            allProducts.products.length % 2 !== 0 ? 'border-b' : ''
+          className={`grid grid-cols-4 border-primary-gray portrait:grid-cols-2 ${
+            allProducts.products.length % 2 !== 0 &&
+            allProducts.products.length > 2
+              ? 'border-b'
+              : ''
           }`}
         >
           {allProducts?.products?.map((product) => (
@@ -291,7 +294,7 @@ export default function AllProducts({
 
         {/* // ! pagination */}
         {maxPages > 1 && (
-          <div className="flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest portrait:border-t">
+          <div className="flex w-full justify-center border-primary-gray pb-14 pt-20 tracking-widest">
             <div className="flex items-center font-grotesque text-xl ">
               <img
                 src={arrowLeft}

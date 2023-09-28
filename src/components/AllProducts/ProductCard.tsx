@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       className={` ${
         allProducts.products.length % 2 === 0
           ? 'portrait:first-of-type:col-span-full portrait:last-of-type:col-span-full portrait:last-of-type:border-b'
-          : 'portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2 '
+          : 'portrait:last-of-type:border-r portrait:only-of-type:border-b portrait:[&:nth-of-type(3)]:col-span-full landscape:[&:nth-of-type(5)]:col-span-2 landscape:[&:nth-of-type(5)]:row-span-2'
       } first-row-top-border relative flex list-none flex-col justify-between border-primary-gray landscape:border-b landscape:border-l landscape:last-of-type:border-r landscape:[&:nth-of-type(4)]:border-r [&:nth-of-type(7)]:border-r`}
       key={product._id.toString()}
     >
