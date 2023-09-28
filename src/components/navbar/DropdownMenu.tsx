@@ -160,7 +160,7 @@ export default function DropdownMenu({
       <div
         className={` ${
           mobileMenu ? 'hidden' : ''
-        } logo-wrapper absolute right-1/2 top-0 z-10 flex h-0 translate-x-[50%] translate-y-1/2 items-center justify-center`}
+        } logo-wrapper absolute right-1/2 top-0 z-10 flex h-16 translate-x-[50%] items-center justify-center`}
       >
         <Link
           to="/"
