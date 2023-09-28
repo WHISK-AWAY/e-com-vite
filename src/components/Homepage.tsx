@@ -33,6 +33,7 @@ gsap.registerPlugin(CSSPlugin);
 import '../index.css'; // ? this is already imported in main -- is it needed here also?
 // import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
+import convertMediaUrl from '../utilities/convertMediaUrl';
 
 export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
@@ -872,19 +873,30 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 to={'/product/' + spfProdId}
                 aria-label={`product: ${singleProduct?.productName}`}
               >
-                <img
-                  className={` ${
-                    mobileMenu
-                      ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
-                      : 'h-full pt-[70%] '
-                  } rainbow-lady-rp  object-cover]  aspect-[1/2]`}
-                  alt={`product: ${singleProduct?.productName}`}
-                  src={
-                    singleProduct?.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || singleProduct?.images[0].imageURL
-                  }
-                />
+                <picture>
+                  {/* didn't make any changes to these classes // ! delete */}
+                  <source
+                    srcSet={convertMediaUrl(
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    )}
+                    type="image/webp"
+                  />
+                  <img
+                    className={` ${
+                      mobileMenu
+                        ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
+                        : 'h-full pt-[70%] '
+                    } rainbow-lady-rp  aspect-[1/2]  object-cover`}
+                    alt={`product: ${singleProduct?.productName}`}
+                    src={
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    }
+                  />
+                </picture>
               </Link>
               <p
                 className={` ${
@@ -932,36 +944,49 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd01?._id}
-                  className=" flex justify-center"
+                  className="flex justify-center"
                   aria-label={`product: ${randomProd01?.productName}`}
                 >
-                  <img
-                    className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
-                    alt={`product: ${randomProd01?.productName}`}
-                    src={
-                      randomProd01?.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd01?.images[0].imageURL
-                    }
-                  />
+                  <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
+                    {/* lifted img classes to picture tag & replaced with w/h-full + cover //! delete */}
+                    <source
+                      srcSet={convertMediaUrl(
+                        randomProd01?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd01?.images[0].imageURL
+                      )}
+                      type="image/webp"
+                    />
+                    <img
+                      className="h-full w-full object-cover"
+                      alt={`product: ${randomProd01?.productName}`}
+                      src={
+                        randomProd01?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd01?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                 </Link>
               </div>
 
               <div className="flex justify-center">
                 <Link
                   to={'/product/' + randomProd02?._id}
-                  className=" flex transform justify-center transition  duration-300 hover:scale-105"
+                  className="flex justify-center"
                   aria-label={`product: ${randomProd02?.productName}`}
                 >
-                  <img
-                    className="aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105"
-                    alt={`product: ${randomProd01?.productName}`}
-                    src={
-                      randomProd02?.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd02?.images[0].imageURL
-                    }
-                  />
+                  <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
+                    <img
+                      className="h-full w-full object-cover"
+                      alt={`product: ${randomProd01?.productName}`}
+                      src={
+                        randomProd02?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd02?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                 </Link>
               </div>
             </div>
@@ -1046,22 +1071,31 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   />
                 </video>
               </div>
-              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%] ">
-                {' '}
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%]">
                 <Link
                   to={'/product/' + randomProd03?._id}
                   className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
                   aria-label={`product: ${randomProd03?.productName}`}
                 >
-                  <img
-                    className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
-                    alt={`product: ${randomProd03?.productName}`}
-                    src={
-                      randomProd03?.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd03?.images[0].imageURL
-                    }
-                  />
+                  <picture>
+                    <source
+                      srcSet={convertMediaUrl(
+                        randomProd03?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd03?.images[0].imageURL
+                      )}
+                      type="image/webp"
+                    />
+                    <img
+                      className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition duration-300 hover:scale-105`}
+                      alt={`product: ${randomProd03?.productName}`}
+                      src={
+                        randomProd03?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd03?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                   <p
                     className={` ${
                       mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
@@ -1215,16 +1249,25 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
                 aria-label={`product: ${singleProduct?.productName}`}
               >
-                <img
-                  className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
-                  alt={`product: ${singleProduct?.productName}`}
-                  data-src={
-                    singleProduct?.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || singleProduct?.images[0].imageURL
-                  }
-                  data-sizes="auto"
-                />
+                <picture>
+                  <source
+                    srcSet={convertMediaUrl(
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    )}
+                    type="image/webp"
+                  />
+                  <img
+                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
+                    alt={`product: ${singleProduct?.productName}`}
+                    src={
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    }
+                  />
+                </picture>
                 <p
                   className={` ${
                     mobileMenu
@@ -1283,20 +1326,29 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%]'
               } facewash-rp z-50 flex `}
             >
-              <img
-                className={` ${
-                  mobileMenu
-                    ? 'aspect-[4/5] -translate-x-[20%] '
-                    : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
-                } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
-                alt={`product: ${randomProd06?.productName}`}
-                data-src={
-                  randomProd06?.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd06?.images[0].imageURL
-                }
-                data-sizes="auto"
-              />
+              <picture>
+                <source
+                  srcSet={convertMediaUrl(
+                    randomProd06?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd06?.images[0].imageURL
+                  )}
+                  type="image/webp"
+                />
+                <img
+                  className={` ${
+                    mobileMenu
+                      ? 'aspect-[4/5] -translate-x-[20%] '
+                      : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
+                  } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
+                  alt={`product: ${randomProd06?.productName}`}
+                  src={
+                    randomProd06?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd06?.images[0].imageURL
+                  }
+                />
+              </picture>
             </Link>
           </div>
 
@@ -1380,18 +1432,29 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full   flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
               aria-label={`product: ${randomProd05?.productName}`}
             >
-              <img
-                className={` ${
+              <picture
+                className={`${
                   mobileMenu ? 'h-[70%]' : ''
-                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0`}
-                data-src={
-                  randomProd05?.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd05?.images[0].imageURL
-                }
-                alt={`product: ${randomProd05?.productName}`}
-                data-sizes="auto"
-              />
+                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition duration-300 hover:scale-105 3xl:pl-0`}
+              >
+                <source
+                  srcSet={convertMediaUrl(
+                    randomProd05?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd05?.images[0].imageURL
+                  )}
+                  type="image/webp"
+                />
+                <img
+                  className="h-full w-full object-cover"
+                  src={
+                    randomProd05?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd05?.images[0].imageURL
+                  }
+                  alt={`product: ${randomProd05?.productName}`}
+                />
+              </picture>
               <p
                 className={` ${
                   mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
@@ -1405,7 +1468,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'w-[85%]' : 'w-[70%]'
-          } ingredient-section-closer flex  items-center justify-center self-center pb-[4%] pt-[15%] leading-loose`}
+          } ingredient-section-closer flex items-center justify-center self-center pb-[4%] pt-[15%] leading-loose`}
         >
           <p
             className={` ${
