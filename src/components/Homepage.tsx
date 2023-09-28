@@ -1258,7 +1258,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     type="image/webp"
                   />
                   <img
-                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px] portrait:md:h-[500px]"
+                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] portrait:md:h-[500px] landscape:short:h-[410px]"
                     alt={`product: ${singleProduct?.productName}`}
                     data-src={
                       singleProduct?.images.find(
@@ -1302,14 +1302,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? 'w-[85%] translate-x-0 translate-y-[30%]'
                 : 'w-[45%] -translate-x-[50%] translate-y-[55%]'
-            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] `}
+            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] portrait:md:w-[90%]`}
           >
             <p
               className={` ${
                 mobileMenu
                   ? ' -translate-x-[10%] text-[.8rem] leading-none'
                   : '-translate-x-[20%] text-[1.5vw] 5xl:translate-y-[100%] 5xl:text-[1vw] 6xl:translate-y-[300%] 6xl:text-[1vw]'
-              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626]`}
+              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626] portrait:md:-translate-y-[310%] portrait:md:translate-x-[70%] portrait:md:text-[1rem]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1322,8 +1322,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'w-44'
-                  : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%]'
-              } facewash-rp z-50 flex `}
+                  : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%] '
+              } facewash-rp z-50 flex portrait:md:w-[50%] portrait:md:translate-x-[110%] portrait:md:-translate-y-[10%]`}
             >
               <picture>
                 <source
@@ -1339,7 +1339,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     mobileMenu
                       ? 'aspect-[4/5] -translate-x-[20%] '
                       : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
-                  } lazyload w-full transform object-cover transition duration-300 hover:scale-110`}
+                  } lazyload w-full transform object-cover transition duration-300 hover:scale-110 portrait:md:aspect-[1/2]`}
                   alt={`product: ${randomProd06?.productName}`}
                   data-src={
                     randomProd06?.images.find(
@@ -1355,7 +1355,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <picture
               className={` ${
                 mobileMenu ? 'h-[50svh]' : 'h-screen'
-              } facewash-lady-img lazyload aspect-[4/6] self-center`}
+              } facewash-lady-img lazyload aspect-[4/6] self-center  portrait:md:aspect-[10/11]`}
             >
               <source
                 data-srcset="/assets/homepage/images/lady-facewash.webp"
@@ -1374,7 +1374,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
                   : 'w-[17%] text-[1.5vw] 5xl:-translate-y-[179%] 5xl:text-[1vw] 6xl:-translate-y-[290%] short:-translate-y-[130%]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%]`}
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%] portrait:md:text-[1rem] portrait:md:w-[40%] portrait:md:-translate-x-[6%]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
