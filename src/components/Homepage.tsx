@@ -714,7 +714,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full object-cover 3xl:max-h-[900px] portrait:md:max-h-[900px]`}
+            } hands -z-10 aspect-[1/2] h-full object-cover 3xl:max-h-[900px] 4xl:max-h-[1500px] 6xl:h-full portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/hand-lotion-trimmed.webm"
@@ -734,7 +734,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             muted
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
-            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left 3xl:max-h-[900px] portrait:md:max-h-[900px]`}
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left 3xl:max-h-[900px] 4xl:max-h-[1500px] portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/leaves-trimmed.webm"
@@ -752,7 +752,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? '-translate-y-[90%] text-[4rem]'
                   : 'md:text-8xl lg:text-[9rem] xl:text-[10rem] 2xl:text-[10rem] 4xl:text-[12rem]  5xl:text-[16rem] 6xl:text-[19rem]'
-              } font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50  4xl:tracking-[1.5rem] 5xl:tracking-[3.3rem] `}
+              } font-yantramanav font-xbold uppercase leading-none tracking-wide text-emerald-50  4xl:tracking-[1.5rem] 5xl:tracking-[3rem] `}
             >
               discover
             </h1>
@@ -783,10 +783,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-[210%]  px-8 font-regular'
                 : '-translate-y-[60%] px-[4%] font-thin'
-            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 pb-2 font-grotesque text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
+            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 pb-2 font-grotesque text-white  md:text-xs  4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full"></span>
-            <span className="relative  text-base group-hover:text-emerald-900 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem] ">
+            <span className="relative  text-base group-hover:text-emerald-900 2xl:text-lg 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem] ">
               shop now
             </span>
           </Link>
@@ -796,7 +796,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
-          } philosophy-section-content relative flex flex-col bg-white `}
+          } philosophy-section-content relative flex flex-col bg-white  6xl:pt-[10%]`}
         >
           <p
             className={` ${
@@ -836,8 +836,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'text-[2.8rem] portrait:xs:text-[3rem]'
-                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw] 3xl:text-[9vw] 5xl:text-[7.8vw]'
-              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge 3xl:left-[19%] 5xl:left-[21%] `}
+                  : 'md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10vw] 3xl:text-[9vw] 5xl:text-[7.8vw] 6xl:text-[7.5vw]'
+              } absolute right-[50%] top-0 text-start font-yantramanav font-bold uppercase text-light-brick mix-blend-color-dodge 3xl:left-[19%] 5xl:left-[21%] 6xl:left-[22%]`}
             >
               protect
             </p>
@@ -845,8 +845,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'text-[1.2rem]'
-                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw] 3xl:text-[2.5vw] 5xl:text-[2.2vw]'
-              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light 3xl:left-[56%] 3xl:top-[8%] 5xl:left-[53%] `}
+                  : 'md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vw] 3xl:text-[2.5vw] 4xl:text-[2.2vw] 5xl:text-[2vw] 6xl:text-[1.6vw]'
+              } your-skin-text absolute left-[52%] top-[6%] whitespace-nowrap text-center font-yantramanav font-light 3xl:left-[56%] 3xl:top-[8%] 5xl:left-[53%] 5xl:top-[10%] 6xl:top-[11%]`}
             >
               your skin
             </p>
@@ -854,7 +854,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
-                  : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.5vw]'
+                  : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 4xl:text-[3.5vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.1vw] 6xl:text-[2.8vw] 6xl:left-[22%]'
               } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80`}
             >
               <span className=" mix-blend-difference lg:text-white/40">
@@ -898,7 +898,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu
                     ? 'pr-4 text-[.8rem]'
-                    : 'text-[.8rem] xl:text-[1.2rem] 2xl:text-[1.4rem] 4xl:text-[1.6rem] 5xl:text-[1.8rem]'
+                    : 'text-[.8rem] xl:text-[1rem] 2xl:text-[1.4rem] 3xl:text-[1.2rem] 4xl:text-[1.3rem] 5xl:text-[1.4rem]'
                 } rainbow-lady-rp pt-1  text-center font-grotesque uppercase `}
               >
                 {singleProduct?.productName}
@@ -908,7 +908,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
-                  : 'bottom-[3%] right-[9%] w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%]  3xl:text-[1.1vw] 5xl:-bottom-[25%] 5xl:w-[40vw] 5xl:text-[1vw]'
+                  : 'bottom-[3%] right-[9%] w-[50vw] text-[1.5vw] leading-loose 3xl:-bottom-[28%]  3xl:text-[1.1vw] 5xl:-bottom-[25%] 5xl:w-[40vw] 5xl:text-[1vw]'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
               {mobileMenu
@@ -1045,7 +1045,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     className={` ${
                       mobileMenu
                         ? 'translate-y-[90%] text-[.5rem]'
-                        : 'translate-y-[120%] text-[1.4vw] 5xl:translate-y-[190%] 5xl:text-[1.1vw]'
+                        : 'translate-y-[120%] text-[1.4vw] 4xl:text-[1vw] 5xl:translate-y-[190%] 5xl:text-[1.1vw]'
                     } beach-oval-text absolute right-0 top-0 w-[80%] -translate-x-[9%] text-start font-aurora leading-relaxed text-white  5xl:w-[75%] 5xl:-translate-x-[11%]`}
                   >
                     heavy moisturizers are ideal for cold climates or during
@@ -1101,7 +1101,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   </picture>
                   <p
                     className={` ${
-                      mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
+                      mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw] 4xl:text-[1vw]'
                     } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white portrait:md:text-[1rem]`}
                   >
                     {randomProd03?.productName}
@@ -1112,7 +1112,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <div
               className={` ${
-                mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
+                mobileMenu ? 'w-[80%] text-[.8rem] pt-[4%]' : 'w-[55%] text-[1.2vw]'
               } beach-text-closer  pb-[10%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
             >
               <p>
@@ -1124,7 +1124,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           {/**grapefruit butt section */}
-          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] xl:pb-[6%] 3xl:pb-[5%] 6xl:pb-[2%] portrait:md:pb-24">
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] lg:pb-[5%] xl:pb-[4%] 3xl:pb-[5%] 4xl:pb-[4%] 6xl:pb-[2%] portrait:md:pb-24">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
@@ -1182,8 +1182,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div className="unleash-section-content flex w-full flex-col items-center">
           <p
             className={` ${
-              mobileMenu ? 'text-[3.5rem]' : 'text-[10vw] pb-4'
-            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/80 mix-blend-difference portrait:md:text-[6rem]`}
+              mobileMenu ? 'text-[3.5rem]' : 'pb-4 text-[10vw] lg:pb-5 xl:pb-6 4xl:pb-3'
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/90 mix-blend-difference portrait:md:text-[6rem]`}
           >
             unleash{' '}
           </p>
@@ -1191,7 +1191,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             className={` ${
               mobileMenu
                 ? '-translate-y-16 text-[1.1rem]'
-                : '-translate-y-[550%] text-[2.8vw] '
+                : '-translate-y-[550%] text-[2.8vw] 4xl:text-[2.2vw]'
             }  font-grotesque font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
           >
             the power of
@@ -1275,7 +1275,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   className={` ${
                     mobileMenu
                       ? 'text-[.7rem] leading-[1]'
-                      : 'text-[1.2vw] 5xl:text-[.9vw]'
+                      : 'text-[1.2vw] 4xl:text-[1vw] 5xl:text-[.9vw]'
                   } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal portrait:md:text-[.8rem]`}
                 >
                   {singleProduct?.productName}
@@ -1287,7 +1287,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
-                    : 'w-[60%] text-[1.5vw] 6xl:text-[.9vw]'
+                    : 'w-[60%] text-[1.5vw] 6xl:text-[.9vw] 4xl:text-[1.2vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-grotesque  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1423,8 +1423,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-xs'
-                  : 'text-[1.7vw] 5xl:text-[1.1vw]'
-              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-grotesque text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
+                  : 'text-[1.7vw] 2xl:text-[1.8vw] 4xl:text-[1.3vw]'
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-grotesque  font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
             >
               only best ingredients for best results
             </p>
@@ -1459,7 +1459,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </picture>
               <p
                 className={` ${
-                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
+                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 4xl:text-[1vw] 6xl:text-[.8vw]'
                 } pt-[4%] text-center font-grotesque uppercase text-charcoal portrait:md:text-[.8rem]`}
               >
                 {randomProd05?.productName}
@@ -1488,7 +1488,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'w-[90%] pb-[15%]' : 'w-[70%] '
-          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[45%] short:w-[45%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
+          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] 4xl:pb-[1%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[49%] short:w-[45%] 5xl:w-[40vw] 5xl:pb-[10%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
         >
           <div
             className={` ${
