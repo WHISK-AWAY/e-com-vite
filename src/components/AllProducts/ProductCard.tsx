@@ -117,13 +117,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             product.productName.length > 10
               ? 'overflow-hidden text-ellipsis whitespace-nowrap text-xs lg:text-sm 2xl:text-base'
               : ''
-          } pt-2   font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-1`}
+          } pt-2   font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-1 portrait:md:text-[1rem]`}
         >
           <Link to={'/product/' + product._id}>
             {product.productName.toUpperCase()}
           </Link>
         </p>
-        <p className=" pb-2 font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-0">
+        <p className=" pb-2 font-grotesque text-xs lg:text-sm 2xl:text-base portrait:pt-0 portrait:md:text-[1rem]">
           ${product.price}
         </p>
       </div>
