@@ -46,7 +46,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
             <div
               className={` ${
                 mobileMenu ? 'w-2/4' : 'w-1/4'
-              } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%] portrait:md:w-2/5`}
+              } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit  translate-x-[50%] portrait:md:w-2/5`}
             >
               <img
                 data-src={tintImageURL}
@@ -64,12 +64,12 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
                 className="invisible absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:visible"
               />
             </div>
-            <div className="mid-left relative z-10 h-[60vh] basis-1/2 5xl:h-[40vh]">
+            <div className="mid-left relative z-10 h-[50vh] basis-1/2 5xl:h-[40vh]">
               <video
                 className={` ${
                   mobileMenu
                     ? 'aspect-[2/5]  translate-y-[15%]'
-                    : 'aspect-[1/4] '
+                    : 'aspect-[9/11] '
                 }  w-full rounded-sm object-cover object-top 5xl:w-[70%] 5xl:translate-x-[40%] portrait:md:aspect-[2/4] portrait:md:translate-y-[14%]`}
                 src={redBlobs}
                 loop
@@ -79,12 +79,12 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
                 controls={false}
               ></video>
             </div>
-            <div className="mid-right relative z-10 basis-1/2">
+            <div className="mid-right relative  basis-1/2">
               <video
                 className={` ${
                   mobileMenu
                     ? 'aspect-[2/5] translate-y-[15%]'
-                    : ' aspect-[4/5]'
+                    : ' aspect-[9/11]'
                 }  w-full object-cover object-top 5xl:w-[70%] portrait:md:aspect-[2/4] portrait:md:translate-y-[14%]`}
                 src={redLady}
                 loop
@@ -132,8 +132,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
               to="/shop-all?filter=tint"
               // state={{ filterKey: 'tint' }}
               className={`${
-                mobileMenu ? 'text-[1rem]' : 'text-[2vw]'
-              } relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-grotesque  font-light text-white lg:text-[1.5vw] 5xl:text-[1.2vw]`}
+                mobileMenu ? 'text-[1rem] mt-20' : 'text-[2vw]'
+              } relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-grotesque  font-light text-white lg:text-[1.5vw] 2xl:text-[2vw] 5xl:text-[1.2vw] portrait:md:mt-28`}
             >
               shop now
             </Link>
