@@ -38,7 +38,7 @@ import convertMediaUrl from '../utilities/convertMediaUrl';
 export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
-  const [randomProd, setRandomProd] = useState<TProduct>();
+  // const [randomProd, setRandomProd] = useState<TProduct>();
   const [randomProd01, setRandomProd01] = useState<TProduct>();
   const [randomProd02, setRandomProd02] = useState<TProduct>();
   const [randomProd03, setRandomProd03] = useState<TProduct>();
@@ -84,7 +84,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         })
       );
     } else {
-      setRandomProd(randomProduct(allProducts));
+      // setRandomProd(randomProduct(allProducts));
       setRandomProd01(randomProduct(allProducts));
       setRandomProd02(randomProduct(allProducts));
       setRandomProd03(randomProduct(allProducts));
