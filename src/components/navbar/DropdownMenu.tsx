@@ -4,7 +4,7 @@ import BodyItem from './BodyItem';
 import x from '../../assets/icons/whiteX.svg';
 import chevronRight from '../../assets/icons/whiteArrow.svg';
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { gsap } from 'gsap';
 
@@ -55,12 +55,6 @@ export default function DropdownMenu({
         height: 0,
         transformOrigin: 'left',
       });
-      // tl.from(menuWrapper.current, {
-      //   backgroundColor: 'white',
-      //   duration: 0.2,
-      //   // width: 0,
-      //   opacity: 0,
-      // });
 
       tl.to(menuWrapper.current, {
         height: '100vh',
@@ -78,7 +72,6 @@ export default function DropdownMenu({
           ease: 'power1.inOut',
           height: 0,
           stagger: 0.07,
-          // opacity: .7,
         },
         'menuWrapper.current-=.5'
       ).to('.text-reveal>img', {
@@ -90,12 +83,10 @@ export default function DropdownMenu({
       const items = document.querySelectorAll('.text-reveal');
 
       items.forEach((el) => {
-        // console.log('el', el)
         el?.addEventListener('mouseenter', (e) => {
           gsap.to(e.target, {
             ease: 'back.out(1.7)',
             duration: 1,
-            // text-shadow: '5px 5px #558abb',
             color: '#fff',
           });
         });
@@ -125,7 +116,7 @@ export default function DropdownMenu({
       ctx.revert();
       menuAnimation.current = null;
     };
-  }, [menuWrapper]);
+  }, []);
 
   // Switch menu from one group to another, or else close menu on second click
   function toggleMenu(menu: MenuOption) {
@@ -160,12 +151,10 @@ export default function DropdownMenu({
 
   const textRevealClasses = ' text-reveal inline-block h-fit overflow-visible';
 
-  // text-[#bbbcbee0
-  // bg-[#8c8c7f]
   return (
     <section
       ref={menuWrapper}
-      className="menu-wrapper absolute right-0 top-0 z-40  w-[100svw] flex-col bg-primary-gray font-antonio  font-bold  uppercase text-[#bbbcbee0] "
+      className="menu-wrapper absolute right-0 top-0 z-40 h-0  w-[100svw] flex-col bg-primary-gray font-antonio  font-bold  uppercase text-[#bbbcbee0] "
     >
       {/* Logo section (absolute) */}
       <div
@@ -178,9 +167,7 @@ export default function DropdownMenu({
           className="flex items-center gap-1 font-notable text-[min(2.5vw,_3vh)] text-white  3xl:text-[1.6vw]"
           onClick={closeMenu}
         >
-          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
           ASTORIA
-          {/* <img src={dot} alt='dot-icon' className='h-[.5vw] 3xl:h-[.3vw]' /> */}
         </Link>
       </div>
 
@@ -197,11 +184,7 @@ export default function DropdownMenu({
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
-              closeMenu()?.then(() =>
-                navigate('/shop-all?filter=all', {
-                  // state: { filterKey: 'all' },
-                })
-              )
+              closeMenu()?.then(() => navigate('/shop-all?filter=all', {}))
             }
             className={textRevealClasses + ' uppercase'}
           >
@@ -260,7 +243,6 @@ export default function DropdownMenu({
                     ? 'ease rotate-90 transform transition-all duration-700'
                     : ''
                 }`}
-                // onMouseEnter={() => toggleMenu('category')}
               />
             </button>
           </div>
@@ -276,11 +258,7 @@ export default function DropdownMenu({
         <div className="menu-option relative pl-[30%]">
           <button
             onClick={() =>
-              closeMenu()?.then(() =>
-                navigate('/shop-all?filter=spf', {
-                  // state: { filterKey: 'spf' },
-                })
-              )
+              closeMenu()?.then(() => navigate('/shop-all?filter=spf', {}))
             }
             className={textRevealClasses + ' uppercase'}
           >
@@ -298,9 +276,6 @@ export default function DropdownMenu({
                 e.preventDefault();
                 toggleMenu('face');
               }}
-              // onMouseEnter={() => {
-              //   toggleMenu('face');
-              // }}
             >
               face
               <img
@@ -325,7 +300,6 @@ export default function DropdownMenu({
         <div className="menu-option relative pl-[30%]">
           <button
             className={'relative h-full uppercase' + textRevealClasses}
-            // onMouseEnter={() => toggleMenu('body')}
             onClick={() => toggleMenu('body')}
           >
             body
