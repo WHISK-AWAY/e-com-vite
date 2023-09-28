@@ -101,7 +101,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
             </div>
             <div
               className={` ${
-                mobileMenu ? 'bottom-28 h-[20vh]' : 'bottom-0 h-[40vh]'
+                mobileMenu ? 'bottom-11 h-[25vh]' : 'bottom-0 h-[40vh]'
               } red-banner absolute -right-6  z-20 flex  w-screen gap-12  bg-[rgba(83,1,2,.7)] px-[6vw] text-white 5xl:h-[50vh]`}
             >
               <div className="red-banner-column h-full shrink-0 grow-0 basis-1/2 py-6 pr-[4vw] 5xl:pl-64 6xl:pl-80">
