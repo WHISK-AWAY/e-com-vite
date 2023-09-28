@@ -816,11 +816,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
           <picture
-            // className={` ${
-            //   mobileMenu
-            //     ? 'h-full object-cover object-right'
-            //     : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
-            // } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+        
             className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]"
           >
             <img
@@ -912,7 +908,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'bottom-4 left-5 w-[87svw] text-[.9rem] leading-tight portrait:sm:bottom-11'
-                  : 'bottom-[3%] right-[9%] w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%] 3xl:-bottom-[22%] 3xl:text-[1.1vw] 5xl:-bottom-[25%] 5xl:w-[40vw] 5xl:text-[1vw]'
+                  : 'bottom-[3%] right-[9%] w-[50vw] text-[1.6vw] leading-loose 3xl:-bottom-[28%]  3xl:text-[1.1vw] 5xl:-bottom-[25%] 5xl:w-[40vw] 5xl:text-[1vw]'
               } rainbow-lady-text absolute   font-aurora   text-[#262625]`}
             >
               {mobileMenu
@@ -1130,7 +1126,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%] 6xl:w-[25%]'
-                } grapefruit-butt-img  z-10  self-center `}
+                } grapefruit-butt-img  z-10  self-center aspect-square`}
               >
                 <picture>
                   <source srcSet="/assets/homepage/images/grapefruit-butt.webp" />
