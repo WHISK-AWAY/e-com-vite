@@ -823,12 +823,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <img
               data-src="/assets/homepage/images/rainbow-lady.jpg"
               alt="red haired ladys profile with reflection of a rainbow on her face"
+              width="960"
+              height="1440"
               // className="h-full w-full object-cover object-right"
               className={` ${
                 mobileMenu
                   ? 'h-full object-cover object-right'
                   : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
-              } rainbow-lady lazyload w-full`}
+              } rainbow-lady w-full`}
             />
           </picture>
           <div className="">
@@ -854,7 +856,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'left-[1%] top-[10%] text-[1.5rem] portrait:sm:text-[1.7rem]'
-                  : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 4xl:text-[3.5vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.1vw] 6xl:text-[2.8vw] 6xl:left-[22%]'
+                  : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 4xl:text-[3.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.1vw] 6xl:left-[22%] 6xl:text-[2.8vw]'
               } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80`}
             >
               <span className=" mix-blend-difference lg:text-white/40">
@@ -1101,7 +1103,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   </picture>
                   <p
                     className={` ${
-                      mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw] 4xl:text-[1vw]'
+                      mobileMenu
+                        ? 'text-[.6rem]'
+                        : 'text-[1.2vw] 4xl:text-[1vw]'
                     } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white portrait:md:text-[1rem]`}
                   >
                     {randomProd03?.productName}
@@ -1112,7 +1116,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
             <div
               className={` ${
-                mobileMenu ? 'w-[80%] text-[.8rem] pt-[4%]' : 'w-[55%] text-[1.2vw]'
+                mobileMenu
+                  ? 'w-[80%] pt-[4%] text-[.8rem]'
+                  : 'w-[55%] text-[1.2vw]'
               } beach-text-closer  pb-[10%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
             >
               <p>
@@ -1182,7 +1188,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div className="unleash-section-content flex w-full flex-col items-center">
           <p
             className={` ${
-              mobileMenu ? 'text-[3.5rem]' : 'pb-4 text-[10vw] lg:pb-5 xl:pb-6 4xl:pb-3'
+              mobileMenu
+                ? 'text-[3.5rem]'
+                : 'pb-4 text-[10vw] lg:pb-5 xl:pb-6 4xl:pb-3'
             } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/90 mix-blend-difference portrait:md:text-[6rem]`}
           >
             unleash{' '}
@@ -1287,7 +1295,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
-                    : 'w-[60%] text-[1.5vw] 6xl:text-[.9vw] 4xl:text-[1.2vw]'
+                    : 'w-[60%] text-[1.5vw] 4xl:text-[1.2vw] 6xl:text-[.9vw]'
                 } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-grotesque  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
@@ -1459,7 +1467,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </picture>
               <p
                 className={` ${
-                  mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 4xl:text-[1vw] 6xl:text-[.8vw]'
+                  mobileMenu
+                    ? 'text-[.7rem]'
+                    : 'text-[1.3vw] 4xl:text-[1vw] 6xl:text-[.8vw]'
                 } pt-[4%] text-center font-grotesque uppercase text-charcoal portrait:md:text-[.8rem]`}
               >
                 {randomProd05?.productName}
@@ -1488,7 +1498,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'w-[90%] pb-[15%]' : 'w-[70%] '
-          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] 4xl:pb-[1%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[49%] short:w-[45%] 5xl:w-[40vw] 5xl:pb-[10%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
+          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[49%] 4xl:pb-[1%] 5xl:w-[40vw] 5xl:pb-[10%] short:w-[45%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
         >
           <div
             className={` ${
