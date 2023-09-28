@@ -55,27 +55,21 @@ export default function Navbar({
   const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
   const [mode, setMode] = useState<TCFMode>('cart');
-  const cart = useAppSelector(selectCart)
-  const [cartQty, setCartQty] = useState(0)
-
-  
-
+  const cart = useAppSelector(selectCart);
+  const [cartQty, setCartQty] = useState(0);
 
   useEffect(() => {
-
     const cartItemsQty = cart.cart?.products?.reduce((accum, prod) => {
-      return accum+ prod.qty
-    }, 0)
-    
+      return accum + prod.qty;
+    }, 0);
 
-    setCartQty(cartItemsQty)
-  }, [cart.cart?.products])
-
+    setCartQty(cartItemsQty);
+  }, [cart.cart?.products]);
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
     else dispatch(getUserId());
-    dispatch(fetchUserCart(userId))
+    dispatch(fetchUserCart(userId));
   }, [userId]);
 
   useEffect(() => {
@@ -154,6 +148,8 @@ export default function Navbar({
               src={searchIcon}
               alt="search"
               className="h-3 cursor-pointer lg:h-[18px] xl:h-[21px] portrait:md:h-6"
+              height="18"
+              width="18"
               onClick={() => setIsSearchHidden((prev) => !prev)}
             />
             {!isSearchHidden && (
@@ -162,18 +158,20 @@ export default function Navbar({
 
             {
               <div>
-                {cart.cart?.products?.length > 0 && 
-                <CartQtyIndicator
-                cartItemsQty={cartQty}
-                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-                setMode={setMode}
-                mobileMenu={mobileMenu}
-                />
-              }
+                {cart.cart?.products?.length > 0 && (
+                  <CartQtyIndicator
+                    cartItemsQty={cartQty}
+                    setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                    setMode={setMode}
+                    mobileMenu={mobileMenu}
+                  />
+                )}
                 <img
                   src={bag}
                   className="w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px] portrait:md:w-6"
                   alt="your cart"
+                  height="18"
+                  width="18"
                   onClick={() => {
                     setMode('cart');
                     setIsCartFavWrapperHidden(false);
@@ -209,6 +207,8 @@ export default function Navbar({
                   alt="your favorites"
                   // style={{strokeWidth: '2'}}
                   className="w-3 cursor-pointer lg:w-[16px] xl:w-5 portrait:md:w-6"
+                  height="18"
+                  width="18"
                   onClick={() => {
                     setMode('fav');
                     setIsCartFavWrapperHidden(false);
@@ -225,6 +225,8 @@ export default function Navbar({
                 <img
                   src={user}
                   alt="your account"
+                  height="18"
+                  width="18"
                   className="w-3 lg:w-4 xl:w-5 portrait:md:w-6"
                 />
               </NavLink>
@@ -237,6 +239,8 @@ export default function Navbar({
                   <img
                     src={user}
                     alt="sign in / sign up"
+                    height="18"
+                    width="18"
                     className="w-3 lg:w-4 xl:w-5 portrait:md:w-6"
                   />
                 </button>
