@@ -56,9 +56,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
   // const isPresent = useIsPresent();
 
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0 });
-  // }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   useEffect(() => {
     if (!allProducts.products.length) {
