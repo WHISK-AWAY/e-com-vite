@@ -13,7 +13,7 @@ const tintImageURL =
 const tintGif =
   'https://media.typology.com/video-storyblok/1120x1120/f58dfedd46/teinte_packshot-collection_web_15ml.gif';
 
-export default function NewIn() {
+export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
   // const isPresent = useIsPresent();
 
   return (
@@ -25,7 +25,9 @@ export default function NewIn() {
           </h1>
           <video
             src={roseLady}
-            className="relative z-30 h-screen w-11/12 object-cover object-center"
+            className={` ${
+              mobileMenu ? 'h-[50vh]' : 'h-screen'
+            } relative z-30 w-11/12 object-cover object-center`}
             loop
             autoPlay
             muted
@@ -41,12 +43,16 @@ export default function NewIn() {
             alt="abstract background"
           />
           <div className="middle-section-columns relative flex w-full basis-3/4 gap-6 pt-[20vw]">
-            <div className="product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%]">
+            <div
+              className={` ${
+                mobileMenu ? 'w-2/4' : 'w-1/4'
+              } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%]`}
+            >
               <img
                 data-src={tintImageURL}
                 data-sizes="auto"
-                className="lazyload absolute aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:invisible 5xl:aspect-[10/11]"
-                alt="lineup of tinted lip products"
+                className={` lazyload 5xl:aspect-[10/11]" alt="lineup of tinted lip products absolute
+                aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:invisible`}
               />
               <video
                 src={tintGif}
@@ -60,7 +66,11 @@ export default function NewIn() {
             </div>
             <div className="mid-left relative z-10 h-[60vh] basis-1/2 5xl:h-[40vh]">
               <video
-                className="aspect-[4/5] w-full rounded-sm object-cover object-top 5xl:w-[70%] 5xl:translate-x-[40%]"
+                className={` ${
+                  mobileMenu
+                    ? 'aspect-[2/5]  translate-y-[15%]'
+                    : 'aspect-[1/4]'
+                }  w-full rounded-sm object-cover object-top 5xl:w-[70%] 5xl:translate-x-[40%]`}
                 src={redBlobs}
                 loop
                 autoPlay
@@ -71,7 +81,9 @@ export default function NewIn() {
             </div>
             <div className="mid-right relative z-10 basis-1/2">
               <video
-                className="aspect-[4/5] w-full object-cover object-top 5xl:w-[70%]"
+                className={` ${
+                  mobileMenu ? 'aspect-[2/5] translate-y-[15%]' : 'aspect-[4/5]'
+                }  w-full object-cover object-top 5xl:w-[70%]`}
                 src={redLady}
                 loop
                 autoPlay
@@ -85,12 +97,24 @@ export default function NewIn() {
                 <p>new in</p>
               </div>
             </div>
-            <div className="red-banner absolute -right-6 bottom-0 z-20 flex h-[40vh] w-screen gap-12  bg-[rgba(83,1,2,.7)] px-[6vw] text-white 5xl:h-[50vh]">
+            <div
+              className={` ${
+                mobileMenu ? 'bottom-28 h-[20vh]' : 'bottom-0 h-[40vh]'
+              } red-banner absolute -right-6  z-20 flex  w-screen gap-12  bg-[rgba(83,1,2,.7)] px-[6vw] text-white 5xl:h-[50vh]`}
+            >
               <div className="red-banner-column h-full shrink-0 grow-0 basis-1/2 py-6 pr-[4vw] 5xl:pl-64 6xl:pl-80">
-                <h3 className="mb-2 text-[2vw] font-semibold uppercase tracking-[0.2em] 5xl:text-[1.3vw] ">
+                <h3
+                  className={` ${
+                    mobileMenu ? 'text-[1rem]' : 'text-[2vw]'
+                  } mb-2  font-semibold uppercase tracking-[0.2em] 5xl:text-[1.3vw] `}
+                >
                   where skincare meets color
                 </h3>
-                <p className="font-roboto-mono text-[1.1vw] font-thin lowercase tracking-[0.3em] 5xl:w-[90%] 5xl:text-[.8vw]">
+                <p
+                  className={` ${
+                    mobileMenu ? 'w-[90svw] text-[.8rem]' : 'text-[1.1vw]'
+                  } font-roboto-mono  font-thin lowercase tracking-[0.3em] 5xl:w-[90%] 5xl:text-[.8vw]`}
+                >
                   Our tinted-care hybrids combine active ingredients like
                   hyaluronic acid with natural pigments for long-term skincare
                   benefits and immediate color payoff. All our tinted care
@@ -105,14 +129,26 @@ export default function NewIn() {
             <Link
               to="/shop-all?filter=tint"
               // state={{ filterKey: 'tint' }}
-              className="relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-raleway text-[2vw] font-light text-white lg:text-[1.5vw] 5xl:text-[1.2vw]"
+              className={`${
+                mobileMenu ? 'text-[1rem]' : 'text-[2vw]'
+              } relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-raleway  font-light text-white lg:text-[1.5vw] 5xl:text-[1.2vw]`}
             >
               shop now
             </Link>
           </div>
         </section>
-        <section className="bottom-section relative z-10 flex min-h-screen w-full flex-col items-center bg-white px-8 pb-12 pt-4 text-[#f6fff8]">
-          <h2 className="absolute right-1/2 top-0 w-full translate-x-[48.6%]  translate-y-[-54%] whitespace-nowrap text-center font-archivo text-[12vw] uppercase leading-none tracking-[1.5rem] lg:translate-x-[51%]">
+        <section
+          className={` ${
+            mobileMenu ? 'h-[70svh] pt-2' : 'min-h-screen pt-4'
+          } bottom-section relative z-10 flex  w-full flex-col items-center bg-white px-8 pb-12  text-[#f6fff8]`}
+        >
+          <h2
+            className={` ${
+              mobileMenu
+                ? 'translate-x-[50%] text-[3.4rem] tracking-[.1rem]'
+                : 'translate-x-[48.6%] text-[12vw] tracking-[1.5rem] '
+            } absolute right-1/2 top-0 w-full  translate-y-[-54%] whitespace-nowrap text-center font-archivo  uppercase leading-none lg:translate-x-[51%]`}
+          >
             made with
           </h2>
           <img
@@ -121,11 +157,25 @@ export default function NewIn() {
             data-sizes="auto"
             alt="close-up photo of a red rose"
           />
-          <div className="bottom-text absolute top-0 w-3/5 translate-y-[75%] text-white lg:w-1/2 xl:w-5/12 2xl:w-1/3">
-            <h3 className="mb-3 font-yantramanav text-[2.5vw] 5xl:text-[2vw] uppercase tracking-widest">
+          <div
+            className={` ${
+              mobileMenu ? 'translate-y-14' : 'translate-y-[75%]'
+            } bottom-text absolute top-0 w-3/5  text-white lg:w-1/2 xl:w-5/12 2xl:w-1/3`}
+          >
+            <h3
+              className={` ${
+                mobileMenu ? 'text-[1.2rem]' : 'text-[2.5vw]'
+              } mb-3 font-yantramanav  uppercase tracking-widest 5xl:text-[2vw]`}
+            >
               rosehip oil
             </h3>
-            <p className="font-roboto-mono text-[1.4vw] 5xl:text-[1vw] font-light lowercase tracking-[0.3rem] lg:text-[1.2vw]">
+            <p
+              className={` ${
+                mobileMenu
+                  ? 'text-[.9rem] leading-normal'
+                  : 'text-[1.4vw] tracking-[0.3rem]'
+              } font-roboto-mono  font-light lowercase  lg:text-[1.2vw] 5xl:text-[1vw]`}
+            >
               We've infused Latin America's most legendary serum, Rosa Mosqueta,
               into a luxuriously glossy Lip Oil. Our fragrance-free lip oil
               applies sheer with a perfect hint of color, giving you a natural
