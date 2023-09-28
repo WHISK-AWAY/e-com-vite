@@ -65,6 +65,15 @@ export default function DropdownMenu({
       });
 
       tl.from(
+        '.logo-wrapper',
+        {
+          height: 0,
+          opacity: 0,
+        },
+        '<'
+      );
+
+      tl.from(
         '.text-reveal',
         {
           duration: 0.7,

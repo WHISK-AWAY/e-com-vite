@@ -816,8 +816,12 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
           <picture className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]">
+            <source
+              data-srcset="/assets/homepage/images/rainbow-lady.webp"
+              type="image/webp"
+            />
             <img
-              src="/assets/homepage/images/rainbow-lady.jpg"
+              data-src="/assets/homepage/images/rainbow-lady.jpg"
               alt="red haired ladys profile with reflection of a rainbow on her face"
               // className="h-full w-full object-cover object-right"
               className={` ${
