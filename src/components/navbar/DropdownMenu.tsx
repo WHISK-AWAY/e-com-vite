@@ -180,7 +180,7 @@ export default function DropdownMenu({
       />
 
       {/* Menu options */}
-      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)] portrait:text-[2.7rem]">
+      <div className="menu-option-container txt-stroke my-auto flex flex-col text-[min(7vw,_12vh)] leading-[1] text-transparent 5xl:text-[min(6vw,_12vh)] portrait:text-[2.7rem] portrait:md:text-[5rem]">
         <div className={'menu-option ml-[25%]'}>
           <button
             onClick={() =>
