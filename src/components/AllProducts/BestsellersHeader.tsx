@@ -1,11 +1,12 @@
-import purpleBlob from '../../assets/vid/bestsellers/blob.mp4'
-import 'lazysizes';
+import purpleBlob from '../../assets/vid/bestsellers/blob.mp4';
 
 export type BestsellersHeaderProps = {
-  mobileMenu: boolean
+  mobileMenu: boolean;
 };
 
-export default function BestsellersHeader({ mobileMenu }: BestsellersHeaderProps) {
+export default function BestsellersHeader({
+  mobileMenu,
+}: BestsellersHeaderProps) {
   return (
     <>
       <section className="mb-40 w-screen portrait:w-[100svw]">
@@ -21,7 +22,9 @@ export default function BestsellersHeader({ mobileMenu }: BestsellersHeaderProps
           />
           <h1
             className={` ${
-              mobileMenu ? '-translate-y-[10%] text-[2.4rem] portrait:sm:text-[2.8rem]' : 'translate-y-[45%]'
+              mobileMenu
+                ? '-translate-y-[10%] text-[2.4rem] portrait:sm:text-[2.8rem]'
+                : 'translate-y-[45%]'
             } absolute bottom-0 right-0 w-full  text-center font-archivo text-[8vw] font-xxbold uppercase leading-none tracking-widest text-charcoal/80 mix-blend-color-burn `}
           >
             bestsellers

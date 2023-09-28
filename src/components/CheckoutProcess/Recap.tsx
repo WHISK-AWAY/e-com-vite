@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Stripe, StripeElementsOptions, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import 'lazysizes';
 
 import { selectAuthUserId } from '../../redux/slices/authSlice';
 import {
@@ -36,7 +35,7 @@ import sandLady from '../../../src/assets/bg-img/lady-rubbing-sand-on-lips.jpg';
 import x from '../../../src/assets/icons/x.svg';
 const VITE_STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
 
-export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
+export default function Recap({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectAuthUserId);
@@ -271,14 +270,13 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
                   />
                   <div className="w-28 lg:w-40">
                     <img
-                      className="lazyload aspect-[3/4] object-cover  portrait:md:aspect-[2/4]"
+                      className=" aspect-[3/4] object-cover  portrait:md:aspect-[2/4]"
                       alt={`product image: ${item.product.productName}`}
-                      data-src={
+                      src={
                         item.product.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || item.product.images[0].imageURL
                       }
-                      data-sizes="auto"
                     />
                   </div>
                   <div className="flex w-3/5 flex-col items-center  justify-center self-start pt-[3%]">
@@ -311,15 +309,14 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
 
           <div className="bg-img-container relative flex w-2/5 flex-col portrait:hidden">
             <img
-              data-src={oceanBg}
-              data-sizes="auto"
+              src={oceanBg}
               alt=""
-              className="lazyload"
+              className=""
             />
             <img
-              data-src={sandLady}
+              src={sandLady}
               alt=""
-              className="lazyload absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]"
+              className=" absolute top-0 w-4/5 translate-x-[-20%] translate-y-[12%]"
             />
           </div>
         </div>
@@ -396,7 +393,7 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
         <div
           className={`${
             mobileMenu && addresses.length > 0 ? ' justify-between pl-3' : ''
-          } relative flex  place-items-center border-b justify-center border-charcoal font-poiret`}
+          } relative flex  place-items-center justify-center border-b border-charcoal font-poiret`}
         >
           <h1 className="items-center py-3 text-center text-xl">
             {!clientSecret ? 'SHIPPING INFO' : 'PAYMENT INFO'}
@@ -515,7 +512,7 @@ export default function Recap({mobileMenu} : {mobileMenu: boolean}) {
                 </Elements>
               ) : (
                 <button
-                  className="w-full self-center rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase tracking-widest whitespace-nowrap  text-white lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-3/6"
+                  className="w-full self-center whitespace-nowrap rounded-sm bg-charcoal px-8 py-2 font-poiret text-lg uppercase tracking-widest  text-white lg:w-fit lg:px-16 xl:w-3/6 xl:px-5 2xl:w-3/6"
                   onClick={(e) => handleCheckout(e)}
                 >
                   confirm & proceed

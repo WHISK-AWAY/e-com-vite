@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import 'lazysizes';
 
 import roseLady from '../../assets/vid/new in/lady-sniffing-roses.mp4';
 import gelBg from '../../assets/bg-img/new in/red-gray-gel.jpg';
@@ -13,7 +12,7 @@ const tintImageURL =
 const tintGif =
   'https://media.typology.com/video-storyblok/1120x1120/f58dfedd46/teinte_packshot-collection_web_15ml.gif';
 
-export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
+export default function NewIn({ mobileMenu }: { mobileMenu: boolean }) {
   // const isPresent = useIsPresent();
 
   return (
@@ -37,9 +36,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
         </header>
         <section className="middle-section relative z-10 flex h-full w-screen flex-col items-center gap-[2vw]  p-6 pb-[8vw]">
           <img
-            data-src={gelBg}
-            data-sizes="auto"
-            className="lazyload middle-section-bg absolute right-0 top-0 z-0 h-full w-full object-cover object-top"
+            src={gelBg}
+            className=" middle-section-bg absolute right-0 top-0 z-0 h-full w-full object-cover object-top"
             alt="abstract background"
           />
           <div className="middle-section-columns relative flex w-full basis-3/4 gap-6 pt-[20vw]">
@@ -49,9 +47,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
               } product-image-wrapper group absolute right-1/2 top-0 z-10 h-fit w-1/4 translate-x-[50%] portrait:md:w-2/5`}
             >
               <img
-                data-src={tintImageURL}
-                data-sizes="auto"
-                className={` lazyload 5xl:aspect-[10/11]" alt="lineup of tinted lip products absolute
+                src={tintImageURL}
+                className={`  5xl:aspect-[10/11]" alt="lineup of tinted lip products absolute
                 aspect-[3/4] w-full translate-y-[-30%] object-cover group-hover:invisible`}
               />
               <video
@@ -154,9 +151,8 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
             made with
           </h2>
           <img
-            className="lazyload h-full w-full object-cover"
-            data-src={roseBg}
-            data-sizes="auto"
+            className=" h-full w-full object-cover"
+            src={roseBg}
             alt="close-up photo of a red rose"
           />
           <div

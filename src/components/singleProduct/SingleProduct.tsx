@@ -29,7 +29,6 @@ import ProductCarousel from './ProductCarousel';
 import StarsBar from '../StarsBar';
 import ImageCarousel from './ImageCarousel';
 
-import 'lazysizes';
 import { toastGuestFavorite } from '../../utilities/toast';
 import convertMediaUrl from '../../utilities/convertMediaUrl';
 import { getMaxQty } from '../../utilities/helpers';
@@ -366,7 +365,7 @@ export default function SingleProduct({
           mobileMenu
             ? 'max-w-[100svw] px-0 '
             : 'mt-8 max-w-[calc(100svw_-_20px)] px-12 '
-        } single-product-main mx-auto mb-16 lg:mb-32 flex min-h-[calc(100vh_-_4rem)]  flex-col items-center   bg-white xl:mt-14 2xl:max-w-[1420px] portrait:md:px-5 portrait:lg:max-w-[95svw]`}
+        } single-product-main mx-auto mb-16 flex min-h-[calc(100vh_-_4rem)] flex-col  items-center bg-white   lg:mb-32 xl:mt-14 2xl:max-w-[1420px] portrait:md:px-5 portrait:lg:max-w-[95svw]`}
       >
         <section
           ref={prodInfoWrapper}

@@ -16,7 +16,6 @@ import SortFilterAllProds from '../SortFilterAllProds';
 import AllProductsHeader from './AllProductsHeader';
 import BestsellersHeader from './BestsellersHeader';
 
-import 'lazysizes';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';

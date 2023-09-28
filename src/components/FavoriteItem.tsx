@@ -6,7 +6,6 @@ import minus from '../../src/assets/icons/circleMinus.svg';
 import x from '../../src/assets/icons/x.svg';
 import { useAppDispatch } from '../redux/hooks';
 import { getMaxQty } from '../utilities/helpers';
-import 'lazysizes';
 
 export type TFavoriteItemProp = {
   product: UserProduct;
@@ -75,15 +74,14 @@ export default function FavoriteItem({
       <article className="product-card flex h-fit w-full items-center justify-center gap-4 pt-3">
         <div className="image-wrapper flex h-full shrink-0 grow-0 basis-1/3 flex-col justify-center">
           <img
-            className="lazyload aspect-[3/4] cursor-pointer object-cover"
+            className=" aspect-[3/4] cursor-pointer object-cover"
             onClick={goToProduct}
             alt={`product image: ${product.productName}`}
-            data-src={
+            src={
               product.images.find(
                 (image) => image.imageDesc === 'product-front'
               )?.imageURL || product.images[0].imageURL
             }
-            data-sizes="auto"
           />
         </div>
         <div className="prod-detail flex h-full basis-2/3 flex-col items-center justify-center gap-1">
