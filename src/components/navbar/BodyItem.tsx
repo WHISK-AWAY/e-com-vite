@@ -114,7 +114,7 @@ export default function BodyItem({
 
             return (
               <Link
-                to={`/shop-all?filter=${name}`}
+                to={`/shop-all?filter=${name.replace('&', '%26')}`}
                 onClick={() => closeLocalMenu(true)}
                 // state={{ filterKey: name }}
                 className={` ${
