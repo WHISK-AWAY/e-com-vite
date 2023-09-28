@@ -23,7 +23,7 @@ import SearchContainer from './SearchContainer';
 import { Toaster } from 'react-hot-toast';
 
 import MobileNav from './MobileNav';
-import { selectCart } from '../../redux/slices/cartSlice';
+import { fetchUserCart, selectCart } from '../../redux/slices/cartSlice';
 
 export type TCFMode = 'cart' | 'fav';
 
@@ -56,16 +56,26 @@ export default function Navbar({
   const singleUserState = useAppSelector(selectSingleUser);
   const [mode, setMode] = useState<TCFMode>('cart');
   const cart = useAppSelector(selectCart)
+  const [cartQty, setCartQty] = useState(0)
 
   
-  const cartQty = cart.cart?.products?.reduce((accum, prod) => {
-    return accum+ prod.qty
-  }, 0)
+
+
+  useEffect(() => {
+
+    const cartItemsQty = cart.cart?.products?.reduce((accum, prod) => {
+      return accum+ prod.qty
+    }, 0)
+    
+
+    setCartQty(cartItemsQty)
+  }, [cart.cart?.products])
 
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
     else dispatch(getUserId());
+    dispatch(fetchUserCart(userId))
   }, [userId]);
 
   useEffect(() => {
@@ -150,12 +160,14 @@ export default function Navbar({
 
             {
               <div>
+                {cart.cart?.products?.length > 0 && 
                 <CartQtyIndicator
-                  cartItemsQty={cartQty}
-                  setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-                  setMode={setMode}
-                  mobileMenu={mobileMenu}
+                cartItemsQty={cartQty}
+                setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+                setMode={setMode}
+                mobileMenu={mobileMenu}
                 />
+              }
                 <img
                   src={bag}
                   className="w-[14px] cursor-pointer lg:w-[19px] xl:w-[23px] portrait:md:w-6"
