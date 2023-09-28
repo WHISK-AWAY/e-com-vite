@@ -975,10 +975,18 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   aria-label={`product: ${randomProd02?.productName}`}
                 >
                   <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
+                    <source
+                      data-srcset={convertMediaUrl(
+                        randomProd02?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd02?.images[0].imageURL
+                      )}
+                      type="image/webp"
+                    />
                     <img
-                      className="h-full w-full object-cover"
+                      className="lazyload h-full w-full object-cover"
                       alt={`product: ${randomProd01?.productName}`}
-                      src={
+                      data-src={
                         randomProd02?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd02?.images[0].imageURL
