@@ -130,7 +130,7 @@ function App() {
     },
     {
       path: '/new-in',
-      element: <NewIn />,
+      element: <NewIn mobileMenu={mobileMenu}/>,
     },
     {
       path: 'product/:productId',
