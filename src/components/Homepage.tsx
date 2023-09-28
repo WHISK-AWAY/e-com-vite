@@ -1109,7 +1109,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <div
               className={` ${
                 mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
-              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
+              } beach-text-closer  pb-[10%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
             >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
