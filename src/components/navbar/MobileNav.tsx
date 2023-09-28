@@ -50,12 +50,12 @@ export default function MobileNav({
   setIsMenuHidden,
   isMenuHidden,
   mobileMenu,
-  cartQty
+  cartQty,
 }: NavbarProps) {
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
-  const cart = useAppSelector(selectCart)
+  const cart = useAppSelector(selectCart);
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
@@ -70,6 +70,8 @@ export default function MobileNav({
             src={menuIcon}
             alt="Menu"
             className="h-9 pt-3"
+            height="36"
+            width="36"
             onClick={() => setIsMenuHidden(false)}
           />
           {!isMenuHidden && (
@@ -98,6 +100,8 @@ export default function MobileNav({
             src={searchIcon}
             alt="Search"
             className="h-6"
+            height="24"
+            width="24"
             onClick={() => setIsSearchHidden((prev) => !prev)}
           />
 
@@ -108,18 +112,20 @@ export default function MobileNav({
 
         {/**cart section */}
         <>
-        {cart.cart?.products?.length > 0 && 
-          <CartQtyIndicator
-          cartItemsQty={cartQty}
-          setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-          setMode={setMode}
-          mobileMenu={mobileMenu}
-          />
-        }
+          {cart.cart?.products?.length > 0 && (
+            <CartQtyIndicator
+              cartItemsQty={cartQty}
+              setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+              setMode={setMode}
+              mobileMenu={mobileMenu}
+            />
+          )}
           <img
             src={bag}
             alt="Cart"
             className="h-6"
+            height="24"
+            width="24"
             onClick={() => {
               setMode('cart');
               setIsCartFavWrapperHidden(false);
@@ -149,6 +155,8 @@ export default function MobileNav({
                 : 'Favorites (Empty Heart)'
             }
             className="h-6"
+            height="24"
+            width="24"
             onClick={() => {
               setMode('fav');
               setIsCartFavWrapperHidden(false);
@@ -167,11 +175,12 @@ export default function MobileNav({
         {/**user section */}
         {userId ? (
           <Link to={`/user/${userId}`}>
-            {' '}
             <img
               src={user}
               alt={userId ? 'User Account' : 'Sign In'}
               className="h-6"
+              height="24"
+              width="24"
             />
           </Link>
         ) : (
@@ -184,6 +193,8 @@ export default function MobileNav({
                 src={user}
                 alt="sign in / sign up"
                 className="h-6"
+                height="24"
+                width="24"
               />
             </button>
             {!isSignFormHidden && (
