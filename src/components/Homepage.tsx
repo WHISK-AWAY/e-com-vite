@@ -714,7 +714,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full object-cover portrait:md:max-h-[900px]`}
+            } hands -z-10 aspect-[1/2] h-full object-cover 3xl:max-h-[900px] portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/hand-lotion-trimmed.webm"
@@ -734,7 +734,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             muted
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
-            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left portrait:md:max-h-[900px]`}
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left 3xl:max-h-[900px] portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/leaves-trimmed.webm"
@@ -857,7 +857,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   : 'left-[14%] top-[12%] md:text-4xl lg:left-[2%] lg:text-[4rem] 2xl:text-[6vw] 3xl:left-[19%] 3xl:top-[15%] 3xl:text-[4.5vw] 5xl:left-[21%] 5xl:top-[17%] 5xl:text-[3.5vw]'
               } uv-rays-text absolute   whitespace-nowrap text-center font-yantramanav font-light uppercase tracking-wide text-[#262625]/80`}
             >
-              <span className=" mix-blend-difference 3xl:text-white/40">
+              <span className=" mix-blend-difference lg:text-white/40">
                 from
               </span>{' '}
               harmful uva & uvb rays
