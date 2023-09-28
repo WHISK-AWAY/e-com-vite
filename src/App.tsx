@@ -10,7 +10,9 @@ import AllProducts from './components/AllProducts/AllProducts.tsx';
 import SingleProduct from './components/singleProduct/SingleProduct';
 import Navbar from './components/navbar/Navbar.tsx';
 import NewIn from './components/NewIn/NewIn';
-import Footer from './components/Footer';
+
+const Footer = React.lazy(() => import('./components/Footer'));
+// import Footer from './components/Footer';
 
 const AdminDashboard = React.lazy(
   () => import('./components/Admin/AdminDashboard')
@@ -130,7 +132,7 @@ function App() {
     },
     {
       path: '/new-in',
-      element: <NewIn mobileMenu={mobileMenu}/>,
+      element: <NewIn mobileMenu={mobileMenu} />,
     },
     {
       path: 'product/:productId',
@@ -150,7 +152,7 @@ function App() {
     },
     {
       path: 'checkout',
-      element: <Recap mobileMenu={mobileMenu}/>,
+      element: <Recap mobileMenu={mobileMenu} />,
     },
     {
       path: '/checkout/success',
@@ -307,10 +309,12 @@ function App() {
           {element}
         </div>
       </AnimatePresence>
-      <Footer
-        key="footer"
-        mobileMenu={mobileMenu}
-      />
+      <Suspense fallback="<p>Loading footer</p>">
+        <Footer
+          key="footer"
+          mobileMenu={mobileMenu}
+        />
+      </Suspense>
     </div>
   );
 }
