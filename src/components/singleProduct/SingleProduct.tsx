@@ -141,7 +141,8 @@ export default function SingleProduct({
             pinSpacing: mobileMenu ? false : true,
             endTrigger: ingredientSection.current,
             start: 'top 64px',
-            end: mobileMenu ? 'bottom 50%' : 'bottom bottom',
+            markers: true,
+            end: mobileMenu ? 'bottom 40%' : 'bottom bottom',
           },
         });
 
