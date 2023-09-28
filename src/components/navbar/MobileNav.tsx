@@ -21,6 +21,7 @@ import DropdownMenu from './DropdownMenu';
 import CartFavWrapper from '../CartFavWrapper';
 import SearchContainer from './SearchContainer';
 import CartQtyIndicator from './CartQtyIndicator';
+import { selectCart } from '../../redux/slices/cartSlice';
 
 export type NavbarProps = {
   setIsSearchHidden: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,6 +55,7 @@ export default function MobileNav({
   const dispatch = useAppDispatch();
   const { userId } = useAppSelector(selectAuth);
   const singleUserState = useAppSelector(selectSingleUser);
+  const cart = useAppSelector(selectCart)
 
   useEffect(() => {
     if (userId) dispatch(fetchSingleUser(userId));
@@ -106,12 +108,14 @@ export default function MobileNav({
 
         {/**cart section */}
         <>
+        {cart.cart?.products?.length > 0 && 
           <CartQtyIndicator
-            cartItemsQty={cartQty}
-            setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
-            setMode={setMode}
-            mobileMenu={mobileMenu}
+          cartItemsQty={cartQty}
+          setIsCartFavWrapperHidden={setIsCartFavWrapperHidden}
+          setMode={setMode}
+          mobileMenu={mobileMenu}
           />
+        }
           <img
             src={bag}
             alt="Cart"
