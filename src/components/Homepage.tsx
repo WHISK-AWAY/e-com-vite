@@ -12,23 +12,9 @@ import { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import 'lazysizes';
-
-// import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-// import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
-// import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
-// import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
-// import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
-// import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
-// import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
-// import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
-// import papaya from '../assets/bg-img/homepage/papaya.jpg';
-// import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
-// import melon from '../assets/bg-img/homepage/melon.jpg';
-// import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+import Lenis from '@studio-freight/lenis';
 
 import { CSSPlugin } from 'gsap/CSSPlugin';
-import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
 import '../index.css'; // ? this is already imported in main -- is it needed here also?
 // import Preloader from './Preloader';
@@ -817,15 +803,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <picture className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]">
             <source
-              data-srcset="/assets/homepage/images/rainbow-lady.webp"
+              srcSet="/assets/homepage/images/rainbow-lady.webp"
               type="image/webp"
             />
             <img
-              data-src="/assets/homepage/images/rainbow-lady.jpg"
+              src="/assets/homepage/images/rainbow-lady.jpg"
               alt="red haired ladys profile with reflection of a rainbow on her face"
               width="960"
               height="1440"
-              // className="h-full w-full object-cover object-right"
               className={` ${
                 mobileMenu
                   ? 'h-full object-cover object-right'
@@ -874,7 +859,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               >
                 <picture>
                   <source
-                    data-srcset={convertMediaUrl(
+                    srcSet={convertMediaUrl(
                       singleProduct?.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || singleProduct?.images[0].imageURL
@@ -886,9 +871,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                       mobileMenu
                         ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
                         : 'h-full pt-[70%] '
-                    } rainbow-lady-rp lazyload aspect-[1/2] object-cover`}
+                    } rainbow-lady-rp aspect-[1/2] object-cover`}
                     alt={`product: ${singleProduct?.productName}`}
-                    data-src={
+                    src={
                       singleProduct?.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || singleProduct?.images[0].imageURL
@@ -947,7 +932,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 >
                   <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
                     <source
-                      data-srcset={convertMediaUrl(
+                      srcSet={convertMediaUrl(
                         randomProd01?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd01?.images[0].imageURL
@@ -955,9 +940,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                       type="image/webp"
                     />
                     <img
-                      className="lazyload h-full w-full object-cover"
+                      className="h-full w-full object-cover"
                       alt={`product: ${randomProd01?.productName}`}
-                      data-src={
+                      src={
                         randomProd01?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd01?.images[0].imageURL
@@ -975,7 +960,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 >
                   <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
                     <source
-                      data-srcset={convertMediaUrl(
+                      srcSet={convertMediaUrl(
                         randomProd02?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd02?.images[0].imageURL
@@ -983,9 +968,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                       type="image/webp"
                     />
                     <img
-                      className="lazyload h-full w-full object-cover"
+                      className="h-full w-full object-cover"
                       alt={`product: ${randomProd01?.productName}`}
-                      data-src={
+                      src={
                         randomProd02?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd02?.images[0].imageURL
@@ -1019,13 +1004,13 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             >
               <picture>
                 <source
-                  data-srcset="/assets/homepage/images/beach-lady.webp"
+                  srcSet="/assets/homepage/images/beach-lady.webp"
                   type="image/webp"
                 />
                 <img
-                  data-src="/assets/homepage/images/beach-lady.jpg"
+                  src="/assets/homepage/images/beach-lady.jpg"
                   alt="lady with a big white hat is laying on the beach"
-                  className="beach-lady-img lazyload aspect-auto h-3/4 w-full object-cover"
+                  className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
                 />
               </picture>
             </div>
@@ -1084,7 +1069,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 >
                   <picture>
                     <source
-                      data-srcset={convertMediaUrl(
+                      srcSet={convertMediaUrl(
                         randomProd03?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd03?.images[0].imageURL
@@ -1092,9 +1077,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                       type="image/webp"
                     />
                     <img
-                      className={`lazyload aspect-[5/6] w-full transform object-cover pt-[2%] transition duration-300 hover:scale-105`}
+                      className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition duration-300 hover:scale-105`}
                       alt={`product: ${randomProd03?.productName}`}
-                      data-src={
+                      src={
                         randomProd03?.images.find(
                           (image) => image.imageDesc === 'product-front'
                         )?.imageURL || randomProd03?.images[0].imageURL
@@ -1142,11 +1127,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 } grapefruit-butt-img  z-10  aspect-square self-center portrait:md:w-[45%]`}
               >
                 <picture>
-                  <source data-srcset="/assets/homepage/images/grapefruit-butt.webp" />
+                  <source srcSet="/assets/homepage/images/grapefruit-butt.webp" />
                   <img
-                    data-src="/assets/homepage/images/grapefruit-butt.jpg"
+                    src="/assets/homepage/images/grapefruit-butt.jpg"
                     alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                    className={`lazyload aspect-square h-full object-cover`}
+                    className={`aspect-square h-full object-cover`}
                   />
                 </picture>
               </div>
@@ -1220,18 +1205,18 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               } unleash-lady-img 3xl:object-top `}
             >
               <source
-                data-srcset="/assets/homepage/images/lady-mask.webp"
+                srcSet="/assets/homepage/images/lady-mask.webp"
                 type="image/webp"
               />
               <img
-                data-src="/assets/homepage/images/lady-mask.jpg"
+                src="/assets/homepage/images/lady-mask.jpg"
                 alt="woman applying mask to her face"
-                className="lazyload h-full w-full object-cover 3xl:object-top"
+                className="h-full w-full object-cover 3xl:object-top"
                 // className={`${
                 //   mobileMenu
                 //     ? 'h-[60svh] w-[60%] object-cover'
                 //     : ' h-screen w-3/5 object-cover '
-                // } unleash-lady-img lazyload  3xl:object-top `}
+                // } unleash-lady-img  3xl:object-top `}
               />
             </picture>
             <div className=" relative flex w-2/5 flex-col justify-end gap-7">
@@ -1262,7 +1247,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               >
                 <picture>
                   <source
-                    data-srcset={convertMediaUrl(
+                    srcSet={convertMediaUrl(
                       singleProduct?.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || singleProduct?.images[0].imageURL
@@ -1270,9 +1255,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     type="image/webp"
                   />
                   <img
-                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] portrait:md:h-[500px] landscape:short:h-[410px]"
+                    className="min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] portrait:md:h-[500px] landscape:short:h-[410px]"
                     alt={`product: ${singleProduct?.productName}`}
-                    data-src={
+                    src={
                       singleProduct?.images.find(
                         (image) => image.imageDesc === 'product-front'
                       )?.imageURL || singleProduct?.images[0].imageURL
@@ -1339,7 +1324,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             >
               <picture>
                 <source
-                  data-srcset={convertMediaUrl(
+                  srcSet={convertMediaUrl(
                     randomProd06?.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd06?.images[0].imageURL
@@ -1351,9 +1336,9 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     mobileMenu
                       ? 'aspect-[4/5] -translate-x-[20%] '
                       : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
-                  } lazyload w-full transform object-cover transition duration-300 hover:scale-110 portrait:md:aspect-[1/2]`}
+                  } w-full transform object-cover transition duration-300 hover:scale-110 portrait:md:aspect-[1/2]`}
                   alt={`product: ${randomProd06?.productName}`}
-                  data-src={
+                  src={
                     randomProd06?.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd06?.images[0].imageURL
@@ -1370,15 +1355,15 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               } facewash-lady-img aspect-[4/6] self-center  portrait:md:aspect-[10/11]`}
             >
               <source
-                data-srcset="/assets/homepage/images/lady-facewash.webp"
+                srcSet="/assets/homepage/images/lady-facewash.webp"
                 type="image/webp"
               />
               <img
-                data-src="/assets/homepage/images/lady-facewash.jpg"
+                src="/assets/homepage/images/lady-facewash.jpg"
                 alt="lady washing her face in the bathroom with white towel on her head"
                 className={` ${
                   mobileMenu ? 'h-[50svh]' : 'h-screen'
-                } facewash-lady-img lazyload aspect-[4/6] self-center`}
+                } facewash-lady-img aspect-[4/6] self-center`}
               />
             </picture>
             <p
@@ -1404,14 +1389,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           >
             <picture className="papaya-img grow-1 aspect-[2/3] w-full shrink-0 object-cover">
               <source
-                data-srcset="/assets/homepage/images/papaya.webp"
+                srcSet="/assets/homepage/images/papaya.webp"
                 type="image/webp"
               />
               <img
-                data-src="/assets/homepage/images/papaya.jpg"
+                src="/assets/homepage/images/papaya.jpg"
                 alt="ripe papaya cut in half"
-                className="lazyload h-full w-full object-cover"
-                // className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
+                className="h-full w-full object-cover"
+                // className="papaya-img grow-1 aspect-[2/3] w-full shrink-0  object-cover "
               />
             </picture>
             <div className="relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap ">
@@ -1448,7 +1433,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 } min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition duration-300 hover:scale-105 3xl:pl-0 short:pt-16`}
               >
                 <source
-                  data-srcset={convertMediaUrl(
+                  srcSet={convertMediaUrl(
                     randomProd05?.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd05?.images[0].imageURL
@@ -1456,8 +1441,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   type="image/webp"
                 />
                 <img
-                  className="lazyload h-full w-full object-cover"
-                  data-src={
+                  className="h-full w-full object-cover"
+                  src={
                     randomProd05?.images.find(
                       (image) => image.imageDesc === 'product-front'
                     )?.imageURL || randomProd05?.images[0].imageURL
@@ -1509,24 +1494,24 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           >
             <picture className="h-full w-[30%] object-cover">
               <source
-                data-srcset="/assets/homepage/images/coconut-hand.webp"
+                srcSet="/assets/homepage/images/coconut-hand.webp"
                 type="image/webp"
               />
               <img
-                data-src="/assets/homepage/images/coconut-hand.jpg"
+                src="/assets/homepage/images/coconut-hand.jpg"
                 alt="hand is reaching for a coconut cut in half"
-                className="lazyload aspect-[1/2] w-full object-cover"
+                className="aspect-[1/2] w-full object-cover"
               />
             </picture>
             <picture className="melon-img h-full w-[30%] object-cover">
               <source
-                data-srcset="/assets/homepage/images/melon.webp"
+                srcSet="/assets/homepage/images/melon.webp"
                 type="image/webp"
               />
               <img
-                data-src="/assets/homepage/images/melon.jpg"
+                src="/assets/homepage/images/melon.jpg"
                 alt="melon cut in half"
-                className="lazyload aspect-[1/2] w-full object-cover"
+                className="aspect-[1/2] w-full object-cover"
               />
             </picture>
             <div className="h-full w-[30%] object-cover">
