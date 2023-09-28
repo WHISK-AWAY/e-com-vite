@@ -14,35 +14,35 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import 'lazysizes';
 
-import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
-import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
-import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
-import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
-import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
-import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
-import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
-import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
-import papaya from '../assets/bg-img/homepage/papaya.jpg';
-import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
-import melon from '../assets/bg-img/homepage/melon.jpg';
-import legBrush from '../assets/vid/homapage/leg-brush.mp4';
+// import handLotion from '../assets/vid/homapage/hand-lotion.mp4';
+// import rainLeaves from '../assets/vid/homapage/leaves-trimmed.mp4';
+// import bwSeizure from '../assets/vid/homapage/bw-seizure.mp4';
+// import rainbowLady from '../assets/bg-img/homepage/rainbow-lady.jpg';
+// import beachLady from '../assets/bg-img/homepage/beach-lady.jpg';
+// import grapefruitButt from '../assets/bg-img/homepage/grapefruit-butt.jpg';
+// import ladyMask from '../assets/bg-img/homepage/lady-mask.jpg';
+// import ladyFacewash from '../assets/bg-img/homepage/lady-facewash.jpg';
+// import papaya from '../assets/bg-img/homepage/papaya.jpg';
+// import coconutHand from '../assets/bg-img/homepage/coconut-hand.jpg';
+// import melon from '../assets/bg-img/homepage/melon.jpg';
+// import legBrush from '../assets/vid/homapage/leg-brush.mp4';
 
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import Lenis from '@studio-freight/lenis';
 gsap.registerPlugin(CSSPlugin);
-import '../index.css';
-import { motion, useIsPresent } from 'framer-motion';
-import Preloader from './Preloader';
+import '../index.css'; // ? this is already imported in main -- is it needed here also?
+// import Preloader from './Preloader';
 import { TTag, fetchAllTags, selectTagState } from '../redux/slices/tagSlice';
+import convertMediaUrl from '../utilities/convertMediaUrl';
 
 export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
   const allProducts = useAppSelector(selectAllProducts);
-  const [randomProd, setRandomProd] = useState<TProduct>();
+  // const [randomProd, setRandomProd] = useState<TProduct>();
   const [randomProd01, setRandomProd01] = useState<TProduct>();
   const [randomProd02, setRandomProd02] = useState<TProduct>();
   const [randomProd03, setRandomProd03] = useState<TProduct>();
-  const [randomProd04, setRandomProd04] = useState<TProduct>();
+  // const [randomProd04, setRandomProd04] = useState<TProduct>();
   const [randomProd05, setRandomProd05] = useState<TProduct>();
   const [randomProd06, setRandomProd06] = useState<TProduct>();
   const grapefruitButtRef = useRef(null);
@@ -59,7 +59,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     (tag: TTag) => tag.tagName === 'masks'
   )?.products[0]._id;
 
-  console.log(maskProdId);
+  // console.log(maskProdId);
   useEffect(() => {
     if (spfProdId) {
       dispatch(fetchAllTags);
@@ -68,11 +68,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
     }
   }, [spfProdId]);
 
-  const isPresent = useIsPresent();
+  // const isPresent = useIsPresent();
 
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0 });
-  // }, []);
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   useEffect(() => {
     if (!allProducts.products.length) {
@@ -84,11 +84,11 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         })
       );
     } else {
-      setRandomProd(randomProduct(allProducts));
+      // setRandomProd(randomProduct(allProducts));
       setRandomProd01(randomProduct(allProducts));
       setRandomProd02(randomProduct(allProducts));
       setRandomProd03(randomProduct(allProducts));
-      setRandomProd04(randomProduct(allProducts));
+      // setRandomProd04(randomProduct(allProducts));
       setRandomProd05(randomProduct(allProducts));
       setRandomProd06(randomProduct(allProducts));
     }
@@ -471,7 +471,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           trigger: '.facewash-section-content',
           start: 'top 10%',
           end: 'top 20%',
-          markers: true,
           scrub: 3.4,
         },
       });
@@ -658,7 +657,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
       ctx.revert();
     };
   });
-  //lenis smooth scroll setup
+  //lenis smooth scroll setup // ? should this be inside a useeffect? done this way, it'll create a new instance & listeners per-render
 
   const lenis = new Lenis({
     duration: 2.2,
@@ -691,7 +690,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
   gsap.ticker.lagSmoothing(0);
   requestAnimationFrame(raf);
 
-  if (!randomProd) return <p>...loading</p>;
+  // if (!randomProd) return <p>...loading</p>;
+
   return (
     <>
       <div
@@ -707,7 +707,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         >
           <video
             ref={handsRef}
-            src={handLotion}
             playsInline
             loop
             autoPlay
@@ -715,11 +714,19 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full    object-cover`}
-          />
+            } hands -z-10 aspect-[1/2] h-full object-cover`}
+          >
+            <source
+              src="/assets/homepage/vid/hand-lotion-trimmed.webm"
+              type="video/webm"
+            />
+            <source
+              src="/assets/homepage/vid/hand-lotion-trimmed.mp4"
+              type="video/mp4"
+            />
+          </video>
           <video
             ref={leavesRef}
-            src={rainLeaves}
             playsInline
             loop
             controls={false}
@@ -728,7 +735,16 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
             } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
-          />
+          >
+            <source
+              src="/assets/homepage/vid/leaves-trimmed.webm"
+              type="video/webm"
+            />
+            <source
+              src="/assets/homepage/vid/leaves-trimmed.mp4"
+              type="video/mp4"
+            />
+          </video>
 
           <div className=" absolute right-1/2 top-1/2 flex -translate-y-[120%] translate-x-[50%] flex-col items-center justify-center mix-blend-difference">
             <h1
@@ -776,7 +792,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </Link>
         </div>
 
-        {/**our phyloaophy section */}
+        {/**our philosophy section */}
         <div
           className={` ${
             mobileMenu ? 'pb-[35%] pt-[30%]' : 'pb-[18%] pt-[20%]'
@@ -799,16 +815,25 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             mobileMenu ? 'h-[70svh]' : 'h-full '
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
-          <img
-            data-src={rainbowLady}
-            data-sizes="auto"
-            alt="red haired ladys profile with reflection of a rainbow on her face"
-            className={` ${
-              mobileMenu
-                ? 'h-full object-cover object-right'
-                : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
-            } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
-          />
+          <picture
+            // className={` ${
+            //   mobileMenu
+            //     ? 'h-full object-cover object-right'
+            //     : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
+            // } rainbow-lady lazyload w-[60%] -translate-x-[15%] 3xl:w-[95%]  3xl:translate-x-[2%]`}
+            className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]"
+          >
+            <img
+              src="/assets/homepage/images/rainbow-lady.jpg"
+              alt="red haired ladys profile with reflection of a rainbow on her face"
+              // className="h-full w-full object-cover object-right"
+              className={` ${
+                mobileMenu
+                  ? 'h-full object-cover object-right'
+                  : 'object-cover 3xl:h-[100svh] 3xl:object-contain 5xl:h-[110svh]'
+              } rainbow-lady lazyload w-full`}
+            />
+          </picture>
           <div className="">
             <p
               className={` ${
@@ -844,20 +869,34 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
           <div className="flex w-[40%] flex-col 3xl:-translate-x-[38%]">
             <div className="  flex w-[90%] flex-col items-center justify-center 3xl:w-[70%] 5xl:w-[60%] 5xl:-translate-x-[15%]">
-              <Link to={'/product/' + spfProdId!}>
-                <img
-                  className={` ${
-                    mobileMenu
-                      ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
-                      : 'h-full pt-[70%] '
-                  } rainbow-lady-rp  object-cover]  aspect-[1/2]`}
-                  src={
-                    singleProduct?.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || singleProduct?.images[0].imageURL
-                  }
-                  // data-sizes='auto'
-                />
+              <Link
+                to={'/product/' + spfProdId}
+                aria-label={`product: ${singleProduct?.productName}`}
+              >
+                <picture>
+                  {/* didn't make any changes to these classes // ! delete */}
+                  <source
+                    srcSet={convertMediaUrl(
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    )}
+                    type="image/webp"
+                  />
+                  <img
+                    className={` ${
+                      mobileMenu
+                        ? 'h-[280px] pr-4 pt-[80%] portrait:sm:h-[450px] portrait:xs:h-[350px] portrait:xs:pt-[100%]'
+                        : 'h-full pt-[70%] '
+                    } rainbow-lady-rp  aspect-[1/2]  object-cover`}
+                    alt={`product: ${singleProduct?.productName}`}
+                    src={
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    }
+                  />
+                </picture>
               </Link>
               <p
                 className={` ${
@@ -904,35 +943,50 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             >
               <div className="flex justify-center">
                 <Link
-                  to={'/product/' + randomProd01!._id}
-                  className=" flex justify-center"
+                  to={'/product/' + randomProd01?._id}
+                  className="flex justify-center"
+                  aria-label={`product: ${randomProd01?.productName}`}
                 >
-                  <img
-                    className="aspect-[5/6]  w-[80%] transform object-cover transition  duration-300 hover:scale-105"
-                    src={
-                      randomProd01!.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd01!.images[0].imageURL
-                    }
-                    // data-sizes='auto'
-                  />
+                  <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
+                    {/* lifted img classes to picture tag & replaced with w/h-full + cover //! delete */}
+                    <source
+                      srcSet={convertMediaUrl(
+                        randomProd01?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd01?.images[0].imageURL
+                      )}
+                      type="image/webp"
+                    />
+                    <img
+                      className="h-full w-full object-cover"
+                      alt={`product: ${randomProd01?.productName}`}
+                      src={
+                        randomProd01?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd01?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                 </Link>
               </div>
 
-              <div className="flex justify-center ">
+              <div className="flex justify-center">
                 <Link
-                  to={'/product/' + randomProd02!._id}
-                  className=" flex transform justify-center transition  duration-300 hover:scale-105"
+                  to={'/product/' + randomProd02?._id}
+                  className="flex justify-center"
+                  aria-label={`product: ${randomProd02?.productName}`}
                 >
-                  <img
-                    className="aspect-[4/6] w-[80%] transform object-cover transition  duration-300 hover:scale-105"
-                    src={
-                      randomProd02!.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd02!.images[0].imageURL
-                    }
-                    // data-sizes='auto'
-                  />
+                  <picture className="aspect-[4/6] w-[80%] transform object-cover transition duration-300 hover:scale-105">
+                    <img
+                      className="h-full w-full object-cover"
+                      alt={`product: ${randomProd01?.productName}`}
+                      src={
+                        randomProd02?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd02?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                 </Link>
               </div>
             </div>
@@ -958,12 +1012,17 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   : 'w-[80%] 3xl:w-[70%] 4xl:w-[60%] 5xl:w-[50%]'
               }  pt-[2%]`}
             >
-              <img
-                src={beachLady}
-                // data-sizes='auto'
-                alt="lady with a big white hat is laying on the beach"
-                className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
-              />
+              <picture>
+                <source
+                  srcSet="/assets/homepage/images/beach-lady.webp"
+                  type="image/webp"
+                />
+                <img
+                  src="/assets/homepage/images/beach-lady.jpg"
+                  alt="lady with a big white hat is laying on the beach"
+                  className="beach-lady-img aspect-auto h-3/4 w-full object-cover"
+                />
+              </picture>
             </div>
 
             <div
@@ -994,31 +1053,49 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </div>
               <div className="video-section flex  h-full  max-h-screen w-full -translate-x-[60%] -translate-y-[15%] justify-center">
                 <video
-                  src={bwSeizure}
-                  // data-sizes='auto'
+                  // src={bwSeizure}
                   autoPlay
                   muted
                   loop
                   playsInline
                   controls={false}
                   className="bw-seizure-vid aspect-[4/6] w-[70%]"
-                />
-              </div>
-              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%] ">
-                {' '}
-                <Link
-                  to={'/product/' + randomProd03!._id}
-                  className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
                 >
-                  <img
-                    className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition  duration-300 hover:scale-105`}
-                    src={
-                      randomProd03!.images.find(
-                        (image) => image.imageDesc === 'product-front'
-                      )?.imageURL || randomProd03!.images[0].imageURL
-                    }
-                    // data-sizes='auto'
+                  <source
+                    src="/assets/homepage/vid/bw-seizure.webm"
+                    type="video/webm"
                   />
+                  <source
+                    src="/assets/homepage/vid/bw-seizure.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div className="product-section absolute right-0 top-2 flex w-[50%] translate-x-[5%] justify-center pl-[8%] 4xl:pl-[3%]">
+                <Link
+                  to={'/product/' + randomProd03?._id}
+                  className={` beach-rp-right flex w-[70%] flex-col items-center 3xl:w-[60%] 4xl:w-[50%] `}
+                  aria-label={`product: ${randomProd03?.productName}`}
+                >
+                  <picture>
+                    <source
+                      srcSet={convertMediaUrl(
+                        randomProd03?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd03?.images[0].imageURL
+                      )}
+                      type="image/webp"
+                    />
+                    <img
+                      className={`aspect-[5/6] w-full transform object-cover pt-[2%] transition duration-300 hover:scale-105`}
+                      alt={`product: ${randomProd03?.productName}`}
+                      src={
+                        randomProd03?.images.find(
+                          (image) => image.imageDesc === 'product-front'
+                        )?.imageURL || randomProd03?.images[0].imageURL
+                      }
+                    />
+                  </picture>
                   <p
                     className={` ${
                       mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
@@ -1053,15 +1130,16 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%]'
-                } grapefruit-butt-img  z-10  self-center `}
+                } grapefruit-butt-img  z-10  self-center`}
               >
-                <img
-                  // onLoad={() => ScrollTrigger.refresh()}
-                  src={grapefruitButt}
-                  // data-sizes='auto'
-                  alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
-                  className={` aspect-square  h-full object-cover`}
-                />
+                <picture>
+                  <source srcSet="/assets/homepage/images/grapefruit-butt.webp" />
+                  <img
+                    src="/assets/homepage/images/grapefruit-butt.jpg"
+                    alt="lady wearing nude leotard holding  grapefruit cut in half pressed to her hips"
+                    className={`aspect-square h-full object-cover`}
+                  />
+                </picture>
               </div>
               <p className="anim-text relative -z-20 -translate-y-[40%] pl-7 font-roboto text-[17vw] font-xbold uppercase  leading-none tracking-[2.5rem] text-white ">
                 treat
@@ -1083,10 +1161,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               </p>
             </div>
             <Link
-              // ref={shopBodyButtonRef}
               to="/shop-all?filter=body"
               ref={shopBodyRef}
-              // state={{ filterKey: 'body' }}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
               } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
@@ -1125,17 +1201,28 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           } flex  max-w-[1940px] -translate-y-[6%] flex-row-reverse justify-center self-center `}
         >
           <div className="flex w-full flex-row-reverse justify-center ">
-            <img
-              data-src={ladyMask}
-              data-sizes="auto"
-              alt="woman applying mask to her face"
+            <picture
               className={`${
                 mobileMenu
                   ? 'h-[60svh] w-[60%] object-cover'
                   : ' h-screen w-3/5 object-cover '
-              } unleash-lady-img lazyload  3xl:object-top `}
-            />
-
+              } unleash-lady-img 3xl:object-top `}
+            >
+              <source
+                srcSet="/assets/homepage/images/lady-mask.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/lady-mask.jpg"
+                alt="woman applying mask to her face"
+                className="h-full w-full object-cover 3xl:object-top"
+                // className={`${
+                //   mobileMenu
+                //     ? 'h-[60svh] w-[60%] object-cover'
+                //     : ' h-screen w-3/5 object-cover '
+                // } unleash-lady-img lazyload  3xl:object-top `}
+              />
+            </picture>
             <div className=" relative flex w-2/5 flex-col justify-end gap-7">
               <p className=" font-yantramanav text-[9vw] font-semibold uppercase 2xl:text-[9rem]">
                 <span
@@ -1160,16 +1247,27 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 className={` ${
                   mobileMenu ? 'w-[75%] ' : 'w-[70%]'
                 } unleash-rp flex  flex-col  items-center self-end pr-[15%]`}
+                aria-label={`product: ${singleProduct?.productName}`}
               >
-                <img
-                  className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
-                  data-src={
-                    singleProduct?.images.find(
-                      (image) => image.imageDesc === 'product-front'
-                    )?.imageURL || singleProduct?.images[0].imageURL
-                  }
-                  data-sizes="auto"
-                />
+                <picture>
+                  <source
+                    srcSet={convertMediaUrl(
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    )}
+                    type="image/webp"
+                  />
+                  <img
+                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
+                    alt={`product: ${singleProduct?.productName}`}
+                    src={
+                      singleProduct?.images.find(
+                        (image) => image.imageDesc === 'product-front'
+                      )?.imageURL || singleProduct?.images[0].imageURL
+                    }
+                  />
+                </picture>
                 <p
                   className={` ${
                     mobileMenu
@@ -1183,7 +1281,6 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
               <Link
                 to="/shop-all?filter=masks"
-                // state={{ filterKey: 'masks' }}
                 className={` ${
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
@@ -1221,38 +1318,59 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </p>
 
             <Link
-              to={'/product/' + randomProd06!._id}
+              to={'/product/' + randomProd06?._id}
+              aria-label={`product: ${randomProd06?.productName}`}
               className={` ${
                 mobileMenu
                   ? 'w-44'
                   : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%]'
               } facewash-rp z-50 flex `}
             >
-              <img
-                className={` ${
-                  mobileMenu
-                    ? 'aspect-[4/5] -translate-x-[20%] '
-                    : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
-                } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
-                data-src={
-                  randomProd06!.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd06!.images[0].imageURL
-                }
-                data-sizes="auto"
-              />
+              <picture>
+                <source
+                  srcSet={convertMediaUrl(
+                    randomProd06?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd06?.images[0].imageURL
+                  )}
+                  type="image/webp"
+                />
+                <img
+                  className={` ${
+                    mobileMenu
+                      ? 'aspect-[4/5] -translate-x-[20%] '
+                      : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
+                  } lazyload   w-full transform object-cover transition duration-300 hover:scale-110`}
+                  alt={`product: ${randomProd06?.productName}`}
+                  src={
+                    randomProd06?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd06?.images[0].imageURL
+                  }
+                />
+              </picture>
             </Link>
           </div>
 
           <div className="-z-10 flex w-full flex-col">
-            <img
-              data-src={ladyFacewash}
-              data-sizes="auto"
-              alt="lady washing her face in the bathroom with white towel on her head"
+            <picture
               className={` ${
                 mobileMenu ? 'h-[50svh]' : 'h-screen'
               } facewash-lady-img lazyload aspect-[4/6] self-center`}
-            />
+            >
+              <source
+                srcSet="/assets/homepage/images/lady-facewash.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/lady-facewash.jpg"
+                data-sizes="auto"
+                alt="lady washing her face in the bathroom with white towel on her head"
+                className={` ${
+                  mobileMenu ? 'h-[50svh]' : 'h-screen'
+                } facewash-lady-img lazyload aspect-[4/6] self-center`}
+              />
+            </picture>
             <p
               className={` ${
                 mobileMenu
@@ -1272,14 +1390,20 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex   w-[65%]  `}
+            } flex w-[65%]  `}
           >
-            <img
-              data-src={papaya}
-              data-sizes="auto"
-              alt="ripe papaya cut in half"
-              className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
-            />
+            <picture className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0 object-cover">
+              <source
+                srcSet="/assets/homepage/images/papaya.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/papaya.jpg"
+                alt="ripe papaya cut in half"
+                className="h-full w-full object-cover"
+                // className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0  object-cover "
+              />
+            </picture>
             <div className="relative flex w-[1/4] shrink-0 grow-0 flex-col whitespace-nowrap ">
               <p className="relative font-archivo text-[14vw] uppercase 2xl:text-[15rem]">
                 <span className="absolute left-0 top-0 -translate-x-[100%] text-white">
@@ -1292,7 +1416,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </div>
           </div>
 
-          <div className=" relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] 3xl:pl-0">
+          <div className="relative flex w-[35%] max-w-[500px] flex-col items-center justify-end pl-[2%] 3xl:pl-0">
             <p
               className={` ${
                 mobileMenu
@@ -1304,20 +1428,33 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             </p>
 
             <Link
-              to={'/product/' + randomProd05!._id}
+              to={'/product/' + randomProd05?._id}
               className="ingredient-rp min-[2500px]:pt-[200px] flex h-3/4 w-full   flex-col pt-[13%] 3xl:w-[320px] 3xl:pt-28 4xl:w-[420px]"
+              aria-label={`product: ${randomProd05?.productName}`}
             >
-              <img
-                className={` ${
+              <picture
+                className={`${
                   mobileMenu ? 'h-[70%]' : ''
-                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition  duration-300 hover:scale-105 3xl:pl-0`}
-                data-src={
-                  randomProd05!.images.find(
-                    (image) => image.imageDesc === 'product-front'
-                  )?.imageURL || randomProd05!.images[0].imageURL
-                }
-                data-sizes="auto"
-              />
+                } lazyload min-[2500px]:max-h-[750px] aspect-[3/5] transform object-cover pl-[8%] transition duration-300 hover:scale-105 3xl:pl-0`}
+              >
+                <source
+                  srcSet={convertMediaUrl(
+                    randomProd05?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd05?.images[0].imageURL
+                  )}
+                  type="image/webp"
+                />
+                <img
+                  className="h-full w-full object-cover"
+                  src={
+                    randomProd05?.images.find(
+                      (image) => image.imageDesc === 'product-front'
+                    )?.imageURL || randomProd05?.images[0].imageURL
+                  }
+                  alt={`product: ${randomProd05?.productName}`}
+                />
+              </picture>
               <p
                 className={` ${
                   mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
@@ -1331,7 +1468,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
         <div
           className={` ${
             mobileMenu ? 'w-[85%]' : 'w-[70%]'
-          } ingredient-section-closer flex  items-center justify-center self-center pb-[6%] pt-[15%] leading-loose`}
+          } ingredient-section-closer flex items-center justify-center self-center pb-[4%] pt-[15%] leading-loose`}
         >
           <p
             className={` ${
@@ -1346,33 +1483,47 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </p>
         </div>
 
-        <div className="landing-page-closer-container flex h-full w-[80%] justify-center self-center pb-[17%] 4xl:w-[70%] 5xl:w-[50%] ">
+        <div className="landing-page-closer-container flex h-full w-[92%] justify-center self-center pb-[10%] xl:w-[80%] 4xl:w-[75%] 5xl:w-[55%] 5xl:pb-0 portrait:pb-[5%]">
           <div
             className={` ${
-              mobileMenu ? 'mb-12 h-[20dvh]' : 'h-[45dvh] '
-            } flex items-center justify-center gap-9 2xl:h-[50dvh] `}
+              mobileMenu ? 'mb-10 h-[28dvh] ' : ' h-[85dvh] '
+            } flex w-full items-center justify-center gap-8 2xl:h-[75dvh] `}
           >
-            <img
-              data-src={coconutHand}
-              data-sizes="auto"
-              alt="hand is reaching for a coconut cut in half"
-              className="lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <img
-              data-src={melon}
-              data-sizes="auto"
-              alt="melon cut in half"
-              className="melon-img lazyload aspect-[1/2] w-[30%] object-cover"
-            />
-            <video
-              src={legBrush}
-              muted
-              loop
-              autoPlay
-              playsInline
-              controls={false}
-              className="leg-brush-vid lazyload aspect-[1/2] w-[30%] items-center justify-center object-cover"
-            />
+            <picture className="h-full w-[30%] object-cover">
+              <source
+                srcSet="/assets/homepage/images/coconut-hand.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/coconut-hand.jpg"
+                alt="hand is reaching for a coconut cut in half"
+                className="aspect-[1/2] w-full object-cover"
+              />
+            </picture>
+            <picture className="melon-img h-full w-[30%] object-cover">
+              <source
+                srcSet="/assets/homepage/images/melon.webp"
+                type="image/webp"
+              />
+              <img
+                src="/assets/homepage/images/melon.jpg"
+                alt="melon cut in half"
+                className="aspect-[1/2] w-full object-cover"
+              />
+            </picture>
+            <div className="h-full w-[30%] object-cover">
+              <video
+                muted
+                loop
+                autoPlay
+                playsInline
+                controls={false}
+                className="leg-brush-vid aspect-[1/2] w-full object-cover"
+              >
+                <source src="/assets/homepage/vid/leg-brush-trimmed.webm" />
+                <source src="/assets/homepage/vid/leg-brush-trimmed.mp4" />
+              </video>
+            </div>
           </div>
         </div>
         {/* <div className='pb-96'></div> */}

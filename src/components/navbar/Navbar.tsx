@@ -85,12 +85,14 @@ export default function Navbar({
 
   return (
     <>
-      <Toaster
-        position={mobileMenu ? 'top-center' : 'top-right'}
-        toastOptions={{
-          duration: 5000,
-        }}
-      />
+      <div className="fixed z-40">
+        <Toaster
+          position={mobileMenu ? 'top-center' : 'top-right'}
+          toastOptions={{
+            duration: 5000,
+          }}
+        />
+      </div>
 
       {mobileMenu ? (
         <MobileNav
