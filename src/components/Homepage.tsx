@@ -1098,7 +1098,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   <p
                     className={` ${
                       mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
-                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white`}
+                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white portrait:md:text-[1rem]`}
                   >
                     {randomProd03?.productName}
                   </p>
@@ -1109,7 +1109,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <div
               className={` ${
                 mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
-              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%]`}
+              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
             >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
@@ -1272,7 +1272,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     mobileMenu
                       ? 'text-[.7rem] leading-[1]'
                       : 'text-[1.2vw] 5xl:text-[.9vw]'
-                  } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal`}
+                  } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal portrait:md:text-[.8rem]`}
                 >
                   {singleProduct?.productName}
                 </p>
@@ -1323,7 +1323,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-44'
                   : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%] '
-              } facewash-rp z-50 flex portrait:md:w-[50%] portrait:md:translate-x-[110%] portrait:md:-translate-y-[10%]`}
+              } facewash-rp z-50 flex portrait:md:w-[50%] portrait:md:-translate-y-[10%] portrait:md:translate-x-[110%]`}
             >
               <picture>
                 <source
@@ -1374,7 +1374,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
                   : 'w-[17%] text-[1.5vw] 5xl:-translate-y-[179%] 5xl:text-[1vw] 6xl:-translate-y-[290%] short:-translate-y-[130%]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%] portrait:md:text-[1rem] portrait:md:w-[40%] portrait:md:-translate-x-[6%]`}
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%] portrait:md:w-[40%] portrait:md:-translate-x-[6%] portrait:md:text-[1rem]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1388,7 +1388,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex w-[65%]  `}
+            } flex w-[65%] portrait:md:h-[60svh] `}
           >
             <picture className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0 object-cover">
               <source
@@ -1420,7 +1420,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-xs'
                   : 'text-[1.3vw] 5xl:text-[1.1vw]'
-              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
             >
               only best ingredients for best results
             </p>
@@ -1456,7 +1456,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <p
                 className={` ${
                   mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
-                } pt-[4%] text-center font-grotesque uppercase text-charcoal`}
+                } pt-[4%] text-center font-grotesque uppercase text-charcoal portrait:md:text-[.8rem]`}
               >
                 {randomProd05?.productName}
               </p>
@@ -1483,8 +1483,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
         <div
           className={` ${
-            mobileMenu ? 'w-[90%]' : 'w-[70%] '
-          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[45%] short:w-[45%]  portrait:pb-[15%]`}
+            mobileMenu ? 'w-[90%] pb-[15%]' : 'w-[70%] '
+          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[45%] short:w-[45%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
         >
           <div
             className={` ${
