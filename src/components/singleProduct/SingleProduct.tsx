@@ -366,7 +366,7 @@ export default function SingleProduct({
           mobileMenu
             ? 'max-w-[100svw] px-0 '
             : 'mt-8 max-w-[calc(100svw_-_20px)] px-12 '
-        } single-product-main mx-auto mb-40 flex min-h-[calc(100vh_-_4rem)]  flex-col items-center   xl:mt-14 2xl:max-w-[1420px] portrait:md:px-5 portrait:lg:max-w-[95svw] bg-white`}
+        } single-product-main mx-auto mb-40 flex min-h-[calc(100vh_-_4rem)]  flex-col items-center   bg-white xl:mt-14 2xl:max-w-[1420px] portrait:md:px-5 portrait:lg:max-w-[95svw]`}
       >
         <section
           ref={prodInfoWrapper}
@@ -435,7 +435,7 @@ export default function SingleProduct({
                     >
                       <img
                         src={heartFilled}
-                        className="fader absolute right-[5%] top-[4%] w-4  lg:w-5 x xl:w-6 portrait:w-6"
+                        className="fader x absolute right-[5%] top-[4%]  w-4 lg:w-5 xl:w-6 portrait:w-6"
                         height="17"
                         width="20"
                         alt="remove from favorites"
@@ -545,14 +545,20 @@ export default function SingleProduct({
                     </div>
                   )}
                 </div>
-          
+
                 <button
                   onClick={handleAddToCart}
                   disabled={maxQty === 0}
-                  className={` ${mobileMenu ? 'w-full' : 'w-4/5'} group relative mt-[6%] inline-block  max-w-full  font-medium text-white focus:outline-none `}
+                  className={` ${
+                    mobileMenu ? 'w-full' : 'w-4/5'
+                  } group relative mt-[6%] inline-block  max-w-full  font-medium text-white focus:outline-none `}
                 >
-                  <span className="absolute inset-0  border group-disabled:border-none border-primary-gray group-active:border-charcoal"></span>
-                  <span className={` ${mobileMenu ? 'text-[1.4rem] py-2' : 'text-[2vw] py-3' } ease block rounded-sm border border-charcoal bg-charcoal px-12  4xl:py-4 5xl:text-[1.3vw] 6xl:text-[1.1vw] font-poiret font-medium uppercase transition-transform duration-300 active:rounded-sm active:border-charcoal/90 active:bg-charcoal/90 group-disabled:bg-charcoal/40 group-hover:-translate-x-1 group-disabled:-translate-x-0 group-disabled:-translate-y-0 group-hover:-translate-y-1 group-disabled:border-none `}>
+                  <span className="absolute inset-0  border border-primary-gray group-active:border-charcoal group-disabled:border-none"></span>
+                  <span
+                    className={` ${
+                      mobileMenu ? 'py-2 text-[1.4rem]' : 'py-3 text-[2vw]'
+                    } ease block rounded-sm border border-charcoal bg-charcoal px-12  font-poiret font-medium uppercase transition-transform duration-300 active:rounded-sm active:border-charcoal/90 active:bg-charcoal/90 group-hover:-translate-x-1 group-hover:-translate-y-1 group-disabled:-translate-x-0 group-disabled:-translate-y-0 group-disabled:border-none group-disabled:bg-charcoal/40 4xl:py-4 5xl:text-[1.3vw] 6xl:text-[1.1vw] `}
+                  >
                     add to cart
                   </span>
                 </button>
@@ -683,7 +689,7 @@ export default function SingleProduct({
           ref={reviewSection}
           className="review-container flex w-full flex-col items-center border-t border-charcoal pt-8 font-grotesque lg:w-10/12 lg:pt-10 portrait:px-3"
         >
-          <h2 className="self-start font-gayathri text-[3rem] font-semibold  ">
+          <h2 className="self-start font-yantramanav  text-[3rem] font-bold  ">
             REVIEWS
           </h2>
           <div
@@ -707,7 +713,7 @@ export default function SingleProduct({
                 setShowReviewForm={setShowReviewForm}
               />
             ) : allReviews.reviews?.length < 1 ? (
-              <div className='self-end'>
+              <div className="self-end">
                 <p className="mb-7 text-sm">
                   No reviews yet...be the first to leave one!
                 </p>

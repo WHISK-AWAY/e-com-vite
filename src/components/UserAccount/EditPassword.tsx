@@ -173,13 +173,13 @@ export default function EditPassword({ user }: AccountProps) {
             {!saveDisabled && (
               <>
                 <button
-                  className="self-end rounded-sm border border-charcoal bg-white px-4 py-2 font-italiana uppercase text-charcoal"
+                  className="self-end rounded-sm border border-charcoal bg-white px-4 py-2 font-grotesque uppercase text-charcoal"
                   type="reset"
                 >
                   cancel
                 </button>
                 <button
-                  className="rounded-sm bg-charcoal px-4 py-2 font-italiana uppercase text-white"
+                  className="rounded-sm bg-charcoal px-4 py-2 font-grotesque uppercase text-white"
                   type="submit"
                 >
                   save changes

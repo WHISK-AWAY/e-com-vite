@@ -225,7 +225,7 @@ export default function Preloader() {
         ></video>
         {/* <video ref={vidRef} src={`${vidLoader}#t=7`} muted={true} autoPlay={true} className='vid w-96 aspect-[5/6] poly-clip object-cover'></video> */}
         {/* <video ref={vidRef} src={`${vidLoader}#t=7`} muted={true} autoPlay={true} className='vid w-96 aspect-[5/6] poly-clip object-cover'></video> */}
-        <p className="slogan absolute left-[1/2] top-[30%] flex flex-col items-start justify-start font-marcellus text-[2vw] uppercase 5xl:left-[30%]">
+        <p className="slogan absolute left-[1/2] top-[30%] flex flex-col items-start justify-start font-grotesque text-[2vw] uppercase 5xl:left-[30%]">
           glow gifted by{' '}
           <span className="self-center  font-aurora lowercase  ">nature</span>
         </p>

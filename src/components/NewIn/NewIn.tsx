@@ -133,7 +133,7 @@ export default function NewIn({mobileMenu} : {mobileMenu: boolean}) {
               // state={{ filterKey: 'tint' }}
               className={`${
                 mobileMenu ? 'text-[1rem]' : 'text-[2vw]'
-              } relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-raleway  font-light text-white lg:text-[1.5vw] 5xl:text-[1.2vw]`}
+              } relative border-2 border-white bg-transparent px-[8vw] py-[1vw] font-grotesque  font-light text-white lg:text-[1.5vw] 5xl:text-[1.2vw]`}
             >
               shop now
             </Link>

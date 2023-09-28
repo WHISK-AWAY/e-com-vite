@@ -114,7 +114,7 @@ export default function Navbar({
           id="navbar"
           className="navbar-container sticky top-0 z-40 flex h-16 items-center justify-between bg-white px-6 lg:px-10"
         >
-          <div className="shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-hubbali  text-xs lg:gap-5 lg:text-lg 2xl:gap-6 portrait:md:text-[1.1rem]">
+          <div className="shop-links shrink-1 group flex h-full grow-0 basis-1/2 items-center justify-start gap-4 font-grotesque  text-xs lg:gap-5 lg:text-lg 2xl:gap-6 portrait:md:text-[1.1rem]">
             <div
               className="shop cursor-pointer"
               onMouseEnter={() => setIsMenuHidden(false)}
@@ -252,7 +252,7 @@ export default function Navbar({
           {userId && singleUserState.user.role === 'admin' && (
             <NavLink
               to="/admin"
-              className="fixed bottom-[5%] left-[5%] z-50 font-marcellus text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white"
+              className="fixed bottom-[5%] left-[5%] z-50 font-poiret text-red-600 transition-all hover:-translate-x-2 hover:translate-y-1 hover:rounded-sm hover:border hover:border-charcoal hover:bg-red-500 hover:px-2 hover:py-1 hover:text-white"
             >
               ADMIN
             </NavLink>
