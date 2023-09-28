@@ -280,7 +280,7 @@ export default function AllProducts({
           className={`grid grid-cols-4 border-primary-gray portrait:grid-cols-2 ${
             allProducts.products.length % 2 !== 0 &&
             allProducts.products.length > 2
-              ? 'border-b'
+              ? 'portrait:border-b'
               : ''
           }`}
         >
