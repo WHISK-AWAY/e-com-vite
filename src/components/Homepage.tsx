@@ -714,7 +714,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full object-cover`}
+            } hands -z-10 aspect-[1/2] h-full object-cover portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/hand-lotion-trimmed.webm"
@@ -734,7 +734,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             muted
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
-            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/leaves-trimmed.webm"
@@ -783,10 +783,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-[210%]  px-8 font-regular'
                 : '-translate-y-[60%] px-[4%] font-thin'
-            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 font-raleway text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3`}
+            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 font-raleway text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
-            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
+            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem]">
               shop now
             </span>
           </Link>
@@ -1102,7 +1102,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   <p
                     className={` ${
                       mobileMenu ? 'text-[.6rem]' : 'text-[1.2vw]'
-                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white`}
+                    } w-full self-center  overflow-hidden text-ellipsis whitespace-nowrap pt-2  text-center font-grotesque uppercase text-white portrait:md:text-[1rem]`}
                   >
                     {randomProd03?.productName}
                   </p>
@@ -1113,7 +1113,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <div
               className={` ${
                 mobileMenu ? 'w-[80%] text-[.8rem]' : 'w-[55%] text-[1.2vw]'
-              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%]`}
+              } beach-text-closer  pb-[7%] text-center font-aurora  leading-loose text-white 4xl:pb-[17%] 5xl:pb-[20%] portrait:md:pb-[17%] portrait:md:text-[1rem]`}
             >
               <p>
                 heavy moisturizers are ideal for cold climates or during winter
@@ -1124,7 +1124,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           {/**grapefruit butt section */}
-          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] xl:pb-[6%] 3xl:pb-[5%] 6xl:pb-[2%]">
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] xl:pb-[6%] 3xl:pb-[5%] 6xl:pb-[2%] portrait:md:pb-24">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
@@ -1133,7 +1133,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%] 6xl:w-[25%]'
-                } grapefruit-butt-img  z-10  aspect-square self-center`}
+                } grapefruit-butt-img  z-10  aspect-square self-center portrait:md:w-[45%]`}
               >
                 <picture>
                   <source data-srcset="/assets/homepage/images/grapefruit-butt.webp" />
@@ -1168,7 +1168,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               ref={shopBodyRef}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
-              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
+              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white portrait:md:text-[1.1rem]`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
               <span className="relative group-hover:text-charcoal">
@@ -1183,7 +1183,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <p
             className={` ${
               mobileMenu ? 'text-[3.5rem]' : 'text-[10vw]'
-            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference`}
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference portrait:md:text-[6rem]`}
           >
             unleash{' '}
           </p>
@@ -1192,7 +1192,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-16 text-[1.1rem]'
                 : '-translate-y-[550%] text-[2vw]'
-            }  font-raleway font-thin leading-none tracking-wide`}
+            }  font-raleway font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
           >
             the power of
           </p>
@@ -1262,7 +1262,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     type="image/webp"
                   />
                   <img
-                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
+                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] portrait:md:h-[500px] landscape:short:h-[410px]"
                     alt={`product: ${singleProduct?.productName}`}
                     data-src={
                       singleProduct?.images.find(
@@ -1276,7 +1276,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     mobileMenu
                       ? 'text-[.7rem] leading-[1]'
                       : 'text-[1.2vw] 5xl:text-[.9vw]'
-                  } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal`}
+                  } w-[90%] pt-4 text-center font-grotesque   uppercase text-charcoal portrait:md:text-[.8rem]`}
                 >
                   {singleProduct?.productName}
                 </p>
@@ -1288,7 +1288,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
                     : 'w-[60%] text-[1.1vw] 6xl:text-[.9vw]'
-                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
+                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
                 <span className="relative group-hover:text-white">
@@ -1306,14 +1306,14 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? 'w-[85%] translate-x-0 translate-y-[30%]'
                 : 'w-[45%] -translate-x-[50%] translate-y-[55%]'
-            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] `}
+            } absolute right-0 top-0  flex  items-center justify-between gap-[10%] portrait:md:w-[90%]`}
           >
             <p
               className={` ${
                 mobileMenu
                   ? ' -translate-x-[10%] text-[.8rem] leading-none'
                   : '-translate-x-[20%] text-[1.5vw] 5xl:translate-y-[100%] 5xl:text-[1vw] 6xl:translate-y-[300%] 6xl:text-[1vw]'
-              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626]`}
+              } facewash-section-text-top z-20 w-full  text-center font-aurora  text-[#262626] portrait:md:-translate-y-[310%] portrait:md:translate-x-[70%] portrait:md:text-[1rem]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1326,8 +1326,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               className={` ${
                 mobileMenu
                   ? 'w-44'
-                  : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%]'
-              } facewash-rp z-50 flex `}
+                  : 'w-full 6xl:w-[50%] 6xl:-translate-x-[40%] 6xl:translate-y-[90%] '
+              } facewash-rp z-50 flex portrait:md:w-[50%] portrait:md:-translate-y-[10%] portrait:md:translate-x-[110%]`}
             >
               <picture>
                 <source
@@ -1343,7 +1343,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     mobileMenu
                       ? 'aspect-[4/5] -translate-x-[20%] '
                       : 'aspect-[7/9] 4xl:aspect-[8/9] 5xl:aspect-[11/11] '
-                  } lazyload w-full transform object-cover transition duration-300 hover:scale-110`}
+                  } lazyload w-full transform object-cover transition duration-300 hover:scale-110 portrait:md:aspect-[1/2]`}
                   alt={`product: ${randomProd06?.productName}`}
                   data-src={
                     randomProd06?.images.find(
@@ -1359,7 +1359,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             <picture
               className={` ${
                 mobileMenu ? 'h-[50svh]' : 'h-screen'
-              } facewash-lady-img lazyload aspect-[4/6] self-center`}
+              } facewash-lady-img lazyload aspect-[4/6] self-center  portrait:md:aspect-[10/11]`}
             >
               <source
                 data-srcset="/assets/homepage/images/lady-facewash.webp"
@@ -1378,7 +1378,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'w-[55%] -translate-x-[13%] -translate-y-[60%] text-[1rem] leading-none '
                   : 'w-[17%] text-[1.5vw] 5xl:-translate-y-[179%] 5xl:text-[1vw] 6xl:-translate-y-[290%] short:-translate-y-[130%]'
-              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%]`}
+              } facewash-section-text-right min-[1600px]:-translate-x-[155%] min-[1600px]:-translate-y-[125%]  -translate-x-[110%] -translate-y-[250%] self-end text-center font-aurora text-[#262626]   5xl:-translate-x-[150%] 5xl:-translate-y-[90%] short:-translate-x-[130%] portrait:md:w-[40%] portrait:md:-translate-x-[6%] portrait:md:text-[1rem]`}
             >
               heavy moisturizers are ideal for cold climates or during winter
               when the air is dryer but they can be too cloying during the heat
@@ -1392,7 +1392,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <div
             className={` ${
               mobileMenu ? 'h-[60svh]' : 'h-screen'
-            } flex w-[65%]  `}
+            } flex w-[65%] portrait:md:h-[60svh] `}
           >
             <picture className="papaya-img lazyload grow-1 aspect-[2/3] w-full shrink-0 object-cover">
               <source
@@ -1424,7 +1424,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 mobileMenu
                   ? 'tracking-none whitespace-break-spaces text-xs'
                   : 'text-[1.3vw] 5xl:text-[1.1vw]'
-              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] `}
+              } ingredient-section-subheader absolute left-2 top-[16vw] whitespace-nowrap font-raleway text-[1.3vw] font-light 2xl:top-[270px] portrait:md:text-[.8rem]`}
             >
               only best ingredients for best results
             </p>
@@ -1460,7 +1460,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               <p
                 className={` ${
                   mobileMenu ? 'text-[.7rem]' : 'text-[1.3vw] 5xl:text-[1vw]'
-                } pt-[4%] text-center font-grotesque uppercase text-charcoal`}
+                } pt-[4%] text-center font-grotesque uppercase text-charcoal portrait:md:text-[.8rem]`}
               >
                 {randomProd05?.productName}
               </p>
@@ -1487,8 +1487,8 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
 
         <div
           className={` ${
-            mobileMenu ? 'w-[90%]' : 'w-[70%] '
-          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[45%] short:w-[45%]  portrait:pb-[15%]`}
+            mobileMenu ? 'w-[90%] pb-[15%]' : 'w-[70%] '
+          } landing-page-closer-container flex h-full justify-center self-center pb-[10%] xl:w-[60%] 3xl:w-[50%] 4xl:w-[45%] short:w-[45%]  portrait:md:w-[90svw] portrait:md:pb-[5%]`}
         >
           <div
             className={` ${

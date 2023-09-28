@@ -121,7 +121,7 @@ export default function BodyItem({
                   mobileMenu
                     ? 'text-start text-[1.4rem]'
                     : 'text-center tracking-widest odd:text-[min(3.5vw,_5.5vh)] even:tracking-[.3rem]'
-                } submenu-item ease hover:offsetX   text-primary-gray hover:scale-105  hover:underline hover:underline-offset-4 hover:duration-300`}
+                } submenu-item ease hover:offsetX   text-primary-gray hover:scale-105  hover:underline hover:underline-offset-4 hover:duration-300 portrait:md:text-start portrait:md:text-[1.8rem] portrait:md:tracking-[.1rem] portrait:md:odd:text-[2.6rem]`}
                 key={tag._id}
               >
                 {name}

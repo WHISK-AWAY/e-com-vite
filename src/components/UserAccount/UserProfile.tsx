@@ -25,10 +25,6 @@ const viewMap = {
   password: 'update password',
 };
 
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, []);
-
 export default function UserProfile() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -43,6 +39,10 @@ export default function UserProfile() {
     if (userId) dispatch(fetchSingleUser(userId));
     // }
   }, [authUserId, userId]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, []);
 
   function signOut() {
     dispatch(requestLogout());
