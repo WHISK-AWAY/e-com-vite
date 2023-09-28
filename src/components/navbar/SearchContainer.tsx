@@ -185,7 +185,7 @@ export default function SearchContainer({
       ref={blurBgRef}
       onClick={clickOff}
       id="wrapper"
-      className="product-search-section absolute right-0 top-0 z-0 h-screen w-screen bg-[#35403F]/50 backdrop-blur"
+      className="product-search-section absolute right-0 top-0 z-10 h-screen w-screen bg-[#35403F]/50 backdrop-blur"
     >
       <form
         ref={formRef}
