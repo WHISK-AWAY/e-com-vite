@@ -714,7 +714,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             controls={false}
             className={` ${
               mobileMenu ? 'w-[50svw] object-left' : 'w-[40vw] translate-x-1'
-            } hands -z-10 aspect-[1/2] h-full object-cover`}
+            } hands -z-10 aspect-[1/2] h-full object-cover portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/hand-lotion-trimmed.webm"
@@ -734,7 +734,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             muted
             className={` ${
               mobileMenu ? 'w-[50svw]' : 'w-full -translate-x-1 '
-            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left`}
+            } leaves -z-10 aspect-[1/2] h-full   items-center justify-center object-cover object-left portrait:md:max-h-[900px]`}
           >
             <source
               src="/assets/homepage/vid/leaves-trimmed.webm"
@@ -783,10 +783,10 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-[210%]  px-8 font-regular'
                 : '-translate-y-[60%] px-[4%] font-thin'
-            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 font-raleway text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3`}
+            } 3xl:bottom-30 group absolute bottom-24 right-[6%] whitespace-nowrap  rounded-sm border border-white  py-1 font-raleway text-white  md:text-xs 2xl:text-lg 4xl:bottom-36 5xl:py-2 6xl:py-3 portrait:md:-translate-y-[350%]`}
           >
             <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
-            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl">
+            <span className="relative  group-hover:text-emerald-900 xl:text-base 4xl:text-xl 5xl:text-2xl 6xl:text-3xl portrait:md:text-[1rem]">
               shop now
             </span>
           </Link>
@@ -815,10 +815,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
             mobileMenu ? 'h-[70svh]' : 'h-full '
           } rainbow-wrapper relative mb-[115%] flex w-[100svw]  items-start bg-white 5xl:mb-[90%] `}
         >
-          <picture
-        
-            className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]"
-          >
+          <picture className="h-full w-[60%] -translate-x-[15%] object-cover object-right 3xl:w-[95%] 3xl:translate-x-[2%]">
             <img
               src="/assets/homepage/images/rainbow-lady.jpg"
               alt="red haired ladys profile with reflection of a rainbow on her face"
@@ -1123,7 +1120,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           </div>
 
           {/**grapefruit butt section */}
-          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] xl:pb-[6%] 3xl:pb-[5%] 6xl:pb-[2%]">
+          <div className="z-10 flex w-full  flex-col  items-center bg-primary-gray pb-[7%] xl:pb-[6%] 3xl:pb-[5%] 6xl:pb-[2%] portrait:md:pb-24">
             <div
               ref={treatRef}
               className=" flex h-full flex-col self-center text-center"
@@ -1132,7 +1129,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                 ref={grapefruitButtRef}
                 className={` ${
                   mobileMenu ? 'aspect-square w-[50%]' : 'w-[30%] 6xl:w-[25%]'
-                } grapefruit-butt-img  z-10  self-center aspect-square`}
+                } grapefruit-butt-img  z-10  aspect-square self-center portrait:md:w-[45%]`}
               >
                 <picture>
                   <source data-srcset="/assets/homepage/images/grapefruit-butt.webp" />
@@ -1167,7 +1164,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               ref={shopBodyRef}
               className={` ${
                 mobileMenu ? 'mb-12 text-[1rem]' : 'text-[1vw]'
-              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white`}
+              } group relative z-20  inline-block -translate-y-[250%] overflow-hidden border border-white bg-transparent px-[6vw] py-[1.1vw]  font-raleway font-light text-white portrait:md:text-[1.1rem]`}
             >
               <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-white  transition-all duration-700 ease-out group-hover:h-full "></span>
               <span className="relative group-hover:text-charcoal">
@@ -1182,7 +1179,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
           <p
             className={` ${
               mobileMenu ? 'text-[3.5rem]' : 'text-[10vw]'
-            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference`}
+            } z-10 -translate-y-[50%] font-yantramanav  font-xxbold uppercase tracking-widest text-charcoal/60 mix-blend-difference portrait:md:text-[6rem]`}
           >
             unleash{' '}
           </p>
@@ -1191,7 +1188,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
               mobileMenu
                 ? '-translate-y-16 text-[1.1rem]'
                 : '-translate-y-[550%] text-[2vw]'
-            }  font-raleway font-thin leading-none tracking-wide`}
+            }  font-raleway font-thin leading-none tracking-wide portrait:md:text-[1.3rem]`}
           >
             the power of
           </p>
@@ -1261,7 +1258,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                     type="image/webp"
                   />
                   <img
-                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px]"
+                    className="lazyload min-[1600px]:h-[700px] aspect-[1/2] w-fit transform object-cover transition duration-300 hover:scale-105 md:h-[290px] lg:h-[400px]  xl:h-[490px] 2xl:h-[550px] 3xl:h-[500px] 4xl:h-[600px] 6xl:h-[850px] landscape:short:h-[410px] portrait:md:h-[500px]"
                     alt={`product: ${singleProduct?.productName}`}
                     data-src={
                       singleProduct?.images.find(
@@ -1287,7 +1284,7 @@ export default function Homepage({ mobileMenu }: { mobileMenu: boolean }) {
                   mobileMenu
                     ? 'w-[70%] text-[.7rem]'
                     : 'w-[60%] text-[1.1vw] 6xl:text-[.9vw]'
-                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626]`}
+                } group relative mr-[12%] inline-block w-[60%] self-end overflow-hidden rounded-sm border border-[#262626] bg-transparent px-[3vw] py-[1vw] text-center font-raleway  font-light text-[#262626] portrait:md:text-[.9rem]`}
               >
                 <span className="absolute left-0 top-0 mb-0 flex h-0 w-full -translate-y-0 transform bg-charcoal/90  transition-all duration-700 ease-out group-hover:h-full "></span>
                 <span className="relative group-hover:text-white">
