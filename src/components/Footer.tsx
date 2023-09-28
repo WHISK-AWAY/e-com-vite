@@ -105,7 +105,7 @@ export default function Footer({ mobileMenu }: { mobileMenu: boolean }) {
               Our story
             </h2>
             <p className={` text-center font-aurora md:text-xs`}>
-              <span className="text-center font-chonburi uppercase md:text-xs">
+              <span className="text-center font-poiret uppercase md:text-xs">
                 astoria
               </span>{' '}
               {mobileMenu
