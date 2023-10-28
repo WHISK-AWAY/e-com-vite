@@ -63,6 +63,15 @@ export default function SearchContainer({
         opacity: 0,
       });
 
+      if(searchResults.products.length > 0) {
+
+        gsap.from(imageRef.current, {
+          duration: .3, 
+          opacity: 0,
+          ease:'none'
+        })
+      }
+
       // Store animation for reversal upon close.
       setAnim(tl);
     });
@@ -94,6 +103,7 @@ export default function SearchContainer({
   function clickOff(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const target = e.target as HTMLDivElement;
 
+    setSearch('');
     if (target.id === 'wrapper') {
       closeSlider();
     }
