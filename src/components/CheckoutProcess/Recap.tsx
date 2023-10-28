@@ -114,7 +114,7 @@ export default function Recap({ mobileMenu }: { mobileMenu: boolean }) {
 
     const userOrder = {} as Partial<TOrder>;
     userOrder.orderDetails = [];
-    for (let product of cart.products) {
+    for (const product of cart.products) {
       userOrder.orderDetails.push({
         productId: product._id,
         productName: product.product.productName,
