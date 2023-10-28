@@ -39,7 +39,7 @@ router.post(
       const addItem = await user.cart.addProduct!(productId, qty);
       const updatedCart = await User.findById(userId, 'cart').populate({
         path: 'cart.products.product',
-      });;
+      });
 
       if (!addItem)
         return res
@@ -87,7 +87,7 @@ router.post(
 );
 
 router.post(
-  '/clearCart',
+  '/clear-cart',
   checkAuthenticated,
   sameUserOrAdmin,
   async (req, res, next) => {
@@ -96,7 +96,7 @@ router.post(
       const user = await User.findById(userId);
 
       if (!user) return res.status(404).send('User does not exist');
-      const clearCart = await user.cart.clearCart!({ restock: true });
+      const clearCart = await user.cart.clearCart!({ restock: false });
       res.status(204).json(clearCart);
     } catch (err) {
       next(err);
