@@ -33,8 +33,7 @@ export default function SearchContainer({
   const blurBgRef = useRef(null);
   const formRef = useRef(null);
   const logoRef = useRef(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  // console.log(imageRef.current)
+
 
   const catalogue = useAppSelector(selectSearchProducts);
 
@@ -63,14 +62,6 @@ export default function SearchContainer({
         opacity: 0,
       });
 
-      if(searchResults.products.length > 0) {
-
-        gsap.from(imageRef.current, {
-          duration: .3, 
-          opacity: 0,
-          ease:'none'
-        })
-      }
 
       // Store animation for reversal upon close.
       setAnim(tl);
@@ -237,7 +228,6 @@ export default function SearchContainer({
       </form>
 
       <Search
-        ref={imageRef}
         closeSlider={closeSlider}
         searchResults={searchResults}
         setSearch={setSearch}
