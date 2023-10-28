@@ -39,7 +39,7 @@ export async function addToCart(
 
   if (existingProducts.includes(productId)) {
     // cart already includes product
-    for (let prod of this.products) {
+    for (const prod of this.products) {
       if (prod.product.toString() === productId) {
         prod.qty += addToCart.qty;
         break;
@@ -98,7 +98,7 @@ export async function removeFromCart(
         (prod: TProduct) => prod.product.toString() !== productId.toString()
       );
     } else {
-      for (let prod of this.products) {
+      for (const prod of this.products) {
         if (prod.product.toString() === productId.toString()) {
           prod.qty -= qtyToRemove;
           break;
@@ -134,7 +134,7 @@ export function cartSubtotal(this: ICart) {
 
   if (!this.products) return tot;
 
-  for (let prod of this.products) {
+  for (const prod of this.products) {
     tot += prod.price * prod.qty;
   }
 

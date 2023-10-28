@@ -34,6 +34,7 @@ export default function SearchContainer({
   const formRef = useRef(null);
   const logoRef = useRef(null);
 
+
   const catalogue = useAppSelector(selectSearchProducts);
 
   useLayoutEffect(() => {
@@ -60,6 +61,7 @@ export default function SearchContainer({
         ease: 'expo.inOut',
         opacity: 0,
       });
+
 
       // Store animation for reversal upon close.
       setAnim(tl);
@@ -92,6 +94,7 @@ export default function SearchContainer({
   function clickOff(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     const target = e.target as HTMLDivElement;
 
+    setSearch('');
     if (target.id === 'wrapper') {
       closeSlider();
     }
@@ -218,7 +221,7 @@ export default function SearchContainer({
             placeholder="search..."
             onChange={(e) => handleSearch(e)}
           ></input>
-          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] short:text-[1.2vw] uppercase text-white portrait:px-4 portrait:text-[.8rem]">
+          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] uppercase text-white short:text-[1.2vw] portrait:px-4 portrait:text-[.8rem]">
             search
           </button>
         </div>

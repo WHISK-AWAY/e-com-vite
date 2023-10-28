@@ -14,6 +14,7 @@ import towel from '../../../assets/bg-img/order-confirmation/towel.jpg';
 import hands from '../../../assets/bg-img/order-confirmation/hands.jpg';
 import ladyBack from '../../../assets/bg-img/order-confirmation/lady-back.jpg';
 import { resetPromoState } from '../../../redux/slices/promoCodeSlice';
+import { clearCart } from '../../../redux/slices/cartSlice';
 
 export default function Success({ mobileMenu }: { mobileMenu: boolean }) {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ export default function Success({ mobileMenu }: { mobileMenu: boolean }) {
   const { singleOrder } = useAppSelector(selectOrderState);
   const userOrder = useAppSelector(selectOrderState);
   const orderId = params.get('order');
+
 
   useEffect(() => {
     return () => {
@@ -38,14 +40,20 @@ export default function Success({ mobileMenu }: { mobileMenu: boolean }) {
         dispatch(getUserId()).then(({ meta }) => {
           // Will reject if we're not a logged-in user
           if (meta.requestStatus === 'rejected') {
-            dispatch(updateGuestOrder({ orderId })).then(() =>
+            dispatch(updateGuestOrder({ orderId })).then(() => {
+              // window.localStorage.removeItem('guestCart')
+              dispatch(clearCart({}));
               dispatch(fetchGuestOrder(orderId))
+            }
             );
           }
         });
       } else {
-        dispatch(updateOrder({ userId, orderId })).then(() =>
+        dispatch(updateOrder({ userId, orderId })).then(() => {
+
+          dispatch(clearCart({userId}))
           dispatch(fetchSingleOrder({ userId, orderId }))
+        }
         );
       }
     }

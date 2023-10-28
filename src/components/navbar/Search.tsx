@@ -1,21 +1,23 @@
 import type { TSearch } from '../../redux/slices/allProductSlice';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { gsap } from 'gsap';
 
-export default function Search({
-  searchResults,
-  setSearch,
-  setSearchResults,
-  searchNotFound,
-  closeSlider,
-}: {
+
+type SearchProps = {
   searchResults: TSearch;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setSearchResults: React.Dispatch<React.SetStateAction<TSearch>>;
   searchNotFound: boolean;
   closeSlider: () => void;
-}) {
+};
+
+const Search = ({
+  searchResults,
+  setSearch,
+  setSearchResults,
+  searchNotFound,
+  closeSlider,
+}: SearchProps) => {
   const navigate = useNavigate();
 
   //prevent scroll on overflow
@@ -26,6 +28,7 @@ export default function Search({
     };
   }, []);
 
+  // console.log(localRef.current)
   // const fuse = useMemo(() => {
   //   const options = {
   //     includeScore: true,
@@ -85,7 +88,9 @@ export default function Search({
       {/* PRODUCT NAME SEARCH */}
 
       {searchNotFound && (
-        <p className="text-[1rem]">no results matched your search...</p>
+        <p className="relative z-[200] flex h-full items-center justify-center font-poiret text-[1rem]">
+          no results matched your search...
+        </p>
       )}
       {searchResults.products.length > 0 && (
         <article className="product-name-search relative left-0   top-0 z-40 flex w-[90svw]  translate-x-[6%] translate-y-[65%]  overflow-x-scroll px-7 py-2 font-grotesque 3xl:translate-y-[81%] portrait:translate-y-[55%] portrait:sm:translate-y-[70%]">
@@ -149,4 +154,6 @@ export default function Search({
       )}
     </>
   );
-}
+};
+
+export default Search;
