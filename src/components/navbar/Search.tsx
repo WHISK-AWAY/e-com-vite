@@ -1,7 +1,6 @@
 import type { TSearch } from '../../redux/slices/allProductSlice';
-import React, { useEffect, useImperativeHandle, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { gsap } from 'gsap';
 
 
 type SearchProps = {
@@ -12,18 +11,15 @@ type SearchProps = {
   closeSlider: () => void;
 };
 
-
-const Search = React.forwardRef(({
+const Search = ({
   searchResults,
   setSearch,
   setSearchResults,
   searchNotFound,
   closeSlider,
-} : SearchProps, ref)  => {
+}: SearchProps) => {
   const navigate = useNavigate();
 
-  const localRef = useRef<HTMLImageElement>(null);
-  useImperativeHandle(ref, () => localRef.current);
   //prevent scroll on overflow
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -31,7 +27,6 @@ const Search = React.forwardRef(({
       document.body.style.overflow = '';
     };
   }, []);
-
 
   // console.log(localRef.current)
   // const fuse = useMemo(() => {
@@ -93,7 +88,9 @@ const Search = React.forwardRef(({
       {/* PRODUCT NAME SEARCH */}
 
       {searchNotFound && (
-        <p className="text-[1rem] font-poiret z-[200] relative flex justify-center items-center h-full">no results matched your search...</p>
+        <p className="relative z-[200] flex h-full items-center justify-center font-poiret text-[1rem]">
+          no results matched your search...
+        </p>
       )}
       {searchResults.products.length > 0 && (
         <article className="product-name-search relative left-0   top-0 z-40 flex w-[90svw]  translate-x-[6%] translate-y-[65%]  overflow-x-scroll px-7 py-2 font-grotesque 3xl:translate-y-[81%] portrait:translate-y-[55%] portrait:sm:translate-y-[70%]">
@@ -114,7 +111,6 @@ const Search = React.forwardRef(({
                     key={result.productId}
                   >
                     <img
-                    ref={localRef}
                       className=" aspect-square shrink-0 basis-3/4 object-cover 3xl:basis-1/4 portrait:basis-3/4"
                       alt={`product image: ${result.productName}`}
                       src={
@@ -158,6 +154,6 @@ const Search = React.forwardRef(({
       )}
     </>
   );
-})
+};
 
 export default Search;
