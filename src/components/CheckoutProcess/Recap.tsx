@@ -184,7 +184,7 @@ export default function Recap({ mobileMenu }: { mobileMenu: boolean }) {
 
         await dispatch(createGuestOrder(order));
         const { data } = await axios.post(
-          'http://localhost:3001/api/checkout/create-guest-payment-intent',
+          'https://astoriaskincare.co/api/checkout/create-guest-payment-intent',
           cart,
           { withCredentials: true }
         );

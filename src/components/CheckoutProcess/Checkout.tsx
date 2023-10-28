@@ -60,7 +60,7 @@ export default function Checkout() {
       confirmParams: {
         receipt_email: 'stacylukavsky@gmail.com',
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:5173/checkout/success?order=${order.singleOrder?._id}`,
+        return_url: `https://astoriaskincare.co/checkout/success?order=${order.singleOrder?._id}`,
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
