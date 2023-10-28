@@ -33,6 +33,8 @@ export default function SearchContainer({
   const blurBgRef = useRef(null);
   const formRef = useRef(null);
   const logoRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+  // console.log(imageRef.current)
 
   const catalogue = useAppSelector(selectSearchProducts);
 
@@ -218,13 +220,14 @@ export default function SearchContainer({
             placeholder="search..."
             onChange={(e) => handleSearch(e)}
           ></input>
-          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] short:text-[1.2vw] uppercase text-white portrait:px-4 portrait:text-[.8rem]">
+          <button className="bg-charcoal px-[10%] font-poiret text-[1.5vw] uppercase text-white short:text-[1.2vw] portrait:px-4 portrait:text-[.8rem]">
             search
           </button>
         </div>
       </form>
 
       <Search
+        ref={imageRef}
         closeSlider={closeSlider}
         searchResults={searchResults}
         setSearch={setSearch}
