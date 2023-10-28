@@ -85,7 +85,7 @@ export default function Search({
       {/* PRODUCT NAME SEARCH */}
 
       {searchNotFound && (
-        <p className="text-[1rem]">no results matched your search...</p>
+        <p className="text-[1rem] text-black z-[200] relative ">no results matched your search...</p>
       )}
       {searchResults.products.length > 0 && (
         <article className="product-name-search relative left-0   top-0 z-40 flex w-[90svw]  translate-x-[6%] translate-y-[65%]  overflow-x-scroll px-7 py-2 font-grotesque 3xl:translate-y-[81%] portrait:translate-y-[55%] portrait:sm:translate-y-[70%]">
