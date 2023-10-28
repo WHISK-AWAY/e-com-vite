@@ -217,7 +217,7 @@ export const mergeGuestCart = createAsyncThunk(
 
       if (guestCart) {
         const cart = JSON.parse(guestCart) as ICart;
-        for (let item of cart.products) {
+        for (const item of cart.products) {
           await axios.post(
             VITE_API_URL + `/api/user/${userId}/cart/add-item`,
             { productId: item.product._id, qty: item.qty },
@@ -245,6 +245,41 @@ export const mergeGuestCart = createAsyncThunk(
       } else console.error(err);
     } finally {
       window.localStorage.removeItem('guestCart');
+    }
+  }
+);
+
+//* CLEAR CART
+
+export const clearCart = createAsyncThunk(
+  'cart/clearCart',
+  async (args: { userId?: string | null }, thunkApi) => {
+    try {
+      window.localStorage.removeItem('guestCart');
+
+      if (args.userId) {
+        const userOrderStatus = thunkApi.getState() as RootState;
+
+        if (
+          args.userId &&
+          userOrderStatus.order.singleOrder?.orderStatus === 'confirmed'
+        ) {
+          const clearCart = await axios.post(
+            `/api/user/${args.userId}/clear-cart`,
+            {},
+            { withCredentials: true }
+          );
+        }
+      }
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        return thunkApi.rejectWithValue({
+          status: err.response?.status,
+          message: err.response?.data.message,
+        });
+      } else {
+        console.error(err);
+      }
     }
   }
 );
@@ -313,6 +348,22 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.rejected, (_, action: PayloadAction<any>) => {
         window.localStorage.removeItem('guestCart');
+        return { ...initialState, errors: action.payload };
+      })
+
+      /**
+       * *CLEAR CART
+       */
+
+      .addCase(clearCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(clearCart.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.cart = { ...initialState.cart };
+        state.errors = { ...initialState.errors };
+      })
+      .addCase(clearCart.rejected, (_, action: PayloadAction<any>) => {
         return { ...initialState, errors: action.payload };
       });
   },
